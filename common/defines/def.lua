@@ -1,5 +1,0 @@
-NDefines.NMilitary.BASE_MP_TO_MANPOWER = 0.350
-NDefines.NCountry.PS_MOVE_TRADE_PORT = 50
-NDefines.NEconomy.MAX_BUILDING_SLOTS = 16
-NDefines.NEconomy.TRADE_PROPAGATE_DIVIDER = 10
-NDefines.NNationDesigner.IDEAS_PERCENTAGE_LIMIT = 33
