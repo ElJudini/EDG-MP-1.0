@@ -1,0 +1,249 @@
+
+#市民
+
+estate_EDG_Alawite_tolerance_privilege = {#与阿拉维派展开合作
+	icon = privilege_tolerance_heretics
+	max_absolutism = -5
+	conditional_modifier = { trigger = { has_absolutism_reduction_for_estate_privileges = yes } modifier = { max_absolutism = 1 } }
+	loyalty = 0.05
+	influence = 0.05
+	is_valid = {
+		has_country_flag = estate_EDG_Alawite_tolerance_privilege_enable_flag
+		religion_group = muslim
+		NOT = { religion = EDG_Alawite }
+		any_owned_province = {
+			religion = EDG_Alawite
+		}
+		NOT = { overlord = { tag = RIG } }
+	}
+	can_select = {
+		religion_group = muslim
+		NOT = { religion = EDG_Alawite }
+		any_owned_province = {
+			religion = EDG_Alawite
+		}
+		NOT = { overlord = { tag = RIG } }
+	}
+	on_granted = {
+		if = {
+			limit = { has_estate_privilege = estate_church_anti_heresy_act }
+			remove_estate_privilege = estate_church_anti_heresy_act
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -20
+			}
+		}
+		custom_tooltip = estate_EDG_Alawite_tolerance_privilege_effect_tooltip
+		hidden_effect = {
+			set_country_flag = EDG_Alawite_tolerance_privilege_orthodoxy
+		}
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				religion = EDG_Alawite
+			}
+			add_province_modifier = {
+				name = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+			}
+			remove_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_EDG_Alawite_tolerance_privilege_revoke_effect_tooltip
+		hidden_effect = {
+			clr_country_flag = EDG_Alawite_tolerance_privilege_orthodoxy
+		}
+	}
+	on_revoked_province = {
+		if = {
+			limit = {
+				has_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+			}
+			remove_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+		}
+	}
+	on_invalid = {
+		custom_tooltip = estate_EDG_Alawite_tolerance_privilege_revoke_effect_tooltip
+		hidden_effect = {
+			clr_country_flag = EDG_Alawite_tolerance_privilege_orthodoxy
+		}
+	}
+	on_invalid_province = {
+		if = {
+			limit = {
+				has_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+			}
+			remove_province_modifier = EDG_Alawite_tolerance_guaranteed_autonomy_mod
+		}
+	}
+	penalties = {
+		church_loyalty_modifier = -0.1
+	}
+	benefits = {
+	}
+	ai_will_do = {
+		factor = 1000
+		modifier = {
+			factor = 0
+			NOT = {
+				any_owned_province = {
+					religion = EDG_Alawite
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			government = theocracy
+		}
+		modifier = {
+			factor = 0
+			is_subject = yes
+			overlord = {
+				religion = ROOT
+				has_idea_group = religious_ideas
+			}
+		}
+		modifier = {
+			factor = 0
+			is_subject = yes
+			overlord = {
+				tag = RIG
+			}
+		}
+	}
+}
+
+estate_EDG_Minister_of_General_Affairs_privilege = {#钦定总务大臣
+	icon = privilege_promote_purbias
+	max_absolutism = -5
+	loyalty = 0.1
+	influence = 0.2
+	is_valid = {
+		has_government_attribute = EDG_estate_EDG_Minister_of_General_Affairs_privilege_ability
+	}
+	can_select = {
+		has_government_attribute = EDG_estate_EDG_Minister_of_General_Affairs_privilege_ability
+	}
+	on_granted = {
+	}
+	penalties = {
+		trade_efficiency = -0.1
+		stability_cost_modifier = 0.15
+	}
+	benefits = {
+		dip_advisor_cost = -0.1
+		yearly_corruption = -0.1
+		advisor_pool = 2
+		
+	}
+	ai_will_do = {
+		factor = 2
+	}
+}
+
+estate_EDG_Latin_National_privilege = {#扩大国民军
+	icon = privilege_promote_purbias
+	max_absolutism = -5
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {
+		has_government_attribute = EDG_estate_EDG_Latin_National_Army_privilege_ability
+	}
+	can_select = {
+		has_government_attribute = EDG_estate_EDG_Latin_National_Army_privilege_ability
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	modifier_by_land_ownership = {
+		land_morale = 0.1
+		reserves_organisation = 0.1
+		manpower_in_own_culture_provinces = 0.25
+	}
+	ai_will_do = {
+		factor = 5
+	}
+}
+
+estate_EDG_Theatines_privilege = {#戴蒂尼会
+	icon = privilege_promote_purbias
+	max_absolutism = -5
+	loyalty = 0.1
+	influence = 0.05
+	is_valid = {
+		has_government_attribute = EDG_estate_EDG_Theatines_privilege_ability
+	}
+	can_select = {
+		has_government_attribute = EDG_estate_EDG_Theatines_privilege_ability
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+	}
+	modifier_by_land_ownership = {
+		tolerance_own = 3
+		religious_unity = 0.3
+		papal_influence_from_cardinals = 0.5
+	}
+	ai_will_do = {
+		factor = 5
+	}
+}
+estate_EDG_LOT_Grand_Charter_privilege = {#大特许状
+	icon = privilege_promote_purbias
+	max_absolutism = -5
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {
+		has_country_flag = EDG_mission_LOT_2_7_flag
+	}
+	can_select = {
+		
+	}
+	on_granted = {
+	}
+	penalties = {
+	}
+	benefits = {
+		merchants = 1
+		global_trade_power = 0.1
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EDG_flavor_LOT_mission_27_a_flag }
+		modifier = { trade_efficiency = 0.1 }
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EDG_flavor_LOT_mission_27_b_flag }
+		modifier = {  colonists = 1 }
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EDG_flavor_LOT_mission_27_c_flag }
+		modifier = { navy_tradition = 1 }
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EDG_flavor_LOT_mission_27_d_flag }
+		modifier = { production_efficiency = 0.1 }
+	}
+	conditional_modifier = {
+		trigger = { has_country_flag = EDG_flavor_LOT_mission_27_e_flag }
+		modifier = { development_cost = -0.1 }
+	}
+	modifier_by_land_ownership = {
+		
+	}
+	ai_will_do = {
+		factor = 5
+	}
+}

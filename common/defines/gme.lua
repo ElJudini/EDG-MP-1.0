@@ -41,3 +41,6 @@ NDefines.NMilitary.BATTLE_DAILY_MORALE_DAMAGE = 0                       --0.01�
 NDefines.NMilitary.GARRISON_SIZE = 2000                                 --1000→2000
 NDefines.NMilitary.SIEGE_FORCE_NEEDED_MULTIPLIER =  0.334               --3→0.334
 NDefines.NMilitary.FORTRESS_COST = 0.1667                               --0.5→0.1667
+NDefines.NCountry.ESTATE_PRIVILEGES_MAX_CONCURRENT = 8
+NDefines.NAI.ESTATE_MAX_PRIVILEGES = 8
+NDefines.NEconomy.CARAVAN_FACTOR = 8

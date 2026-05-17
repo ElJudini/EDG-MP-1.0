@@ -1,0 +1,68 @@
+estate_EDG_peace_ordinance = { #和睦法案
+	icon = estate_eunuchs_outwards_perfection_privilege
+	loyalty = 0.1
+	influence = 0.1
+	is_valid = {
+		has_country_flag = enable_estate_EDG_peace_ordinance
+	}
+	on_granted = {
+		custom_tooltip = estate_EDG_peace_ordinance.grant.tt
+		tooltip = {
+			add_province_modifier = {
+				name = EDG_GEN_peace_ordinance_modifier
+				duration = -1
+			}
+		}
+	}
+	on_revoked = {
+		custom_tooltip = estate_EDG_peace_ordinance.disable.tt
+		tooltip = {
+			remove_province_modifier = EDG_GEN_peace_ordinance_modifier
+		}
+	}
+	on_invalid = {
+		custom_tooltip = estate_EDG_peace_ordinance.disable.tt
+		tooltip = {
+			remove_province_modifier = EDG_GEN_peace_ordinance_modifier
+		}
+	}
+	benefits = {
+		reform_progress_growth = 0.1
+		trade_steering = 0.1
+	}
+	penalties = {
+		trade_efficiency = -0.1
+	}
+	on_granted_province = {
+		if = {
+			limit = {
+				OR = {
+					NOT = { culture_group = ROOT }
+					has_owner_accepted_culture = no
+					has_owner_culture = no
+				}
+			}
+			add_province_modifier = {
+				name = EDG_GEN_peace_ordinance_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = EDG_GEN_peace_ordinance_modifier
+			}
+			remove_province_modifier = EDG_GEN_peace_ordinance_modifier
+		}
+	}
+	on_revoked_province = {
+		if = {
+			limit = {
+				has_province_modifier = estate_burghers_guaranteed_autonomy_mod
+			}
+			remove_province_modifier = estate_burghers_guaranteed_autonomy_mod
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+}
