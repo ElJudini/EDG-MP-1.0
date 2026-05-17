@@ -1,0 +1,692 @@
+
+EDG_French_feudal_system = {#法兰西封建体系
+	icon = "EDG_French_feudal_system"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			tag = FRA
+			has_reform = EDG_French_feudal_system
+			have_had_reform = EDG_French_feudal_system
+		}
+	}
+	trigger = {
+		OR = {
+			tag = FRA
+			has_reform = EDG_French_feudal_system
+			have_had_reform = EDG_French_feudal_system
+		}
+	}
+	modifiers = {
+		legitimacy = 1
+		vassal_income = 0.25
+		diplomatic_annexation_cost = -0.1
+		vassal_forcelimit_bonus = 0.5
+		nobles_influence_modifier = 0.1
+		governing_capacity_modifier = -0.2
+		annexation_relations_impact = -1
+	}
+	custom_attributes = {
+		locked_government_type = yes
+		buffed_strong_duchies = yes #+5% Loyalty
+	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		government_abilities = {
+			EDG_FRA_government_ability
+		}
+	}
+	lock_level_when_selected = yes
+
+	ai = {
+		factor = 0 #generic
+	}
+}
+
+EDG_French_hierarchical_monarchy = {#法兰西等级君主制
+	icon = "EDG_French_feudal_system"
+	allow_normal_conversion = yes
+	valid_for_nation_designer = yes
+	nation_designer_cost = 0
+	potential = {
+		OR = {
+			tag = FRA
+			has_reform = EDG_French_hierarchical_monarchy
+			have_had_reform = EDG_French_hierarchical_monarchy
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_French_hierarchical_monarchy
+			have_had_reform = EDG_French_hierarchical_monarchy
+		}
+	}
+	modifiers = {
+		legitimacy = 1
+		global_autonomy = -0.05
+		governing_capacity_modifier = 0.2
+		governing_capacity = 100
+		all_estate_influence_modifier = -0.1
+		max_absolutism = 20
+		monthly_EDG_FRA_government_power = 0.025
+	}
+	custom_attributes = {
+		centralize_state_development = yes 
+		buffed_strong_duchies = yes #+5% Loyalty
+	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		government_abilities = {
+			EDG_FRA_government_ability
+		}
+	}
+
+	ai = {
+		factor = 100 #generic
+	}
+}
+EDG_power_of_French_monarch_reform = {#法兰西王权
+	icon = "EDG_French_feudal_system"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = FRA
+			has_reform = EDG_power_of_French_monarch_reform
+			has_reform = EDG_French_hierarchical_monarchy
+			have_had_reform = EDG_French_hierarchical_monarchy
+			has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+			have_had_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_power_of_French_monarch_reform
+			have_had_reform = EDG_power_of_French_monarch_reform
+			has_reform = EDG_French_hierarchical_monarchy
+			have_had_reform = EDG_French_hierarchical_monarchy
+			has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+			have_had_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+		}
+	}
+	modifiers = {
+		governing_capacity = 150
+		monthly_EDG_FRA_government_power = 0.05
+		yearly_absolutism = 1
+		max_absolutism = 20
+	}
+	custom_attributes = {
+		EDG_legitimacy_xungui_ability = yes
+	}
+	ai = {
+		factor = 100
+	}
+}
+EDG_French_Standing_Royal_Army_Reform = {#常备王军
+	icon = "FRA_6"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+		
+	}
+	modifiers = {
+		yearly_army_professionalism = 0.0025
+		drill_decay_modifier = -0.25
+		drill_gain_modifier = 0.25
+		discipline = 0.025
+	}
+	custom_attributes = {
+		EDG_legitimacy_xungui_ability = yes
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0.1
+			NOT = { mil = 3 }
+		}
+	}
+}
+EDG_FRA_Public_Welfare_Alliance_Reform  = {#公益同盟
+	icon = "feudal_france_reform"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+			have_had_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+		}
+		NOT = { has_country_flag = had_EDG_FRA_decision_0_flag }
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+			have_had_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+		}
+	}
+	modifiers = {
+		reduced_liberty_desire = 10
+		nobles_influence_modifier = 0.1
+		max_absolutism = -50
+	}
+	custom_attributes = {
+		#has_appanages = yes
+		locked_government_type = yes
+		need_crownland_to_annex = yes
+		nobility_loyalty_hit_on_integration = yes
+		EDG_FRA_Public_Welfare_Alliance_Reform_ability = yes
+	}
+	lock_level_when_selected = yes
+	ai = {
+		factor = 0
+	}
+}
+EDG_French_High_Court_Reform = {#法兰西高等法院
+	icon = "FRA_9"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+		
+	}
+	modifiers = {
+		stability_cost_modifier = -0.1
+		global_autonomy = -0.05
+		reform_progress_growth = 0.1
+		yearly_corruption = 0.025
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	custom_attributes = {
+		free_noble_levies = yes
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0.1
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Villekotley_Decree = {#维勒科特莱法令
+	icon = "FRA_1"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+		
+	}
+	modifiers = {
+		same_culture_advisor_cost = -0.15
+		governing_capacity = 100
+		yearly_corruption = 0.025
+		yearly_absolutism = 0.1
+		max_absolutism = 10
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	ai = {
+		factor = 5
+		modifier = {
+			factor = 0.1
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Bologna_religious_agreement = {#《波伦亚宗教协议》
+	icon = "paper_with_seal"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+		religion = catholic
+	}
+	trigger = {
+		culture_group = french
+		religion = catholic
+	}
+	modifiers = {
+		church_loyalty_modifier = 0.1
+		tolerance_own = 1
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	custom_attributes = {
+		EDG_same_religion_subject_provide_tolerance_ability = yes		#同宗教的属国提供0.25正统容忍
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+		modifier = {
+			factor = 0.5
+			total_development = 75
+		}
+	}
+}
+EDG_Nante_edict = {#《南特敕令》
+	icon = "paper_with_seal_3"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+		religion = catholic
+	}
+	trigger = {
+		culture_group = french
+		religion = catholic
+		NOT = { has_country_modifier = EDG_FRA_decision_6_modifier }
+		OR = { 
+			custom_trigger_tooltip = {
+				tooltip = fra_completed_wars_religion
+				has_country_flag = FRA_wars_of_religion_ended 
+			}
+			AND = { 
+				current_age = age_of_absolutism 
+				OR = { 
+					full_idea_group = religious_ideas 
+					full_idea_group = humanist_ideas 
+				}
+			}
+			AND = { 
+				current_age = age_of_revolutions 
+				OR = { 
+					full_idea_group = religious_ideas 
+					full_idea_group = humanist_ideas 
+				}
+			}
+		}
+	}
+	modifiers = {
+		tolerance_of_heretics_capacity = 2
+		tolerance_heretic = 2
+		religious_unity = 0.5
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+		modifier = {
+			factor = 0.5
+			total_development = 75
+		}
+	}
+}
+EDG_Little_Poller_pardon = {#《小波勒赦令》
+	icon = "paper_with_seal_3"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+	}
+	modifiers = {
+		global_tax_modifier = 0.2
+		global_unrest = 1
+		yearly_corruption = 0.025
+		burghers_loyalty_modifier = 0.1
+	}
+	custom_attributes = {
+		EDG_tax_bailiff_ability = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_France_conference = {#国务会议
+	icon = "FRA_8"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+		NOT = { has_reform = EDG_FRA_Richelieu_reform }
+	}
+	modifiers = {
+		national_focus_years = -5
+		yearly_corruption = 0.025
+		monthly_reform_progress_modifier = 0.15
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	custom_attributes = {
+		EDG_Secretary_General_ability = yes
+		EDG_administrative_efficiency_administrative_experts_ability = yes 	#行政专业主义
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_France_Trade_Commission = {#贸易委员会
+	icon = "dutch_republic"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+	}
+	modifiers = {
+		global_trade_goods_size_modifier = 0.1
+		trade_efficiency = 0.1
+		mercantilism_cost = -0.1
+	}
+	custom_attributes = {
+		free_improve_inland_routes = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Catharism_Alliance = {#巩固清洁派联盟
+	icon = "AEL_1"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = AEL
+			has_country_flag = EDG_AEL_mission__alliance_flag
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_AEL_mission__alliance_flag
+		religion = EDG_catharism
+	}
+	modifiers = {
+		diplomats = 1
+		diplomatic_reputation = 1
+		diplomatic_upkeep = 1
+		envoy_travel_time = -0.2
+		vassal_forcelimit_bonus = 0.5
+		relation_with_same_religion = 25
+		reduced_liberty_desire_on_same_continent = 10
+	}
+	custom_attributes = {
+		EDG_catharism_vassal_Clare_unable_ability = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Catharism_4_family = {#阿尔勒四大家族
+	icon = "AEL_1"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	trigger = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	modifiers = {
+		stability_cost_modifier = -0.1
+		all_estate_loyalty_equilibrium = 0.05
+		all_estate_influence_modifier = 0.05
+	}
+	custom_attributes = {
+		EDG_estate_EDG_Safeguarding_the_interests_of_the_Albi_Fuwa_faction_privilege_ability = yes
+	}
+	factions = {
+		EDG_AEL_MIL_faction
+		EDG_AEL_DIP_faction
+		EDG_AEL_ADM_faction
+	}
+	ai = {
+		factor = 3
+	}
+}
+EDG_AEL_General_Administration = {#阿尔勒总务部
+	icon = "king_2"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	trigger = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	modifiers = {
+		global_tax_modifier = 0.20
+		reform_progress_growth = 0.1
+		adm_advisor_cost = -0.1
+	}
+	custom_attributes = {
+		seizing_land_no_rebels_from_estate_burghers = yes
+		EDG_estate_EDG_Minister_of_General_Affairs_privilege_ability = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_AEL_national_bank = {#阿尔勒国家银行
+	icon = "states_general"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	trigger = {
+		OR = {
+			tag = AEL
+			was_tag = AEL
+		}
+	}
+	modifiers = {
+		ginflation_action_cost = -0.1
+		inflation_reduction = 0.1
+		interest = -0.25
+		build_cost = -0.1
+		build_time = -0.1
+		development_cost = -0.1
+	}
+	custom_attributes = {
+		no_mercantilism_loss_from_privilege = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Kolbe_reforms = {#柯尔伯改革
+	icon = "FRA_7"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+	}
+	modifiers = {
+		global_trade_goods_size_modifier = 0.1
+		mercantilism_cost = -0.2
+	}
+	custom_attributes = {
+		no_mercantilism_loss_from_privilege = yes
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Cultural_nationalization = {#文化国家化
+	icon = "FRA_8"
+	allow_normal_conversion = yes
+	potential = {
+		culture_group = french
+	}
+	trigger = {
+		culture_group = french
+	}
+	modifiers = {
+		all_estate_influence_modifier = -0.05
+		stability_cost_modifier = -0.1
+		yearly_absolutism = 0.1
+		max_absolutism = 10
+		legitimacy = 1
+		republican_tradition = 0.5
+		devotion = 1
+		horde_unity = 1
+		meritocracy = 1
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+EDG_Catharism_Alliance_conference = {#清洁派联盟议会
+	icon = "AEL_1"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = AEL
+			has_country_flag = EDG_AEL_mission__alliance_flag
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_AEL_mission__alliance_flag
+		religion = EDG_catharism
+	}
+	modifiers = {
+		diplomats = 1
+		diplomatic_reputation = 1
+		relation_with_same_religion = 25
+		reduced_liberty_desire = 25
+		reduced_liberty_desire_on_same_continent = 25
+	}
+	custom_attributes = {
+		improved_defender_of_faith = yes	#Being Defender of Faith increases Dip Rep, Tolerance and Morale
+		active_holy_sites_improve_clergy_loyalty = yes
+		clerical_ministers_tech_buff = yes
+		EDG_subject_provide_global_manpower_modifier_ability = yes		#每个属国提供5%全国人力修正
+	}
+	ai = {
+		factor = 3
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+	}
+}
+
+EDG_Sun_King_reform = {#太阳王之国
+	icon = "FRA_3"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = FRA
+			was_tag = FRA
+			has_unlocked_government_reform = {
+				government_reform = EDG_Sun_King_reform
+			}
+			have_had_reform = EDG_Sun_King_reform
+		}
+	}
+	trigger = {
+		religion = catholic
+		OR = {
+			has_unlocked_government_reform = {
+				government_reform = EDG_Sun_King_reform
+			}
+			have_had_reform = EDG_Sun_King_reform
+		}
+	}
+	modifiers = {
+		max_absolutism = 20
+		max_absolutism_effect = 0.2
+    	governing_capacity = 300
+		global_unrest = 2
+		all_estate_influence_modifier = -0.1
+		monthly_EDG_FRA_government_power = 0.05
+	}
+
+	ai = {
+		factor = 100
+	}
+}
+
+EDG_FRA_Richelieu_reform = {#黎塞留改革
+	icon = "FRA_5"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			culture_group = french
+			have_had_reform = EDG_FRA_Richelieu_reform
+			has_reform = EDG_FRA_Richelieu_reform
+		}
+	}
+	trigger = {
+		OR = {
+			culture_group = french
+			have_had_reform = EDG_FRA_Richelieu_reform
+			has_reform = EDG_FRA_Richelieu_reform
+		}
+	}
+	modifiers = {
+		max_absolutism = 20
+		possible_adm_policy = 1
+		monarch_admin_power = 1
+		can_revoke_parliament_seats = yes
+		allow_free_estate_privilege_revocation = yes
+		monthly_EDG_FRA_government_power = 0.05
+		monthly_EDG_LOT_government_power = 0.05
+	}
+
+	ai = {
+		factor = 100
+	}
+}
+
+
