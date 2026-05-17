@@ -35,3 +35,9 @@ NDefines.NNationDesigner.IDEAS_PERCENTAGE_LIMIT = 33
 NDefines.NGovernment.EXPAND_INFRASTRUCTURE_ADM_COST = 25
 
 NDefines.NCountry.EXPAND_INFRASTRUCTURE_DEV_LIMIT = 10
+
+NDefines.NMilitary.BACK_LINE_MORALE_DAMAGE_TAKEN_MODIFIER = 0	        --0.4→0                 -- Multiplier for morale damage taken by backrow
+NDefines.NMilitary.BATTLE_DAILY_MORALE_DAMAGE = 0                       --0.01→0
+NDefines.NMilitary.GARRISON_SIZE = 2000                                 --1000→2000
+NDefines.NMilitary.SIEGE_FORCE_NEEDED_MULTIPLIER =  0.334               --3→0.334
+NDefines.NMilitary.FORTRESS_COST = 0.1667                               --0.5→0.1667
