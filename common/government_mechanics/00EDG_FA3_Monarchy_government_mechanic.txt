@@ -1,0 +1,147 @@
+EDG_FA3_Monarchy_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_FA3_Monarchy_power = {#高卢热情
+			gui = EDG_FA3_Monarchy_government_power_gui
+			show_before_interactions = yes
+			max = 100
+			base_monthly_growth = 0.1
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					manpower_in_own_culture_provinces = 0.5
+					land_morale = 0.1
+					special_unit_forcelimit = 0.2
+					development_cost_in_primary_culture = -0.2
+					same_culture_advisor_cost = -0.5
+					culture_conversion_cost = -0.25
+					culture_conversion_time = -0.25
+				}
+			}
+		}
+		
+		
+ 	}
+ 	
+ 	interactions = {
+		EDG_FA3_Monarchy_interactions_1 = {#开展节日庆典
+			icon = GFX_mechanic_EDG_FA3_government_1
+			cost_type = EDG_FA3_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+ 			trigger = {
+				
+ 			}
+ 			effect = {
+				add_adm_power = -50
+				random_owned_province = {
+					limit = { not = { culture = root } }
+					change_culture = root
+				}
+				custom_tooltip = EDG_FA3_Monarchy_interactions_1_tt
+				tooltip = {
+					add_devastation = -10
+					add_local_autonomy = -10
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = { culture = EDG_gaelic_French }
+						add_devastation = -10
+						add_local_autonomy = -10
+					}
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_FA3_Monarchy_interactions_2 = {#开展国际商贸
+			icon = GFX_mechanic_EDG_FA3_government_2
+			cost_type = EDG_FA3_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				
+			}
+			effect = {
+				add_dip_power = -50
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_FA3_Monarchy_interactions_2_tt
+				every_country = {
+					limit = { primary_culture = root }
+					add_opinion = {
+						who = ROOT
+						modifier = EDG_FA3_Monarchy_interactions_2_opinion
+					}
+					hidden_effect = {
+						root = {
+							add_years_of_income = 0.1
+						}
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_FA3_Monarchy_interactions_2_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_FA3_Monarchy_interactions_3 = {#征募新军
+			icon = GFX_mechanic_EDG_FA3_government_3
+			cost_type = EDG_FA3_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				
+			}
+			effect = {
+				add_mil_power = -50
+				if = {
+					limit = { has_estate = estate_edg_nouvelle }
+					add_estate_loyalty = {
+						estate = estate_edg_nouvelle
+						loyalty = 10
+					}
+				}
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = carolean
+						force_limit_percentage = 0.05
+					}
+				}
+				else = {
+					capital_scope = {
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+					}
+				}
+				add_country_modifier = {
+					name = EDG_FA3_Monarchy_interactions_3_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+				   factor = 0
+				   NOT = { is_at_war = yes }
+			   }
+			}
+		}
+ 	}
+ }
+
+ 
+ 

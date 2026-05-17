@@ -1,0 +1,193 @@
+EDG_HSA_hanseatic_league_solidarity_mechanics = { #汉萨同盟团结度
+	alert_icon_gfx = GFX_alerticons_government_mechanics #TODO
+	alert_icon_index = 12 #TODO
+	available = {
+		has_dlc = "King of Kings"
+	}
+	powers = {
+		EDG_HSA_hanseatic_league_solidarity = {
+			gui = EDG_HSA_hanseatic_league_solidarity_mech 
+			show_before_interactions = yes
+			max = 100
+			min = 0
+			monarch_power = DIP
+			development_scaled_monthly_growth = 0.1
+			base_monthly_growth = 0.25
+			scaled_modifier = {
+				modifier = { 
+					trade_efficiency = 0.5
+					trade_steering = 0.5
+					global_trade_power = 0.5
+					ship_trade_power_modifier = 0.5
+				}
+			}
+		}
+	}
+	interactions = {
+		
+		EDG_HSA_hanseatic_league_solidarity_interaction_1 = {			
+			icon = GFX_EDG_HSA_hanseatic_league_solidarity_interaction_1
+			#icon = GFX_EDG_wls_government_power_interation1
+			cost_type = EDG_HSA_hanseatic_league_solidarity
+			cost = 30
+			trigger = {
+			}
+			effect = {
+				if = {
+					limit = { 
+						has_country_modifier = EDG_HSA_add_membership
+					}
+					extend_country_modifier = {
+						name = EDG_HSA_add_membership
+						duration = 3650
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = EDG_HSA_add_membership
+						duration = 3650
+					}
+				}
+				
+				change_variable = {
+					which = EDG_HSA_trade_city_count
+					value = 1
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_HSA_hanseatic_league_solidarity_interaction_2 = {		
+			icon = GFX_EDG_HSA_hanseatic_league_solidarity_interaction_2
+			#icon = GFX_EDG_wls_government_power_interation2
+			cost_type = EDG_HSA_hanseatic_league_solidarity
+			cost = 15
+			trigger = {
+				if = {
+					limit = { 
+						ai = yes
+					}
+					any_country = {
+						EDG_HSA_in_hanseatic_league = { who = root }
+						capital_scope = {
+							NOT = {
+								has_province_modifier = EDG_HSA_trading_post_province_triggered_modifier
+							}
+						}
+					}
+				}
+			}
+			effect = {
+				if = {
+					limit = { 
+						ai = no
+					}
+					if = {
+						limit = { 
+							has_country_modifier = EDG_HSA_extended_stack
+						}
+						extend_country_modifier = {
+							name = EDG_HSA_extended_stack
+							duration = 3650
+						}
+					}
+					else = {
+						add_country_modifier = {
+							name = EDG_HSA_extended_stack
+							duration = 3650
+						}
+					}
+					change_variable = {
+						which = EDG_HSA_trading_post_count
+						value = 1
+					}
+				}
+				else = {
+					if = {
+						limit = { 
+							has_country_modifier = EDG_HSA_extended_stack
+						}
+						extend_country_modifier = {
+							name = EDG_HSA_extended_stack
+							duration = 3650
+						}
+					}
+					else = {
+						add_country_modifier = {
+							name = EDG_HSA_extended_stack
+							duration = 3650
+						}
+					}
+					random_province = {
+						limit = {
+							owner = {
+								EDG_HSA_in_hanseatic_league = { who = root }
+							}
+							NOT = {
+								has_province_modifier = EDG_HSA_trading_post_province_triggered_modifier
+							}
+						}
+						add_province_triggered_modifier = EDG_HSA_trading_post_province_triggered_modifier
+					}
+				}
+			}
+			ai_chance = {
+				factor = 0
+				# modifier = {
+				# 	factor = 100
+				# 	any_subject_country = {
+				# 		is_subject_of_type = EDG_HSA_trade_city
+				# 		capital_scope = {
+				# 			NOT = {
+				# 				has_province_modifier = EDG_HSA_trading_post_province_triggered_modifier
+				# 			}
+				# 		}
+				# 	}
+				# }
+				# modifier = {
+				# 	factor = 100
+				# 	NOT = {
+				# 		num_of_free_diplomatic_relations = 1
+				# 	}
+				# }
+				# modifier = {
+				# 	factor = 0
+				# 	OR = {
+				# 		is_trade_league_leader = no
+				# 		num_of_free_diplomatic_relations = 2
+				# 	}
+				# }
+			}
+		}
+		EDG_HSA_hanseatic_league_solidarity_interaction_3 = {
+			icon = GFX_EDG_HSA_hanseatic_league_solidarity_interaction_3
+			#icon = GFX_EDG_wls_government_power_interation_3
+			cost_type = EDG_HSA_hanseatic_league_solidarity
+			cost = 10
+			cooldown_years = 5
+			trigger = {
+			}
+			effect = {
+				add_country_modifier = {
+					name = EDG_HSA_trade_flows
+					duration = 3650
+				}
+				add_subjects_development_ducats = {
+					multiplier = 5
+				}
+			}
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 100
+					num_of_loans = 1
+				}
+				modifier = {
+					factor = 0
+					treasury = 100
+				}
+			}
+		}
+	}
+}

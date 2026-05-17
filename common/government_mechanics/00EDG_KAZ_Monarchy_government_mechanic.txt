@@ -1,0 +1,173 @@
+EDG_KAZ_Monarchy_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_KAZ_Monarchy_power = {#兀鲁思封建主义
+			gui = EDG_KAZ_Monarchy_government_power_gui
+			show_before_interactions = yes
+			max = 100
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					global_autonomy = -0.1
+					vassal_forcelimit_bonus = 1
+					vassal_income = 0.5
+					reduced_liberty_desire = 25
+					monthly_EDG_KAZ_Monarchy_power = -1
+				}
+			}
+			
+		}
+		
+		
+ 	}
+ 	
+ 	interactions = {
+		EDG_KAZ_Monarchy_interactions_1 = {#征募部族将领
+			icon = GFX_enlist_general_button
+			cost_type = EDG_KAZ_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+ 			trigger = {
+				
+ 			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_KAZ_1_2_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_KAZ_1_1_tribal_ability_flag }
+					add_war_exhaustion = -2
+				}
+				if = {
+					limit = {
+						army_tradition = 95
+					}
+					create_general = {
+						tradition = 100
+					}
+				}
+				else_if = {
+					limit = {
+						army_tradition = 80
+					}
+					create_general = {
+						tradition = 90
+					}
+				}
+				else_if = {
+					limit = {
+						army_tradition = 60
+					}
+					create_general = {
+						tradition = 80
+					}
+				}
+				else_if = {
+					limit = {
+						army_tradition = 50
+					}
+					create_general = {
+						tradition = 60
+					}
+				}
+				else_if = {
+					limit = {
+						army_tradition = 40
+					}
+					create_general = {
+						tradition = 50
+					}
+				}
+				else = {
+					create_general = {
+						tradition = 40
+					}
+				}
+			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_KAZ_Monarchy_interactions_2 = {#部族军事演习
+			icon = GFX_train_horsemanship_button
+			cost_type = EDG_KAZ_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+			trigger = {
+				
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_KAZ_2_3_tribal_ability_flag }
+					define_advisor = { 
+						type = cavalry_commander 
+						cost_multiplier = 0.75
+						skill = 3 
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_KAZ_2_1_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				
+				add_country_modifier = {
+					name = train_horsemanship_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_KAZ_Monarchy_interactions_3 = {#号召吉哈德
+			icon = GFX_conscript_from_tribes_button
+			cost_type = EDG_KAZ_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+			trigger = {
+				
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_KAZ_3_1_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = {
+						piety = 0
+					}
+					add_piety = 0.25
+				}
+				else_if = {
+					limit = {
+						NOT = { piety = 0 }
+					}
+					add_piety = -0.25
+				}
+				every_neighbor_country = {
+					limit = { NOT = { religion = ROOT } }
+					ROOT = {
+						add_casus_belli = {
+							type = cb_crusade_pheasants
+							target = PREV
+							months = 240
+						}
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+				   factor = 0
+				   NOT = { is_at_war = yes }
+			   }
+			}
+		}
+ 	}
+ }
+
+ 
+ 

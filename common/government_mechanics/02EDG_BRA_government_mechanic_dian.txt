@@ -1,0 +1,139 @@
+EDG_BRA_Markgraf_use_ability = { #霍亨索伦军事权威互动
+    powers = {
+        EDG_BRA_Markgraf_use_power_1 = { #强硬征兵可用进度
+            max = 150
+            base_monthly_growth = 0.1
+            monarch_power = MIL
+            reset_on_new_ruler = no
+            # scaled_modifier = {
+            #     modifier = { 
+            #         vassal_manpower_bonus = 0.25
+            #     }
+            # }
+        }
+        EDG_BRA_Markgraf_use_power_2 = { #强硬征税可用进度
+            max = 150
+            base_monthly_growth = 0.1
+            monarch_power = ADM
+            reset_on_new_ruler = no
+            # scaled_modifier = {
+            #     modifier = { 
+            #         vassal_income = 0.25
+            #     }
+            # }
+        }
+        EDG_BRA_Markgraf_use_power_3 = { #强硬合并可用进度
+            max = 150
+            base_monthly_growth = 0.1
+            monarch_power = DIP
+            reset_on_new_ruler = no
+            # scaled_modifier = {
+            #     modifier = { 
+            #         reduced_liberty_desire = 20
+            #     }
+            # }
+        }
+    }
+
+    interactions = {
+        EDG_BRA_Markgraf_use_interaction_1 = {
+            icon = GFX_russian_rule_mil_button
+            cost_type = EDG_BRA_Markgraf_use_power_1
+            cost = 100
+            trigger = {
+				has_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = 10
+				}
+ 			}
+            effect = {
+				add_mil_power = -200
+                add_subjects_development_manpower = {
+					multiplier = 0.1
+				}
+                every_subject_country = {
+                    add_liberty_desire = 10
+                }
+                add_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = -10
+				}
+            }
+            cooldown_years = 10
+            ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+        }
+        EDG_BRA_Markgraf_use_interaction_2 = {
+            icon = GFX_russian_rule_adm_button
+            cost_type = EDG_BRA_Markgraf_use_power_2
+            cost = 100
+            trigger = {
+				has_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = 10
+				}
+ 			}
+            effect = {
+				add_adm_power = -200
+                add_subjects_development_ducats = {
+					multiplier = 0.5
+				}
+                every_subject_country = {
+                    add_liberty_desire = 10
+                }
+                add_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = -10
+				}
+            }
+            cooldown_years = 10
+            ai_chance = {
+ 				factor = 10
+ 			}
+        }
+        EDG_BRA_Markgraf_use_interaction_3 = {
+            icon = GFX_russian_rule_dip_button
+            cost_type = EDG_BRA_Markgraf_use_power_3
+            cost = 100
+            trigger = {
+                is_at_war = no
+				has_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = 10
+				}
+ 			}
+            effect = {
+				add_dip_power = -200
+                hidden_effect = {
+                    random_subject_country = {
+                        ROOT = {
+                            inherit = PREV
+                        }
+                    }
+                    every_subject_country = {
+                        add_liberty_desire = 10
+                    }
+                }
+                add_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = -10
+				}
+            }
+            cooldown_years = 10
+            ai_chance = {
+ 				factor = 10
+ 			}
+        }
+    }
+}

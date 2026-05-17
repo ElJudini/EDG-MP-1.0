@@ -1,0 +1,366 @@
+EDG_LEB_river_order_ability = {
+	powers = {
+		EDG_LEB_river_order = {
+			gui = EDG_LEB_river_order_gui
+			show_before_interactions = yes
+			max = 100
+			min = 0
+			base_monthly_growth = 0
+			development_scaled_monthly_growth = -0.05
+			is_good = yes
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					global_tax_modifier = 0.2
+					production_efficiency = 0.2
+					global_monthly_devastation = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LEB_4_24_flag
+				}
+				modifier = {
+					all_power_cost = -0.05
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LEB_5_21_flag
+				}
+				modifier = {
+					development_cost = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_reform = EDG_LEB_water_act
+				}
+				modifier = {
+					all_estate_loyalty_equilibrium = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_reform = EDG_LEB_sufism_decree_reform
+				}
+				modifier = {
+					warscore_cost_vs_other_religion = -0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					stability = 3
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.15
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = 3
+					}
+					stability = 2
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = 2
+					}
+					stability = 1
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.05
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = 1
+					}
+					stability = 0
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = 0
+					}
+					stability = -1
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = -0.05
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = -1
+					}
+					stability = -2
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = -0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						stability = -2
+					}
+					stability = -3
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = -0.15
+				}
+			}
+			range_modifier = {
+				trigger = {
+					check_variable = {
+						which = num_of_times_developed_arid
+						value = 20
+					}
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					check_variable = {
+						which = EDG_num_of_times_developed_mountain
+						value = 20
+					}
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					mission_completed = EDG_LEB_1_23
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.1
+				}
+			}
+			range_modifier = {
+				trigger = {
+					mission_completed = EDG_LEB_2_24
+				}
+				modifier = {
+					monthly_EDG_LEB_river_order = 0.1
+				}
+			}
+		}
+	}
+	interactions = {
+		EDG_LEB_G_I = {
+			#翻新荒地	
+			icon = GFX_EDG_LEB_I
+			cost_type = EDG_LEB_river_order
+			cost = 15
+			trigger = {
+			}
+			effect = {
+				random_owned_province = {
+					limit = {
+						owned_by = root
+						OR = {
+							province_id = 358
+							province_id = 362
+							province_id = 363
+							province_id = 4316
+							province_id = 2316
+							province_id = 361
+							province_id = 359
+							province_id = 4318
+							province_id = 2317
+							province_id = 2319
+							province_id = 4320
+							province_id = 360
+							province_id = 4319
+							province_id = 1231
+							province_id = 1234
+							province_id = 2322
+						}
+					}
+					add_base_production = 2
+					add_devastation = -10
+					add_prosperity = 10
+				}
+				if = {
+					limit = {
+						mission_completed = EDG_LEB_2_24
+					}
+					random_owned_province = {
+						limit = {
+							owned_by = root
+							OR = {
+								area = basra_area
+								area = iraq_arabi_area
+								area = al_jazira_area
+							}
+						}
+						add_base_production = 2
+						add_devastation = -10
+						add_prosperity = 10
+					}
+				}
+			}
+		}
+		EDG_LEB_G_II = {
+			#开放粮仓	
+			icon = GFX_EDG_LEB_II
+			cost_type = EDG_LEB_river_order
+			cost = 20
+			trigger = {
+			}
+			effect = {
+				# add_stability = 1
+				add_war_exhaustion = -2
+				add_yearly_manpower = 0.5
+			}
+		}
+		EDG_LEB_G_III = {
+			#打击地方势力	
+			icon = GFX_EDG_LEB_III
+			cost_type = EDG_LEB_river_order
+			cost = 20
+			trigger = {
+				NOT = {
+					has_country_modifier = EDG_LEB_G_3_modifier
+				}
+			}
+			effect = {
+				add_years_of_income = 1
+				add_country_modifier = {
+					name = EDG_LEB_G_3_modifier					#打击地方势力
+					duration = 1825
+				}
+			}
+		}
+		EDG_LEB_G_IV = {
+			#加强河道管理	
+			icon = GFX_EDG_LEB_IV
+			cost_type = EDG_LEB_river_order
+			cost = 0
+			trigger = {
+				treasury = 200
+			}
+			effect = {
+				add_treasury = -200
+				add_government_power = {
+					mechanic_type = EDG_LEB_river_order_ability
+					power_type = EDG_LEB_river_order
+					value = 5
+				}
+				add_republican_tradition = 5
+				change_innovativeness = 1
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_LEB_G_V = {
+			#鼓励通商		
+			icon = GFX_EDG_LEB_V
+			cost_type = EDG_LEB_river_order
+			cost = 15
+			trigger = {
+			}
+			effect = {
+				random_owned_province = {
+					limit = {
+						owned_by = root
+						OR = {
+							province_id = 358
+							province_id = 362
+							province_id = 363
+							province_id = 4316
+							province_id = 2316
+							province_id = 361
+							province_id = 359
+							province_id = 4318
+							province_id = 2317
+							province_id = 2319
+							province_id = 4320
+							province_id = 360
+							province_id = 4319
+							province_id = 1231
+							province_id = 1234
+							province_id = 2322
+						}
+						NOT = {
+							has_province_modifier = EDG_LEB_G_5_modifier
+						}
+					}
+					add_province_modifier = {
+						name = EDG_LEB_G_5_modifier
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						mission_completed = EDG_LEB_2_24
+					}
+					random_owned_province = {
+						limit = {
+							OR = {
+								area = basra_area
+								area = iraq_arabi_area
+								area = al_jazira_area
+							}
+							NOT = {
+								has_province_modifier = EDG_LEB_G_5_modifier
+							}
+						}
+						add_province_modifier = {
+							name = EDG_LEB_G_5_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_LEB_G_VI = {
+			#治理河岸湿地	
+			icon = GFX_EDG_LEB_VI
+			cost_type = EDG_LEB_river_order
+			cost = 5
+			trigger = {
+				NOT = {
+					has_country_modifier = EDG_LEB_G_6_modifier
+				}
+			}
+			effect = {
+				custom_tooltip = EDG_LEB_G_VI_TT
+				hidden_effect = {
+					change_variable = {
+						which = EDG_LEB_G_6_var
+						value = 2
+					}
+				}
+				change_innovativeness = 1
+				add_country_modifier = {
+					name = EDG_LEB_G_6_modifier					#收集苇草
+					duration = 365
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+	}
+}

@@ -1,0 +1,317 @@
+EDG_Duchy_von_Bavaria_LBV = {
+	icon = BAV_1
+	allow_normal_conversion = no
+	allow_convert = no
+	lock_level_when_selected = yes
+	potential = {
+		primary_culture = bavarian
+		NOT = {
+			has_reform = EDG_Duchy_von_Bavaria
+		}
+		NOT = {
+			has_reform = EDG_BAV_wittelsbach_system
+		}
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 10
+	modifiers = {
+		diplomats = 1
+		vassal_income = 0.2
+		nobles_loyalty_modifier = 0.05
+		nobles_influence_modifier = 0.05
+	}
+	custom_attributes = {
+		buffed_strong_duchies = yes
+		EDG_HRE_vassal_ability = yes
+		foreign_slave_rulers = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+EDG_BAV_wittelsbach_system = {
+	icon = BAV_1
+	allow_normal_conversion = no
+	allow_convert = no
+	lock_level_when_selected = yes
+	potential = {
+		primary_culture = bavarian
+		NOT = {
+			has_reform = EDG_Duchy_von_Bavaria
+		}
+		NOT = {
+			has_reform = EDG_Duchy_von_Bavaria_LBV
+		}
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	modifiers = {
+		diplomatic_upkeep = 2
+		vassal_income = 0.25
+		improve_relation_modifier = 0.25
+		edg_artists_privilege_slots = 2
+	}
+	custom_attributes = {
+		EDG_HRE_vassal_ability = yes
+		EDG_BAV_enable_Artists_estate_attribute = yes
+		EDG_BAV_enable_Wittelsbach_Territories_attribute = yes
+		EDG_GER_more_mercenary_ability = yes
+		EDG_BAV_more_governing_capacity_attribute = yes
+		monarch_power_on_institutions = yes
+	}
+	government_abilities = {
+		EDG_BAV_government_ability
+	}
+	ai = {
+		factor = 1
+	}
+	effect = {
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						government_rank = 2
+					}
+				}
+				set_government_rank = 2
+			}
+		}
+	}
+}
+
+EDG_BAV_wittelsbach_subject = {
+	icon = BAV_1
+	allow_normal_conversion = no
+	allow_convert = no
+	lock_level_when_selected = yes
+	fixed_rank = 2
+	potential = {
+		is_subject = yes
+		is_subject_of_type = EDG_BAV_Wittelsbach_Territories
+	}
+	modifiers = {
+		development_cost = -0.1
+		global_trade_goods_size_modifier = 0.1
+		global_prov_trade_power_modifier = 0.1
+	}
+	ai = {
+		factor = 1
+	}
+	effect = {
+		set_government_rank = 2
+		add_treasury = 500
+		add_years_of_income = 2.5
+		add_yearly_manpower = 10
+		add_yearly_sailors = 10
+		add_adm_power = 200
+		add_dip_power = 200
+		add_mil_power = 200
+		change_religion = catholic
+		change_primary_culture = bavarian
+		define_ruler = {
+			dynasty = overlord
+			culture = bavarian
+			religion = catholic
+		}
+		define_heir = {
+			dynasty = overlord
+			culture = bavarian
+			religion = catholic
+		}
+		remove_historical_rival = overlord
+		add_historical_friend = overlord
+		remove_opinion = {
+			who = overlord
+			modifier = aggressive_expansion
+		}
+		remove_opinion = {
+			who = overlord
+			modifier = they_force_vassalized_us
+		}
+		remove_opinion = {
+			who = overlord
+			modifier = had_war_with_us
+		}
+		overlord = {
+			add_historical_friend = ROOT
+			remove_historical_rival = ROOT
+		}
+		change_country_color = {
+			country = overlord
+		}
+		set_country_flag = EDG_BAV_create_subject_effect_flag
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = EDG_BAV_compliance_variable
+						value = 1
+					}
+				}
+			}
+			set_variable = {
+				which = EDG_BAV_compliance_variable
+				value = 1
+			}
+		}
+		add_country_modifier = {
+			name = EDG_WG_superiority_Holy_Roman_Invasion_tag_modifier
+			duration = -1
+		}
+	}
+	removed_effect = {
+		if = {
+			limit = {
+				exists = yes
+				is_subject = no
+			}
+			create_unit_forcelimit_percentage = {
+				type = infantry
+				force_limit_percentage = 3
+			}
+			restore_country_color = yes
+		}
+	}
+}
+
+EDG_BAV_bavarian_local_council = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	modifiers = {
+		development_cost = -0.1
+		reduced_liberty_desire = 25
+		all_estate_loyalty_equilibrium = 0.1
+		all_estate_influence_modifier = 0.1
+	}
+	custom_attributes = {
+		EDG_feudal_tax_official_provide_reduced_liberty_desire_attribute = yes
+		EDG_BAV_bavarian_local_council_attribute = yes
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+EDG_BAV_establish_religious_agency = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+		religion = catholic
+		has_estate = estate_edg_artists
+		custom_trigger_tooltip = {
+			tooltip = EDG_BAV_religion_disaster_ended_tt
+			has_country_flag = EDG_BAV_religion_disaster_ended_flag
+		}
+	}
+	custom_attributes = {
+		EDG_BAV_establish_religious_agency_attribute = yes
+	}
+	modifiers = {
+		tolerance_heretic = 2
+		tolerance_of_heretics_capacity = 2
+		curia_powers_cost = -0.25
+		edg_artists_loyalty_modifier = 0.2
+	}
+}
+
+EDG_BAV_wolfgang_military_reform = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+		custom_trigger_tooltip = {
+			tooltip = EDG_BAV_religion_disaster_ended_tt
+			has_country_flag = EDG_BAV_religion_disaster_ended_flag
+		}
+		custom_trigger_tooltip = {
+			tooltip = EDG_BAV_has_forgiven_wolfgang_tt
+			has_country_flag = EDG_BAV_has_forgiven_wolfgang_flag
+		}
+		has_unlocked_government_reform = {
+			government_reform = EDG_BAV_wolfgang_military_reform
+		}
+	}
+	custom_attributes = {
+		EDG_BAV_wolfgang_military_reform_attribute = yes
+		EDG_commandant_provide_siege_ability_attribute = yes
+	}
+	modifiers = {
+		shock_damage = 0.1
+		fire_damage = 0.1
+		discipline = 0.025
+	}
+}
+
+EDG_BAV_munich_parliament = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+	}
+	custom_attributes = {
+		EDG_BAV_munich_parliament_attribute = yes
+	}
+	modifiers = {
+		parliament_backing_chance = 0.2
+		no_stability_loss_on_monarch_death = yes
+	}
+}
+
+EDG_BAV_artists_politics = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+		has_estate = estate_edg_artists
+	}
+	custom_attributes = {
+		EDG_BAV_artists_politics_attribute = yes
+	}
+	modifiers = {
+		advisor_cost = -0.25
+		advisor_pool = 3
+		edg_artists_privilege_slots = 2
+	}
+}
+
+EDG_BAV_production_economy = {
+	icon = BAV_1
+	potential = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	trigger = {
+		EDG_BAV_is_bavarian_country_trigger = yes
+	}
+	custom_attributes = {
+		EDG_BAV_production_economy_attribute = yes
+		extra_trade_goods_from_grain = yes
+	}
+	modifiers = {
+		global_trade_goods_size_modifier = 0.2
+	}
+}

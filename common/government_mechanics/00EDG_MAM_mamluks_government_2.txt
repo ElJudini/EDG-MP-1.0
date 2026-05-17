@@ -1,0 +1,194 @@
+
+EDG_MAM_slave_ability = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 12
+	powers = {
+		EDG_MAM_slave_power = {
+			#马穆鲁克奴隶能力
+			gui = EDG_MAM_government_power_2_gui
+			show_before_interactions = yes
+			max = 1000
+			min = -100
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					land_forcelimit_modifier = 0.25
+					global_manpower_modifier = 0.25
+					amount_of_mamluks = 50
+					monthly_EDG_MAM_slave_power = -2
+				}
+			}
+		}
+	}
+	interactions = {
+		EDG_MAM_slave_interactions_1 = {
+			#获得奴隶
+			icon = GFX_mechanic_EDG_MAM_hudong_1
+			cost_type = EDG_MAM_slave_power
+			cost = 0
+			trigger = {
+				adm_power = 25
+				dip_power = 25
+				mil_power = 25
+			}
+			effect = {
+				custom_tooltip = EDG_MAM_slave_one_tt
+				hidden_effect = {
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_MAM_province_var
+								value = 50
+							}
+						}
+						set_variable = {
+							which = EDG_MAM_province_var
+							value = 50
+						}
+					}
+					while = {
+						limit = {
+							check_variable = {
+								which = EDG_MAM_province_var
+								value = 1
+							}
+						}
+						add_government_power = {
+							mechanic_type = EDG_MAM_slave_ability
+							power_type = EDG_MAM_slave_power
+							value = 1
+						}
+						subtract_variable = {
+							which = EDG_MAM_province_var
+							value = 1
+						}
+					}
+					every_owned_province = {
+						limit = {
+							NOT = {
+								religion = owner
+							}
+						}
+						owner = {
+							add_government_power = {
+								mechanic_type = EDG_MAM_slave_ability
+								power_type = EDG_MAM_slave_power
+								value = 1
+							}
+						}
+					}
+				}
+				add_adm_power = -25
+				add_dip_power = -25
+				add_mil_power = -25
+				hidden_effect = {
+					change_variable = {
+						which = EDG_MAM_slave_interactions_1_used_value
+						value = 1
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_MAM_slave_interactions_2 = {
+			#训练马穆鲁克
+			icon = GFX_mechanic_EDG_MAM_hudong_2
+			cost_type = EDG_MAM_slave_power
+			cost = 10
+			trigger = {
+			}
+			effect = {
+				add_mil_power = -50
+				remove_country_modifier = EDG_MAM_training
+				add_country_modifier = {
+					name = EDG_MAM_training
+					duration = 1825
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MAM_slave_interactions_2_unlock_flag
+					}
+					custom_tooltip = EDG_SPACE_TT
+					add_army_tradition = 5
+					add_government_power = {
+						mechanic_type = EDG_MAM_elite_ability
+						power_type = EDG_MAM_elite_power
+						value = 5
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MAM_enhance_ability_flag
+					}
+					custom_tooltip = EDG_SPACE_TT
+					add_government_power = {
+						mechanic_type = EDG_MAM_slave_ability
+						power_type = EDG_MAM_slave_power
+						value = 5
+					}
+				}
+				hidden_effect = {
+					change_variable = {
+						which = EDG_MAM_slave_interactions_2_used_value
+						value = 1
+					}
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_MAM_slave_interactions_3 = {
+			#招募马穆鲁克
+			icon = GFX_mechanic_EDG_MAM_hudong_3
+			cost_type = EDG_MAM_slave_power
+			cost = 4
+			trigger = {
+				
+			}
+			effect = {
+				custom_tooltip = EDG_MAM_slave_three_tt
+				add_dip_power = -10
+				if = {
+					limit = {
+						has_country_flag = EDG_MAM_enhance_ability_flag
+					}
+					add_government_power = {
+						mechanic_type = EDG_MAM_slave_ability
+						power_type = EDG_MAM_slave_power
+						value = 2
+					}
+				}
+				hidden_effect = {
+					change_variable = {
+						which = EDG_FYM_Monarchy_interactions_3_used_value
+						value = 1
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				capital_scope = {
+					mamluks_infantry = ROOT
+					mamluks_cavalry = ROOT
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MAM_slave_interactions_3_unlock_flag
+					}
+					capital_scope = {
+						mamluks_infantry = ROOT
+						mamluks_cavalry = ROOT
+					}
+				}
+			}
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 0
+				}
+			}
+		}
+	}
+}

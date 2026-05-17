@@ -1,0 +1,226 @@
+EDG_LIT_Monarchy_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_LIT_Monarchy_power = {#联邦团结
+			gui = EDG_LIT_Monarchy_government_power_gui
+			show_before_interactions = yes
+			max = 100
+			base_monthly_growth = 0.1
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					tolerance_of_heretics_capacity = 3
+					tolerance_of_heathens_capacity = 3
+					tolerance_heretic = 3
+					tolerance_heathen = 3
+					religious_unity = 0.5
+					reform_progress_growth = 0.2
+					monthly_EDG_LIT_Monarchy_power = -1
+					promote_culture_cost = -0.5
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_2_13_flag
+				}
+				modifier = {
+					land_morale = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_1_12_flag
+				}
+				modifier = {
+					global_unrest = -2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_2_14_flag
+				}
+				modifier = {
+					yearly_army_professionalism = 0.02
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_2_15_flag
+				}
+				modifier = {
+					discipline = 0.05
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_3_12_flag
+				}
+				modifier = {
+					advisor_cost = -0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_4_12_flag
+				}
+				modifier = {
+					global_trade_goods_size_modifier = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_LIT_mission_5_12_flag
+				}
+				modifier = {
+					monthly_splendor = 2
+				}
+			}
+			
+		}
+		
+		
+ 	}
+ 	
+ 	interactions = {
+		EDG_LIT_Monarchy_interactions_1 = {#修缮立陶宛法规
+			icon = GFX_mechanic_EDG_LIT_government_1
+			cost_type = EDG_LIT_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+ 			trigger = {
+				mission_completed = EDG_LIT_mission_5_11
+ 			}
+ 			effect = {
+				#add_adm_power = -100
+				if = {
+					limit = { has_country_flag = EDG_LIT_mission_4_12_interaction_falg }
+					add_rebel_progress = {
+						value = -30
+					}
+				}
+				else = {
+					add_rebel_progress = {
+						value = -15
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_LIT_mission_3_12_interaction_falg }
+					capital_scope = {
+						add_next_institution_embracement = 20
+					}
+				}
+				else = {
+					capital_scope = {
+						add_next_institution_embracement = 10
+					}
+				}
+				add_country_modifier = {
+					name = EDG_LIT_Monarchy_interactions_1_modifier
+					duration = 3650
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_LIT_Monarchy_interactions_2 = {#吸引移民垦殖
+			icon = GFX_mechanic_EDG_LIT_government_2
+			cost_type = EDG_LIT_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+			trigger = {
+				mission_completed = EDG_LIT_mission_4_11
+				any_owned_province = {
+					NOT = { development = 20 }
+				}
+			}
+			effect = {
+				#add_dip_power = -100
+				random_owned_province = {
+					limit = {
+						NOT = { development = 20 }
+						NOT = { has_province_modifier = EDG_LIT_Attracting_immigrants_effect_province_modifier_1 }
+						NOT = { has_province_modifier = EDG_LIT_Attracting_immigrants_effect_province_modifier_2 }
+					}
+					
+					if = {
+						limit = { has_country_flag = EDG_LIT_mission_3_12_interaction_falg }
+						random_list = {
+							10 = { add_base_tax = 2 }
+							10 = { add_base_production = 2 }
+							10 = { add_base_manpower = 2 }
+						}
+					}
+					else = {
+						random_list = {
+							10 = { add_base_tax = 1 }
+							10 = { add_base_production = 1 }
+							10 = { add_base_manpower = 1 }
+						}
+					}
+					EDG_LIT_Attracting_immigrants_effect = yes
+				}
+				add_country_modifier = {
+					name = EDG_LIT_Monarchy_interactions_2_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_LIT_Monarchy_interactions_3 = {#笼络吉诺斯
+			icon = GFX_mechanic_EDG_LIT_government_3
+			cost_type = EDG_LIT_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				mission_completed = EDG_LIT_mission_3_11
+			}
+			effect = {
+				#add_mil_power = -100
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 10
+				}
+				if = {
+					limit = { has_country_flag = EDG_LIT_mission_4_12_interaction_falg }
+					add_estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 10
+					}
+				}
+				
+				if = {
+					limit = { has_country_flag = EDG_LIT_mission_3_12_interaction_falg }
+					add_subjects_development_manpower = {
+						multiplier = 0.1
+					}
+					add_yearly_manpower = 0.2
+				}
+				else = {
+					add_subjects_development_manpower = {
+						multiplier = 0.05
+					}
+					add_yearly_manpower = 0.1
+				}
+				add_country_modifier = {
+					name = EDG_LIT_Monarchy_interactions_3_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+				   factor = 0
+				   NOT = { is_at_war = yes }
+			   }
+			}
+		}
+ 	}
+ }
+
+ 
+ 

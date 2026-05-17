@@ -1,0 +1,235 @@
+EDG_FYM_Monarchy_ability_3 = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 12
+ 
+ 	powers = {
+		EDG_FYM_Monarchy_power_3 = {#奴隶
+			gui = EDG_FYM_Monarchy_government_power_gui_3
+			show_before_interactions = yes
+			max = 100000
+			min = -100	#Parliament direction
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					monthly_EDG_FYM_Monarchy_power_3 = -2
+				}
+			}
+			reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = EDG_FYM_Monarchy_ability_3
+							power_type = EDG_FYM_Monarchy_power_3
+							value = 0
+						}
+					}
+				}
+				modifier = {
+					reduced_liberty_desire = -100
+					liberty_desire_from_subject_development = 100
+					vassal_forcelimit_bonus = -2
+					vassal_income = -2
+					vassal_manpower_bonus = -2
+					vassal_sailors_bonus = -2
+					vassal_naval_forcelimit_bonus = -2
+				}
+			}
+			
+		}
+		
+ 	}
+ 	
+ 	interactions = {
+		EDG_FYM_Monarchy_interactions_1 = {#委任行政官员 阿迦
+			icon = GFX_mechanic_EDG_FYM_government_1
+			cost_type = EDG_FYM_Monarchy_power_3
+			cost = 10
+			#cooldown_years = 10
+ 			trigger = {
+				#NOT = { has_country_modifier = EDG_flavor_FYM_1_in_10_years_modifier }
+				# check_variable = {
+				# 	which = EDG_create_slave_Existing_value
+				# 	value = 10
+				# }
+ 			}
+ 			effect = {
+				if = {
+					limit = {
+						has_country_flag = EDG_FYM_Monarchy_interactions_1_power_free_flag
+					}
+					custom_tooltip = EDG_FYM_Monarchy_interactions_power_free_flag_effect_tt
+					add_country_modifier = {
+						name = EDG_FYM_mission_1_31_modifier
+						duration = 3650
+					}
+				}
+				else = {
+					add_adm_power = -50
+				}
+				hidden_effect = {
+					change_variable = {
+						which = EDG_FYM_Monarchy_interactions_1_used_value
+						value = 1
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				country_event = { id = EDG_flavor_FYM.1 }
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_FYM_Monarchy_interactions_2 = {#处理宗教外交 穆夫提
+			icon = GFX_mechanic_EDG_FYM_government_2
+			cost_type = EDG_FYM_Monarchy_power_3
+			cost = 10
+			#cooldown_years = 10
+			trigger = {
+				#NOT = { has_country_modifier = EDG_flavor_FYM_2_in_10_years_modifier }
+				# check_variable = {
+				# 	which = EDG_create_slave_Existing_value
+				# 	value = 10
+				# }
+			}
+			effect = {
+				#country_event = { id = EDG_flavor_FYM.2 }
+				if = {
+					limit = {
+						has_country_flag = EDG_FYM_Monarchy_interactions_2_power_free_flag
+					}
+					custom_tooltip = EDG_FYM_Monarchy_interactions_power_free_flag_effect_tt
+					add_country_modifier = {
+						name = EDG_FYM_mission_2_31_modifier
+						duration = 3650
+					}
+				}
+				else = {
+					add_dip_power = -50
+				}
+				hidden_effect = {
+					change_variable = {
+						which = EDG_FYM_Monarchy_interactions_2_used_value
+						value = 1
+					}
+				}
+
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { EDG_sunni_Caliph_ability_trigger = yes }		
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_a_tt_yes
+					
+					change_variable = {
+						which = EDG_sunni_Caliph_authority_var
+						value = 20
+					}
+				}
+				else = {
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_a_tt_no
+					tooltip = {
+						change_variable = {
+							which = EDG_sunni_Caliph_authority_var
+							value = 20
+						}
+					}
+				}
+
+				if = {
+					limit = { EDG_shiite_Caliph_ability_trigger = yes }		
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_b_tt_yes
+					
+					change_variable = {
+						which = EDG_shiite_Caliph_authority_var
+						value = 20
+					}
+				}
+				else = {
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_b_tt_no
+					tooltip = {
+						change_variable = {
+							which = EDG_shiite_Caliph_authority_var
+							value = 20
+						}
+					}
+				}
+
+				if = {
+					limit = { religion = EDG_Alawite }		
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_c_tt_yes
+					
+					# change_estate_land_share = {
+					# 	estate = estate_church
+					# 	share = 3
+					# }
+					add_government_power = {
+						mechanic_type = EDG_FYM_Monarchy_ability
+						power_type = EDG_FYM_Monarchy_power
+						value = 10
+					}
+				}
+				else = {
+					custom_tooltip = EDG_FYM_Monarchy_interactions_2_c_tt_no
+					tooltip = {
+						# change_estate_land_share = {
+						# 	estate = estate_church
+						# 	share = 3
+						# }
+						add_government_power = {
+							mechanic_type = EDG_FYM_Monarchy_ability
+							power_type = EDG_FYM_Monarchy_power
+							value = 10
+						}
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_FYM_Monarchy_interactions_3 = {#提拔奴隶军官
+			icon = GFX_mechanic_EDG_FYM_government_3
+			cost_type = EDG_FYM_Monarchy_power_3
+			cost = 10
+			#cooldown_years = 10
+			trigger = {
+				#NOT = { has_country_modifier = EDG_flavor_FYM_3_in_10_years_modifier }
+			}
+			effect = {
+				if = {
+					limit = {
+						has_country_flag = EDG_FYM_Monarchy_interactions_3_power_free_flag
+					}
+					custom_tooltip = EDG_FYM_Monarchy_interactions_power_free_flag_effect_tt
+					add_country_modifier = {
+						name = EDG_FYM_mission_3_31_modifier
+						duration = 3650
+					}
+				}
+				else = {
+					add_mil_power = -50
+				}
+				hidden_effect = {
+					change_variable = {
+						which = EDG_FYM_Monarchy_interactions_3_used_value
+						value = 1
+					}
+				}
+				
+				custom_tooltip = EDG_SPACE_TT
+				country_event = { id = EDG_flavor_FYM.23 }
+
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+				   factor = 0
+				   NOT = { is_at_war = yes }
+			   }
+			}
+		}
+ 	}
+ }
+
+ 
+ 

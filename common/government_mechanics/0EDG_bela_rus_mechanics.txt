@@ -1,0 +1,250 @@
+EDG_ers_absolutism_mechanic = {
+    available = {
+		has_dlc = "Domination"
+	}
+    powers = {
+		EDG_ers_absolutism = {
+			gui = russian_modernization_gov_mech
+			min = 0
+			max = 100
+			reset_on_new_ruler = yes
+			base_monthly_growth = -0.15
+			monarch_power = adm
+			scaled_modifier = {
+				modifier = {
+					all_power_cost = -0.075
+					technology_cost = -0.075
+					idea_cost = -0.075
+					embracement_cost = -0.25
+					yearly_corruption = -0.10
+                    great_project_upgrade_cost = -0.25
+                    great_project_upgrade_time = -0.25
+					monthly_EDG_ers_absolutism = -0.5
+				}
+			}
+			is_good = yes
+		}
+	}
+}
+
+EDG_RYA_tartar_vs_rus_mechanic = {
+	available = {
+		has_dlc = "Domination"
+	}
+	powers = {
+		tartar_rus_power = {
+			gui = EDG_BELA_RYA_tartar_vs_rus_gov_mech 
+			max = 100	#罗斯影响力
+			min = -100	#鞑靼影响力
+			base_monthly_growth = 0
+			range_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = EDG_RYA_tartar_vs_rus_mechanic
+						power_type = tartar_rus_power
+						value = 33
+					}
+				}
+				modifier = {
+					#+
+					global_tax_modifier = 0.2
+					global_manpower_modifier = 0.2
+					diplomatic_reputation = 1
+					tolerance_own = 2
+					#-
+					shock_damage = -0.1
+					raze_power_gain = -0.5
+					stability_cost_modifier = 0.5
+					global_unrest = 1
+					all_power_cost = 0.05
+				}
+				start_value = 33
+				end_value = 100	
+			}
+			range_modifier = {
+				modifier = {
+					global_tax_modifier = 0.1
+					global_manpower_modifier = 0.1
+					raze_power_gain = 0.25
+					cavalry_power = 0.15
+					global_heathen_missionary_strength = 0.02
+					global_unrest = -1
+					all_power_cost = -0.025
+				}
+				start_value = -33
+				end_value = 33
+			}
+			range_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = EDG_RYA_tartar_vs_rus_mechanic
+							power_type = governmental_power
+							value = -33
+						}
+					}
+				}
+				modifier = {
+					#+
+					raze_power_gain = 0.5
+					cavalry_power = 0.3
+					cav_to_inf_ratio = 0.5
+					global_missionary_strength = 0.01
+					global_heathen_missionary_strength = 0.02
+					#-
+					same_culture_advisor_cost = 0.5
+					global_autonomy = 0.10
+					stability_cost_modifier = 0.5
+					global_unrest = 1
+					all_power_cost = 0.05
+				}
+				start_value = -100
+				end_value = -33
+			}
+			#on_max_reached = {
+				#custom_tooltip = EDG_RYA_tartar_vs_rus_mechanic_at
+				#hidden_effect = {
+					#set_country_flag = eng_monarchy_in_absolute_power
+					#country_event = {
+					#	id = 
+					#}
+				#}
+			#}
+			#on_min_reached = {
+				#custom_tooltip = EDG_RYA_tartar_vs_rus_mechanic_bt
+				#hidden_effect = {
+					#set_country_flag = eng_parliament_in_absolute_power
+					#country_event = {
+					#	id = 
+					#}
+				#}
+			#}
+		}
+	}
+}
+
+EDG_LPL_heaven_mechanic = {
+	available = {
+		has_dlc = "Domination"
+	}
+	powers = {
+		EDG_LPL_heaven_power = {
+			gui = russian_modernization_gov_mech
+			max = 1000	
+			min = 0
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					global_unrest = 10
+					all_power_cost = 0.1
+					development_cost = -1.0
+					technology_cost = -0.33
+					idea_cost = -0.33
+					global_manpower = 25
+					development_cost_modifier = -0.50
+				}
+				start_value = 0
+				end_value = 1000
+			}
+		}
+	}
+}
+
+EDG_LPL_utopia_mechanic = { #乌托邦机制
+	available = {
+		has_dlc = "Domination"
+	}
+	powers = {
+		EDG_LPL_worldist_influence_power = { #世界派影响力
+			gui = russian_modernization_gov_mech
+			max = 100	
+			min = 0
+			base_monthly_growth = -0.5
+			reset_on_new_ruler = yes
+			scaled_modifier = {
+				modifier = {
+					administrative_efficiency = 0.25
+					core_creation = -1.0 #制造核心花费-100%
+					province_warscore_cost = -1.0 #省份战争分数花费-100%
+					war_exhaustion = -1.0 #每月厌战度-1
+					years_of_nationalism = -20 #分离主义年数-20
+					reinforce_speed = 0.75
+					siege_ability = 1.00
+					monthly_EDG_LPL_worldist_dissatisfaction_power = -2 #月度解放派不满度-1
+					monthly_EDG_LPL_selfist_dissatisfaction_power = 1 #月度自守派不满度+0.5
+					monthly_EDG_LPL_worldist_influence_power = 1 #月度世界派影响力+1
+					monthly_EDG_LPL_selfist_influence_power = -1 #月度自守派影响力-1
+				}
+			}
+		}
+		EDG_LPL_selfist_dissatisfaction_power = { #自守派不满度
+			gui = russian_modernization_gov_mech
+			max = 100	
+			min = 0
+			base_monthly_growth = 0
+			is_good = no
+			scaled_modifier = {
+				modifier = {
+					war_exhaustion = 1 #每月厌战度+1
+					stability_cost_modifier = 5.00 #稳定度花费+500%
+					development_cost = 1.0 #提升发展度花费+100%
+					build_cost = 1.00 #建筑花费+100%
+					min_autonomy = 50 #省份最低自治度+40%
+				}
+			}
+		}
+		EDG_LPL_worldist_dissatisfaction_power = { #世界派不满度
+			gui = russian_modernization_gov_mech
+			max = 100	
+			min = 0
+			base_monthly_growth = 0
+			is_good = no
+			scaled_modifier = {
+				modifier = {
+					global_unrest = 10 #全局叛乱度+10
+					all_power_cost = 0.10 #所有点数花费+10%
+					technology_cost = 0.25 #科技花费+25%
+					idea_cost = 0.25 #理念花费+25%	
+				}
+			}
+		}
+		EDG_LPL_selfist_influence_power = { #自守派影响力
+			gui = russian_modernization_gov_mech
+			max = 100	
+			min = 0
+			base_monthly_growth = 1.0
+			reset_on_new_ruler = yes
+			scaled_modifier = {
+				modifier = {
+					#province_warscore_cost = 5.00 #省份战争分数花费+500%
+					administrative_efficiency = 0.25
+					#land_maintenance_modifier = -0.5 #陆军维护费-50%
+					#fort_maintenance_modifier = -1.0 #要塞维护费-100%
+					reinforce_cost_modifier = -0.75
+					movement_speed = 0.5
+					all_power_cost = -0.10 #所有点数花费-10%
+					land_morale = 1.00 #陆军士气+100%
+					naval_morale = 1.00 #海军士气+100%
+					monthly_EDG_LPL_worldist_influence_power = -2 #月度世界派影响力-1
+					monthly_EDG_LPL_selfist_influence_power = 2 #月度自守派影响力+1
+					monthly_EDG_LPL_selfist_dissatisfaction_power = -2 #月度自守派派不满度-1
+					monthly_EDG_LPL_worldist_dissatisfaction_power = 1 #月度解放派不满度+0.5					
+				}
+			}
+			range_modifier = {
+				modifier = {
+					capped_by_forcelimit = yes
+				}
+				start_value = 50
+				end_value = 100
+			}
+			range_modifier = {
+				modifier = {
+					can_not_declare_war = yes
+				}
+				start_value = 100
+				end_value = 100
+			}
+		}
+	}
+}

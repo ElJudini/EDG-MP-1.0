@@ -1,0 +1,548 @@
+
+russian_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 1
+	available = {
+		OR = {
+			has_dlc = "Third Rome"
+			has_dlc = "Domination"
+		}
+	}
+	
+	powers = {
+		russian_adm_power = {
+			max = 100
+			monarch_power = ADM
+			base_monthly_growth = 0.30
+		}
+		russian_dip_power = {
+			max = 100
+			monarch_power = DIP
+			base_monthly_growth = 0.30
+		}
+		russian_mil_power = {
+			max = 100
+			monarch_power = MIL
+			base_monthly_growth = 0.30
+		}
+	}
+	
+	interactions = {
+		RUSABIL_SUDEBNIK = {
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_ADM
+			cost_type = russian_adm_power
+			cost = 50
+			trigger = {
+				any_owned_province = {
+					local_autonomy_above_min = 5
+				}
+				adm_power = 25
+			}
+			effect = {
+				if = {
+					limit = { has_government_attribute = weaker_russian_ability }
+					tooltip = {
+						add_adm_power = -25
+						add_prestige_or_monarch_power = {
+							amount = 10
+						}
+						add_rebel_progress = {
+							value = -10
+						}
+					}
+					custom_tooltip = RUSABIL_SUDEBNIK_EFFECT_TT
+					tooltip = {
+						add_local_autonomy_no_authority_effect = -7.5
+					}
+					tooltip = {
+						capital_scope = {
+							add_province_modifier = {
+								name = EDG_russian_reform_ability_province_modifier_1
+								duration = 365
+							}
+						}
+					}
+					hidden_effect = {
+						add_adm_power = -25
+						every_owned_province = {
+							add_local_autonomy_no_authority_effect = -7.5
+						}
+						add_prestige_or_monarch_power = {
+							amount = 10
+						}
+						if = {
+							limit = {
+								rebel_progress_at_least = { value = 10 }
+							}
+							add_rebel_progress = {
+								value = -10
+							}
+						}
+						capital_scope = {
+							add_province_modifier = {
+								name = EDG_russian_reform_ability_province_modifier_1
+								duration = 365
+							}
+						}
+					}
+				}
+				else = {
+					tooltip = {
+						add_adm_power = -25
+						add_prestige_or_monarch_power = {
+							amount = 20
+						}
+						add_rebel_progress = {
+							value = -10
+						}
+					}
+					custom_tooltip = RUSABIL_SUDEBNIK_EFFECT_TT
+					tooltip = {
+						add_local_autonomy_no_authority_effect = -15
+					}
+					tooltip = {
+						capital_scope = {
+							add_province_modifier = {
+								name = EDG_russian_reform_ability_province_modifier_2
+								duration = 365
+							}
+						}
+					}
+					hidden_effect = {
+						add_adm_power = -25
+						every_owned_province = {
+							add_local_autonomy_no_authority_effect = -15
+						}
+						add_prestige_or_monarch_power = {
+							amount = 20
+						}
+						if = {
+							limit = {
+								rebel_progress_at_least = { value = 10 }
+							}
+							add_rebel_progress = {
+								value = -10
+							}
+						}
+						capital_scope = {
+							add_province_modifier = {
+								name = EDG_russian_reform_ability_province_modifier_2
+								duration = 365
+							}
+						}
+					}
+				}
+			}
+			cooldown_years = 1
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					average_autonomy_above_min = 20
+				}
+				modifier = {
+					factor = 10
+					average_autonomy_above_min = 10
+					has_government_power = {
+						mechanic_type = russian_mechanic
+						power_type = russian_adm_power
+						value = 90
+					}
+				}
+			}
+		}
+		RUSABIL_OPRICHNINA = {
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_DIP
+			cost_type = russian_dip_power
+			cost = 50
+			trigger = { 
+				rebel_progress_at_least = { value = 20 }
+				dip_power = 25
+			}
+			effect = { 
+				if = {
+					limit = { has_government_attribute = weaker_russian_ability }
+					tooltip = {
+						add_dip_power = -25
+						add_rebel_progress = {
+							value = -20
+						}
+						change_estate_land_share = {
+							estate = all
+							share = -1
+						}
+						custom_tooltip = RUSABIL_SUDEBNIK_EFFECT_TT
+						add_local_autonomy_no_authority_effect = -2.5
+						add_unrest = -0.5
+					}
+					hidden_effect = {
+						add_dip_power = -25
+						add_rebel_progress = {
+							value = -20
+						}
+						change_estate_land_share = {
+							estate = all
+							share = -1
+						}
+						every_owned_province = {
+							add_local_autonomy_no_authority_effect = -2.5
+							add_unrest = -0.5
+						}
+					}
+				}
+				else = {
+					tooltip = {
+						add_dip_power = -25
+						add_rebel_progress = {
+							value = -30
+						}
+						change_estate_land_share = {
+							estate = all
+							share = -3
+						}
+						custom_tooltip = RUSABIL_SUDEBNIK_EFFECT_TT
+						add_local_autonomy_no_authority_effect = -5
+						add_unrest = -1
+					}
+					hidden_effect = {
+						add_dip_power = -25
+						add_rebel_progress = {
+							value = -30
+						}
+						change_estate_land_share = {
+							estate = all
+							share = -3
+						}
+						every_owned_province = {
+							add_local_autonomy_no_authority_effect = -5
+							add_unrest = -1
+						}
+					}
+				}
+			}
+			cooldown_years = 1
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					rebel_progress_at_least = { value = 80 }
+				}
+				modifier = {
+					factor = 10
+					rebel_progress_at_least = { value = 30 }
+					has_government_power = {
+						mechanic_type = russian_mechanic
+						power_type = russian_dip_power
+						value = 75
+					}
+				}
+			}
+		}
+		RUSABIL_STRELTSY = {
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_MIL
+			cost_type = russian_mil_power
+			cost = 50
+			trigger = {
+				capital_scope = {
+					controller = { 
+						tag = ROOT
+					}
+					has_siege = no
+				}
+				mil_power = 25
+			}
+			effect = { 
+				add_war_exhaustion = -2
+				if = {
+					limit = { has_government_attribute = weaker_russian_ability }
+					add_mil_power = -25
+					add_country_modifier = {
+						name = equipped_streltsy_modifier_weaker
+						duration = 365
+					}
+					if = {
+						limit = {
+							is_at_war = yes
+						}
+						if = {
+							limit = {
+								manpower_percentage = 0.2
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_1_yes
+							create_unit_forcelimit_percentage = {
+								type = infantry
+								special_unit_category = streltsy
+								force_limit_percentage = 0.10
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.05
+								}
+								add_yearly_manpower = 0.5
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.01
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 2.5
+								add_army_professionalism = 0.005
+								add_yearly_manpower = 0.3
+							}
+						}
+						else = {
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.10
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_yes
+							create_unit_forcelimit_percentage = {
+								type = infantry
+								special_unit_category = streltsy
+								force_limit_percentage = 0.05
+							}
+							add_yearly_manpower = 0.5
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.01
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 2.5
+								add_army_professionalism = 0.005
+								add_yearly_manpower = 0.3
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								manpower_percentage = 0.2
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.10
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.05
+								}
+								add_yearly_manpower = 0.5
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_yes
+							add_army_tradition = 5
+							add_army_professionalism = 0.01
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 2.5
+								add_army_professionalism = 0.005
+								add_yearly_manpower = 0.3
+							}
+						}
+						else = {
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.10
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.05
+								}
+								add_yearly_manpower = 0.5
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.01
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_yes
+							add_army_tradition = 2.5
+							add_army_professionalism = 0.005
+							add_yearly_manpower = 0.3
+						}
+					}
+				}
+				else = {
+					add_mil_power = -25
+					add_country_modifier = {
+						name = equipped_streltsy_modifier
+						duration = 365
+					}
+					if = {
+						limit = {
+							is_at_war = yes
+						}
+						if = {
+							limit = {
+								manpower_percentage = 0.2
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_1_yes
+							create_unit_forcelimit_percentage = {
+								type = infantry
+								special_unit_category = streltsy
+								force_limit_percentage = 0.25
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.15
+								}
+								add_yearly_manpower = 1.0
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 10
+								add_army_professionalism = 0.02
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.01
+								add_yearly_manpower = 0.6
+							}
+						}
+						else = {
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.25
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_yes
+							create_unit_forcelimit_percentage = {
+								type = infantry
+								special_unit_category = streltsy
+								force_limit_percentage = 0.15
+							}
+							add_yearly_manpower = 0.10
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 10
+								add_army_professionalism = 0.02
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.010
+								add_yearly_manpower = 0.6
+							}
+						}
+					}
+					else = {
+						if = {
+							limit = {
+								manpower_percentage = 0.2
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.25
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.15
+								}
+								add_yearly_manpower = 1.0
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_yes
+							add_army_tradition = 10
+							add_army_professionalism = 0.02
+							custom_tooltip = EDG_BELA_shejijun_power_4_no
+							tooltip = {
+								add_army_tradition = 5
+								add_army_professionalism = 0.01
+								add_yearly_manpower = 0.6
+							}
+						}
+						else = {
+							custom_tooltip = EDG_BELA_shejijun_power_1_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.25
+								}
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_2_no
+							tooltip = {
+								create_unit_forcelimit_percentage = {
+									type = infantry
+									special_unit_category = streltsy
+									force_limit_percentage = 0.15
+								}
+								add_yearly_manpower = 0.5
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_3_no
+							tooltip = {
+								add_army_tradition = 10
+								add_army_professionalism = 0.02
+							}
+							custom_tooltip = EDG_BELA_shejijun_power_4_yes
+							add_army_tradition = 5
+							add_army_professionalism = 0.01
+							add_yearly_manpower = 0.6
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_government_attribute = buffed_streltsy_button
+					}
+					add_country_modifier = {
+						name = prepared_streltsy_modifier
+						duration = 3650
+					}
+				}
+			}
+			cooldown_years = 1
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_in_important_war = yes
+				}
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+	}
+}

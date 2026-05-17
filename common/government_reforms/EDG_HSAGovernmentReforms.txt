@@ -1,0 +1,257 @@
+EDG_HSA_hanseatic_league = { #汉萨同盟
+	icon = trading_city
+	lock_level_when_selected = yes
+	boost_income = yes
+	free_city = yes
+	potential = {
+		OR = {
+			has_reform = EDG_HSA_hanseatic_league
+			have_had_reform = EDG_HSA_hanseatic_league
+		}
+	}
+	trigger = {
+		hre_size = 1
+		is_subject = no
+		OR = {
+			has_reform = EDG_HSA_hanseatic_league
+			have_had_reform = EDG_HSA_hanseatic_league
+		}
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = { 
+			has_dlc = "Domination"
+		}
+		custom_attributes = {
+			enable_EDG_HSA_hanseatic_cities = yes
+			enable_EDG_HSA_trading_post = yes
+		}
+		government_abilities = {
+			EDG_HSA_hanseatic_league_solidarity_mechanics
+		}
+	}
+	modifiers = {
+		republican_tradition = 1
+		trade_range_modifier = 0.25
+		trade_steering = 0.25
+		merchants = 1
+		diplomats = 1
+		governing_capacity_modifier = -0.25
+	}
+	factions = {
+		mr_aristocrats
+		mr_traders
+		mr_guilds
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		elections_increase_factions_influence = yes
+		is_merchant_republic = yes
+	}
+	duration = 4
+}
+EDG_HSA_hanseatic_free_city = { #汉萨自由市
+	icon = free_city
+	fixed_rank = 1
+	potential = {
+		hre_size = 1
+		has_reform = EDG_HSA_hanseatic_free_city
+	}
+	trigger = {
+		is_subject_of = HSA
+		HSA = {
+			has_government_attribute = enable_EDG_HSA_hanseatic_cities
+		}
+		NOT = {
+			num_of_cities = 2
+		}
+	}
+	free_city = yes
+	modifiers = {
+		production_efficiency = 0.25
+		development_cost = -0.25
+		global_trade_power = 0.25
+		burghers_influence_modifier = 0.1
+	}
+	
+}
+EDG_HSA_german_confederation = { #德意志联邦
+	icon = austrian_dual_monarchy_reform
+	lock_level_when_selected = yes
+	fixed_rank = 3
+	boost_income = yes
+	potential = {
+		OR = {
+			has_reform = EDG_HSA_german_confederation
+			have_had_reform = EDG_HSA_german_confederation
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_HSA_german_confederation
+			have_had_reform = EDG_HSA_german_confederation
+		}
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			NOT = { has_dlc = "Mare Nostrum" }
+		}
+		can_use_trade_post = yes
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Mare Nostrum"
+			NOT = { has_dlc = "Res Publica" }
+		}
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	conditional = {
+		allow = { 
+			has_dlc = "Domination"
+		}
+		custom_attributes = {
+			enable_EDG_HSA_hanseatic_cities = yes
+			enable_EDG_HSA_trading_post = yes
+		}
+		government_abilities = {
+			EDG_HSA_hanseatic_league_solidarity_mechanics
+		}
+	}
+	modifiers = {
+		republican_tradition = 1
+		trade_range_modifier = 0.5
+		trade_steering = 0.5
+		merchants = 2
+		governing_capacity_modifier = 0.25
+		governing_cost = -0.25
+		administrative_efficiency = 0.05
+	}
+	factions = {
+		mr_aristocrats
+		mr_traders
+		mr_guilds
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_aristocratic_idea_group = no
+		elections_increase_factions_influence = yes
+		is_merchant_republic = yes
+	}
+	duration = 4
+}
+EDG_HSA_trade_city_union = { #城市联盟
+	icon = provincial_government
+
+	potential = {
+		has_government_attribute = enable_EDG_HSA_hanseatic_cities
+	}
+	trigger = {
+		OR = {
+			is_trade_league_leader = yes
+			any_subject_country = {
+				is_subject_of_type = EDG_HSA_trade_city
+			}
+		}
+	}
+	modifiers = {
+		candidate_random_bonus = 1
+		republican_tradition = 0.5
+		monthly_EDG_HSA_hanseatic_league_solidarity = 0.1
+		diplomatic_upkeep = 2
+		trade_efficiency = 0.2
+		trade_steering = 0.2
+		merchants = 1
+	}
+	ai = {
+		factor = 10000
+	}
+}
+EDG_HSA_free_city_army = { #自由市武装
+	icon = fiqh_laws
+	potential = {
+		OR = {
+			has_government_attribute = enable_EDG_HSA_hanseatic_cities
+			
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = free_city
+			AND = {
+				is_trade_league_leader = yes
+				any_subject_country = {
+					is_subject_of_type = EDG_HSA_trade_city
+				}
+			}
+		}
+	}
+	modifiers = {
+		discipline = 0.025
+		mercenary_discipline = 0.025
+		land_forcelimit = 5
+		land_maintenance_modifier = -0.1
+		merc_maintenance_modifier = -0.1
+	}
+	ai = {
+		factor = 10000
+	}
+}
+EDG_HSA_hanseatic_hall = { #汉萨大议厅
+	icon = parliament
+	potential = {
+		has_government_attribute = enable_EDG_HSA_hanseatic_cities
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+	}
+	trigger = {
+		
+	}
+	modifiers = {
+		candidate_random_bonus = 1
+		monthly_EDG_HSA_hanseatic_league_solidarity = 0.1
+		trade_efficiency = 0.1
+		max_possible_parliament_seats = 6
+	}
+	ai = {
+		factor = 10000
+	}
+}

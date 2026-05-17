@@ -1,0 +1,170 @@
+EDG_BYZ_province_reform = {
+	icon = theme_system_reform
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	legacy_equivalent = feudal_monarchy
+	valid_for_nation_designer = no
+	nation_designer_cost = 0
+	potential = {
+		is_subject_of_type = EDG_BYZ_province 
+	}
+	trigger = {
+		is_subject_of_type = EDG_BYZ_province
+	}
+	modifiers = {
+		num_accepted_cultures = 6
+		promote_culture_cost = -0.5
+		governing_capacity = 250
+		governing_capacity_modifier = -0.1
+		all_estate_influence_modifier = -0.1
+	}
+	ai = {
+		factor = 100 #generic
+	}
+}
+EDG_BYZ_province_military_reform  = {
+	icon = theme_system_reform
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	legacy_equivalent = feudal_monarchy
+	valid_for_nation_designer = no
+	nation_designer_cost = 0
+	potential = {
+		is_subject_of_type = EDG_BYZ_mil_province 
+	}
+	trigger = {
+		is_subject_of_type = EDG_BYZ_mil_province
+	}
+	modifiers = {
+		discipline = 0.05
+		land_forcelimit = 20
+		land_forcelimit_modifier = 0.2
+		global_tax_income = 60
+		global_manpower_modifier = 0.2
+		governing_capacity_modifier = -0.25
+	}
+	ai = {
+		factor = 100 #generic
+	}
+}
+EDG_BYZ_city_develpment_reform = { #城市执政官
+	icon = free_city
+	potential = {
+		OR = {
+			has_reform = EDG_BYZ_city_develpment_reform
+			have_had_reform = EDG_BYZ_city_develpment_reform
+		}
+	}
+	trigger = {
+		num_of_owned_provinces_with = {
+			development = 25
+			value = 3
+		}
+		OR = {
+			has_reform = EDG_BYZ_city_develpment_reform
+			have_had_reform = EDG_BYZ_city_develpment_reform
+		}
+	}
+	custom_attributes = {
+		EDG_BYZ_extra_develpment_reform = yes
+		EDG_unlock_1075_event_action = yes #有需求直接调用即可
+	}
+	modifiers = {
+		development_cost = -0.10
+		production_efficiency = 0.2
+		burghers_influence_modifier = 0.1
+	}
+}
+EDG_BYZ_empire_tax_reform = { #帝国税法改革
+	icon = tribal_centralize_power
+	potential = {
+		has_country_flag = EDG_BYZ_unlocl_EDG_BYZ_empire_tax_reform_flag
+	}
+	trigger = {
+		OR = {
+			tag = BYZ
+			tag = ROM
+		}
+	}
+	modifiers = {
+		global_tax_modifier = -0.1
+		global_trade_goods_size_modifier = 0.1
+		state_maintenance_modifier = -0.1
+		production_efficiency = 0.1
+		inflation_reduction = 0.1
+	}
+}
+EDG_BYZ_caesaropapism_reform = { #政教合一
+	icon = constitution
+	potential = {
+		OR = {
+			has_reform = EDG_BYZ_caesaropapism_reform
+			have_had_reform = EDG_BYZ_caesaropapism_reform
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_BYZ_caesaropapism_reform
+			have_had_reform = EDG_BYZ_caesaropapism_reform
+		}
+	}
+	modifiers = {
+		legitimacy = 1
+		tolerance_own = 3
+		church_loyalty_modifier = 0.1
+		church_influence_modifier = -0.1
+		administrative_efficiency = 0.025
+	}
+	custom_attributes = {
+		on_church_built_clergy_loyalty = yes
+		seizing_land_no_rebels_from_estate_church = yes
+	}
+}
+EDG_BYZ_empire_province_reform = { #行省主管
+	icon = regionally_elected_commanders
+	potential = {
+		OR = {
+			tag = BYZ
+			tag = ROM
+		}
+	}
+	trigger = {
+		any_subject_country = {
+			is_subject_of_type = EDG_BYZ_province
+		}
+		OR = {
+			tag = BYZ
+			tag = ROM
+		}
+	}
+	modifiers = {
+		governing_capacity_modifier = -0.25
+		reduced_liberty_desire = 10
+		vassal_manpower_bonus = 0.2
+		vassal_forcelimit_bonus = 0.2
+		vassal_naval_forcelimit_bonus = 0.2
+		vassal_sailors_bonus = 0.2
+		vassal_income = 0.2
+	}
+	custom_attributes = {
+		EDG_BYZ_empire_province_reform_ability = yes
+	}
+}
+EDG_BYZ_roman_successor = { #罗马继任者
+	icon = consolidate_power_in_doge_reform
+	potential = {
+		OR = {
+			tag = BYZ
+			tag = ROM
+		}
+	}
+	trigger = {
+		total_own_and_non_tributary_subject_development = 1000
+	}
+	modifiers = {
+		liberty_desire_from_subject_development = -0.1
+		global_unrest = -2
+		years_of_nationalism = -5
+		core_creation = -0.1
+	}
+}

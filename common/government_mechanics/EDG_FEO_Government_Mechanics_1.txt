@@ -1,0 +1,342 @@
+EDG_FEO_mechanic = {#帝国指令
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 9
+	powers = {
+		FEO_adm_power = {
+			max = 150
+			min = 0
+			base_monthly_growth = 0.6
+			development_scaled_monthly_growth = 0.3
+			monarch_power = adm
+			scaled_modifier = {
+				modifier = {
+					development_cost = -0.1
+					governing_cost = -0.1
+					advisor_cost = -0.1
+					technology_cost = -0.1
+				}
+			}
+		}
+		FEO_dip_power = {
+			max = 150
+			min = 0
+			base_monthly_growth = 0.6
+			development_scaled_monthly_growth = 0.3
+			monarch_power = dip 
+			scaled_modifier = {
+				modifier = {
+					reduced_liberty_desire = 10
+					global_tariffs = 0.2
+					improve_relation_modifier = 0.2
+					trade_efficiency = 0.1
+				}
+			}
+		}
+		FEO_mil_power = {
+			max = 150
+			min = 0
+			base_monthly_growth = 0.6
+			development_scaled_monthly_growth = 0.3
+			monarch_power = mil 
+			scaled_modifier = {
+				modifier = {
+					land_morale = 0.05
+					manpower_recovery_speed = 0.1
+					global_regiment_cost = -0.1
+					leader_cost = -0.1
+				}
+			}
+		}
+	}
+	interactions = {
+		FEO_adm_power_mechanic = {#内政治理
+			icon = GFX_mechanic_EDG_MLO_government_2
+			cost_type = FEO_adm_power
+			cost = 50
+			trigger = {
+				NOT = { has_country_modifier = FEO_adm_power_mechanic_1 }
+			}
+			effect = {
+				custom_tooltip = enforce_absolute_rule_tt
+				hidden_effect = {
+					if = {
+						limit = {
+							has_parliament = yes
+							has_active_debate = yes
+						}
+						end_current_debate = yes
+					}
+					auto_complete_estate_agenda = {
+						estate = all
+					}
+				}
+				add_stability_or_adm_power = yes 
+				root = {
+					distribute_development = {
+						type = tax
+						amount = 10
+					}
+				}
+
+				add_country_modifier = {
+					name = FEO_adm_power_mechanic_1
+					duration = 1825
+				}
+				if = {#希腊化
+					limit = {
+						or = {
+							any_owned_province = {
+								not = {culture_group = byzantine  }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = byzantine  }
+								}
+							}
+						}
+						root = {
+							culture_group = byzantine
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.14
+					}
+				}
+				if = {#日耳曼化
+					limit = {
+						root = {
+							culture_group = germanic
+						}
+						or = {
+							any_owned_province = {
+								not = {culture_group = germanic }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = germanic  }
+								}
+							}
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.19
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		FEO_dip_power_mechanic = {#商业外交
+			icon = GFX_mechanic_EDG_MLO_government_3
+			cost_type = FEO_dip_power
+			cost = 50
+			trigger = {
+				NOT = { has_country_modifier = FEO_dip_power_mechanic_1 }
+			}
+			effect = {
+				add_liberty_desire = -15
+				add_years_of_income = 2
+				custom_tooltip = FEO_dip_power_mechanic_tooltip
+				add_prestige_or_monarch_power = { amount = 15 }
+				root = {
+					distribute_development = {
+						type = production
+						amount = 10
+					}
+				}
+				
+				add_country_modifier = {
+					name = FEO_dip_power_mechanic_1
+					duration = 1825
+				}
+				if = {#希腊化
+					limit = {
+						or = {
+							any_owned_province = {
+								not = {culture_group = byzantine  }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = byzantine  }
+								}
+							}
+						}
+						root = {
+							culture_group = byzantine
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.15
+					}
+				}
+				if = {#日耳曼化
+					limit = {
+						root = {
+							culture_group = germanic
+						}
+						or = {
+							any_owned_province = {
+								not = {culture_group = germanic }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = germanic  }
+								}
+							}
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.20
+					}
+				}
+				hidden_effect = {
+					every_subject_country = {
+				    	add_tariff_value = 0.1 
+				    }
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		FEO_mil_power_mechanic = {#军事掌控
+			icon = GFX_mechanic_EDG_MLO_government_1
+			cost_type = FEO_mil_power
+			cost = 50
+			trigger = {
+				NOT = { has_country_modifier = FEO_mil_power_mechanic_1 }
+			}
+			effect = {
+				root = {
+					distribute_development = {
+						type = manpower
+						amount = 10
+					}
+				 }
+				add_war_exhaustion = -1
+				add_army_tradition_or_mil_power = {	amount = 15	}
+				change_estate_land_share = {
+					estate = all
+					share = -5
+				}
+				
+				add_country_modifier = {
+					name = FEO_mil_power_mechanic_1
+					duration = 1825
+				}
+				if = {#希腊化
+					limit = {
+						or = {
+							any_owned_province = {
+								not = {culture_group = byzantine  }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = byzantine  }
+								}
+							}
+						}
+						root = {
+							culture_group = byzantine
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.16
+					}
+				}
+				if = {#日耳曼化
+					limit = {
+						root = {
+							culture_group = germanic
+						}
+						or = {
+							any_owned_province = {
+								not = {culture_group = germanic }
+							}
+							any_subject_country = {
+								any_owned_province = {
+									not = {culture_group = germanic  }
+								}
+							}
+						}
+					}
+					country_event = {
+						id = EDG_FEO_missions_event.21
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

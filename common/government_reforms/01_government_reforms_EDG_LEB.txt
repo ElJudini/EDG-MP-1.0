@@ -1,0 +1,384 @@
+EDG_LEB_egyptian_government_reform = {
+	#改革，2级，密斯尔维新会（基础）
+	icon = "egyptian_government_reform"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		has_reform = EDG_LEB_egyptian_government_reform
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		yearly_innovativeness = 0.1
+		monthly_egyptian_westernization = 0.05
+		reform_progress_growth = 0.1
+	}
+	government_abilities = {
+		EDG_LEB_egyptian_westernization
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_EGY_tt		#当我们主动接纳思潮时，我们将额外获得5点创新度
+		hidden_effect = {
+			set_country_flag = EDG_institution_embracement_provide_5_innovativeness_flag
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			clr_country_flag = EDG_institution_embracement_provide_5_innovativeness_flag
+		}
+	}
+}
+
+EDG_LEB_dip_army = {
+	#改革，3级，武装垦殖
+	icon = KNI_1
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+	}
+	modifiers = {
+		land_maintenance_modifier = -0.2
+		EDG_peasants_loyalty_modifier = 0.1
+		EDG_peasants_influence_modifier = 0.2
+		reinforce_cost_modifier = -0.1
+		development_cost = -0.1
+		monthly_EDG_LEB_river_order = 0.05
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_dip_army_tt		#记得本地化,增加75%谷物生产效率 Production of §YGrain§!: §G+75.0%§!
+		hidden_effect = {
+			set_country_flag = EDG_LEB_dip_army_flag
+			every_owned_province = {
+				if = {
+					limit = {
+						OR = {
+							trade_goods = livestock
+							trade_goods = grain
+						}
+					}
+					add_province_modifier = {
+						name = grain_bonus_prod
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = grain_bonus_prod
+				}
+				remove_province_modifier = grain_bonus_prod
+			}
+		}
+	}
+}
+
+EDG_LEB_sufism_decree_reform = {
+	#6级共和国平衡主义
+	icon = "sufism_decree"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		religion_group = muslim
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		mission_completed = EDG_LEB_4_16
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		global_unrest = -1
+		diplomats = 1
+		dhimmi_loyalty_modifier = 0.1
+		church_loyalty_modifier = 0.1
+		no_religion_penalty = yes
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_GR_tt
+	}
+	ai = {
+		factor = 1
+	}
+}
+
+EDG_LEB_cultural_administration_reform = {
+	#5级，新月同盟文化管理
+	icon = "conciliarism_reform"
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+	}
+	trigger = {
+		religion_group = muslim
+		has_reform = EDG_LEB_cultural_administration_reform
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		governing_capacity = 200
+		num_accepted_cultures = 3
+		promote_culture_cost = -0.5
+		parliament_chance_of_decision = 0.1
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_culture_tt		#当我们主动接纳文化时，我们将额外获得2.5点创新度
+		hidden_effect = {
+			set_country_flag = EDG_culture_promoted_provide_2_5_innovativeness_flag
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			clr_country_flag = EDG_culture_promoted_provide_2_5_innovativeness_flag
+		}
+	}
+}
+
+EDG_LEB_Jumhuriyya_diwan = {
+	#7级 朱姆胡里耶底万
+	icon = timurid_diwan_reform
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		religion_group = muslim
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+	}
+	modifiers = {
+        national_focus_years = -5
+		parliament_backing_chance = 0.1
+		state_governing_cost = -0.1
+	}
+	custom_attributes = {
+		republican_tradition_from_advisors = yes
+		seizing_land_no_rebels = yes
+		cheaper_coastal_province_core = yes
+	}
+	ai = {
+		factor = 10
+	}
+}
+
+EDG_LEB_arabic_plutocracy_reform = {
+	#8级新月同盟贸易影响力
+	icon = arabian_plutocracy_reform
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		religion_group = muslim
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		mission_completed = EDG_LEB_4_21
+	}
+	lock_level_when_selected = yes
+	government_abilities = {
+		arabic_trade_influence
+	}
+	modifiers = {
+		merchants = 1
+		placed_merchant_power = 5
+		global_prov_trade_power_modifier = 0.1
+	}
+	custom_attributes = {
+		can_establish_trade_protectorates = yes
+	}
+	ai = {
+		factor = 10
+	}
+}
+
+EDG_LEB_republic_order_reform = {
+	#10级共和原则
+	icon = free_city
+	allow_normal_conversion = yes
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		religion = ibadi
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		has_reform = EDG_LEB_arabic_plutocracy_reform 
+		has_reform = EDG_LEB_modern_reform
+	}
+	modifiers = {
+		republican_tradition = 1
+		free_policy = 1	
+		monthly_EDG_LEB_river_order = 0.05
+		monthly_arabic_trade_influence_power = 0.05			
+	}
+	ai = {
+		factor = 10
+	}
+}
+
+EDG_LEB_crescent = {
+	#1级，新月同盟
+	icon = "trading_city"
+	allow_normal_conversion = yes
+	modifiers = {
+		republican_tradition = 0.5
+		monthly_reform_progress = 0.15
+		candidate_random_bonus = 2
+		all_estate_influence_modifier = -0.1
+	}
+	valid_for_nation_designer = yes
+	nation_designer_cost = 40
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		has_reform = EDG_LEB_crescent
+		religion = ibadi
+	}
+	lock_level_when_selected = yes
+	boost_income = yes
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+		# custom_attributes = {
+		# 	blocked_call_diet = yes
+		# }
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+		can_form_trade_league = yes
+		trade_city_reform = trading_city
+	}
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+		enables_divine_idea_group = yes
+		enables_aristocratic_idea_group = no
+		EDG_enable_peasants_estate_ability = yes
+		is_merchant_republic = yes
+		diet_increases_not_influence = yes
+	}
+	government_abilities = {
+		EDG_LEB_river_order_ability
+	}
+	ai = {
+		factor = 100		#generic
+	}
+}
+
+EDG_LEB_modern_reform = {
+	#2级，密斯尔维新会
+	icon = "egyptian_government_reform"
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		has_reform = EDG_LEB_modern_reform
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		yearly_innovativeness = 0.2
+		reform_progress_growth = 0.1
+		technology_cost = -0.1
+		idea_cost = -0.1
+		tolerance_own = 1
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_EGY_tt		#当我们主动接纳思潮时，我们将额外获得5点创新度
+		hidden_effect = {
+			set_country_flag = EDG_institution_embracement_provide_5_innovativeness_flag
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			clr_country_flag = EDG_institution_embracement_provide_5_innovativeness_flag
+		}
+	}
+}
+
+EDG_LEB_water_act = {
+	#4级，共和国水事会议
+	icon = MOR_3
+	potential = {
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+		religion = ibadi
+	}
+	trigger = {
+		religion = ibadi
+		mission_completed = EDG_LEB_1_23
+		OR = {
+			tag = LEB
+			was_tag = LEB
+		}
+	}
+	modifiers = {
+		stability_cost_modifier = -0.1
+		great_project_upgrade_cost = -0.25
+		build_cost = -0.1
+		build_time = -0.1
+		monthly_EDG_LEB_river_order = 0.05
+	}
+	effect = {
+		custom_tooltip = EDG_LEB_water_tt		#当		
+	}
+}

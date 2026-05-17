@@ -1,0 +1,191 @@
+EDG_BOH_prague_clause = { #圣杯派四准则
+	icon = EDG_BOH_prague_clause
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	potential = {
+		religion = hussite
+		has_reform = EDG_BOH_prague_clause
+	}
+	trigger = {
+		has_reform = EDG_BOH_prague_clause
+	}
+	modifiers = {
+		tolerance_own = 1
+		EDG_peasants_privilege_slots = -2
+		EDG_peasants_influence_modifier = -0.2
+		EDG_peasants_loyalty_modifier = -0.2
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+		development_cost = 0.25
+	}
+	custom_attributes = {
+		EDG_enable_peasants_estate_ability = yes
+		EDG_disable_exploit_button = yes
+		#EDG_disable_improve_button = yes
+	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		government_abilities = {
+			EDG_BOH_develpment_storage_tax_mechanic
+			EDG_BOH_develpment_storage_production_mechanic
+			EDG_BOH_develpment_storage_manpower_mechanic
+		}
+	}
+}
+EDG_BOH_commune_of_tabor = { #塔波尔公社
+	icon = EDG_BOH_commune_of_tabor
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	potential = {
+		religion = hussite
+		has_reform = EDG_BOH_commune_of_tabor
+	}
+	trigger = {
+		has_reform = EDG_BOH_commune_of_tabor
+	}
+	modifiers = {
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+		tolerance_own = 2
+		EDG_peasants_privilege_slots = 2
+		production_efficiency = 0.25
+		global_tax_modifier = -0.5
+		reform_progress_growth = 0.25
+	}
+	custom_attributes = {
+		EDG_disable_exploit_button = yes
+		EDG_disable_improve_button = yes
+		can_see_theocratic_heir_stats = yes
+		disables_estate_nobles = yes
+		EDG_enable_peasants_estate_ability = yes
+	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		government_abilities = {
+			EDG_BOH_develpment_storage_tax_mechanic
+			EDG_BOH_develpment_storage_production_mechanic
+			EDG_BOH_develpment_storage_manpower_mechanic
+		}
+	}
+}
+EDG_BOH_picart_commune = { #毕卡特公社
+	icon = revolutionary_republic
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	potential = {
+		religion = hussite
+		has_reform = EDG_BOH_picart_commune
+	}
+	trigger = {
+		has_reform = EDG_BOH_picart_commune
+	}
+	modifiers = {
+		may_recruit_female_generals = yes
+		female_advisor_chance = 0.5
+		global_missionary_strength = 0.03
+		EDG_peasants_privilege_slots = 2
+		production_efficiency = 1
+		min_autonomy = 75
+		global_tax_modifier = -1
+		reform_progress_growth = 0.25
+	}
+	custom_attributes = {
+		disables_estate_nobles = yes
+		EDG_enable_peasants_estate_ability = yes
+	}
+}
+EDG_BOH_commune_elects_the_bishop = { #选举主教制度
+	icon = ven_sempiterni_compagnie
+	potential = {
+		religion = hussite
+		OR = {
+			has_reform = EDG_BOH_prague_clause
+			has_reform = EDG_BOH_commune_of_tabor
+			has_reform = EDG_BOH_picart_commune
+		}
+	}
+	modifiers = {
+		stability_cost_modifier = -0.1
+		global_unrest = -1
+	}
+	conditional = {
+		allow = { has_dlc = "Domination" }
+		has_parliament = yes
+	}
+}
+EDG_BOH_twelve_treaties_of_prague = { #布拉格十二条约
+	icon = aztec_empire_reform
+	lock_level_when_selected = yes
+	allow_normal_conversion = no
+	potential = {
+		OR = {
+			has_reform = EDG_BOH_commune_of_tabor
+			has_reform = EDG_BOH_picart_commune
+		}
+		
+	}
+	modifiers = {
+		production_efficiency = 0.2
+		global_trade_goods_size_modifier = 0.2
+		land_morale = 0.1
+		global_unrest = 1
+		EDG_peasants_influence_modifier = 0.1
+		EDG_peasants_loyalty_modifier = 0.1
+	}
+}
+EDG_BOH_block_play = { #车垒战术
+	icon = "vozove_hradby_reform"
+	allow_normal_conversion = yes
+	potential = {
+		religion = hussite
+		NOT = {
+			technology_group = EDG_Peasant_groups
+		}	
+	}
+	trigger = {
+		mil_tech = 7
+	}
+	modifiers = {
+		fire_damage = 0.1
+		shock_damage_received = -0.1
+		movement_speed = -0.1
+	}
+}
+EDG_BOH_block_play_peasant = { #改进车垒战术
+	icon = "vozove_hradby_reform"
+	allow_normal_conversion = yes
+	potential = {
+		religion = hussite
+		technology_group = EDG_Peasant_groups
+	}
+	trigger = {
+		unit_type = EDG_Peasant_groups
+
+	}
+	modifiers = {
+		cavalry_fire = 1
+		cavalry_flanking = 1
+		morale_damage = 0.1
+	}
+}
+EDG_BOH_people_preacher = { #人民传教士
+	icon = monks
+	allow_normal_conversion = yes
+	potential = {
+		religion = hussite
+		OR = {
+			has_reform = EDG_BOH_prague_clause
+			has_reform = EDG_BOH_commune_of_tabor
+			has_reform = EDG_BOH_picart_commune
+		}
+	}
+	modifiers = {
+		religious_unity = 0.1
+		land_morale = 0.05
+		EDG_peasants_privilege_slots = 4
+	}
+	custom_attributes = {
+		disables_estate_church = yes
+		EDG_enable_merge_church_and_peasants = yes
+	}
+}

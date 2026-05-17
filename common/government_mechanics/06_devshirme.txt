@@ -1,0 +1,222 @@
+devshirme_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 7
+
+	available = {
+		has_dlc = "Domination"
+	}
+
+	interactions = {
+		devshirme_assign_local_pashas = {#委任地方帕夏
+			icon = GFX_devshirme_assign_local_pashas_button
+			trigger = {
+				adm_power_cost = 50
+				any_owned_province = {
+					NOT = { religion_group = ROOT }
+				}
+			}
+			effect = {
+				add_government_power = {
+				  mechanic_type = ottoman_decadence_mechanic
+				  power_type = ottoman_decadence
+				  value = 3
+				}
+				adm_power_cost = 50
+
+				if = {
+					limit = { has_country_flag = EDG_MISSION_TUR_reform_1_27_flag }
+					change_estate_land_share = {
+						estate = all
+						share = -5
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = tur_expanded_administration
+					duration = 7300
+				}
+				custom_tooltip = devshirme_assign_local_pashas_at
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							NOT = { religion_group = ROOT }
+						}
+						add_local_autonomy = -10
+						add_province_modifier = {
+							name = tur_assigned_local_pasha
+							duration = 7300
+						}
+					}
+				}
+				tooltip = {
+					add_local_autonomy = -10
+					add_province_modifier = {
+						name = tur_assigned_local_pasha
+						duration = 7300
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_Mission_TUR_conquest_2_mission_5_8_flag }
+					add_splendor = 50
+				}
+				if = {
+					limit = { has_country_flag = EDG_Mission_TUR_conquest_2_mission_5_9_flag }
+					random_country = {
+						limit = { is_subject_of = root }
+						add_liberty_desire = -20
+					}
+				}
+			}
+			cooldown_years = 20
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 100
+					overextension_percentage = 0.01
+				}
+				modifier = {
+					factor = 20
+					personality = ai_militarist
+				}
+				modifier = {
+					factor = 0
+					is_at_war = no
+					NOT = { overextension_percentage = 0.01 }
+					NOT = {
+						any_owned_province = {
+							NOT = { religion_group = ROOT }
+							local_autonomy_above_min = 10
+						}
+					}
+				}
+				modifier = {
+					factor = 15
+					is_at_war = no
+					NOT = { overextension_percentage = 0.01 }
+					any_owned_province = {
+						NOT = { religion_group = ROOT }
+						local_autonomy_above_min = 10
+					}
+					monthly_adm = 8
+				}
+			}
+		}
+		devshirme_recruit_new_grand_vizier = {#任命新任大维齐尔
+			icon = GFX_devshirme_recruit_new_grand_vizier_button
+			trigger = { 
+				dip_power_cost = 50
+				any_owned_province = {
+					NOT = { religion_group = ROOT }
+				}
+				has_government_power = {
+					mechanic_type = EDG_TUR_Monarchy_ability_3
+					power_type = EDG_TUR_Monarchy_adm_power
+					value = 5
+				}
+			}
+			effect = { 
+				add_government_power = {
+				  mechanic_type = EDG_TUR_Monarchy_ability_3
+				  power_type = EDG_TUR_Monarchy_adm_power
+				  value = -5
+				}
+				dip_power_cost = 50
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_TUR_reform_2_27_flag
+					}
+					country_event = { id = EDG_flavor_TUR_mission.16 }
+				}
+				else = {
+					define_advisor = {
+						type = statesman
+						skill = 3
+						cost_multiplier = 0.67
+					}
+				}
+				add_country_modifier = {
+					name = tur_grand_vizier_modifier
+					duration = 7300
+				}
+			}
+			cooldown_years = 20
+			ai_chance = {
+				factor = 10
+			}
+		}
+		devshirme_conscript_heathen_recruits = {#征召异教徒新兵
+			icon = GFX_devshirme_conscript_heathen_recruits_button
+			trigger = {
+				mil_power_cost = 50
+				any_owned_province = {
+					NOT = { religion_group = ROOT }
+				}
+				has_government_power = {
+					mechanic_type = EDG_TUR_Monarchy_ability_2
+					power_type = EDG_TUR_Monarchy_mil_power
+					value = 5
+				}
+			}
+			effect = { 
+				add_government_power = {
+				  mechanic_type = EDG_TUR_Monarchy_ability_2
+				  power_type = EDG_TUR_Monarchy_mil_power
+				  value = -5
+				}
+				mil_power_cost = 50
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_TUR_reform_2_27_flag
+					}
+					add_yearly_manpower = 1
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_Mission_TUR_conquest_2_mission_4_8_flag
+					}
+					add_army_tradition = 5
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_Mission_TUR_conquest_2_mission_4_9_flag
+					}
+					add_country_modifier = {
+						name = EDG_Mission_TUR_conquest_2_mission_4_9_flag_tur_eyalet_recruits_modifier
+						duration = 7300
+					}
+				}
+				add_country_modifier = {
+					name = tur_eyalet_recruits
+					duration = 7300
+				}
+			}
+			cooldown_years = 20
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 20
+					not = { manpower_percentage = 0.3 }
+				}
+				modifier = {
+					factor = 20
+					not = { manpower_percentage = 0.2 }
+				}
+				modifier = {
+					factor = 20
+					not = { manpower_percentage = 0.1 }
+				}
+				modifier = {
+					factor = 100
+					is_in_important_war = yes
+				}
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+			}
+		}
+	}
+}

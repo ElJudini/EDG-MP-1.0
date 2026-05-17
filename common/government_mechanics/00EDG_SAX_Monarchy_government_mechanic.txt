@@ -1,0 +1,244 @@
+EDG_SAX_Monarchy_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_SAX_Monarchy_power = {#帝国军事领导力
+			gui = EDG_SAX_Monarchy_government_power_gui
+			show_before_interactions = yes
+			max = 100
+			base_monthly_growth = -0.1
+			reset_on_new_ruler = no
+			monarch_power = MIL
+			scaled_modifier = {
+				modifier = {
+					#vassal_manpower_bonus = 0.5
+					vassal_forcelimit_bonus = 1
+					manpower_in_own_culture_provinces = 0.3
+					land_forcelimit_modifier = 0.3
+					land_maintenance_modifier = -0.20
+					monthly_EDG_SAX_Monarchy_power = -0.5
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_3_12_flag 
+					OR = { has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+				}
+				modifier = {
+					improve_relation_modifier = 0.25
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_3_13_flag 
+					OR = { has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+				}
+				modifier = {
+					mil_advisor_cost = -0.25
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_3_15_flag 
+					OR = { has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+				}
+				modifier = {
+					core_creation = -0.25
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_4_13_flag 
+					OR = { has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+				}
+				modifier = {
+					reduced_liberty_desire = 25
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_4_14_flag 
+					OR = { has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+				}
+				modifier = {
+					war_exhaustion_cost = -1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_5_10_flag 
+				}
+				modifier = {
+					mil_tech_cost_modifier = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_5_11_flag 
+				}
+				modifier = {
+					infantry_power = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_5_12_flag 
+				}
+				modifier = {
+					discipline = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_5_14_flag 
+				}
+				modifier = {
+					morale_damage = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_ability_SAX_5_15_flag 
+				}
+				modifier = {
+					infantry_fire = 1
+				}
+			}
+			
+		}
+		
+		
+ 	}
+ 	
+ 	interactions = {
+		EDG_SAX_Monarchy_interactions_1 = {#组建元帅陪臣军
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_rewrite_military_manual
+			cost_type = EDG_SAX_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+ 			trigger = {
+				NOT = { army_size_percentage = 1 }
+				num_of_non_tributary_subjects = 2
+ 			}
+ 			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_4_14_flag }
+					add_army_professionalism = 0.02
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_2_14_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = samurai
+						force_limit_percentage = 0.05
+					}
+				}
+				else = {
+					capital_scope = {
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_SAX_Monarchy_interactions_1_modifier
+					duration = 3650
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+				 modifier = {
+					factor = 0
+					NOT = { is_at_war = yes }
+				 }
+ 			}
+ 		}
+		EDG_SAX_Monarchy_interactions_2 = {#征召属国军队
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_march_divided_fight_united
+			cost_type = EDG_SAX_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				num_of_non_tributary_subjects = 2
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_4_14_flag }
+					add_army_professionalism = 0.02
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_2_14_flag }
+					add_army_tradition = 10
+				}
+				add_subjects_development_manpower = {
+					multiplier = 0.1
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_SAX_Monarchy_interactions_2_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_SAX_Monarchy_interactions_3 = {#招募附庸军官
+			gui = prussian_militarization_gov_mech_3_interaction
+			icon = GFX_prussian_militarization_upgrade	
+			cost_type = EDG_SAX_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				NOT = { mil = 999 }
+				num_of_non_tributary_subjects = 2
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_4_14_flag }
+					add_army_professionalism = 0.02
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_2_14_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_SAX_5_11_flag }
+					add_country_modifier = {
+						name = EDG_mission_SAX_5_11_modifier_2
+						duration = 3650
+					}
+				}
+				custom_tooltip = EDG_SAX_Monarchy_interactions_3_tt
+				every_country = {
+					limit = { is_subject_of = ROOT }
+					ROOT = { add_mil_power = 10 }
+				}
+				
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_SAX_Monarchy_interactions_3_modifier
+					duration = 3650
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+ 	}
+ }
+
+ 
+ 

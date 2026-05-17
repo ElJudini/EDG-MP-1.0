@@ -1,0 +1,356 @@
+EDG_MLO_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_MLO_government_power = {#哲人辉煌度
+			gui = EDG_MLO_government_power_gui
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_MLO_government
+			max = 100
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					innovativeness_gain = 0.5
+					yearly_innovativeness = 0.25
+					monthly_EDG_MLO_government_power_1 = 0.25
+					monthly_EDG_MLO_government_power_2 = 0.25
+					monthly_EDG_MLO_government_power_3 = 0.25
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_2_9_flag }
+				modifier = {
+					innovativeness_gain = 0.5
+				}
+			}
+		}
+		EDG_MLO_government_power_1 = {#文化繁荣度
+			max = 150
+			base_monthly_growth = -0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					idea_cost = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_1_5_flag }
+				modifier = {
+					trade_efficiency = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_1_9_flag }
+				modifier = {
+					monthly_splendor = 5
+				}
+			}
+		}
+		EDG_MLO_government_power_2 = {#艺术繁荣度
+			max = 150
+			base_monthly_growth = -0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					all_estate_loyalty_equilibrium = 0.2
+					monthly_splendor = 5
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_1_8_flag }
+				modifier = {
+					prestige = 2
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_2_8_flag }
+				modifier = {
+					diplomatic_reputation = 2
+				}
+			}
+		}
+		EDG_MLO_government_power_3 = {#科技繁荣度
+			max = 150
+			base_monthly_growth = -0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					technology_cost = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_1_10_flag }
+				modifier = {
+					all_power_cost = -0.05
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_MLO_3_6_flag }
+				modifier = {
+					defensiveness = 0.25
+				}
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_MLO_government_interactions_1 = {#兴办文化教育
+ 			icon = GFX_mechanic_EDG_MLO_government_1
+			cost_type = EDG_MLO_government_power_1
+			cost = 0
+ 			trigger = {
+				has_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power
+					value = 10
+				}
+				check_variable = {
+					which = EDG_Purchase_artwork_value
+					which = 1
+				}
+ 			}
+ 			effect = {
+				add_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power
+					value = -10
+				}
+				add_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power_1
+					value = 2
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_Purchase_artwork_value_ITA
+							which = EDG_Purchase_artwork_value
+						}
+					}
+					change_variable = {
+						which = EDG_Purchase_artwork_value_ITA
+						value = -1
+					}
+					hidden_effect = {
+						change_variable = {
+							which = EDG_Purchase_artwork_value
+							value = -1
+						}
+					}
+				}
+				else = {
+					change_variable = {
+						which = EDG_Purchase_artwork_value
+						value = -1
+					}
+				}
+				random_list = {
+					33 = { add_adm_power = 33 }
+					34 = { add_dip_power = 33 }
+					33 = { add_mil_power = 33 }
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_MLO_2_9_flag
+					}
+					add_adm_power = 50
+					add_dip_power = 50
+					add_mil_power = 50
+				}
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_MLO_government_interactions_1_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = { 
+						name = "EDG_MLO_government_interactions_1_modifier"
+						duration = 3650
+					}
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_MLO_government_interactions_2 = {#开办艺术展览
+			icon = GFX_mechanic_EDG_MLO_government_2
+			cost_type = EDG_MLO_government_power_2
+			cost = 0
+			trigger = {
+				has_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power
+					value = 10
+				}
+				check_variable = {
+					which = EDG_Purchase_artwork_value
+					value = 1
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power
+					value = -10
+				}
+				add_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power_2
+					value = 2
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_Purchase_artwork_value_ITA
+							which = EDG_Purchase_artwork_value
+						}
+					}
+					change_variable = {
+						which = EDG_Purchase_artwork_value_ITA
+						value = -1
+					}
+					hidden_effect = {
+						change_variable = {
+							which = EDG_Purchase_artwork_value
+							value = -1
+						}
+					}
+				}
+				else = {
+					change_variable = {
+						which = EDG_Purchase_artwork_value
+						value = -1
+					}
+				}
+				random_list = {
+					33 = { add_adm_power = 33 }
+					34 = { add_dip_power = 33 }
+					33 = { add_mil_power = 33 }
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_MLO_2_8_flag
+					}
+					add_prestige_or_monarch_power = { amount = 10 }
+				}
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_MLO_government_interactions_2_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_MLO_government_interactions_2_modifier"
+						duration = 3650
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_MLO_government_interactions_3 = {#投资科技创新
+			icon = GFX_mechanic_EDG_MLO_government_3
+			cost_type = EDG_MLO_government_power_3
+			cost = 0
+			trigger = {
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_MLO_1_6_flag
+					}
+					has_government_power = {
+						mechanic_type = EDG_MLO_government_ability
+						power_type = EDG_MLO_government_power
+						value = 7.5
+					}
+				}
+				else = {
+					has_government_power = {
+						mechanic_type = EDG_MLO_government_ability
+						power_type = EDG_MLO_government_power
+						value = 10
+					}
+				}
+				check_variable = {
+					which = EDG_Purchase_artwork_value
+					which = 1
+				}
+			}
+			effect = { 
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_MLO_1_6_flag
+					}
+					add_government_power = {
+						mechanic_type = EDG_MLO_government_ability
+						power_type = EDG_MLO_government_power
+						value = -7.5
+					}
+				}
+				else = {
+					add_government_power = {
+						mechanic_type = EDG_MLO_government_ability
+						power_type = EDG_MLO_government_power
+						value = -10
+					}
+				}
+				add_government_power = {
+					mechanic_type = EDG_MLO_government_ability
+					power_type = EDG_MLO_government_power_3
+					value = 2
+				}
+				random_list = {
+					33 = { add_adm_power = 33 }
+					34 = { add_dip_power = 33 }
+					33 = { add_mil_power = 33 }
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_Purchase_artwork_value_ITA
+							which = EDG_Purchase_artwork_value
+						}
+					}
+					change_variable = {
+						which = EDG_Purchase_artwork_value_ITA
+						value = -1
+					}
+					hidden_effect = {
+						change_variable = {
+							which = EDG_Purchase_artwork_value
+							value = -1
+						}
+					}
+				}
+				else = {
+					change_variable = {
+						which = EDG_Purchase_artwork_value
+						value = -1
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_MISSION_MLO_4_8_flag
+					}
+					add_navy_tradition = 10
+				}
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_MLO_government_interactions_3_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_MLO_government_interactions_3_modifier"
+						duration = 3650
+					}
+				}
+
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+ 	}
+ }

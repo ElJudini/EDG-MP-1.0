@@ -1,0 +1,369 @@
+EDG_ENG_anglo_against_norman_nobles_ability = { #盎格鲁系采邑佣兵贵族影响力VS诺曼系常备王军贵族影响力
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+
+    powers = { 
+        EDG_ENG_anglo_against_norman_nobles_power = { #盎格鲁系采邑佣兵贵族影响力VS诺曼系常备王军贵族影响力
+            gui = EDG_ENG_nobles_power_gui
+            show_before_interactions = yes
+            max = 100
+            min = -100
+            base_monthly_growth = 0
+            reset_on_new_ruler = no
+            scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+						power_type = EDG_ENG_anglo_against_norman_nobles_power
+						value = 0
+					}
+				}
+                modifier = {
+					monthly_EDG_ENG_anglo_against_norman_nobles_power = -0.12
+                    shock_damage = 0.1
+                    fire_damage = 0.1
+                    drill_gain_modifier = 0.2
+                    drill_decay_modifier = -0.2
+                    discipline = 0.1
+                    mercenary_discipline = -0.2
+                    mercenary_manpower= -0.25
+                    mercenary_cost = 0.25
+                    merc_maintenance_modifier = 0.25
+					monthly_EDG_BTA_qinghe_militarization_power = 0.5
+                }
+				start_value = 0
+				end_value = 100
+            }
+            reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+							power_type = EDG_ENG_anglo_against_norman_nobles_power
+							value = 0
+						}
+					}
+				}
+				modifier = {
+					monthly_EDG_ENG_anglo_against_norman_nobles_power = 0.12
+                    mercenary_discipline = 0.2
+                    mercenary_manpower= 0.25
+                    merc_maintenance_modifier = -0.15
+                    mercenary_cost = -0.15
+					discipline = -0.1
+                    manpower_recovery_speed = -0.25
+					global_manpower_modifier = -0.25
+                    global_regiment_cost = 0.25
+					monthly_EDG_BTA_qinghe_militarization_power = 0.5
+				}
+				start_value = -100
+				end_value = 0
+			}
+            on_max_reached = { 
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_power_max_tt
+                hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_ENG_anglo_against_norman_nobles_max_modifier DURATION = 3650 }
+				}
+            }
+            on_min_reached = { 
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_power_min_tt
+                hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_ENG_anglo_against_norman_nobles_min_modifier DURATION = 3650 }
+				}
+            }
+        } 
+    }
+
+    interactions = {
+		EDG_ENG_anglo_against_norman_nobles_interactions_1 = {#在御前会议支持盎格鲁系贵族
+ 			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_1
+ 			trigger = {
+				years_of_income = 0.25
+ 			}
+            cooldown_years = 5
+ 			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_1_tt_a
+                add_years_of_income = -0.25
+				custom_tooltip = EDG_SPACE_TT
+				add_estate_loyalty = {
+    				estate = estate_nobles
+    				loyalty = 10
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_1_tt_b
+				add_government_power = {
+					mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					power_type = EDG_ENG_anglo_against_norman_nobles_power
+					value = -5
+				}
+				custom_tooltip = EDG_SPACE_TT
+                add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_1_modifier
+                    duration = 1825
+                }
+ 			}
+ 			ai_chance = {
+ 				factor = 0
+ 			}
+ 		}
+		EDG_ENG_anglo_against_norman_nobles_interactions_2 = {#在御前会议平衡两派贵族
+			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_2
+            cooldown_years = 5
+			trigger = {
+                OR = {
+                    has_government_power = {
+                        mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    value = 20
+                    }
+                    NOT = {
+                        has_government_power = {
+                            mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					        power_type = EDG_ENG_anglo_against_norman_nobles_power
+					        value = -19
+                        }
+                    }
+                }
+			}
+			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt_a
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt_b
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+                	if = {
+                    	limit = {
+                        	has_government_power = {
+                            	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					        	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					        	value = 20
+                        	}
+                    	}
+                    	add_government_power = {
+					    	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    	value = -20
+				    	}
+                	} 
+					if = {
+                    	limit = {
+                        	NOT = {
+                            	has_government_power = {
+                                	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					            	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					            	value = -20
+                            	}
+                        	}
+                    	}
+                    	add_government_power = {
+					    	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    	value = 20
+				    	}
+					}
+				}
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt_c
+				add_estate_influence_modifier = {
+    				estate = estate_nobles
+    				influence = -10
+    				duration = 1825
+				}
+                add_adm_power = 50
+                add_dip_power = 50
+                add_mil_power = 50
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt_d
+                add_years_of_income = 1
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_2_tt_e
+                add_yearly_manpower = 4
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+		EDG_ENG_anglo_against_norman_nobles_interactions_3 = {#在御前会议支持诺曼系贵族
+			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_3
+            cooldown_years = 5
+			trigger = {
+				manpower_percentage = 0.2
+			}
+			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_3_tt_a
+				add_yearly_manpower = -1
+				custom_tooltip = EDG_SPACE_TT
+				add_estate_loyalty = {
+    				estate = estate_nobles
+    				loyalty = 10
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_3_tt_b
+				add_government_power = {
+					mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					power_type = EDG_ENG_anglo_against_norman_nobles_power
+					value = 5
+				}
+				custom_tooltip = EDG_SPACE_TT
+                add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_3_modifier
+                    duration = 1825
+                }
+			}
+			ai_chance = {
+				factor = 100
+			}
+		}
+        EDG_ENG_anglo_against_norman_nobles_interactions_4 = {#要求盎格鲁系贵族支持战事
+			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_4
+            cooldown_years = 5
+			trigger = {
+				NOT = {
+                    has_government_power = {
+                        mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+				        power_type = EDG_ENG_anglo_against_norman_nobles_power
+				        value = -4
+                    }
+                }
+			}
+			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_4_tt_a
+				add_government_power = {
+					mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					power_type = EDG_ENG_anglo_against_norman_nobles_power
+					value = 5
+				}
+				custom_tooltip = EDG_SPACE_TT
+                add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_4_modifier
+                    duration = 1825
+                }
+				add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_4_modifier_a
+                    duration = 1825
+                }
+				add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_4_modifier_b
+                    duration = 1825
+                }
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+        EDG_ENG_anglo_against_norman_nobles_interactions_5 = {#在御前会议一反常态
+			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_5
+            cooldown_years = 5
+			trigger = {
+                OR = {
+                    has_government_power = {
+                        mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    value = 50
+                    }
+                    NOT = {
+                        has_government_power = {
+                            mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					        power_type = EDG_ENG_anglo_against_norman_nobles_power
+					        value = -49
+                        }
+                    }
+                }
+			}
+			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_5_tt
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_5_tt_a
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_5_tt_b
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+					if = {
+                    	limit = {
+                        	has_government_power = {
+                            	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					        	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					        	value = 50
+                        	}
+                    	}
+                    	set_government_power = {
+					    	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    	value = -50
+				    	}
+                	} 
+					if = {
+                    	limit = {
+                        	NOT = {
+                            	has_government_power = {
+                                	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					            	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					            	value = -49
+                            	}
+                        	}
+                    	}
+                    	set_government_power = {
+					    	mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					    	power_type = EDG_ENG_anglo_against_norman_nobles_power
+					    	value = 50
+				   		}
+                	}
+				}
+				add_estate_loyalty = {
+    				estate = estate_nobles
+    				loyalty = -20
+				}
+				custom_tooltip = EDG_SPACE_TT
+                add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_5_modifier
+                    duration = 365
+				}
+			}
+			ai_chance = {
+				factor = 0
+			}
+		}
+        EDG_ENG_anglo_against_norman_nobles_interactions_6 = {#要求诺曼系贵族支援战事
+			gui = EDG_ENG_nobles_interaction_gui
+            icon = GFX_mechanic_EDG_ENG_nobles_government_6
+            cooldown_years = 1
+			trigger = {
+				has_government_power = {
+                    mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+				    power_type = EDG_ENG_anglo_against_norman_nobles_power
+				    value = 5
+                }
+			}
+			effect = {
+				custom_tooltip = EDG_ENG_anglo_against_norman_nobles_interactions_6_tt_a
+				add_government_power = {
+					mechanic_type = EDG_ENG_anglo_against_norman_nobles_ability
+					power_type = EDG_ENG_anglo_against_norman_nobles_power
+					value = -5
+				}
+				custom_tooltip = EDG_SPACE_TT
+                add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_6_modifier
+                    duration = 1825
+                }
+				add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_6_modifier_a
+                    duration = 1825
+                }
+				add_country_modifier = {
+                    name = EDG_ENG_anglo_against_norman_nobles_interactions_6_modifier_b
+                    duration = 1825
+                }
+			}
+			ai_chance = {
+				factor = 100
+			}
+		}
+ 	}
+}

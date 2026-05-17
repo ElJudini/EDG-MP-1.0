@@ -1,0 +1,253 @@
+EDG_Muwahhidun_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 12
+ 	available = {
+		
+ 	}
+ 
+ 	powers = {
+		EDG_Muwahhidun_government_power = {#穆瓦希德权威
+			#gui = habsburg_glory
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_Muwahhidun_government
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					missionaries = 3
+					tolerance_own = 6
+					global_missionary_strength = 0.06
+					tolerance_heretic = -3
+					tolerance_heathen = -3
+					tolerance_of_heretics_capacity = -3
+					tolerance_of_heathens_capacity = -3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_1_6_flag
+				}
+				modifier = {
+					manpower_in_true_faith_provinces = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_2_5_flag
+				}
+				modifier = {
+					warscore_cost_vs_other_religion = -0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_2_13_flag
+				}
+				modifier = {
+					raze_power_gain = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_5_14_flag
+				}
+				modifier = {
+					manpower_recovery_speed = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_1_8_flag
+				}
+				modifier = {
+					land_forcelimit_modifier = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_1_13_flag
+				}
+				modifier = {
+					institution_spread_from_true_faith = 0.6
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_1_14_flag
+				}
+				modifier = {
+					technology_cost = -0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_2_18_flag
+				}
+				modifier = {
+					privateer_efficiency = 0.9
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_MRK_mission_3_6_flag
+				}
+				modifier = {
+					overextension_impact_modifier = -0.75
+				}
+			}
+		}
+		EDG_Muwahhidun_government_power_1 = {#修订沙里亚点数
+			max = 150
+			monarch_power = ADM
+			base_monthly_growth = 0.15
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+				}
+			}
+		}
+		EDG_Muwahhidun_government_power_2 = {#驱逐不信者点数
+			max = 150
+			monarch_power = DIP
+			base_monthly_growth = 0.15
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+				}
+			}
+		}
+		EDG_Muwahhidun_government_power_3 = {#号召吉哈德点数
+			max = 150
+			monarch_power = MIL
+			base_monthly_growth = 0.15
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+				}
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_Muwahhidun_government_interactions_1 = {#修订沙里亚
+			#gui = Muwahhidun_government_gui
+ 			icon = GFX_EDG_Muwahhidun_government_power1
+			cost_type = EDG_Muwahhidun_government_power_1
+			cost = 100
+ 			trigger = {
+ 			}
+ 			effect = {
+				
+				add_government_power = {
+					mechanic_type = EDG_Muwahhidun_government_ability
+					power_type = EDG_Muwahhidun_government_power
+					value = 1
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				change_government_reform_progress = 20
+
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Muwahhidun_government_modifier_1 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Muwahhidun_government_modifier_1"
+						duration = 7300
+					}
+				}
+
+ 			}
+ 			cooldown_years = 10
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_Muwahhidun_government_interactions_2 = {#驱逐不信者
+		 	#gui = Muwahhidun_government_gui
+			icon = GFX_EDG_Muwahhidun_government_power2
+			cost_type = EDG_Muwahhidun_government_power_2
+			cost = 100
+			trigger = {
+			}
+			effect = { 
+				
+				add_government_power = {
+					mechanic_type = EDG_Muwahhidun_government_ability
+					power_type = EDG_Muwahhidun_government_power
+					value = 1
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_Muwahhidun_government_interactions_2_tt
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							NOT = { religion = EDG_Muwashid }
+							has_province_modifier = religious_zeal_at_conv
+						}
+						remove_province_modifier = religious_zeal_at_conv
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Muwahhidun_government_modifier_2 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Muwahhidun_government_modifier_2"
+						duration = 7300
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 1
+			}
+		  }
+		EDG_Muwahhidun_government_interactions_3 = {#号召吉哈德
+			#gui = Muwahhidun_government_gui
+			icon = GFX_EDG_Muwahhidun_government_power3
+			cost_type = EDG_Muwahhidun_government_power_3
+			cost = 100
+			trigger = {
+			}
+			effect = { 
+				
+				add_government_power = {
+					mechanic_type = EDG_Muwahhidun_government_ability
+					power_type = EDG_Muwahhidun_government_power
+					value = 1
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_war_exhaustion = -2
+
+				custom_tooltip = EDG_SPACE_TT
+
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Muwahhidun_government_modifier_3 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Muwahhidun_government_modifier_3"
+						duration = 7300
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0
+					NOT = { is_at_war = yes }
+					
+				}
+			}
+		}
+ 	}
+ }

@@ -1,0 +1,223 @@
+EDG_YIN_Monarchy_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 	available = {
+ 		has_dlc = "Domination"
+ 	}
+ 
+ 	powers = {
+		EDG_YIN_Monarchy_government_power = {#归心度
+			gui = EDG_YIN_Monarchy_government_power_gui
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_YIN_Monarchy_government
+			max = 100
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					administrative_efficiency = 0.1
+					culture_conversion_cost = -0.25
+					yearly_harmony = 1
+					imperial_mandate = 0.1
+					manpower_in_own_culture_provinces = 1
+				}
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 5 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 10 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 15 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 20 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 25 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 30 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 35 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 40 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 45 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+			range_modifier = {
+				trigger = { num_of_owned_provinces_with = { value = 50 OR = { culture = chihan culture = shandong_culture } } }
+				modifier = { monthly_EDG_YIN_Monarchy_government_power = 0.05 }
+				start_value = 0
+				end_value = 100
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_YIN_Monarchy_government_interactions_1 = {#治平
+			gui = habsburg_glory_interaction
+ 			icon = GFX_inward_focus_button
+			cost_type = EDG_YIN_Monarchy_government_power
+			cost = 10
+ 			trigger = {
+                adm = 3
+ 			}
+ 			effect = {
+				
+				add_government_power = {
+					mechanic_type = EDG_YIN_Monarchy_government_ability
+					power_type = EDG_YIN_Monarchy_government_power
+					value = 2.5
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_mandate = 5
+				add_country_modifier = {
+					name = EDG_YIN_mission_zhiping_modifier
+					duration = 3650
+				}
+			    change_heir_adm = 1
+				custom_tooltip = EDG_YIN_Monarchy_government_interactions_1_MODIFIER_tooltip
+				hidden_effect = {
+				    every_owned_province = {
+						add_devastation = -5
+						add_local_autonomy = -10
+				    }
+				}
+				tooltip = {
+					add_devastation = -5
+					add_local_autonomy = -10
+				}
+				
+ 			}
+ 			cooldown_years = 10
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_YIN_Monarchy_government_interactions_2 = {#进藩
+		 	gui = habsburg_glory_interaction
+			icon = GFX_outward_focus_button
+			cost_type = EDG_YIN_Monarchy_government_power
+			cost = 10
+			trigger = {
+				any_country = {
+					is_subject_of = ROOT
+				}
+				dip = 3
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_YIN_Monarchy_government_ability
+					power_type = EDG_YIN_Monarchy_government_power
+					value = 2.5
+				}
+				change_heir_adm = 1
+				add_mandate = 5
+				if = {
+					limit = {
+						has_country_flag = EDG_YIN_Monarchy_government_interactions_3_stronger_flag
+					}
+					add_subjects_development_ducats = {
+						multiplier = 1
+					}
+					add_subjects_development_manpower = {
+						multiplier = 0.05
+					}
+					every_country = {
+						limit = { is_subject_of = ROOT }
+						add_liberty_desire = 10
+					}
+				}
+				else = {
+					add_subjects_development_ducats = {
+						multiplier = 0.5
+					}
+					add_subjects_development_manpower = {
+						multiplier = 0.025
+					}
+					every_country = {
+						limit = { is_subject_of = ROOT }
+						add_liberty_desire = 10
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_YIN_Monarchy_government_interactions_3 = {#威重
+			gui = habsburg_glory_interaction
+			icon = GFX_expansion_focus_button
+			cost_type = EDG_YIN_Monarchy_government_power
+			cost = 10
+			trigger = {
+				mil = 3
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_YIN_Monarchy_government_ability
+					power_type = EDG_YIN_Monarchy_government_power
+					value = 2.5
+				}
+				change_heir_mil = 1
+				add_mandate = 5
+				create_general = { tradition = 80}
+				add_country_modifier = {
+					name = EDG_YIN_mission_weizhong_modifier
+					duration = 3650
+				}
+				custom_tooltip = EDG_YIN_Monarchy_government_interactions_3_MODIFIER_tooltip
+				hidden_effect = {
+				    every_owned_province = {
+						add_nationalism = -10
+				    }
+				}
+				tooltip = {
+					add_nationalism = -10
+				}
+
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+ 	}
+ }

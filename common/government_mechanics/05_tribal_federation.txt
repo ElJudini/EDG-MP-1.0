@@ -1,0 +1,277 @@
+tribal_federation_mechanic = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 5
+	available = {
+		OR = {
+			has_dlc = "Cradle of Civilization"
+			has_dlc = "King of Kings"
+		}
+	}
+
+	powers = {
+		tribal_allegiance = {
+			max = 100
+			reset_on_new_ruler = no
+			base_monthly_growth = 0
+			development_scaled_capped_monthly_growth = -0.25
+			development_scale_cap = 1
+			
+			scaled_modifier = {
+				modifier = {
+					manpower_recovery_speed = 0.33
+					cavalry_power = 0.33
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_4_1_tribal_ability_falg }
+				modifier = {
+					discipline = 0.05
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_4_1_tribal_ability_falg }
+				modifier = {
+					global_missionary_strength = 0.02
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_3_4_tribal_ability_flag }
+				modifier = {
+					global_unrest = -2
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_4_3_tribal_ability_flag }
+				modifier = {
+					global_tax_modifier = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_4_5_tribal_ability_flag }
+				modifier = {
+					land_morale = 0.2
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_mission_AKK_5_4_tribal_ability_flag }
+				modifier = {
+					monthly_reform_progress_modifier = 0.2
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		enlist_general = {
+			icon = GFX_enlist_general_button
+			cost_type = tribal_allegiance
+			cost = 30
+			trigger = {
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_5_2_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_1_2_tribal_ability_flag }
+					add_war_exhaustion = -2
+				}
+				if = {
+					limit = {
+						has_country_flag = ARB_upgrade_enlist_general_flag
+					}
+					create_general = {
+						tradition = 60
+					}
+				}
+				else = {
+					create_general = {
+						tradition = 40
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 100
+					is_in_important_war = yes
+					has_government_power = {
+						mechanic_type = tribal_federation_mechanic
+						power_type = tribal_allegiance
+						value = 95
+					}
+				}
+				modifier = {
+					factor = 20
+					not = { 
+						has_leaders = {
+							value = 1
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					not = { 
+						has_leaders = {
+							value = 2
+							type = general
+							include_monarch = no
+							include_heir = no
+						}
+					}
+				}
+				modifier = {
+					factor = 20
+					not = { 
+						has_leader_with = {
+							general = yes
+							total_pips = 6
+						}
+					}
+				}
+				modifier = {
+					factor = 0.1
+					has_leader_with = {
+						general = yes
+						total_pips = 11
+					}
+				}
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+			}
+		}
+		
+		train_horsemanship = {
+			icon = GFX_train_horsemanship_button
+			cost_type = tribal_allegiance
+			cost = 30
+			trigger = {
+				NOT = { has_country_modifier = ABR_train_horsemanship_modifier_upgraded }
+				NOT = { has_country_modifier = train_horsemanship_modifier }
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_2_2_tribal_ability_flag }
+					define_advisor = { 
+						type = cavalry_commander 
+						cost_multiplier = 0.75
+						skill = 3 
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_4_2_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_1_6_tribal_ability_flag }
+					if = {
+						limit = {
+							piety = 0
+						}
+						add_piety = 0.25
+					}
+					else_if = {
+						limit = {
+							NOT = { piety = 0 }
+						}
+						add_piety = -0.25
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = ARB_upgrade_train_horsemanship_flag
+					}
+					add_country_modifier = {
+						name = ABR_train_horsemanship_modifier_upgraded
+						duration = 5475
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = train_horsemanship_modifier
+						duration = 3650
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 100
+				modifier = {
+					factor = 100
+					is_in_important_war = yes
+					has_government_power = {
+						mechanic_type = tribal_federation_mechanic
+						power_type = tribal_allegiance
+						value = 95
+					}
+				}
+				modifier = {
+					factor = 0
+					not = { cavalry_fraction = 0.1 }
+				}
+				modifier = {
+					factor = 0.1
+					not = { cavalry_fraction = 0.2 }
+				}
+				modifier = {
+					factor = 0
+					is_at_war = no
+				}
+				modifier = {
+					factor = 0
+					NOT = { manpower_percentage = 0.8 }
+				}
+			}
+		}
+		
+		conscript_from_tribes = {
+			icon = GFX_conscript_from_tribes_button
+			cost_type = tribal_allegiance
+			cost = 30
+			trigger = {
+				capital_scope = {
+					controller = { 
+						tag = ROOT
+					}
+					has_siege = no
+				}
+			}
+			effect = {
+				if = {
+					limit = { has_country_flag = EDG_mission_AKK_3_2_tribal_ability_flag }
+					add_army_tradition = 10
+				}
+				capital_scope = {
+					add_unit_construction = {
+						type = cavalry
+						amount = 6
+						speed = 0.25
+						cost = 0
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = turkoman_safavids_conscripted
+							has_country_flag = ARB_upgrade_conscript_from_the_tribes_flag
+						}
+					}
+					custom_tooltip = " "
+					
+					add_yearly_manpower = 1
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 0	#Just no
+			}
+		}
+	}
+}

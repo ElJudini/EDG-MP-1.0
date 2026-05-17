@@ -1,0 +1,292 @@
+EDG_HAB_Monarchy_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 	available = {
+ 	}
+ 
+ 	powers = {
+		EDG_HAB_Monarchy_government_power = {#哈布斯堡王朝点数
+			gui = habsburg_glory
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_HAB_Monarchy_government
+			max = 100
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					diplomatic_reputation = 2.5
+					diplomatic_annexation_cost = -0.25
+					imperial_reform_catholic_approval = 25
+					imperial_authority_value = 0.1
+					reduced_liberty_desire_on_same_continent = 25
+				}
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_HAB_Monarchy_government_interactions_1 = {#联姻
+			gui = habsburg_glory_interaction
+ 			icon = GFX_EDG_HAB_Monarchy_government_power1
+			cost_type = EDG_HAB_Monarchy_government_power
+			cost = 5
+ 			trigger = {
+				any_country = {
+					marriage_with = ROOT
+				}
+ 			}
+ 			effect = {
+				
+				add_government_power = {
+					mechanic_type = EDG_HAB_Monarchy_government_ability
+					power_type = EDG_HAB_Monarchy_government_power_1
+					value = 2.5
+				}
+
+				custom_tooltip = EDG_HAB_Monarchy_government_interactions_1_tt
+				tooltip = {
+					add_opinion = {
+					  who = ROOT
+					  modifier = EDG_HAB_Monarchy_government_interactions_1_opinion
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				every_country = {
+					limit = {
+						marriage_with = ROOT
+					}
+					add_opinion = {
+					  who = ROOT
+					  modifier = EDG_HAB_Monarchy_government_interactions_1_opinion
+					}
+					hidden_effect = {
+						ROOT = {
+							add_dip_power = 20
+						}
+					}
+				}
+ 			}
+ 			cooldown_years = 10
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_HAB_Monarchy_government_interactions_2 = {#帝国
+		 	gui = habsburg_glory_interaction
+			icon = GFX_EDG_HAB_Monarchy_government_power2
+			cost_type = EDG_HAB_Monarchy_government_power
+			cost = 5
+			trigger = {
+				is_emperor = yes
+				NOT = { has_country_modifier = EDG_HAB_Monarchy_government_modifier_2 }
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_HAB_Monarchy_government_ability
+					power_type = EDG_HAB_Monarchy_government_power_2
+					value = 2.5
+				}
+				hidden_effect = {
+				  EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_HAB_Monarchy_government_modifier_2 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_HAB_Monarchy_government_modifier_2"
+						duration = 3650
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 1
+			}
+		  }
+		EDG_HAB_Monarchy_government_interactions_3 = {#领地
+			gui = habsburg_glory_interaction
+			icon = GFX_EDG_HAB_Monarchy_government_power3
+			cost_type = EDG_HAB_Monarchy_government_power
+			cost = 5
+			trigger = {
+				any_country = {
+					is_subject_of = ROOT
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_HAB_Monarchy_government_ability
+					power_type = EDG_HAB_Monarchy_government_power_3
+					value = 2.5
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_HAB_Monarchy_government_interactions_3_stronger_flag
+					}
+					add_subjects_development_ducats = {
+						multiplier = 1
+					}
+					add_subjects_development_manpower = {
+						multiplier = 0.05
+					}
+					every_country = {
+						limit = { is_subject_of = ROOT }
+						add_liberty_desire = 10
+					}
+				}
+				else = {
+					add_subjects_development_ducats = {
+						multiplier = 0.5
+					}
+					add_subjects_development_manpower = {
+						multiplier = 0.025
+					}
+					every_country = {
+						limit = { is_subject_of = ROOT }
+						add_liberty_desire = 10
+					}
+				}
+
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 0
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		   }
+		   EDG_HAB_Monarchy_government_interactions_4 = {#民族
+				gui = habsburg_glory_interaction
+				icon = GFX_EDG_HAB_Monarchy_government_power4
+				cost_type = EDG_HAB_Monarchy_government_power
+				cost = 5
+				trigger = {
+				}
+				effect = { 
+					add_government_power = {
+						mechanic_type = EDG_HAB_Monarchy_government_ability
+						power_type = EDG_HAB_Monarchy_government_power_4
+						value = 2.5
+					}
+					custom_tooltip = EDG_HAB_Monarchy_government_interactions_4_tt
+					tooltip = {
+						add_local_autonomy = -10
+						add_unrest = -5
+						add_nationalism = -5
+					}
+					hidden_effect = {
+						every_owned_province = {
+							limit = {
+								OR = {
+									accepted_culture = ROOT
+									has_owner_accepted_culture = yes
+									has_owner_culture = yes
+								}
+							}
+							add_local_autonomy = -10
+							add_unrest = -5
+							add_nationalism = -5
+						}
+					}
+				}
+				cooldown_years = 10
+				ai_chance = {
+					factor = 1
+				}
+			}
+			EDG_HAB_Monarchy_government_interactions_5 = {#宗教
+				gui = habsburg_glory_interaction
+				icon = GFX_EDG_HAB_Monarchy_government_power5
+				cost_type = EDG_HAB_Monarchy_government_power
+				cost = 5
+				trigger = {
+				}
+				effect = { 
+					add_government_power = {
+						mechanic_type = EDG_HAB_Monarchy_government_ability
+						power_type = EDG_HAB_Monarchy_government_power_5
+						value = 2.5
+					}
+					add_papal_influence = 10
+					every_country = {
+						limit = {
+							religion = catholic
+						}
+						add_opinion = {
+							who = ROOT
+							modifier = EDG_HAB_Monarchy_government_interactions_5_opinion
+						}
+						
+					}
+				}
+				cooldown_years = 10
+				ai_chance = {
+					factor = 1
+				}
+			}
+			EDG_HAB_Monarchy_government_interactions_6 = {#文艺
+				gui = habsburg_glory_interaction
+				icon = GFX_EDG_HAB_Monarchy_government_power6
+				cost_type = EDG_HAB_Monarchy_government_power
+				cost = 5
+				trigger = {
+				}
+				effect = { 
+					add_government_power = {
+						mechanic_type = EDG_HAB_Monarchy_government_ability
+						power_type = EDG_HAB_Monarchy_government_power_6
+						value = 2.5
+					}
+					custom_tooltip = EDG_HAB_Monarchy_government_interactions_6_tt
+					if = {
+						limit = { has_country_flag = EDG_HAB_mission_3_25_flag }
+						change_innovativeness = 2
+					}
+					if = {
+						limit = { monthly_adm = 15 }
+						add_prestige_or_monarch_power = { amount = 25 }
+					}
+					else_if = {
+						limit = { monthly_adm = 12 }
+						add_prestige_or_monarch_power = { amount = 20 }
+					}
+					else_if = {
+						limit = { monthly_adm = 9 }
+						add_prestige_or_monarch_power = { amount = 15 }
+					}
+					else_if = {
+						limit = { monthly_adm = 6 }
+						add_prestige_or_monarch_power = { amount = 10 }
+					}
+					else = {
+						add_prestige_or_monarch_power = { amount = 5 }
+					}
+					custom_tooltip =  EDG_SPACE_TT
+					random_list = {
+						50 = {
+							define_advisor = {
+							  type = artist
+							  skill = 3
+							  cost_multiplier = 0.5
+							  culture = ROOT
+							}
+							custom_tooltip =  EDG_SPACE_TT
+						}
+						50 = {
+							define_advisor = {
+							  type = philosopher
+							  skill = 3
+							  cost_multiplier = 0.5
+							  culture = ROOT
+							}
+						}
+					}
+				}
+				cooldown_years = 10
+				ai_chance = {
+					factor = 1
+				}
+			}
+ 	}
+ }

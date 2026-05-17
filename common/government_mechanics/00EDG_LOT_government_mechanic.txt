@@ -1,0 +1,311 @@
+EDG_LOT_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_LOT_government_power = {#王冠权威
+			gui = EDG_LOT_government_power_gui
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_LOT_government
+			max = 100	#Monarchy direction
+			base_monthly_growth = -0.15
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					global_tax_modifier = 0.2
+					global_autonomy = -0.2
+					monthly_reform_progress_modifier = 0.25
+					vassal_forcelimit_bonus = 0.5
+					vassal_income = 0.5
+					max_absolutism = 50
+					monthly_EDG_LOT_government_power = -1
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_flavor_LOT_mission_34_c_flag
+				}
+				modifier = {
+					global_trade_goods_size_modifier = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_flavor_LOT_mission_35_c_flag
+				}
+				modifier = {
+					production_efficiency = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_flavor_LOT_mission_36_c_flag
+				}
+				modifier = {
+					prestige = 2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_mission_LOT_4_22_a_flag
+				}
+				modifier = {
+					trade_efficiency = 0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_mission_LOT_4_25_a_flag
+				}
+				modifier = {
+					culture_conversion_cost = -0.25
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_country_flag = EDG_flavor_LOT_mission_52_a_flag
+				}
+				modifier = {
+					adm_advisor_cost = -0.5
+				}
+			}
+		}
+		EDG_LOT_government_power_1 = {#行政权威值
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = ADM
+		}
+		EDG_LOT_government_power_2 = {#组织权威值
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = DIP
+		}
+		EDG_LOT_government_power_3 = {#军事权威值
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = MIL
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_LOT_government_interactions_1 = {#改革行政法院
+ 			icon = GFX_mechanic_EDG_LOT_government_1
+			cost_type = EDG_LOT_government_power_1
+			cost = 100
+ 			trigger = {
+ 			}
+ 			effect = {
+				add_government_power = {
+					mechanic_type = EDG_LOT_government_ability
+					power_type = EDG_LOT_government_power
+					value = 2
+				}
+				change_government_reform_progress = 10
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_4_22_a_flag }
+					add_years_of_income = 0.25
+				}
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_51_a_flag }
+					random_country = {
+						limit = { is_subject_of = root }
+						add_liberty_desire = -25
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_LOT_government_interactions_1_tt
+				tooltip = {
+					add_local_autonomy = -20
+					add_devastation = -10
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							is_state = yes
+						}
+						add_local_autonomy = -20
+						add_devastation = -10
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_LOT_government_interactions_1_tt_2
+				tooltip = {
+					add_prosperity = 100
+					add_province_modifier = {
+						name = EDG_LOT_government_interactions_1_province_modifier
+						duration = 3650
+					}
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							is_state = yes
+							EDG_has_building_courthouse_trigger = yes
+						}
+						add_prosperity = 100
+						remove_province_modifier = EDG_LOT_government_interactions_1_province_modifier
+						add_province_modifier = {
+							name = EDG_LOT_government_interactions_1_province_modifier
+							duration = 3650
+						}
+					}
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_LOT_government_interactions_2 = {#召开枢密院会议
+			icon = GFX_mechanic_EDG_LOT_government_2
+			cost_type = EDG_LOT_government_power_2
+			cost = 100
+			trigger = {
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_LOT_government_ability
+					power_type = EDG_LOT_government_power
+					value = 2
+				}
+				custom_tooltip = EDG_EDG_LOT_government_interactions_2_tt
+				hidden_effect = { country_event = { id = EDG_flavor_LOT_mission.23 } }
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_54_a_flag }
+					hidden_effect = { remove_country_modifier = EDG_flavor_LOT_mission_54_a_flag_modifier }
+					add_country_modifier = {
+						name = EDG_flavor_LOT_mission_54_a_flag_modifier
+						duration = 3650
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_54_b_flag }
+					add_years_of_income = 0.25
+				}
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_54_c_flag }
+					add_estate_loyalty = {
+						estate = all
+						loyalty = 20
+						short = yes
+					}
+				}
+				else = {
+					add_estate_loyalty = {
+						estate = all
+						loyalty = 10
+						short = yes
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_54_d_flag }
+					add_legitimacy = 20
+				}
+				if = {
+					limit = { has_country_flag = EDG_flavor_LOT_mission_54_e_flag }
+					hidden_effect = { remove_country_modifier = EDG_flavor_LOT_mission_54_e_flag_modifier }
+					add_country_modifier = {
+						name = EDG_flavor_LOT_mission_54_e_flag_modifier
+						duration = 3650
+					}
+				}
+				
+
+				hidden_effect = {
+					change_variable = {
+						which = EDG_LOT_government_interactions_2_used_value
+						value = 1
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_LOT_government_interactions_3 = {#提拔圣骑士
+			icon = GFX_mechanic_EDG_LOT_government_3
+			cost_type = EDG_LOT_government_power_3
+			cost = 100
+			trigger = {
+			}
+			effect = {
+				add_government_power = {
+					mechanic_type = EDG_LOT_government_ability
+					power_type = EDG_LOT_government_power
+					value = 2
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_1_20_a_flag }
+					add_army_tradition = 5
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_1_20_b_flag }
+					add_estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 10
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_2_20_a_flag }
+					add_estate_loyalty = {
+						estate = estate_church
+						loyalty = 10
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_2_20_b_flag }
+					add_papal_influence = 10
+				}
+				custom_tooltip = EDG_LOT_government_interactions_3_tt
+				if = { limit = { army_tradition = 90 } create_general = { tradition = 100 add_shock = 1 } }
+				else_if = { limit = { army_tradition = 80 } create_general = { tradition = 90 add_shock = 1 } }
+				else_if = { limit = { army_tradition = 70 } create_general = { tradition = 80 add_shock = 1 } }
+				else_if = { limit = { army_tradition = 60 } create_general = { tradition = 70 add_shock = 1 } }
+				else_if = { limit = { army_tradition = 50 } create_general = { tradition = 60 add_shock = 1 } }
+				else_if = { limit = { army_tradition = 40 } create_general = { tradition = 50 add_shock = 1 } }
+				else = { limit = { army_tradition = 30 } create_general = { tradition = 40 add_shock = 1 } }
+				
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_1_6_flag }
+					add_manpower = 1
+				}
+				if = {
+					limit = { has_country_flag = EDG_mission_LOT_3_10_flag }
+					add_manpower = 1
+				}
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = cavalry
+						special_unit_category = hussars
+						force_limit_percentage = 0.05
+					}
+				}
+				else = {
+					capital_scope = {
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+					}
+				}
+				
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+ 	}
+ }

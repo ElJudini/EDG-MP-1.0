@@ -1,0 +1,178 @@
+EDG_ENG_anglo_against_norman_nobles = { #盎格鲁系VS诺曼系贵族的御前军事会议
+    icon = "NAP_5"
+    allow_normal_conversion = yes
+    lock_level_when_selected = yes
+    potential = {
+		OR = {
+			tag = ENG
+            was_tag = ENG
+			has_reform = EDG_ENG_anglo_against_norman_nobles
+			have_had_reform = EDG_ENG_anglo_against_norman_nobles
+		}
+	}
+    trigger = {
+        OR = {
+			has_reform = EDG_ENG_anglo_against_norman_nobles
+			have_had_reform = EDG_ENG_anglo_against_norman_nobles
+		}
+    }
+    modifiers = {
+        global_manpower_modifier = -0.15
+		infantry_power = 0.10
+		cavalry_power = 0.10
+        nobles_influence_modifier = 0.1
+		nobles_loyalty_modifier = 0.1
+		nobles_privilege_slots = 2
+    }
+    conditional = {
+		allow = {
+			has_dlc = "Origins"
+		}
+		allow_cawa = yes
+		custom_attributes = {
+			unlock_boyars_military_privileges = yes
+		}
+	}
+    government_abilities = {
+        EDG_ENG_anglo_against_norman_nobles_ability #启用盎格鲁系采邑佣兵贵族影响力VS诺曼系常备王军贵族影响力
+    }
+}
+
+EDG_ENG_earl_committee = { #伯爵委员会
+	icon = "EFY_4"
+	allow_normal_conversion = yes
+    lock_level_when_selected = yes
+	legacy_equivalent = feudal_monarchy
+	valid_for_nation_designer = yes
+	nation_designer_cost = 50
+	potential = {
+		OR = {
+			tag = ENG
+			was_tag = ENG
+			has_reform = EDG_ENG_earl_committee
+			have_had_reform = EDG_ENG_earl_committee
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_ENG_earl_committee
+			have_had_reform = EDG_ENG_earl_committee
+		}
+	}
+	modifiers = {
+		global_unrest = -2
+		all_estate_influence_modifier = 0.1
+		legitimacy = -0.5
+		min_autonomy = 25
+		global_autonomy = 0.1
+		governing_capacity_modifier = -0.25
+	}
+	has_parliament = yes
+	custom_attributes = {
+		locked_government_type = yes
+		buffed_strong_duchies = yes		#强大公爵领额外+5%忠诚
+		EDG_BRA_ban_annex = yes			#禁止吞并属国
+	}
+}
+
+EDG_ENG_royal_centralization_politics = { #金雀花皇家集权政治
+	icon = protectorate_parliament_reform
+	allow_normal_conversion = yes
+    lock_level_when_selected = yes
+	legacy_equivalent = feudal_monarchy
+	valid_for_nation_designer = yes
+	nation_designer_cost = 50
+	potential = {
+		OR = {
+			tag = ENG
+			was_tag = ENG
+			has_reform = EDG_ENG_royal_centralization_politics
+			have_had_reform = EDG_ENG_royal_centralization_politics
+		}
+	}
+	trigger = {
+		OR = {
+			has_reform = EDG_ENG_royal_centralization_politics
+			have_had_reform = EDG_ENG_royal_centralization_politics
+		}
+	}
+	modifiers = {
+		all_estate_influence_modifier = -0.1
+		min_autonomy_in_territories = -0.1
+		global_autonomy = -0.05
+		governing_capacity_modifier = 0.25
+		no_stability_loss_on_monarch_death = yes
+	}
+	has_parliament = yes
+	custom_attributes = {
+		locked_government_type = yes
+		limited_strong_duchies = yes		#强大公爵领不再增加影响力
+		diet_increases_not_influence = yes	#召开议事会不再增加影响力
+	}
+	government_abilities = {
+        EDG_ENG_royal_centralization_politics_ability #启用金雀花皇家权威能力
+    }
+}
+
+EDG_ENG_anglican_vatican = { #英格兰圣公宗教廷
+	icon = "patriarch"
+	allow_normal_conversion = yes
+    lock_level_when_selected = yes
+	potential = {
+		OR = {
+			tag = ENG
+            was_tag = ENG
+			has_reform = EDG_ENG_anglican_vatican
+			have_had_reform = EDG_ENG_anglican_vatican
+		}
+	}
+    trigger = {
+        OR = {
+			has_reform = EDG_ENG_anglican_vatican
+			have_had_reform = EDG_ENG_anglican_vatican
+		}
+		OR = {
+			tag = ENG
+            was_tag = ENG
+		}
+		religion = anglican
+    }
+	modifiers = {
+		missionaries = 1
+		tolerance_own = 2
+		church_power_modifier = 0.25
+		monthly_church_power = 0.5
+		global_heretic_missionary_strength = 0.03
+		religious_unity = 0.25
+	}
+	custom_attributes = {
+		free_religious_culture = yes
+		improved_defender_of_faith = yes
+		temples_modifier = yes
+		seizing_land_no_rebels_from_estate_church = yes
+		EDG_ENG_anglican_vatican_interaction_decisions = yes
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_tax_building_trigger = yes
+				}
+				add_province_modifier = {
+					name = gov_expanded_temple_rights_mod
+					duration = -1
+				}
+			}
+		}
+	}
+	post_removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = gov_expanded_temple_rights_mod
+				}
+				remove_province_modifier = gov_expanded_temple_rights_mod
+			}
+		}
+	}
+}

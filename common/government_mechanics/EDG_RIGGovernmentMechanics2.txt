@@ -1,0 +1,128 @@
+rig_government_mechanics = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 17
+
+	available = {
+		OR = {
+			has_dlc = "Third Rome"
+			has_dlc = "Domination"
+		}
+	}
+	
+	powers = {
+		rig_government_mechanics_adm_power = {
+			max = 150
+			monarch_power = ADM
+			base_monthly_growth = 0.25
+			scaled_modifier = {
+				modifier = { 
+					governing_capacity_modifier = 0.25
+				}
+			}
+		}
+		rig_government_mechanics_dip_power = {
+			max = 150
+			monarch_power = DIP
+			base_monthly_growth = 0.25
+			scaled_modifier = {
+				modifier = { 
+					ae_impact = -0.25
+				}
+			}
+		}
+		rig_government_mechanics_mil_power = {
+			max = 150
+			monarch_power = MIL
+			base_monthly_growth = 0.25
+			scaled_modifier = {
+				modifier = { 
+					vassal_manpower_bonus = 0.25
+				}
+			}
+		}
+	}
+
+	interactions = {
+		rig_government_ability_adm = {
+			#gui = rig_government_mechanics_gui
+			icon = GFX_russian_ability_ADM
+			cost_type = rig_government_mechanics_adm_power
+			cost = 100
+			trigger = {
+				num_of_subjects = 1
+				adm_power = 100
+			}
+			effect = {
+				custom_tooltip = rig_government_ability_adm.tt
+				add_adm_power = -100
+				hidden_effect = {
+					rig_every_subject_country_effect = {
+						effect = "
+							add_adm_power = 250
+						"
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+			}
+		}
+		rig_government_ability_dip = {
+			#gui = rig_government_mechanics_gui
+			icon = GFX_russian_ability_DIP
+			cost_type = rig_government_mechanics_dip_power
+			cost = 100
+			trigger = { 
+				num_of_subjects = 1
+				dip_power = 50
+			}
+			effect = { 
+				custom_tooltip = rig_government_ability_dip.tt
+				add_dip_power = -50
+				hidden_effect = {
+					rig_every_subject_country_effect = {
+						effect = "
+							add_rebel_progress = {
+								value = -50
+							}
+						"
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+			}
+		}
+		rig_government_ability_mil = {
+			#gui = rig_government_mechanics_gui
+			icon = GFX_russian_ability_MIL
+			cost_type = rig_government_mechanics_mil_power
+			cost = 100
+			trigger = {
+				capital_scope = {
+					controller = { 
+						tag = ROOT
+					}
+					has_siege = no
+				}
+				is_at_war = yes
+			}
+			effect = { 
+				custom_tooltip = rig_government_ability_mil.tt
+				hidden_effect = {
+					rig_every_subject_country_effect = {
+						effect = "
+							add_war_exhaustion = -5
+						"
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 1
+			}
+		}
+	}
+}

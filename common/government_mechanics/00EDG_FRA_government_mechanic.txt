@@ -1,0 +1,240 @@
+EDG_FRA_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_FRA_government_power = {#外省与宫廷
+			gui = EDG_FRA_government_power_gui
+			show_before_interactions = yes
+			#icon = GFX_mechanic_EDG_FRA_government
+			max = 100	#Monarchy direction
+			min = -100	#Parliament direction
+			base_monthly_growth = -0.15
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = EDG_FRA_government_ability
+						power_type = EDG_FRA_government_power
+						value = 0
+					}
+				}
+				modifier = {
+					global_tax_modifier = 0.2
+					vassal_forcelimit_bonus = 0.5
+					vassal_income = 0.2
+					yearly_corruption = 0.1
+					land_forcelimit_modifier = 0.33
+					max_absolutism = 50
+					global_unrest = 5
+					monthly_EDG_FRA_government_power = -1
+					monthly_EDG_FRA_government_power_1 = 2
+					monthly_EDG_FRA_government_power_2 = 2
+					monthly_EDG_FRA_government_power_3 = 2
+				}
+			}
+			scaled_modifier = {
+				trigger = {
+					has_government_power = { 
+						mechanic_type = EDG_FRA_government_ability
+						power_type = EDG_FRA_government_power
+						value = 0
+					}
+					has_country_flag = EDG_FRA_government_ability_as_absolutism_flag
+					NOT = { current_age = age_of_absolutism }
+					NOT = { current_age = age_of_revolutions }
+				}
+				modifier = {
+					administrative_efficiency = 0.3
+					discipline = 0.05
+					core_decay_on_your_own = -0.5
+					monthly_ottoman_decadence = -0.5
+					monthly_EDG_FRA_government_power = 0.1
+				}
+			}
+			reverse_scaled_modifier = {
+				trigger = {
+					NOT = {
+						has_government_power = { 
+							mechanic_type = EDG_FRA_government_ability
+							power_type = EDG_FRA_government_power
+							value = 0
+						}
+					}
+				}
+				modifier = {
+					nobles_loyalty_modifier = 0.2
+					reduced_liberty_desire_on_other_continent = -33
+					same_culture_advisor_cost = -0.2
+					relation_with_same_culture = 100
+					relation_with_same_culture_group = 100
+					diplomatic_annexation_cost = -0.2
+
+					years_of_nationalism = -10
+					yearly_absolutism = -1
+					max_absolutism = -50
+					monthly_EDG_FRA_government_power = 1
+				}
+			}
+			on_max_reached = {
+				if = {
+					limit = {
+						NOT = { has_country_modifier = EDG_flavorFRA_mission_26_a_modifier }
+					}
+					custom_tooltip = EDG_FRA_government_ability_at
+					hidden_effect = {
+						country_event = {
+							id = EDG_flavorFRA_mission.26
+						}
+					}
+				}
+			}
+			on_min_reached = {
+				if = {
+					limit = {
+						NOT = { has_country_modifier = EDG_flavorFRA_mission_27_a_modifier }
+					}
+					custom_tooltip = EDG_FRA_government_ability_bt
+					hidden_effect = {
+						country_event = {
+							id = EDG_flavorFRA_mission.27
+						}
+					}
+				}
+			}
+		}
+		EDG_FRA_government_power_1 = {#行政绝对主义
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = ADM
+		}
+		EDG_FRA_government_power_2 = {#经济绝对主义
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = DIP
+		}
+		EDG_FRA_government_power_3 = {#军事绝对主义
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			monarch_power = MIL
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_FRA_government_interactions_1 = {#扩大高等法院
+ 			icon = GFX_mechanic_EDG_FRA_government_1
+			cost_type = EDG_FRA_government_power_1
+			cost = 100
+ 			trigger = {
+ 			}
+ 			effect = {
+				add_government_power = {
+					mechanic_type = EDG_FRA_government_ability
+					power_type = EDG_FRA_government_power
+					value = 2
+				}
+				change_government_reform_progress = 10
+				custom_tooltip = EDG_FRA_government_interactions_1_autonomy_tt
+				hidden_effect = {
+					every_owned_province = {
+						add_local_autonomy_no_authority_effect = -25
+					}
+				}
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_FRA_government_interactions_1_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = { 
+						name = "EDG_FRA_government_interactions_1_modifier"
+						duration = 3650
+					}
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_FRA_government_interactions_2 = {#召开三级议会
+			icon = GFX_mechanic_EDG_FRA_government_2
+			cost_type = EDG_FRA_government_power_2
+			cost = 100
+			trigger = {
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_FRA_government_ability
+					power_type = EDG_FRA_government_power
+					value = 2
+				}
+				add_years_of_income = 0.25
+				add_subjects_development_ducats = {
+					multiplier = 0.2
+				}
+				add_rebel_progress = {
+					value = -20
+				}
+				
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_FRA_government_interactions_2_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_FRA_government_interactions_2_modifier"
+						duration = 3650
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_FRA_government_interactions_3 = {#组建常备王军
+			icon = GFX_mechanic_EDG_FRA_government_3
+			cost_type = EDG_FRA_government_power_3
+			cost = 100
+			trigger = {
+			}
+			effect = {
+				add_government_power = {
+					mechanic_type = EDG_FRA_government_ability
+					power_type = EDG_FRA_government_power
+					value = 2
+				}
+				add_army_tradition = 5
+				# if = {
+				# 	limit = {
+				# 		army_size_percentage = 1
+				# 	}
+				# }
+				# else = {
+				# 	create_unit_forcelimit_percentage = {
+				# 		type = cavalry
+				# 		special_unit_category = carolean
+				# 		force_limit_percentage = 0.05
+				# 	}
+				# }
+				
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_FRA_government_interactions_3_modifier DURATION = 3650 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_FRA_government_interactions_3_modifier"
+						duration = 3650
+					}
+				}
+
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 10
+					is_at_war = yes
+				}
+			}
+		}
+ 	}
+ }

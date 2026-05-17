@@ -1,0 +1,85 @@
+FOI_SPA_golden_age_mechanic = { #黄金时代
+	powers = {
+		FOI_SPA_golden_age = {
+			gui = FOI_SPA_golden_age_mech
+			max = 100
+			min = -100
+			reset_on_new_ruler = no
+			development_scaled_monthly_growth = 0.25
+			is_good = yes
+			scaled_modifier = {
+				trigger = {
+					has_government_power = {
+						mechanic_type = FOI_SPA_golden_age_mechanic
+						power_type = FOI_SPA_golden_age
+						value = 0
+					}
+				}
+				modifier = {
+					stability_cost_modifier = -1
+					land_morale = 0.5
+					global_trade_goods_size_modifier = 0.5
+					trade_steering = 1
+					naval_morale = 0.5
+					naval_maintenance_modifier = -0.5
+					yearly_corruption = -2
+					inflation_reduction = 6
+					legitimacy = 1
+				}
+			}
+			reverse_scaled_modifier = {
+				start_value = -100
+				trigger = {
+					NOT = {
+						has_government_power = {
+							mechanic_type = FOI_SPA_golden_age_mechanic
+							power_type = FOI_SPA_golden_age
+							value = 0
+						}
+					}
+				}
+				modifier = { 
+					stability_cost_modifier = 2
+					yearly_corruption = 2
+					inflation_reduction	= -6
+					interest = 6
+					legitimacy = -6
+				}
+			}
+			reverse_scaled_modifier = {
+				start_value = -100
+				trigger = {
+					ai = yes
+				}
+				modifier = { 
+					yearly_corruption = -1
+					inflation_reduction	= 5
+					interest = -5
+					legitimacy = 3
+				}
+			}
+			on_max_reached = {
+				if = {
+					limit = { 
+						OR = {
+							in_golden_age = yes
+							has_country_flag = gc_ara_golden_age2_flag
+						}
+					}
+					set_government_power = {
+						mechanic_type = FOI_SPA_golden_age_mechanic
+						power_type = FOI_SPA_golden_age
+						value = 0
+					}
+				}
+				else = {
+					set_government_power = {
+						mechanic_type = FOI_SPA_golden_age_mechanic
+						power_type = FOI_SPA_golden_age
+						value = -100
+					}
+				}
+			}
+		}
+	}
+}

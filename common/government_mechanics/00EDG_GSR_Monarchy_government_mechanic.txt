@@ -1,0 +1,238 @@
+EDG_GSR_Monarchy_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 
+ 	powers = {
+		EDG_GSR_Monarchy_power = {#帝国行政化
+			gui = EDG_GSR_Monarchy_government_power_gui
+			show_before_interactions = yes
+			max = 100
+			#base_monthly_growth = 0.1
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					administrative_efficiency = 0.05
+					global_tax_modifier = 0.3
+					advisor_cost = -0.2
+					yearly_corruption = 0.1
+					reduced_liberty_desire = 33
+					vassal_forcelimit_bonus = 0.5
+					vassal_income = 0.5
+					vassal_manpower_bonus = 0.5
+					vassal_sailors_bonus = 0.5
+					vassal_naval_forcelimit_bonus = 0.5
+					diplomatic_annexation_cost = -0.25
+					diplomatic_upkeep = 3
+					monthly_EDG_GSR_Monarchy_power = -0.3
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_2_7_government_flag }
+				modifier = {
+					siege_ability = 0.33
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_4_7_government_flag }
+				modifier = {
+					trade_efficiency = 0.33
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_3_8_government_flag }
+				modifier = {
+					global_trade_power = 0.33
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_1_4_government_flag }
+				modifier = {
+					diplomatic_reputation = 3
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_5_4_government_flag }
+				modifier = {
+					global_heretic_missionary_strength = 0.03
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_GSR_formal_1_10_government_flag }
+				modifier = {
+					land_morale = 0.15
+				}
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_GSR_Monarchy_interactions_1 = {#修订行政法典
+			icon = GFX_mechanic_EDG_GSR_government_1
+			cost_type = EDG_GSR_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+ 			trigger = {
+				mission_completed = EDG_MISSION_GSR_formal_3_16
+ 			}
+ 			effect = {
+				custom_tooltip = EDG_GSR_Monarchy_interactions_1_tt
+				tooltip = {
+					add_local_autonomy = -15
+					add_nationalism = -5
+				}
+				hidden_effect = {
+					every_owned_province = {
+						add_local_autonomy = -15
+						add_nationalism = -5
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { has_country_flag = EDG_MISSION_GSR_formal_2_17_flag }
+					add_estate_loyalty = { estate = estate_nobles loyalty = 10 }
+				}
+				if = {
+					limit = { has_country_flag = EDG_MISSION_GSR_formal_3_17_flag }
+					add_estate_loyalty = { estate = estate_church loyalty = 10 }
+				}
+				if = {
+					limit = { has_country_flag = EDG_MISSION_GSR_formal_4_17_flag }
+					add_estate_loyalty = { estate = estate_burghers loyalty = 10 }
+				}
+				
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_GSR_Monarchy_interactions_1_modifier
+					duration = 1825
+				}
+ 			}
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_GSR_Monarchy_interactions_2 = {#整合藩属权力
+			icon = GFX_mechanic_EDG_GSR_government_2
+			cost_type = EDG_GSR_Monarchy_power
+			cost = 10
+			cooldown_years = 5
+			trigger = {
+				mission_completed = EDG_MISSION_GSR_formal_3_16
+			}
+			effect = {
+				if = {
+					limit = { total_development = 500 }
+					add_subjects_development_ducats = {
+						multiplier = 0.5
+					}
+				}
+				else = {
+					add_subjects_development_ducats = {
+						multiplier = 1
+					}
+				}
+				if = {
+					limit = {
+						OR = {
+							has_country_flag = EDG_MISSION_GSR_formal_1_9_flag
+							has_country_flag = EDG_MISSION_GSR_formal_2_19_flag
+							has_country_flag = EDG_MISSION_GSR_formal_3_19_flag
+							has_country_flag = EDG_MISSION_GSR_formal_4_19_flag
+						}
+					}
+					custom_tooltip = EDG_SPACE_TT
+					every_country = {
+						limit = { is_subject_of = root }
+						if = {
+							limit = { ROOT = { has_country_flag = EDG_MISSION_GSR_formal_3_9_flag } }
+							add_liberty_desire = -10
+						}
+						if = {
+							limit = { ROOT = { has_country_flag = EDG_MISSION_GSR_formal_2_19_flag } }
+							add_mil_power = -10
+							root = { add_mil_power = 10 }
+						}
+						if = {
+							limit = { ROOT = { has_country_flag = EDG_MISSION_GSR_formal_3_19_flag } }
+							add_adm_power = -10
+							root = { add_adm_power = 10 }
+						}
+						if = {
+							limit = { ROOT = { has_country_flag = EDG_MISSION_GSR_formal_4_19_flag } }
+							add_dip_power = -10
+							root = { add_dip_power = 10 }
+						}
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_GSR_Monarchy_interactions_2_modifier
+					duration = 1825
+				}
+			}
+			ai_chance = {
+				factor = 1
+			}
+		}
+		EDG_GSR_Monarchy_interactions_3 = {#征募采邑骑兵
+			icon = GFX_mechanic_EDG_GSR_government_3
+			cost_type = EDG_GSR_Monarchy_power
+			cost = 10
+			cooldown_years = 10
+			trigger = {
+				mission_completed = EDG_MISSION_GSR_formal_3_16
+			}
+			effect = {
+				if = {
+					limit = { total_development = 500 }
+					add_subjects_development_manpower = {
+						multiplier = 0.025
+					}
+				}
+				else = {
+					add_subjects_development_manpower = {
+						multiplier = 0.05
+					}
+				}
+
+				if = {
+					limit = { has_country_flag = EDG_MISSION_GSR_formal_5_17_flag }
+				}
+
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = cavalry
+						special_unit_category = hussars
+						force_limit_percentage = 0.1
+					}
+				}
+				else = {
+					capital_scope = {
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+						hussars_cavalry = ROOT
+					}
+				}
+			}
+			ai_chance = {
+				factor = 1
+				modifier = {
+				   factor = 0
+				   NOT = { is_at_war = yes }
+			   }
+			}
+		}
+ 	}
+ }
+
+ 
+ 

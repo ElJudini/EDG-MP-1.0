@@ -1,0 +1,505 @@
+EDG_MEN_honorland_reform = {
+	#荣光领地，1
+	icon = "ottoman_government"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	maintain_dynasty = yes
+	potential = {
+		has_reform = EDG_MEN_honorland_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_honorland_reform
+	}
+	modifiers = {
+		governing_capacity = 100
+		morale_damage = 0.05
+		no_stability_loss_on_monarch_death = yes
+	}
+	effect = {
+		set_country_flag = EDG_MEN_honor_flag
+	}
+	government_abilities = {
+		EDG_MEN_roman_honor_ability
+	}
+}
+
+EDG_MEN_RUM_empire_reform = {
+	#荣光罗姆国，1
+	icon = "rum_sultanate"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	fixed_rank = 3
+	potential = {
+		has_reform = EDG_MEN_RUM_empire_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_RUM_empire_reform
+	}
+	lock_level_when_selected = yes
+	maintain_dynasty = yes
+	modifiers = {
+		governing_capacity = 300
+		morale_damage = 0.1
+		free_policy = 1
+		no_stability_loss_on_monarch_death = yes
+	}
+	government_abilities = {
+		EDG_MEN_roman_honor_ability
+	}
+	custom_attributes = {
+		locked_government_type = yes
+	}
+}
+
+EDG_MEN_honor_city_reform = {
+	#荣耀城邦
+	icon = free_city
+	fixed_rank = 1
+	potential = {
+		has_reform = EDG_MEN_honor_city_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_honor_city_reform
+	}
+	modifiers = {
+		global_tax_income = 12
+		production_efficiency = 0.25
+		development_cost = -0.25
+		global_trade_power = 0.25
+	}
+}
+
+EDG_MEN_holy_honor_city_reform = {
+	#神圣荣耀城邦
+	icon = free_city
+	fixed_rank = 1
+	free_city = yes
+	potential = {
+		has_reform = EDG_MEN_holy_honor_city_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_holy_honor_city_reform
+		NOT = {
+			num_of_cities = 2
+		}
+	}
+	modifiers = {
+		global_tax_income = 12
+		production_efficiency = 0.25
+		development_cost = -0.25
+		global_trade_power = 0.25
+	}
+}
+EDG_MEN_BYZ_constantinopolis_reform = {
+	#帝国中枢
+	icon = free_city
+	fixed_rank = 3
+	lock_level_when_selected = yes	
+	potential = {
+		has_reform = EDG_MEN_BYZ_constantinopolis_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_BYZ_constantinopolis_reform
+	}
+	modifiers = {
+		global_tax_income = 120
+		global_trade_power = 0.25
+		land_forcelimit = 3
+	}
+	custom_attributes = {
+		locked_government_type = yes
+		heir = no
+        foreign_slave_rulers = yes		
+	}
+}
+
+EDG_MEN_BYZ_reform = {
+	#王室保留地
+	icon = free_city
+	fixed_rank = 3
+	lock_level_when_selected = yes	
+	potential = {
+		has_reform = EDG_MEN_BYZ_reform
+	}
+	trigger = {
+		has_reform = EDG_MEN_BYZ_reform
+	}
+	modifiers = {
+		global_tax_income = 120
+		global_trade_power = 0.25
+		can_not_declare_war = yes
+		land_forcelimit = 3
+	}
+}
+
+EDG_MEN_hella_noble_reform = {
+	#羁縻希腊，2
+	icon = "spy"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				tag = RUM
+				was_tag = MEN
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_reform = EDG_MEN_hella_noble_reform
+	}
+	modifiers = {
+		spy_offence = 0.1
+		core_creation = -0.05
+		all_estate_influence_modifier = -0.1
+		allow_free_estate_privilege_revocation = yes
+		monthly_EDG_roman_honor_power = 0.05
+	}
+	effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					culture_group = byzantine
+					NOT = {
+						has_province_modifier = EDG_MEN_culture_modifier
+					}
+				}
+				add_province_modifier = {
+					name = EDG_MEN_culture_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+	removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = EDG_MEN_culture_modifier
+				}
+				remove_province_modifier = EDG_MEN_culture_modifier
+			}
+		}
+	}
+	post_removed_effect = {
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = EDG_MEN_culture_modifier
+				}
+				remove_province_modifier = EDG_MEN_culture_modifier
+			}
+		}
+	}
+}
+
+EDG_MEN_ROM_Security_reform = {
+	#城邦的保护者，3
+	icon = free_city
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				tag = RUM
+				was_tag = MEN
+			}
+			was_tag = RUM
+		}
+	}
+	modifiers = {
+		diplomats = 1
+		diplomatic_reputation = 1
+		diplomatic_upkeep = 1
+		vassal_forcelimit_bonus = 0.15
+		vassal_manpower_bonus = 0.1
+		monthly_EDG_roman_honor_power = 0.05
+	}
+	custom_attributes = {
+		winning_battles_increases_legitimacy = yes
+	}
+	effect = {
+		custom_tooltip = EDG_MEN_government_c_1_tt		
+		set_country_flag = EDG_MEN_ROM_Security_1_flag		#不占外交关系
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_ROM_Security_1_flag
+	}
+}
+
+EDG_MEN_the_committee_of_ROM_Security_reform = {
+	#众军团之统领，4
+	icon = "janissary_government"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_5_15_flag
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		infantry_power = 0.1
+		drill_decay_modifier = -0.5
+		drill_gain_modifier = 0.5
+		monthly_EDG_roman_honor_power = 0.05
+	}
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_1_tt	
+		set_country_flag = EDG_MEN_government_1_1_flag		#罗马荣耀加战力
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_1_flag
+	}
+}
+
+EDG_MEN_anti_annexation_of_land = {
+	#反兼并监察局，5
+	icon = "peasant_republic"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_5_21_flag
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		governing_cost = -0.1
+		nobles_loyalty_modifier = -0.05
+		global_trade_goods_size_modifier = 0.1
+		global_monthly_devastation = -0.05
+		state_maintenance_modifier = -0.1
+		monthly_EDG_roman_honor_power = 0.05
+	}
+	custom_attributes = {
+		EDG_enable_peasants_estate_ability = yes
+	}
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_3_tt	
+		set_country_flag = EDG_MEN_government_1_3_flag		#罗马荣耀加生产效率
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_3_flag
+	}
+}
+
+EDG_MEN_EMP_R_reform = {
+	#帝皇信仰，6
+	icon = "BYZ_3"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_1_15_flag
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		max_absolutism = 10
+		global_autonomy = -0.05
+		global_missionary_strength = 0.02
+		monthly_EDG_roman_honor_power = 0.05
+	}	
+	custom_attributes = {
+		free_religious_culture = yes
+		on_church_built_clergy_loyalty = yes
+		enables_divine_idea_group = yes
+		temples_modifier = yes
+		seizing_land_no_rebels_from_estate_church = yes
+		improved_defender_of_faith = yes		#Being Defender of Faith increases Dip Rep, Tolerance and Morale
+	}
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_2_tt	
+		set_country_flag = EDG_MEN_government_1_2_flag		#罗马荣耀增加传教能力
+		hidden_effect = {
+			if = {
+				limit = {
+					is_defender_of_faith = yes
+				}
+				add_country_modifier = {
+					name = gov_improved_defender_of_faith_mod
+					duration = -1
+				}
+			}
+		}
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_2_flag
+	}
+	post_removed_effect = {
+		remove_country_modifier = gov_improved_defender_of_faith_mod
+	}
+}
+
+EDG_MEN_Royal_enterprise_reform = {
+	#皇室特许产业园区，8
+	icon = "consulate_of_the_sea"
+	allow_normal_conversion = yes
+	lock_level_when_selected = yes
+	valid_for_nation_designer = no
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_1_34_flag
+	}
+	lock_level_when_selected = yes
+	modifiers = {
+		merchants = 1
+		development_cost = -0.1		
+		global_allowed_num_of_manufactories = 1
+		trade_efficiency = 0.1	
+	}
+	conditional = {
+		allow = {
+			has_dlc = "Res Publica"
+			has_dlc = "Mare Nostrum"
+		}
+		can_use_trade_post = yes
+	}	
+	custom_attributes = {
+		enables_plutocratic_idea_group = yes
+	}
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_6_tt	
+		set_country_flag = EDG_MEN_government_1_6_flag		#罗马荣耀加商品产出
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_6_flag
+	}		
+}
+
+EDG_MEN_heir_of_ROM_reform = {
+	#罗马的继承者,9
+	icon = "BYZ_2"
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_3_22_flag
+	}	
+	conditional = {
+		allow = {
+			has_dlc = "Common Sense"
+		}
+		has_parliament = yes
+	}
+	modifiers = {
+		max_absolutism = 10
+		monthly_reform_progress_modifier = 0.1				
+		max_possible_parliament_seats = 10						
+		monthly_EDG_roman_honor_power = 0.05
+	}	
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_4_tt	
+		set_country_flag = EDG_MEN_government_1_4_flag		#罗马荣耀加行政效率
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_4_flag
+	}	
+}
+
+EDG_MEN_the_highest_reform = {
+	#至高指令，10
+	icon = "roman_empire"	
+	potential = {
+		religion = orthodox
+		OR = {
+			tag = MEN
+			AND = {
+				was_tag = MEN
+				tag = RUM
+			}
+			was_tag = RUM
+		}
+	}
+	trigger = {
+		has_country_flag = EDG_MEN_3_16_flag
+	}	
+	modifiers = {
+		max_absolutism = 10
+		max_absolutism_effect = 0.2		
+		monthly_splendor = 2
+		monarch_admin_power = 2
+		monarch_diplomatic_power = 2
+		monarch_military_power = 2				
+	}	
+	custom_attributes = {
+		seizing_land_loyalty = yes
+		seizing_land_no_rebels = yes
+	}	
+	effect = {
+		custom_tooltip = EDG_MEN_government_1_5_tt	
+		set_country_flag = EDG_MEN_government_1_5_flag		#罗马荣耀加行政容量
+	}
+	removed_effect = {
+		clr_country_flag = EDG_MEN_government_1_5_flag
+	}	
+}

@@ -1,0 +1,101 @@
+EDG_Militaristic_fervor_ability = {
+	alert_icon_gfx = GFX_alerticons_government_mechanics
+	alert_icon_index = 10
+	available = {
+
+	}
+
+	powers = {
+		EDG_Militaristic_fervor_power = {
+			max = 100
+			base_monthly_growth = 0
+			scaled_modifier = {
+				modifier = {
+					land_morale = 0.2
+					land_forcelimit_modifier = 0.5
+					army_tradition_from_battle = 0.25
+					global_tax_modifier = -0.25
+					production_efficiency = -0.25
+					trade_efficiency = -0.25
+					land_maintenance_modifier = -0.20
+					monthly_EDG_Militaristic_fervor_power = -1
+					monthly_EDG_Military_Service_government_power = 0.2
+					manpower_in_accepted_culture_provinces = 0.5
+					manpower_in_culture_group_provinces = 0.5
+					manpower_in_own_culture_provinces = 0.5	
+					army_tradition_from_battle = 1	
+					province_warscore_cost = -0.2	
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		EDG_Militaristic_fervor_interactions = {
+			gui = militarization_gov_mech
+			cost_type = EDG_Militaristic_fervor_power
+			center = no
+			trigger = {
+				has_government_power = {
+					mechanic_type = EDG_Militaristic_fervor_ability
+					power_type = EDG_Militaristic_fervor_power
+					value = 20
+				}
+			}
+			effect = { 
+				add_government_power = {
+					mechanic_type = EDG_Militaristic_fervor_ability
+					power_type = EDG_Militaristic_fervor_power
+					value = -20
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				#人力
+					add_yearly_manpower = 0.25
+				#陆军职业度
+				if = {
+					limit = {
+						has_country_flag = EDG_Militaristic_fervor_interactions_professionalism_flag
+					}
+					add_army_professionalism = 0.04
+				}
+				else = {
+					add_army_professionalism = 0.02
+				}
+				#陆军传统
+				if = {
+					limit = {
+						has_country_flag = EDG_Militaristic_fervor_interactions_tradition_flag
+					}
+					add_army_tradition = 15
+				}
+				else = {
+					add_army_tradition = 7.5
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = { EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Militaristic_fervor_interactions_modifier_1 DURATION = 3650 } }
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Militaristic_fervor_interactions_modifier_1"
+						duration = 3650
+					}
+				}
+			}
+			cooldown_years = 0
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 10
+					has_government_power = {
+						mechanic_type = EDG_Militaristic_fervor_ability
+						power_type = EDG_Militaristic_fervor_power
+						value = 30
+					}
+					mil_power_cost = 500
+					is_at_war = yes
+				}
+			}
+		}
+	}
+}

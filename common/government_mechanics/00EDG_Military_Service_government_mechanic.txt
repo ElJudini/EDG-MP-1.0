@@ -1,0 +1,312 @@
+EDG_Military_Service_government_ability = {
+    alert_icon_gfx = GFX_alerticons_government_mechanics
+ 	alert_icon_index = 10
+ 	available = {
+ 	}
+ 
+ 	powers = {
+		# EDG_Military_Service_government_power = {#国家军役化点数
+		# 	#gui = habsburg_glory
+		# 	show_before_interactions = yes
+		# 	#icon = GFX_mechanic_EDG_Military_Service_government
+		# 	max = 150
+		# 	base_monthly_growth = 0.05
+		# 	reset_on_new_ruler = no
+		# 	scaled_modifier = {
+		# 		modifier = {
+		# 			global_tax_modifier = -0.5
+		# 			manpower_in_accepted_culture_provinces = 0.5
+		# 			manpower_in_culture_group_provinces = 0.5
+		# 			manpower_in_own_culture_provinces = 0.5	
+		# 			army_tradition_from_battle = 1		
+		# 		}
+		# 	}
+		# 	scaled_modifier = {
+		# 		trigger = {
+		# 			has_country_flag = EDG_Military_Service_government_drill_flag
+		# 		}
+		# 		modifier = {
+		# 			drill_gain_modifier = 0.25
+		# 			drill_decay_modifier = -0.25
+		# 		}
+		# 	}
+		# }
+		EDG_Military_Service_government_power_1 = {#神职军役化点数
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					stability_cost_modifier = -0.25
+					# global_tax_modifier = -0.25
+					estate_church_influence_modifier = -0.1
+					church_loyalty_modifier = -0.1
+					manpower_in_true_faith_provinces = 0.25
+					monthly_EDG_Military_Service_government_power = 0.1
+				}	
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_BUL_roma_5_14_modifier_flag }
+				modifier = {
+					tolerance_own = 3
+					missionaries = 2
+				}
+			}
+		}
+		EDG_Military_Service_government_power_2 = {#公民军役化点数
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					yearly_army_professionalism = 0.025
+					# trade_efficiency = -0.25
+					estate_burghers_influence_modifier = -0.1
+					burghers_loyalty_modifier = -0.1
+					manpower_in_own_culture_provinces = 0.25
+					monthly_EDG_Military_Service_government_power = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_BUL_roma_5_17_modifier_flag }
+				modifier = {
+					land_maintenance_modifier = -0.25
+					army_tradition_decay = -0.025
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_BUL_roma_4_18_modifier_flag }
+				modifier = {
+					naval_morale = 0.25
+					navy_tradition_decay = -0.025
+				}
+			}
+		}
+		EDG_Military_Service_government_power_3 = {#勋贵军役化点数
+			max = 150
+			base_monthly_growth = 0.05
+			reset_on_new_ruler = no
+			scaled_modifier = {
+				modifier = {
+					army_tradition = 2
+					# state_maintenance_modifier = 0.25
+					nobles_influence_modifier = -0.1
+					nobles_loyalty_modifier = -0.1
+					land_forcelimit_modifier = 0.5
+					monthly_EDG_Military_Service_government_power = 0.1
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_BUL_roma_1_17_modifier_flag }
+				modifier = {
+					leader_cost = -0.25
+					army_tradition_from_battle = 0.5
+				}
+			}
+			scaled_modifier = {
+				trigger = { has_country_flag = EDG_MISSION_BUL_roma_1_18_modifier_flag }
+				modifier = {
+					siege_ability = 0.25
+					assault_fort_ability = 0.25
+				}
+			}
+		}
+ 	}
+ 	
+ 	interactions = {
+		EDG_Military_Service_government_interactions_1 = {#神职军役化
+			#gui = Military_Service_government_gui
+			icon = GFX_russian_rule_dip_button
+			cost_type = EDG_Military_Service_government_power_1
+			cost = 0
+ 			trigger = {
+ 			}
+ 			effect = {
+				add_adm_power = -100
+				
+				custom_tooltip = EDG_SPACE_TT
+				# add_government_power = {
+				# 	mechanic_type = EDG_Military_Service_government_ability
+				# 	power_type = EDG_Military_Service_government_power_1
+				# 	value = 1
+				# }
+				add_government_power = {
+					mechanic_type = EDG_Militaristic_fervor_ability
+					power_type = EDG_Militaristic_fervor_power
+					value = 2.5
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = cawa
+						force_limit_percentage = 0.1
+					}
+				}
+				else = {
+					capital_scope = {
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+						cawa_infantry = ROOT
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Military_Service_government_modifier_1 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Military_Service_government_modifier_1"
+						duration = 7300
+					}
+				}
+
+ 			}
+ 			cooldown_years = 10
+ 			ai_chance = {
+ 				factor = 1
+ 			}
+ 		}
+		EDG_Military_Service_government_interactions_2 = {#公民军役化
+		 	#gui = Military_Service_government_gui
+			icon = GFX_russian_rule_mil_button
+			cost_type = EDG_Military_Service_government_power_2
+			cost = 0
+			trigger = {
+			}
+			effect = { 
+				add_dip_power = -100
+				
+				custom_tooltip = EDG_SPACE_TT
+				# add_government_power = {
+				# 	mechanic_type = EDG_Military_Service_government_ability
+				# 	power_type = EDG_Military_Service_government_power_2
+				# 	value = 1
+				# }
+				add_government_power = {
+					mechanic_type = EDG_Militaristic_fervor_ability
+					power_type = EDG_Militaristic_fervor_power
+					value = 2.5
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = carolean
+						force_limit_percentage = 0.1
+					}
+				}
+				else = {
+					capital_scope = {
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+						carolean_infantry = ROOT
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Military_Service_government_modifier_2 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Military_Service_government_modifier_2"
+						duration = 7300
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 1
+			}
+		  }
+		EDG_Military_Service_government_interactions_3 = {#勋贵军役化
+			#gui = Military_Service_government_gui
+			icon = GFX_russian_rule_adm_button
+			cost_type = EDG_Military_Service_government_power_3
+			cost = 0
+			trigger = {
+			}
+			effect = { 
+				add_mil_power = -100
+				
+				custom_tooltip = EDG_SPACE_TT
+				# add_government_power = {
+				# 	mechanic_type = EDG_Military_Service_government_ability
+				# 	power_type = EDG_Military_Service_government_power_3
+				# 	value = 1
+				# }
+				add_government_power = {
+					mechanic_type = EDG_Militaristic_fervor_ability
+					power_type = EDG_Militaristic_fervor_power
+					value = 2.5
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				if = {
+					limit = { NOT = { land_forcelimit = 100 } }
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = samurai
+						force_limit_percentage = 0.1
+					}
+				}
+				else = {
+					capital_scope = {
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+						samurai_infantry = ROOT
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+
+				hidden_effect = {
+					EDG_add_or_extend_country_modifier_effect = { MODIFIER = EDG_Military_Service_government_modifier_3 DURATION = 7300 }
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_Military_Service_government_modifier_3"
+						duration = 7300
+					}
+				}
+			}
+			cooldown_years = 10
+			ai_chance = {
+				factor = 10
+				modifier = {
+					factor = 0
+					NOT = { is_at_war = yes }
+					
+				}
+			}
+		}
+ 	}
+ }

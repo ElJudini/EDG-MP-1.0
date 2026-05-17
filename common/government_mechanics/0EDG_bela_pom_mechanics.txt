@@ -1,0 +1,425 @@
+EDG_POM_germanization_mechanic = { #德意志化进程
+	available = {
+		OR = {
+			has_dlc = "Third Rome"
+			has_dlc = "Domination"
+		}
+	}
+	
+	powers = {
+		EDG_POM_adm_power = { #招来德意志农民进程
+			max = 100
+			monarch_power = ADM
+			base_monthly_growth = 2
+		}
+		EDG_POM_dip_power = { #引进德意志商人进程
+			max = 100
+			monarch_power = DIP
+			base_monthly_growth = 2
+		}
+		EDG_POM_mil_power = { #提拔德意志贵族进程
+			max = 100
+			monarch_power = MIL
+			base_monthly_growth = 2
+		}
+		EDG_POM_germanization_power = { #德意志化进程
+			gui = russian_modernization_gov_mech
+			max = 100
+			min = 0
+			base_monthly_growth = 0
+			reverse_scaled_modifier = {#主修正
+				modifier = {
+					development_cost = 0.33 #发展成本+25%
+					improve_relation_modifier = -0.20 #改善关系速度-25%
+					ae_impact = 0.20
+					diplomatic_reputation = -1.0
+					global_manpower_modifier = -0.20 #人力修正-25%
+					global_tax_modifier = -0.20 #税收修正-25%
+					#infantry_power = -0.05 #步兵作战能力-10%
+					discipline = -0.05 #训练度-5%
+					build_cost = 0.20 #建筑花费+25%
+					#technology_cost = 0.10 #科技花费+10%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					ai = no
+					not = {
+						has_disaster = EDG_POM_KSB_gryf_war
+					}
+					always = no
+				}
+			}
+			reverse_scaled_modifier = {#教士debuff
+				modifier = {
+					global_manpower_modifier = -0.25 #人力修正-25%
+					global_tax_modifier = -0.25 #税收修正-25%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					not = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 50
+						}
+					}
+					always = no
+				}
+			}
+			scaled_modifier = {#任务buff-条顿
+				modifier = {
+					global_manpower_modifier = 0.10 #人力修正-25%
+					global_tax_modifier = 0.10 #税收修正-25%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_5_2
+					#has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+					always = no
+				}
+			}
+			reverse_scaled_modifier = {#贵族debuff
+				modifier = {
+					infantry_power = -0.10 #步兵作战能力-10%
+					discipline = -0.05 #训练度-5%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					not = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 50
+						}
+					}
+					always = no
+				}
+			}
+			scaled_modifier = {#任务buff-勃兰登堡
+				modifier = {
+					infantry_power = 0.05 #步兵作战能力-10%
+					discipline = 0.02 #训练度-5%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_2_2
+					#has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+					always = no
+				}
+			}
+			reverse_scaled_modifier = {#市民debuff
+				modifier = {
+					build_cost = 0.25 #建筑花费+25%
+					technology_cost = 0.10 #科技花费+10%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					not = {
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 50
+						}
+					}
+					always = no
+				}
+			}
+			scaled_modifier = {#任务buff-领地发展计划
+				modifier = {
+					build_cost = -0.10 #建筑花费+25%
+					technology_cost = -0.05 #科技花费+10%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_4_2
+					#has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+					always = no
+				}
+			}
+			range_modifier = {#专为玩家提供的雇佣兵花费
+				modifier = {
+					monthly_EDG_POM_germanization_power = 0.10
+					mercenary_manpower= -0.50
+					mercenary_cost = -0.50
+					merc_maintenance_modifier = 0.50
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					ai = no
+					always = no
+				}
+			}
+			#新版修正
+			range_modifier = {#ai自动去德意志化
+				modifier = {
+					monthly_EDG_POM_germanization_power = -1
+				}
+				start_value = 75
+				end_value = 100
+				trigger = {
+					ai = yes
+					not = {
+						has_country_modifier = EDG_BELA_POM_events4A_modifier
+					}
+				}
+			}
+			on_max_reached = {
+				country_event = {
+					id = EDG_BELA_POM_events.17
+				}
+			}
+			#range_modifier = {#不变debuff
+				#modifier = {
+					#core_creation = 0.25
+					#province_warscore_cost = 0.25
+					#ae_impact = 0.25
+				#}
+				#start_value = 100
+				#end_value = 100
+			#}
+			range_modifier = {#不变debuff
+				modifier = {
+					#monthly_EDG_POM_germanization_power = 0.10
+					mercenary_manpower= -0.50
+					mercenary_cost = -0.50
+					merc_maintenance_modifier = 0.50
+					ae_impact = 0.10
+				}
+				start_value = 0
+				end_value = 100
+			}
+			scaled_modifier = {
+				modifier = {
+					monthly_EDG_POM_germanization_power = 0.20
+				}
+				start_value = 0
+				end_value = 100
+			}
+			reverse_scaled_modifier = {#击败勃兰登堡前
+				modifier = {
+					infantry_power = -0.10 #步兵作战能力-10%
+					discipline = -0.05 #训练度-5%
+					reinforce_speed = -0.10
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					or = {
+						not = {
+							mission_completed = EDG_BELA_POM_WOL_2_2
+						}
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			scaled_modifier = {#击败勃兰登堡后
+				modifier = {
+					infantry_power = 0.05 #步兵作战能力-10%
+					#discipline = 0.025 #训练度-5%
+					reinforce_speed = 0.05
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_2_2
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			reverse_scaled_modifier = {#领地发展计划前
+				modifier = {
+					development_cost = 0.33 #发展成本+25%
+					technology_cost = 0.10 #科技花费+10%
+					trade_efficiency = -0.20
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					or = {
+						not = {
+							mission_completed = EDG_BELA_POM_WOL_4_2
+						}
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			scaled_modifier = {#领地发展计划后
+				modifier = {
+					#development_cost = 0.33 #发展成本+25%
+					technology_cost = -0.05 #科技花费+10%
+					trade_efficiency = 0.10
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_4_2
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			reverse_scaled_modifier = {#条顿前
+				modifier = {
+					stability_cost_modifier = 0.20
+					diplomatic_reputation = -1.0
+					global_tax_modifier = -0.20 #税收修正-25%
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					or = {
+						not = {
+							mission_completed = EDG_BELA_POM_WOL_5_2
+						}
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			scaled_modifier = {#条顿后
+				modifier = {
+					#stability_cost_modifier = -0.10
+					diplomatic_reputation = 0.5
+					global_tax_modifier = 0.10 
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					mission_completed = EDG_BELA_POM_WOL_5_2
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+			}
+			range_modifier = {#ai灾难自动去德意志化
+				modifier = {
+					monthly_EDG_POM_germanization_power = -1
+				}
+				start_value = 0
+				end_value = 100
+				trigger = {
+					ai = yes
+					has_disaster = EDG_POM_KSB_gryf_war
+				}
+			}
+		}
+	}
+	
+	interactions = {
+		EDG_POM_adm_power_interactions = { #招来德意志农民
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_ADM
+			cost_type = EDG_POM_adm_power
+			cost = 100
+			trigger = {
+				#adm_power = 5
+			}
+			effect = {
+				#tooltip = {
+				#	add_adm_power = -5
+				#}
+				custom_tooltip = EDG_POM_adm_power_interactions_tt
+				add_country_modifier = {
+					name = EDG_POM_adm_power_interactions_modifier
+					duration = 1095
+				}
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = 2
+				}
+				hidden_effect = {
+					#add_adm_power = -5
+					country_event = {
+						id = EDG_BELA_POM_events.5
+					}
+				}
+			}
+			cooldown_years = 3
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_country_flag = EDG_POM_german_3_flag
+				}
+			}
+		}
+		EDG_POM_dip_power_interactions = { #引进德意志商人
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_DIP
+			cost_type = EDG_POM_dip_power
+			cost = 100
+			trigger = {
+				#dip_power = 5
+			}
+			effect = {
+				#tooltip = {
+					#add_dip_power = -5
+				#}
+				#custom_tooltip = EDG_POM_dip_power_interactions_tt
+				add_years_of_income = 0.5
+				add_country_modifier = {
+					name = EDG_POM_dip_power_interactions_modifier
+					duration = 1095
+				}
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = 2
+				}
+				#hidden_effect = {
+					#add_dip_power = -5
+				#}
+			}
+			cooldown_years = 3
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_country_flag = EDG_POM_german_3_flag
+				}
+			}
+		}
+		EDG_POM_mil_power_interactions = { #提拔德意志贵族
+			gui = russian_mechanics_interaction_gui
+			icon = GFX_russian_ability_MIL
+			cost_type = EDG_POM_mil_power
+			cost = 100
+			trigger = {
+				#mil_power = 5
+			}
+			effect = {
+				#tooltip = {
+					#add_mil_power = -10
+				#}
+				#custom_tooltip = EDG_POM_mil_power_interactions_tt
+				add_yearly_manpower = 0.15
+				add_country_modifier = {
+					name = EDG_POM_mil_power_interactions_modifier
+					duration = 1095
+				}
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = 2
+				}
+				#hidden_effect = {
+					#add_mil_power = -5
+				#}
+			}
+			cooldown_years = 3
+			ai_chance = {
+				factor = 1
+				modifier = {
+					factor = 0
+					has_country_flag = EDG_POM_german_3_flag
+				}
+			}
+		}
+	}
+}
