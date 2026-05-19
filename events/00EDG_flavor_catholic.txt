@@ -1,0 +1,2062 @@
+namespace = EDG_flavorCatholic
+normal_or_historical_nations = yes
+country_event = {#兜售赎罪券
+  id = EDG_flavorCatholic.1
+  title = "EDG_flavorCatholic.1.t"
+  desc = "EDG_flavorCatholic.1.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+  }
+  
+  immediate = {
+		hidden_effect = {
+      add_country_modifier = {
+        name = EDG_flavorCatholic_bought_voucher_in_10_years_modifier
+        duration = 3650
+      }
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.25
+			}
+      change_variable = {
+        which = money_to_transfer
+        value = 1
+      }
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#我们乐于洗刷罪孽！
+    name = "EDG_flavorCatholic.1.a"
+    ai_chance = {
+      factor = 100
+      modifier = {
+        factor = 0
+        has_country_modifier = the_statue_in_restraint_of_appeals
+      }
+      modifier = {
+        factor = 0
+        NOT = { years_of_income = 0.1 }
+      }
+    }
+    edg_add_reform_desire_tiny_effect = yes
+    if = { limit = { monthly_income = 100 }  add_curia_treasury = 450 }
+    else_if = { limit = { monthly_income = 80 }  add_curia_treasury = 400 }
+    else_if = { limit = { monthly_income = 60 }  add_curia_treasury = 360 }
+    else_if = { limit = { monthly_income = 40 }  add_curia_treasury = 240 }
+    else_if = { limit = { monthly_income = 20 }  add_curia_treasury = 120 }
+    else_if = { limit = { monthly_income = 10 }  add_curia_treasury = 60 }
+    else = { add_curia_treasury = 30 }
+    if = {
+      limit = { monthly_income = 10 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_curia_treasury = 30
+      add_treasury = -30
+      FROM = {
+        add_treasury = 30
+      }
+    }
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorCatholic_1_a_opinion_modifier
+      }
+    }
+
+
+    custom_tooltip = EDG_SPACE_TT
+    hidden_effect = { remove_country_modifier = EDG_flavorCatholic_1_a_modifier }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_1_a_modifier
+      duration = 3650
+    }
+  }
+  option = {#这太荒谬了。
+    name = "EDG_flavorCatholic.1.b"
+    ai_chance = {
+      factor = 20
+    }
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorCatholic_1_b_opinion_modifier
+      }
+    }
+    if = {
+      limit = { culture_group = germanic }
+      hidden_effect = { remove_country_modifier = EDG_flavorCatholic_1_b_hre_modifier }
+      add_country_modifier = {
+        name = EDG_flavorCatholic_1_b_hre_modifier
+        duration = 3650
+      }
+    }
+  }
+  option = {#教会休想从我们的手中拿走一分钱！
+    name = "EDG_flavorCatholic.1.c"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 1000
+        has_country_modifier = the_statue_in_restraint_of_appeals
+      }
+    }
+    every_country = {
+      limit = {
+        is_neighbor_of = root
+        religion = catholic
+        government = theocracy
+      }
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorCatholic_1_c_opinion_modifier
+      }
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    
+    add_country_modifier = {
+      name = EDG_flavorCatholic_1_c_modifier
+      duration = 3650
+    }
+    if = {
+      limit = { culture_group = germanic }
+      hidden_effect = { remove_country_modifier = EDG_flavorCatholic_1_b_hre_modifier }
+      add_country_modifier = {
+        name = EDG_flavorCatholic_1_b_hre_modifier
+        duration = 3650
+      }
+    }
+  }
+}
+
+country_event = {#教宗允许兜售赎罪券
+  id = EDG_flavorCatholic.2
+  title = "EDG_flavorCatholic.2.t"
+  desc = "EDG_flavorCatholic.2.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorCatholic.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire = 0.02
+    custom_tooltip = EDG_Redemption_voucher_enable_global_flag_tt
+  }
+}
+
+country_event = {#教宗禁止兜售赎罪券
+  id = EDG_flavorCatholic.3
+  title = "EDG_flavorCatholic.3.t"
+  desc = "EDG_flavorCatholic.3.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorCatholic.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire = -0.01
+    custom_tooltip = EDG_Redemption_voucher_unable_global_flag_tt
+  }
+}
+
+
+
+
+
+
+country_event = {#向教宗行贿
+  id = EDG_flavorCatholic.4
+  title = "EDG_flavorCatholic.4.t"
+  desc = "EDG_flavorCatholic.4.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我改变主意了。
+    name = "EDG_flavorCatholic_4_a0"
+    ai_chance = {
+      factor = 0
+    }
+    custom_tooltip = EDG_flavorCatholic_4_a0_tt
+    add_treasury = 100
+    hidden_effect = {
+      remove_country_modifier = EDG_Catholic_decision_Bribing_Pope_in_10_years_modifier
+    }
+  }
+  option = {#我们希望解除绝罚。
+    name = "EDG_flavorCatholic_4_111"
+    trigger = {
+     is_excommunicated = yes
+    }
+    highlight = yes
+    ai_chance = {
+      factor = 100
+			modifier = {
+			  factor = 0
+			  is_excommunicated = no
+			}
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.111 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {#解除绝罚
+      add_reform_desire_scale = 0.01
+      add_reform_desire = 0.01
+      excommunicate = ROOT
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+      else = {  add_treasury = -600 }
+      add_adm_power = -100
+      add_dip_power = -100
+      add_mil_power = -100
+      add_prestige = -25
+      PAP = {
+        add_adm_power = 50
+        add_dip_power = 50
+        add_mil_power = 50
+      }
+    }
+  }
+  option = {#我们希望解除禁教令。
+    name = "EDG_flavorCatholic_4_121"
+    ai_chance = {
+      factor = 20
+			modifier = {
+			  factor = 0
+        NOT = {
+          EDG_under_Prohibition_order_trigger = yes
+        }
+			}
+    }
+    trigger = {
+      EDG_under_Prohibition_order_trigger = yes
+    }
+    highlight = yes
+    PAP = { country_event = { id = EDG_flavorCatholic.121 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {#解除禁教令
+      EDG_Prohibition_order_invalid_in_20_years_effect = yes
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.2 }
+      else = {  add_treasury = -120 }
+      add_adm_power = -50
+      add_dip_power = -50
+      add_mil_power = -50
+      PAP = {
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+      }
+    }
+  }
+  option = {#我们只想为教宗分忧。
+    name = "EDG_flavorCatholic_4_131"
+    ai_chance = {
+      factor = 1
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.131 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+      else = {  add_treasury = -60 }
+      PAP = {
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_flavorCatholic_131_opinion
+				}
+      }
+    }
+  }
+  option = {#我们希望制约国内的教士。
+    name = "EDG_flavorCatholic_4_141"
+    ai_chance = {
+      factor = 1
+			modifier = {
+			  factor = 10
+			  NOT = {
+          estate_loyalty = {
+            estate = estate_church
+            loyalty = 50
+          }
+        }
+			}
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.141 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+      else = {  add_treasury = -60 }
+      add_estate_loyalty = {
+        estate = estate_church
+        loyalty = 20
+      }
+    }
+  }
+  option = {#我们希望教宗任命一名枢机。
+    name = "EDG_flavorCatholic_4_151"
+    ai_chance = {
+      factor = 1
+			modifier = {
+			  factor = 0
+			  NOT = { treasury = 600 }
+			}
+    }
+    trigger = {
+      any_owned_province = {
+        religion = catholic 
+        NOT = { has_cardinal = yes}
+      }
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.151 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+      else = {  add_treasury = -600 }
+      custom_tooltip = EDG_random_province_add_cardinal_tt
+    }
+  }
+  option = {#请求教宗青睐我们的使节。
+    name = "EDG_flavorCatholic_4_161"
+    ai_chance = {
+      factor = 1
+			modifier = {
+			  factor = 0
+			  NOT = { treasury = 600 }
+			}
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.161 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.2 }
+      else = {  add_treasury = -120 }
+      add_country_modifier = {
+        name = EDG_flavorCatholic_4_161_modifier
+        duration = 3650
+      }
+    }
+  }
+  option = {#请求教宗协助肃清异端。
+    name = "EDG_flavorCatholic_4_171"
+    ai_chance = {
+      factor = 1
+			modifier = {
+			  factor = 0
+			  religious_unity = 0.99
+			}
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_4_171_modifier }
+    }
+    PAP = { country_event = { id = EDG_flavorCatholic.171 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.4 }
+      else = {  add_treasury = -240 }
+      add_country_modifier = {
+        name = EDG_flavorCatholic_4_171_modifier
+        duration = 3650
+      }
+    }
+  }
+}
+
+country_event = {#教宗拒绝了我们的行贿
+  id = EDG_flavorCatholic.5
+  title = "EDG_flavorCatholic.5.t"
+  desc = "EDG_flavorCatholic.5.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#他们真是木讷呆板……
+    name = "EDG_flavorCatholic.5.a"
+    ai_chance = {
+      factor = 10
+    }
+    
+  }
+}
+
+
+country_event = {#撤销针对帝国颁布的禁教令
+  id = EDG_flavorCatholic.7
+  title = "EDG_flavorCatholic.7.t"
+  desc = "EDG_flavorCatholic.7.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorCatholic.7.a"
+    ai_chance = {
+      factor = 10
+    }
+    clr_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+    custom_tooltip = EDG_HRE_under_Prohibition_order_global_flag_clr_tt
+  }
+}
+
+country_event = {#对帝国颁布禁教令
+  id = EDG_flavorCatholic.8
+  title = "EDG_flavorCatholic.8.t"
+  desc = "EDG_flavorCatholic.8.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorCatholic.8.a"
+    ai_chance = {
+      factor = 10
+    }
+    tooltip = {
+			add_reform_desire_scale = 0.05
+			set_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+			custom_tooltip = EDG_HRE_under_Prohibition_order_global_flag_tt
+    }
+  }
+}
+
+country_event = {#颁布禁教令
+  id = EDG_flavorCatholic.9
+  title = "EDG_flavorCatholic.9.t"
+  desc = "EDG_flavorCatholic.9.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorCatholic.8.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    add_opinion = {
+      who = FROM
+      modifier = EDG_Prohibition_order_to_us_opinion
+    }
+    add_country_modifier = {
+      name = EDG_under_Prohibition_order_modifier
+      duration = 7300
+      hidden = yes
+    }
+    tooltip = {
+      add_country_modifier = {
+        name = EDG_under_Prohibition_order_tt_modifier
+        duration = 7300
+      }
+    }
+  }
+}
+country_event = {#向教会捐献
+  id = EDG_flavorCatholic.10
+  title = "EDG_flavorCatholic.10.t"
+  desc = "EDG_flavorCatholic.10.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  immediate = {
+    set_country_flag = EDG_flavorCatholic_10_flag
+  }
+  option = {#我改变主意了。
+    name = "EDG_flavorCatholic_10_a0"
+    ai_chance = {
+      factor = 10
+    }
+    clr_country_flag = EDG_flavorCatholic_10_flag
+    remove_country_modifier = EDG_Catholic_decision_Donate_to_the_Church_in_10_years_modifier
+  }
+  
+  option = {#向教会捐献地产。
+    name = "EDG_flavorCatholic.10.a"
+    ai_chance = {
+      factor = 10
+    }
+    change_estate_land_share = {
+      estate = estate_church
+      share = 3
+    }
+  }
+  option = {#向教会捐献金钱。
+    name = "EDG_flavorCatholic.10.b"
+    ai_chance = {
+      factor = 10
+    }
+    if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+    else = {  add_treasury = -60 }
+  }
+  option = {#向教会让渡行政权力。
+    name = "EDG_flavorCatholic.10.c"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_c_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_c_modifier
+      duration = 3650
+    }
+  }
+  option = {#向教会让渡外交权力。
+    name = "EDG_flavorCatholic.10.e"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_e_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_e_modifier
+      duration = 3650
+    }
+  }
+  option = {#向教会让渡军事权力。
+    name = "EDG_flavorCatholic.10.f"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_f_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_f_modifier
+      duration = 3650
+    }
+  }
+  option = {#给予教会税收特权。
+    name = "EDG_flavorCatholic.10.g"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_g_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_g_modifier
+      duration = 3650
+    }
+  }
+  option = {#给予教会商业特权。
+    name = "EDG_flavorCatholic.10.i"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_i_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_i_modifier
+      duration = 3650
+    }
+  }
+  option = {#给予教会兵役特权。
+    name = "EDG_flavorCatholic.10.h"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_10_h_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_10_h_modifier
+      duration = 3650
+    }
+  }
+  
+
+  after = {
+    if = {
+      limit = {
+        has_country_flag = EDG_flavorCatholic_10_flag
+      }
+      country_event = { id = EDG_flavorCatholic.11 }
+    }
+  }
+}
+
+country_event = {#向教会提出要求
+  id = EDG_flavorCatholic.11
+  title = "EDG_flavorCatholic.11.t"
+  desc = "EDG_flavorCatholic.11.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#我们需要教廷的福音。
+    name = "EDG_flavorCatholic.11.a"
+    ai_chance = {
+      factor = 10
+    }
+    if = {
+      limit = { is_year = 1600 }
+      add_papal_influence = 50
+    }
+    else_if = {
+      limit = { is_year = 1500 }
+      add_papal_influence = 25
+    }
+    else = {
+      add_papal_influence = 10
+    }
+  }
+  option = {#我们需要圣歌的赞美。
+    name = "EDG_flavorCatholic.11.b"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { prestige = 100 }
+    }
+    add_prestige = 15
+  }
+  option = {#我们需要教士的忠诚。
+    name = "EDG_flavorCatholic.11.c"
+    ai_chance = {
+      factor = 10
+    }
+    add_estate_loyalty = {
+      estate = estate_church
+      loyalty = 20
+    }
+  }
+  option = {#我们渴望教宗的垂怜。
+    name = "EDG_flavorCatholic.11.e"
+    ai_chance = {
+      factor = 10
+    }
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorCatholic_131_opinion
+      }
+    }
+  }
+  option = {#我们需要战事的支持。
+    name = "EDG_flavorCatholic.11.f"
+    ai_chance = {
+      factor = 10
+    }
+    add_war_exhaustion = -2
+  }
+  option = {#我们需要传教的助力。
+    name = "EDG_flavorCatholic.11.g"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_11_g_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_11_g_modifier
+      duration = 3650
+    }
+  }
+  option = {#我们需要内部的稳定。
+    name = "EDG_flavorCatholic.11.h"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorCatholic_11_h_modifier }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_11_h_modifier
+      duration = 3650
+    }
+  }
+  option = {#我们想邀请一位审讯官。
+    name = "EDG_flavorCatholic.11.i"
+    ai_chance = {
+      factor = 10
+    }
+    
+    define_advisor = { 
+      type = inquisitor
+      cost_multiplier = 0.5
+      religion = root
+      culture = root
+      skill = 3 
+    }
+  }
+  option = {#我们想邀请一位神学家。
+    name = "EDG_flavorCatholic.11.j"
+    ai_chance = {
+      factor = 10
+    }
+    
+    define_advisor = { 
+      type = theologian
+      cost_multiplier = 0.5
+      religion = root
+      culture = root
+      skill = 3 
+    }
+  }
+  option = {#我们想邀请一位枢机。
+    name = "EDG_flavorCatholic.11.k"
+    ai_chance = {
+      factor = 10
+    }
+    
+    define_advisor = { 
+      type = cardinal
+      cost_multiplier = 0.5
+      religion = root
+      culture = root
+      skill = 3 
+    }
+  }
+  after = {
+    clr_country_flag = EDG_flavorCatholic_10_flag
+  }
+}
+
+
+
+country_event = {#向日耳曼永世大主教行贿
+  id = EDG_flavorCatholic.12
+  title = "EDG_flavorCatholic.12.t"
+  desc = "EDG_flavorCatholic.12.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我改变主意了。
+    name = "EDG_flavorCatholic_4_a0"
+    ai_chance = {
+      factor = 0
+    }
+    custom_tooltip = EDG_flavorCatholic_12_a0_tt
+    add_treasury = 50
+    hidden_effect = {
+      remove_country_modifier = EDG_Catholic_decision_Bribing_MAI_in_10_years_modifier
+    }
+  }
+  option = {#确保大主教对帝国的忠诚。
+    name = "EDG_flavorCatholic_12_a"
+    ai_chance = {
+      factor = 20
+    }
+    trigger = {
+      is_emperor = yes
+    }
+    highlight = yes
+    event_target:EDG_HRE_Archbishop_country_shield_target = { country_event = { id = EDG_flavorCatholic.211 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_MAI_tt
+    tooltip = {#要求对帝国忠诚
+      add_imperial_influence = 10
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+      else = {  add_treasury = -600 }
+      event_target:EDG_HRE_Archbishop_country_shield_target = {
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+      }
+    }
+  }
+  option = {#我们希望解除禁教令。
+    name = "EDG_flavorCatholic_4_121"
+    ai_chance = {
+      factor = 20
+			modifier = {
+			  factor = 0
+        NOT = {
+          EDG_under_Prohibition_order_trigger = yes
+        }
+			}
+    }
+    trigger = {
+      EDG_under_Prohibition_order_trigger = yes
+    }
+    highlight = yes
+    event_target:EDG_HRE_Archbishop_country_shield_target = { country_event = { id = EDG_flavorCatholic.121 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_MAI_tt
+    tooltip = {#解除禁教令
+      EDG_Prohibition_order_invalid_in_20_years_effect = yes
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.2 }
+      else = {  add_treasury = -120 }
+      add_adm_power = -50
+      add_dip_power = -50
+      add_mil_power = -50
+      event_target:EDG_HRE_Archbishop_country_shield_target = {
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+      }
+    }
+  }
+  option = {#我们只想为大主教分忧。
+    name = "EDG_flavorCatholic_12_131"
+    ai_chance = {
+      factor = 1
+    }
+    event_target:EDG_HRE_Archbishop_country_shield_target = { country_event = { id = EDG_flavorCatholic.131 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_MAI_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+      else = {  add_treasury = -60 }
+      event_target:EDG_HRE_Archbishop_country_shield_target = {
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_flavorCatholic_131_opinion
+				}
+      }
+    }
+  }
+  option = {#我们希望制约国内的教士。
+    name = "EDG_flavorCatholic_4_141"
+    ai_chance = {
+      factor = 1
+			modifier = {
+			  factor = 10
+			  NOT = {
+          estate_loyalty = {
+            estate = estate_church
+            loyalty = 50
+          }
+        }
+			}
+    }
+    event_target:EDG_HRE_Archbishop_country_shield_target = { country_event = { id = EDG_flavorCatholic.141 } }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorCatholic_4_if_success_MAI_tt
+    tooltip = {
+      add_reform_desire_scale = 0.01
+      if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+      else = {  add_treasury = -60 }
+      add_estate_loyalty = {
+        estate = estate_church
+        loyalty = 20
+      }
+    }
+  }
+
+}
+
+
+
+country_event = {#[From.GetName]请求解除绝罚
+  id = EDG_flavorCatholic.111
+  title = "EDG_flavorCatholic.111.t"
+  desc = "EDG_flavorCatholic.111.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    PAP = {
+      tooltip = {#解除绝罚
+        add_reform_desire_scale = 0.01
+        add_reform_desire = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_1_year_income_tt
+        add_adm_power = 50
+        add_dip_power = 50
+        add_mil_power = 50
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.112 }
+      tooltip = {#解除绝罚
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+        else = {  add_treasury = -600 }
+        excommunicate = FROM
+        add_adm_power = -100
+        add_dip_power = -100
+        add_mil_power = -100
+        add_prestige = -25
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 10
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+#绝罚
+country_event = {#教宗同意解除绝罚
+  id = EDG_flavorCatholic.112
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 1
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    excommunicate = ROOT
+    add_reform_desire_scale = 0.01
+    add_reform_desire = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -600
+      FROM = {
+        add_treasury = 600
+      }
+    }
+    add_adm_power = -100
+    add_dip_power = -100
+    add_mil_power = -100
+    add_prestige = -25
+    FROM = {
+      add_adm_power = 50
+      add_dip_power = 50
+      add_mil_power = 50
+    }
+
+  }
+}
+
+
+
+#禁教令
+country_event = {#[From.GetName]请求解除禁教令
+  id = EDG_flavorCatholic.121
+  title = "EDG_flavorCatholic.121.t"
+  desc = "EDG_flavorCatholic.121.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {#解除禁教令
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_0d2_year_income_tt
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.122 }
+      tooltip = {#解除禁教令
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -0.2 }
+        else = {  add_treasury = -120 }
+        add_adm_power = -50
+        add_dip_power = -50
+        add_mil_power = -50
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 5
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+country_event = {#教宗同意解除禁教令
+  id = EDG_flavorCatholic.122
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.2
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    EDG_Prohibition_order_invalid_in_20_years_effect = yes
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -120
+      FROM = {
+        add_treasury = 120
+      }
+    }
+    add_adm_power = -50
+    add_dip_power = -50
+    add_mil_power = -50
+    FROM = {
+      add_adm_power = -50
+      add_dip_power = -50
+      add_mil_power = -50
+    }
+
+  }
+}
+
+#为教宗分忧
+country_event = {#[From.GetName]的礼物
+  id = EDG_flavorCatholic.131
+  title = "EDG_flavorCatholic.131.t"
+  desc = "EDG_flavorCatholic.131.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {
+        add_reform_desire_scale = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_0d1_year_income_tt
+				add_opinion = {
+					who = FROM
+					modifier = EDG_flavorCatholic_131_opinion
+				}
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.132 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+        else = {  add_treasury = -60 }
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.132
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.1
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -60
+      FROM = {
+        add_treasury = 60
+      }
+    }
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorCatholic_131_opinion
+      }
+    }
+
+  }
+}
+
+
+
+#制约国内教士
+country_event = {#[From.GetName]请求制约国内教士
+  id = EDG_flavorCatholic.141
+  title = "EDG_flavorCatholic.141.t"
+  desc = "EDG_flavorCatholic.141.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {
+        add_reform_desire_scale = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_0d1_year_income_tt
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.132 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -0.1 }
+        else = {  add_treasury = -60 }
+        add_estate_loyalty = {
+          estate = estate_church
+          loyalty = 20
+        }
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.142
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.1
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -60
+      FROM = {
+        add_treasury = 60
+      }
+    }
+    add_estate_loyalty = {
+      estate = estate_church
+      loyalty = 20
+    }
+
+  }
+}
+
+
+
+
+#任命枢机
+country_event = {#[From.GetName]请求任命枢机
+  id = EDG_flavorCatholic.151
+  title = "EDG_flavorCatholic.151.t"
+  desc = "EDG_flavorCatholic.151.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {
+        add_reform_desire_scale = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_1_year_income_tt
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.152 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+        else = {  add_treasury = -600 }
+        custom_tooltip = EDG_random_province_add_cardinal_tt
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.152
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 1
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -600
+      FROM = {
+        add_treasury = 600
+      }
+    }
+    random_owned_province = {
+      limit = { NOT = { has_cardinal = yes } religion = catholic }
+      add_cardinal = yes
+    }
+
+  }
+}
+
+
+
+#渴望青睐
+country_event = {#[From.GetName]渴望获得青睐
+  id = EDG_flavorCatholic.161
+  title = "EDG_flavorCatholic.161.t"
+  desc = "EDG_flavorCatholic.161.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {
+        add_reform_desire_scale = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_0d2_year_income_tt
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.162 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -0.2 }
+        else = {  add_treasury = -120 }
+        add_country_modifier = {
+          name = EDG_flavorCatholic_4_161_modifier
+          duration = 3650
+        }
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.162
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.2
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -120
+      FROM = {
+        add_treasury = 120
+      }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_4_161_modifier
+      duration = 3650
+    }
+
+  }
+}
+
+
+
+#渴望青睐
+country_event = {#[From.GetName]请求协助肃清异端
+  id = EDG_flavorCatholic.171
+  title = "EDG_flavorCatholic.171.t"
+  desc = "EDG_flavorCatholic.171.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.2
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    ROOT = {
+      tooltip = {
+        add_reform_desire_scale = 0.01
+        custom_tooltip = EDG_flavorCatholic_gain_cash_for_0d4_year_income_tt
+      }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.172 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -0.4 }
+        else = {  add_treasury = -240 }
+        add_country_modifier = {
+          name = EDG_flavorCatholic_4_171_modifier
+          duration = 3650
+        }
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.172
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.4
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_reform_desire_scale = 0.01
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -240
+      FROM = {
+        add_treasury = 240
+      }
+    }
+    add_country_modifier = {
+      name = EDG_flavorCatholic_4_171_modifier
+      duration = 3650
+    }
+
+  }
+}
+
+
+
+
+
+#要求大主教对帝国忠诚
+country_event = {#[From.GetName]要求大主教忠诚
+  id = EDG_flavorCatholic.211
+  title = "EDG_flavorCatholic.211.t"
+  desc = "EDG_flavorCatholic.211.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#圣座欣然接受。
+    name = "EDG_flavorCatholic.111.a"
+    ai_chance = {
+      factor = 0.4
+      modifier = { factor = 1.25 FROM = {  alliance_with = FROM } }
+      modifier = { factor = 100 is_subject_of = FROM }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+      modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+      modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+			modifier = { factor = 1.5 is_in_deficit = yes }
+			modifier = { factor = 1.5 num_of_loans = 2 }
+			modifier = { factor = 3 NOT = { treasury = 100 } }
+			modifier = { factor = 3 NOT = { treasury = 500 } }
+      modifier = { factor = 0.01 EDG_Hostile_to_Pope_controllers_trigger = yes }
+			modifier = { factor = 1.5 tag = EDG_HRE_Archbishop_country_shield_target }
+    }
+    custom_tooltip = EDG_flavorCatholic_4_if_success_pap_tt
+    custom_tooltip = EDG_flavorCatholic_gain_cash_for_1_year_income_tt
+    add_adm_power = -50
+    add_dip_power = -50
+    add_mil_power = -50
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.212 }
+      tooltip = {
+        if = { limit = { monthly_income = 50 }  add_years_of_income = -1 }
+        else = {  add_treasury = -600 }
+        add_imperial_influence = 10
+      }
+    }
+  }
+  option = {#我们不会答应。
+    name = "EDG_flavorCatholic.111.b"
+    ai_chance = {
+      factor = 1
+			modifier = { factor = 0.5 num_of_loans = 5 }
+			modifier = { factor = 0.5 num_of_loans = 10 }
+			modifier = { factor = 1.25 treasury = 100 }
+			modifier = { factor = 1.25 treasury = 300 }
+			modifier = { factor = 1.25 treasury = 500 }
+			modifier = { factor = 1.5 treasury = 1000 }
+    }
+    FROM = {
+      country_event = { id = EDG_flavorCatholic.5 }
+    }
+  }
+}
+
+
+
+country_event = {#教宗接受了礼物
+  id = EDG_flavorCatholic.212
+  title = "EDG_flavorCatholic.6.t"
+  desc = "EDG_flavorCatholic.6.d"
+  picture = RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 1
+			}
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#感谢耶稣！
+    name = "EDG_flavorCatholic.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    if = {
+      limit = { monthly_income = 50 }
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+    else = {
+      add_treasury = -600
+      FROM = {
+        add_treasury = 600
+      }
+    }
+    add_imperial_influence = 10
+
+  }
+}
+
+
+country_event = {#通往圣座的代价
+  id = EDG_flavorCatholic.301
+  title = "EDG_flavorCatholic.301.title"
+  desc = "EDG_flavorCatholic.301.desc"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#我们当然乐意！
+    name = "EDG_flavorCatholic.301.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_treasury = -50
+    add_papal_influence = 10
+  }
+  option = {#我们拿不出这么多钱。
+    name = "EDG_flavorCatholic.301.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige = -5
+  }
+}
+
+country_event = {#不忠的教士
+  id = EDG_flavorCatholic.302
+  title = "EDG_flavorCatholic.302.title"
+  desc = "EDG_flavorCatholic.302.desc"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#偷偷处理他。
+    name = "EDG_flavorCatholic.302.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_papal_influence = -5
+  }
+  option = {#我们只能忍气吞声。
+    name = "EDG_flavorCatholic.302.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige = -5
+  }
+}
+
+country_event = {#发现圣遗物
+  id = EDG_flavorCatholic.303
+  title = "EDG_flavorCatholic.303.title"
+  desc = "EDG_flavorCatholic.303.desc"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#把它献给教会。
+    name = "EDG_flavorCatholic.303.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_papal_influence = 10
+  }
+  option = {#拿它卖了换钱。
+    name = "EDG_flavorCatholic.303.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_treasury = 50
+  }
+}

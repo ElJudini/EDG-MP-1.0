@@ -1,0 +1,89 @@
+custom_button = {
+	name = EDG_create_slave_button
+	tooltip = EDG_create_slave_button.tt
+	potential = {
+		from = {
+			ai = no
+			has_government_attribute = EDG_enable_create_slave_ability
+		}
+		OR = {
+			owned_by = from
+			owner = {
+				is_subject_of = from
+				is_subject_of_type = EDG_FYM_slave_vassal
+			}
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_create_slave_button_trigger_tt
+			OR = {
+				owned_by = from
+				owner = {
+					is_subject_of = from
+					is_subject_of_type = EDG_FYM_slave_vassal
+				}
+			}
+		}
+		from = {
+			has_government_attribute = EDG_enable_create_slave_ability
+		}
+		# if = {
+		# 	limit = {
+		# 		has_estate = estate_edg_copt
+		# 	}
+		# 	NOT = { religion = coptic }
+		# }
+		NOT = { culture_group = from }
+		NOT = { religion_group = from }
+		NOT = { trade_goods = slaves }
+		NOT = { trade_goods = gold }
+		NOT = { development = 13 }
+	}
+	effect = {
+		if = {
+			limit = { has_province_modifier = EDG_FYM_mission_4_11_province_modifer }
+			from = {
+				add_mil_power = 5
+			}
+		}
+		change_trade_goods = slaves
+		if = {
+			limit = {  base_tax = 2 }
+			add_base_tax = -1
+		}
+		if = {
+			limit = {  base_production = 2 }
+			add_base_production = -1
+		}
+		if = {
+			limit = {  base_manpower = 2 }
+			add_base_manpower = -1
+		}
+		remove_province_modifier = EDG_create_slave_button_province_modifier
+		add_province_modifier = {
+			name = EDG_create_slave_button_province_modifier
+			duration = 3650
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = EDG_create_slave_button_value
+							value = 0
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_create_slave_button_value
+					value = 0
+				}
+			}
+			change_variable = {
+				which = EDG_create_slave_button_value
+				value = 1
+			}
+		}
+	}
+}

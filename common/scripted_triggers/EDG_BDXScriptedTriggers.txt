@@ -1,0 +1,553 @@
+EDG_num_of_sieges = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_has_won_at_least_$amount$_sieges #in case of adding a new number, localize
+		check_variable = {
+			which = EDG_num_of_sieges_won_var
+			value = $amount$
+		}
+	}
+}
+
+EDG_BDX_has_rename_flag_trigger = {
+	OR = {
+		has_country_flag = EDG_BDX_rename_to_argead_flag
+		has_country_flag = EDG_BDX_rename_to_great_xia_flag
+		has_country_flag = EDG_BDX_rename_to_nizari_flag
+		has_country_flag = EDG_BDX_rename_to_kushan_flag
+	}
+}
+
+EDG_BDX_has_argead_legitimacy_trigger = {
+	has_government_power = {
+		mechanic_type = EDG_BDX_argead_legitimacy
+		power_type = EDG_BDX_argead_legitimacy_power
+		value = $amount$
+	}
+}
+
+EDG_BDX_has_argead_dynasty_reform_trigger = {
+	OR = {
+		has_reform = EDG_BDX_Argead_Dynasty
+		has_reform = EDG_BDX_Argead_Empire
+		has_reform = EDG_BDX_Argead_Dynasty_Achaemenid
+		has_reform = EDG_BDX_Argead_Empire_Achaemenid
+	}
+}
+
+EDG_BDX_recruit_hetairoi_less_than_limit_trigger = {
+	variable_arithmetic_trigger = {
+		custom_tooltip = EDG_BDX_recruit_hetairoi_less_than_limit_trigger_tt
+		export_to_variable = {
+			which = EDG_BDX_num_of_hussars_var
+			value = trigger_value:num_of_hussars
+		}
+		NOT = {
+			check_variable = {
+				which = EDG_BDX_num_of_hussars_var
+				which = EDG_BDX_argead_legitimacy_var
+			}
+		}
+	}
+}
+
+EDG_BDX_can_recruit_hetairoi_trigger = {
+	mil_power = 10
+	treasury = 50
+	manpower = 1
+	EDG_BDX_recruit_hetairoi_less_than_limit_trigger = yes
+}
+
+EDG_BDX_province_can_be_assimilated_trigger = {
+	is_core = ROOT
+	OR = {
+		ROOT = {
+			has_country_flag = EDG_BDX_mission_endless_flag
+			NOT = {
+				OR = {
+					culture = greek
+					culture = EDG_greco_bactrian_culture
+					culture = EDG_bactrian_culture
+					culture = pontic_greek
+				}
+			}
+		}
+		culture = afghani
+		culture = khorasani
+		AND = {
+			ROOT = {
+				has_country_flag = EDG_BDX_mission_eschate_flag
+			}
+			culture = uzbehk
+		}
+		AND = {
+			ROOT = {
+				has_country_flag = EDG_BDX_mission_zoroastrianism_flag
+			}
+			culture = baluchi
+		}
+		AND = {
+			ROOT = {
+				has_country_flag = EDG_BDX_mission_indus_river_flag
+			}
+			culture = panjabi
+		}
+		AND = {
+			ROOT = {
+				has_country_flag = EDG_BDX_mission_indo_greek_kingdoms_flag
+			}
+			culture = sindhi
+		}
+		AND = {
+			ROOT = {
+				has_country_flag = EDG_BDX_mission_cappadocia_flag
+			}
+			culture = turkish
+		}
+	}
+	NOT = {
+		nationalism = 10
+	}
+}
+
+EDG_BDX_province_can_be_assimilated_to_greek_culture_trigger = {
+	OR = {
+		culture_group = germanic
+		culture_group = scandinavian
+		culture_group = british
+		culture_group = gaelic
+		culture_group = latin
+		culture_group = iberian
+		culture_group = french
+		culture_group = south_slavic
+		culture_group = west_slavic
+		culture_group = carpathian
+		culture_group = east_slavic
+		culture_group = slavic
+		culture_group = maghrebi
+		culture = turkish
+		culture = al_suryah_arabic
+		culture = al_misr_arabic
+		AND = {
+			culture_group = byzantine
+			NOT = {
+				OR = {
+					culture = greek
+					culture = pontic_greek
+					culture = EDG_greco_bactrian_culture
+				}
+			}
+		}
+	}
+}
+
+EDG_BDX_province_cultural_assimilation_buff_trigger = {
+	OR = {
+		culture = EDG_bactrian_culture
+		AND = {
+			owner = {
+				culture_group = byzantine
+			}
+			culture = EDG_greco_bactrian_culture
+		}
+		AND = {
+			owner = {
+				has_country_flag = EDG_BDX_mission_cappadocia_flag
+			}
+			culture = greek
+		}
+		AND = {
+			owner = {
+				has_country_flag = EDG_BDX_mission_pontus_flag
+			}
+			culture = pontic_greek
+		}
+	}
+}
+
+EDG_BDX_can_update_cultural_assimilation_buff_trigger = {
+	has_country_flag = EDG_BDX_mission_pluralism_flag
+	OR = {
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_1_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_2_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 20
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_3_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 50
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_4_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 100
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_5_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 150
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_6_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 200
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_7_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 300
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_8_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 500
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_9_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 700
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+		AND = {
+			NOT = {
+				has_country_modifier = EDG_BDX_cultural_assimilation_10_modifier
+			}
+			num_of_owned_provinces_with = {
+				value = 1000
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+		}
+	}
+}
+
+EDG_BDX_rebuild_alexandria_city_potential_trigger = {
+	NOT = {
+		OR = {
+			has_province_modifier = EDG_BDX_adm_alexandria_city_modifier
+			has_province_modifier = EDG_BDX_eco_alexandria_city_modifier
+			has_province_modifier = EDG_BDX_mil_alexandria_city_modifier
+		}
+	}
+}
+
+EDG_BDX_is_alexandria_city_province_trigger = {
+	OR = {
+		province_id = 1967
+		province_id = 4343
+		province_id = 451
+		province_id = 446
+		province_id = 447
+		province_id = 504
+		province_id = 506
+		province_id = 4511
+		province_id = 445
+		province_id = 431
+		province_id = 2313
+		province_id = 358
+		province_id = 319
+		province_id = 2296
+		province_id = 4703
+	}
+}
+
+EDG_BDX_province_can_rebuild_alexandria_city_trigger = {
+	owned_by = ROOT
+	is_core = ROOT
+	development = $development$
+	has_tax_building_trigger = yes
+	has_production_building_trigger = yes
+	has_manpower_building_trigger = yes
+	has_trade_building_trigger = yes
+	has_fort_building_trigger = yes
+	EDG_BDX_has_expanded_infrastructure_trigger = yes
+}
+
+EDG_BDX_can_rebuild_alexandria_city_trigger = {
+	ROOT = {
+		treasury = 300
+	}
+	EDG_BDX_province_can_rebuild_alexandria_city_trigger = { development = $development$ }
+	hidden_trigger = {
+		NOT = {
+			has_global_flag = EDG_BDX_alexandria_city_event_is_going_on_flag
+		}
+	}
+}
+
+EDG_BDX_province_belongs_to_DI1_trigger = { #Macedonia
+	OR = {
+		superregion = eastern_europe_superregion
+		area = aegean_archipelago_area
+	}
+	NOT = {
+		region = crimea_region
+	}
+}
+
+EDG_BDX_province_belongs_to_DI2_trigger = { #Asia
+	if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					region = balkan_region
+				}
+			}
+		}
+		OR = {
+			area = cukurova_area
+			area = dulkadir_area
+			area = north_kurdistan_area
+			province_id = 2305
+			province_id = 331
+			area = aleppo_area
+			area = syria_area
+			area = syrian_desert_area
+			area = al_jazira_area
+		}
+	}
+	else_if = {
+		limit = {
+			ROOT = {
+				capital_scope = {
+					region = mashriq_region
+				}
+			}
+		}
+		OR = {
+			AND = {
+				region = anatolia_region
+				NOT = {
+					area = north_kurdistan_area
+				}
+			}
+			area = aleppo_area
+			area = syria_area
+			area = syrian_desert_area
+			region = crimea_region
+		}
+	}
+	else = {
+		OR = {
+			region = anatolia_region
+			region = anatolia_region
+			region = crimea_region
+			area = aleppo_area
+			area = syria_area
+			area = syrian_desert_area
+			area = al_jazira_area
+		}
+	}
+	NOT = {
+		area = aegean_archipelago_area
+	}
+}
+
+EDG_BDX_province_belongs_to_DI3_trigger = { #Egypt
+	OR = {
+		superregion = africa_superregion
+		area = palestine_area
+		area = trans_jordan_area
+		region = arabia_region
+		region = egypt_region
+	}
+}
+
+EDG_BDX_province_belongs_to_DI4_trigger = { #Persia
+	OR = {
+		region = persia_region
+		region = caucasia_region
+		area = iraq_arabi_area
+		area = basra_area
+		area = birjand_area
+	}
+}
+
+EDG_BDX_province_belongs_to_DI5_trigger = { #Arachosia
+	OR = {
+		region = khorasan_region
+		AND = {
+			NOT = {
+				ROOT = {
+					capital_scope = {
+						region = hindusthan_region
+					}
+				}
+			}
+			OR = {
+				area = sind_sagar_area
+				area = lahore_area
+				area = sindh_area
+				area = northern_sindh_area
+				area = multan_area
+				area = kashmir_area
+			}
+		}
+	}
+	NOT = {
+		OR = {
+			area = merv_area
+			area = mashhad_area
+			area = birjand_area
+			province_id = 4325
+		}
+	}
+}
+
+EDG_BDX_province_belongs_to_DI6_trigger = { #Parthia
+	OR = {
+		superregion = tartary_superregion
+		area = merv_area
+		area = mashhad_area
+		province_id = 4325
+	}
+}
+
+EDG_BDX_province_belongs_to_DI7_trigger = { #India
+	superregion = india_superregion
+	NOT = {
+		OR = {
+			area = sind_sagar_area
+			area = lahore_area
+			area = sindh_area
+			area = northern_sindh_area
+			area = multan_area
+			area = kashmir_area
+		}
+	}
+}
+
+EDG_BDX_great_conquer_capital_is_in_scope_trigger = {
+	OR = {
+		$country$ = {
+			has_country_flag = EDG_BDX_mission_endless_flag
+		}
+		region = persia_region
+		region = khorasan_region
+		region = mashriq_region
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_mission_babylon_flag
+			}
+			region = anatolia_region
+		}
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_mission_cross_strait_flag
+			}
+			region = balkan_region
+		}
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_mission_assyria_flag
+			}
+			region = egypt_region
+		}
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_enable_india_great_conquer_flag
+			}
+			OR = {
+				region = hindusthan_region
+				region = west_india_region
+			}
+		}
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_mission_kushan_flag
+			}
+			superregion = india_superregion
+		}
+		AND = {
+			$country$ = {
+				has_country_flag = EDG_BDX_mission_sword_of_damocles_flag
+			}
+			OR = {
+				region = carpathia_region
+				region = south_german_region
+				region = italy_region
+			}
+		}
+	}
+}
+
+EDG_BDX_country_can_be_annexed_in_diadochi_war_trigger = {
+	OR = {
+		is_in_war = {
+			casus_belli = cb_EDG_BDX_diadochi_war
+			attacker_leader = this
+		}
+		is_in_war = {
+			casus_belli = cb_EDG_BDX_diadochi_war
+			defender_leader = this
+		}
+	}
+	capital_scope = {
+		OR = {
+			controlled_by = ROOT
+			controller = {
+				alliance_with = ROOT
+			}
+			controller = {
+				is_subject_of = ROOT
+			}
+		}
+	}
+	ROOT = {
+		war_score_against = {
+			who = prev
+			value = 50
+		}
+	}
+}
+
+EDG_BDX_has_expanded_infrastructure_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_BDX_has_expanded_infrastructure_trigger_tt
+		OR = {
+			num_of_times_expanded_infrastructure = 1
+			has_province_modifier = EDG_BDX_expand_infrastructure_1_modifier
+			has_province_modifier = EDG_BDX_expand_infrastructure_2_modifier
+			has_province_modifier = EDG_BDX_expand_infrastructure_3_modifier
+		}
+	}
+}

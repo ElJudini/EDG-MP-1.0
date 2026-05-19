@@ -1,0 +1,1005 @@
+EDG_FOI_SPA_complete_especial_mission = {
+	custom_tooltip = EDG_FOI_SPA_complete_especial_mission.tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				EDG_FOI_SPA_generic_mission_tag_trigger = yes
+				NOT = {
+					tag = root
+				}
+			}
+			complete_mission = $mission$
+		}
+	}
+}
+EDG_FOI_SPA_complete_especial_mission_with_bouns = {
+	custom_tooltip = EDG_FOI_SPA_complete_especial_mission_with_bouns.tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				EDG_FOI_SPA_generic_mission_tag_trigger = yes
+				NOT = {
+					tag = root
+				}
+			}
+			complete_mission = $mission$
+			[[bouns]
+				$bouns$
+			]
+		}
+	}
+}
+EDG_FOI_ADU_complete_especial_mission = {
+	custom_tooltip = EDG_FOI_SPA_complete_especial_mission.tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				EDG_FOI_ADU_generic_mission_tag_trigger = yes
+				NOT = {
+					tag = root
+				}
+			}
+			complete_mission = $mission$
+		}
+	}
+}
+EDG_FOI_ADU_complete_especial_mission_with_bouns = {
+	custom_tooltip = EDG_FOI_SPA_complete_especial_mission_with_bouns.tt
+	hidden_effect = {
+		every_country = {
+			limit = {
+				EDG_FOI_ADU_generic_mission_tag_trigger = yes
+				NOT = {
+					tag = root
+				}
+			}
+			complete_mission = $mission$
+			[[bouns]
+				$bouns$
+			]
+		}
+	}
+}
+EDG_FOI_add_victory_point = {
+	change_variable = {
+		which = FOI_victory_point
+		value = 1
+	}
+}
+EDG_FOI_attack_ask_for_help_effect = {
+	custom_tooltip = EDG_FOI_ask_for_help_effect.tt
+	every_country = {
+		limit = {
+			OR = {
+				AND = {
+					capital_scope = {
+						region = iberia_region
+					}
+					religion_group = $who$
+				}
+				alliance_with = $who$
+			}
+			NOT = {
+				tag = $who$
+			}
+			is_at_war = no
+		}
+		country_event = {
+			id = FOICommonEvents.1
+			days = 3
+			random = 5
+		}
+	}
+}
+EDG_FOI_defense_ask_for_help_effect = {
+	custom_tooltip = EDG_FOI_ask_for_help_effect.tt
+	every_country = {
+		limit = {
+			OR = {
+				AND = {
+					capital_scope = {
+						region = iberia_region
+					}
+					religion_group = $who$
+				}
+				alliance_with = $who$
+			}
+			NOT = {
+				tag = root
+			}
+			is_at_war = no
+		}
+		country_event = {
+			id = FOICommonEvents.2
+			days = 3
+			random = 5
+		}
+	}
+}
+EDG_FOI_declare_war_with_other = {
+	# hidden_effect = {
+	# 	every_country = {
+	# 		limit = {
+	# 			OR = {
+	# 				alliance_with = $defender$
+	# 				has_guaranteed = $defender$
+	# 			}
+	# 		}
+	# 		if = {
+	# 			limit = { 
+	# 				alliance_with = $defender$
+	# 			}
+	# 			break_alliance = $defender$
+	# 		}
+	# 		else = {
+	# 			remove_guarantee = $defender$
+	# 		}
+	# 	}
+	# 	every_country = {
+	# 		limit = {
+	# 			alliance_with = $attacker$
+	# 			NOT = {
+	# 				tag = $attacker$
+	# 			}
+	# 		}
+	# 		break_alliance = $attacker$
+	# 	}
+	# }
+	$attacker$ = {
+		declare_war_with_cb = {
+			casus_belli = cb_EDG_WG_superiority_IBR_unification
+			who = $defender$
+		}
+	}
+}
+EDG_FOI_iberia_reconstruction_work_mechanic_effect = {
+	if = {
+		limit = { 
+			region = iberia_region
+		}
+		owner = {
+			if = {
+				limit = { 
+					is_subject = yes
+					overlord = {
+						has_government_mechanic = FOI_iberia_reconstruction_work_mechanic
+					}
+				}
+				overlord = {
+					add_government_power = {
+						mechanic_type = FOI_iberia_reconstruction_work_mechanic
+						power_type = FOI_iberia_reconstruction_work
+						value = 0.5
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_government_mechanic = FOI_iberia_reconstruction_work_mechanic
+				}
+				add_government_power = {
+					mechanic_type = FOI_iberia_reconstruction_work_mechanic
+					power_type = FOI_iberia_reconstruction_work
+					value = 0.5
+				}
+			}
+		}
+	}
+}
+EDG_FOI_save_target_for_battle_effect = {
+	hidden_effect = {
+		[[province_1]
+			if = {
+				limit = { 
+					$province_1$ = {
+						NOT = {
+							country_or_non_sovereign_subject_holds = root
+						}
+						owner = {
+							NOT = {
+								has_opinion = {
+									who = root
+									value = 75
+								}
+							}
+						}
+					}
+				}
+				$province_1$ = {
+					owner = {
+						save_event_target_as = FOI_declare_war_target
+					}
+				}
+			}
+		]
+		[[province_2]
+			if = {
+				limit = { 
+					$province_2$ = {
+						NOT = {
+							country_or_non_sovereign_subject_holds = root
+						}
+						owner = {
+							NOT = {
+								has_opinion = {
+									who = root
+									value = 75
+								}
+							}
+						}
+					}
+				}
+				$province_2$ = {
+					owner = {
+						save_event_target_as = FOI_declare_war_target_2
+					}
+				}
+			}
+		]
+		[[province_3]
+			if = {
+				limit = { 
+					$province_3$ = {
+						NOT = {
+							country_or_non_sovereign_subject_holds = root
+						}
+						owner = {
+							NOT = {
+								has_opinion = {
+									who = root
+									value = 75
+								}
+							}
+						}
+					}
+				}
+				$province_3$ = {
+					owner = {
+						save_event_target_as = FOI_declare_war_target_2
+					}
+				}
+			}
+		]
+	}
+}
+EDG_FOI_declare_war_effect = {
+	[[province_1]
+		if = {
+			limit = { 
+				$province_1$ = {
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+			}
+			EDG_FOI_declare_war_with_other = {
+				attacker = root
+				defender = event_target:FOI_declare_war_target
+			}
+		}
+	]
+	[[province_2]
+		if = {
+			limit = { 
+				$province_2$ = {
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				event_target:FOI_declare_war_target_2 = {
+					NOT = {
+						tag = event_target:OI_declare_war_target
+					}
+				}
+			}
+			EDG_FOI_declare_war_with_other = {
+				attacker = root
+				defender = event_target:FOI_declare_war_target_2
+			}
+		}
+	]
+	[[province_3]
+		if = {
+			limit = { 
+				$province_3$ = {
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				event_target:OI_declare_war_target_3 = {
+					NOT = {
+						tag = event_target:OI_declare_war_target
+					}
+				}
+				event_target:FOI_declare_war_target_2 = {
+					NOT = {
+						tag = event_target:OI_declare_war_target
+					}
+				}
+			}
+			EDG_FOI_declare_war_with_other = {
+				attacker = root
+				defender = event_target:FOI_declare_war_target_3
+			}
+		}
+	]
+}
+EDG_FOI_add_infrastructure_modifier = {
+	remove_building = FOI_infrastructure
+	if = {
+		limit = { 
+			has_terrain = grasslands
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_grasslands
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = hills
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_hills
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = drylands
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_drylands
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = highlands
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_highlands
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = mountain
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_mountain
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = woods
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_iberia_infrastructure_woods
+			duration = -1
+		}
+	}
+	every_neighbor_province = {
+		limit = {
+			region = iberia_region
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+					has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+					has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+					has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+					has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+					has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+					has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					has_construction = FOI_infrastructure
+					has_province_flag = EDG_FOI_iberia_infrastructure_building_flag
+				}
+			}
+		}
+		set_province_flag = EDG_FOI_iberia_infrastructure_building_flag
+	}
+	clr_province_flag = EDG_FOI_iberia_infrastructure_building_flag
+}
+EDG_FOI_ADU_blazing_fire_effect = {
+	if = {
+		limit = { 
+			controller = {
+				has_country_modifier = EDG_FOI_ADU_desert_attack
+			}
+			OR = {
+				region = arabia_region
+				region = mashriq_region
+			}
+			from = {
+				capital_scope = {
+					OR = {
+						region = arabia_region
+						region = mashriq_region
+					}
+				}
+			}
+		}
+		cede_province = controller
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_flag = FOI_ADU_expand_14_2_flag
+			}
+			region = egypt_region
+			from = {
+				capital_scope = {
+					region = egypt_region
+				}
+			}
+		}
+		cede_province = controller
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_flag = FOI_ADU_expand_14_4_flag
+			}
+			region = horn_of_africa_region
+			from = {
+				capital_scope = {
+					region = horn_of_africa_region
+				}
+			}
+		}
+		cede_province = controller
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_flag = EDG_FOI_ADU_war_with_al_andalusia_crusade
+			}
+			from = {
+				has_country_flag = EDG_FOI_ADU_war_with_al_andalusia_crusade
+			}
+		}
+		cede_province = controller
+		if = {
+			limit = { 
+				NOT = {
+					is_core = controller
+				}
+			}
+			add_core = controller
+		}
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_modifier = EDG_FOI_ADU_born_of_fire
+			}
+			region = maghreb_region
+			from = {
+				capital_scope = {
+					region = maghreb_region
+				}
+			}
+		}
+		cede_province = controller
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_flag = FOI_ADU_expand_9_3_flag
+			}
+			OR = {
+				region = sahel_region
+				region = niger_region
+			}
+			from = {
+				capital_scope = {
+					OR = {
+						region = sahel_region
+						region = niger_region
+					}
+				}
+			}
+		}
+		cede_province = controller
+	}
+	if = {
+		limit = { 
+			controller = {
+				has_country_flag = FOI_ADU_expand_13_3_flag
+			}
+			OR = {
+				region = kongo_region
+				region = central_africa_region
+				region = east_africa_region
+				region = south_africa_region
+			}
+			from = {
+				capital_scope = {
+					OR = {
+						region = kongo_region
+						region = central_africa_region
+						region = east_africa_region
+						region = south_africa_region
+					}
+				}
+			}
+		}
+		cede_province = controller
+	}
+}
+EDG_FOI_USP_centralized_new_world_development = {
+	if = {
+		limit = { 
+			owner = {
+				has_government_attribute = FOI_can_centralized_new_world_development
+			}
+		}
+		if = {
+			limit = { 
+				base_tax = 1
+			}
+			add_base_tax = -1
+		}
+		if = {
+			limit = { 
+				base_production = 1
+			}
+			add_base_production = -1
+		}
+		if = {
+			limit = { 
+				base_manpower = 1
+			}
+			add_base_manpower = -1
+		}
+		
+	}
+}
+EDG_FOI_UCI_conscription_of_militia_effect = {
+	add_devastation = 25
+	if = {
+		limit = { 
+			owner = {
+				NOT ={ 
+					has_country_flag = FOI_UCI_20_1_flag
+				}
+			}
+		}
+		add_province_modifier = {
+			name = EDG_FOI_UCI_armed_mobilization
+			duration = 1825
+		}
+	}
+	else = {
+		add_province_modifier = {
+			name = EDG_FOI_UCI_armed_mobilization
+			duration = 730
+		}
+	}
+	set_variable = {
+		which = EDG_FOI_UCI_province_base_manpower
+		value = 0
+	}
+	export_to_variable = {
+		which = EDG_FOI_UCI_province_base_manpower
+		value = trigger_value:base_manpower
+	}
+	divide_variable = {
+		which = EDG_FOI_UCI_province_base_manpower
+		value = 2
+	}
+	while = {
+		limit = { 
+			check_variable = {
+				which = EDG_FOI_UCI_province_base_manpower
+				value = 0
+			}
+		}
+		add_unit_construction = {
+			type = infantry
+			amount = 1
+			cost = 0
+			speed = 0
+		}
+		subtract_variable = {
+			which = EDG_FOI_UCI_province_base_manpower
+			value = 1
+		}
+	}
+}
+EDG_FOI_UCI_government_reform_cd = {
+	add_country_modifier = {
+		name = EDG_FOI_UCI_commune_reform
+		duration = 3650
+	}
+}
+EDG_FOI_UCI_separatism_war_effect = {
+	if = {
+		limit = { 
+			is_core = root
+			NOT = {
+				owned_by = root
+			}
+		}
+		add_nationalism = 20
+		add_unrest = 20
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 5
+		}
+	}
+}
+EDG_FOI_UCI_add_trait_effect = {
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_1_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_1_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_1_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_fairness
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_2_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_2_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_2_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_equality
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_3_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_3_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_3_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_integrity
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_4_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_4_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_4_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_justice
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_5_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_5_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_5_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_progress
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_6_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_6_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_6_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_diligent
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_7_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_7_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_7_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_ideal
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_8_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_8_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_8_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_abundance
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_9_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_9_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_9_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_tenacity
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_10_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_10_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_10_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_courage
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_11_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_11_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_11_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_enthusiasm
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_12_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_12_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_12_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_stern
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_13_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_13_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_13_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_rectify
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_14_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_14_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_14_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_reconcile
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_15_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_15_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_15_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_war
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_16_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_16_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_button_16_3_flag
+			}
+		}
+		add_ruler_personality = EDG_FOI_personality_governance
+	}
+}
+EDG_FOI_UCI_UI_clear_trait_flag_effect = {
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_1_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_1_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_2_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_2_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_3_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_3_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_4_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_4_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_5_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_5_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_6_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_6_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_7_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_7_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_8_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_8_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_9_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_9_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_10_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_10_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_11_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_11_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_12_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_12_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_13_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_13_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_14_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_14_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_15_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_15_flag
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_UI_court_trait_button_16_$slot$_flag
+		}
+		clr_country_flag = FOI_UCI_UI_court_trait_button_16_flag
+	}
+}
+EDG_FOI_UCI_UI_select_trait_effect = {
+	if = {
+		limit = { 
+			NOT = {
+				has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_flag
+			}
+		}
+		[[use_empirical]
+			subtract_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 200
+			}
+		]
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_1_flag
+				}
+				EDG_FOI_UCI_UI_clear_trait_flag_effect = {
+					slot = 1
+				}
+				clr_country_flag = FOI_UCI_UI_court_trait_button_1_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_2_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_3_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_4_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_5_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_6_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_7_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_8_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_9_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_10_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_11_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_12_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_13_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_14_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_15_1_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_16_1_flag
+				set_country_flag = FOI_UCI_UI_court_trait_button_$serial$_1_flag
+				
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_2_flag
+				}
+				EDG_FOI_UCI_UI_clear_trait_flag_effect = {
+					slot = 2
+				}
+				clr_country_flag = FOI_UCI_UI_court_trait_button_1_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_2_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_3_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_4_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_5_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_6_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_7_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_8_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_9_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_10_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_11_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_12_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_13_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_14_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_15_2_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_16_2_flag
+				set_country_flag = FOI_UCI_UI_court_trait_button_$serial$_2_flag
+				
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_3_flag
+				}
+				EDG_FOI_UCI_UI_clear_trait_flag_effect = {
+					slot = 3
+				}
+				clr_country_flag = FOI_UCI_UI_court_trait_button_1_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_2_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_3_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_4_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_5_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_6_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_7_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_8_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_9_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_10_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_11_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_12_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_13_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_14_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_15_3_flag
+				clr_country_flag = FOI_UCI_UI_court_trait_button_16_3_flag
+				set_country_flag = FOI_UCI_UI_court_trait_button_$serial$_3_flag
+				
+			}
+			set_country_flag = FOI_UCI_UI_court_trait_button_$serial$_flag
+		}
+		custom_tooltip = EDG_FOI_UCI_UI_select_trait_next_effect
+	}
+	else = {
+		custom_tooltip = EDG_FOI_UCI_UI_deselect_trait_effect
+		[[use_empirical]
+			change_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 200
+			}
+		]
+		hidden_effect = {
+			clr_country_flag = FOI_UCI_UI_court_trait_button_$serial$_flag
+			clr_country_flag = FOI_UCI_UI_court_trait_button_$serial$_1_flag
+			clr_country_flag = FOI_UCI_UI_court_trait_button_$serial$_2_flag
+			clr_country_flag = FOI_UCI_UI_court_trait_button_$serial$_3_flag
+		}
+	}
+
+}

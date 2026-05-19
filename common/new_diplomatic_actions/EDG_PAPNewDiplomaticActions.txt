@@ -1,0 +1,85 @@
+EDG_PAP_mediate_war_first = {
+	category = influence
+	is_visible = {
+		tag = PAP
+		from = {
+			NOT = {
+				has_country_flag = EDG_PAP_mediate_war_flag
+			}
+			religion = catholic
+		}
+	}
+	is_allowed = {
+		from = {
+			is_in_war = {
+				attacker_leader = this
+			}
+		}
+	}
+	on_accept = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = EDG_PAP_mediate_war_flag
+				}
+				clr_country_flag = EDG_PAP_mediate_war_flag
+			}
+			clear_global_event_target = EDG_PAP_mediate_war_first_target
+			from = {
+				set_country_flag = EDG_PAP_mediate_war_flag
+				save_global_event_target_as = EDG_PAP_mediate_war_first_target
+			}
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+EDG_PAP_mediate_war_second = {
+	category = influence
+	is_visible = {
+		from = {
+			NOT = {
+				has_country_flag = EDG_PAP_mediate_war_flag
+			}
+		}
+		any_country = {
+			has_country_flag = EDG_PAP_mediate_war_flag
+		}
+		tag = PAP
+		from = {
+			religion = catholic
+		}
+	}
+	is_allowed = {
+		from = {
+			is_in_war = {
+				attacker_leader = event_target:EDG_PAP_mediate_war_first_target
+			}
+		}
+	}
+	on_accept = {
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = EDG_PAP_mediate_war_flag
+				}
+				clr_country_flag = EDG_PAP_mediate_war_flag
+			}
+			from = {
+				white_peace = event_target:EDG_PAP_mediate_war_first_target
+			}
+			clear_global_event_target = EDG_PAP_mediate_war_first_target
+		}
+		add_government_power = {
+			mechanic_type = EDG_PAP_papal_authority_mechanic
+			power_type = EDG_PAP_papal_authority
+			value = 1
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}

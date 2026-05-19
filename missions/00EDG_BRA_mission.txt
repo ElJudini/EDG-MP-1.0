@@ -1,0 +1,2924 @@
+EDG_BRA_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = BRA
+			AND = {
+				was_tag = BRA
+				tag = H10
+			} 
+			AND = {
+				was_tag = BRA
+				tag = GER
+			} 
+		}
+	} 
+
+	EDG_BRA_mission_1_1 = { #与条顿骑士团的交易
+		icon = mission_diplomatic_relation
+		position = 1
+		provinces_to_highlight = {  
+			OR = {
+				province_id = 49
+				province_id = 4747
+                is_capital_of = TEU
+                owned_by = TEU
+            }
+		} 
+		trigger = {  
+			OR = {
+				neumark_area = {
+					type = all
+                	country_or_non_sovereign_subject_holds = ROOT
+            	}
+				AND = {
+					exists = TEU
+					49 = { owned_by = TEU }
+					4747 = { owned_by = TEU }
+					OR = {
+						army_size = 10
+						army_size_percentage = 1
+					}
+					treasury = 100
+					NOT = { is_rival = TEU }
+					NOT = {	TEU = { is_rival = ROOT } }
+				}
+			}
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_1_1_modifier #勃兰登堡复兴
+				duration = 3650
+			}
+			define_advisor = {
+				type = diplomat
+				skill = 1
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			if = {
+				limit = {
+					exists = TEU
+					49 = { owned_by = TEU }
+					4747 = { owned_by = TEU }
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_1_1_tt
+				country_event = { id = EDG_flavorBRA_mission.1 } #诺伊马克的命运
+			}
+		}
+	}
+
+	EDG_BRA_mission_1_2 = { #诺德马克博弈
+		icon = regents_contracts
+		position = 2
+		required_missions = { EDG_BRA_mission_2_1 } 
+		provinces_to_highlight = {  
+			OR = {
+                is_capital_of = H03
+                owned_by = H03
+            }
+		} 
+		trigger = {  
+			is_subject = no
+			is_at_war = no
+			OR = {
+				AND = {
+					NOT = { exists = H03 }
+					4786 = { country_or_non_sovereign_subject_holds = ROOT }
+					2964 = { country_or_non_sovereign_subject_holds = ROOT }
+					52 = { country_or_non_sovereign_subject_holds = ROOT }
+					4741 = { country_or_non_sovereign_subject_holds = ROOT }
+					62 = { country_or_non_sovereign_subject_holds = ROOT }
+					59 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				AND = {
+					exists = H03
+					army_size = H03
+					exists = SAX
+					alliance_with = SAX
+					emperor = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				AND = {
+					exists = H03
+					alliance_with = H03
+					H03 = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+			}
+		} 
+		effect = {  
+			if = {
+				limit = {
+					NOT = { exists = H03 }
+					4786 = { country_or_non_sovereign_subject_holds = ROOT }
+					2964 = { country_or_non_sovereign_subject_holds = ROOT }
+					52 = { country_or_non_sovereign_subject_holds = ROOT }
+					4741 = { country_or_non_sovereign_subject_holds = ROOT }
+					62 = { country_or_non_sovereign_subject_holds = ROOT }
+					59 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				custom_tooltip = EDG_BRA_mission_1_2_a_yes 
+				add_country_modifier = {
+					name = EDG_BRA_mission_1_2_modifier_1 #征服诺德马克
+					duration = 1825
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_1_2_a_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BRA_mission_1_2_modifier_1 #征服诺德马克
+						duration = 1825
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = H03
+					army_size = H03
+					exists = SAX
+					alliance_with = SAX
+					emperor = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_1_2_b_yes
+				add_casus_belli = {
+					type = cb_BRA_transference_elector
+					target = H03
+					months = 600
+				}
+				add_casus_belli = {
+					type = cb_EDG_HRE_vassal_vassalize_mission
+					target = H03
+					months = 600
+				}
+				add_favors = {
+					who = SAX
+					amount = 10
+				}
+				custom_tooltip = EDG_BRA_mission_1_2_b_tt
+			}
+			else = {
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_1_2_b_no
+				tooltip = {
+					add_casus_belli = {
+						type = cb_BRA_transference_elector
+						target = H03
+						months = 600
+					}
+					add_casus_belli = {
+						type = cb_EDG_HRE_vassal_vassalize_mission
+						target = H03
+						months = 600
+					}
+					add_favors = {
+						who = SAX
+						amount = 10
+					}
+				}
+				custom_tooltip = EDG_BRA_mission_1_2_b_tt
+			}
+			if = {
+				limit = {
+					exists = H03
+					alliance_with = H03
+					H03 = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_1_2_c_yes
+				add_historical_friend = H03
+				H03 = {
+					add_historical_friend = ROOT
+				}
+				add_trust = {
+					who = H03
+    				value = 10
+    				mutual = yes
+				}
+				add_prestige_or_monarch_power = { amount = 25 }
+				add_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = 5
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_1_2_c_no
+				tooltip = {
+					add_historical_friend = H03
+					H03 = {
+						add_historical_friend = ROOT
+					}
+					add_trust = {
+						who = H03
+    					value = 10
+    					mutual = yes
+					}
+					add_prestige_or_monarch_power = { amount = 25 }
+					add_government_power = {
+						mechanic_type = EDG_BRA_Markgraf_ability
+						power_type = EDG_BRA_Markgraf_power
+						value = 5
+					}
+				}
+			}
+		}  
+	}
+
+	EDG_BRA_mission_1_4 = { #波兰铜王冠
+		icon = mission_plc_cross_wild_field
+		position = 4
+		required_missions = { EDG_BRA_mission_2_3 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = wielkopolska_area
+				area = central_poland_area
+				area = malopolska_area
+				area = mazovia_area
+				area = kuyavia_area
+				area = sandomierz_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			wielkopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			central_poland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			malopolska_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			mazovia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			kuyavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			sandomierz_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.3 } #波兰铜王冠
+			poland_region = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_1_4_pro_modifier #波兰地区军备体系
+					duration = 7300
+				}
+			}
+			add_adm_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BRA_mission_1_4_modifier #波兰人的王
+				duration = -1
+			}
+			add_accepted_culture_or_dip_power = { culture = polish }
+			custom_tooltip = EDG_BRA_mission_1_4_tt
+		}
+	}
+
+	EDG_BRA_mission_1_5 = { #终结汉萨同盟
+		icon = mission_bane_of_the_hansa
+		position = 5
+		required_missions = { EDG_BRA_mission_2_4 } 
+		provinces_to_highlight = {  
+			province_id = 45
+		} 
+		trigger = {  
+			is_subject = no
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			45 = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { exists = HSA }
+		} 
+		effect = {  
+			45 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				EDG_create_or_add_center_of_trade_level_effect = yes
+			}
+			45 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_1_5_pro_modifier #北德贸易中心
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_1_6 = { #无权干涉
+		icon = balance_of_power
+		position = 6
+		provinces_to_highlight = {  
+			OR = {
+                is_capital_of = emperor
+                owned_by = emperor
+            }
+		} 
+		trigger = {  
+			is_subject = no
+			mission_completed = EDG_BRA_mission_2_4
+			OR = {
+				diplomat = 3
+				historian = 3
+			}
+			NOT = {
+				emperor = {
+					has_opinion = {
+						who = ROOT
+						value = 0 
+					}
+				}
+			}
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_1_6_modifier #真正的雄辩
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_BRA_mission_1_8 = { #丹麦邦联的恐惧
+		icon = mission_danish_flag
+		position = 8
+		required_missions = { EDG_BRA_mission_2_7 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = jutland_area
+				area = denmark_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no、
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			OR = {
+				any_country = {
+					primary_culture = danish
+					war_with = ROOT
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 3
+					culture = danish
+				}
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.4 } #丹麦的求援
+			jutland_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			denmark_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_BRA_mission_1_9 = { #丹麦梦碎
+		icon = mission_fire_of_london
+		position = 9
+		required_missions = { EDG_BRA_mission_1_8 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = jutland_area
+				area = denmark_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {
+			is_subject = no
+			OR = {
+				is_in_war = {
+					attacker_leader = ROOT
+					defender_leader = SLL
+					war_score = 60
+				}
+				AND = {
+					jutland_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					denmark_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+		}
+		effect = {  
+			if = {
+				limit = { exists = SLL is_subject = no }
+				white_peace = SLL
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = SLL
+				}
+			}
+			if = {
+				limit = { exists = LLL is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = LLL
+				}
+			}
+			if = {
+				limit = { exists = FYN is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = FYN
+				}
+			}
+			if = {
+				limit = { exists = ABO is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = ABO
+				}
+			}
+			if = {
+				limit = { exists = ABG is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = ABG
+				}
+			}
+			if = {
+				limit = { exists = KLG is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = KLG
+				}
+			}
+			if = {
+				limit = { exists = SYS is_subject = no }
+				create_subject = {
+					subject_type = EDG_BRA_march
+					subject = SYS
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_1_9_tt
+			every_neighbor_country = {
+				limit = { NOT = { is_subject_of = ROOT } }
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_annex_part_of_empire
+				}
+			}
+			scandinavia_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_BRA_mission_1_10 = { #雄狮哀鸣
+		icon = mission_slay_the_lion
+		position = 10
+		required_missions = { EDG_BRA_mission_1_9 } 
+		provinces_to_highlight = {  
+			culture_group = scandinavian
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				culture_group = scandinavian
+			}
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			has_country_modifier = EDG_BRA_set_germania_modifier
+			has_country_flag = EDG_BRA_has_had_claim_germania_flag
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_1_10_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_1
+			add_country_modifier = {
+				name = EDG_BRA_mission_1_10_modifier
+				duration = 7300
+			}
+			russia_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			ruthenia_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_BRA_mission_1_11 = { #斯拉夫人的梦魇
+		icon = mission_plc_break_the_rus
+		position = 11
+		required_missions = { EDG_BRA_mission_1_10 } 
+		provinces_to_highlight = {  
+			culture_group = east_slavic
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 60
+				culture_group = east_slavic
+			}
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			has_country_modifier = EDG_BRA_set_germania_modifier
+			has_country_flag = EDG_BRA_has_had_claim_germania_flag
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_1_11_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_2
+			add_country_modifier = {
+				name = EDG_BRA_mission_1_11_modifier
+				duration = 9125
+			}
+		} 
+	}
+}
+
+EDG_BRA_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = BRA
+			AND = {
+				was_tag = BRA
+				tag = H10
+			} 
+			AND = {
+				was_tag = BRA
+				tag = GER
+			} 
+		}
+	} 
+
+	EDG_BRA_mission_2_1 = { #不再为人所质
+		icon = electorate_of_brandenburg
+		position = 1
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			OR = {
+				army_size = 10
+				army_size_percentage = 1
+			}
+			#has_dip_advisor = yes
+		} 
+		effect = {  
+			add_government_reform = EDG_BRA_Markgraf
+			custom_tooltip = EDG_SPACE_TT
+			add_truce_with = BOH
+			BOH = {
+				add_truce_with = ROOT
+			}
+			add_truce_with = emperor
+			emperor = {
+				add_truce_with = ROOT
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_2_1_tt
+			hidden_effect = {
+				vorpommern_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				hinter_pommern_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				mecklenburg_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				northern_saxony_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				thuringia_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				south_saxony_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				neumark_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				mittelmark_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+			}
+			country_event = { id = EDG_flavorBRA_mission.14 } #向萨克森发出请求
+			country_event = { id = EDG_flavorBRA_mission.16 } #向吕贝克发出请求
+		} 
+	}
+
+	EDG_BRA_mission_2_2 = { #秋风扫落叶
+		icon = mission_cossack_cavalry
+		position = 2
+		required_missions = { EDG_BRA_mission_2_1 } 
+		provinces_to_highlight = {  
+			culture = pommeranian
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				culture = pommeranian
+			}
+		} 
+		effect = {
+			hidden_effect = {
+				every_owned_province = {
+					limit = { culture = pommeranian }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_2_pro_modifier #勃兰登堡治下的波美拉尼亚
+						duration = 9125
+					}
+				}
+			}
+			custom_tooltip = EDG_BRA_mission_2_2_tt_a
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_2_2_pro_modifier #勃兰登堡治下的波美拉尼亚
+					duration = 9125
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_mission_2_2_modifer
+				duration = -1
+			}
+			add_accepted_culture_or_dip_power = { culture = pommeranian }
+			custom_tooltip = EDG_BRA_mission_2_2_tt
+		} 
+	}
+
+	EDG_BRA_mission_2_3 = { #东西兼顾
+		icon = switzerland_and_the_empire
+		position = 3
+		required_missions = {
+			EDG_BRA_mission_1_2
+			EDG_BRA_mission_2_2
+			EDG_BRA_mission_3_2
+		}
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = SAX
+				owned_by = TEU
+			}
+		} 
+		trigger = {  
+			is_subject = no
+			all_owned_province = {
+				is_core = ROOT
+			}
+			total_development = 100
+			OR = {
+				AND = {
+					exists = SAX
+					NOT = { alliance_with = SAX }
+				}
+				NOT = { exists = SAX }
+			}
+			OR = {
+				AND = {
+					exists = TEU
+					NOT = { alliance_with = TEU }
+				}
+				NOT = { exists = TEU }
+			}
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_2_3_tt
+			hidden_effect = {
+			wielkopolska_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			central_poland_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			malopolska_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			mazovia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			kuyavia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			sandomierz_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			269 = {
+				add_permanent_claim = ROOT
+			}
+			lower_saxony_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			4771 = { add_permanent_claim = ROOT }
+			54 = { add_permanent_claim = ROOT }
+			1874 = { add_permanent_claim = ROOT }
+			1758 = { add_permanent_claim = ROOT }
+			57 = { add_permanent_claim = ROOT }
+			4773 = { add_permanent_claim = ROOT }
+			1775 = { add_permanent_claim = ROOT }
+			4141 = { add_permanent_claim = ROOT }
+			}
+			west_prussia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			east_prussia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_BRA_mission_2_3_modifier  #霍亨索伦野望
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_4 = { #北境不需要大元帅
+		icon = mission_impaled_soldies
+		position = 4
+		required_missions = { EDG_BRA_mission_2_3 } 
+		provinces_to_highlight = {  
+			culture = lower_saxon
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			SAX = {
+				OR = {
+					exists = no
+					is_subject_of = ROOT
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				culture = lower_saxon
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.6 } #触发大元帅的覆灭事件
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BRA_mission_2_4_modifier
+				duration = -1
+			}
+			custom_tooltip = EDG_BRA_mission_2_4_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_3
+		} 
+	}
+
+	EDG_BRA_mission_2_5 = { #悉尼河血雨
+		icon = reclaim_the_aegean
+		position = 5
+		required_missions = { EDG_BRA_mission_2_4 } 
+		provinces_to_highlight = {  
+			OR = {
+				culture = hannoverian
+				culture = hessian
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 6
+				culture = hannoverian
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 8
+				culture = hessian
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.28 } #触发施马·卡尔斯事件
+			custom_tooltip = EDG_BRA_mission_2_5_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				north_westphalia_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				55 = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				2971 = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				westphalia_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				hesse_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				palatinate_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				lower_rhineland_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+				north_rhine_area = {
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = {
+						name = EDG_BRA_mission_2_5_modifier #枕旦待戈
+						duration = 7300
+					}
+				}
+			}
+			low_countries_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_6 = { #吾将低地，尽纳掌中
+		icon = mission_conquer_andhra_bah
+		position = 6
+		required_missions = { EDG_BRA_mission_2_5 } 
+		provinces_to_highlight = {  
+			region = low_countries_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				region = low_countries_region
+			}
+		} 
+		effect = {  
+			set_country_flag = EDG_BRA_mission_2_6_flag
+			custom_tooltip = EDG_BRA_mission_2_6_tt
+			low_countries_region = {
+				limit = { country_or_non_sovereign_subject_holds = ROOT }
+				add_nationalism = -10
+				add_devastation = -100
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_7 = { #退出神圣罗马帝国
+		icon = mission_dismantle_hre
+		position = 7
+		required_missions = {
+			EDG_BRA_mission_1_6
+			EDG_BRA_mission_2_6
+			EDG_BRA_mission_3_6
+		}
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		trigger = {  
+			is_subject = no
+			is_religion_enabled = protestant
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			army_size = emperor
+			# NOT = {
+			# 	emperor = {
+			# 		has_opinion = {
+			# 			who = ROOT
+			# 			value = 0 
+			# 		}
+			# 	}
+			# }
+			# has_adm_advisor_3 = yes
+			# has_dip_advisor_3 = yes
+			# has_mil_advisor_3 = yes
+		} 
+		effect = {  
+			set_in_empire = no
+			add_prestige_or_monarch_power = { amount = 50 }
+			add_country_modifier = {
+				name = EDG_BRA_mission_2_7_modifier_1
+				duration = -1
+			}
+			south_german_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					religion = protestant
+				}
+				custom_tooltip = EDG_BRA_mission_2_7_tt_yes
+				add_country_modifier = {
+					name = EDG_BRA_mission_2_7_modifier_2
+					duration = -1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_2_7_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BRA_mission_2_7_modifier_2
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_8 = { #向皇帝亮剑
+		icon = humiliate_austria
+		position = 8
+		required_missions = { EDG_BRA_mission_2_7 } 
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		trigger = {  
+			is_subject = no
+			# has_country_modifier = EDG_BRA_set_prussia_modifier
+			# has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			is_at_war = no
+			is_great_power = yes
+			OR = {
+				AND = {
+					hre_size = 1
+					army_size = emperor
+				}
+				NOT = { hre_size = 1 }
+				AND = {
+					north_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					south_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		} 
+		effect = {
+			if = {
+				limit = {
+					hre_size = 1
+				}
+				custom_tooltip = EDG_BRA_mission_2_8_a_yes
+				country_event = { id = EDG_flavorBRA_mission.7 } #与皇帝的战争
+				custom_tooltip = EDG_BRA_mission_2_8_tt
+				custom_tooltip = EDG_BRA_mission_2_8_b_no
+			}  
+			else = {
+				custom_tooltip = EDG_BRA_mission_2_8_a_no
+				tooltip = {
+					country_event = { id = EDG_flavorBRA_mission.7 }
+				}
+				custom_tooltip = EDG_BRA_mission_2_8_tt
+				custom_tooltip = EDG_BRA_mission_2_8_b_yes
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_9 = { #布拉格合约
+		icon = subiaco_press
+		position = 9
+		required_missions = { EDG_BRA_mission_2_8 } 
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		trigger = {  
+			# has_country_modifier = EDG_BRA_set_prussia_modifier
+			# has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			is_subject = no
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			OR = {
+				is_in_war = {
+					attacker_leader = ROOT
+					defender_leader = emperor
+					war_score = 90
+				}
+				NOT = { hre_size = 1 }
+				AND = {
+					north_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					south_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+			
+		} 
+		effect = {  
+			if = {
+				limit = {
+					hre_size = 1
+				}
+				custom_tooltip = EDG_BRA_mission_2_8_a_yes
+				white_peace = emperor
+				custom_tooltip = EDG_BRA_mission_2_9_tt_a
+				hidden_effect = {
+					north_german_region = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					upper_franconia_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					franconia_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					palatinate_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					alsace_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					upper_rhineland_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+					upper_swabia_area = {
+						limit = { country_or_non_sovereign_subject_holds = emperor }
+						cede_province = ROOT
+					}
+				}
+				dismantle_hre = yes
+				
+				clr_country_flag = EDG_BRA_against_emperor
+				emperor = { clr_country_flag = EDG_BRA_against_emperor }
+				custom_tooltip = EDG_BRA_mission_2_8_b_no
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_2_8_a_no
+				tooltip = {
+					white_peace = emperor
+				}
+				custom_tooltip = EDG_BRA_mission_2_9_tt_a
+				tooltip = {
+					dismantle_hre = yes
+				}
+				
+				custom_tooltip = EDG_BRA_mission_2_8_b_yes
+			}
+		} 
+	}
+
+	EDG_BRA_mission_2_10 = { #德意志三呼万岁
+		icon = Control_Junkers
+		position = 10
+		required_missions = {
+			EDG_BRA_mission_2_9
+			EDG_BRA_mission_3_9
+			EDG_BRA_mission_1_9
+		}
+		provinces_to_highlight = {  
+			OR = {
+				region = north_german_region
+				region = south_german_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+		trigger = {  
+			# has_country_modifier = EDG_BRA_set_prussia_modifier
+			# has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			is_subject = no
+			NOT = { has_country_modifier = EDG_BRA_weishu_modifier }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 100
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+			NOT = { tag = HLR }
+			NOT = { tag = FRK }
+			NOT = { tag = FRA }
+		} 
+		effect = {  
+			country_event = {
+				id = flavor_teu.35
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_mission_SAX_4_8_flag_tt
+			set_country_flag = EDG_mission_SAX_4_8_flag
+			set_country_flag = EDG_BRA_mission_2_10_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_2_10_tt_a
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_2_10_tt
+			hidden_effect = {
+				every_country = {
+					limit = { culture_group = germanic }
+					reverse_add_casus_belli = {
+						type = cb_annex
+						target = ROOT
+						months = 600
+					}
+				}
+			}
+		} 
+	}
+
+	# EDG_BRA_mission_2_11 = { #蛊惑
+	# 	icon = spa_infantes_aragon
+	# 	position = 11
+	# 	required_missions = { EDG_BRA_mission_3_10 } 
+	# 	provinces_to_highlight = {  
+	# 		owned_by = SAX
+	# 	} 
+	# 	trigger = {  
+	# 		is_subject = no
+	# 		#has_country_modifier = EDG_BRA_mission_3_10_modifier
+	# 		NOT = { alliance_with = SAX }
+	# 		OR = {
+	# 			army_size = SAX
+	# 			total_development = SAX
+	# 			NOT = {
+	# 				exists = SAX
+	# 			}
+	# 		}
+	# 	}
+	# 	effect = {  
+	# 		if = {
+	# 			limit = {
+	# 				NOT = {
+	# 					SAX = {
+	# 						mission_completed = EDG_mission_SAX_1_6
+	# 					}
+	# 				}
+	# 			}
+	# 			custom_tooltip = EDG_BRA_mission_2_11_tt_a_yes
+	# 			set_country_flag = flag = EDG_BRA_against_SAX
+	# 			SAX = {
+	# 				set_country_flag = flag = EDG_BRA_against_SAX
+	# 			}
+	# 			SAX = {
+	# 				declare_war_with_cb = {
+	# 					who = ROOT
+	# 					casus_belli = cb_insult
+	# 				}
+	# 			}
+	# 			SAX = {
+	# 				every_owned_province = {
+	# 					limit = { religion = EDG_Euchites }
+	# 					add_core = ROOT
+	# 				}
+	# 			}
+	# 			custom_tooltip = EDG_BRA_mission_2_11_tt_b_no
+	# 		}
+	# 		else = {
+	# 			custom_tooltip = EDG_BRA_mission_2_11_tt_a_no
+	# 			tooltip = {
+	# 				SAX = {
+	# 					declare_war_with_cb = {
+	# 						who = ROOT
+	# 						casus_belli = cb_conquest
+	# 					}
+	# 				}
+	# 				SAX = {
+	# 					every_owned_province = {
+	# 						limit = { religion = EDG_Euchites }
+	# 						add_core = ROOT
+	# 					}
+	# 				}
+	# 			}
+	# 			custom_tooltip = EDG_BRA_mission_2_11_tt_b_yes
+	# 		}
+	# 	} 
+	# }
+
+	# EDG_BRA_mission_2_12 = { #祷告派的末日
+	# 	icon = defenestrate_the_heretics
+	# 	position = 12
+	# 	required_missions = { EDG_BRA_mission_2_11 } 
+	# 	provinces_to_highlight = {  
+	# 		region = EDG_Euchites
+	# 	} 
+	# 	trigger = {  
+	# 		OR = {
+	# 			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+	# 				value = 1
+	# 				religion = EDG_Euchites
+	# 			}
+	# 			is_religion_enabled = protestant
+	# 		}
+	# 	} 
+	# 	effect = {  
+	# 		country_event = { id = EDG_flavorBRA_mission.9 } #祷告派的末日
+	# 	} 
+	# }
+
+	EDG_BRA_mission_2_13 = { #奥夫豪森联盟
+		icon = mission_imperial_spain
+		position = 13
+		required_missions = { EDG_BRA_mission_3_12 }
+		trigger = {
+			religion = protestant
+			OR = {
+				AND = {
+					hre_leagues_enabled = yes
+					is_emperor = yes
+				}
+				in_league = protestant
+				custom_trigger_tooltip = {
+					tooltip = obj_religious_league_war_on_winning_side_tooltip
+					has_country_flag = religious_league_war_on_winning_side
+				}
+			}
+		}
+		provinces_to_highlight = {
+			owner = {
+				in_league = protestant
+			}
+		}
+		effect = {
+			country_event = { id = EDG_flavorSAX.8 }	
+		}
+	}
+	
+	EDG_BRA_mission_2_15 = { #宗教霸权
+		icon = show_piety
+		position = 15
+		required_missions = {
+			EDG_BRA_mission_2_13
+			EDG_BRA_mission_3_14
+		}
+		trigger = {
+			hre_religion_locked = yes
+			hre_religion = protestant
+			religion = protestant
+		}
+		provinces_to_highlight = {
+			
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_mission_SAX_1_12_modifier
+				duration = 18250
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					calc_true_if = {
+						all_elector = {
+							preferred_emperor = ROOT
+						}
+						amount = 4
+					}
+				}
+				custom_tooltip = EDG_mission_SAX_1_12_a_tt_yes
+				add_country_modifier = {
+					name = EDG_mission_SAX_1_12_a_modifier
+					duration = 9125
+				}
+			}
+			else = {
+				custom_tooltip = EDG_mission_SAX_1_12_a_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_mission_SAX_1_12_a_modifier
+						duration = 9125
+					}
+				}
+			}
+		}
+	}
+}
+
+EDG_BRA_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = BRA
+			AND = {
+				was_tag = BRA
+				tag = H10
+			} 
+			AND = {
+				was_tag = BRA
+				tag = GER
+			} 
+		}
+	} 
+
+	EDG_BRA_mission_3_2 = { #鲁平继承权问题
+		icon = tame_brandenburg
+		position = 2
+		required_missions = { EDG_BRA_mission_2_1 } 
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = RUP
+				province_id = 51
+				province_id = 2993
+				province_id = 4749
+				province_id = 46
+				province_id = 2996
+			}
+		} 
+		trigger = {  
+			is_subject = no
+			is_at_war = no
+			OR = {
+				AND = {
+					NOT = { exists = RUP }
+					51 = { country_or_non_sovereign_subject_holds = ROOT }
+					2993 = { country_or_non_sovereign_subject_holds = ROOT }
+					4749 = { country_or_non_sovereign_subject_holds = ROOT }
+					46 = { country_or_non_sovereign_subject_holds = ROOT }
+					2996 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				AND = {
+					exists = RUP
+					army_size = RUP
+					exists = HSA
+					alliance_with = HSA
+					emperor = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				AND = {
+					exists = RUP
+					alliance_with = RUP
+					RUP = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+			}
+		} 
+		effect = {  
+			if = {
+				limit = {
+					NOT = { exists = RUP }
+					51 = { country_or_non_sovereign_subject_holds = ROOT }
+					2993 = { country_or_non_sovereign_subject_holds = ROOT }
+					4749 = { country_or_non_sovereign_subject_holds = ROOT }
+					46 = { country_or_non_sovereign_subject_holds = ROOT }
+					2996 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				custom_tooltip = EDG_BRA_mission_3_2_a_yes 
+				add_country_modifier = {
+					name = EDG_BRA_mission_3_2_modifier_1 #征服鲁平
+					duration = 1825
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_3_2_a_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BRA_mission_3_2_modifier_1 #征服鲁平
+						duration = 1825
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = RUP
+					army_size = RUP
+					exists = HSA
+					alliance_with = HSA
+					emperor = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_2_b_yes
+				add_casus_belli = {
+					type = cb_EDG_HRE_vassal_vassalize_mission
+					target = RUP
+					months = 600
+				}
+				add_favors = {
+					who = HSA
+					amount = 10
+				}
+				custom_tooltip = EDG_BRA_mission_3_2_b_tt
+			}
+			else = {
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_2_b_no
+				tooltip = {
+					add_casus_belli = {
+						type = cb_EDG_HRE_vassal_vassalize_mission
+						target = RUP
+						months = 600
+					}
+					add_favors = {
+						who = HSA
+						amount = 10
+					}
+				}
+				custom_tooltip = EDG_BRA_mission_3_2_b_tt
+			}
+			if = {
+				limit = {
+					exists = RUP
+					alliance_with = RUP
+					RUP = {
+				    	has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+			    	}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_2_c_yes
+				add_historical_friend = RUP
+				RUP = {
+					add_historical_friend = ROOT
+				}
+				add_trust = {
+					who = RUP
+    				value = 10
+    				mutual = yes
+				}
+				add_prestige_or_monarch_power = { amount = 25 }
+				add_government_power = {
+					mechanic_type = EDG_BRA_Markgraf_ability
+					power_type = EDG_BRA_Markgraf_power
+					value = 5
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_2_c_no
+				tooltip = {
+					add_historical_friend = RUP
+					RUP = {
+						add_historical_friend = ROOT
+					}
+					add_trust = {
+						who = RUP
+    					value = 10
+    					mutual = yes
+					}
+					add_prestige_or_monarch_power = { amount = 25 }
+					add_government_power = {
+						mechanic_type = EDG_BRA_Markgraf_ability
+						power_type = EDG_BRA_Markgraf_power
+						value = 5
+					}
+				}
+			}
+		}  
+	}
+
+	EDG_BRA_mission_3_4 = { #染指普鲁士
+		icon = mission_teutonic_knights
+		position = 4
+		required_missions = { EDG_BRA_mission_2_3 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = west_prussia_area
+				area = east_prussia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			west_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			east_prussia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_3_4_tt_1
+			set_country_flag = EDG_BRA_unlock_decesion_germania_flag
+			custom_tooltip = EDG_BRA_mission_3_4_tt_2
+			set_country_flag = EDG_BRA_unlock_decesion_prussian_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_3_4_tt_3
+			custom_tooltip = EDG_SPACE_TT
+			west_prussia_area = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_3_4_pro_modifier_1
+					duration = 9125
+				}
+			}
+			east_prussia_area = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_3_4_pro_modifier_1
+					duration = 9125
+				}
+			}
+			43 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_3_4_pro_modifier_2
+					duration = -1
+				}
+			}
+			add_adm_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BRA_mission_3_4_modifer
+				duration = -1
+			}
+			add_accepted_culture_or_dip_power = { culture = prussian }
+			custom_tooltip = EDG_BRA_mission_3_4_tt
+		} 
+	}
+
+	EDG_BRA_mission_3_5 = { #法兰克尼亚真正的继承人
+		icon = fra_golden_march
+		position = 5
+		required_missions = { EDG_BRA_mission_2_4 } 
+		provinces_to_highlight = {  
+			culture = franconian
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = {  
+			is_subject = no
+			upper_franconia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			franconia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.10 } #法兰克尼亚公国桂冠
+			upper_franconia_area = {
+				add_core = ROOT
+			}
+			franconia_area = {
+				add_core = ROOT
+			}
+			upper_swabia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			lower_swabia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			upper_rhineland_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			alsace_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_BRA_mission_3_6 = { #施瓦本，你们的主人回来了
+		icon = reform_bergordnung
+		position = 6
+		required_missions = { EDG_BRA_mission_3_5 } 
+		provinces_to_highlight = {  
+			culture = swabian
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		trigger = { 
+			is_subject = no 
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				culture = swabian
+				value = 6
+			}
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.11 } #施瓦本公国桂冠
+		} 
+	}
+
+	EDG_BRA_mission_3_8 = { #剑指鸢尾花
+		icon = king_of_france
+		position = 8
+		required_missions = { EDG_BRA_mission_2_7 } 
+		provinces_to_highlight = {  
+			owned_by = FRA
+		} 
+		trigger = {  
+			# has_country_modifier = EDG_BRA_set_prussia_modifier
+			# has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			is_subject = no
+			OR = {
+				AND = {
+					exists = FRA
+					is_great_power = yes
+					army_size = FRA
+				}
+				NOT = { exists = FRA }
+				AND = {
+					north_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					south_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		} 
+		effect = {
+			if = {
+				limit = {
+					exists = FRA
+				}
+				custom_tooltip = EDG_BRA_mission_3_8_tt_a_yes
+				country_event = { id = EDG_flavorBRA_mission.12 } #与法兰西的战争
+				custom_tooltip = EDG_BRA_mission_3_8_tt
+				custom_tooltip = EDG_BRA_mission_3_8_tt_b_no
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_3_8_tt_a_no
+				tooltip = {
+					country_event = { id = EDG_flavorBRA_mission.12 } #与法兰西的战争
+				}
+				custom_tooltip = EDG_BRA_mission_3_8_tt
+				custom_tooltip = EDG_BRA_mission_3_8_tt_b_yes
+			}
+		} 
+	}
+
+	EDG_BRA_mission_3_9 = { #凡尔赛合约
+		icon = mission_noble_council
+		position = 9
+		required_missions = { EDG_BRA_mission_3_8 } 
+		provinces_to_highlight = {  
+			owned_by = FRA
+		} 
+		trigger = {  
+			# has_country_modifier = EDG_BRA_set_prussia_modifier
+			# has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			is_subject = no
+			OR = {
+				AND = {
+					exists = FRA
+					is_in_war = {
+						attacker_leader = ROOT
+						defender_leader = FRA
+						war_score = 90
+					}
+				}
+				NOT = { exists = FRA }
+				AND = {
+					north_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					south_german_region = {
+						type = all
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+			}
+		} 
+		effect = {  
+			if = {
+				limit = { exists = FRA }
+				custom_tooltip = EDG_BRA_mission_3_9_tt_a_yes
+				white_peace = FRA
+				custom_tooltip = EDG_BRA_mission_2_9_tt_b
+				hidden_effect = {
+					north_german_region = {
+						limit = { country_or_non_sovereign_subject_holds = FRA }
+						cede_province = ROOT
+					}
+					south_german_region = {
+						limit = { country_or_non_sovereign_subject_holds = FRA }
+						cede_province = ROOT
+					}
+				}
+				
+				FRA = { add_treasury = -3000 }
+				add_treasury = 3000
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_9_tt_d_no
+				clr_country_flag = EDG_BRA_against_FRA
+				FRA = { clr_country_flag = EDG_BRA_against_FRA }
+			}
+			else = {
+				custom_tooltip = EDG_BRA_mission_3_9_tt_a_no
+				tooltip = { white_peace = FRA }
+				custom_tooltip = EDG_BRA_mission_2_9_tt_b
+				
+				tooltip = {
+					FRA = { add_treasury = -3000 }
+					add_treasury = 3000
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_BRA_mission_3_9_tt_d_yes
+			}
+		}
+	}
+
+	EDG_BRA_mission_3_10 = { #庇护胡斯派
+		icon = mission_hands_praying
+		position = 10
+		required_missions = { EDG_BRA_mission_4_9 } 
+		provinces_to_highlight = {  
+			owned_by = ROOT
+			NOT = { religion = hussite }
+		} 
+		trigger = {  
+			OR = {
+				is_religion_enabled = protestant
+				AND = {
+					stability = 1
+					has_country_modifier = EDG_BRA2_mission_4_9_modifier
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					religion = hussite
+				}
+			}
+		} 
+		effect = { 
+			if = {
+				limit = {
+					is_religion_enabled = protestant
+				}
+				add_adm_power = 50
+			}
+			else = {
+				remove_country_modifier = EDG_BRA2_mission_4_9_modifier
+				add_country_modifier = {
+					name = EDG_BRA2_mission_3_10_modifier
+					duration = 18250
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_3_11 = { #九十五条论纲
+		icon = victor_for_the_true_faith
+		position = 11
+		required_missions = { EDG_BRA_mission_3_10 }
+		trigger = {
+			is_religion_enabled = protestant
+		}
+		provinces_to_highlight = {	}
+		effect = {
+			change_religion = protestant
+			hidden_effect = { add_prestige = 100 }
+			add_church_power = 100
+			custom_tooltip = EDG_mission_SAX_2_7_change_province_religion_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						religion_group = christian
+						NOT = {
+							religion = catholic
+						}
+					}
+					change_religion = ROOT
+				}
+				every_country = {
+					limit = {
+						is_subject_of = ROOT
+					}
+					change_religion = ROOT
+					every_owned_province = {
+						limit = {
+							religion_group = christian
+							NOT = {
+								religion = catholic
+							}
+						}
+						change_religion = protestant
+					}
+				}
+			}
+		}
+	}
+
+	EDG_BRA_mission_3_12 = { #改革浪潮
+		icon = mission_kon_repel_the_missionaries
+		position = 12
+		required_missions = { EDG_BRA_mission_3_11 }
+		trigger = {
+			religion = protestant
+			OR = {
+				NOT = { current_age = age_of_discovery }
+				has_country_modifier = EDG_protestant_religion_decision_4_2_modifier
+			}
+			OR = {
+				calc_true_if = {
+					amount = 10
+					all_country = {
+						religion = protestant
+						is_part_of_hre = yes
+						OR = {
+						  is_subject = no
+						  overlord = { religion = protestant }
+						}
+					}
+				}
+				calc_true_if = {
+					amount = 3
+					all_province = {
+						religion = protestant
+						is_reformation_center = yes
+					}
+				}
+				calc_true_if = {
+					amount = 75
+					all_province = {
+						religion = protestant
+						is_part_of_hre = yes
+						owner = {
+							OR = {
+								is_subject = no
+								overlord = { religion = protestant }
+							}
+						}
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {	}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_mission_SAX_2_9_modifier2
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_mission_SAX_2_9_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_mission_SAX_2_9_modifier
+					duration = 9125
+				}
+			}
+			hidden_effect = {
+				every_neighbor_province = {
+					limit = {
+						religion_group = christian
+						NOT = { religion = ROOT }
+					}
+					add_province_modifier = {
+						name = EDG_mission_SAX_2_9_modifier
+						duration = 9125
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+		}
+	}
+
+	EDG_BRA_mission_3_13 = { #托尔高联盟
+		icon = mission_abolish_mestnichestvo
+		position = 13
+		required_missions = { EDG_BRA_mission_3_12 }
+		trigger = {
+			NOT = { hre_religion_locked = yes }
+			OR = {
+				AND = {
+					calc_true_if = {
+						amount = 10
+						all_country = {
+							religion = protestant
+							is_part_of_hre = yes
+							OR = {
+							  is_subject = no
+							  overlord = { religion = protestant }
+							}
+						}
+					}
+					NOT = { active_imperial_incident = any }
+				}
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_incident_tolgo_alliance_decision_flag_trigger_tt
+						has_country_flag = EDG_incident_tolgo_alliance_decision_flag
+					}
+					custom_trigger_tooltip = {
+						tooltip = EDG_incident_tolgo_alliance_event_0_global_flag_trigger_tt
+						has_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+					}
+				}
+			}
+			
+		}
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+			religion = protestant
+		}
+		effect = {
+			custom_tooltip = EDG_mission_SAX_2_11_tt
+			if = {
+				limit = {
+					NOT = { has_global_flag = EDG_incident_tolgo_alliance_event_1_global_flag }
+				}
+				set_country_flag = EDG_incident_tolgo_alliance_event_1_enable_flag
+				country_event = {
+					id = EDG_incident_tolgo_alliance_event.1
+				}
+			}
+			if = {
+				limit = { OR = { current_age = age_of_discovery current_age = age_of_reformation } }
+				add_country_modifier = {
+					name = EDG_mission_SAX_2_10_modifier
+					duration = 7300
+				}
+			}
+			else = {
+				add_dip_power = 25
+			}
+		}
+	}
+
+	EDG_BRA_mission_3_14 = { #施马尔卡尔登联盟
+		icon = mission_fire_of_london
+		position = 14
+		required_missions = { EDG_BRA_mission_3_13 }
+		trigger = {
+			NOT = { hre_religion_locked = yes }
+			OR = {
+				AND = {
+					NOT = { active_imperial_incident = any }
+					calc_true_if = {
+						amount = 125
+						all_province = {
+							religion = protestant
+							is_part_of_hre = yes
+							owner = {
+								OR = {
+									is_subject = no
+									overlord = { religion = protestant }
+								}
+							}
+						}
+					}
+				}
+				#事变
+				AND = {
+					custom_trigger_tooltip = {
+					  tooltip = EDG_incident_schmalkaldic_league_event_1_global_flag_trigger_tt
+					  has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+					}
+					custom_trigger_tooltip = {
+						tooltip = EDG_incident_schmalkaldic_league_decision_flag_trigger_tt
+						has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+					}
+					custom_trigger_tooltip = {
+						tooltip = EDG_incident_schmalkaldic_league_END_flag_not_trigger_tt
+						NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			
+		}
+		effect = {
+			custom_tooltip = EDG_mission_SAX_2_11_tt
+			if = {
+				limit = {
+					NOT = { has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag }
+				}
+				set_country_flag = EDG_incident_schmalkaldic_league_event_1_enble_flag
+				country_event = {
+					id = EDG_incident_schmalkaldic_league_event.1
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					army_size = 30
+					NOT = {
+						any_country = {
+							religion = protestant
+							army_size = ROOT
+							is_part_of_hre = yes
+						}
+					}
+				}
+				custom_tooltip = EDG_mission_SAX_2_11_a_tt_yes
+				add_mil_power = 100
+				define_advisor = { 
+					type = army_reformer
+					cost_multiplier = 0.5
+					skill = 3 
+				}
+			}
+			else = {
+				tooltip = {
+					custom_tooltip = EDG_mission_SAX_2_11_a_tt_no
+					add_mil_power = 100
+					define_advisor = { 
+						type = army_reformer
+						cost_multiplier = 0.5
+						skill = 3 
+					}
+				}
+			}
+		}
+	}
+}
+
+EDG_BRA_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = BRA
+			AND = {
+				was_tag = BRA
+				tag = H10
+			} 
+			AND = {
+				was_tag = BRA
+				tag = GER
+			} 
+		}
+	} 
+
+	EDG_BRA_mission_4_1 = { #霍亨索伦家族的崛起
+		icon = mission_prussian_kaiserreich
+		position = 1
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = FKN
+				owned_by = emperor
+			}
+		} 
+		trigger = {  
+			is_subject = no
+			has_global_flag = had_EDG_FKN_disasters_1_global_flag
+			#has_dip_advisor = yes
+			emperor = {
+                OR = {
+			        has_opinion = {
+				        who = ROOT
+				        value = 150
+			        }
+					custom_trigger_tooltip = {
+						tooltip = has_been_insulted_by_root
+						OR = {
+							has_opinion_modifier = {
+								who = ROOT
+								modifier = insulted
+							}
+							has_opinion_modifier = {
+								who = ROOT
+								modifier = scornfully_insulted
+							}
+						}
+                    }
+                }
+            }
+			#treasury = 100
+		}	 
+		effect = {  
+			add_government_reform = EDG_BRA_Territory
+			country_event = { id = EDG_flavorBRA_mission.18 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_4_1_tt
+		}
+	}
+	
+	EDG_BRA_mission_4_2 = { #粉碎干涉
+		icon = mission_hessian_jaeger_corps
+		position = 2
+		required_missions = { EDG_BRA_mission_4_1 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_country_flag = EDG_BRA_disaster_BounceBack_flag_100
+			stability = 2
+			NOT = { num_of_rebel_armies = 1 }
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+			OR = {
+				total_development = 300
+				AND = {
+					adm = 5
+					dip = 5
+					mil = 5
+				}
+			}
+		} 
+		effect = {  
+			add_stability_or_adm_power = yes
+			add_adm_power = 100
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_mission_4_2_modifier
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = can_seize_crownland_to_estates_targeted_flag
+			custom_tooltip = can_seize_crownland_to_estates_targeted_flag_tt
+		} 
+	}
+
+	EDG_BRA_mission_4_3 = { #解决继承权问题
+		icon = polish_diplomacy
+		position = 3
+		required_missions = { EDG_BRA_mission_4_2 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			stability = 2
+			legitimacy = 70
+			NOT = { num_of_rebel_armies = 1 }
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+			is_at_war = no
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.20 } #阿喀琉斯家规
+		} 
+	}
+
+	EDG_BRA_mission_4_4 = { #日耳曼佣兵团
+		icon = protect_against_austria
+		position = 4
+		required_missions = { EDG_BRA_mission_5_3 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			full_idea_group = mercenary_ideas
+			num_of_mercenaries = 25
+		} 
+		effect = {  
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_4
+			custom_tooltip = EDG_BRA_mission_4_4_tt
+		} 
+	}
+
+	EDG_BRA_mission_4_5 = { #日耳曼高歌
+		icon = join_the_empire
+		position = 5
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_reform = EDG_BRA_Markgraf
+			has_mil_advisor_3 = yes
+			EDG_num_of_completed_idea_groups_mil = { amount =1 }
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.10
+			}
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.2
+			}
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_4_5_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_5
+		} 
+	}
+
+	EDG_BRA_mission_4_7 = { #奋起直追的海军
+		icon = imperial_navy
+		position = 7
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			navy_size_percentage = 1
+			num_of_heavy_ship = 20
+			navy_tradition = 20
+			has_dip_advisor_3 = yes
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_4_7_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_6
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_mission_4_7_modifier #奋起直追的海军
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_BRA_mission_4_8 = { #德意志的代言人
+		icon = a_place_among_the_great_powers
+		position = 8
+		required_missions = { EDG_BRA_mission_2_7 } 
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		trigger = {  
+			OR = {
+				NOT = { hre_size = 0 }
+				AND = {
+					is_emperor = no
+					is_part_of_hre = no
+					is_great_power = yes
+					army_size = emperor
+					total_development = emperor
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 50
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_4_8_modifier #德意志的代言人
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BRA_mission_4_9 = { #允许胡斯派的传播
+		icon = the_land_of_moses
+		position = 9
+		provinces_to_highlight = {  
+			owned_by = LER
+		} 
+		trigger = {  
+			OR = {
+				is_religion_enabled = protestant
+				AND = {
+					exists = LER
+					LER = {
+						has_opinion = {
+					    	who = ROOT
+					    	value = 50
+				    	}
+					}
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 1
+					religion = hussite
+				}
+			}
+		} 
+		effect = {  
+			if = {
+				limit = {
+					is_religion_enabled = protestant
+				}
+				add_adm_power = 50
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_BRA2_mission_4_9_modifier
+					duration = 18250
+				}
+			}
+			# capital_scope = {
+			# 	add_province_modifier = {
+			# 		name = NYGX_LER_reclaim_hussite_modifier_prov
+			# 		duration = -1
+			# 	}
+			# }
+			# custom_tooltip = EDG_BRA_mission_4_9_tt
+			# hidden_effect = {
+			# 	capital_scope = {
+			# 		change_religion = hussite
+			# 		add_reform_center = hussite
+			# 		province_event = {
+			# 			id = NYGX_LER.101
+			# 			days = 18250
+			# 		}
+			# 	}
+			# }
+		} 
+	}
+
+	EDG_BRA_mission_4_11 = { #波兰的霍亨索伦
+		icon = ger_kaiserreich
+		position = 11
+		required_missions = {
+			EDG_BRA_mission_4_9
+			#EDG_BRA_mission_3_10
+			EDG_BRA_mission_5_10
+		}
+		provinces_to_highlight = {  
+			province_id = 259
+		} 
+		trigger = {  
+			259 = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		effect = { 
+			add_mil_power = 50
+		} 
+	}
+
+	EDG_BRA_mission_4_12 = { #团结的霍亨索伦家族
+		icon = fra_develop_trade
+		position = 12
+		required_missions = { EDG_BRA_mission_4_11 }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 71
+				province_id = 4717
+				province_id = 259
+			}
+		} 
+		trigger = {
+			has_reform = EDG_BRA_Territory
+			OR = {
+				AND = {
+					71 = { country_or_non_sovereign_subject_holds = ROOT }
+					4717 = { country_or_non_sovereign_subject_holds = ROOT }
+					259 = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+				calc_true_if = {
+					all_country = {
+						dynasty = ROOT
+					}
+					amount = 3
+				}
+			}
+		}
+		effect = {
+			country_event = { id = EDG_flavorBRA_mission.22 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_4_12_tt
+			set_country_flag = EDG_BRA_unlock_decesion_selectheir_flag
+		}
+	}
+}
+
+EDG_BRA_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = BRA
+			AND = {
+				was_tag = BRA
+				tag = H10
+			} 
+			AND = {
+				was_tag = BRA
+				tag = GER
+			} 
+		}
+	} 
+
+	EDG_BRA_mission_5_1 = { #长剑啼鸣
+		icon = mission_conquer_prussia
+		position = 1
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_reform = EDG_BRA_Markgraf
+			has_mil_advisor = yes
+			mil = 3
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.15
+			}
+		} 
+		effect = {  
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 5
+			}
+			add_army_tradition = 20
+			custom_tooltip = EDG_BRA_mission_5_1_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_7
+		} 
+	}
+
+	EDG_BRA_mission_5_2 = { #腓特烈线行军列
+		icon = mission_assemble_an_army
+		position = 2
+		required_missions = { EDG_BRA_mission_5_1 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_2 = yes
+			mil_tech = 5
+			mil_power = 100
+		} 
+		effect = {  
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_2_modifier #腓特烈军事改革
+				duration = 9125
+			}
+			define_advisor = {
+				type = army_reformer
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			custom_tooltip = EDG_BRA_mission_5_2_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_8
+		}
+	}
+
+	EDG_BRA_mission_5_3 = { #激烈争执
+		icon = victor_for_the_true_faith
+		position = 3
+		required_missions = { EDG_BRA_mission_5_2 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			has_adm_advisor_3 = yes
+			mission_completed = EDG_BRA_mission_3_4
+		} 
+		effect = {  
+			country_event = { id = EDG_flavorBRA_mission.23 } #意见相左
+			custom_tooltip = EDG_BRA_mission_5_3_tt
+			custom_tooltip= EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_5_3_tt_1
+			custom_tooltip = EDG_BRA_mission_5_3_tt_2
+			custom_tooltip = EDG_BRA_mission_5_3_tt_3
+			custom_tooltip = EDG_BRA_mission_5_3_tt_4
+			custom_tooltip = EDG_BRA_mission_5_3_tt_5
+			custom_tooltip = EDG_BRA_mission_5_3_tt_6
+			custom_tooltip = EDG_BRA_mission_5_3_tt_7
+			custom_tooltip = EDG_BRA_mission_5_3_tt_8
+			custom_tooltip = EDG_BRA_mission_5_3_tt_9
+			custom_tooltip = EDG_BRA_mission_5_3_tt_10
+			custom_tooltip = EDG_BRA_mission_5_3_tt_11
+			custom_tooltip = EDG_BRA_mission_5_3_tt_12
+			custom_tooltip = EDG_BRA_mission_5_3_tt_13
+			custom_tooltip = EDG_BRA_mission_5_3_tt_14
+			custom_tooltip= EDG_SPACE_TT
+			set_variable = {
+    			which = EDG_BRA_num_milreform
+    			value = 0
+			}
+			set_variable = {
+    			which = EDG_BRA_num_admreform
+    			value = 0
+			}
+		} 
+	}
+
+	EDG_BRA_mission_5_4 = { #铁军
+		icon = fra_refine_bombards
+		position = 4
+		required_missions = { EDG_BRA_mission_5_3 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			NOT = { has_idea_group = mercenary_ideas }
+		}
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_4_modifier #铁一般的军队
+				duration = 10950
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_5_4_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_9
+		}
+	}
+
+	EDG_BRA_mission_5_5 = { #国家军队
+		icon = mission_modern_knight_army
+		position = 5
+		required_missions = { EDG_BRA_mission_5_4 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			total_development = 300
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			NOT = { has_idea_group = mercenary_ideas }
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_5_modifier #国家供养的职业化军队
+				duration = 14600
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_5_5_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_10
+		}
+	}
+
+	EDG_BRA_mission_5_6 = { #现代化训练
+		icon = a_show_of_strength
+		position = 6
+		required_missions = {
+			EDG_BRA_mission_5_5
+			EDG_BRA_mission_4_5
+		}
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			mil_power = 200
+			mil_tech = 10
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			NOT = { has_idea_group = mercenary_ideas }
+			army_tradition = 30
+			navy_tradition = 30
+			army_professionalism = 0.2
+			check_variable = {
+    			which = EDG_BRA_num_milreform
+    			value = 7
+			}
+		} 
+		effect = {  
+			add_mil_power = -200
+			add_army_tradition = -30
+			add_navy_tradition = -30
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_6_modifier_1 #现代化改革的阵痛
+				duration = 1825
+			}
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_6_modifier_2 #改革步兵操典
+				duration = 36500
+			}
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_6_modifier_3 #改革骑兵操典
+				duration = 36500
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_mission_5_6_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_11
+		}
+	}
+
+	EDG_BRA_mission_5_7 = { #高昂进军，绝不回头
+		icon = mission_redcoats
+		position = 7
+		required_missions = { EDG_BRA_mission_5_6 } 
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			EDG_num_of_completed_idea_groups_mil = { amount = 2 }
+			NOT = { has_idea_group = mercenary_ideas }
+			army_professionalism = 0.5
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 70
+			}
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.15
+			}
+		} 
+		effect = {  
+			custom_tooltip = EDG_BRA_mission_5_7_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_12
+		} 
+	}
+
+	EDG_BRA_mission_5_8 = { #我们的军队注定凯旋！
+		icon = the_latin_empire
+		position = 8
+		required_missions = {
+			EDG_BRA_mission_5_7
+			EDG_BRA_mission_4_7
+		}
+		provinces_to_highlight = {  } 
+		trigger = {  
+			is_subject = no
+			has_mil_advisor_3 = yes
+			EDG_num_of_completed_idea_groups_mil = { amount = 2 }
+			NOT = { has_idea_group = mercenary_ideas }
+			army_professionalism = 0.5
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 95
+			}
+			has_global_modifier_value = {
+				which = land_morale
+				value = 0.5
+			}
+			land_morale = 7
+			mil_tech = 15
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_8_modifier #注定凯旋之信念
+				duration = -1
+			}
+			custom_tooltip = EDG_BRA_mission_5_8_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_13
+		} 
+	}
+
+	EDG_BRA_mission_5_9 = { #黑鹰盘旋于西欧
+		icon = an_army_with_a_state
+		position = 9
+		required_missions = {
+			EDG_BRA_mission_4_8
+			EDG_BRA_mission_5_8
+		}
+		provinces_to_highlight = {  } 
+		trigger = {  
+			NOT = { is_part_of_hre = yes }
+			is_emperor = no
+			prestige = 80
+			army_size = 250
+			land_forcelimit = 500
+			army_tradition = 90
+			army_professionalism = 0.9
+		} 
+		effect = {  
+			add_prestige_or_monarch_power = { amount = 30 }
+			custom_tooltip = lit_halve_hegemony_reqs_tt
+			set_country_flag = halve_hegemony_requirements
+			if = {
+				limit = {
+					in_golden_age = no
+				}
+				reset_golden_age = yes
+			}
+			else = {
+				extend_golden_age = 600
+			}
+		}
+	}
+
+	EDG_BRA_mission_5_10 = { #化干戈为玉帛
+		icon = catholic_confraternity
+		position = 10
+		provinces_to_highlight = {  } 
+		trigger = {  
+			has_reform = EDG_BRA_Territory
+			has_country_flag = EDG_BRA_disaster_BerlinAnger_flag_100
+		} 
+		effect = {  
+			add_country_modifier = {
+				name = EDG_BRA_mission_5_10_modifier
+				duration = 7300
+			}
+			50 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_5_10_pro_modifier
+					duration = 7300
+				}
+			}
+			50 = {
+				add_institution_embracement = {
+    				which = renaissance
+    				value = 70
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_5_11 = { #条条大路通柏林
+		icon = mission_pol_revival_krakow
+		position = 11
+		required_missions = { EDG_BRA_mission_5_10 } 
+		provinces_to_highlight = { province_id = 50 } 
+		trigger = {  
+			50 = {
+				development = 20
+			}
+			50 = {
+				renaissance = 100
+			}
+			treasury = 100
+		} 
+		effect = {  
+			add_treasury = -100
+			50 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_5_11_pro_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_5_12 = { #沧海桑田
+		icon = mission_pol_breadbasket_europe
+		position = 12
+		required_missions = { EDG_BRA_mission_5_11 } 
+		provinces_to_highlight = { province_id = 50 } 
+		trigger = {  
+			50 = {
+				development = 30
+			}
+			treasury = 200
+			manpower = 3
+			adm = 4
+		} 
+		effect = {  
+			add_treasury = -200
+			add_manpower = -3
+			50 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_5_12_pro_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_5_13 = { #柏林制造厂
+		icon = bohemian_crystal
+		position = 13
+		required_missions = { EDG_BRA_mission_5_12 } 
+		provinces_to_highlight = { province_id = 1771 } 
+		trigger = { 
+			OR = {
+				1771 = {
+					owner = {
+						has_opinion = {
+					    	who = ROOT
+					    	value = 150
+				    	}
+					}
+				}
+				1771 = {
+					owner = {
+						alliance_with = ROOT
+					}
+				}
+				1771 = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				emperor = {
+					has_opinion = {
+					    who = ROOT
+					    value = 150
+				    }
+				}
+				emperor = {
+					alliance_with = ROOT
+				}
+			}
+		} 
+		effect = {  
+			50 = {
+				change_trade_goods = glass
+			}
+			50 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_5_13_pro_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BRA_mission_5_14 = { #人造的北德明珠
+		icon = develop_the_po_valley
+		position = 14
+		required_missions = { EDG_BRA_mission_5_13 } 
+		provinces_to_highlight = { province_id = 50 } 
+		trigger = {  
+			50 = {
+				development = 50
+			}
+			OR = {
+				50 = {
+					num_of_buildings_in_province = 4
+				}
+				50 = {
+					has_manufactory_trigger = yes 
+				}
+			}
+		} 
+		effect = {  
+			50 = {
+				add_province_modifier = {
+					name = EDG_BRA_mission_5_14_pro_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}

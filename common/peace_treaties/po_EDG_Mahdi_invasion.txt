@@ -1,0 +1,99 @@
+po_EDG_Mahdi_invasion = {
+	
+	category = 6 
+	power_projection = no 
+	power_cost_base = 0 
+	prestige_base = 1
+	ae_base = 0.75
+	warscore_cost = {
+		all_provinces = 0.5 
+		no_provinces = 50.0 
+		owner_keeps = 0.0 
+		conquered = 0.0 
+		returned_core = 0.0 
+		released_nation = 0.0 
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0 
+	}
+	warscore_cap = 100 
+	requires_demand_independence = yes 
+	is_make_subject = no
+	requires_is_allowed = yes 
+	
+	is_visible = {
+
+	}
+	is_allowed = {
+	}
+	effect = { 
+		add_government_power = {
+			mechanic_type = EDG_Muwahhidun_government_ability
+			power_type = EDG_Muwahhidun_government_power
+			value = -20
+		}
+		change_variable = {
+			which = EDG_MRK_success_Mahdi_invasion_value
+			value = 1
+		}
+		FROM = {
+			every_owned_province = {
+				if = {
+					limit = {
+						religion = sunni
+						ROOT = { has_country_flag = EDG_MRK_sunni_provide_power_flag }
+					}
+					ROOT = {
+						add_government_power = {
+							mechanic_type = EDG_Muwahhidun_government_ability
+							power_type = EDG_Muwahhidun_government_power
+							value = 0.05
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						religion = shiite
+						ROOT = { has_country_flag = EDG_MRK_shiite_provide_power_flag }
+					}
+					ROOT = {
+						add_government_power = {
+							mechanic_type = EDG_Muwahhidun_government_ability
+							power_type = EDG_Muwahhidun_government_power
+							value = 0.05
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						religion_group = christian
+						ROOT = { has_country_flag = EDG_MRK_christian_provide_power_flag }
+					}
+					ROOT = {
+						add_government_power = {
+							mechanic_type = EDG_Muwahhidun_government_ability
+							power_type = EDG_Muwahhidun_government_power
+							value = 0.05
+						}
+					}
+				}
+
+				cede_province = ROOT
+				if = {
+					limit = {
+						religion = EDG_Muwashid
+						ROOT = {
+							has_country_flag = EDG_MRK_mission_2_16_flag
+						}
+					}
+					add_territorial_core = ROOT
+				}
+			}
+		}
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = 10000
+		}
+	}
+}

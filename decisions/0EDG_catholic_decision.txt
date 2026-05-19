@@ -1,0 +1,1121 @@
+country_decisions = {
+	# 要求入侵
+	# 对神圣罗马帝国发布禁教令
+	# 禁止日耳曼永世牧首行使权力
+	# 请求解除禁教（教宗，大主教）
+	# 请求主持圣事（教宗，大主教）
+	# 为继承人施洗（教宗，大主教）
+	# 向教会捐献领地（教宗，大主教，本国）
+	# 向教会捐献金钱（教宗，大主教，本国）
+	# 向教会让渡权力（教宗，大主教，本国）
+	# 向教廷缴纳贡赋
+	# 允许兜售赎罪券
+	# 禁止兜售赎罪券
+	# 向邻国兜售赎罪券
+	# 在本国兜售赎罪券
+	# 对教宗开展贿赂
+	# 对日耳曼永世牧首开展贿赂
+	
+	# 请求成为骑士团
+	# 请求教宗任命日耳曼永世牧首
+	# 请求给予宣称（教宗，大主教）
+	# 请求支持圣战（教宗，大主教）
+	# 请求赐予金钱（教宗，大主教）
+	# 请求教谕支持（教宗，大主教）
+
+	EDG_Catholic_decision_Donate_to_the_Church = {#向教会捐献
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			NOT = { tag = PAP }
+			NOT = { government = theocracy }
+			NOT = { has_country_flag = EDG_flavorCatholic_10_flag }
+		}
+		allow = {
+			religion = catholic
+			NOT = { government = theocracy }
+			NOT = { has_country_modifier = EDG_Catholic_decision_Donate_to_the_Church_in_10_years_modifier }
+		}
+		effect = {
+			country_event = { id = EDG_flavorCatholic.10 }
+
+			custom_tooltip = EDG_Catholic_decision_Donate_to_the_Church_tt
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Donate_to_the_Church_in_10_years_modifier
+				duration = 3650
+				hidden = yes
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					num_of_loans = 2
+					is_in_deficit = yes
+				}
+				is_at_war = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { stability = 3 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { culture_group = germanic }
+				estate_loyalty = { estate = estate_church loyalty = 30 }
+			}
+			modifier = { factor = 0 NOT = { monthly_income = 10 } NOT = { treasury = 120 } }
+			modifier = { factor = 0 NOT = { monthly_income = 20 } NOT = { treasury = 240 } }
+			modifier = { factor = 0 NOT = { monthly_income = 30 } NOT = { treasury = 360 } }
+			modifier = { factor = 0 NOT = { monthly_income = 40 } NOT = { treasury = 480 } }
+			modifier = { factor = 0 NOT = { monthly_income = 50 } NOT = { treasury = 600 } }
+			modifier = { factor = 0 NOT = { monthly_income = 100 } NOT = { treasury = 1200 } }
+			modifier = { factor = 0 NOT = { monthly_income = 200 } NOT = { treasury = 2400 } }
+			modifier = { factor = 0 NOT = { monthly_income = 300 } NOT = { treasury = 3600 } }
+		}
+	}
+
+	EDG_Catholic_decision_Bribing_MAI = {#对日耳曼永世大主教行贿
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			NOT = { tag = PAP }
+			NOT = { tag = event_target:EDG_HRE_Archbishop_country_shield_target }
+			exists = EDG_HRE_Archbishop_country_shield_target
+			is_part_of_hre = yes
+			NOT = { capital_scope = { region = italy_region } }
+		}
+		allow = {
+			is_part_of_hre = yes
+			NOT = { capital_scope = { region = italy_region } }
+			religion = catholic
+			exists = EDG_HRE_Archbishop_country_shield_target
+			NOT = { tag = PAP }
+			NOT = { tag = event_target:EDG_HRE_Archbishop_country_shield_target }
+			NOT = { is_rival = event_target:EDG_HRE_Archbishop_country_shield_target }
+			NOT = { war_with = event_target:EDG_HRE_Archbishop_country_shield_target }
+			NOT = { is_enemy = event_target:EDG_HRE_Archbishop_country_shield_target }
+			treasury = 50
+			event_target:EDG_HRE_Archbishop_country_shield_target = {
+				has_opinion = {
+					who = ROOT 
+					value = 25
+				}
+			}
+			NOT = { has_country_modifier = EDG_Catholic_decision_Bribing_MAI_in_10_years_modifier }
+		}
+		effect = {
+			add_treasury = -50
+			country_event = { id = EDG_flavorCatholic.12 }
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Bribing_MAI_in_10_years_modifier
+				duration = 3650
+				hidden = yes
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Catholic_decision_Bribing_MAI_tt
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				OR = {
+					num_of_loans = 2
+					is_in_deficit = yes
+				}
+				is_at_war = yes
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { stability = 3 }
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { stability = 3 }
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				NOT = { culture_group = germanic }
+				estate_loyalty = { estate = estate_church loyalty = 30 }
+			}
+			modifier = {
+				factor = 0
+				PAP = { NOT = { has_opinion = { who = ROOT  value = 100 } } }
+			}
+			modifier = { factor = 0 NOT = { monthly_income = 10 } NOT = { treasury = 120 } }
+			modifier = { factor = 0 NOT = { monthly_income = 20 } NOT = { treasury = 240 } }
+			modifier = { factor = 0 NOT = { monthly_income = 30 } NOT = { treasury = 360 } }
+			modifier = { factor = 0 NOT = { monthly_income = 40 } NOT = { treasury = 480 } }
+			modifier = { factor = 0 NOT = { monthly_income = 50 } NOT = { treasury = 600 } }
+			modifier = { factor = 0 NOT = { monthly_income = 100 } NOT = { treasury = 1200 } }
+			modifier = { factor = 0 NOT = { monthly_income = 200 } NOT = { treasury = 2400 } }
+			modifier = { factor = 0 NOT = { monthly_income = 300 } NOT = { treasury = 3600 } }
+		}
+	}
+	EDG_Catholic_decision_Bribing_Pope = {#对教宗行贿
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			NOT = { tag = PAP }
+			exists = PAP
+		}
+		allow = {
+			religion = catholic
+			exists = PAP
+			NOT = { tag = PAP }
+			NOT = { is_rival = PAP }
+			NOT = { war_with = PAP }
+			NOT = { is_enemy = PAP }
+			treasury = 100
+			PAP = {
+				has_opinion = {
+					who = ROOT 
+					value = 25
+				}
+			}
+			NOT = { has_country_modifier = EDG_Catholic_decision_Bribing_Pope_in_10_years_modifier }
+		}
+		effect = {
+			add_treasury = -100
+			country_event = { id = EDG_flavorCatholic.4 }
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Bribing_Pope_in_10_years_modifier
+				duration = 3650
+				hidden = yes
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Catholic_decision_Bribing_Pope_tt
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				OR = {
+					num_of_loans = 2
+					is_in_deficit = yes
+				}
+				is_at_war = yes
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { stability = 3 }
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { stability = 3 }
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					OR = {
+						is_excommunicated = yes
+						EDG_under_Prohibition_order_trigger = yes
+					}
+				}
+				NOT = { culture_group = germanic }
+				estate_loyalty = { estate = estate_church loyalty = 30 }
+			}
+			modifier = {
+				factor = 0
+				PAP = { NOT = { has_opinion = { who = ROOT  value = 100 } } }
+			}
+			modifier = { factor = 0 NOT = { monthly_income = 10 } NOT = { treasury = 120 } }
+			modifier = { factor = 0 NOT = { monthly_income = 20 } NOT = { treasury = 240 } }
+			modifier = { factor = 0 NOT = { monthly_income = 30 } NOT = { treasury = 360 } }
+			modifier = { factor = 0 NOT = { monthly_income = 40 } NOT = { treasury = 480 } }
+			modifier = { factor = 0 NOT = { monthly_income = 50 } NOT = { treasury = 600 } }
+			modifier = { factor = 0 NOT = { monthly_income = 100 } NOT = { treasury = 1200 } }
+			modifier = { factor = 0 NOT = { monthly_income = 200 } NOT = { treasury = 2400 } }
+			modifier = { factor = 0 NOT = { monthly_income = 300 } NOT = { treasury = 3600 } }
+		}
+	}
+
+	EDG_Catholic_decision_Vatican_Treasury_take = {#挪用教廷金库
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			tag = PAP
+			always = no
+		}
+		allow = {
+			religion = catholic
+			tag = PAP
+
+		}
+		effect = {
+			if = {
+				limit = { monthly_income = 500 }
+				add_curia_treasury = -5000
+				add_treasury = 500
+			}
+			else_if = {
+				limit = { monthly_income = 400 }
+				add_curia_treasury = -4000
+				add_treasury = 400
+			}
+			else_if = {
+				limit = { monthly_income = 300 }
+				add_curia_treasury = -3000
+				add_treasury = 300
+			}
+			else_if = {
+				limit = { monthly_income = 200 }
+				add_curia_treasury = -2000
+				add_treasury = 200
+			}
+			else_if = {
+				limit = { monthly_income = 100 }
+				add_curia_treasury = -1000
+				add_treasury = 100
+			}
+			else = {
+				add_curia_treasury = -500
+				add_treasury = -50
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_Catholic_decision_Vatican_Treasury_donate = {#用私产捐献教廷金库
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			tag = PAP
+		}
+		allow = {
+			religion = catholic
+			tag = PAP
+			if = {
+				limit = { monthly_income = 500 }
+				treasury = 5000
+			}
+			else_if = {
+				limit = { monthly_income = 400 }
+				treasury = 4000
+			}
+			else_if = {
+				limit = { monthly_income = 300 }
+				treasury = 3000
+			}
+			else_if = {
+				limit = { monthly_income = 200 }
+				treasury = 2000
+			}
+			else_if = {
+				limit = { monthly_income = 100 }
+				treasury = 1000
+			}
+			else_if = {
+				limit = { monthly_income = 50 }
+				treasury = 500
+			}
+			else_if = {
+				limit = { monthly_income = 25 }
+				treasury = 250
+			}
+			else = {
+				treasury = 50
+			}
+		}
+		effect = {
+			#add_papal_influence = 10
+			if = {
+				limit = { monthly_income = 500 }
+				add_curia_treasury = 5000
+				add_treasury = -5000
+			}
+			else_if = {
+				limit = { monthly_income = 400 }
+				add_curia_treasury = 4000
+				add_treasury = -4000
+			}
+			else_if = {
+				limit = { monthly_income = 300 }
+				add_curia_treasury = 3000
+				add_treasury = -3000
+			}
+			else_if = {
+				limit = { monthly_income = 200 }
+				add_curia_treasury = 2000
+				add_treasury = -2000
+			}
+			else_if = {
+				limit = { monthly_income = 100 }
+				add_curia_treasury = 1000
+				add_treasury = -1000
+			}
+			else_if = {
+				limit = { monthly_income = 50 }
+				add_curia_treasury = 500
+				add_treasury = -500
+			}
+			else_if = {
+				limit = { monthly_income = 25 }
+				add_curia_treasury = 250
+				add_treasury = -250
+			}
+			else = {
+				add_curia_treasury = 50
+				add_treasury = -50
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_Catholic_decision_enable_redemption_vouchers = {#允许售卖赎罪券
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			OR = {
+				tag = PAP
+				PAP = {
+					is_subject_of = ROOT
+				}
+			}
+			has_global_flag = EDG_Redemption_voucher_unable_global_flag
+		}
+		allow = {
+			if = {
+				limit = { tag = PAP }
+				is_subject = no
+			}
+			else = {
+				PAP = {
+					is_subject_of = ROOT
+				}
+			}
+			religion = catholic
+			if = {
+				limit = { tag = PAP }
+				NOT = { has_country_modifier = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic }
+			}
+			else = {
+				PAP = {
+					NOT = { has_country_modifier = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic }
+				}
+			}
+		}
+		effect = {
+			clr_global_flag = EDG_Redemption_voucher_unable_global_flag
+			custom_tooltip = EDG_Redemption_voucher_enable_global_flag_tt
+			if = {
+				limit = { tag = PAP }
+				country_event = { id = EDG_flavorCatholic.2 }
+				add_ruler_modifier = {
+					name = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic
+					duration = -1
+					hidden = yes
+				}
+			}
+			else = {
+				PAP = {
+					country_event = { id = EDG_flavorCatholic.2 }
+					add_ruler_modifier = {
+						name = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic
+						duration = -1
+						hidden = yes
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = EDG_Catholic_decision_unable_redemption_vouchers_opinion
+					}
+				}
+				remove_opinion = {
+					who = ROOT
+					modifier = EDG_Catholic_decision_unable_redemption_vouchers_opinion
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+				factor = 0
+				reform_desire = 0.75
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_modifier = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic
+					has_country_modifier = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic
+				}
+			}
+		}
+	}
+	EDG_Catholic_decision_unable_redemption_vouchers = {#禁止售卖赎罪券
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			OR = {
+				tag = PAP
+				PAP = {
+					is_subject_of = ROOT
+				}
+			}
+		}
+		allow = {
+			if = {
+				limit = { tag = PAP }
+				is_subject = no
+			}
+			else = {
+				PAP = {
+					is_subject_of = ROOT
+					NOT = { liberty_desire = 25 }
+				}
+			}
+			religion = catholic
+			EDG_Redemption_voucher_enable_trigger = yes
+			NOT = { has_country_modifier = EDG_Catholic_decision_Redemption_voucher_domestic }
+			NOT = { has_country_modifier = EDG_Catholic_decision_Redemption_voucher_foreign }
+			if = {
+				limit = { tag = PAP }
+				NOT = { has_country_modifier = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic }
+			}
+			else = {
+				PAP = {
+					NOT = { has_country_modifier = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic }
+				}
+			}
+		}
+		effect = {
+			set_global_flag = EDG_Redemption_voucher_unable_global_flag
+			custom_tooltip = EDG_Redemption_voucher_unable_global_flag_tt
+			if = {
+				limit = { tag = PAP }
+				country_event = { id = EDG_flavorCatholic.3 }
+				add_ruler_modifier = {
+					name = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic
+					duration = -1
+					hidden = yes
+				}
+			}
+			else = {
+				PAP = {
+					add_liberty_desire = 25
+					country_event = { id = EDG_flavorCatholic.3 }
+				}
+			}
+			every_country = {
+				limit = {
+					religion = catholic
+					government = theocracy
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_Catholic_decision_unable_redemption_vouchers_opinion
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  OR = {
+				is_in_deficit = yes 
+				num_of_loans = 5
+				ruler_has_personality = embezzler_personality
+				ruler_has_personality = babbling_buffoon_personality
+				ruler_has_personality = obsessive_perfectionist_personality
+				ruler_has_personality =  malevolent_personality
+			  }
+			}
+			modifier = {
+			  factor = 0
+			  total_development = 100
+			  personality = ai_militarist
+			}
+			modifier = {
+				factor = 0
+				NOT = { reform_desire = 0.5 }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_modifier = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic
+					has_country_modifier = EDG_Catholic_decision_enable_redemption_vouchers_ruler_domestic
+				}
+			}
+		}
+	}
+	EDG_Catholic_decision_Redemption_voucher_domestic = {#向本国兜售赎罪券
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			government = theocracy
+		}
+		allow = {
+			religion = catholic
+			government = theocracy
+			EDG_Redemption_voucher_enable_trigger = yes
+			NOT = { has_country_modifier = EDG_Catholic_decision_Redemption_voucher_domestic }
+		}
+		effect = {
+			edg_add_reform_desire_tiny_effect = yes
+			if = {
+				limit = {
+					monthly_income = 20
+				}
+				add_years_of_income = 0.5
+			}
+			else = {
+				add_treasury = 50
+			}
+
+			if = { limit = { monthly_income = 100 }  add_curia_treasury = 1000 }
+			else_if = { limit = { monthly_income = 80 }  add_curia_treasury = 800 }
+			else_if = { limit = { monthly_income = 60 }  add_curia_treasury = 600 }
+			else_if = { limit = { monthly_income = 40 }  add_curia_treasury = 400 }
+			else_if = { limit = { monthly_income = 20 }  add_curia_treasury = 200 }
+			else_if = { limit = { monthly_income = 10 }  add_curia_treasury = 100 }
+			else = { limit = { NOT = { monthly_income = 10 } }  add_curia_treasury = 50 }
+
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Redemption_voucher_domestic
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  NOT = {
+				OR = {
+				  is_in_deficit = yes 
+				  num_of_loans = 1
+				  ruler_has_personality = embezzler_personality
+				  ruler_has_personality = babbling_buffoon_personality
+				  ruler_has_personality = obsessive_perfectionist_personality
+				  ruler_has_personality =  malevolent_personality
+				}
+			  }
+			}
+			modifier = {
+				factor = 0
+				reform_desire = 1.5
+			}
+		}
+	}
+	EDG_Catholic_decision_Redemption_voucher_foreign = {#向邻国兜售赎罪券
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			government = theocracy
+		}
+		allow = {
+			religion = catholic
+			government = theocracy
+			EDG_Redemption_voucher_enable_trigger = yes
+			NOT = { has_country_modifier = EDG_Catholic_decision_Redemption_voucher_foreign }
+		}
+		effect = {
+			edg_add_reform_desire_tiny_effect = yes
+			
+			custom_tooltip = EDG_Catholic_decision_Redemption_voucher_foreign_gain_money_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_neighbor_of = root
+						NOT = { government = theocracy }
+						religion = catholic
+						NOT = { has_country_modifier = EDG_flavorCatholic_bought_voucher_in_10_years_modifier }
+					}
+					country_event = { id = EDG_flavorCatholic.1 }
+				}
+			}
+			
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Redemption_voucher_foreign
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  NOT = {
+				OR = {
+				  is_in_deficit = yes 
+				  num_of_loans = 1
+				  ruler_has_personality = embezzler_personality
+				  ruler_has_personality = babbling_buffoon_personality
+				  ruler_has_personality = obsessive_perfectionist_personality
+				  ruler_has_personality =  malevolent_personality
+				}
+			  }
+			}
+			modifier = {
+				factor = 0
+				reform_desire = 1.5
+			}
+		}
+	}
+
+	EDG_Catholic_decision_1 = {#认同武加大译本
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			has_global_flag = EDG_EDG_flavorPAP_7_flag
+			NOT = { has_country_flag = has_EDG_Catholic_decision_1_flag }
+		}
+		allow = {
+			religion = catholic
+		}
+		effect = {
+			set_country_flag = has_EDG_Catholic_decision_1_flag
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+			  name = EDG_Catholic_decision_1_modifier
+			  duration = -1
+			}
+			define_advisor = {
+				type = inquisitor
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	EDG_Catholic_decision_Advocate_for_Church_Autonomy_cancel = {#撤销圣事自主
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier
+		}
+		allow = {
+			religion = catholic
+			has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier
+		}
+		effect = {
+			add_stability = -1
+			remove_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Advocate_for_Church_Autonomy_cancel_modifier_ruler
+				duration = 7300
+				hidden = yes
+			}
+			add_ruler_modifier = {
+				name = EDG_Catholic_decision_Advocate_for_Church_Autonomy_changed_in_20_yeasrs_modifier
+				duration = 7300
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				EDG_under_Prohibition_order_trigger = yes
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_changed_in_20_yeasrs_modifier
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier_ruler
+			}
+			modifier = {
+				factor = 0
+				NOT = { has_opinion = { who = PAP value = 150 } }
+				NOT = { alliance_with = PAP }
+			}
+			modifier = {
+				factor = 0
+				NOT = { any_owned_province = { has_cardinal = yes } }
+				NOT = { papal_influence = 10 }
+			}
+			modifier = {
+				factor = 0
+				PAP = {
+					OR = {
+						is_rival = ROOT
+						is_enemy = ROOT
+						is_league_enemy = ROOT
+						is_at_war = ROOT
+					}
+				}
+			}
+		}
+	}
+	EDG_Catholic_decision_Advocate_for_Church_Autonomy = {#主张圣事自主
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			NOT = { has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier }
+		}
+		allow = {
+			religion = catholic
+			NOT = { has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier }
+			or = {
+				NOT = {
+					has_opinion = { who = PAP value = 0 }
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_under_Prohibition_order_tt
+					EDG_under_Prohibition_order_trigger = yes
+				}
+			}
+			stability = 1
+		}
+		effect = {
+			add_stability = -1
+			#add_reform_desire = 0.001
+			custom_tooltip = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier_tt
+			add_country_modifier = {
+			  name = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier
+			  duration = -1
+			}
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier_ruler
+				duration = 7300
+				hidden = yes
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			PAP = {
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_opinion
+				}
+			}
+			add_ruler_modifier = {
+				name = EDG_Catholic_decision_Advocate_for_Church_Autonomy_changed_in_20_yeasrs_modifier
+				duration = 7300
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { EDG_under_Prohibition_order_trigger = yes }
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_changed_in_20_yeasrs_modifier
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_Catholic_decision_Advocate_for_Church_Autonomy_modifier_ruler
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					has_opinion = { who = PAP value = 100 }
+					any_owned_province = { has_cardinal = yes }
+					papal_influence = 20
+				}
+			}
+		}
+	}
+
+	EDG_Catholic_decision_Prohibition_order_to_HRE_remove = {#撤销对帝国颁布的禁教令
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			religion = catholic
+			OR = {
+				tag = PAP
+				is_papal_controller = yes
+				AND = {
+					is_part_of_hre = yes
+					EDG_under_Prohibition_order_trigger = yes
+				}
+			}
+		}
+		allow = {
+			if = {
+				limit = { is_part_of_hre = yes }
+				OR = {
+					is_papal_controller = yes
+					AND = {
+						is_part_of_hre = yes
+						controls = 118
+					}
+				}
+			}
+			else = {
+				is_papal_controller = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_HRE_under_Prohibition_order_global_flag_yes_tt
+				has_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+			}
+		}
+		effect = {
+			clr_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+			custom_tooltip = EDG_HRE_under_Prohibition_order_global_flag_clr_tt
+			country_event = { id = EDG_flavorCatholic.7 }
+			add_ruler_modifier = {
+				name = EDG_Catholic_decision_Prohibition_order_to_HRE_changed_in_20_years_modifier
+				duration = 7300
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { is_part_of_hre = yes }
+				NOT = { has_opinion = { who = emperor value = 150 } }
+				has_country_modifier = EDG_Catholic_decision_Prohibition_order_to_HRE_changed_in_20_years_modifier
+			}
+			modifier = {
+				factor = 0
+				NOT = { is_part_of_hre = yes }
+				NOT = { has_opinion = { who = emperor value = 150 } }
+				NOT = { reform_desire = 0.45 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { is_part_of_hre = yes }
+				NOT = { has_opinion = { who = emperor value = 150 } }
+				OR = {
+					emperor = {
+						OR = {
+							is_rival = ROOT
+							is_enemy = ROOT
+							is_league_enemy = ROOT
+							is_at_war = ROOT
+						}
+					}
+					has_country_modifier = EDG_Catholic_decision_Prohibition_order_to_HRE_in_25_years_modifier
+				}
+			}
+		}
+	}
+	EDG_Catholic_decision_Prohibition_order_to_HRE = {#对帝国颁布禁教令
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			
+			religion = catholic
+			OR = {
+				tag = PAP
+				is_papal_controller = yes
+			}
+		}
+		allow = {
+			is_papal_controller = yes
+			custom_trigger_tooltip = {
+				tooltip = EDG_HRE_under_Prohibition_order_global_flag_no_tt
+				NOT = { has_global_flag = EDG_HRE_under_Prohibition_order_global_flag }
+			}
+			NOT = { has_country_modifier = EDG_Catholic_decision_Prohibition_order_to_HRE_in_25_years_modifier }
+		}
+		effect = {
+			add_reform_desire_scale = 0.05
+			set_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+			custom_tooltip = EDG_HRE_under_Prohibition_order_global_flag_tt
+			country_event = { id = EDG_flavorCatholic.8 }
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					religion = catholic
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_Prohibition_order_to_us_opinion
+				}
+			}
+			add_country_modifier = {
+				name = EDG_Catholic_decision_Prohibition_order_to_HRE_in_25_years_modifier
+				duration = 9125
+				hidden = yes
+			}
+			add_ruler_modifier = {
+				name = EDG_Catholic_decision_Prohibition_order_to_HRE_changed_in_20_years_modifier
+				duration = 7300
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_Catholic_decision_Prohibition_order_to_HRE_changed_in_20_years_modifier
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					emperor = {
+						OR = {
+							is_rival = ROOT
+							is_enemy = ROOT
+							is_league_enemy = ROOT
+							is_at_war = ROOT
+						}
+					}
+				}
+				has_opinion = { who = emperor value = 50 }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = { reform_desire = 0.2 }
+					reform_desire = 0.7
+				}
+			}
+			modifier = {
+				factor = 0
+				emperor = { alliance_with = ROOT }
+				has_opinion = { who = emperor value = 100 }
+			}
+			modifier = {
+				factor = 0
+				is_religion_enabled = protestant
+			}
+			modifier = {
+				factor = 0
+				is_part_of_hre = yes
+			}
+		}
+	}
+
+	EDG_Catholic_decision_AI_investigate_heresy = {#AI使用肃清异端
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			
+			tag = PAP
+			ai = yes
+		}
+		allow = {
+			is_papal_controller = yes
+			reform_desire = 0.1
+			NOT = { has_country_modifier = investigate_heresy_in_5_years_modifier }
+		}
+		effect = {
+			#add_curia_treasury = -1000
+			add_reform_desire = -0.1
+			add_reform_desire_scale = 0.25
+			add_country_modifier = {
+				name = investigate_heresy_in_5_years_modifier
+				duration = 1825
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { reform_desire = 0.5 }
+			}
+			modifier = {
+				factor = 0
+				is_religion_enabled = protestant
+			}
+		}
+	}
+
+	EDG_Catholic_decision_theocracy_investigate_heresy = {#肃清本国异端
+		major = yes
+		color = { 215 215 50 }
+		potential = {
+			government = theocracy
+			religion = catholic
+		}
+		allow = {
+			government = theocracy
+			religion = catholic
+			NOT = { has_country_modifier = EDG_Catholic_decision_theocracy_investigate_heresy_in_5_years_modifier }
+			adm_power = 100
+		}
+		effect = {
+			add_adm_power = -100
+			add_papal_influence = 10
+			if = {
+				limit = { total_development = 300 }
+				add_reform_desire = -0.02
+			}
+			else = {
+				add_reform_desire = -0.01
+			}
+			add_reform_desire_scale = 0.03
+			add_country_modifier = {
+				name = EDG_Catholic_decision_theocracy_investigate_heresy_in_5_years_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { reform_desire = 0.2 }
+			}
+			modifier = {
+				factor = 0
+				is_religion_enabled = protestant
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm = 3 }
+				NOT = { adm_power = 600 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm = 5 }
+				NOT = { adm_power = 300 }
+			}
+		}
+	}
+}

@@ -1,0 +1,375 @@
+on_adm_exploited = {
+	owner = {
+		change_variable = {
+			which = EDG_num_of_exploited
+			value = 1
+		}
+	}
+	if = {
+		limit = { 
+			owner ={
+				has_government_mechanic = EDG_WAL_atrocity_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_WAL_mission_5_1_flag
+			}
+		}
+		add_province_modifier = {
+			name = EDG_WAL_spur_tax_modifier
+			duration = 7300
+		}
+	}
+}
+on_dip_exploited = {
+	owner = {
+		change_variable = {
+			which = EDG_num_of_exploited
+			value = 1
+		}
+	}
+	if = {
+		limit = { 
+			owner ={
+				has_government_mechanic = EDG_WAL_atrocity_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_WAL_mission_5_1_flag
+			}
+		}
+		add_province_modifier = {
+			name = EDG_WAL_spur_production_modifier
+			duration = 7300
+		}
+	}
+}
+on_mil_exploited = {
+	owner = {
+		change_variable = {
+			which = EDG_num_of_exploited
+			value = 1
+		}
+	}
+	if = {
+		limit = { 
+			owner ={
+				has_government_mechanic = EDG_WAL_atrocity_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_WAL_mission_5_1_flag
+			}
+		}
+		add_province_modifier = {
+			name = EDG_WAL_spur_manpower_modifier
+			duration = 7300
+		}
+	}
+}
+on_battle_lost_province = {
+	if = {
+		limit = {
+			from = { 
+				has_country_flag = EDG_WAL_mission_4_4_flag
+			}
+		}
+		from = {
+			#add_treasury = 100
+			set_variable = {
+				which = land_units_killed_var
+				which = land_units_killed
+			}
+			multiply_variable = {
+				which = land_units_killed_var
+				value = 0.2
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = land_units_killed_var
+						value = 1000
+					}
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = land_units_killed_var
+							value = 1000
+						}
+					}
+					subtract_variable = {
+						which = land_units_killed_var
+						value = 1000
+					}
+					root = {
+						infantry = prev
+					}
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = land_units_killed_var
+							value = 1000
+						}
+					}
+					subtract_variable = {
+						which = land_units_killed_var
+						value = 1000
+					}
+					root = {
+						infantry = prev
+					}
+				}
+			}
+			else = {
+				multiply_variable = {
+					which = land_units_killed_var
+					value = 1000
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = land_units_killed_var
+							value = 1000
+						}
+					}
+					subtract_variable = {
+						which = land_units_killed_var
+						value = 1000
+					}
+					add_manpower = 0.001
+				}
+			}
+			
+		}
+	}
+}
+on_siege_won_province = {
+	if = {
+		limit = {
+			controller = {
+				has_country_flag = EDG_WAL_mission_5_7_flag
+			}
+			NOT = {
+				owned_by = controller
+			}
+			NOT = {
+				has_province_modifier = EDG_WAL_capital_was_recently_captured
+			}
+		}
+		if = {
+			limit = {
+				root = {
+					is_capital = yes
+				}
+			}
+			if = {
+				limit = {
+					controller = {
+						has_spy_network_in = {
+							who = from
+							value = 50
+						}
+					}
+					from = {
+						has_regency = no
+						NOT = {
+							mil = 6
+						}
+					}
+				}
+				controller = {
+					add_spy_network_in = {
+						who = from
+						value = -50
+					}
+				}
+				from = {
+					kill_ruler = yes
+				}
+			}
+			from = {
+				add_stability = -1
+			}
+			root = {
+				add_province_modifier = {
+					name = EDG_WAL_capital_was_recently_captured
+					duration = 7300
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_fort_building_trigger = yes
+			controller = {
+				has_country_flag = EDG_WAL_mission_5_3_flag
+			}
+			NOT = {
+				owned_by = controller
+			}
+		}
+		if = {
+			limit = { 
+				has_building = fort_15th
+			}
+			remove_building = fort_15th
+		}
+		else_if = {
+			limit = { 
+				has_building = fort_16th
+			}
+			remove_building = fort_16th
+		}
+		else_if = {
+			limit = { 
+				has_building = fort_17th
+			}
+			remove_building = fort_17th
+		}
+		else_if = {
+			limit = { 
+				has_building = fort_18th
+			}
+			remove_building = fort_18th
+		}
+		owner = {
+			add_war_exhaustion = 2
+		}
+		controller = {
+			add_yearly_manpower = 0.5
+		}
+	}
+	if = {
+		limit = {
+			controller = {
+				has_country_flag = EDG_WAL_mission_5_5_flag
+			}
+			NOT = {
+				owned_by = controller
+			}
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_province_modifier = EDG_WAL_raiding_province
+				}
+			}
+			add_province_modifier = {
+				name = EDG_WAL_raiding_province
+				duration = 3650
+			}
+			if = {
+				limit = { 
+					base_tax = 2
+				}
+				random_list = {
+					3 = {
+						add_base_tax = -1
+					}
+					7 = {}
+				}
+				
+			}
+			if = {
+				limit = { 
+					base_production = 2
+				}
+				random_list = {
+					3 = {
+						add_base_production = -1
+					}
+					7 = {}
+				}
+				
+			}
+			if = {
+				limit = { 
+					base_manpower = 2
+				}
+				random_list = {
+					3 = {
+						add_base_manpower = -1
+					}
+					7 = {}
+				}
+			}
+			add_devastation = 50
+			set_variable = {
+				which = EDG_GEN_province_development
+				value = 0
+			}
+			export_to_variable = {
+				which = EDG_GEN_province_development
+				value = development
+			}
+			while = {
+				limit = {
+					check_variable = {
+						which = EDG_GEN_province_development
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_GEN_province_development
+					value = 1
+				}
+				controller = {
+					add_treasury = 1
+				}
+			}
+		}
+	}
+}
+on_capital_moved = {
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_WAL_mission_5_8_flag
+			}
+		}
+		owner = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = EDG_WAL_iron_wall
+				}
+				remove_province_modifier = EDG_WAL_iron_wall
+			}
+		}
+		add_province_modifier = {
+			name = EDG_WAL_iron_wall
+			duration = -1
+		}
+	}
+}

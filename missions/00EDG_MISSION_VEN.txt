@@ -1,0 +1,2636 @@
+EDG_VEN_mission_slot_1 = {
+    slot = 1
+    generic = no
+    ai = yes
+    has_country_shield = yes
+    potential = {
+        OR = {
+            tag = VEN
+            AND = {
+                was_tag = VEN
+                tag = ITA
+            }
+            AND = {
+                was_tag = VEN
+                tag = IT1
+            }
+        }
+    }
+
+    EDG_VEN_mission_1_1 = { #帝国外交政策
+        icon = centralized_empire
+        position = 1
+        required_missions = { }
+        provinces_to_highlight = {
+            OR = {
+                is_capital_of = emperor
+                owned_by = emperor
+            }
+        }
+        trigger = {
+            OR = {
+			    is_rival = emperor
+                emperor = {
+                    is_rival = root
+                }
+			    army_size = emperor
+			    emperor = {
+				    has_opinion = {
+					    who = ROOT
+					    value = 150
+				    }
+			    }
+            }
+        }
+        effect = {
+            if = {
+				limit = {
+					emperor = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					}
+				}
+			    custom_tooltip = EDG_VEN_mission_1_1_a_tt_yes #√如果通过与皇帝交善完成任务
+                add_country_modifier = {
+                    name = EDG_VEN_mission_1_1_modifier_a #皇帝在意大利的新盟友
+                    duration = 7300
+                }
+                create_alliance = emperor
+                add_historical_friend = emperor
+                emperor = {
+                    add_historical_friend = ROOT
+                }
+                set_in_empire = yes
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_1_1_b_tt_no #×如果通过与皇帝对抗完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_1_1_modifier_b
+                        duration = 7300
+                    }
+                }   
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_1_1_a_tt_no #x如果通过与皇帝交善完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_1_1_modifier_a
+                        duration = 7300
+                    }
+                    create_alliance = emperor
+                    add_historical_friend = emperor
+                    emperor = {
+                        add_historical_friend = ROOT
+                    }
+                    set_in_empire = yes
+                }
+                custom_tooltip = EDG_SPACE_TT
+                custom_tooltip = EDG_VEN_mission_1_1_b_tt_yes #√如果通过与皇帝对抗完成任务
+                add_country_modifier = {
+                    name = EDG_VEN_mission_1_1_modifier_b #入侵帝国的野望
+                    duration = 7300
+                }
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_1_1_modifier #圣马可狮的外交
+                duration = -1 
+            }
+        }
+    }
+
+    EDG_VEN_mission_1_2 = { #控制山口
+        icon = the_alpine_wall
+        position = 2
+        required_missions = { EDG_VEN_mission_1_1 }
+        provinces_to_highlight = { province_id = 110 }
+        trigger = {
+            OR = {
+                110 = {
+                    owner = {
+                        has_spy_network_from = {
+                                who = root
+                                value = 30
+                            }
+                        }
+                    }
+                AND = {
+                    exists = TNT
+                    TNT = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+                        OR = {
+                            is_in_trade_league_with = root
+                            alliance_with = root
+                        }
+                    }
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit = {
+                    110 = {
+                    owner = {
+                        has_spy_network_from = {
+                                who = root
+                                value = 30
+                            }
+                        }
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_1_2_a_yes #√如果我们通过间谍网完成任务
+                110 = {
+                    add_core = root
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_1_2_b_no #×如果我们通过好感度完成任务
+                tooltip = {
+                    create_subject = {
+                        subject_type = vassal
+                        subject = TNT
+                    }
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_1_2_modifier_b #山口看门犬
+                        duration = -1
+                    }
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_1_2_a_no #×如果我们通过间谍网完成任务
+                tooltip = {
+                    110 = {
+                        add_core = root
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_1_2_b_yes #√如果我们通过好感度完成任务
+                create_subject = {
+                    subject_type = vassal
+                    subject = TNT
+                }
+                add_country_modifier = {
+                    name = EDG_VEN_mission_1_2_modifier_b #山口看门犬
+                    duration = -1
+                }
+            }    
+        }
+    }
+
+    EDG_VEN_mission_1_3 = { #挺进山脉与丛林
+        icon = spa_spanish_road
+        position = 3
+        required_missions = { EDG_VEN_mission_1_2 }
+        provinces_to_highlight = { province_id = 110 }
+        trigger = {
+            110 = {
+                riga_subject_of_subject_owned_land = { who = root }
+            }
+        }
+        effect = {
+            carinthia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            tirol_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			inner_austria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					alliance_with = emperor
+				}
+				custom_tooltip = EDG_VEN_mission_1_3_a_tt_yes #√如果我们和皇帝是盟友 
+				define_advisor = {
+					type = historian
+					skill = 2
+					cost_multiplier = 0.25
+					culture = ROOT
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_VEN_mission_1_3_b_tt_no #×否则获得如下修正
+				tooltip = {
+					define_advisor = {
+						type = xungui
+						skill = 2
+						cost_multiplier = 0.25
+						culture = ROOT
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_VEN_mission_1_3_a_tt_no #×如果和皇帝是盟友
+				tooltip = {
+					define_advisor = {
+						type = historian
+						skill = 2
+						cost_multiplier = 0.25
+						culture = ROOT
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_VEN_mission_1_3_b_tt_yes #√否则获得如下修正
+				define_advisor = {
+					type = army_reformer
+					skill = 2
+					cost_multiplier = 0.25
+					culture = ROOT
+				}
+			}
+		} 
+    }
+
+    EDG_VEN_mission_1_4 = { #保护斯洛文尼亚
+        icon = mission_empire
+        position = 4
+        required_missions = { EDG_VEN_mission_1_3 }
+        provinces_to_highlight = { 
+            area = carinthia_area
+			NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = { 
+            carinthia_area = {
+				type = all
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_1_4_modifier #斯洛文尼亚的保护者
+                duration = -1
+            }
+            add_accepted_culture_or_dip_power = { culture = slovene }
+            custom_tooltip = EDG_SPACE_TT
+			130 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				EDG_create_or_add_center_of_trade_level_effect = yes
+			}
+        }
+    }
+
+    EDG_VEN_mission_1_5 = { #沿阿迪杰河而上
+        icon = up_the_adige
+        position = 5
+        required_missions = { EDG_VEN_mission_1_4 EDG_VEN_mission_2_4 }
+        provinces_to_highlight = {
+            AND = {
+                OR = {
+                    area = carinthia_area
+                    area = tirol_area
+                    area = venetia_area
+                    area = emilia_romagna_area
+                    area = po_valley_area
+                    area = lombardy_area
+                }
+                NOT = { riga_subject_of_subject_owned_land = { who = root } }
+            }
+        }
+        trigger = {
+            OR = {
+                total_development = 500
+                AND = {
+                    carinthia_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    tirol_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    venetia_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    emilia_romagna_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    po_valley_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    lombardy_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                }
+            }
+        }
+        effect = {
+            austria_proper_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            custom_tooltip = EDG_VEN_mission_1_5_tt #我们将根据不同情况获得处理奥地利公国的不同手段
+            if = {
+                limit = {
+                    exists = HAB
+                }
+                if = {
+                    limit = {
+                        marriage_with = HAB
+                        valid_for_personal_unions_trigger = yes
+                        HAB = {
+						    valid_for_personal_unions_trigger = yes
+                        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_1_5_a_tt_yes #√如果哈布斯堡的奥地利存在、可以被联统且与我们联姻
+                    add_casus_belli = {
+					    type = cb_restore_personal_union
+					    months = 300
+					    target = HAB
+				    }
+                    custom_tooltip = EDG_VEN_mission_1_5_b_tt_no #×如果哈布斯堡的奥地利存在、未与我们联姻或不可被联统
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_annex
+					        months = 300
+					        target = HAB
+				        }
+                    }
+                }
+                else = {
+                    custom_tooltip = EDG_VEN_mission_1_5_a_tt_no #×如果哈布斯堡的奥地利存在、可以被联统且与我们联姻
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_restore_personal_union
+					        months = 300
+					        target = HAB
+				        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_1_5_b_tt_yes #√如果哈布斯堡的奥地利存在、未与我们联姻或不可被联统
+                    add_casus_belli = {
+					    type = cb_annex
+					    months = 300
+				        target = HAB
+			        }
+                }
+            }
+            if = {
+                limit = {
+                    exists = H02
+                }
+                if = {
+                    limit = {
+                        marriage_with = H02
+                        valid_for_personal_unions_trigger = yes
+                        H02 = {
+						    valid_for_personal_unions_trigger = yes
+                        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_1_5_c_tt_yes #√如果巴本堡的奥地利存在、可以被联统且与我们联姻
+                    add_casus_belli = {
+				        type = cb_restore_personal_union
+				        months = 300
+				        target = H02
+			        }
+                    custom_tooltip = EDG_VEN_mission_1_5_d_tt_no #×如果巴本堡的奥地利存在、未与我们联姻或不可被联统
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_annex
+					        months = 300
+					        target = H02
+				        }
+                    }
+                }
+                else = {
+                    custom_tooltip = EDG_VEN_mission_1_5_c_tt_no #×如果巴本堡的奥地利存在、可以被联统且与我们联姻
+                    tooltip = {
+                        add_casus_belli = {
+				            type = cb_restore_personal_union
+				            months = 300
+				            target = H02
+			            }
+                    }
+                    custom_tooltip = EDG_VEN_mission_1_5_d_tt_yes #√如果巴本堡的奥地利存在、未与我们联姻或不可被联统
+                    add_casus_belli = {
+					    type = cb_annex
+					    months = 300
+				        target = H02
+			        }
+                }
+            }
+        }
+    }
+
+    EDG_VEN_mission_1_6 = { #羁縻奥地利
+        icon = conquer_austria
+        position = 6
+        required_missions = { EDG_VEN_mission_1_5 }
+        provinces_to_highlight = {
+            area = austria_proper_area
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            OR = {
+                austria_proper_area = {
+                    type = all
+				    riga_subject_of_subject_owned_land = { who = root }
+                }
+                HAB = {
+                    is_subject_of = ROOT
+                }
+                H02 = {
+                    is_subject_of = ROOT
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit = {
+                    OR = {
+                        HAB = {
+                            is_subject_of = ROOT
+                        }
+                        H02 = {
+                            is_subject_of = ROOT
+                        }
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_1_6_a_tt_yes #√如果奥地利是我们的属国
+                add_country_modifier = {
+                    name = EDG_VEN_mission_1_6_modifier_a #羁縻奥地利
+                    duration = -1
+                }
+                add_historical_friend = HAB
+                HAB = {
+                    add_historical_friend = ROOT
+                }
+                custom_tooltip = EDG_VEN_mission_1_6_b_tt_no #×否则获得如下修正
+                tooltip = {
+                    add_country_modifier = { 
+                        name = EDG_VEN_mission_1_6_modifier_b #奥地利战争的最终胜利者
+                        duration = -1
+                    }
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_1_6_a_tt_no #×如果奥地利是我们的属国
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_1_6_modifier_a #羁縻奥地利
+                        duration = -1
+                    }
+                    add_historical_friend = HAB
+                    HAB = {
+                        add_historical_friend = ROOT
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_1_6_b_tt_yes #√否则获得如下修正
+                add_country_modifier = { 
+                    name = EDG_VEN_mission_1_6_modifier_b #奥地利战争的最终胜利者
+                    duration = -1
+                }
+            }
+        }
+    }
+}
+
+EDG_VEN_mission_slot_2 = {
+    slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_2_2 = { #控制拉古萨
+        icon = mission_mnd_maj_candi_shrines
+        position = 2
+        required_missions = { EDG_VEN_mission_3_1 }
+        provinces_to_highlight = { province_id = 137 }
+        trigger = {
+            OR = {
+                137 = {
+                    owner = {
+                        has_spy_network_from = {
+                                who = root
+                                value = 30
+                            }
+                        }
+                    }
+                AND = {
+                    exists = RAG
+                    RAG = {
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+                        OR = {
+                            is_in_trade_league_with = root
+                            alliance_with = root
+                        }
+                    }
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit = {
+                    137 = {
+                    owner = {
+                        has_spy_network_from = {
+                                who = root
+                                value = 30
+                            }
+                        }
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_1_2_a_yes #√如果我们通过间谍网完成任务
+                137 = {
+                    add_core = root
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_1_2_b_no #×如果我们通过好感度完成任务
+                tooltip = {
+                    create_subject = {
+                        subject_type = vassal
+                        subject = RAG
+                    }
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_2_2_modifier #拉古萨代理人
+                        duration = -1
+                    }
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_1_2_a_no #×如果我们通过间谍网完成任务
+                tooltip = {
+                    137 = {
+                        add_core = root
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_1_2_b_yes #√如果我们通过好感度完成任务
+                create_subject = {
+                    subject_type = vassal
+                    subject = RAG
+                }
+                add_country_modifier = {
+                    name = EDG_VEN_mission_2_2_modifier #拉古萨代理人
+                    duration = -1
+                }
+            }
+        }
+    }
+
+    EDG_VEN_mission_2_3 = { #控制达尔马提亚走廊
+        icon = mission_unite_home_region
+        position = 3
+        required_missions = { EDG_VEN_mission_2_2 }
+        provinces_to_highlight ={ }
+        trigger = {
+            OR = {
+                army_size = 40
+                AND = {
+                    army_size = 25
+                    army_size_percentage = 1
+                }
+            }
+        }
+        effect = {
+            croatia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            dalmatia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            bosnia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            serbia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            rascia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            albania_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+        }
+    }
+
+    EDG_VEN_mission_2_4 = { #蒂罗尔守望者
+        icon = expand_the_terraferma
+        position = 4
+        required_missions = { EDG_VEN_mission_1_3 }
+        provinces_to_highlight ={
+            area = tirol_area
+			NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            tirol_area = {
+				type = all
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+        }
+        effect = {
+            tirol_area = {
+                change_culture = venetian
+                add_nationalism = -10
+                add_local_autonomy = -100
+            }
+            custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_VEN_mission_2_4_tt #我们治下的位于蒂罗尔区域的建造有要塞的省份获得：
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_VEN_mission_2_4_modifier #蒂罗尔防线
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				tirol_area = {
+					limit = {
+						EDG_has_building_fort_trigger = yes
+					}
+					add_permanent_province_modifier = {
+						name = EDG_VEN_mission_2_4_modifier #蒂罗尔防线
+						duration = -1
+					}
+				}
+			}
+        }
+    }
+
+    EDG_VEN_mission_2_5 = { #法兰克克拉提亚
+        icon = la_latinocrazia
+        position = 5
+        required_missions = { EDG_VEN_mission_3_4 }
+        provinces_to_highlight = { province_id = 151}
+        trigger = {
+            151 = {
+                owned_by = root
+                is_core = root
+            }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.0 } #触发事件“地中海最璀璨的明珠”
+            add_country_modifier = {
+                name = EDG_VEN_mission_2_5_modifier_a #力量的证明
+                duration = -1
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_2_5_modifier_b #重拾丹多洛的荣耀
+                duration = 18250
+            }
+        }
+    }
+
+    EDG_VEN_mission_2_6 = { #世界渴望之城
+        icon = mission_dominate_genoa
+        position = 6
+        required_missions = { EDG_VEN_mission_2_5 }
+        provinces_to_highlight = { province_id = 151 }
+        trigger = {
+            151 = {
+                owned_by = root
+                is_core = root
+                development = 30
+                EDG_has_building_temple_trigger = yes
+                EDG_has_building_workshop_trigger = yes
+                EDG_has_building_market_trigger = yes
+                EDG_has_building_barracks_trigger = yes
+            }
+        }
+        effect = {
+            151 = {
+                EDG_building_give_temple_or_upgrate_effect = yes
+                EDG_building_give_workshop_or_upgrate_effect = yes
+                EDG_building_give_marketplace_or_upgrate_effect = yes
+                EDG_building_give_barracks_or_upgrate_effect = yes
+                add_province_modifier = {
+                    name = EDG_VEN_mission_2_6_modifier_a #威尼斯的海峡垄断权
+                    duration= -1
+                }
+                EDG_create_or_add_center_of_trade_level_effect = yes
+                add_province_modifier = {
+                    name = EDG_VEN_mission_2_6_modifier_b #众城之女王
+                    duration = -1
+                }
+            }
+        }
+    }
+}
+
+EDG_VEN_mission_slot_3 = {
+    slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_3_1 = { #巴尔干外交政策
+        icon = mission_alliances
+        position = 1
+        required_missions = { }
+        provinces_to_highlight = { 
+            OR = {
+                is_capital_of = BUL
+                is_capital_of = GSR
+            }
+        }
+        trigger = {
+            OR = {
+                BUL = {
+                    OR = {
+				        has_opinion = {
+					        who = ROOT
+					        value = 150
+				        }
+                        custom_trigger_tooltip = {
+							tooltip = has_been_insulted_by_root
+							OR = {
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = insulted
+								}
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = scornfully_insulted
+								}
+							}
+                        }
+                    }
+                }
+                GSR = {
+                    OR = {
+				        has_opinion = {
+					        who = ROOT
+					        value = 150
+				        }
+                        custom_trigger_tooltip = {
+							tooltip = has_been_insulted_by_root
+							OR = {
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = insulted
+								}
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = scornfully_insulted
+								}
+							}
+                        }
+                    }
+                }
+                NOT = {
+                    exists = BUL
+                    exists = GSR
+                }
+            }
+        }
+        effect = {
+            albania_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            if = {
+			    limit = {
+				    BUL = {
+					    has_opinion = {
+				    	    who = ROOT
+					    	value = 150
+    					}
+	    			}
+		    	}
+			    custom_tooltip = EDG_VEN_mission_3_1_a_tt_yes #√如果通过与保加利亚交善完成任务
+                add_country_modifier = {
+                    name = EDG_VEN_mission_3_1_modifier_a #保加利亚军事指导
+                    duration = 7300
+                }
+                create_alliance = BUL
+                add_historical_friend = BUL
+                BUL = {
+                    add_historical_friend = ROOT 
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_3_1_b_tt_no #×如果通过与大塞尔维亚交善完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_3_1_modifier_b #大塞尔维亚军事指导
+                        duration = 7300
+                    }
+                    create_alliance = GSR
+                    add_historical_friend = GSR
+                    GSR = {
+                        add_historical_friend = ROOT
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt_no #×如果侮辱保加利亚或大塞尔维亚完成任务
+                tooltip = {
+                    add_power_projection = {
+                        type = mission_rewards_power_projection
+                        amount = 10
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt #这表示通过侮辱获得的力量投射翻倍
+            }
+            else_if = {
+                limit = {
+                    GSR = {
+					    has_opinion = {
+				    	    who = ROOT
+					    	value = 150
+    					}
+	    			}
+                }
+                custom_tooltip = EDG_VEN_mission_3_1_a_tt_no #x如果通过与保加利亚交善完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_3_1_modifier_a #保加利亚军事指导
+                        duration = 7300
+                    }
+                    create_alliance = BUL
+                    add_historical_friend = BUL
+                    BUL = {
+                        add_historical_friend = ROOT 
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT
+                custom_tooltip = EDG_VEN_mission_3_1_b_tt_yes #√如果通过与大塞尔维亚交善完成任务
+                add_country_modifier = {
+                    name = EDG_VEN_mission_3_1_modifier_b #大塞尔维亚军事指导
+                    duration = 7300
+                }
+                create_alliance = GSR
+                add_historical_friend = GSR
+                GSR = {
+                    add_historical_friend = ROOT
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt_no #×如果侮辱保加利亚或大塞尔维亚完成任务
+                tooltip = {
+                    add_power_projection = {
+                        type = mission_rewards_power_projection
+                        amount = 10
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt #这表示通过侮辱获得的力量投射翻倍
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_3_1_a_tt_no #x如果通过与保加利亚交善完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_3_1_modifier_a #保加利亚军事指导
+                        duration = 7300
+                    }
+                    create_alliance = BUL
+                    add_historical_friend = BUL
+                    BUL = {
+                        add_historical_friend = ROOT 
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_3_1_b_tt_no #×如果通过与大塞尔维亚交善完成任务
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_3_1_modifier_b #大塞尔维亚军事指导
+                        duration = 7300
+                    }
+                    create_alliance = GSR
+                    add_historical_friend = GSR
+                    GSR = {
+                        add_historical_friend = ROOT
+                    }
+                }
+                custom_tooltip = EDG_SPACE_TT #换行
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt_yes #√如果侮辱保加利亚或大塞尔维亚完成任务
+                add_power_projection = {
+                    type = mission_rewards_power_projection
+                    amount = 10
+                }
+                custom_tooltip = EDG_VEN_mission_3_1_c_tt #这表示通过侮辱获得的力量投射翻倍
+            }
+        }
+    }
+    
+    EDG_VEN_mission_3_2 = { #一桩政治联姻
+        icon = republican_yearnings
+        position = 2
+        required_missions = { EDG_VEN_mission_3_1 }
+        provinces_to_highlight = {
+            OR = {
+                is_capital_of = BYZ
+                owned_by = BYZ
+            }
+        }
+        trigger = {
+            army_size = BYZ
+            navy_size = BYZ
+            BYZ = {
+                has_opinion = {
+					    who = ROOT
+					    value = 150
+				    }
+            }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.1 } #触发事件“君士坦丁堡大婚”
+            thrace_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            macedonia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            northern_greece_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            morea_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            aegean_archipelago_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            aegean_archipelago_area = {
+                add_core = BYZ
+            }
+        }
+    }
+
+    EDG_VEN_mission_3_3 = { #收回爱琴海
+        icon = reclaim_the_aegean
+        position = 3
+        required_missions = { EDG_VEN_mission_3_2 }
+        provinces_to_highlight = {
+            OR = {
+                area = morea_area
+                area = aegean_archipelago_area
+            }
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            morea_area = {
+	    		type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+		    }
+            aegean_archipelago_area = {
+                type = all
+			    riga_subject_of_subject_owned_land = { who = root }
+            }
+        }
+        effect = {
+            321 = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            hudavendigar_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            aydin_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            321 = {
+				add_core = BYZ
+            }
+            hudavendigar_area = {
+				add_core = BYZ
+			}
+            aydin_area = {
+				add_core = BYZ
+            }
+        }
+    }
+
+    EDG_VEN_mission_3_4 = { #希腊光复
+        icon = mission_plc_purple_phoenix
+        position = 4
+        required_missions = { EDG_VEN_mission_3_3 }
+        provinces_to_highlight = {
+            OR = {
+                area = macedonia_area
+                area = northern_greece_area
+                area = thrace_area
+                area = hudavendigar_area
+                area = aydin_area
+            }
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            macedonia_area = {
+                type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+            }
+            northern_greece_area = {
+                type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+            }
+            thrace_area = {
+                type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+            }
+            hudavendigar_area = {
+                type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+            }
+            aydin_area = {
+                type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_4_modifier #希腊的光复者
+                duration = -1
+            }
+            add_accepted_culture_or_dip_power = { culture = greek }
+        }
+    }
+
+    EDG_VEN_mission_3_5 = { #吞并塞浦路斯
+        icon = mission_invade_island
+        position = 5
+        required_missions = { EDG_VEN_mission_3_4 }
+        provinces_to_highlight = { province_id = 321 }
+        trigger = {
+            321 = {
+                owned_by = root
+                is_core = root
+            }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.2 } #触发事件“东地中海的明珠”
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_5_modifier_a #东地中海之主
+                duration = -1
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_5_modifier_b #虎视地中海的野心
+                duration = 7300
+            }
+            cukurova_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            aleppo_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            syria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            delta_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+        }
+    }
+
+    EDG_VEN_mission_3_6 = { #威尼斯的三角贸易
+        icon = mission_develop_nevas_port
+        position = 6
+        required_missions = { EDG_VEN_mission_3_5 }
+        provinces_to_highlight = {
+            OR = {
+                area = cukurova_area
+                area = aleppo_area
+                area = syria_area
+                area = delta_area
+            }
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            cukurova_area = {
+				type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+			}
+            aleppo_area = {
+				type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+			}
+            syria_area = {
+				type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+			}
+            delta_area = {
+				type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+			}
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.3 } #触发事件“亚历山大的香料贸易”
+            country_event = { id = EDG_flavorVEN_mission.4 } #触发事件“阿勒颇的丝绸贸易”
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_6_modifier #三角贸易
+                duration = -1
+            }
+        }
+    }
+}
+
+EDG_VEN_mission_slot_4 = {
+    slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_4_2 ={ #与斯坎德培合作
+        icon = mission_religious
+        position = 2
+        required_missions = { EDG_VEN_mission_3_1 }
+        provinces_to_highlight = {
+            area = albania_area
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            OR = {
+                albania_area = {
+                    type = all
+		    	    riga_subject_of_subject_owned_land = { who = root }
+                }
+                AND = {
+                    exists = ALB
+                    ALB = {
+                        has_opinion = {
+							who = ROOT
+							value = 150
+						}
+                        OR = {
+                        is_in_trade_league_with = root
+                        alliance_with = root
+                        }   
+                    }
+                }
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_4_2_modifier #有利的佣兵条约
+                duration = 9125
+            }
+            if = {
+                limit = {
+                    exists = ALB
+                    ALB = {
+                        has_opinion = {
+							who = ROOT
+							value = 150
+						}
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_4_2_tt_yes #√如果我们通过好感度完成任务
+                create_alliance = ALB
+                add_historical_friend = ALB
+                ALB = {
+                    add_historical_friend = ROOT
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_4_2_tt_no #×如果我们通过好感度完成任务
+                tooltip = {
+                    create_alliance = ALB
+                    add_historical_friend = ALB
+                    ALB = {
+                        add_historical_friend = ROOT
+                    }
+                }
+            }
+        }
+    }
+
+    EDG_VEN_mission_4_3 = { #给予莱什人自主权
+        icon = mission_monarch_in_throne_room
+        position = 3
+        required_missions = { EDG_VEN_mission_4_2 }
+        provinces_to_highlight = {
+            area = albania_area
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            OR = {
+                albania_area = {
+                    type = all
+		    	    riga_subject_of_subject_owned_land = { who = root }
+                }
+                AND = {
+                    exists = ALB
+                    ALB = {
+                        has_opinion = {
+							who = ROOT
+							value = 200
+						}
+                        OR = {
+                        is_in_trade_league_with = root
+                        alliance_with = root
+                        }   
+                    }
+                }
+            }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_4_3_modifier_b #拥有佣兵之乡
+                duration = 9125
+            }
+            if = {
+                limit = {
+                    exists = ALB
+                    ALB = {
+                        has_opinion = {
+							who = ROOT
+							value = 200
+						}
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_4_2_tt_yes #√如果我们通过好感度完成任务
+                create_subject = {
+                    subject_type = vassal
+                    subject = ALB
+                }
+                add_country_modifier = {
+                    name = EDG_VEN_mission_4_3_modifier_a #莱什伙伴
+                    duration = -1
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_4_2_tt_no #×如果我们通过好感度完成任务
+                tooltip = {
+                    create_subject = {
+                        subject_type = vassal
+                        subject = ALB
+                    }
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_4_3_modifier_a #莱什伙伴
+                        duration = -1
+                    }
+                }
+            }
+        }
+    }
+
+    EDG_VEN_mission_4_4 = { #永远的朋友
+        icon = mission_friends_or_enemies
+        position = 4
+        provinces_to_highlight = {
+            area = albania_area
+        }
+        required_missions = { EDG_VEN_mission_4_3 }
+        trigger = {
+            NOT = {
+                exists = ALB
+            }
+            albania_area = {
+	    		type = all
+		    	riga_subject_of_subject_owned_land = { who = root }
+                NOT = { nationalism = 5 }
+		    }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_4_4_modifier_a #山鹰的朋友
+                duration = -1
+            }
+            add_accepted_culture_or_dip_power = { culture = albanian }
+            add_country_modifier = {
+                name = EDG_VEN_mission_4_4_modifier_b #佣兵之王
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_4_5 = { #南斯拉夫傀儡
+        icon= mission_norwegian_royal_army
+        position = 5
+        required_missions = {
+            EDG_VEN_mission_3_4
+            EDG_VEN_mission_4_4
+        }
+        provinces_to_highlight = {
+            OR = {
+                area = albania_area
+                area = croatia_area
+                area = bosnia_area
+            }
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            OR = {
+                total_development = 500
+                AND = {
+                    croatia_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    bosnia_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    albania_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                }
+            }
+        }
+        effect = {
+            bulgaria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            silistria_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            if = {
+                limit = {
+                    exists = GSR
+                }
+                if = {
+                    limit = {
+                        marriage_with = GSR
+                        valid_for_personal_unions_trigger = yes
+                        GSR = {
+						    valid_for_personal_unions_trigger = yes
+                        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_4_5_a_tt_yes #√如果大塞尔维亚存在、可以被联统且与我们联姻
+                    add_casus_belli = {
+					    type = cb_restore_personal_union
+					    months = 300
+					    target = GSR
+				    }
+                    custom_tooltip = EDG_VEN_mission_4_5_b_tt_no #×如果大塞尔维亚存在、未与我们联姻或不可被联统
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_annex
+					        months = 300
+					        target = GSR
+				        }
+                    }
+                }
+                else = {
+                    custom_tooltip = EDG_VEN_mission_4_5_a_tt_no #×如果大塞尔维亚存在、可以被联统且与我们联姻
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_restore_personal_union
+					        months = 300
+					        target = GSR
+				        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_4_5_b_tt_yes #√如果大塞尔维亚存在、未与我们联姻或不可被联统
+                    add_casus_belli = {
+					    type = cb_annex
+					    months = 300
+				        target = GSR
+			        }
+                }
+            }
+            if = {
+                limit = {
+                    exists = BUL
+                }
+                if = {
+                    limit = {
+                        marriage_with = BUL
+                        valid_for_personal_unions_trigger = yes
+                        BUL = {
+						    valid_for_personal_unions_trigger = yes
+                        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_4_5_c_tt_yes #√如果保加利亚存在、可以被联统且与我们联姻
+                    add_casus_belli = {
+				        type = cb_restore_personal_union
+				        months = 300
+				        target = BUL
+			        }
+                    custom_tooltip = EDG_VEN_mission_4_5_d_tt_no #×如果保加利亚存在、未与我们联姻或不可被联统
+                    tooltip = {
+                        add_casus_belli = {
+				            type = cb_annex
+				            months = 300
+				            target = BUL
+			            }
+                    }
+                }
+                else = {
+                    custom_tooltip = EDG_VEN_mission_4_5_c_tt_no #×如果保加利亚存在、可以被联统且与我们联姻
+                    tooltip = {
+                        add_casus_belli = {
+					        type = cb_restore_personal_union
+					        months = 300
+					        target = BUL
+				        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_4_5_d_tt_yes #√如果保加利亚存在、未与我们联姻或不可被联统
+                    add_casus_belli = {
+					    type = cb_annex
+					    months = 300
+				        target = BUL
+			        }
+                }
+            }
+        }
+    }
+
+    EDG_VEN_mission_4_6 = { #羁縻南斯拉夫
+        icon = generality_lands
+        position = 6
+        required_missions = { EDG_VEN_mission_4_5 } 
+        provinces_to_highlight = {
+            OR = {
+                area = croatia_area
+                area = slavonia_area
+                area = serbia_area
+                area = rascia_area
+                area = bulgaria_area
+                area = silistria_area
+            }
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            croatia_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            slavonia_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            serbia_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            rascia_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            bulgaria_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            silistria_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.5 } #对南斯拉夫人的管理
+        }
+    }
+}
+
+EDG_VEN_mission_slot_5 = {
+    slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_5_1 = { #意大利外交政策
+        icon = influence_the_princes
+        position = 1
+        required_missions = { }
+        provinces_to_highlight = {
+            region = italy_region
+        }
+        trigger = {
+            OR = {
+                AND = {
+                    army_size = 25
+                    army_size_percentage = 0.9
+                }
+                army_size = 40
+                NOT = {
+				    any_country = {
+					    capital_scope = { region = italy_region }
+					    army_size = ROOT
+				    }
+                }
+                calc_true_if = {
+				    all_country = {
+					    OR = {
+						    is_subject_of = ROOT
+						    alliance_with = ROOT
+					    }
+                        capital_scope = { region = italy_region }
+				    }
+				    amount = 2
+			    }
+            }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.6 } #准备收复失地
+        }
+    }
+
+    EDG_VEN_mission_5_2 = { #趁虚而入
+        icon = seize_lombardy
+        position = 2
+        required_missions = { EDG_VEN_mission_5_1 }
+        provinces_to_highlight = {
+            OR = {
+                is_capital_of = MLO
+                owned_by = MLO
+                province_id = 107
+                province_id = 108
+                province_id = 4739
+            }
+        }
+        trigger = {
+            OR = {
+                MLO = {
+                    is_subject_of = ROOT
+                }
+                AND = {
+                    has_country_flag = EDG_flavorVEN_mission_6_a #拥有国家标志“收复失地”
+                    exists = MLO
+                    MLO = {
+                        has_spy_network_from = {
+                            who = root
+                            value = 30
+                        }
+                    }
+                    107 = { riga_subject_of_subject_owned_land = { who = root } }
+                    108 = { riga_subject_of_subject_owned_land = { who = root } }
+                    4739 = { riga_subject_of_subject_owned_land = { who = root } }
+                }
+                AND = {
+                    has_country_flag = EDG_flavorVEN_mission_6_b #拥有国家标志“放弃失地”
+                    exists = MLO
+                    MLO = {
+				        has_opinion = {
+					        who = ROOT
+					        value = 150
+				        }
+                        has_country_flag = had_ambrosian_republic
+                    }
+                }
+            }
+        }
+        effect = {
+            lombardy_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            po_valley_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            if = {
+                limit = {
+                    has_country_flag = EDG_flavorVEN_mission_6_a #拥有国家标志“收复失地”
+                }
+                custom_tooltip = EDG_VEN_mission_5_2_a_tt_yes #√我们在“准备收复失地”事件中选择了“收复失地”
+                if = {
+                    limit = {
+                        valid_for_personal_unions_trigger = yes
+                        MLO = {
+						    valid_for_personal_unions_trigger = yes
+                        }
+                    }
+                    custom_tooltip = EDG_VEN_mission_5_2_a_1_tt #由于伦巴第可以被联合统治
+                    add_casus_belli = {
+				        type = cb_restore_personal_union
+				        months = 300
+				        target = MLO
+			        }
+                }
+                else = {
+                    custom_tooltip = EDG_VEN_mission_5_2_a_2_tt #由于伦巴第不可以被联合统治
+                    add_casus_belli = {
+				        type = cb_annex
+				        months = 300
+				        target = MLO
+			        }
+                }
+                custom_tooltip = EDG_VEN_mission_5_2_b_tt_no #×我们在“准备收复失地”事件中选择了“放弃失地”
+                tooltip = {
+                    country_event = { id = EDG_flavorVEN_mission.7 } #亚平宁大婚
+                }
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_5_2_a_tt_no #×我们在“准备收复失地”事件中选择了“收复失地”
+                tooltip = {
+                    custom_tooltip = EDG_VEN_mission_5_2_a_1_tt #由于伦巴第可以被联合统治
+                    add_casus_belli = {
+				        type = cb_restore_personal_union
+				        months = 300
+				        target = MLO
+			        }
+                    custom_tooltip = EDG_VEN_mission_5_2_a_2_tt #由于伦巴第不可以被联合统治
+                    add_casus_belli = {
+				        type = cb_annex
+				        months = 300
+				        target = MLO
+			        }
+                }
+                custom_tooltip = EDG_VEN_mission_5_2_b_tt_yes #√我们在“准备收复失地”事件中选择了“放弃失地”
+                country_event = { id = EDG_flavorVEN_mission.7 } #亚平宁大婚
+            }
+        }
+    }
+
+    EDG_VEN_mission_5_3 = { #继续意大利征服
+        icon = mission_dominate_genoa
+        position = 3
+        required_missions = { EDG_VEN_mission_5_2 } 
+        provinces_to_highlight = {
+            OR = {
+                is_capital_of = MLO
+                owned_by = MLO
+                area = lombardy_area
+                area = po_valley_area
+            }
+        }
+        trigger = {
+            OR = {
+                MLO = {
+                    is_subject_of = ROOT
+                }
+                AND = {
+                    NOT = {
+                        exists = MLO
+                    }
+                    lombardy_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }
+                    po_valley_area = {
+                        type = all
+				        riga_subject_of_subject_owned_land = { who = root }
+                    }   
+                }
+            }
+        }
+        effect = {
+            liguria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            piedmont_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            emilia_romagna_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+            tuscany_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+        }
+    }
+
+    EDG_VEN_mission_5_4 = { #百年之争告一段落
+        icon = expand_to_the_south
+        position = 4
+        required_missions = { EDG_VEN_mission_5_3 }
+        provinces_to_highlight = { province_id = 101 }
+        trigger = {
+            NOT = {
+                exists = GEN
+            }
+            101 = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        effect = {
+            country_event = { id = EDG_flavorVEN_mission.8 } #威尼斯驱逐迪·萨伏伊家族
+            custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = allow_EDG_TTS_mission_1_8_decision_1_tt
+			custom_tooltip = allow_EDG_TTS_mission_1_8_decision_2_tt
+			custom_tooltip = allow_EDG_TTS_mission_1_8_decision_3_tt
+			set_country_flag = allow_EDG_TTS_mission_1_8_decision_1_flag
+			set_country_flag = allow_EDG_TTS_mission_1_8_decision_2_flag
+			set_country_flag = allow_EDG_TTS_mission_1_8_decision_3_flag
+            custom_tooltip = EDG_SPACE_TT
+			101 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				EDG_create_or_add_center_of_trade_level_effect = yes
+			}
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_4_modifier #百年战争告一段落
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_5_5 = { #入主百花宫
+        icon = mission_unite_home_region
+        position = 5
+        required_missions = { EDG_VEN_mission_5_4 }
+        provinces_to_highlight = {
+            OR = {
+				area = emilia_romagna_area
+                area = tuscany_area
+			}
+			NOT = { riga_subject_of_subject_owned_land = { who = root } }
+		}
+        trigger = {
+            emilia_romagna_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+            tuscany_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+            }
+        }
+        effect = {
+            central_italy_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT	} }
+				add_permanent_claim = ROOT
+			}
+			lazio_area = {
+				limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT	} }
+				add_permanent_claim = ROOT
+			}
+            custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = allow_EDG_TTS_mission_2_8_decision_1_tt
+			custom_tooltip = allow_EDG_TTS_mission_2_8_decision_2_tt
+			custom_tooltip = allow_EDG_TTS_mission_2_8_decision_3_tt
+			set_country_flag = allow_EDG_TTS_mission_2_8_decision_1_flag
+			set_country_flag = allow_EDG_TTS_mission_2_8_decision_2_flag
+			set_country_flag = allow_EDG_TTS_mission_2_8_decision_3_flag
+        }
+    }
+
+    EDG_VEN_mission_5_6 = { #威尼斯第一教宗第二
+        icon = control_the_vatican
+        position = 6
+        required_missions = { EDG_VEN_mission_5_5 }
+        provinces_to_highlight = {
+			province_id = 118
+			NOT = { riga_subject_of_subject_owned_land = { who = root } }
+		}
+        trigger = {
+			if = {
+				limit = {
+					religion = catholic
+				}
+				OR = {
+					is_papal_controller = yes
+					owns_or_non_sovereign_subject_of = 118
+				}
+			}
+			else = {
+				owns_or_non_sovereign_subject_of = 118
+			}
+		}
+        effect = {
+            country_event = { id = new_flavour_sav.2 } 
+            custom_tooltip = EDG_SPACE_TT
+            118 = {
+                add_core = root
+            }
+            set_country_flag = EDG_Legally_holding_Rome_flag
+            if = {
+				limit = { NOT = { religion = catholic } }
+				custom_tooltip = EDG_VEN_mission_5_6_a_tt_yes #√如果我们国教不是天主教
+				add_prestige_or_monarch_power = { amount = 20 }
+				define_advisor = {
+					type = inquisitor
+					skill = 3
+					cost_multiplier = 0.25
+					culture = ROOT
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_VEN_mission_5_6_modifier_1 #击败罗马教廷
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_VEN_mission_5_6_a_tt_no #×如果我们国教不是天主教
+				tooltip = {
+					add_prestige_or_monarch_power = { amount = 20 }
+					define_advisor = {
+						type = inquisitor
+						skill = 3
+						cost_multiplier = 0.25
+						culture = ROOT
+					}
+					custom_tooltip = EDG_SPACE_TT
+					add_country_modifier = {
+						name = EDG_VEN_mission_5_6_modifier_1
+						duration = 7300
+					}
+				}
+			}
+			if = {
+				limit = { religion = catholic }
+				custom_tooltip = EDG_VEN_mission_5_6_b_tt_yes #√如果我们国教是天主教
+				add_adm_power = 50
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_Legally_holding_Rome_tt #我们将可以合法地持有罗马
+			}
+			else = {
+				custom_tooltip = EDG_VEN_mission_5_6_b_tt_no #×如果我们国教是天主教
+				tooltip = {
+					add_adm_power = 50
+				}
+				custom_tooltip = EDG_SPACE_TT
+                custom_tooltip = EDG_Legally_holding_Rome_tt #我们将可以合法地持有罗马
+			}
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_6_modifier_2 #凌驾于教宗之上
+                duration = -1
+            }
+		}
+    }
+
+    EDG_VEN_mission_5_7 = { #宣称意大利国王头衔
+        icon = establish_client_states
+        position = 7
+        required_missions = { EDG_VEN_mission_5_6 }
+        provinces_to_highlight = {
+            region = italy_region
+            NOT = { riga_subject_of_subject_owned_land = { who = root } }
+        }
+        trigger = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+                value = 30
+                region = italy_region
+            }
+        }
+        effect = {
+            set_country_flag = EDG_form_ITA_ignore_tech_flag
+			custom_tooltip = EDG_form_ITA_ignore_tech_flag_tt
+            custom_tooltip = EDG_SPACE_TT
+			italy_region = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			naples_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			calabria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			apulia_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			sicily_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			western_sicily_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_7_modifier #威尼斯凯旋
+                duration = 7300
+            }
+            if = {
+                limit = {
+                    alliance_with = emperor
+                }
+                custom_tooltip = EDG_VEN_mission_5_7_yes #√如果我们和皇帝是盟友
+                country_event = { id = EDG_flavorVEN_mission.9 } #触发事件“在意大利的副皇帝”
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_5_7_no #×如果我们和皇帝是盟友
+                tooltip = {
+                    country_event = { id = EDG_flavorVEN_mission.9 } #触发事件“在意大利的副皇帝”
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_TTS_raising_mission_modifier
+				duration = 18250
+			}
+        }
+    }
+}
+
+EDG_VEN_mission_slot_1_b = {
+    slot = 1
+    generic = no
+    ai = yes
+    has_country_shield = yes
+    potential = {
+        OR = {
+            tag = VEN
+            AND = {
+                was_tag = VEN
+                tag = ITA
+            }
+            AND = {
+                was_tag = VEN
+                tag = IT1
+            }
+        }
+    }
+
+    EDG_VEN_mission_1_7 = { #解决绝嗣问题
+        icon = influence_the_princes
+        position = 7
+        required_missions = { }
+        provinces_to_highlight = { }
+        trigger = {
+            is_year = 1446
+            OR = {
+                AND = {
+                    has_heir = yes
+                    has_female_heir = no
+                }
+                any_subject_country = {
+                    is_subject_of_type = personal_union
+                }
+                any_subject_country = {
+                    is_subject_of_type = EDG_VEN_personal_union
+                }
+                NOT = {
+                    has_country_flag = EDG_VEN_disaster_lions_flag_1 #丹多洛家族绝嗣危机
+                }
+            }
+        }
+        effect = {
+            clr_country_flag = EDG_VEN_disaster_lions_flag_1 #丹多洛家族绝嗣危机
+            custom_tooltip = EDG_VEN_mission_1_7_tt_1 #移除国家标志“丹多洛家族绝嗣危机”，这将使“红蓝狮子战争”灾难不会爆发
+            add_country_modifier = {
+                name = EDG_VEN_disaster_qiyaer_modifier_1 #丹多洛家族未在十人会内部通婚
+                duration = -1
+            }
+            set_country_flag = EDG_VEN_disaster_qiyar_flag_1 #丹多洛家族未在十人会内部通婚
+            custom_tooltip = EDG_VEN_MISSION_1_7_tt_2 #设置国家标志“丹多洛家族未在十人会内部通婚”，这将使“齐亚尔的阴谋”灾难会被触发
+        }
+    }
+
+    EDG_VEN_mission_1_8 = { #彻底清洗齐亚尔
+        icon = empower_the_junkers
+        position = 8
+        required_missions = { EDG_VEN_mission_1_7 }
+        provinces_to_highlight = { }
+        trigger = {
+            OR = {
+                NOT = {
+                    has_country_flag = EDG_VEN_disaster_qiyar_flag_1 #丹多洛家族未在十人会内部通婚
+                }
+                AND = {
+                    has_country_flag = EDG_VEN_disaster_qiyar_flag_1 #丹多洛家族未在十人会内部通婚
+                    NOT = {
+                        has_country_flag = EDG_VEN_disaster_qiyar_flag_2 #齐亚尔家族的阴谋
+                    }
+                    stability = 3
+                    has_adm_advisor_3 = yes
+                    has_dip_advisor_3 = yes
+                    has_mil_advisor_3 = yes
+                    crown_land_share = 50
+                }
+            }
+        }
+        effect = {
+            clr_country_flag = EDG_VEN_disaster_qiyar_flag_1 #丹多洛家族未在十人会内部通婚
+            custom_tooltip = EDG_VEN_mission_1_8_tt_1 #移除国家标志“丹多洛家族未在十人会内部通婚”，这将使“齐亚尔的阴谋”灾难不会爆发
+            add_country_modifier = {
+                name = EDG_VEN_mission_1_8_modifier #丹多洛家族英明领导
+                duration = -1
+            }
+            remove_country_modifier = EDG_VEN_disaster_qiyaer_modifier_1
+            custom_tooltip = EDG_VEN_MISSION_1_8_tt_3 #移除修正“丹多洛家族未在十人会内部通婚”
+            set_country_flag = EDG_VEN_disaster_notddl_flag_1 #丹多洛家族的英明领导
+            custom_tooltip = EDG_VEN_MISSION_1_8_tt_2 #设置国家标志“丹多洛家族的英明领导”
+        }
+    }
+
+    EDG_VEN_mission_1_9 = { #限制十人会权力
+        icon = counter_reformation
+        position = 9
+        required_missions = { EDG_VEN_mission_1_8 }
+        provinces_to_highlight = { }
+        trigger = {
+            OR = {
+                NOT = {
+                    has_country_flag = EDG_VEN_disaster_shirenhui_flag_1 #十人会权利膨胀
+                }
+                AND = {
+                    has_country_flag = EDG_VEN_disaster_shirenhui_flag_1 #十人会权利膨胀
+                    stability = 3
+                    adm = 6
+					dip = 6
+					mil = 6
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit = {
+                    NOT = {
+                        has_country_flag = EDG_VEN_disaster_shirenhui_flag_1 #十人会权利膨胀
+                    }
+                }
+                custom_tooltip = EDG_VEN_mission_1_9_tt_1_yes #√如果没有“十人会权利膨胀”国家标志
+                add_country_modifier = {
+                    name = EDG_VEN_mission_1_9_modifer #忠于丹多洛的十人会
+                    duration = -1
+                }
+                custom_tooltip = EDG_VEN_mission_1_9_tt_2_no #×如果有“十人会权力膨胀”国家标志，将移除该标志以避免灾难发生
+            }
+            else = {
+                custom_tooltip = EDG_VEN_mission_1_9_tt_1_no #×如果没有“十人会权利膨胀”国家标志
+                tooltip = {
+                    add_country_modifier = {
+                        name = EDG_VEN_mission_1_9_modifer #忠于丹多洛的十人会
+                        duration = -1
+                    }
+                }
+                custom_tooltip =  EDG_VEN_mission_1_9_tt_2_yes #√如果有“十人会权力膨胀”国家标志，将移除该标志以避免灾难发生
+                clr_country_flag = EDG_VEN_disaster_shirenhui_flag_1 #十人会权利膨胀
+            }
+            custom_tooltip = EDG_VEN_mission_1_9_tt_3 #强烈推荐触发“十人会夺取大权”灾难以体验一系列风味事件
+        }
+    }
+
+    EDG_VEN_mission_1_10 = { #威尼斯的崭新时代
+        icon = nuova_promissione_ducale
+        position = 10
+        required_missions = { EDG_VEN_mission_1_9 }
+        provinces_to_highlight = { }
+        trigger = {
+            current_age = age_of_absolutism
+            crown_land_share = 90
+            absolutism = 50
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_1_10_modifier #威尼斯的崭新时代
+                duration = -1
+            }
+        }
+    }
+}
+
+EDG_VEN_mission_slot_2_b = {
+    slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_2_7 = { #新的木桩
+        icon = new_pilings
+        position = 7
+        required_missions = {  }
+        provinces_to_highlight = {
+			id = 112
+		}
+        trigger = {
+			112 = {
+				owned_by = ROOT
+				num_of_times_improved = 10
+			}
+		}
+		effect = {
+			112 = {
+				add_province_modifier = {
+					name = EDG_VEN_mission_2_7_modifier #振兴城市
+					duration = 3650
+				}
+			}
+		}
+    }
+
+    EDG_VEN_mission_2_8 = { #盛大的狂欢
+        icon = promote_the_carnevale
+        position = 8
+        required_missions = { EDG_VEN_mission_2_7 }
+        provinces_to_highlight = { province_id = 112 }
+        trigger = {
+            112 = {
+                owned_by = ROOT
+                development = 40
+            }
+            treasury = 6000
+            legitimacy = 90
+        }
+        effect = {
+            add_prestige_or_monarch_power = { amount = 25}
+            if = {
+				limit = {
+					112 = {
+						NOT = {
+							has_great_project = {
+								type = EDG_Piazza_San_Marco
+								tier = 3
+							}
+						}
+					}
+				}
+				112 = {
+					add_great_project_tier = {
+						type = EDG_Piazza_San_Marco
+						tier = 3
+					}
+				}
+				add_treasury = -3000
+			}
+			else =  {
+				112 = {
+					add_base_production = 2
+				}
+			}
+            if = {
+				limit = {
+					112 = {
+						NOT = {
+							has_great_project = {
+								type = EDG_TeatroLaFenice
+								tier = 3
+							}
+						}
+					}
+				}
+				112 = {
+					add_great_project_tier = {
+						type = EDG_TeatroLaFenice
+						tier = 3
+					}
+				}
+				add_treasury = -3000
+			}
+			else =  {
+				112 = {
+					add_base_production = 2
+				}
+			}
+        }
+    }
+
+    EDG_VEN_mission_2_9 = { #威尼斯大都会
+        icon = develop_provence
+        position = 9
+        required_missions = { EDG_VEN_mission_2_8 }
+        provinces_to_highlight = { province_id = 112 }
+        trigger = {
+            112 = {
+				owned_by = ROOT
+				development = 65
+				num_of_buildings_in_province = 10
+                has_great_project = {
+					type = EDG_TeatroLaFenice 
+					tier = 3
+				}
+				has_great_project = {
+					type = EDG_Piazza_San_Marco 
+					tier = 3
+				}
+			}
+        }
+        effect = {
+            112 = {
+                add_province_modifier = {
+                    name = EDG_VEN_mission_2_9_pro_modifier #首善之都
+                    duration = -1
+                }
+                hidden_effect = {
+					add_province_triggered_modifier = EDG_VEN_mission_2_9_pro_modifier_updated
+                }
+            }
+            custom_tooltip = EDG_VEN_mission_2_9_tt #此修正将在发展度达到70和75时各翻一倍
+            add_country_modifier = {
+                name = EDG_VEN_mission_2_9_modifier #君王的宫廷
+                duration = -1
+            }
+        }
+    }
+    
+    EDG_VEN_mission_2_10 = { #威尼斯的心脏
+        icon = mission_conquer_riga
+        position = 10
+        required_missions = { EDG_VEN_mission_2_9 }
+        provinces_to_highlight = { province_id = 112 }
+        trigger = {
+            venetia_area = {
+                type = all
+				riga_subject_of_subject_owned_land = { who = root }
+                is_prosperous = yes
+            }
+            custom_tooltip = EDG_VEN_mission_2_10_tri_tt #所有威尼斯直属州省份是繁荣的
+            112 = {
+                development = 75
+            }
+        }
+        effect = {
+            custom_tooltip = allow_EDG_TTS_mission_5_8_decision_1_tt
+			custom_tooltip = allow_EDG_TTS_mission_5_8_decision_2_tt
+			custom_tooltip = allow_EDG_TTS_mission_5_8_decision_3_tt
+			set_country_flag = allow_EDG_TTS_mission_5_8_decision_1_flag
+			set_country_flag = allow_EDG_TTS_mission_5_8_decision_2_flag
+			set_country_flag = allow_EDG_TTS_mission_5_8_decision_3_flag
+            add_country_modifier = {
+                name = EDG_VEN_mission_2_10_modifier #威尼斯的伟大心脏
+                duration = -1
+            }
+        }
+    }
+}
+
+EDG_VEN_mission_slot_3_b = {
+    slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_3_7 = { #垄断亚得里亚海
+        icon = unite_the_league
+        position = 7
+        required_missions = { }
+        provinces_to_highlight = { province_id = 112 }
+        trigger = {
+            112 = {
+				trade_share = {
+					country = ROOT
+					share = 50
+				}
+			}
+            112 = { is_strongest_trade_power = ROOT }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_7_modifier #垄断亚得里亚海
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_3_8 = { #垄断利古里亚海
+        icon = reform_the_state
+        position = 8
+        required_missions = { EDG_VEN_mission_3_7 }
+        provinces_to_highlight = { province_id = 101 }
+        trigger = {
+            101 = {
+                trade_share = {
+					country = ROOT
+					share = 50
+                }
+            }
+            101 = { is_strongest_trade_power = ROOT }
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_8_modifier #垄断利古里亚海
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_3_9 = { #垄断意大利的财富
+        icon = mission_war_chest
+        position = 9
+        required_missions = { EDG_VEN_mission_3_8 }
+        provinces_to_highlight = { 
+            OR = {
+				province_id = 112
+				province_id = 101
+			}
+        }
+        trigger = {
+            112 = {
+                trade_share = {
+					country = ROOT
+					share = 75
+                }
+            }
+			112 = { is_strongest_trade_power = ROOT }
+            101 = {
+                trade_share = {
+					country = ROOT
+					share = 75
+                }
+            }
+			101 = { is_strongest_trade_power = ROOT }
+            monthly_income = 100
+            trade_income_percentage = 0.5
+        }
+        effect = {
+            custom_tooltip = EDG_VEN_mission_3_9_tt
+            tooltip = {
+                add_province_modifier = {
+                    name = EDG_VEN_mission_3_9_pro_modifier #贸易口岸
+                    duration = -1
+                }
+            }
+            hidden_effect = {
+                every_owned_province = {
+                    add_province_modifier = {
+                        name = EDG_VEN_mission_3_9_pro_modifier #贸易口岸
+                        duration = -1
+                    }
+                }
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_3_9_modifier #垄断贸易财富
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_3_10 = { #贸易的未来
+        icon = dominant_economy
+        position = 10
+        required_missions = { EDG_VEN_mission_3_9 }
+        provinces_to_highlight = { }
+        trigger = {
+            monthly_income = 500
+            137 = { is_strongest_trade_power = ROOT }
+            151 = { is_strongest_trade_power = ROOT }
+            377 = { is_strongest_trade_power = ROOT }
+            358 = { is_strongest_trade_power = ROOT }
+        }
+        effect = {
+            add_government_reform = EDG_VEN_tradecircle_reform #威尼斯贸易圈
+        }
+    }
+}
+
+EDG_VEN_mission_slot_4_b = {
+    slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_4_7 = { #更多的佣兵队长
+        icon = venture_captains
+        position = 7
+        required_missions = { }
+        provinces_to_highlight = { }
+        trigger = {
+			share_of_starting_income = 2.0
+        }
+        effect = {
+            add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_VEN_mission_4_7_modifier_1 #雇佣投机军官
+				duration = -1
+			}
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_7_modifier_2 #常备军轻微武备松弛
+				duration = -1
+			}
+        }
+    }
+
+    EDG_VEN_mission_4_8 = { #威尼斯的慷慨
+        icon = swiss_mercenaries
+        position = 8
+        required_missions = { EDG_VEN_mission_4_7 }
+        provinces_to_highlight = { }
+        trigger = {
+            total_development = 200
+        }
+        effect = {
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_8_modifier_1 #威尼斯的慷慨
+				duration = -1
+			}
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_8_modifier_2 #常备军中度武备松弛
+				duration = -1
+			}
+        }
+    }
+
+    EDG_VEN_mission_4_9 = { #意大利佣兵领主
+        icon = establish_the_musketeers
+        position = 9
+        required_missions = { EDG_VEN_mission_4_8 }
+        provinces_to_highlight = { }
+        trigger = {
+			num_of_mercenaries = 20
+			has_mil_advisor_2 = yes
+			army_tradition = 50
+			monthly_mil = 12
+		}
+        effect = {
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_9_modifier_1 #意大利佣兵领主
+				duration = -1
+			}
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_9_modifier_2 #常备军严重武备松弛
+				duration = -1
+			}
+            country_event = { id = EDG_flavorMLO_mission.3 }
+        }
+    }
+
+    EDG_VEN_mission_4_10 = { #用黄金武装自己
+        icon = mission_subdue_rajputana
+        position = 10
+        required_missions = { EDG_VEN_mission_3_9 EDG_VEN_mission_4_9 }
+        provinces_to_highlight = { }
+        trigger = {
+			num_of_mercenaries = 100
+		} 
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_4_10_modifier_1 #黄金组成的军队
+                duration = -1
+            }
+            add_country_modifier = {
+				name = EDG_VEN_mission_4_10_modifier_2 #常备军彻底武备松弛
+				duration = -1
+			}
+        }
+    }
+}
+
+EDG_VEN_mission_slot_5_b = {
+    slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = VEN 
+			AND = {
+				tag = ITA
+				was_tag = VEN
+			}
+			AND = {
+				tag = IT1
+				was_tag = VEN
+			}
+		}
+	}
+
+    EDG_VEN_mission_5_8 = { #桨帆船军械库
+        icon = expand_the_arsenal
+        position = 8
+        required_missions = { }
+        provinces_to_highlight = { }
+        trigger = {
+            navy_size_percentage = 1
+			sailors_percentage = 0.6
+        }
+        effect = {
+			add_navy_tradition = 10
+			define_admiral = {
+				shock = 2
+				fire = 4
+				manuever = 4
+				siege = 3
+			}
+			add_country_modifier = {
+				name = EDG_VEN_mission_5_8_modifier #威尼斯桨帆战术
+				duration = -1
+			}
+		}
+    }
+
+    EDG_VEN_mission_5_9 = { #海上雄鹰
+        icon = mission_establish_high_seas_navy
+		position = 9
+        required_missions = { EDG_VEN_mission_5_8 }
+        provinces_to_highlight = { }
+        trigger = {
+            navy_size = 35
+            navy_size_percentage = 1
+            NOT = {
+				any_country = {
+					capital_scope = {
+                        region = italy_region
+                    }
+					navy_size = ROOT
+				}
+			}
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_9_modifier_1 #海上雄鹰
+                duration = -1
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_9_modifier_2 #先进封锁技术
+                duration = -1
+            }
+        }
+    }
+
+    EDG_VEN_mission_5_10 = { #结合式海军战术
+        icon = mission_dominate_gujarati_trade
+        position = 10
+        required_missions = { EDG_VEN_mission_5_9 }
+        provinces_to_highlight = { }
+        trigger = {
+            num_of_light_ship = 30
+            num_of_galley = 30
+            num_of_transport = 30
+            navy_tradition = 75
+            galley_power = 50
+        }
+        effect = {
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_10_modifier_1 #大量列装加来战船
+                duration = -1
+            }
+            add_country_modifier = {
+                name = EDG_VEN_mission_5_10_modifier_2 #武装商船
+                duration = -1
+            }
+        }
+    }
+}

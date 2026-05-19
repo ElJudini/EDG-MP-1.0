@@ -1,0 +1,1020 @@
+
+EDG_Transforming_into_EDG_FYM_Agha_adm_vassal_state_action = {#转变为持节瓦利行省
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_into_EDG_FYM_Agha_adm_vassal_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		#has_government_attribute = EDG_FTM_empire_ability
+		has_government_attribute = EDG_FYM_empire_province_reform_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = vassal
+				is_subject_of_type = EDG_FYM_slave_vassal
+				is_subject_of_type = EDG_FYM_Agha_mil_vassal
+				is_subject_of_type = EDG_FYM_Agha_dip_vassal
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = EDG_FYM_Agha_adm_vassal subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+EDG_Transforming_into_EDG_FYM_Agha_mil_vassal_state_action = {#转变为执剑阿迦行省
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_into_EDG_FYM_Agha_mil_vassal_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		#has_government_attribute = EDG_FTM_empire_ability
+		has_government_attribute = EDG_FYM_empire_province_reform_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = vassal
+				is_subject_of_type = EDG_FYM_slave_vassal
+				is_subject_of_type = EDG_FYM_Agha_adm_vassal
+				is_subject_of_type = EDG_FYM_Agha_dip_vassal
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = EDG_FYM_Agha_mil_vassal subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+EDG_Transforming_into_EDG_FYM_Agha_dip_vassal_state_action = {#转变为副苏丹行省
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_into_EDG_FYM_Agha_dip_vassal_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		always = no
+		#has_government_attribute = EDG_FTM_empire_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = vassal
+				is_subject_of_type = EDG_FYM_slave_vassal
+				is_subject_of_type = EDG_FYM_Agha_adm_vassal
+				is_subject_of_type = EDG_FYM_Agha_mil_vassal
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = EDG_FYM_Agha_dip_vassal subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+EDG_Transforming_into_EDG_FYM_slave_vassal_state_action = {#转变为蓄奴省
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_into_EDG_FYM_slave_vassal_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_FYM_mission_slave_province_dip_set_enable_flag
+		has_government_attribute = EDG_enable_create_slave_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = vassal
+				is_subject_of_type = EDG_FYM_Agha_adm_vassal
+				is_subject_of_type = EDG_FYM_Agha_dip_vassal
+				is_subject_of_type = EDG_FYM_Agha_mil_vassal
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = EDG_FYM_slave_vassal subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		dip = 3
+    }
+}
+EDG_FYM_Purchase_slaves_action = {#购买奴隶
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_FYM_Purchase_slaves_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_government_attribute = EDG_enable_create_slave_ability
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			NOT = { has_country_modifier = EDG_FYM_Purchase_slaves_action_in_5_years_modifier }
+			any_owned_province = {
+				NOT = { culture_group = ROOT }
+				NOT = { religion_group = ROOT }
+				trade_goods = slaves
+			}
+			if = {
+				limit = {
+					is_subject_of = ROOT
+				}
+				NOT = { liberty_desire = 50 }
+			}
+			if = {
+				limit = {
+					is_subject = yes
+					NOT = { is_subject_of = ROOT }
+				}
+				Overlord = {
+					NOT = { is_rival = ROOT }
+					NOT = { is_enemy = ROOT }
+					NOT = { war_with = ROOT }
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			country_event = { id = EDG_flavor_FYM.1001 }
+			add_country_modifier = {
+				name = EDG_FYM_Purchase_slaves_action_in_5_years_modifier
+				duration = 1825
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.05
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.1
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.8
+			}
+		}
+		add_entry = {
+			name = AI_Tribal_50_entry
+			limit = {
+				FROM = { government = tribal }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = AI_india_25_entry
+			limit = {
+				has_country_flag = EDG_FYM_mission_1_14_slave_flag
+				FROM = {
+					capital_scope = { superregion = india_superregion }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 25
+			}
+		}
+		add_entry = {
+			name = AI_is_your_subject_entry
+			limit = {
+				has_country_flag = EDG_FYM_mission_slave_purchase_subject_always_agree_enable_flag
+				FROM = {
+					is_subject_of = root
+					not = { liberty_desire = 50 }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 1000
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = yes
+    }
+}
+
+
+
+EDG_FYM_Agha_vassal_government_1_change_action = {#改变行省权力结构
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_FYM_Agha_vassal_government_1_change_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		#has_government_attribute = EDG_FTM_empire_ability
+		has_government_attribute = EDG_FYM_Agha_vassal_government_1_change_action_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = EDG_FYM_Agha_adm_vassal
+				is_subject_of_type = EDG_FYM_Agha_dip_vassal
+				is_subject_of_type = EDG_FYM_Agha_mil_vassal
+				is_subject_of_type = eyalet
+				is_subject_of_type = core_eyalet
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		government_reform_progress = 10
+		FROM = {
+			OR = {
+				government = theocracy
+				government = monarchy
+			}
+		}
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		change_government_reform_progress = -10
+		FROM = {
+			country_event = { id = EDG_flavor_FYM.5 }
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+EDG_FYM_Agha_vassal_government_2_change_action = {#改变行省国家重心
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_FYM_Agha_vassal_government_2_change_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		tag = FYM
+		#has_government_attribute = EDG_FTM_empire_ability
+		has_government_attribute = EDG_FYM_Agha_vassal_government_2_change_action_ability
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = EDG_FYM_Agha_adm_vassal
+				is_subject_of_type = EDG_FYM_Agha_dip_vassal
+				is_subject_of_type = EDG_FYM_Agha_mil_vassal
+				is_subject_of_type = eyalet
+				is_subject_of_type = core_eyalet
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		government_reform_progress = 10
+		
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		change_government_reform_progress = -10
+		FROM = {
+			country_event = { id = EDG_flavor_FYM.7 }
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+EDG_Request_General_action = {#征募属国将领
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Request_General_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_government_attribute = EDG_Request_General_action_ability
+		FROM = {
+			is_subject_of = ROOT
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		government_reform_progress = 10
+		
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		FROM = {
+			army_tradition = 25
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { FROM = { army_tradition = 95 } }
+			ROOT = {
+				create_general = { tradition = 100 culture = FROM }
+			}
+		}
+		else_if = {
+			limit = { FROM = { army_tradition = 75 } }
+			ROOT = {
+				create_general = { tradition = 75 culture = FROM }
+			}
+		}
+		else_if = {
+			limit = { FROM = { army_tradition = 50 } }
+			ROOT = {
+				create_general = { tradition = 50 culture = FROM }
+			}
+		}
+		else = {
+			ROOT = {
+				create_general = { tradition = 25 culture = FROM }
+			}
+		}
+		FROM = {
+			add_liberty_desire = 25
+			add_army_tradition = -25
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+EDG_TUR_make_great_vizier_action = {#委任大维齐尔
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_TUR_make_great_vizier_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_government_attribute = EDG_TUR_gaomen_ability
+		FROM = {
+			is_subject_of = ROOT
+			NOT = { has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier }
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		NOT = {
+			has_government_power = {
+				mechanic_type = ottoman_decadence_mechanic
+				power_type = ottoman_decadence
+				value = 97.5
+			}
+		}
+		has_government_power = {
+			mechanic_type = EDG_TUR_Monarchy_ability_2
+			power_type = EDG_TUR_Monarchy_mil_power
+			value = 2.5
+		}
+		has_government_power = {
+			mechanic_type = EDG_TUR_Monarchy_ability_3
+			power_type = EDG_TUR_Monarchy_adm_power
+			value = 2.5
+		}
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		all_country = {
+			NOT = { has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier }
+		}
+	}
+	on_accept = {
+		add_government_power = {
+			mechanic_type = ottoman_decadence_mechanic
+			power_type = ottoman_decadence
+			value = 2.5
+		}
+		add_government_power = {
+			mechanic_type = EDG_TUR_Monarchy_ability_2
+			power_type = EDG_TUR_Monarchy_mil_power
+			value = -5
+		}
+		add_government_power = {
+			mechanic_type = EDG_TUR_Monarchy_ability_3
+			power_type = EDG_TUR_Monarchy_adm_power
+			value = -5
+		}
+		every_country = {
+			limit = { has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier }
+			remove_country_modifier = EDG_TUR_gaomen_vizier_target_modifier
+		}
+		FROM = {
+			add_country_modifier = {
+				name = EDG_TUR_gaomen_vizier_target_modifier
+				duration = -1
+			}
+			save_global_event_target_as = EDG_TUR_gaomen_vizier_target
+			add_opinion = {
+				who = ROOT
+				modifier = EDG_TUR_make_great_vizier_action_opinion
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+EDG_TUR_remove_great_vizier_action = {#免除大维齐尔
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_TUR_remove_great_vizier_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_government_attribute = EDG_TUR_gaomen_ability
+		FROM = {
+			is_subject_of = ROOT
+			has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier
+		}
+	}
+	on_accept = {
+		every_country = {
+			limit = { has_country_modifier = EDG_TUR_gaomen_vizier_target_modifier }
+			remove_country_modifier = EDG_TUR_gaomen_vizier_target_modifier
+			clear_global_event_target = EDG_TUR_gaomen_vizier_target
+		}
+		FROM = {
+			add_opinion = {
+				who = ROOT
+				modifier = EDG_TUR_remove_great_vizier_action_opinion
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}

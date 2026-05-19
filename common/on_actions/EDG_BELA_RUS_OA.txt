@@ -1,0 +1,869 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = WOL
+		}
+		country_event = {
+			id = EDG_BELA_POM_events.1
+		}
+	}
+}
+on_conquest = {
+	if = {
+		limit = {
+			owner = {
+				tag = RYA
+				has_disaster = EDG_RYA_fall_disaster
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 90
+					}
+				}
+			}
+			add_scaled_local_adm_power = 12
+			add_scaled_local_dip_power = 12
+			add_scaled_local_mil_power = 12
+		}
+		else_if = {
+			limit = {
+				owner = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 60
+					}
+				}
+			}
+			add_scaled_local_adm_power = 9
+			add_scaled_local_dip_power = 9
+			add_scaled_local_mil_power = 9
+		}
+		else_if = {
+			limit = {
+				owner = {
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 30
+					}
+				}
+			}
+			add_scaled_local_adm_power = 6
+			add_scaled_local_dip_power = 6
+			add_scaled_local_mil_power = 6
+		}
+		else = {
+			add_scaled_local_adm_power = 3
+			add_scaled_local_dip_power = 3
+			add_scaled_local_mil_power = 3
+		}
+		owner = {
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 1
+			}
+			change_estate_land_share = {
+				estate = estate_nobles
+				share = 1
+			}
+		}
+		add_province_modifier = { 
+			name = EDG_RYA_province_landshare_modifier
+			duration = -1  
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				tag = RYA
+				or = {
+					has_country_modifier = EDG_rya_veliech_khan_0_modifier
+					has_country_modifier = EDG_rya_veliech_khan_1_modifier
+				}
+			}
+			from = {
+				is_nomad = yes
+			}
+		}
+		add_scaled_local_adm_power = 3
+		add_scaled_local_dip_power = 3
+		add_scaled_local_mil_power = 3
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_LPL_utopia_mechanic
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_government_power = {
+						mechanic_type = EDG_LPL_utopia_mechanic
+						power_type = EDG_LPL_worldist_influence_power
+						value = 50
+					}
+				}
+			}
+			add_permanent_claim = owner
+		}
+		if = {
+			limit = {
+				owner = {
+					has_government_power = {
+						mechanic_type = EDG_LPL_utopia_mechanic
+						power_type = EDG_LPL_worldist_influence_power
+						value = 100
+					}
+				}
+			}
+			add_territorial_core = owner
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_KSB_reduce_nationalism_modifier_1
+			}
+		}
+		add_province_modifier = {
+			name = EDG_BELA_KSB_local_autonomy_modifier_1
+			duration = 3650
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_KSB_reduce_nationalism_modifier_2
+			}
+		}
+		add_province_modifier = {
+			name = EDG_BELA_KSB_local_autonomy_modifier_2
+			duration = 3650
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+			}
+			region = scandinavia_region
+		}
+		add_territorial_core = owner
+	}
+	if = {
+		limit = {
+			owner = {
+				tag = GOT
+				overlord = {
+					has_country_flag = EDG_BELA_POM_events_54_core_flag
+				}
+			}
+			region = scandinavia_region
+		}
+		add_core = owner
+		if = {
+			limit = {
+				owner = {
+					overlord = {
+						has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+					}
+				}
+			}
+			owner = {
+				overlord = {
+					add_prestige_or_monarch_power = {
+						amount = 3
+					}
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			or = {
+				culture_group = west_slavic
+				culture_group = east_slavic
+				culture_group = south_slavic
+			}
+			owner = {
+				has_country_modifier = EDG_BELA_KSB_slavic_union_modifier
+			}
+			from = {
+				not = {
+					culture_group = west_slavic
+				}
+				not = {
+					culture_group = east_slavic
+				}
+				not = {
+					culture_group = south_slavic
+				}
+				not = {
+					culture_group = slavic
+				}
+			}
+		}
+		add_territorial_core = owner
+		add_nationalism = -30
+	}
+	if = {
+		limit = {
+			or = {
+				culture_group = west_slavic
+				culture_group = east_slavic
+				culture_group = south_slavic
+			}
+			owner = {
+				has_country_modifier = EDG_BELA_KSB_slavic_union_modifier
+				has_country_flag = EDG_BELA_KSB_slavic_union_add_flag
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 0.5
+			} 
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+			}
+			superregion = china_superregion
+		}
+		add_core = owner
+	}
+}
+on_siege_won_country = {
+	if = {
+		limit = {
+			root = {
+				tag = RYA
+				mission_completed = EDG_BELA_RYA_A_3_2
+			}
+			from = {
+				fort_level = 1
+			}
+		}
+		root = {
+			change_variable = {
+				which = EDG_rya_army_reform_var
+				value = 2
+			}
+		}
+	}
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_BELA_KSB_3_7_effect_flag
+			}
+			from = {
+				is_capital = yes
+				owner = {
+					is_nomad = yes
+				}
+			}
+		}
+		from = {
+			owner = {
+				every_owned_province = {
+					limit = {
+						controlled_by = prev
+						has_fort_building_trigger = no
+					}
+					change_controller = root
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_BELA_KSB_5_7_modifier_flag
+				and = {
+					not = {
+						has_ruler_modifier = EDG_BELA_KSB_5_7_modifier
+					}
+					not = {
+						has_ruler_modifier = EDG_BELA_KSB_5_7_half_modifier
+					}
+				}
+			}
+			from = {
+				is_capital = yes
+				owner = {
+					is_nomad = yes
+					total_development = 100
+				}
+			}
+		}
+		root = {
+			add_ruler_modifier = {
+				name = EDG_BELA_KSB_5_7_half_modifier
+				duration = -1
+			}
+		}
+	}
+	#if = {
+		#limit = {
+		#	root = {
+		#		has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+		#	}
+		#	from = {
+		#		superregion = china_superregion
+		#	}
+		#}
+		#if = {
+		#	limit = {
+		#		from = {
+		#			not = {
+		#				is_permanent_claim = root
+		#			}
+		#		}
+		#	}
+		#	add_permanent_claim = root
+		#}
+	#}
+}
+on_battle_won_country = {
+	if = {
+		limit = {
+			root = {
+				tag = RYA
+				mission_completed = EDG_BELA_RYA_A_3_2
+			}
+		}
+		change_variable = {
+			which = EDG_rya_army_reform_var
+			value = 1
+		}
+	}
+}
+on_battle_won_unit = {
+	if = {
+		limit = {
+			unit_owner = {
+				tag = POM
+				not = {
+					check_variable = {
+						which = EDG_BELA_KSB_streltsy_won_var
+						value = 10
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				mercenary_company = merc__EDG_BELA_KSB_streltsy
+			}
+			unit_owner = {
+				change_variable = {
+					which = EDG_BELA_KSB_streltsy_won_var
+					value = 1
+				}
+			}
+		}
+	}
+}
+#mercenary_company = 
+on_mercenary_recruited = {
+	if = {
+		limit = {
+			or = {
+				mercenary_company = merc__EDG_BELA_KSB_streltsy
+				mercenary_company = merc__EDG_BELA_KSB_guards_corps
+			}
+		}
+		FROM = {
+			add_army_professionalism = 0.05
+		}
+	}
+}
+on_yearly_pulse = {
+	events = {
+		EDG_RYA_events.3027
+		EDG_BELA_POM_events.25
+		EDG_BELA_POM_events.62
+		EDG_BELA_POM_events.63
+		EDG_BELA_POM_events.76
+	}
+}
+on_thri_yearly_pulse = {
+	events = {
+		EDG_RYA_events.3023
+	}
+}
+on_bi_yearly_pulse = {
+	random_events = {
+		75 = orthodox_icon_events.8
+		75 = orthodox_icon_events.9
+	}
+}
+on_adm_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_LPL_unite_modifier
+			}
+		}
+		province_event = {
+			id = EDG_BELA_SMI_events.23
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_LPL_heaven_mechanic
+				has_government_power = {
+					mechanic_type = EDG_LPL_heaven_mechanic
+					power_type = EDG_LPL_heaven_power
+					value = 5
+				}
+			}
+			not = {
+				has_province_modifier = EDG_BELA_LPL_heaven_province_modifier
+			}
+			not = {
+				devastation = 1
+			}
+		}
+		add_scaled_local_adm_power = 2
+		add_province_modifier = {
+			name = EDG_BELA_LPL_heaven_province_modifier
+			duration = 365
+		}
+		if = {
+			limit = {
+				root = {
+					development = 50
+					not = {
+						has_building = university
+					}
+				}
+			}
+			add_building = university
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_LPL_heaven_mechanic
+				power_type = EDG_LPL_heaven_power
+				value = -5
+			}
+		}
+	}
+	if = {
+		limit = {
+			or = {
+				and = {
+					owner = {
+						has_country_modifier = EDG_BELA_KSB_5_2_colonize_modifier
+					}
+					culture_group = baltic
+				}
+				and = {
+					POM = {
+						has_country_modifier = EDG_BELA_KSB_4_11_modifier
+					}
+					region = manchuria_region
+					country_or_non_sovereign_subject_holds = POM
+				}
+			}
+		}
+		province_event = {
+			id = EDG_BELA_POM_events.67
+		}
+	}
+}
+on_dip_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_LPL_unite_modifier
+			}
+		}
+		province_event = {
+			id = EDG_BELA_SMI_events.23
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_LPL_heaven_mechanic
+				has_government_power = {
+					mechanic_type = EDG_LPL_heaven_mechanic
+					power_type = EDG_LPL_heaven_power
+					value = 5
+				}
+			}
+			not = {
+				has_province_modifier = EDG_BELA_LPL_heaven_province_modifier
+			}
+			not = {
+				devastation = 1
+			}
+		}
+		add_scaled_local_dip_power = 2
+		add_province_modifier = {
+			name = EDG_BELA_LPL_heaven_province_modifier
+			duration = 365
+		}
+		if = {
+			limit = {
+				root = {
+					development = 50
+					not = {
+						has_building = university
+					}
+				}
+			}
+			add_building = university
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_LPL_heaven_mechanic
+				power_type = EDG_LPL_heaven_power
+				value = -5
+			}
+		}
+	}
+	if = {
+		limit = {
+			or = {
+				and = {
+					owner = {
+						has_country_modifier = EDG_BELA_KSB_5_2_colonize_modifier
+					}
+					culture_group = baltic
+				}
+				and = {
+					POM = {
+						has_country_modifier = EDG_BELA_KSB_4_11_modifier
+					}
+					region = manchuria_region
+					country_or_non_sovereign_subject_holds = POM
+				}
+			}
+		}
+		province_event = {
+			id = EDG_BELA_POM_events.67
+		}
+	}
+}
+on_mil_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_BELA_LPL_unite_modifier
+			}
+		}
+		province_event = {
+			id = EDG_BELA_SMI_events.23
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_LPL_heaven_mechanic
+				has_government_power = {
+					mechanic_type = EDG_LPL_heaven_mechanic
+					power_type = EDG_LPL_heaven_power
+					value = 5
+				}
+			}
+			not = {
+				has_province_modifier = EDG_BELA_LPL_heaven_province_modifier
+			}
+			not = {
+				devastation = 1
+			}
+		}
+		add_scaled_local_mil_power = 2
+		add_province_modifier = {
+			name = EDG_BELA_LPL_heaven_province_modifier
+			duration = 365
+		}
+		if = {
+			limit = {
+				root = {
+					development = 50
+					not = {
+						has_building = university
+					}
+				}
+			}
+			add_building = university
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_LPL_heaven_mechanic
+				power_type = EDG_LPL_heaven_power
+				value = -5
+			}
+		}
+	}
+	if = {
+		limit = {
+			or = {
+				and = {
+					owner = {
+						has_country_modifier = EDG_BELA_KSB_5_2_colonize_modifier
+					}
+					culture_group = baltic
+				}
+				and = {
+					POM = {
+						has_country_modifier = EDG_BELA_KSB_4_11_modifier
+					}
+					region = manchuria_region
+					country_or_non_sovereign_subject_holds = POM
+				}
+			}
+		}
+		province_event = {
+			id = EDG_BELA_POM_events.67
+		}
+	}
+}
+
+on_new_monarch = {
+	if = {
+		limit = {
+			tag = WOL
+			has_disaster = EDG_POM_gryf_civil_war
+		}
+		country_event = {
+			id = EDG_BELA_POM_events.21
+			days = 10
+		}
+		country_event = {
+			id = EDG_BELA_POM_events.22
+			days = 10
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = EDG_BELA_POM_first_gryf_modifier
+		}
+		change_estate_land_share = {
+			estate = all
+    		share = -3
+		}
+	}
+	if = {
+		limit = {
+			has_country_modifier = EDG_BELA_POM_unite_gryf_modifier
+		}
+		add_estate_loyalty = {
+			estate = all
+			loyalty = 20
+		}
+	}
+	#if = {
+		#limit = {
+		#  	tag = WOL
+		#}
+		#WOL = {
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.26
+		#	}
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.27
+		#	}
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.28
+		#	}
+		#}
+	#}
+	#if = {
+		#limit = {
+		#  	tag = POM
+		#}
+		#POM = {
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.26
+		#	}
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.27
+		#	}
+		#	country_event = {
+		#		id = EDG_BELA_POM_events.28
+		#	}
+		#}
+	#}
+}
+on_monarch_death = {
+	if = {
+		limit = {
+		  	tag = WOL
+		}
+		WOL = {
+			country_event = {
+				id = EDG_BELA_POM_events.32
+			}
+		}
+	}
+	if = {
+		limit = {
+		  	tag = POM
+		}
+		POM = {
+			country_event = {
+				id = EDG_BELA_POM_events.32
+			}
+		}
+	}
+}
+on_new_age = {
+	if = {
+		limit = {
+			or = {
+				tag = WOL
+				tag = POM
+			}
+			NOT = { current_age = age_of_discovery }
+		}
+		if = {
+			limit = { has_country_modifier = EDG_BELA_POM_events4A_modifier }
+			remove_country_modifier = EDG_BELA_POM_events4A_modifier
+		}
+		if = {
+			limit = { has_country_modifier = EDG_BELA_POM_events4C_modifier }
+			remove_country_modifier = EDG_BELA_POM_events4C_modifier
+		}
+		if = {
+			limit = { has_country_modifier = EDG_army_dip_policy_5_modifier }
+			remove_country_modifier = EDG_army_dip_policy_5_modifier
+		}
+	}
+	if = {
+		limit = {
+			tag = POM
+			has_country_flag = had_EDG_POM_KSB_gryf_war_flag
+		}
+		add_splendor = 800
+	}
+}
+on_province_culture_converted = {
+	if = {
+		limit = {
+			owner = {
+				tag = POM
+				has_government_mechanic = EDG_KSB_national_self_confidence_mechanic
+			}
+			root = {
+				culture = EDG_BELA_kashubia
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 1
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				tag = POM
+				has_government_mechanic = EDG_KSB_national_pride_mechanic
+			}
+			root = {
+				culture = EDG_BELA_kashubia
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_pride_mechanic
+				power_type = EDG_KSB_national_pride_power
+				value = 0.1
+			}
+		}
+	}
+	if = {
+		limit = {
+			owned_by = POM
+			has_province_modifier = EDG_BELA_KSB_hun_trans_culture_province_modifier
+			or = {
+				culture_group = west_slavic
+				culture_group = east_slavic
+				culture_group = south_slavic
+			}
+		}
+		remove_province_modifier =EDG_BELA_KSB_hun_trans_culture_province_modifier
+	}
+}
+on_battle_won_country = {
+	root = {
+		if = {
+			limit = {
+				tag = POM
+				has_government_mechanic = EDG_KSB_national_self_confidence_mechanic
+			}
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 0.5
+			}
+		}
+	}
+}
+on_war_won = {
+	from = {
+		if = {
+			limit = {
+				has_country_flag = EDG_BELA_LPL_anyala_union_overlord_flag
+			}
+			clr_country_flag = EDG_BELA_LPL_anyala_union_overlord_flag
+		}
+	}
+	root = {
+		if = {
+			limit = {
+				has_country_flag = EDG_BELA_LPL_anyala_union_flag
+			}
+			clr_country_flag = EDG_BELA_LPL_anyala_union_flag
+		}
+		if = {
+			limit = {
+				tag = POM
+				has_government_mechanic = EDG_KSB_national_self_confidence_mechanic
+			}
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 1
+			}
+		}
+	}
+}
+on_war_lost = {
+	if = {
+		limit = {
+			has_ruler_modifier = EDG_BELA_KSB_slavic_protector_ruler_modifier
+		}
+		remove_ruler_modifier = EDG_BELA_KSB_slavic_protector_ruler_modifier
+		set_ruler_flag = EDG_BELA_KSB_remove_ruler_slavic_protector_ruler_modifier_flag
+	}
+}
+
+on_minority_expelled = {
+	if = {
+		limit = {
+			from = {
+				owner = {
+					has_country_modifier = EDG_BELA_KSB_5_2_colonize_modifier
+				}
+			}
+		}
+		from = {
+			change_culture = owner
+		}
+	}
+}

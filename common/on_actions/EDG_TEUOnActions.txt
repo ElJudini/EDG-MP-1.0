@@ -1,0 +1,60 @@
+on_startup = {
+	if = {
+		limit = { 
+			tag = TEU
+		}
+		country_event = {
+			id = flavor_teu.42
+			days = 3
+		}
+	}
+}
+
+on_battle_won_country = {
+	if = {
+		limit = { 
+			root = {
+				OR = {
+					tag = TEU
+					tag = PRU
+				}
+			}
+		}
+		root = {
+			change_variable = {
+				which = EDG_num_won_battles
+				value = 1
+			}
+		}
+	}
+	if = {
+		limit = { 
+			root = {
+				has_government_mechanic = EDG_PRU_honor_of_iron_and_blood_mechanic
+			}
+		}
+		root = {
+			add_government_power = {
+				mechanic_type = EDG_PRU_honor_of_iron_and_blood_mechanic
+				power_type = EDG_PRU_honor_of_iron_and_blood
+				value = 0.5
+			}
+		}
+	}
+}
+on_battle_lost_country = {
+	if = {
+		limit = { 
+			root = {
+				has_government_mechanic = EDG_PRU_honor_of_iron_and_blood_mechanic
+			}
+		}
+		root = {
+			add_government_power = {
+				mechanic_type = EDG_PRU_honor_of_iron_and_blood_mechanic
+				power_type = EDG_PRU_honor_of_iron_and_blood
+				value = -0.5
+			}
+		}
+	}
+}

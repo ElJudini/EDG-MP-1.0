@@ -1,0 +1,424 @@
+namespace = EDG_flavorMLO_mission
+normal_or_historical_nations = yes
+country_event = {#驱逐迪·萨伏伊家族
+  id = EDG_flavorMLO_mission.0
+  title = "EDG_flavorMLO_mission.0.t"
+  desc = "EDG_flavorMLO_mission.0.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#他们应当离开。
+    name = "EDG_flavorMLO_mission.0.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_mil_power = 75
+    if = {
+      limit = {
+        GEN = { is_subject_of = ROOT }
+      }
+      GEN = {
+        define_ruler = {
+          dynasty = ROOT
+          claim = 100
+          age = 30
+        }
+        define_heir = {
+          dynasty = ROOT
+          claim = 100
+        }
+      }
+    }
+    101 = {
+      add_province_modifier = {
+        name = EDG_flavorMLO_mission_0_province_modifier
+        duration = 7300
+      }
+    }
+  }
+  option = {#我们将允许他们保留一定的自治特权。
+    name = "EDG_flavorMLO_mission.0.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_dip_power = 75
+    if = {
+      limit = {
+        GEN = { is_subject_of = ROOT }
+      }
+      GEN = {
+        add_liberty_desire = -20
+      }
+    }
+    101 = {
+      add_nationalism = -10
+      add_devastation = -50
+    }
+  }
+}
+country_event = {#全伦巴第永世大主教
+  id = EDG_flavorMLO_mission.1
+  title = "EDG_flavorMLO_mission.1.t"
+  desc = "EDG_flavorMLO_mission.1.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#这是属于我们的权力。
+    name = "EDG_flavorMLO_mission.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_papal_influence = 10
+    every_subject = {
+      limit = { religion = catholic culture_group = latin }
+      add_liberty_desire = -10
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    add_country_modifier = {
+      name = EDG_flavorMLO_mission_1_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#教宗给予我们威尼托宣称
+  id = EDG_flavorMLO_mission.2
+  title = "EDG_flavorMLO_mission.2.t"
+  desc = "EDG_flavorMLO_mission.2.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#很好。
+    name = "EDG_flavorMLO_mission.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_casus_belli = {
+      type = cb_restore_personal_union
+      months = 600
+      target = VEN
+    }
+  }
+}
+country_event = {#意大利佣兵领主
+  id = EDG_flavorMLO_mission.3
+  title = "EDG_flavorMLO_mission.3.t"
+  desc = "EDG_flavorMLO_mission.3.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#更多的契机。
+    name = "EDG_flavorMLO_mission.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    set_global_flag = EDG_flavorMLO_mission_3_global_flag
+    custom_tooltip = EDG_flavorMLO_mission_3_global_flag_tt
+  }
+}
+country_event = {#[From.GetAdjective]请求向我们购置艺术品
+  id = EDG_flavorMLO_mission.4
+  title = "EDG_flavorMLO_mission.4.t"
+  desc = "EDG_flavorMLO_mission.4.d"
+  picture = IMPORTANT_STATUE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.1
+			}
+      change_variable = {
+        which = money_to_transfer
+        value = 1
+      }
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#我们愿意交换。
+    name = "EDG_flavorMLO_mission.4.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorMLO_mission_4_a_tt
+    hidden_effect = {
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = FROM
+        taker = ROOT
+        variable = money_to_transfer
+      }
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    add_prestige = -10
+    add_adm_power = -25
+    add_dip_power = -25
+    add_mil_power = -25
+
+    custom_tooltip = EDG_SPACE_TT
+    FROM = {
+      country_event = { id = EDG_flavorMLO_mission.5 }
+    }
+    tooltip = {
+      FROM = {
+        add_prestige = 5
+        add_adm_power = 10
+        add_dip_power = 10
+        add_mil_power = 10
+      }
+    }
+  }
+  option = {#我们不同意。
+    name = "EDG_flavorMLO_mission.4.b"
+    ai_chance = {
+      factor = 0
+    }
+    
+  }
+}
+country_event = {#[From.GetAdjective]同意出售艺术品
+  id = EDG_flavorMLO_mission.5
+  title = "EDG_flavorMLO_mission.5.t"
+  desc = "EDG_flavorMLO_mission.5.d"
+  picture = IMPORTANT_STATUE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = FROM
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.1
+			}
+      change_variable = {
+        which = money_to_transfer
+        value = 1
+      }
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  
+  option = {#太好了。
+    name = "EDG_flavorMLO_mission.4.a"
+    ai_chance = {
+      factor = 10
+    }
+    tooltip = {
+      transfer_treasury = {
+        custom_tooltip = flavor_rus.295.a.tt
+        giver = ROOT
+        taker = FROM
+        variable = money_to_transfer
+      }
+    }
+
+    if ={ 
+      limit = {
+        has_government_attribute = EDG_Philosopher_reform_ability
+      }
+      custom_tooltip = EDG_SPACE_TT
+      add_government_power = {
+        mechanic_type = EDG_MLO_government_ability
+        power_type = EDG_MLO_government_power
+        value = 2
+      }
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    add_prestige = 5
+    add_adm_power = 10
+    add_dip_power = 10
+    add_mil_power = 10
+    if = {
+      limit = {
+        FROM = {
+          culture_group = latin
+        }
+      }
+      change_variable = {
+        which = EDG_Purchase_artwork_value_ITA
+        value = 1
+      }
+      hidden_effect = {
+        change_variable = {
+          which = EDG_Purchase_artwork_value
+          value = 1
+        }
+      }
+    }
+    else = {
+      change_variable = {
+        which = EDG_Purchase_artwork_value
+        value = 1
+      }
+    }
+  }
+}
+country_event = {#创作新艺术品
+  id = EDG_flavorMLO_mission.6
+  title = "EDG_flavorMLO_mission.6.t"
+  desc = "EDG_flavorMLO_mission.6.d"
+  picture = IMPORTANT_STATUE_eventPicture
+  #is_triggered_only = yes
+  trigger = {
+    has_country_flag = EDG_Purchase_artwork_action_enable_flag
+  }
+  mean_time_to_happen = {
+    
+		months = 60
+		
+		modifier = {
+			factor = 0.85
+      has_country_flag = EDG_MISSION_MLO_2_8_flag
+		}
+		modifier = {
+			factor = 0.85
+      has_country_flag = EDG_MISSION_MLO_2_9_flag
+		}
+		modifier = {
+			factor = 0.85
+      is_at_war = no
+		}
+  }
+  immediate = {
+		hidden_effect = {
+		}
+  }
+  
+  option = {#太好了。
+    name = "EDG_flavorMLO_mission.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    if = {
+      limit = {
+        total_development = 1000
+      }
+      change_variable = {
+        which = EDG_Purchase_artwork_value_ITA
+        value = 3
+      }
+      hidden_effect = {
+        change_variable = {
+          which = EDG_Purchase_artwork_value
+          value = 3
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        total_development = 500
+      }
+      change_variable = {
+        which = EDG_Purchase_artwork_value_ITA
+        value = 2
+      }
+      hidden_effect = {
+        change_variable = {
+          which = EDG_Purchase_artwork_value
+          value = 2
+        }
+      }
+    }
+    else = {
+      change_variable = {
+        which = EDG_Purchase_artwork_value_ITA
+        value = 1
+      }
+      hidden_effect = {
+        change_variable = {
+          which = EDG_Purchase_artwork_value
+          value = 1
+        }
+      }
+    }
+  }
+}
+country_event = {#掠夺艺术品
+  id = EDG_flavorMLO_mission.7
+  title = "EDG_flavorMLO_mission.7.t"
+  desc = "EDG_flavorMLO_mission.7.d"
+  picture = IMPORTANT_STATUE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    has_government_attribute = EDG_Philosopher_reform_ability
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+		hidden_effect = {
+		}
+  }
+  
+  option = {#太好了。
+    name = "EDG_flavorMLO_mission.7.a"
+    ai_chance = {
+      factor = 10
+    }
+    if = {
+      limit = {
+        FROM = {
+          culture_group = latin
+        }
+      }
+      change_variable = {
+        which = EDG_Purchase_artwork_value_ITA
+        value = 1
+      }
+      hidden_effect = {
+        change_variable = {
+          which = EDG_Purchase_artwork_value
+          value = 1
+        }
+      }
+    }
+    else = {
+      change_variable = {
+        which = EDG_Purchase_artwork_value
+        value = 1
+      }
+    }
+  }
+}

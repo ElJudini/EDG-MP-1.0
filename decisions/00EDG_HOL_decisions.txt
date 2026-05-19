@@ -1,0 +1,471 @@
+country_decisions = {
+	EDG_NED_GET_government_power_decision = {
+		major = yes
+		color = {
+			128
+			0
+			128
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = EDG_HOL_realtor_one_tt
+			hidden_effect = {
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_HOL_province_var
+							value = 50
+						}
+					}
+					set_variable = {
+						which = EDG_HOL_province_var
+						value = 50
+					}
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = EDG_HOL_province_var
+							value = 1
+						}
+					}
+					add_government_power = {
+						mechanic_type = EDG_HOL_realtor_ability
+						power_type = EDG_HOL_realtor_power
+						value = 1
+					}
+					subtract_variable = {
+						which = EDG_HOL_province_var
+						value = 1
+					}
+				}
+				every_owned_province = {
+					limit = {
+						religion = owner
+					}
+					owner = {
+						add_government_power = {
+							mechanic_type = EDG_HOL_realtor_ability
+							power_type = EDG_HOL_realtor_power
+							value = 1
+						}
+					}
+				}
+			}
+			add_adm_power = -25
+			add_dip_power = -25
+			add_mil_power = -25
+			hidden_effect = {
+				change_variable = {
+					which = EDG_HOL_realtor_interactions_used_value
+					value = 1
+				}
+			}
+		}
+	}
+	EDG_HOL_aggressive_decision = {
+		major = yes
+		color = {
+			128
+			0
+			128
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+		}
+		allow = {
+			years_of_income = 0.5
+		}
+		effect = {
+			add_years_of_income = -0.5
+			hidden_effect = {
+				every_neighbor_country = {
+					add_aggressive_expansion = {
+						who = root
+						value = -25
+						apply_calc = yes
+					}
+				}
+			}
+			custom_tooltip = EDG_NED_aggressive_flag_tt
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_ship_1_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_ship_enable_flag
+			not = {
+				has_country_flag = EDG_NED_ship_1_flag
+			}
+		}
+		allow = {
+			mercantilism = 5
+			years_of_income = 1
+		}
+		effect = {
+			add_years_of_income = -0.5
+			add_mercantilism = -5
+			add_country_modifier = {
+				name = EDG_NED_ship_1
+				duration = -1
+			}
+			set_country_flag = EDG_NED_ship_1_flag
+			set_country_flag = EDG_HOL_YIJIESUO_1_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_ship_2_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_ship_enable_flag
+			not = {
+				has_country_flag = EDG_NED_ship_2_flag
+			}
+		}
+		allow = {
+			has_country_flag = EDG_HOL_YIJIESUO_1_flag
+			mercantilism = 10
+			years_of_income = 2
+		}
+		effect = {
+			add_years_of_income = -1
+			add_mercantilism = -5
+			remove_country_modifier = EDG_NED_ship_1
+			add_country_modifier = {
+				name = EDG_NED_ship_2
+				duration = -1
+			}
+			set_country_flag = EDG_NED_ship_2_flag
+			set_country_flag = EDG_HOL_YIJIESUO_2_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_ship_3_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			
+			has_country_flag = EDG_NED_ship_enable_flag
+			not = {
+				has_country_flag = EDG_NED_ship_3_flag
+			}
+		}
+		allow = {
+			has_country_flag = EDG_HOL_YIJIESUO_2_flag
+			mercantilism = 15
+			years_of_income = 2.5
+		}
+		effect = {
+			add_years_of_income = -1.5
+			add_mercantilism = -10
+			remove_country_modifier = EDG_NED_ship_2
+			add_country_modifier = {
+				name = EDG_NED_ship_3
+				duration = -1
+			}
+			set_country_flag = EDG_NED_ship_3_flag
+			set_country_flag = EDG_HOL_YIJIESUO_3_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_ship_4_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_ship_enable_flag
+			not = {
+				has_country_flag = EDG_NED_ship_4_flag
+			}
+		}
+		allow = {
+			has_country_flag = EDG_HOL_YIJIESUO_3_flag
+			mercantilism = 20
+			years_of_income = 3
+		}
+		effect = {
+			add_years_of_income = -2
+			add_mercantilism = -10
+			remove_country_modifier = EDG_NED_ship_3
+			add_country_modifier = {
+				name = EDG_NED_ship_4
+				duration = -1
+			}
+			set_country_flag = EDG_NED_ship_4_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_army_1_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_army_enable_flag
+			not = {
+				has_country_flag = EDG_NED_army_1_flag
+			}
+			
+		}
+		allow = {
+			army_tradition = 10
+			years_of_income = 0.5
+		}
+		effect = {
+			add_years_of_income = -0.5
+			add_army_tradition = -10
+			add_army_professionalism = -0.05
+			add_country_modifier = {
+				name = EDG_NED_army_1
+				duration = -1
+			}
+			set_country_flag = EDG_NED_army_1_flag
+			set_country_flag = EDG_NED_YIJIESUO_1_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_army_2_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_army_enable_flag
+			not = {
+				has_country_flag = EDG_NED_army_2_flag
+			}
+		}
+		allow = {
+			army_tradition = 20
+			years_of_income = 1
+			has_country_flag = EDG_NED_YIJIESUO_1_flag
+		}
+		effect = {
+			add_years_of_income = -1
+			add_army_tradition = -20
+			add_army_professionalism = -0.05
+			remove_country_modifier = EDG_NED_army_1
+			add_country_modifier = {
+				name = EDG_NED_army_2
+				duration = -1
+			}
+			set_country_flag = EDG_NED_army_2_flag
+			set_country_flag = EDG_NED_YIJIESUO_2_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_army_3_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_army_enable_flag
+			not = {
+				has_country_flag = EDG_NED_army_3_flag
+			}
+		}
+		allow = {
+			has_country_flag = EDG_NED_YIJIESUO_2_flag
+			army_tradition = 40
+			years_of_income = 2
+		}
+		effect = {
+			add_years_of_income = -2
+			add_army_tradition = -40
+			add_army_professionalism = -0.05
+			remove_country_modifier = EDG_NED_army_2
+			add_country_modifier = {
+				name = EDG_NED_army_3
+				duration = -1
+			}
+			set_country_flag = EDG_NED_army_3_flag
+			set_country_flag = EDG_NED_YIJIESUO_3_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_NED_army_4_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			has_country_flag = EDG_NED_army_enable_flag
+			not = {
+				has_country_flag = EDG_NED_army_4_flag
+			}
+		}
+		allow = {
+			has_country_flag = EDG_NED_YIJIESUO_3_flag
+			army_tradition = 60
+			years_of_income = 3
+		}
+		effect = {
+			add_years_of_income = -3
+			add_army_tradition = -60
+			add_army_professionalism = -0.05
+			remove_country_modifier = EDG_NED_army_3
+			add_country_modifier = {
+				name = EDG_NED_army_4
+				duration = -1
+			}
+			set_country_flag = EDG_NED_army_4_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+	EDG_HOL_GAIMING_decision = {
+		major = yes
+		color = {
+			255
+			165
+			0
+		}
+		potential = {
+			or = {
+				tag = HOL
+				tag = NED
+			}
+			ai = no
+			not = {
+				has_country_flag = EDG_HOL_YI_GAIMING
+			}
+		}
+		allow = {
+			has_country_flag = EDG_HOL_GAIMING
+		}
+		effect = {
+			override_country_name = EDG_hol_home_name_1
+			set_country_flag = EDG_HOL_YI_GAIMING
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+			}
+		}
+	}
+}

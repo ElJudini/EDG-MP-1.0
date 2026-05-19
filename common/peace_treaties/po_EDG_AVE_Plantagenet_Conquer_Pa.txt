@@ -1,0 +1,96 @@
+po_EDG_AVE_Plantagenet_Conquer = { #金雀花征服
+	
+	category = 6 
+	power_projection = no 
+	power_cost_base = 0 
+	prestige_base = 1
+	ae_base = 0
+	warscore_cost = {
+		all_provinces = 1
+		no_provinces = 10.0 
+		owner_keeps = 0.0 
+		conquered = 0.0 
+		returned_core = 0.0 
+		released_nation = 0.0 
+		cancelled_subject = 0.0 
+		concede_colonial_region = 0.0 
+	}
+	warscore_cap = 100 
+	requires_demand_independence = yes 
+	is_make_subject = no
+	requires_is_allowed = yes 
+	
+	is_visible = {
+
+	}
+	is_allowed = { 
+		
+	}
+	effect = { 
+		FROM = {
+			every_country = {
+				limit = { is_subject_of = FROM }
+				add_truce_with = ROOT
+				ROOT = {
+					create_subject = {
+						subject_type = EDG_ENG_crown_appanage
+						subject = PREV
+					}
+				}
+				add_country_modifier = {
+					name = EDG_WG_superiority_Holy_Roman_Invasion_tag_modifier
+					duration = 18250
+				}
+			}
+			every_owned_province = {
+				set_province_flag = po_Holy_Roman_Invasion_province_flag
+			}
+			release_all_possible_countries = yes
+			release_all_subjects = yes
+			every_province = {
+				limit = {
+					has_province_flag = po_Holy_Roman_Invasion_province_flag
+				}
+				if = {
+					limit = { owner = { NOT = { has_country_flag = po_Holy_Roman_Invasion_country_flag } } }
+					owner = {
+						set_country_flag = po_Holy_Roman_Invasion_country_flag
+					}
+				}
+				clr_province_flag = po_Holy_Roman_Invasion_province_flag
+			}
+			every_country = {
+				limit = {
+					has_country_flag = po_Holy_Roman_Invasion_country_flag
+				}
+				change_government = ROOT
+				if = {
+					limit = {
+						NOT = { tag = FROM }
+					}
+					add_opinion = {
+						who = ROOT
+						modifier = po_FRA_to_AEL_Crusades_opinion
+					}
+				}
+				ROOT = {
+					create_subject = {
+						subject_type = EDG_ENG_crown_appanage
+						subject = PREV
+					}
+				}
+				add_country_modifier = {
+					name = EDG_WG_superiority_Holy_Roman_Invasion_tag_modifier
+					duration = 18250
+				}
+				clr_country_flag = po_Holy_Roman_Invasion_country_flag
+			}
+		}
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = 10000
+		}
+	}
+}

@@ -1,0 +1,664 @@
+namespace = EDG_FYM_copt_war
+country_event = {#圣子降临
+  id = EDG_FYM_copt_war.1
+  title = "EDG_FYM_copt_war.1.title"
+  desc = "EDG_FYM_copt_war.1.desc"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+      log = "[Root.GetName] has EDG_FYM_copt_war Disaster."
+      set_country_flag = EDG_FYM_copt_war_flag
+      set_global_flag = EDG_FYM_copt_war_global_flag
+    }
+    hidden_effect = {
+		  add_stability = -2
+		  play_sound = EDGFYMsound1
+			set_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 0
+			}
+    }
+  }
+  option = {#若他是耶稣再世，就让他复活给我们看看！
+    name = "EDG_FYM_copt_war.1.a"
+    custom_tooltip = EDG_FYM_copt_war_1_a_tt
+
+    custom_tooltip = EDG_SPACE_TT
+    tooltip = { add_stability = -2 }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.3 days = 7 }
+    }
+  }
+  
+}
+
+country_event = {#「审判日」
+  id = EDG_FYM_copt_war.2
+  title = "EDG_FYM_copt_war.2.title"
+  desc = "EDG_FYM_copt_war.2.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+	  set_country_flag = EDG_FYM_copt_war_end_flag
+  }
+  option = {#[Root.Monarch.GetName]即是审判。
+    name = "EDG_FYM_copt_war.2.a"
+    set_country_flag = EDG_FYM_copt_war_2_A_flag
+    set_country_flag = EDG_FYM_cop_disaster_end_flag
+    custom_tooltip = EDG_FYM_copt_war_2_a_tt
+    tooltip = {
+      add_permanent_province_modifier = {
+        name = EDG_FYM_copt_war_2_A_province_modifier
+        duration = 9125
+      }
+    }
+    hidden_effect = {
+      every_province = {
+        limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+        add_permanent_province_modifier = {
+          name = EDG_FYM_copt_war_2_A_province_modifier
+          duration = 9125
+        }
+      }
+    }
+  }
+}
+
+
+country_event = {#「死而复生」
+  id = EDG_FYM_copt_war.3
+  title = "EDG_FYM_copt_war.3.title"
+  desc = "EDG_FYM_copt_war.3.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+
+  }
+  option = {#他不是弥赛亚，他就是撒旦本人！
+    name = "EDG_FYM_copt_war.3.a"
+		add_stability = -4
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      spawn_rebels = {
+          type = coptic_rebels
+          size = 3
+          win = yes
+          unrest = 20
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      spawn_rebels = {
+          type = coptic_rebels
+          size = 3
+          win = yes
+          unrest = 20
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      spawn_rebels = {
+          type = coptic_rebels
+          size = 3
+          win = yes
+          unrest = 20
+      }
+    }
+    every_country = {
+      limit = { is_subject_of = root any_owned_province = { religion = coptic } }
+      random_province = {
+        limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 3
+            unrest = 20
+        }
+      }
+      random_province = {
+        limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 3
+            unrest = 20
+        }
+      }
+    }
+    custom_tooltip = EDG_FYM_every_copt_province_get_modifier_tt
+    tooltip = {
+      add_province_modifier = {
+        name = EDG_FYM_copt_war_3_a_province_modifier
+        duration = 7300
+      }
+    }
+    hidden_effect = {
+      every_province = {
+        limit = {
+          religion = coptic
+          country_or_non_sovereign_subject_holds = root
+          owner = { not = { religion = coptic } }
+        }
+        add_province_modifier = {
+          name = EDG_FYM_copt_war_3_a_province_modifier
+          duration = 7300
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.4 days = 365 }
+    }
+  }
+}
+
+
+country_event = {#「牧羊人」
+  id = EDG_FYM_copt_war.4
+  title = "EDG_FYM_copt_war.4.title"
+  desc = "EDG_FYM_copt_war.4.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 358
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#无数人将因此蒙难……但那又怎么样？
+    name = "EDG_FYM_copt_war.4.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    358 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      spawn_rebels = {
+          type = coptic_rebels
+          size = 2
+          unrest = 20
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      spawn_rebels = {
+          type = coptic_rebels
+          size = 1
+          unrest = 20
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.5 days = 365 }
+    }
+  }
+}
+
+country_event = {#「铁匠」
+  id = EDG_FYM_copt_war.5
+  title = "EDG_FYM_copt_war.5.title"
+  desc = "EDG_FYM_copt_war.5.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 362
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#螳臂当车罢了。
+    name = "EDG_FYM_copt_war.5.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    362 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 2
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 1
+            unrest = 20
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.6 days = 365 }
+    }
+  }
+}
+
+country_event = {#「主教」
+  id = EDG_FYM_copt_war.6
+  title = "EDG_FYM_copt_war.6.title"
+  desc = "EDG_FYM_copt_war.6.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#他们知道自己在为谁而战吗？
+    name = "EDG_FYM_copt_war.6.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 3
+            unrest = 20
+        }
+      }
+    }
+    add_country_modifier = {
+      name = EDG_FYM_copt_war_6_a_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.7 days = 180 }
+    }
+  }
+}
+
+country_event = {#「官僚」
+  id = EDG_FYM_copt_war.7
+  title = "EDG_FYM_copt_war.7.title"
+  desc = "EDG_FYM_copt_war.7.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 361
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#我们打算比谁失去的更多吗？
+    name = "EDG_FYM_copt_war.7.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    361 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.8 days = 365 }
+    }
+  }
+}
+
+country_event = {#「商人」
+  id = EDG_FYM_copt_war.8
+  title = "EDG_FYM_copt_war.8.title"
+  desc = "EDG_FYM_copt_war.8.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#看见海面上倒映着的是什么了吗？那是杀戮与背叛。
+    name = "EDG_FYM_copt_war.8.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    add_years_of_income = -0.33
+    add_country_modifier = {
+      name = EDG_FYM_copt_war_8_a_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.9 days = 180 }
+    }
+  }
+}
+
+country_event = {#「税务官」
+  id = EDG_FYM_copt_war.9
+  title = "EDG_FYM_copt_war.9.title"
+  desc = "EDG_FYM_copt_war.9.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 1854
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#「我来这里不是为了召义人，而是召那罪人。」
+    name = "EDG_FYM_copt_war.9.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    add_years_of_income = -0.5
+    1854 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    add_country_modifier = {
+      name = EDG_FYM_copt_war_9_a_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.10 days = 180 }
+    }
+  }
+}
+
+country_event = {#「工程师」
+  id = EDG_FYM_copt_war.10
+  title = "EDG_FYM_copt_war.10.title"
+  desc = "EDG_FYM_copt_war.10.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 146
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#哪怕只有海风长存，也没有永世长存的异教神殿。
+    name = "EDG_FYM_copt_war.10.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    add_adm_power = -100
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic culture = greek }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    add_country_modifier = {
+      name = EDG_FYM_copt_war_10_a_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.11 days = 365 }
+    }
+  }
+}
+
+country_event = {#「圣徒」
+  id = EDG_FYM_copt_war.11
+  title = "EDG_FYM_copt_war.11.title"
+  desc = "EDG_FYM_copt_war.11.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 4317
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#「我宁愿自己是聋子。」
+    name = "EDG_FYM_copt_war.11.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    add_dip_power = -100
+    4317 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.12 days = 365 }
+    }
+  }
+}
+
+country_event = {#「女人」
+  id = EDG_FYM_copt_war.12
+  title = "EDG_FYM_copt_war.12.title"
+  desc = "EDG_FYM_copt_war.12.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  goto = 2315
+  immediate = {
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#那又怎样？往她的嘴里灌水银！
+    name = "EDG_FYM_copt_war.12.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    2315 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.13 days = 365 }
+    }
+  }
+}
+
+country_event = {#「死人」
+  id = EDG_FYM_copt_war.13
+  title = "EDG_FYM_copt_war.13.title"
+  desc = "EDG_FYM_copt_war.13.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+    #这是第十个
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#「但至少我能见证后世，而那些留下了的，便是永远留下了。」
+    name = "EDG_FYM_copt_war.13.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    add_mil_power = -100
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    add_country_modifier = {
+      name = EDG_FYM_copt_war_13_a_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.14 days = 365 }
+    }
+  }
+}
+
+country_event = {#「司法官」
+  id = EDG_FYM_copt_war.14
+  title = "EDG_FYM_copt_war.14.title"
+  desc = "EDG_FYM_copt_war.14.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+    #这是第十一个
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#
+    name = "EDG_FYM_copt_war.14.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    359 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_copt_war.15 days = 365 }
+    }
+  }
+}
+
+country_event = {#「弥赛亚」
+  id = EDG_FYM_copt_war.15
+  title = "EDG_FYM_copt_war.15.title"
+  desc = "EDG_FYM_copt_war.15.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+    #这是第十二个
+    hidden_effect = {
+			change_variable = {
+				which = EDG_FYM_copt_war_variable
+				value = 1
+			}
+    }
+  }
+  option = {#
+    name = "EDG_FYM_copt_war.15.a"
+    custom_tooltip = EDG_FYM_copt_war_variable_tt
+    custom_tooltip = EDG_FYM_copt_war_15_a_tt
+    358 = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    random_province = {
+      limit = { country_or_non_sovereign_subject_holds = root religion = coptic }
+      area = {
+        spawn_rebels = {
+            type = coptic_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+    }
+    set_country_flag = EDG_FYM_copt_war_can_end_flag
+  }
+}

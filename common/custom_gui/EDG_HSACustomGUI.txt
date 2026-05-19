@@ -1,0 +1,51 @@
+custom_button = { #建设商栈
+	name = EDG_HSA_GUI_province_ability_1
+	tooltip = EDG_HSA_GUI_province_ability_1_tooltip
+	potential = { 
+		from = {
+			has_government_attribute = enable_EDG_HSA_trading_post
+		}
+		NOT = {
+			OR = {
+				has_province_modifier = EDG_HSA_trading_post_province_triggered_modifier
+				owned_by = from
+			}
+		}
+	}
+	trigger = { 
+		from = {
+			check_variable = {
+				which = EDG_HSA_trading_post_count
+				value = 1
+			}
+		}
+		owner = {
+			is_at_war = no
+			NOT = {
+				trade_embargo_by = from
+			}
+			OR = {
+				is_in_trade_league_with = from
+				alliance_with = from
+				has_opinion = {
+					who = from
+					value = 50
+				}
+				transfers_trade_power_to = from
+			}
+		}
+		OR = {
+			province_has_center_of_trade_of_level = 1
+			province_trade_power = 10
+		}
+	}
+	effect = { 
+		from = {
+			subtract_variable = {
+				which = EDG_HSA_trading_post_count
+				value = 1
+			}
+		}
+		add_province_triggered_modifier = EDG_HSA_trading_post_province_triggered_modifier
+	}
+}

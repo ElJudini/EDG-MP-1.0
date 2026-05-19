@@ -1,0 +1,3474 @@
+namespace = rigaExpand
+
+country_event = {
+	id = rigaExpand.0
+	is_triggered_only = yes
+	title = rigaExpand.0.name
+	desc = rigaExpand.0.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	option = {
+		name = rigaExpand.0.aa
+		trigger = {
+			OR = {
+				exists = LIV
+				exists = TEU
+			}
+		}
+		if = {
+			limit = {
+				exists = LIV
+			}
+			LIV = {
+				country_event = {
+					id = rigaExpand.1
+					days = 1
+				}
+			}
+		}
+		else = {
+			custom_tooltip = rig_add_cores_to_livonia_tt
+			hidden_effect = {
+				livonia_area = {
+					limit = { is_core = LIV }
+					add_core = root
+				}
+				curonia_area = {
+					limit = { is_core = LIV }
+					add_core = root
+				}
+				estonia_ingria_area = {
+					limit = { is_core = LIV }
+					add_core = root
+				}
+				livonia_area = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					if = {
+						limit = { NOT = { is_core = LIV } }
+						add_core = LIV
+					}
+					add_permanent_claim = root
+				}
+				curonia_area = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					if = {
+						limit = { NOT = { is_core = LIV } }
+						add_core = LIV
+					}
+					add_permanent_claim = root
+				}
+				estonia_ingria_area = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					if = {
+						limit = { NOT = { is_core = LIV } }
+						add_core = LIV
+					}
+					add_permanent_claim = root
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = TEU
+			}
+			TEU = {
+				country_event = {
+					id = rigaExpand.1
+					days = 1
+				}
+			}
+		}
+		else = {
+			custom_tooltip = rig_add_cores_to_prussia_tt
+			hidden_effect = {
+				west_prussia_area = {
+					limit = { is_core = TEU }
+					add_core = root
+				}
+				east_prussia_area = {
+					limit = { is_core = TEU }
+					add_core = root
+				}
+				west_prussia_area = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					if = {
+						limit = { NOT = { is_core = TEU } }
+						add_core = TEU
+					}
+					add_permanent_claim = root
+				}
+				east_prussia_area = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					if = {
+						limit = { NOT = { is_core = TEU } }
+						add_core = TEU
+					}
+					add_permanent_claim = root
+				}
+			}
+		}
+	}
+	# option = {
+		
+	# 	name = rigaExpand.0.bb
+	# 	trigger = {
+	# 		NOR = {
+	# 			exists = LIV
+	# 			exists = TEU
+	# 		}
+	# 	}
+	# 	livonia_area = {
+	# 		add_permanent_claim = root
+	# 	}
+	# 	estonia_ingria_area = {
+	# 		add_permanent_claim = root
+	# 	}
+	# 	kuyavia_area = {
+	# 		add_permanent_claim = root
+	# 	}
+	# 	east_prussia_area = {
+	# 		add_permanent_claim = root
+	# 	}
+	# 	west_prussia_area = {
+	# 		add_permanent_claim = root
+	# 	}
+	# }
+}
+country_event = {
+	id = rigaExpand.1
+	is_triggered_only = yes
+	title = rigaExpand.1.name
+	desc = rigaExpand.1.desc
+	picture = DIPLOMACY_eventPicture
+	trigger = {
+		
+	}
+
+	option = {
+		name = rigaExpand.1.aa
+		ai_chance = {
+			factor = 100
+			modifier = {
+				factor = 0
+				OR ={
+					is_rival = RIG
+					RIG = {
+						is_rival = root
+					}
+					RIG = {
+						ai = yes
+					}
+				}
+			}
+		}
+		add_country_modifier = {
+			name = rig_restructure_internal_affairs_subject
+			duration = 720
+		}
+		add_country_modifier = {
+			name = riga_be_ready_for_battle
+			duration = 2738
+		}
+		RIG = {
+			country_event = {
+				id = rigaExpand.2
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.1.bb
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				OR ={
+					is_rival = RIG
+					RIG = {
+						is_rival = root
+					}
+					RIG = {
+						ai = yes
+					}
+				}
+			}
+		}
+		RIG = {
+			country_event = {
+				id = rigaExpand.3
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.1.cc
+		trigger = {
+			ai = no
+			tag = TEU
+		}
+		create_subject = {
+			subject_type = vassal
+			subject = RIG
+		}
+		add_historical_friend = RIG
+		RIG = {
+			add_historical_friend = root
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = rigaExpand.2
+	is_triggered_only = yes
+	title = rigaExpand.2.name
+	desc = rigaExpand.2.desc
+	picture = DIPLOMACY_eventPicture
+	option = {
+		name = rigaExpand.2.aa
+		create_subject = {
+			subject_type = vassal
+			subject = from
+		}
+		hidden_effect = {
+			add_truce_with = from
+			from = {
+				add_truce_with = root
+			}
+		}
+		if = {
+			limit = { 
+				NOT = {
+					historical_friend_with = from
+				}
+			}
+			add_historical_friend = from
+		}
+		if = {
+			limit = { 
+				NOT = {
+					from = {
+						historical_friend_with = from
+					}
+				}
+			}
+			from = {
+				add_historical_friend = root
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = rig_restructure_internal_affairs
+			}
+			remove_country_modifier = rig_restructure_internal_affairs
+			add_country_modifier = {
+				name = rig_restructure_internal_affairs
+				duration = 5475
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = rig_restructure_internal_affairs
+				duration = 2738
+			}
+		}
+	}
+
+}
+country_event = {
+	id = rigaExpand.3
+	is_triggered_only = yes
+	title = rigaExpand.3.name
+	desc = rigaExpand.3.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = rigaExpand.3.aa
+		if = {
+			limit = { 
+				from = {
+					tag = LIV
+				}
+			}
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				target = LIV
+				months = 300
+			}
+		}
+		else_if = {
+			limit = { 
+				tag = TEU
+			}
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				target = TEU
+				months = 300
+			}
+		}
+	}
+}
+
+country_event = {
+	id = rigaExpand.4
+	is_triggered_only = yes
+	title = rigaExpand.4.name
+	desc = rigaExpand.4.desc
+	picture = CARIBBEAN_PIRATE_FORT_eventPicture
+
+	immediate = {
+		TEU = {
+			set_country_flag = pru_confederation_curtailed
+		}
+	}
+
+	option = { #放出但泽
+		name = rigaExpand.4.aa
+		TEU = {
+			release = DNZ
+			complete_mission = EDG_TEU_mission_3_1
+		}
+		create_subject = {
+			subject_type = vassal
+			subject = DNZ
+		}
+	}
+	option = { #不放出
+		name = rigaExpand.4.bb
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
+	}
+}
+
+country_event = {
+	id = rigaExpand.10
+	is_triggered_only = yes
+	title = rigaExpand.10.name
+	desc = rigaExpand.10.desc
+	picture = GENERALS_DISCUSSING_eventPicture
+
+	option = { #斯堪的纳维亚
+		name = rigaExpand.10.aa
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_north
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_north
+		}
+		swap_non_generic_missions = yes
+	}
+	option = { #汉萨与罗斯
+		name = rigaExpand.10.bb
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_east_and_west
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_east_and_west
+		}
+		swap_non_generic_missions = yes
+	}
+	option = { #立陶宛-鲁塞尼亚
+		name = rigaExpand.10.cc
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_south
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_south
+		}
+		swap_non_generic_missions = yes
+	}
+	option = { #中线
+		name = rigaExpand.10.dd
+		trigger = {
+			has_country_flag = begin_deal_with_south
+			has_country_flag = begin_deal_with_east_and_west
+			has_country_flag = begin_deal_with_north
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_south
+		}
+		swap_non_generic_missions = yes
+	}
+}
+country_event = {
+	id = rigaExpand.11
+	is_triggered_only = yes
+	title = rigaExpand.11.name
+	desc = rigaExpand.11.desc
+	picture = GENERALS_DISCUSSING_eventPicture
+
+	option = { #斯堪的纳维亚
+		name = rigaExpand.10.aa
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_north
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_north
+		}
+		swap_non_generic_missions = yes
+
+	}
+	option = { #汉萨与罗斯
+		name = rigaExpand.10.bb
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_east_and_west
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_east_and_west
+		}
+		swap_non_generic_missions = yes
+	}
+	option = { #立陶宛-鲁塞尼亚
+		name = rigaExpand.10.cc
+		trigger = {
+			NOT = {
+				has_country_flag = begin_deal_with_south
+			}
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_with_south
+		}
+		swap_non_generic_missions = yes
+	}
+	option = { #中线
+		name = rigaExpand.10.dd
+		trigger = {
+			has_country_flag = begin_deal_with_south
+			has_country_flag = begin_deal_with_east_and_west
+			has_country_flag = begin_deal_with_north
+		}
+		hidden_effect = {
+			set_country_flag = begin_deal_self_regard
+		}
+		swap_non_generic_missions = yes
+	}
+}
+
+country_event = {
+	id = rigaExpand.12
+	is_triggered_only = yes
+	title = rigaExpand.12.name
+	desc = rigaExpand.12.desc
+	picture = DIPLOMACY_eventPicture
+	option = {
+		name = rigaExpand.12.aa
+		GOT = {
+			country_event = {
+				id = rigaExpand.13
+				days = 1
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.12.bb
+		add_prestige_or_monarch_power = {
+			amount = 5
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.13
+	is_triggered_only = yes
+	title = rigaExpand.13.name
+	desc = rigaExpand.13.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = rigaExpand.13.aa
+		ai_chance = {
+			factor = 100
+		}
+		from = {
+			country_event = {
+				id = rigaExpand.14
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.13.bb
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.14
+	is_triggered_only = yes
+	title = rigaExpand.14.name
+	desc = rigaExpand.14.desc
+	picture = DIPLOMACY_eventPicture
+	option = {
+		name = rigaExpand.14.aa
+		create_subject = {
+			subject_type = rig_trade_city
+			subject = GOT
+		}
+		GOT = {
+			change_country_color = {
+				country = root
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.15
+	is_triggered_only = yes
+	title = rigaExpand.15.name
+	desc = rigaExpand.15.desc
+	picture = DIPLOMACY_eventPicture
+	option = {
+		name = rigaExpand.15.aa
+		declare_war_with_cb = {
+			casus_belli = cb_vassalize_mission
+			who = from
+		}
+	}
+}
+
+country_event = {
+	id = rigaExpand.16
+	is_triggered_only = yes
+	title = rigaExpand.16.name
+	desc = rigaExpand.16.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	option = {
+		name = rigaExpand.16.aa
+		SKN = {
+			country_event = {
+				id = rigaExpand.17
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.17
+	is_triggered_only = yes
+	title = rigaExpand.17.name
+	desc = rigaExpand.17.desc
+	picture = DIPLOMACY_eventPicture
+	option = {
+		name = rigaExpand.17.aa
+		add_liberty_desire = 100
+		add_opinion = {
+			who = SWE
+			modifier = skn_liberty_desire_modifier
+		}
+		SWE = {
+			add_opinion = {
+				who = root
+				modifier = skn_liberty_desire_modifier
+			}
+		}
+		add_historical_rival = SWE
+		SWE = {
+			add_historical_rival = root
+		}
+		from = {
+			country_event = {
+				id = rigaExpand.18
+				days = 1
+			}
+		}
+	}
+
+	# option = {
+	# 	name = rigaExpand.17.bb
+	# }
+}
+country_event = {
+	id = rigaExpand.18
+	is_triggered_only = yes
+	title = rigaExpand.18.name
+	desc = rigaExpand.18.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = rigaExpand.18.aa
+		support_independence_of = from
+	}
+}
+country_event = {
+	id = rigaExpand.19
+	is_triggered_only = yes
+	title = rigaExpand.19.name
+	desc = rigaExpand.19.desc
+	picture = GENERALS_DISCUSSING_eventPicture
+
+	option = {
+		name = rigaExpand.19.aa
+		hidden_effect = {
+			set_country_flag = rig_already_pre_for_uprising
+		}
+
+	}
+}
+country_event = {
+	id = rigaExpand.20
+	is_triggered_only = yes
+	title = rigaExpand.20.name
+	desc = rigaExpand.20.desc
+	picture = BATTLE_eventPicture
+
+	major = yes
+
+	option = {
+		name = rigaExpand.20.aa
+		ai_chance = {
+			factor = 100
+		}
+		3 = {
+			change_controller = root
+		}
+	}
+	option = {
+		name = rigaExpand.20.bb
+		ai_chance = {
+			factor = 0
+		}
+		add_manpower = 10
+	}
+}
+
+country_event = {
+	id = rigaExpand.21
+	is_triggered_only = yes
+	title = rigaExpand.21.name
+	desc = rigaExpand.21.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.21.aa
+		SWE = {
+			declare_war_with_cb = {
+				casus_belli = cb_restore_personal_union
+				who = root
+			}
+		}
+	}
+}
+
+country_event = {
+	id = rigaExpand.22
+	is_triggered_only = yes
+	title = rigaExpand.22.name
+	desc = rigaExpand.22.desc
+	picture = BATTLE_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.22.aa
+		custom_tooltip = rigaExpand.22.aa.tt
+		hidden_effect = {
+			country_event = {
+				id = 1012
+				days = 1825
+			}
+			set_country_flag = rig_begin_greate_north_war
+		}
+		rig_add_subject_modifier_effect = {
+			modifier = rig_greate_north_war_modifier
+			days = 1825
+		}
+		white_peace = SWE
+		declare_war_with_cb = {
+			casus_belli = cb_vassalize_mission
+			who = SWE
+		}
+		SWE = {
+			country_event = {
+				id = rigaExpand.23
+				days = 1
+			}
+		}
+		if = {
+			limit = { 
+				exists = NOR
+			}
+			NOR = {
+				country_event = {
+					id = rigaExpand.23
+					days = 1
+				}
+			}
+		}
+		if = {
+			limit = { 
+				exists = SMI
+			}
+			SMI = {
+				country_event = {
+					id = rigaExpand.23
+					days = 1
+				}
+			}
+		}
+		SKN = {
+			country_event = {
+				id = rigaExpand.24
+				days = 1
+			}
+		}
+		swap_non_generic_missions = yes
+	}
+	option = {
+		name = rigaExpand.22.bb
+		SKN = {
+			white_peace = SWE
+		}
+		1926 = {
+			add_trade_modifier = {
+				who = root
+				duration = 18250
+				power = 100
+				key = rig_safty_north_tt
+			}
+			add_trade_modifier = {
+				who = SWE
+				duration = 18250
+				power = -100
+				key = rig_safty_north_tt
+			}
+		}
+		country_event = {
+			id = rigaExpand.11
+			days = 1
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.23
+	is_triggered_only = yes
+	title = rigaExpand.23.name
+	desc = rigaExpand.23.desc
+	picture = CIVIL_WAR_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.23.aa
+		add_country_modifier = {
+			name = rig_greate_north_war_sca_modifier
+			duration = 1825
+		}
+		if = {
+			limit = { 
+				war_with = NOR
+			}
+			white_peace = NOR
+		}
+		else_if = {
+			limit = { 
+				war_with = SWE
+			}
+			white_peace = SWE
+			
+		}
+		else_if = {
+			limit = { 
+				war_with = SMI
+			}
+			white_peace = SMI
+		}
+		if = {
+			limit = { 
+				NOT = {
+					tag = SWE
+				}
+			}
+			join_all_defensive_wars_of = SWE
+		}
+	}
+	option = {
+		name = rigaExpand.23.bb
+		ai_chance = {
+			factor = 0
+		}
+		add_stability = -1
+		white_peace = from
+		from = {
+			create_subject = {
+				subject_type = vassal
+				subject = root
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.24
+	is_triggered_only = yes
+	title = rigaExpand.24.name
+	desc = rigaExpand.24.desc
+	picture = CIVIL_WAR_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.24.aa
+		ai_chance = {
+			factor = 10
+		}
+		add_trust = {
+			who = from
+			value = -30
+		}
+		from = {
+			create_subject = {
+				subject_type = vassal
+				subject = SKN
+			}
+		}
+
+	}
+	option = {
+		name = rigaExpand.24.bb
+		if = {
+			limit = { 
+				war_with = SWE
+			}
+			white_peace = SWE
+		}
+		if = {
+			limit = { 
+				war_with = NOR
+			}
+			white_peace = NOR
+		}
+		join_all_defensive_wars_of = SWE
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.30
+	is_triggered_only = yes
+	title = rigaExpand.30.name
+	desc = rigaExpand.30.desc
+	picture = BUCCANEERS_eventPicture
+
+	option = {
+		name = rigaExpand.30.aa
+		rig_add_subject_modifier_effect = {
+			modifier = rig_hansa_league_mercantile_modifier
+			days = 3650
+		}
+		add_country_modifier = {
+			name = rig_hansa_league_goods_output_modifier
+			duration = 3650
+		}
+		add_historical_rival = HSA
+		HSA = {
+			add_historical_rival = root
+		}
+		if = {
+			limit = { 
+				historical_friend_with = HSA
+			}
+			remove_historical_friend = HSA
+		}if = {
+			limit = { 
+				HSA = {
+					historical_friend_with = root
+				}
+			}
+			HSA = {
+				remove_historical_friend = root
+			}
+		}
+		hidden_effect = {
+			HSA = {
+				country_event = {
+					id = rigaExpand.31
+					days = 15
+				}
+			}
+			set_variable = {
+				which = riga_hansa_trade_disputes_count
+				value = 5
+			}
+			upgrade_riga_hansa_trade_disputes = {
+				value = 5
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.31
+	is_triggered_only = yes
+	title = rigaExpand.31.name
+	desc = rigaExpand.31.desc
+	picture = BUCCANEERS_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.31.aa
+		custom_tooltip = rigaExpand.31.aa.tt
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = 5
+			}
+		}
+		add_country_modifier = {
+			name = rig_hsa_trade_solution
+			duration = 3650
+		}
+
+		every_known_country = {
+			limit = {
+				is_in_trade_league_with = root
+			}
+			add_country_modifier = {
+				name = rig_hsa_trade_solution
+				duration = 3650
+			}
+		}
+	}
+
+	option = {
+		name = rigaExpand.31.bb
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = -3
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.32
+	is_triggered_only = yes
+	title = rigaExpand.32.name
+	desc = rigaExpand.32.desc
+	picture = BUCCANEERS_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.32.aa
+		custom_tooltip = rigaExpand.32.aa.tt
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			set_country_flag = rig_riga_trade_member
+		}
+		add_opinion = {
+			who = RIG
+			modifier = rig_danmark_trade_league
+		}
+		RIG = {
+			add_opinion = {
+				who = root
+				modifier = rig_danmark_trade_league
+			}
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = 3
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.32.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.33
+	is_triggered_only = yes
+	title = rigaExpand.33.name
+	desc = rigaExpand.33.desc
+	picture = BANKRUPTCY_eventPicture
+	major = yes
+
+	trigger = {
+		RIG = {
+			NOT = {
+				mission_completed = rig_sealand_agreement
+			}
+		}
+	}
+
+	option = {
+		name = rigaExpand.33.aa
+		ai_chance = {
+			factor = 1.5
+			modifier = {
+				factor = 10000
+				ai_attitude = {
+					who = RIG
+					attitude = attitude_friendly
+				}
+				ai_attitude = {
+					who = RIG
+					attitude = attitude_loyal
+				}
+				ai_attitude = {
+					who = RIG
+					attitude = attitude_allied
+				}
+				is_in_trade_league_with = RIG
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					is_emperor = yes
+					is_rival = RIG
+					RIG = {
+						is_rival = root
+					}
+				}
+			}
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = 3
+			}
+		}
+		RIG = {
+			add_opinion = {
+				who = root
+				modifier = north_german_trade_war_opinion_good
+			}
+		}
+		add_opinion = {
+			who = RIG
+			modifier = north_german_trade_war_opinion_good
+		}
+		HSA = {
+			add_opinion = {
+				who = root
+				modifier = north_german_trade_war_opinion_bad
+			}
+		}
+		add_opinion = {
+			who = HSA
+			modifier = north_german_trade_war_opinion_bad
+		}
+		hidden_effect = {
+			set_country_flag = rig_north_german_trade_war_support_RIG
+		}
+	}
+	option = {
+		name = rigaExpand.33.bb
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10000
+				is_in_trade_league_with = HSA
+				ai_attitude = {
+					who = HSA
+					attitude = attitude_friendly
+				}
+				ai_attitude = {
+					who = HSA
+					attitude = attitude_loyal
+				}
+				ai_attitude = {
+					who = HSA
+					attitude = attitude_allied
+				}
+			}
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = 3
+			}
+		}
+		HSA = {
+			add_opinion = {
+				who = root
+				modifier = north_german_trade_war_opinion_good
+			}
+		}
+		add_opinion = {
+			who = HSA
+			modifier = north_german_trade_war_opinion_good
+		}
+		RIG = {
+			add_opinion = {
+				who = root
+				modifier = north_german_trade_war_opinion_bad
+			}
+		}
+		add_opinion = {
+			who = RIG
+			modifier = north_german_trade_war_opinion_bad
+		}
+		hidden_effect = {
+			set_country_flag = rig_north_german_trade_war_support_HSA
+		}
+	}
+	option = {
+		name = rigaExpand.33.cc
+		ai_chance = {
+			factor = 0
+		}
+		hidden_effect = {
+			upgrade_riga_hansa_trade_disputes = {
+				value = -3
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.34
+	is_triggered_only = yes
+	title = rigaExpand.34.name
+	desc = rigaExpand.34.desc
+	picture = CIVIL_WAR_eventPicture
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = rigaExpandIncident_0_aa
+		}
+	}
+	
+	option = {
+		name = rigaExpand.34.aa
+		custom_tooltip = rigaExpand.34.aa.tooltip
+		remove_country_modifier = rig_hansa_league_goods_output_modifier
+		rig_replace_subject_modifier_effect = {
+			remove_modifier = rig_add_subject_modifier_effect
+			add_modifier = rig_north_german_trade_bttle_rig_subject_modifier
+			days = 1825
+		}
+		emperor = {
+			declare_war_with_cb = {
+				casus_belli = cb_trade_war
+				who = RIG
+			}
+		}
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					is_emperor = no
+					OR = {
+						is_in_trade_league_with = HSA
+						has_country_flag = rig_north_german_trade_war_support_HSA
+					}
+				}
+				join_all_offensive_wars_of = emperor
+			}
+			HSA = {
+				join_all_offensive_wars_of = emperor
+			}
+			every_known_country = {
+				limit = {
+					NOT = {
+						OR = {
+							tag = root
+							is_emperor = yes
+						}
+					}
+					OR = {
+						is_in_trade_league_with = root
+						has_country_flag = rig_north_german_trade_war_support_RIG
+					}
+				}
+				join_all_defensive_wars_of = root
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.34.bb
+		custom_tooltip = rigaExpand.34.bb.tt
+		white_peace = emperor
+		add_prestige = -50
+		remove_country_modifier = rig_hansa_league_goods_output_modifier
+		rig_remove_subject_modifier_effect = {
+			modifier = rig_hansa_league_mercantile_modifier
+		}
+		hidden_effect = {
+			set_country_flag = rig_submit_to_the_emperor
+			every_known_country = {
+				limit = {
+					OR = {
+						has_country_modifier = rig_riga_hansa_trade_conflict_normal
+						has_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+						has_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_normal
+				remove_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+				remove_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.35
+	is_triggered_only = yes
+	title = rigaExpand.35.name
+	desc = rigaExpand.35.desc
+	picture = CONQUEST_eventPicture
+	option = {
+		name = rigaExpand.35.aa
+		custom_tooltip = rigaExpand.35.aa.tt
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					HSA = {
+						is_trade_league_leader = yes
+					}
+					is_in_trade_league_with = HSA
+				}
+				set_country_flag = is_hansa_league_member
+			}
+		}
+		every_known_country = {
+			limit = {
+				has_country_flag = is_hansa_league_member
+			}
+			root = {
+				riga_set_up_rig_trade_city_effect = {
+					subject = prev
+					reform = yes
+				}
+			}
+		}
+		hidden_effect = {
+			every_known_country = {
+				clr_country_flag = is_hansa_league_member
+				clr_country_flag = rig_north_german_trade_war_support_RIG
+				clr_country_flag = rig_north_german_trade_war_support_HSA
+			}
+			every_known_country = {
+				limit = {
+					OR = {
+						has_country_modifier = rig_riga_hansa_trade_conflict_normal
+						has_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+						has_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_normal
+				remove_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+				remove_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.36
+	is_triggered_only = yes
+	title = rigaExpand.36.name
+	desc = rigaExpand.36.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = rigaExpand.36.aa
+		every_known_country = {
+			limit = {
+				OR = {
+					has_country_flag = rig_riga_trade_member
+					is_in_trade_league_with = root
+				}
+				is_subject = no
+				NOT = {
+					num_of_cities = 2
+				}
+			}
+			root = {
+				riga_set_up_rig_trade_city_effect = {
+					subject = prev
+					reform = yes
+				}
+			}
+		}
+		if = {
+			limit = { 
+				mission_completed = rig_neva_agreement
+			}
+			country_event = {
+				id = rigaExpand.11
+			}
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = rig_submit_to_the_emperor
+				}
+			}
+			add_country_modifier = {
+				name = rig_north_german_trade_victor
+				duration = -1
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.37
+	is_triggered_only = yes
+	title = rigaExpand.37.name
+	desc = rigaExpand.37.desc
+	picture = SIEGE_eventPicture
+
+	option = {
+		name = rigaExpand.37.aa
+		if = {
+			limit = { 
+				exists = PSK
+				NOT = {
+					is_subject_of = root
+				}
+			}
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				target = PSK
+				months = 120
+			}
+		}
+		else = {
+			pskov_area = {
+				add_permanent_claim = root
+			}
+		}
+		rig_add_subject_modifier_effect = {
+			modifier = rig_ros_war_modifier
+			days = 3650
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.38
+	is_triggered_only = yes
+	title = rigaExpand.38.name
+	desc = rigaExpand.38.desc
+	picture = FORT_eventPicture
+
+	option = {
+		name = rigaExpand.38.aa
+		custom_tooltip = rigaExpand.38.aa.tt
+	}
+}
+country_event = {
+	id = rigaExpand.39
+	is_triggered_only = yes
+	title = rigaExpand.39.name
+	desc = rigaExpand.39.desc
+	picture = LAND_MILITARY_eventPicture
+
+	option = {
+		name = rigaExpand.39.aa
+		hidden_effect = {
+			if = {
+				limit = { 
+					OR = {
+						AND = {
+							exists = PSK
+							PSK = {
+								is_subject_of = root
+							}
+						}
+						274 = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+					}
+				}
+				every_neighbor_country = {
+					limit = {
+						NOT = {
+							OR = {
+								tag = NOV
+								tag = TVE
+							}
+						}
+						capital_scope = {
+							region = russia_region
+						}
+						is_subject = no
+						NOT = {
+							alliance_with = root
+						}
+					}
+					country_event = {
+						id = rigaExpand.40
+						days = 1
+					}
+				}
+				if = {
+					limit = { 
+						exists = NOV
+						NOV = {
+							is_subject = no
+						}
+					}
+					NOV = {
+						country_event = {
+							id = rigaExpand.40
+							days = 1
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = TVE
+						TVE = {
+							is_subject = no
+						}
+					}
+					TVE = {
+						country_event = {
+							id = rigaExpand.40
+							days = 1
+						}
+					}
+				}
+			}
+			
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.40
+	is_triggered_only = yes
+	title = rigaExpand.40.name
+	desc = rigaExpand.40.desc
+	picture = LAND_MILITARY_eventPicture
+
+	option = {
+		name = rigaExpand.40.aa
+		ai_chance = {
+			factor = 100
+		}
+		hidden_effect = {
+			set_country_flag = rig_rus_united_font
+		}
+	}
+
+	option = {
+		name = rigaExpand.40.bb
+		ai_chance = {
+			factor = 0
+		}
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.41
+	is_triggered_only = yes
+	title = rigaExpand.41.name
+	desc = rigaExpand.41.desc
+	picture = GENERALS_DISCUSSING_eventPicture
+
+
+	option = { #持久战
+		name = rigaExpand.41.aa
+		rig_add_subject_modifier_effect = {
+			modifier = rig_ros_war_modifier_1
+			days = 3650
+		}
+	}
+
+	option = { #闪电战（？）
+		name = rigaExpand.41.bb
+		rig_add_subject_modifier_effect = {
+			modifier = rig_ros_war_modifier_2
+			days = 1825
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.42
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	trigger = {
+		274 = {
+			riga_subject_of_subject_owned_land = { who = root }
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = { 
+				exists = PSK
+				PSK = {
+					is_subject_of = root
+				}
+			}
+			PSK = {
+				country_event = {
+					id = rigaExpand.43
+					days = 3
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				NOT = {
+					exists = PSK
+				}
+			}
+			every_province = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+					is_core = PSK
+				}
+				cede_province = PSK
+			}
+			PSK = {
+				country_event = {
+					id = rigaExpand.43
+				}
+				set_capital = 274
+			}
+		}
+	}
+
+	option = {}
+}
+country_event = {
+	id = rigaExpand.43
+	is_triggered_only = yes
+	title = rigaExpand.43.name
+	desc = rigaExpand.43.desc
+	picture = SIEGE_PRAGUE_CASTLE_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.43.aa
+		ai_chance = {
+			factor = 1000
+		}
+		if = {
+			limit = { 
+				NOT = {
+					religion = orthodox
+				}
+			}
+			change_religion = orthodox
+		}
+		declare_war_with_cb = {
+			casus_belli = cb_independence_war
+			who = RIG
+		}
+		RIG = {
+			country_event = {
+				id = rigaExpand.44
+			}
+		}
+		every_known_country = {
+			limit = {
+				has_country_flag = rig_rus_united_font
+			}
+			country_event = {
+				id = rigaExpand.45
+				days = 3
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.43.aa
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.44
+	is_triggered_only = yes
+	title = rigaExpand.44.name
+	desc = rigaExpand.44.desc
+	picture = SIEGE_PRAGUE_CASTLE_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			every_subject_country = {
+				limit = {
+					OR = {
+						has_country_modifier = rig_ros_war_modifier_1
+						has_country_modifier = rig_ros_war_modifier_2
+					}
+				}
+				if = {
+					limit = { 
+						has_country_modifier = rig_ros_war_modifier_1
+					}
+					remove_country_modifier = rig_ros_war_modifier_1
+				}
+				else = {
+					remove_country_modifier = rig_ros_war_modifier_2
+				}
+			}
+			add_country_modifier = {
+				name = rig_an_unexpected_war
+				duration = 1825
+			}
+			set_country_flag = rig_psk_have_rise_up
+		}
+	}
+
+	option = {
+		name = rigaExpand.44.aa
+		tooltip = {
+			add_country_modifier = {
+				name = rig_an_unexpected_war
+				duration = 1825
+			}
+			every_subject_country = {
+				limit = {
+					OR = {
+						has_country_modifier = rig_ros_war_modifier_1
+						has_country_modifier = rig_ros_war_modifier_2
+					}
+				}
+				if = {
+					limit = { 
+						has_country_modifier = rig_ros_war_modifier_1
+					}
+					remove_country_modifier = rig_ros_war_modifier_1
+				}
+				else = {
+					remove_country_modifier = rig_ros_war_modifier_2
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.45
+	is_triggered_only = yes
+	title = rigaExpand.45.name
+	desc = rigaExpand.45.desc
+	picture = SCOTTISH_MERCENARIES_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.45.aa
+		ai_chance = {
+			factor = 100
+		}
+		add_country_modifier = {
+			name = rig_rus_war_psk_uprising
+			duration = 1825
+		}
+		join_all_offensive_wars_of = PSK
+	}
+
+	option = {
+		name = rigaExpand.45.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			clr_country_flag = rig_rus_united_font
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.46
+	is_triggered_only = yes
+	title = rigaExpand.46.name
+	desc = rigaExpand.46.desc
+	picture = BATTLE_VISTULA_LAGOON_eventPicture
+	major = yes
+
+	option = {
+		name = rigaExpand.46.aa
+		274 = {
+			change_controller = root
+		}
+		if = {
+			limit = { 
+				exists = LIV
+				LIV = {
+					is_subject_of = root
+				}
+			}
+			LIV = {
+				add_country_modifier = {
+					name = rig_liv_morale_is_high
+					duration = 365
+				}
+			}
+		}
+		if = {
+			limit = { 
+				exists = TEU
+			}
+			TEU = {
+				add_country_modifier = {
+					name = rig_liv_morale_is_high
+					duration = 365
+				}
+			}
+		}
+		add_prestige_or_monarch_power = {
+			amount = 50
+		}
+		if = {
+			limit = { 
+				exists = NOV
+				NOV = {
+					NOT = {
+						OR = {
+							is_subject_of = root
+							war_with = root
+						}
+					}
+				}
+			}
+			declare_war_with_cb = {
+				casus_belli = cb_vassalize_mission
+				who = NOV
+			}
+		}
+		else_if = {
+			limit = { 
+				310 = {
+					NOT = {
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					owner = {
+						NOT = {
+							war_with = root
+						}
+					}
+				}
+			}
+			310 = {
+				owner = {
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_vassalize_mission
+							who = prev
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.46.bb
+		274 = {
+			change_controller = root
+		}
+		if = {
+			limit = { 
+				exists = LIV
+				LIV = {
+					is_subject_of = root
+				}
+			}
+			LIV = {
+				add_country_modifier = {
+					name = rig_liv_morale_is_high
+					duration = 365
+				}
+			}
+		}
+		if = {
+			limit = { 
+				exists = TEU
+			}
+			TEU = {
+				add_country_modifier = {
+					name = rig_liv_morale_is_high
+					duration = 365
+				}
+			}
+		}
+		add_mil_power = 100
+	}
+}
+country_event = {
+	id = rigaExpand.50
+	is_triggered_only = yes
+	title = rigaExpand.50.name
+	desc = rigaExpand.50.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+
+	option = {
+		name = rigaExpand.50.aa
+		add_treasury = -500
+		poland_region = {
+			add_permanent_claim = root
+		}
+		ruthenia_region = {
+			add_permanent_claim = root
+		}
+		rig_add_subject_modifier_effect = {
+			modifier = rig_poland_ruthenia_strategy
+			days = 3650
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.51
+	is_triggered_only = yes
+	title = rigaExpand.51.name
+	desc = rigaExpand.51.desc
+	picture = HARBOUR_eventPicture
+
+	option = {
+		name = rigaExpand.51.aa
+		rig_add_subject_modifier_effect = {
+			modifier = rig_advance_sloly_fight_quickly
+			days = 3650
+		}
+		add_mil_power = -100
+	}
+}
+country_event = {
+	id = rigaExpand.60
+	is_triggered_only = yes
+	title = rigaExpand.60.name
+	desc = rigaExpand.60.desc
+	picture = CITY_VIEW_eventPicture
+
+	option = {
+		name = rigaExpand.60.aa
+		hidden_effect = {
+			country_event = {
+				id = rigaExpand.61
+				days = 15
+			}
+			
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.61
+	is_triggered_only = yes
+	title = rigaExpand.61.name
+	desc = rigaExpand.61.desc
+	picture = COMET_SIGHTED_eventPicture
+
+
+	option = {
+		name = rigaExpand.61.aa
+		swap_non_generic_missions = yes
+	}
+}
+country_event = {
+	id = rigaExpand.70
+	is_triggered_only = yes
+	title = rigaExpand.70.name
+	desc = rigaExpand.70.desc
+
+	option = {
+		name = rigaExpand.70.aa
+		#custom_tooltip = rig_terra_mariana.tt
+
+		custom_tooltip = rigaExpand.70.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		capital_scope = {
+			add_building = EDG_road_network
+		}
+		hidden_effect = {
+			set_country_flag = EDG_enable_manpower_building_window_flag
+			set_variable = {
+				which = EDG_FRN_page
+				value = 1
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_idea_group = infrastructure_ideas
+					}
+				}
+				add_idea_group = infrastructure_ideas
+			}
+			# set_country_flag = rig_already_pre_for_world_city_project
+			# 38 = {
+			# 	#set_province_flag = rig_world_city_project_fulcrum_flag
+			# 	set_province_flag = compelete_buid_world_city_flag
+			# 	save_global_event_target_as = rig_world_city_project_fulcrum_target_1
+			# }
+			# 43 = {
+			# 	#set_province_flag = rig_world_city_project_fulcrum_flag
+			# 	set_province_flag = compelete_buid_world_city_flag
+			# 	save_global_event_target_as = rig_world_city_project_fulcrum_target_2
+			# }
+			# 272 = {
+			# 	#set_province_flag = rig_world_city_project_fulcrum_flag
+			# 	set_province_flag = compelete_buid_world_city_flag
+			# 	save_global_event_target_as = rig_world_city_project_fulcrum_target_3
+			# }
+			# set_variable = {
+			# 	which = world_city_project_investment_pool
+			# 	value = 2000
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_cost
+			# 	value = 100
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_speed
+			# 	value = 60
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_cost_1
+			# 	value = 0
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_cost_2
+			# 	value = 0
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_cost_3
+			# 	value = 0
+			# }
+			# set_variable = {
+			# 	which = world_city_project_base_develpment_total_cost
+			# 	value = 0
+			# }
+			country_event = {
+				id = rigaExpand.71
+				days = 5
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.71
+	is_triggered_only = yes
+	title = rigaExpand.71.name
+	desc = rigaExpand.71.desc
+	picture = CULTURE_eventPicture
+
+	option = {
+		name = rigaExpand.71.aa
+		add_country_modifier = {
+			name = rig_adm_system_of_riga
+			duration = -1
+		}
+		add_country_modifier = {
+			name = rig_military_system_of_riga
+			duration = -1
+		}
+		custom_tooltip = rig_riga_religious_dilemma.tt
+		hidden_effect = {
+			rig_add_subject_modifier_effect = {
+				modifier = rig_riga_religious_dilemma_subject
+				days = -1
+			}
+			country_event = {
+				id = rigaExpand.72
+				days = 5
+			}
+			if = {
+				limit = { 
+					current_age = age_of_reformation
+				}
+				country_event = {
+					id = rigExpandAction.50
+					days = 15
+				}
+			}
+		}
+		custom_tooltip = rigaExpand.71.aa.tt
+	}
+}
+country_event = {
+	id = rigaExpand.72
+	is_triggered_only = yes
+	title = rigaExpand.72.name
+	desc = rigaExpand.72.desc
+	picture = AULIC_COUNCIL_eventPicture
+
+	option = {
+		name = rigaExpand.72.aa
+		trigger = {
+			NOT = {
+				has_country_flag = rig_military_system_of_riga_reform
+			}
+		}
+		hidden_effect = {
+			set_country_flag = rig_military_system_of_riga_reform
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_government_mechanic = rig_government_mechanics
+				}
+			}
+			add_government_reform = rig_riga_archdiocese_reorganization_reform
+		}
+		swap_non_generic_missions = yes
+	}
+	option = {
+		name = rigaExpand.72.bb
+		trigger = {
+			NOT = {
+				has_country_flag = rig_adm_system_of_riga_reform
+			}
+		}
+		hidden_effect = {
+			set_country_flag = rig_adm_system_of_riga_reform
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_government_mechanic = rig_government_mechanics
+				}
+			}
+			add_government_reform = rig_riga_archdiocese_reorganization_reform
+		}
+		swap_non_generic_missions = yes
+	}
+}
+country_event = {
+	id = rigaExpand.73
+	is_triggered_only = yes
+	title = rigaExpand.73.name
+	desc = rigaExpand.73.desc
+
+	option = {
+		name = rigaExpand.73.aa
+	}
+}
+country_event = {
+	id = rigaExpand.74
+	is_triggered_only = yes
+	title = rigaExpand.74.name
+	desc = rigaExpand.74.desc
+
+	option = {
+		name = rigaExpand.74.aa
+		custom_tooltip = rigaExpand.74.aa.tt
+		hidden_effect = {
+			country_event = {
+				id = rigaExpand.75
+				days = 15
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.75
+	is_triggered_only = yes
+	title = rigaExpand.75.name
+	desc = rigaExpand.75.desc
+
+	option = {
+		name = rigaExpand.75.aa
+		hidden_effect = {
+			set_country_flag = rig_all_done
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.76
+	is_triggered_only = yes
+	title = rigaExpand.76.name
+	desc = rigaExpand.76.desc
+
+	option = {
+		name = rigaExpand.76.aa
+		custom_tooltip = rigaExpand.76.aa.tt
+		add_stability = -1
+		
+		hidden_effect = {
+			set_country_flag = rig_military_system_of_riga_reform_begin
+			swap_non_generic_missions = yes
+			every_subject_country = {
+				add_liberty_desire = 10
+			}
+			while = {
+				limit = { 
+					num_of_generals = 1
+				}
+				kill_leader = {
+					type = general
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.77
+	is_triggered_only = yes
+	title = rigaExpand.77.name
+	desc = rigaExpand.77.desc
+
+	option = {
+		name = rigaExpand.77.aa
+		hidden_effect = {
+			set_country_flag = rig_military_reorganization_flag
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_country_flag = riga_dawn_of_war_end_flag
+					has_country_modifier = mine_event_modifiers
+				}
+			}
+			custom_tooltip = rigaExpand.77.aa.tt
+			hidden_effect = {
+				capital_scope = {
+					for = {
+						amount = 35
+						effect = "
+							gaelic_free_shooter = root
+						"
+					}
+					for = {
+						amount = 15
+						effect = "
+							schwarze_reiter = root
+						"
+					}
+				}
+				swap_non_generic_missions = yes
+			}
+		}
+		else = {
+			hidden_effect = {
+				country_event = {
+					id = rigaExpand.87
+					days = 30
+				}
+			}
+		}
+		add_government_power = {
+			mechanic_type = rig_military_reform_mechanic
+			power_type = rig_military_reform
+			value = 10
+		}
+		add_country_modifier = {
+			name = rig_military_reorganization_modifier
+			duration = -1
+		}
+		add_subjects_development_manpower = {
+			multiplier = 0.05
+		}
+		
+	}
+}
+country_event = {
+	id = rigaExpand.78
+	is_triggered_only = yes
+	title = rigaExpand.78.name
+	desc = rigaExpand.78.desc
+
+
+	option = {
+		name = rigaExpand.78.aa
+		custom_tooltip = rigaExpand.78.aa.tt
+		hidden_effect = {
+			set_country_flag = rig_use_rig_mechanism_of_campaign
+		}
+	}
+
+	# option = { #那是不可能选这个选项的的
+	# 	custom_tooltip = rigaExpand.78.bb.tt
+	# 	name = rigaExpand.78.bb
+	# 	add_prestige_or_monarch_power = {
+	# 		amount = 10
+	# 	}
+	# }
+}
+country_event = {
+	id = rigaExpand.79
+	is_triggered_only = yes
+	title = rigaExpand.79.name
+	desc = rigaExpand.79.desc
+
+	option = {
+		name = rigaExpand.79.aa
+		custom_tooltip = rigaExpand.79.aa.tt
+		hidden_effect = {
+			set_country_flag = rig_use_more_army
+		}
+	}
+
+	option = {
+		name = rigaExpand.79.bb
+		custom_tooltip = rigaExpand.79.bb.tt
+		hidden_effect = {
+			set_country_flag = rig_use_less_army
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.80
+	is_triggered_only = yes
+	title = rigaExpand.80.name
+	desc = rigaExpand.80.desc
+
+	option = {
+		name = rigaExpand.80.aa
+		add_country_modifier = {
+			name = rig_new_army_of_riga
+			duration = -1
+		}
+		remove_country_modifier = rig_military_system_of_riga
+		remove_country_modifier = rig_military_reorganization_modifier
+		remove_country_modifier = rig_military_theory_innovation_modifier
+		remove_country_modifier = rig_promotion_of_new_talent_modifier
+		remove_country_modifier = rig_uniform_oreder_modifier_overlord
+		remove_country_modifier = rig_military_organization_reform_modifier
+		remove_country_modifier = rig_riga_steel_guardian_modifier
+	}
+}
+country_event = {
+	id = rigaExpand.81
+	is_triggered_only = yes
+	title = rigaExpand.81.name
+	desc = rigaExpand.81.desc
+	picture = GENERALS_DISCUSSING_eventPicture
+
+	option = {
+		name = rigaExpand.81.aa
+		if = {
+			limit = { 
+				has_country_flag = rig_use_more_army
+			}
+			add_country_modifier = {
+				name = rig_use_more_army_modifier_overlord
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = rig_use_more_army_flag
+			}
+			custom_tooltip = rigaExpand.81.aa.tt.1
+		}
+		else = {
+			add_country_modifier = {
+				name = rig_rig_use_less_army_modifier_overlord
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = rig_use_less_army_flag
+			}
+			custom_tooltip = rigaExpand.81.aa.tt.2
+		}
+		
+		# if = {
+		# 	limit = { 
+		# 		has_country_flag = rig_use_rig_mechanism_of_campaign
+		# 	}
+		# 	add_government_reform = rig_riga_campaig_planig_departmet_reform
+		# }
+		add_government_reform = rig_riga_campaig_planig_departmet_reform
+		hidden_effect = {
+			clr_country_flag = rig_use_more_army
+			clr_country_flag = rig_use_less_army
+			clr_country_flag = rig_use_rig_mechanism_of_campaign
+			set_country_flag = rig_treatise_on_campaigns_flag
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = rig_adm_system_of_riga_reform
+				}
+			}
+			country_event = {
+				id = RigaExpandSupplement.12
+			}
+		}
+		else = {
+			swap_non_generic_missions = yes
+		}
+		if = {
+			limit = { 
+				mission_completed = rig_concerning_civil_government
+			}
+			add_government_reform = rig_riga_archdiocese_reform
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = begin_rig_religion_reformation
+					}
+				}
+				country_event = {
+					id = rigExpandAction.50
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.82
+	is_triggered_only = yes
+	title = rigaExpand.82.name
+	desc = rigaExpand.82.desc
+	picture = ST_PETERS_CHURCH_eventPicture
+
+	option = {
+		name = rigaExpand.82.aa
+		change_price = {
+			trade_goods = paper
+			key = riga_papaer_need
+			value = 0.5
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.83
+	is_triggered_only = yes
+	title = rigaExpand.83.name
+	desc = rigaExpand.83.desc
+	picture = ST_PETERS_CHURCH_eventPicture
+
+	option = {
+		name = rigaExpand.83.aa
+	}
+}
+country_event = {
+	id = rigaExpand.84
+	is_triggered_only = yes
+	title = rigaExpand.84.name
+	desc = rigaExpand.84.desc
+	picture = ST_PETERS_CHURCH_eventPicture
+
+	option = {
+		name = rigaExpand.84.aa
+		
+	}
+}
+country_event = {
+	id = rigaExpand.85
+	is_triggered_only = yes
+	title = rigaExpand.85.name
+	desc = rigaExpand.85.desc
+	picture = ST_PETERS_CHURCH_eventPicture
+
+	option = {
+		name = rigaExpand.85.aa
+		add_government_power = {
+			mechanic_type = rig_administrative_reform_mechanic
+			power_type = rig_administrative_reform
+			value = 10
+		}
+		rig_every_subject_country_effect = {
+			effect = "
+				add_country_modifier = {
+					name = rig_administrative_restructuring_modifier
+					duration = 1825
+				}
+			"
+		}
+		hidden_effect = {
+			
+		}
+	}
+	option = {
+		name = rigaExpand.85.bb
+		add_government_power = {
+			mechanic_type = rig_administrative_reform_mechanic
+			power_type = rig_administrative_reform
+			value = 5
+		}
+		random_subject_country = {
+			limit = {
+				NOT = {
+					OR = {
+						is_subject_of_type = rig_trade_city
+						is_subject_of_type = tributary_state
+					}
+				}
+			}
+			add_country_modifier = {
+				name = rig_administrative_restructuring_modifier
+				duration = 720
+			}
+			set_country_flag = already_experience_rig_administrative_restructuring_modifier
+		}
+		hidden_effect = {
+			country_event = {
+				id = rigaExpand.86
+				days = 360
+			}
+		}
+	}
+	after = {
+		if = {
+			limit = { 
+				NOT = {
+					OR = {
+						has_country_modifier = mine_event_modifiers
+						has_country_flag = riga_dawn_of_war_end_flag
+					}
+				}
+				
+			}
+			country_event = {
+				id = rigaExpand.87
+				days = 30
+			}
+		}
+		else = {
+			swap_non_generic_missions = yes
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.86
+	is_triggered_only = yes
+	hidden = yes
+	title = none
+	desc = none
+
+	trigger = {
+		NOT = {
+			has_country_flag = already_begin_riga_dawn_of_war
+		}
+		any_subject_country = {
+			NOT = {
+				OR = {
+					has_country_flag = already_experience_rig_administrative_restructuring_modifier
+					is_subject_of_type = rig_trade_city
+					is_subject_of_type = tributary_state
+				}
+			}
+		}
+	}
+
+	immediate = {
+		random_subject_country = {
+			limit = {
+				NOT = {
+					OR = {
+						is_subject_of_type = rig_trade_city
+						is_subject_of_type = tributary_state
+					}
+				}
+			}
+			add_country_modifier = {
+				name = rig_administrative_restructuring_modifier
+				duration = 720
+			}
+			set_country_flag = already_experience_rig_administrative_restructuring_modifier
+		}
+		country_event = {
+			id = rigaExpand.86
+			days = 360
+		}
+	}
+
+	option = {}
+}
+country_event = {
+	id = rigaExpand.87
+	is_triggered_only = yes
+	title = rigaExpand.87.name
+	desc = rigaExpand.87.desc
+	picture = VILLAGE_BURNING_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			every_subject_country = {
+				if = {
+					limit = { 
+						has_country_modifier = rig_administrative_restructuring_modifier
+					}
+					remove_country_modifier = rig_administrative_restructuring_modifier
+				}
+				if = {
+					limit = { 
+						has_country_flag = already_experience_rig_administrative_restructuring_modifier
+					}
+					clr_country_flag = already_experience_rig_administrative_restructuring_modifier
+				}
+
+			}
+		}
+	}
+
+	option = {
+		name = rigaExpand.87.aa
+		38 = {
+			add_base_tax = -20
+			add_base_production = -15
+			add_base_manpower = -15
+			add_devastation = 5
+		}
+		add_years_of_income = -0.5
+		hidden_effect = {
+			country_event = {
+				id = RigaExpandSupplement.6
+				days = 30
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.88
+	is_triggered_only = yes
+	title = rigaExpand.88.name
+	desc = rigaExpand.88.desc
+	picture = DEFENESTRATION_PRAGUE_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { 
+					any_subject_country = {
+						total_development = 200
+						NOT = {
+							is_subject_of_type = rig_knightage_vissal
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = SWE
+						SWE = {
+							is_subject_of_type = rig_episcopal_military_district
+							total_development = 200
+						}
+					}
+					SWE = {
+						save_global_event_target_as = riga_rebel_target
+						set_country_flag = riga_can_not_rebuild_fsd
+					}
+				}
+				else_if = {
+					limit = { 
+						any_subject_country = {
+							is_subject_of_type = rig_episcopal_military_district
+							total_development = 200
+						}
+					}
+					random_subject_country = {
+						limit = {
+							is_subject_of_type = rig_episcopal_military_district
+							total_development = 200
+						}
+						save_global_event_target_as = riga_rebel_target
+						set_country_flag = riga_can_not_rebuild_fsd
+					}
+				}
+				else_if = {
+					limit = {
+						any_subject_country = {
+							total_development = 200
+							NOT = {
+								is_subject_of_type = rig_knightage_vissal
+							}
+						}
+					}
+					random_subject_country = {
+						limit = {
+							NOT = {
+								is_subject_of_type = rig_knightage_vissal
+							}
+							total_development = 200
+						}
+						save_global_event_target_as = riga_rebel_target
+						set_country_flag = riga_can_not_rebuild_fsd
+					}
+				}
+				country_event = {
+					id = RigaExpandSupplement.7
+					days = 5
+				}
+			}
+			else = {
+				country_event = {
+					id = rigaExpand.89
+					days = 10
+				}
+			}
+			else = {
+				country_event = {
+					id = rigaExpand.89
+					days = 10
+				}
+			}
+		}
+	}
+
+	option = {
+		name = rigaExpand.88.aa
+		tooltip = {
+			add_stability = -1
+			if = {
+				limit = { 
+					any_subject_country = {
+						total_development = 200
+					}
+				}
+				country_event = {
+					id = RigaExpandSupplement.7
+					days = 5
+				}
+			}
+			else = {
+				country_event = {
+					id = rigaExpand.89
+					days = 10
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.89
+	is_triggered_only = yes
+	title = rigaExpand.89.name
+	desc = rigaExpand.89.desc
+
+	option = {
+		name = rigaExpand.89.aa
+		hidden_effect = {
+			clear_global_event_target = riga_rebel_target
+		}
+		swap_non_generic_missions = yes
+	}
+}
+country_event = {
+	id = rigaExpand.90
+	is_triggered_only = yes
+	title = rigaExpand.90.name
+	desc = rigaExpand.90.desc
+	picture = RELIGION_eventPicture
+
+	option = {
+		name = rigaExpand.90.aa
+		every_subject_country = {
+			limit = {
+				OR = {
+					is_subject_of_type = rig_episcopal_administrative_district
+					is_subject_of_type = rig_episcopal_economic_district
+					is_subject_of_type = rig_episcopal_military_district
+				}
+			}
+			add_government_reform = rig_leading_clergy_reform
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.91
+	is_triggered_only = yes
+	title = rigaExpand.91.name
+	desc = rigaExpand.91.desc
+	picture = FARMING_eventPicture
+
+	option = {
+		name = rigaExpand.91.aa
+		every_subject_country = {
+			limit = {
+				is_subject_of_type = rig_knightage_vissal
+			}
+			add_government_reform = rig_knights_of_apologetics_reform
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.100
+	is_triggered_only = yes
+	title = rigaExpand.100.name
+	desc = rigaExpand.100.desc
+
+	trigger = {
+		NOT = {
+			mission_completed = rig_greate_north_war
+		}
+	}
+
+	option = {
+		name = rigaExpand.100.aa
+		every_country = {
+			limit = {
+				war_with = root
+			}
+			white_peace = root
+		}
+		every_subject_country = {
+			add_liberty_desire = 200
+		}
+		add_prestige = -100
+		add_stability = -6
+	}
+}
+country_event = {
+	id = rigaExpand.101
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { 
+				active_imperial_incident = any
+			}
+			country_event = {
+				id = rigaExpand.101
+				days = 30
+			}
+		}
+		else = {
+			set_country_flag = incident_north_german_trade_war_begin
+			set_imperial_incident = incident_north_german_trade_war
+			country_event = {
+				id = rigaExpand.103
+				days = 370
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	id = rigaExpand.102
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		join_trade_league = RIG
+	}
+	option = {
+	}
+}
+country_event = {
+	id = rigaExpand.103
+	is_triggered_only = yes
+	title = rigaExpand.34.name
+	desc = rigaExpand.34.desc
+	picture = CIVIL_WAR_eventPicture
+	major = yes
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_flag = rigaExpandIncident_0_aa
+				has_country_flag = rigaExpandIncident_0_bb
+				has_country_flag = rigaExpandIncident_0_cc
+				active_imperial_incident = incident_north_german_trade_war
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = rigaExpandIncident_0_aa
+		}
+	}
+	
+	option = {
+		name = rigaExpand.34.aa
+		custom_tooltip = rigaExpand.34.aa.tooltip
+		remove_country_modifier = rig_hansa_league_goods_output_modifier
+		rig_replace_subject_modifier_effect = {
+			remove_modifier = rig_add_subject_modifier_effect
+			add_modifier = rig_north_german_trade_bttle_rig_subject_modifier
+			days = 1825
+		}
+		emperor = {
+			declare_war_with_cb = {
+				casus_belli = cb_trade_war
+				who = RIG
+			}
+		}
+		hidden_effect = {
+			every_known_country = {
+				limit = {
+					is_emperor = no
+					OR = {
+						is_in_trade_league_with = HSA
+						has_country_flag = rig_north_german_trade_war_support_HSA
+					}
+				}
+				join_all_offensive_wars_of = emperor
+			}
+			HSA = {
+				join_all_offensive_wars_of = emperor
+			}
+			every_known_country = {
+				limit = {
+					NOT = {
+						OR = {
+							tag = root
+							is_emperor = yes
+						}
+					}
+					OR = {
+						is_in_trade_league_with = root
+						has_country_flag = rig_north_german_trade_war_support_RIG
+					}
+				}
+				join_all_defensive_wars_of = root
+			}
+		}
+	}
+	option = {
+		name = rigaExpand.34.bb
+		custom_tooltip = rigaExpand.34.bb.tt
+		white_peace = emperor
+		add_prestige = -50
+		remove_country_modifier = rig_hansa_league_goods_output_modifier
+		rig_remove_subject_modifier_effect = {
+			modifier = rig_hansa_league_mercantile_modifier
+		}
+		hidden_effect = {
+			set_country_flag = rig_submit_to_the_emperor
+			every_known_country = {
+				limit = {
+					OR = {
+						has_country_modifier = rig_riga_hansa_trade_conflict_normal
+						has_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+						has_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+						has_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_normal
+				remove_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+				remove_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+				remove_country_modifier = rig_riga_hansa_trade_conflict_out_of_control
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.110
+	is_triggered_only = yes
+	title = rigaExpand.110.name
+	desc = rigaExpand.110.desc
+	picture = BIG_BOOK_eventPicture
+
+	option = {
+		name = rigaExpand.110.aa
+		add_adm_power = -50
+		add_papal_influence = -50
+	}
+}
+country_event = {
+	id = rigaExpand.111
+	is_triggered_only = yes
+	title = rigaExpand.111.name
+	desc = rigaExpand.111.desc
+	picture = CIVIL_WAR_eventPicture
+
+	option = {
+		name = rigaExpand.111.aa
+		hidden_effect = {
+			set_country_flag = begin_crusade_of_the_far_east
+			set_country_flag = rig_be_ready_for_battle_flag
+			swap_non_generic_missions = yes
+		}
+	}
+	option = {
+		name = rigaExpand.111.bb
+		hidden_effect = {
+			set_country_flag = begin_crusade_of_the_sourth
+			set_country_flag = rig_be_ready_for_battle_flag
+			swap_non_generic_missions = yes
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.112
+	is_triggered_only = yes
+	title = rigaExpand.112.name
+	desc = rigaExpand.112.desc
+	picture = CIVIL_WAR_eventPicture
+
+	option = {
+		name = rigaExpand.112.aa
+		swap_non_generic_missions = yes
+		every_country = {
+			limit = {
+				OR = {
+					capital_scope = {
+						OR = {
+							region = central_asia_region
+							region = ural_region
+							region = crimea_region
+							region = caucasia_region
+							region = west_siberia_region
+						}
+					}
+				}
+				NOT = {
+					OR = {
+						alliance_with = root
+						is_in_trade_league_with = root
+						guaranteed_by = root
+						is_subject = yes
+					}
+				}
+			}
+			root = {
+				declare_war_with_cb = {
+					casus_belli = cb_greate_war_of_riga_conquer_provice
+					who = prev
+				}
+			}
+		}
+		custom_tooltip = rigaExpand.112.aa.tt
+		if = {
+			limit = { 
+				has_country_flag = rig_use_lightning_war
+			}
+			add_country_modifier = {
+				name = rig_use_lightning_war_modifier
+				duration = 1825
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = rig_use_protracted_war
+			}
+			add_country_modifier = {
+				name = rig_use_protracted_war_modifier
+				duration = 1825
+			}
+		}
+		if = {
+			limit = { 
+				has_country_flag = rig_use_more_supplies
+			}
+			add_country_modifier = {
+				name = rig_use_more_supplies_modifier
+				duration = 1825
+			}
+		}
+		else_if = {
+			limit = {
+				has_country_flag = rig_use_faster_replenishment
+			}
+			add_country_modifier = {
+				name = rig_use_faster_replenishment_modifier
+				duration = 1825
+			}
+		}
+		custom_tooltip = rig_add_modifier_for_subject_and_self
+		hidden_effect = {
+			every_subject_country = {
+				limit = {
+					NOT = {
+						OR = {
+							is_subject_of_type = rig_trade_city
+							is_subject_of_type = tributary_state
+						}
+					}
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = rig_use_lightning_war
+						}
+					}
+					add_country_modifier = {
+						name = rig_use_lightning_war_modifier
+						duration = 1825
+					}
+				}
+				else_if = {
+					limit = {
+						root = {
+							has_country_flag = rig_use_protracted_war
+						}
+					}
+					add_country_modifier = {
+						name = rig_use_protracted_war_modifier
+						duration = 1825
+					}
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = rig_use_more_supplies
+						}
+					}
+					add_country_modifier = {
+						name = rig_use_more_supplies_modifier
+						duration = 1825
+					}
+				}
+				else_if = {
+					limit = {
+						root = {
+							has_country_flag = rig_use_faster_replenishment
+						}
+					}
+					add_country_modifier = {
+						name = rig_use_faster_replenishment_modifier
+						duration = 1825
+					}
+				}
+			}
+			
+			464 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			1082 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			454 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			1075 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			419 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = rigaExpand.113
+	is_triggered_only = yes
+	title = rigaExpand.113.name
+	desc = rigaExpand.113.desc
+	picture = CIVIL_WAR_eventPicture
+
+	option = {
+		name = rigaExpand.113.aa
+		swap_non_generic_missions = yes
+		every_country = {
+			limit = {
+				OR = {
+					capital_scope = {
+						OR = {
+							region = balkan_region
+							region = anatolia_region
+							region = mashriq_region
+							region = egypt_region
+						}
+					}
+				}
+				NOT = {
+					OR = {
+						alliance_with = root
+						is_in_trade_league_with = root
+						guaranteed_by = root
+						AND = {
+							is_subject = yes
+							NOT = {
+								is_subject_of_type = tributary_state
+							}
+						}
+					}
+				}
+			}
+			root = {
+				declare_war_with_cb = {
+					casus_belli = cb_greate_war_of_riga_conquer_provice
+					who = prev
+				}
+			}
+		}
+		custom_tooltip = rigaExpand.113.aa.tt
+		hidden_effect = {
+			151 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			2313 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			379 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+					
+				}
+			}
+			358 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			410 = {
+				owner = {
+					if = {
+						limit = { 
+							NOT = {
+								OR = {
+									alliance_with = root
+									is_in_trade_league_with = root
+									guaranteed_by = root
+									AND = {
+										is_subject = yes
+										NOT = {
+											is_subject_of_type = tributary_state
+										}
+									}
+									war_with = root
+								}
+							}
+						}
+						root = {
+							declare_war_with_cb = {
+								casus_belli = cb_greate_war_of_riga_conquer_provice
+								who = prev
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+country_event = { #展示第一幕任务
+	id = rigaExpand.500
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		set_country_flag = rig_begin_greate_north_war
+		set_country_flag = compelte_rig_baltic_union_flag
+		set_country_flag = compelte_rig_under_the_sword_flag
+		set_country_flag = compele_rig_riga_conference
+		set_country_flag = begin_deal_self_regard
+		set_country_flag = begin_deal_with_north
+		set_country_flag = begin_deal_with_east_and_west
+		set_country_flag = begin_deal_with_south
+		set_country_flag = tall_riga_mission_flag
+		set_country_flag = rig_military_system_of_riga_reform
+		set_country_flag = rig_adm_system_of_riga_reform
+		set_country_flag = rig_adm_system_of_riga_reform_begin
+		set_country_flag = rig_military_system_of_riga_reform_begin
+		set_country_flag = rig_administrative_restructuring_flag
+		set_country_flag = rig_diocesan_renovation_ordinace_flag
+		set_country_flag = rig_second_allegiance_act_flag
+		set_country_flag = rig_second_association_act_flag
+		set_country_flag = rig_concerning_civil_government_flag
+		set_country_flag = rig_learning_thought_flag
+		set_country_flag = rig_uniform_oreder_flag
+		set_country_flag = rig_border_brave_army_flag
+		set_country_flag = rig_scour_the_bureaucracy_flag
+		set_country_flag = rig_clarify_responsibilities_flag
+		set_country_flag = rig_each_performs_its_owned_functions_flag
+		set_country_flag = rig_military_theory_innovation_flag
+		set_country_flag = rig_military_organization_reform_flag
+		set_country_flag = rig_military_joint_exercise_flag
+		set_country_flag = rig_treatise_on_campaigns_flag
+		set_country_flag = rig_military_reorganization_flag
+		set_country_flag = rig_shield_of_south_flag
+		set_country_flag = rig_stabilization_act_flag
+		set_country_flag = rig_resistance_act_flag
+		set_country_flag = rig_propaganda_act_flag
+		set_country_flag = rig_statute_of_religious_unity_flag
+		set_country_flag = begin_rig_religion_reformation
+		swap_non_generic_missions = yes
+	}
+	option = {
+	}
+}
+country_event = { #展示第二幕任务
+	id = rigaExpand.501
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		set_country_flag = rig_second_mission_tree
+		set_country_flag = rig_lift_the_curtain_flag
+		set_country_flag = begin_crusade_of_the_sourth
+		set_country_flag = rig_be_ready_for_battle_flag
+		set_country_flag = begin_crusade_of_the_far_east
+		set_country_flag = rig_southern_strategy_flag
+		set_country_flag = rig_far_east_area_flag
+		set_country_flag = rig_great_victory_in_the_east_flag
+		set_country_flag = rig_return_to_the_holy_land_flag
+		set_country_flag = rig_across_the_bosphorus_flag
+		set_country_flag = rig_steady_front_flag
+		set_country_flag = rig_the_gift_of_the_nile_flag
+		set_country_flag = rig_in_the_sand_flag
+		set_country_flag = rig_patrol_the_mountains_flag
+		set_country_flag = rig_eastern_entrance_flag
+		set_country_flag = rig_western_passage_flag
+		set_country_flag = rig_look_far_into_the_distance_flag
+		set_country_flag = rig_connection_origin_flag
+		set_country_flag = rig_siberian_trade_route_flag
+		set_country_flag = rig_everything_is_ready_flag
+		swap_non_generic_missions = yes
+	}
+	option = {
+	}
+}
+country_event = { #展示第三幕任务
+	id = rigaExpand.502
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		set_country_flag = rig_third_mission_tree
+		set_country_flag = rig_universal_declaration_flag
+		set_country_flag = rig_last_mission_flag
+		swap_non_generic_missions = yes
+	}
+	option = {
+	}
+}

@@ -1,0 +1,199 @@
+EDG_FOI_SPA_generic_mission_tag_trigger = {
+    OR = {
+		tag = ASU
+		tag = GAL
+		tag = NAV
+		#tag = ADC
+		tag = ETM
+		tag = CAS
+		tag = VAL
+		tag = CAT
+		tag = ARA
+		tag = PRT
+		tag = ZRZ
+		tag = CLT
+		tag = ARC
+		tag = SRA
+		#tag = MJO
+		# AND = {
+		# 	OR = {
+		# 		tag = SPA
+		# 		tag = IBR
+		# 		tag = USP
+		# 		tag = GSP
+		# 	}
+		# 	OR = {
+		# 		primary_culture = castillian
+		# 		primary_culture = leonese
+		# 		primary_culture = galician
+		# 		primary_culture = basque
+		# 		primary_culture = andalucian
+		# 	}
+		# }
+    }
+	is_subject = no
+}
+EDG_FOI_ADU_generic_mission_tag_trigger = {
+	OR = {
+		tag = GRA
+		AND = {
+			tag = BDH
+			religion_group = muslim
+		}
+		tag = SVL
+		tag = CIE
+		tag = MUC
+		tag = TLD
+	}
+	is_subject = no
+}
+EDG_FOI_conquer_mission_common_trigger = {
+	all_owned_province = {
+		is_core = root
+	}
+	is_subject = no
+	is_at_war = no
+	[[province_1]
+		$province_1$ = {
+			OR = {
+				country_or_non_sovereign_subject_holds = root
+				owner = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				owner = {
+					has_spy_network_from = {
+						who = root
+						value = 20
+					}
+				}
+			}
+		}
+	]
+	[[province_2]
+		$province_2$ = {
+			OR = {
+				country_or_non_sovereign_subject_holds = root
+				owner = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				owner = {
+					has_spy_network_from = {
+						who = root
+						value = 20
+					}
+				}
+			}
+		}
+	]
+	[[province_3]
+		$province_3$ = {
+			OR = {
+				country_or_non_sovereign_subject_holds = root
+				owner = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				owner = {
+					has_spy_network_from = {
+						who = root
+						value = 20
+					}
+				}
+			}
+		}
+	]
+}
+EDG_FOI_rebuild_mission_common_trigger = {
+	EDG_FOI_SPA_generic_mission_tag_trigger = yes
+}
+EDG_common_elections_trigger = {
+	NOT = {
+		OR = {
+			has_government_attribute = use_congress_of_the_commune
+			#has_government_attribute = weimar_ban_elections
+			has_ruler_flag = EDG_thomas_meisen_flag
+			has_reform = EDG_SWI_swi_state_subject
+			has_reform = EDG_GEN_chartered_bank_reform
+		}
+	}
+}
+EDG_FOI_UCI_UI_select_trait_trigger = {
+	if = {
+		limit = { 
+			NOT = {
+				OR = {
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_1_flag
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_2_flag
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_3_flag
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = FOI_UCI_UI_please_select_a_slot
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_3_flag
+			}
+		}
+	}
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_1_flag
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_2_flag
+				has_country_flag = FOI_UCI_UI_court_trait_select_button_3_flag
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = FOI_UCI_UI_has_select_this_trait
+			if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_1_flag
+				}
+				NOT = {
+					OR = {
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_2_flag
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_3_flag
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_2_flag
+				}
+				NOT = {
+					OR = {
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_1_flag
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_3_flag
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = FOI_UCI_UI_court_trait_select_button_3_flag
+				}
+				NOT = {
+					OR = {
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_2_flag
+						has_country_flag = FOI_UCI_UI_court_trait_button_$serial$_1_flag
+					}
+				}
+			}
+		}
+	}
+	[[use_empirical]
+		check_variable = {
+			which = EDG_FOI_UCI_empirical_value
+			value = 200
+		}
+	]
+}

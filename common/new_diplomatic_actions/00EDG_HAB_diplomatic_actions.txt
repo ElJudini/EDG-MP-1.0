@@ -1,0 +1,224 @@
+
+EDG_Transforming_into_vassal_state_action = {#转变为附庸国
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_into_vassal_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		FROM = {
+			is_subject_of = ROOT
+			OR = {
+				is_subject_of_type = EDG_HRE_vassal
+				is_subject_of_type = EDG_SAX_march
+				is_subject_of_type = EDG_HRE_march
+				is_subject_of_type = EDG_USP_crown_territory
+				is_subject_of_type = EDG_BRI_march
+			}
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { FROM = { is_subject_of_type = EDG_USP_crown_territory } }
+			remove_country_modifier = EDG_Transforming_into_crown_territory_state_action_in_50_years_modifier
+		}
+		create_subject = { subject_type = vassal subject = FROM }
+		
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.75
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		all_country = {
+			OR = {
+				NOT = { is_subject_of = ROOT }
+				NOT = { is_subject_of_type = vassal }
+			}
+		}
+		dip = 3
+		NOT = { has_country_modifier = annexers_legacy }
+		from = {
+			not = { tag = USP }
+		}
+    }
+}
+
+EDG_HAB_personal_union_state_action = {#要求成为哈布斯堡联统国
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+#可以获取的哈布斯堡联统国上限
+#任务：帝国枢密院
+#任务：属国治理
+#改革：建立帝国枢密院
+#改革：哈布斯堡开明专制
+#灾难：哈布斯堡君主国的分裂
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_government_attribute = EDG_HAB_monarchy_ability_2
+		FROM = {
+			is_subject_of = ROOT
+			is_subject_of_type = personal_union
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = EDG_HAB_personal_union subject = FROM }
+		create_subject = { subject_type = EDG_HAB_personal_union subject = FROM }
+		FROM = {
+			change_country_color = {
+				color = { 230  230  230 }
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+        always = no
+    }
+}

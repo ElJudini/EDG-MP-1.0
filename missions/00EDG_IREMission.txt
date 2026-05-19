@@ -1,0 +1,2453 @@
+EDG_IRE_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = IRE
+			tag = ABN
+		}
+	} 
+
+	EDG_IRE_mission_3_1 = {
+		icon = mission_end_arakan_piracy
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			dip_power = 200
+			has_dip_advisor = yes
+			NOT = {
+				has_disaster = EDG_IRE_government_war
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = EDG_IRE_mission_3_1.effect.tt
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			add_country_modifier = {
+				name = EDG_IRE_handle_external_affairs
+				duration = 7300
+			}
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+			hidden_effect = {
+				every_rival_country = {
+					add_truce_with = root	
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_2 = {
+		icon = mission_monarch_in_throne_room
+		position = 2
+		required_missions = { EDG_IRE_mission_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			has_disaster = EDG_IRE_government_war
+			dip_power = 50
+			mil_power = 50
+		} 
+
+		effect = {  
+			add_adm_power = 100
+			add_dip_power = -50
+			add_mil_power = -50
+			add_yearly_manpower = 1
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+				name = EDG_IRE_counterinsurgency
+				duration = 3650
+			}
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_3 = {
+		icon = mission_coromandel_expansion
+		position = 3
+		required_missions = { EDG_IRE_mission_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_IRE_mission_3_3.condition.tt
+				has_country_flag = EDG_IRE_government_war_end_flag
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = { 
+					has_country_flag = EDG_Ireland_monarchy_flag
+				}
+				
+				add_legitimacy = 10
+				custom_tooltip = EDG_IRE_mission_3_3.monarchy.tt
+				hidden_effect = {
+					every_owned_province = {
+						add_local_autonomy = -10
+					}
+				}
+				add_country_modifier = {
+					name = EDG_IRE_strengthen_high_king
+					duration = 18250
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = EDG_Ireland_sobor_flag
+				}
+				add_adm_power = 200
+				add_dip_power = 200
+				add_mil_power = 200
+				add_country_modifier = {
+					name = EDG_IRE_strengthen_parliament
+					duration = 18250
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_3.effect.tt
+			}
+			custom_tooltip = EDG_IRE_mission_remove_core.effect.tt
+			change_estate_land_share = {
+				estate = all
+				share = -10
+			}
+			add_stability_or_adm_power = yes
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+			hidden_effect = {
+				EDG_remove_core_effect = {
+					limit = "
+						EDG_in_ireland_region = yes
+					"
+					owner = root
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_4 = {
+		icon = mam_harness_spice_trade
+		position = 4
+		provinces_to_highlight = { 
+			owned_by = SCO
+		} 
+
+		trigger = { 
+			is_at_war = no
+			OR = {
+				SCO = {
+					is_rival = root
+				}
+				root = {
+					is_rival = SCO
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_IRE_mission_3_3.condition.tt
+				has_country_flag = EDG_IRE_government_war_end_flag
+			}
+			owns = 4121
+			owns = 373
+		}
+
+		effect = {
+			if = {
+				limit = { 
+					4121 = {
+						is_capital_of = root
+					}
+					has_country_flag = EDG_IRE_government_war_end_flag	
+				}
+				country_event = {
+					id = EDG_IREEvents.5
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_4.condition.tt
+				if = {
+					limit = {
+						has_country_flag = EDG_IRE_government_war_end_flag
+						owns = 4378 
+						4378 = {
+							has_building = fort_15th
+						}
+						4121 = {
+							NOT = {
+								has_building = fort_15th
+							}
+						}
+					}
+					4378 = {
+						remove_building = fort_15th
+					}
+					4121 = {
+						add_building = fort_15th
+						add_province_modifier = {
+							name = EDG_IRE_consolidate_the_front_line_1
+							duration = -1
+						}
+					}
+					
+				}
+				else_if = {
+					limit = {
+						has_country_flag = EDG_IRE_government_war_end_flag
+						4121 = {
+							has_building = fort_15th
+						}
+					}
+					4121 = {
+						add_province_modifier = {
+							name = EDG_IRE_consolidate_the_front_line_1
+							duration = -1
+						}
+					}
+				}
+				else = {
+					custom_tooltip = EDG_IRE_mission_3_4_fort.effect.tt
+					4121 = {
+						add_province_modifier = {
+							name = EDG_IRE_consolidate_the_front_line_2
+							duration = -1
+						}
+					}
+				}
+			}
+			
+			
+		} 
+	}
+
+	EDG_IRE_mission_3_5 = {
+		icon = mission_unite_home_region
+		position = 5
+		required_missions = { EDG_IRE_mission_3_4 } 
+		provinces_to_highlight = {
+			owned_by = SCO
+			owner = {
+				NOT = {
+					has_spy_network_from = {
+						who = root
+						value = 30
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				NOT = {
+					exists = SCO
+				}
+				AND = {
+					exists = SCO
+					SCO = {
+						has_spy_network_from = {
+							who = root
+							value = 30
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					ai = yes
+				}
+				if = {
+					limit = { 
+						exists = SCO
+					}
+					SCO = {
+						is_at_war = yes
+						NOT = {
+							war_with = root
+						}
+					}
+				}
+				else = {
+					mission_completed = EDG_IRE_mission_2_3
+				}
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_IRE_action_together
+				}
+				if = {
+					limit = { 
+						exists = WLS
+						WLS = {
+							is_subject = no
+						}
+					}
+					WLS = {
+						NOT = {
+							has_truce = SCO
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = BRI
+					}
+					BRI = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+				}
+				army_size_percentage = 0.8
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = EDG_IRE_action_alone
+				}
+				army_size_percentage = 0.9
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = EDG_IRE_mission_3_5.condition.tt
+					mission_completed = EDG_IRE_mission_3_4
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					mission_completed = EDG_IRE_mission_3_4
+					exists = SCO
+				}
+				country_event = {
+					id = EDG_IREEvents.6
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_5_event.effect.tt
+				kingdom_of_the_isles_area = {
+					limit = {
+						NOT = { owned_by = root }
+						NOT = { is_permanent_claim = root }
+					}
+					add_permanent_claim = root
+				}
+				highlands_area = {
+					limit = {
+						NOT = { owned_by = root }
+						NOT = { is_permanent_claim = root }
+					}
+					add_permanent_claim = root
+				}
+				lowlands_area = {
+					limit = {
+						NOT = { owned_by = root }
+						NOT = { is_permanent_claim = root }
+					}
+					add_permanent_claim = root
+				}
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_6 = {
+		icon = mission_rb_into_ireland
+		position = 6
+		required_missions = { EDG_IRE_mission_3_5 } 
+		provinces_to_highlight = {
+			OR = {
+				area = kingdom_of_the_isles_area
+				area = highlands_area
+				area = lowlands_area
+				owned_by = SCO
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					kingdom_of_the_isles_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+					highlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+					lowlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				AND = {
+					NOT = {
+						exists = SCO
+					}
+					owns = 248
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = SCO
+					}
+					owns = 248
+				}
+				country_event = {
+					id = EDG_IREEvents.10
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_6.event.effect.tt
+				kingdom_of_the_isles_area = {
+					limit = {
+						owned_by = root
+					}
+					add_devastation = -100
+					add_nationalism = -20
+				}
+				highlands_area = {
+					limit = {
+						owned_by = root
+					}
+					add_devastation = -100
+					add_nationalism = -20
+				}
+				lowlands_area = {
+					limit = {
+						owned_by = root
+					}
+					add_devastation = -100
+					add_nationalism = -20
+				}
+			}
+			if = {
+				limit = { 
+					mission_completed = EDG_IRE_mission_3_5
+					exists = ENG
+				}
+				add_casus_belli = {
+					type = cb_annex
+					target = ENG
+					months = 240
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_6.give_cb_annex.effect.tt
+			}
+			british_isles_region = {
+				limit = {
+					NOT = { owned_by = root }
+					NOT = { is_permanent_claim = root }
+				}
+				add_permanent_claim = root
+			}
+			hidden_effect = {
+				clr_country_flag = EDG_IRE_get_ready_light_war
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_7 = {
+		icon = the_fountain_of_youth
+		position = 7
+		required_missions = { EDG_IRE_mission_3_6 } 
+		provinces_to_highlight = {
+			OR = {
+				area = scottish_marches_area
+				area = yorkshire_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			scottish_marches_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			yorkshire_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_IRE_administrative_integration
+				duration = 7300
+			}
+			scottish_marches_area = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+			}
+			yorkshire_area = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_8 = {
+		icon = defeat_the_english
+		position = 8
+		required_missions = {
+			EDG_IRE_mission_1_7
+			EDG_IRE_mission_3_7
+			EDG_IRE_mission_5_7
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = home_counties_area
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				AND = {
+					province_id = 236
+					NOT = {
+						owned_by = root
+					}
+				}
+			}	
+		}
+
+		trigger = {
+			home_counties_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			owns = 236
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = ENG
+					}
+				}
+				country_event = {
+					id = EDG_IREEvents.15
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_8.event.tt
+				236 = {	
+					change_culture = ROOT
+					change_religion = ROOT
+					add_base_tax = 1
+					add_base_production = 2
+					add_base_manpower = 1
+					EDG_IRE_change_236_name_effect = yes
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_9 = {
+		icon = mission_rb_rule_britannia_irish_version
+		position = 9
+		required_missions = { EDG_IRE_mission_3_8 } 
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				EDG_in_ireland_region = yes
+				value = 200
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_IRE_crown_of_ireland
+				duration = -1
+			}
+			munster_area = {
+				limit = {
+					owned_by = root
+				}
+				add_base_tax = 1
+				add_manpower = 1
+				add_base_production = 1
+				add_province_modifier = {
+					name = EDG_IRE_emerald_island
+					duration = -1
+				}
+			}
+			connacht_area = {
+				limit = {
+					owned_by = root
+				}
+				add_base_tax = 1
+				add_manpower = 1
+				add_base_production = 1
+				add_province_modifier = {
+					name = EDG_IRE_emerald_island
+					duration = -1
+				}
+			}
+			leinster_area = {
+				limit = {
+					owned_by = root
+				}
+				add_base_tax = 1
+				add_manpower = 1
+				add_base_production = 1
+				add_province_modifier = {
+					name = EDG_IRE_emerald_island
+					duration = -1
+				}
+			}
+			ulster_area = {
+				limit = {
+					owned_by = root
+				}
+				add_base_tax = 1
+				add_manpower = 1
+				add_base_production = 1
+				add_province_modifier = {
+					name = EDG_IRE_emerald_island
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_3_10 = {
+		icon = mission_rb_rule_britannia_scottish_version
+		position = 10
+		required_missions = { EDG_IRE_mission_3_9 } 
+		provinces_to_highlight = {
+			region = british_isles_region
+		} 
+
+		trigger = {
+			british_isles_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_IRE_mission_3_10.effect.tt
+			hidden_effect = {
+				clr_ruler_flag = EDG_IRE_long_cherished_wish_flag
+				set_country_flag = EDG_IRE_mission_3_10_flag
+			}
+			if = {
+				limit = { 
+					has_country_modifier = EDG_IRE_crown_of_ireland
+					has_country_modifier = EDG_IRE_crown_of_scotland
+					has_country_modifier = EDG_IRE_crown_of_england
+				}
+				custom_tooltip = EDG_IRE_mission_3_10.new.effect.tt
+				set_country_flag = EDG_IRE_enable_abn_union_of_kingdom_flag
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_3_10.event.effect.tt
+			}
+		} 
+	}
+}
+EDG_IRE_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = IRE
+			tag = ABN
+		}
+	} 
+
+	EDG_IRE_mission_1_1 = {
+		icon = mission_alliances
+		position = 1
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = WLS
+				owned_by = BRI
+			}
+			owner = {
+				NOT = {
+					OR = {
+						alliance_with = root
+						has_opinion = {
+							who = root
+							value = 75
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = { 
+					exists = WLS
+				}
+				NOT = {
+					is_rival = WLS
+				}
+				OR = {
+					alliance_with = WLS
+					WLS = {
+						OR = {
+							has_opinion = {
+								who = root
+								value = 75
+							}
+							is_rival = root
+						}
+					}
+				}
+			}
+			if = {
+				limit = { 
+					exists = BRI
+				}
+				NOT = {
+					is_rival = BRI
+				}
+				OR = {
+					alliance_with = BRI
+					BRI = {
+						OR = {
+							has_opinion = {
+								who = root
+								value = 75
+							}
+							is_rival = root
+						}
+					}
+				}
+			}
+		} 
+
+		effect = { 
+			if = {
+				limit = { 
+					OR = {
+						WLS = {
+							is_rival = root
+						}
+						BRI = {
+							is_rival = root
+						}
+					}
+				}
+				if = {
+					limit = { 
+						WLS = {
+							is_rival = root
+						}
+					}
+					WLS = {
+						remove_rival = root
+						
+					}
+				}
+				if = {
+					limit = { 
+						BRI = {
+							is_rival = root
+						}
+					}
+					BRI = {
+						remove_rival = root
+						
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_1_1.remove_rival_effect.tt
+			}
+			if = {
+				limit = { 
+					alliance_with = BRI
+					alliance_with = WLS
+				}
+				BRI = {
+					add_trust = {
+						who = root
+						value = 10
+					}
+					add_favors = {
+						who = root
+						amount = 10
+					}
+				}
+				WLS = {
+					add_trust = {
+						who = root
+						value = 10
+					}
+					add_favors = {
+						who = root
+						amount = 10
+					}
+				}
+				add_country_modifier = {
+					name = EDG_IRE_have_it_both_ways
+					duration = 7300
+				}
+			}
+			else_if = {
+				limit = {
+					OR = {
+						alliance_with = BRI
+						alliance_with = WLS
+					}
+				}
+				if = {
+					limit = { 
+						alliance_with = BRI
+					}
+					add_dip_power = 100
+				}
+				else = {
+					BRI = {
+						set_ai_attitude = {
+							attitude = attitude_friendly
+							who = root
+						}
+					}
+					define_advisor = {
+						type = statesman
+						skill = 1
+						cost_multiplier = 0.25
+					}
+				}
+				if = {
+					limit = { 
+						alliance_with = WLS
+					}
+					add_dip_power = 100
+				}
+				else = {
+					WLS = {
+						set_ai_attitude = {
+							attitude = attitude_friendly
+							who = root
+						}
+					}
+					define_advisor = {
+						type = diplomat
+						skill = 1
+						cost_multiplier = 0.25
+					}
+				}
+				add_country_modifier = {
+					name = EDG_IRE_voice_of_other_side
+					duration = 3650
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 25
+				}
+				add_country_modifier = {
+					name = EDG_IRE_voice_of_other_side
+					duration = 3650
+				}
+				custom_tooltip = EDG_IRE_mission_1_1.effect.tt
+			}
+			
+			# custom_tooltip = EDG_IRE_mission_1_1_alliance_effect.tt
+			# hidden_effect = {
+			# 	if = {
+			# 		limit = {
+			# 			NOT = {
+			# 				alliance_with = BRI
+			# 			}
+			# 		}
+			# 		create_alliance = BRI
+			# 	}
+			# 	else = {
+					
+			# 	}
+			# }
+		} 
+	}
+
+	EDG_IRE_mission_1_2 = {
+		icon = mission_zambezi_gold
+		position = 2
+		required_missions = { EDG_IRE_mission_1_1 } 
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = WLS
+				owned_by = BRI
+			}
+			owner = {
+				NOT = {
+					alliance_with = root
+				}
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = { 
+					exists = WLS
+				}
+				WLS = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = sent_gift
+					}
+				}
+			}
+			
+			if = {
+				limit = { 
+					exists = BRI
+				}
+				BRI = {
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = sent_gift
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							alliance_with = BRI
+							alliance_with = WLS
+						}
+					}
+				}
+				dip_power = 100
+			}
+			else_if = {
+				limit = { 
+					OR = {
+						NOT = {
+							alliance_with = BRI
+						}
+						NOT = {
+							alliance_with = WLS
+						}
+					}
+				}
+				dip_power = 50
+			}
+		} 
+
+		effect = { 
+			
+			if = {
+				limit = { 
+					mission_completed = EDG_IRE_mission_1_1
+					NOT = {
+						OR = {
+							alliance_with = BRI
+							alliance_with = WLS
+						}
+					}
+				}
+				add_dip_power = -100
+				create_alliance = BRI
+				create_alliance = WLS
+			}
+			else_if = {
+				limit = { 
+					mission_completed = EDG_IRE_mission_1_1
+					OR = {
+						NOT = {
+							alliance_with = BRI
+						}
+						NOT = {
+							alliance_with = WLS
+						}
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							alliance_with = BRI
+						}
+					}
+					add_dip_power = -50
+					create_alliance = BRI
+				}
+				if = {
+					limit = { 
+						NOT = {
+							alliance_with = WLS
+						}
+					}
+					add_dip_power = -50
+					create_alliance = WLS
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_1_2_create_alliance.effect.tt
+				change_ruler_stat = {
+					type = dip
+					amount = 1
+				}
+			}
+			if = {
+				limit = { 
+					OR = {
+						BRI = {
+							is_rival = WLS
+						}
+						WLS = {
+							is_rival = BRI
+						}
+					}
+				}
+				if = {
+					limit = { 
+						BRI = {
+							is_rival = WLS
+						}
+					}
+					BRI = {
+						remove_rival = WLS
+					}
+				}
+				if = {
+					limit = { 
+						WLS = {
+							is_rival = BRI
+						}
+					}
+					WLS = {
+						remove_rival = BRI
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_1_2_remove_rival.effect.tt
+			}
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			WLS = {
+				add_historical_friend = BRI
+			}
+			BRI = {
+				add_historical_friend = WLS
+			}
+		} 
+	}
+
+	EDG_IRE_mission_1_4 = {
+		icon = mission_have_two_subjects
+		position = 4
+		provinces_to_highlight = { } 
+
+		trigger = { 
+			manpower = 10
+			has_mil_advisor = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_IRE_mission_1_4.effect.tt
+			add_manpower = -10
+			add_country_modifier = {
+				name = EDG_IRE_standardize_conscription
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = enable_merc_EDG_IRE_fianna_flag
+			}
+		} 
+	}
+
+	EDG_IRE_mission_1_7 = {
+		icon = mission_rb_irish_america
+		position = 7
+		required_missions = {
+			EDG_IRE_mission_3_6
+			EDG_IRE_mission_1_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = west_midlands_area
+				area = wessex_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			west_midlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			wessex_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_flavorSCO_mission_9_a_tooltip_country_flag
+				}
+				wessex_area = {
+					change_culture = cornish
+					add_base_manpower = 1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_1_7.effect.tt
+			}
+			add_army_professionalism = 0.05
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_IRE_retake_east
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_IRE_mission_1_9 = {
+		icon = mission_polynesian_navy_build
+		position = 9
+		required_missions = { EDG_IRE_mission_2_8 } 
+		provinces_to_highlight = {
+			area = brittany_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			brittany_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = BRI
+					BRI = {
+						is_subject_of = root
+					}
+				}
+				country_event = {
+					id = EDG_IREEvents.14
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_1_9.event.effect.tt
+				brittany_area = {
+					change_culture = EDG_gaelic_French
+					add_unrest = -4
+					add_nationalism = -10
+				}
+			}
+		} 
+	}
+}
+EDG_IRE_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = IRE
+			tag = ABN
+		}
+	} 
+
+	EDG_IRE_mission_5_1 = {
+		icon = mission_expand_into_the_forest
+		position = 1
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+			has_terrain = woods
+			NOT = {
+				num_of_times_improved_by_owner = 3
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				EDG_in_ireland_region = yes
+				has_terrain = woods
+				num_of_times_improved_by_owner = 3
+				value = 5
+			}
+		}
+
+		effect = {
+			custom_tooltip = EDG_IRE_mission_5_1.effect.tt
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_forest_expansion
+			}
+			define_advisor = {
+				type = economist
+				cost_multiplier = 0.25
+			}
+			hidden_effect = {
+				munster_area = {
+					limit = {
+						has_terrain = woods
+					}
+					add_base_production = 1
+				}
+				connacht_area = {
+					limit = {
+						has_terrain = woods
+					}
+					add_base_production = 1
+				}
+				leinster_area = {
+					limit = {
+						has_terrain = woods
+					}
+					add_base_production = 1
+				}
+				ulster_area = {
+					limit = {
+						has_terrain = woods
+					}
+					add_base_production = 1
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_5_2 = {
+		icon = mission_indian_soldier_elephant
+		position = 2
+		required_missions = { EDG_IRE_mission_5_1 } 
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+			trade_goods = livestock
+			NOT = {
+				base_production = 8
+			}
+		}
+
+		trigger = {
+			all_owned_province = {
+				OR = {
+					AND = {
+						EDG_in_ireland_region = yes
+						OR = {
+							AND = {
+								trade_goods = livestock
+								base_production = 8
+							}
+							NOT = {
+								trade_goods = livestock
+							}
+						}
+					}
+					NOT = {
+						EDG_in_ireland_region = yes
+					}
+				}	
+			}
+		} 
+
+		effect = {
+			every_owned_province = {
+				limit = {
+					EDG_in_ireland_region = yes
+					trade_goods = livestock
+				}
+				add_province_modifier = {
+					name = EDG_IRE_dairy_factory
+					duration = -1
+				}
+			}
+			add_years_of_owned_provinces_production_income = {
+				years = 5
+				trigger = {
+					EDG_in_ireland_region = yes
+					trade_goods = livestock
+				}
+				custom_tooltip = EDG_IRE_mission_5_2.effect.tt
+			}
+		} 
+	}
+
+	EDG_IRE_mission_5_4 = {
+		icon = mission_establish_high_seas_navy
+		position = 4
+		provinces_to_highlight = {
+			province_id = 373
+			NOT = {
+				base_production = 8
+			}
+		} 
+
+		trigger = {
+			373 = {
+				owned_by = root
+				base_production = 8
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_IRE_emerald_fleet
+				duration = -1
+			}
+			373 = {
+				EDG_create_or_add_center_of_trade_level_effect = yes
+				light_ship = root
+				light_ship = root
+				light_ship = root
+			}
+		} 
+	}
+
+	EDG_IRE_mission_5_7 = {
+		icon = mission_dominate_gujarati_trade
+		position = 7
+		required_missions = {
+			EDG_IRE_mission_3_6
+			EDG_IRE_mission_5_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = east_midlands_area
+				area = east_anglia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					east_midlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+					east_anglia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				AND = {
+					if = {
+						limit = { 
+							exists = DBY
+							DBY = {
+								is_subject = no
+							}
+						}
+						DBY = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					else = {
+						1861 = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					if = {
+						limit = { 
+							exists = LST
+							LST = {
+								is_subject = no
+							}
+						}
+						LST = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					else = {
+						4376 = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					if = {
+						limit = { 
+							exists = DOS
+							DOS = {
+								is_subject = no
+							}
+						}
+						DOS = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					else = {
+						243 = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					if = {
+						limit = { 
+							exists = NFK
+							NFK = {
+								is_subject = no
+							}
+						}
+						NFK = {
+							has_opinion = {
+								who = root
+								value = 120
+							}
+						}
+					}
+					else = {
+						east_anglia_area = {
+							type = all
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					OR = {
+						AND = {
+							exists = LST
+							LST = {
+								is_subject = no
+							}
+						}
+						AND = {
+							exists = DBY
+							DBY = {
+								is_subject = no
+							}
+						}
+						AND = {
+							exists = DOS
+							DOS = {
+								is_subject = no
+							}
+						}
+						AND = {
+							exists = NFK
+							NFK = {
+								is_subject = no
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = LST
+						}
+						LST = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = DBY
+						}
+						DBY = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = DOS
+						}
+						DOS = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = NFK
+						}
+						NFK = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = LST
+					}
+					LST = {
+						country_event = {
+							id = EDG_IREEvents.11
+							days = 1
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = DBY
+					}
+					DBY = {
+						country_event = {
+							id = EDG_IREEvents.11
+							days = 1
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = DOS
+					}
+					DOS = {
+						country_event = {
+							id = EDG_IREEvents.11
+							days = 1
+						}
+					}
+				}
+				if = {
+					limit = { 
+						exists = NFK
+					}
+					NFK = {
+						country_event = {
+							id = EDG_IREEvents.11
+							days = 1
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					east_midlands_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+					east_anglia_area = {
+						type = all
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				country_event = {
+					id = EDG_IREEvents.12
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_5_7.vassal_effect.tt
+			}
+		} 
+	}
+
+	EDG_IRE_mission_5_9 = {
+		icon = mission_court_education
+		position = 9
+		required_missions = { EDG_IRE_mission_4_8 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			OR = {
+				has_idea_group = humanist_ideas
+				has_idea_group = religious_ideas
+			}
+			stability = 1
+			religious_unity = 0.6
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_idea_group = humanist_ideas
+				}
+				add_adm_power = 50
+				add_dip_power = 50
+				add_mil_power = 50
+				add_country_modifier = {
+					name = EDG_IRE_humanism
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_idea_group = religious_ideas
+				}
+				add_stability_or_adm_power = yes
+				add_country_modifier = {
+					name = EDG_IRE_pietism
+					duration = -1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_5_9.effect.tt
+			}
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+		} 
+	}
+}
+EDG_IRE_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = IRE
+			tag = ABN
+		}
+	} 
+
+	EDG_IRE_mission_4_2 = {
+		icon = mission_pue_irrigation_cannals
+		position = 2
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+			trade_goods = grain
+			NOT = {
+				base_production = 10
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				EDG_in_ireland_region = yes
+				trade_goods = grain
+				base_production = 10
+				value = 2
+			}
+		} 
+
+		effect = {
+			every_owned_province = {
+				limit = {
+					trade_goods = grain
+				}
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_IRE_encourage_agriculture
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_4_3 = {
+		icon = mission_have_manufactories
+		position = 3
+		required_missions = {
+			EDG_IRE_mission_5_2
+			EDG_IRE_mission_4_2
+		}
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				EDG_in_ireland_region = yes
+				value = 160
+			}
+		} 
+
+		effect = {
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_IRE_great_development_in_ireland
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_IRE_mission_4_3.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						EDG_in_ireland_region = yes
+					}
+					add_province_modifier = {
+						name = EDG_IRE_great_development_in_ireland
+						duration = -1
+					}
+					add_base_manpower = 1
+					add_base_tax = 1
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_4_6 = {
+		icon = mission_bengal_entrepot
+		position = 6
+		required_missions = {
+			EDG_IRE_mission_4_3
+			EDG_IRE_mission_3_5
+		}
+		provinces_to_highlight = {
+			EDG_in_ireland_region = yes
+			trade_goods = fish
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				EDG_in_ireland_region = yes
+				trade_goods = fish
+				value = 30
+			}
+			treasury = 250
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					mission_completed = EDG_IRE_mission_4_3
+					mission_completed = EDG_IRE_mission_3_5
+					NOT = { owns_or_non_sovereign_subject_of = 369 }
+					NOR = {
+						owns = 369
+					}
+				}
+				country_event = {
+					id = flavor_gbr.2
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_4_6.event.effect.tt
+			}
+			add_treasury = -250
+			add_country_modifier = {
+				name = EDG_IRE_production_boom
+				duration = 7300
+			}
+			munster_area = {
+				add_prosperity = 90
+				add_base_manpower = 1
+			}
+			connacht_area = {
+				add_prosperity = 90
+				add_base_manpower = 1
+			}
+			leinster_area = {
+				add_prosperity = 90
+				add_base_manpower = 1
+			}
+			ulster_area = {
+				add_prosperity = 90
+				add_base_manpower = 1
+			}
+			every_owned_province = {
+				limit = {
+					EDG_in_ireland_region = yes
+					trade_goods = fish
+				}
+				add_province_modifier = {
+					name = EDG_IRE_expansion_fishing
+					duration = -1
+				}
+				add_base_production = 3
+			}
+		} 
+	}
+
+	EDG_IRE_mission_4_8 = {
+		icon = mission_book_of_royal_degrees
+		position = 8
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			NOT = {
+				current_age = age_of_discovery
+			}
+			OR = {
+				religion = EDG_Great_Celtic_Church
+				religion = EDG_Celtic_Church
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_IRE_mission_4_8.effect.tt
+			EDG_remove_religious_zeal_at_conv_effect = yes
+			hidden_effect = {
+				every_subject_country = {
+					change_religion = root
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_4_10 = {
+		icon = mission_mediterranean_islands
+		position = 10
+		required_missions = { EDG_IRE_mission_5_9 } 
+		provinces_to_highlight = {
+			region = british_isles_region
+			NOT = {
+				culture_group = irish
+			}
+		} 
+
+		trigger = {
+			OR = {
+				british_isles_region = {
+					type = all
+					religion = root
+				}
+				AND = {
+					religious_unity = 0.9
+					is_defender_of_faith = yes
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					british_isles_region = {
+						type = all
+						religion = root
+					}
+				}
+				add_church_power = 200
+				add_fervor = 100
+				add_papal_influence = 50
+				add_country_modifier = {
+					name = EDG_IRE_world_true_religion
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					religious_unity = 0.9
+					is_defender_of_faith = yes
+				}
+				change_innovativeness = 5
+				add_country_modifier = {
+					name = EDG_IRE_tolerationism
+					duration = -1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_4_10.effect.tt
+			}
+		} 
+	}
+}
+EDG_IRE_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = IRE
+			tag = ABN
+		}
+	} 
+
+	EDG_IRE_mission_2_2 = {
+		icon = mission_vedic_education
+		position = 2
+		provinces_to_highlight = { 
+			OR = {
+				owned_by = ENG
+				owned_by = FRA
+			}
+			owner = {
+				NOT = {
+					has_opinion_modifier = {
+						who = root
+						modifier = improved_relation
+						value = 50
+					}
+				}
+			}
+		} 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_IRE_mission_2_2.fra.condition.tt
+				FRA = {
+					has_opinion_modifier = {
+						who = root
+						modifier = improved_relation
+						value = 50
+					}
+				}
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = EDG_IRE_mission_2_2.eng.condition.tt
+				ENG = {
+					has_opinion_modifier = {
+						who = root
+						modifier = improved_relation
+						value = 50
+					}
+				}
+			}
+			alliance_with = WLS
+			alliance_with = BRI
+		}
+
+		effect = { 
+			WLS = {
+				add_truce_with = ENG
+			}
+			ENG = {
+				add_truce_with = WLS
+			}
+			BRI = {
+				add_truce_with = FRA
+			}
+			FRA = {
+				add_truce_with = BRI
+			}
+			add_country_modifier = {
+				name = EDG_IRE_diplomatic_offensive
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_IRE_mission_2_3 = {
+		icon = mission_the_sudebnik
+		position = 3
+		required_missions = {
+			EDG_IRE_mission_2_2
+			EDG_IRE_mission_1_2
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = WLS
+				owned_by = BRI
+			}
+			owner = {
+				OR = {
+					NOT = {
+						alliance_with = root
+					}
+					NOT = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					NOT = {
+						gives_military_access_to = root
+					}
+				}
+				is_subject = no
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					exists = WLS
+				}
+				WLS = {
+					OR = {
+						AND = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 150
+							}
+							gives_military_access_to = root
+						}
+						is_subject = yes
+					}
+				}
+			}
+			if = {
+				limit = { 
+					exists = BRI
+				}
+				BRI = {
+					OR = {
+						AND = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 150
+							}
+							gives_military_access_to = root
+						}
+						is_subject = yes
+					}
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { 
+					mission_completed = EDG_IRE_mission_2_2
+					mission_completed = EDG_IRE_mission_1_2
+					alliance_with = WLS
+					alliance_with = BRI
+				}
+				country_event = {
+					id = EDG_IREEvents.4
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_2_3.effect.tt
+				add_prestige_or_monarch_power = {
+					amount = 10
+				}
+			}
+			if = {
+				limit = { 
+					exists = MLS
+					WLS = {
+						is_subject = no
+					}
+				}
+				WLS = {
+					add_historical_friend = root
+				}
+				add_historical_friend = WLS
+			}
+			if = {
+				limit = { 
+					exists = BRI
+					BRI = {
+						is_subject = no
+					}
+				}
+				BRI = {
+					add_historical_friend = root
+				}
+				add_historical_friend = BRI
+			}
+			
+			# if = {
+			# 	limit = { 
+			# 		mission_completed = EDG_IRE_mission_2_2
+			# 		mission_completed = EDG_IRE_mission_1_2
+			# 		OR = {
+			# 			BRI = {
+			# 				alliance_with = SCO
+			# 			}
+			# 			WLS = {
+			# 				alliance_with = SCO
+			# 			}
+			# 		}
+			# 	}
+			# 	if = {
+			# 		limit = { 
+			# 			BRI = {
+			# 				alliance_with = SCO
+			# 			}
+			# 		}
+			# 		BRI = {
+			# 			break_alliance = SCO
+			# 		}
+			# 		if = {
+			# 			limit = { 
+			# 				marriage_with = SCO
+			# 			}
+			# 			BRI = {
+			# 				break_marriage = SCO
+			# 			}
+			# 		}
+			# 	}
+			# 	if = {
+			# 		limit = { 
+			# 			WLS = {
+			# 				alliance_with = SCO
+			# 			}
+			# 		}
+			# 		WLS = {
+			# 			break_alliance = SCO
+			# 		}
+			# 		if = {
+			# 			limit = { 
+			# 				marriage_with = SCO
+			# 			}
+			# 			WLS = {
+			# 				break_marriage = SCO
+			# 			}
+			# 		}
+			# 	}
+			# }
+			# else = {
+			# 	custom_tooltip = EDG_IRE_mission_2_3_break_effect.tt
+			# }
+		} 
+	}
+
+	EDG_IRE_mission_2_6 = {
+		icon = spa_tercios_system
+		position = 6
+		required_missions = {
+			EDG_IRE_mission_2_3
+			EDG_IRE_mission_3_5
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 248
+				owned_by = SCO
+			}
+			NOT = {
+				owned_by = root
+			}
+			owner = {
+				NOT = {
+					war_score_against = {
+						who = root
+						value = -60
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					exists = SCO
+					SCO = {
+						owns = 248
+					}
+				}
+				if = {
+					limit = { 
+						OR = {
+							has_country_flag = EDG_IRE_action_together
+							has_country_flag = EDG_IRE_action_alone
+						}
+						
+					}
+					if = {
+						limit = { 
+							exists = WLS
+						}
+						WLS = {
+							has_opinion = {
+								who = root
+								value = 190
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = BRI
+						}
+						BRI = {
+							has_opinion = {
+								who = root
+								value = 190
+							}
+						}
+					}
+				}
+				else = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_IRE_mission_2_6.condition.tt
+						mission_completed = EDG_IRE_mission_2_3
+						mission_completed = EDG_IRE_mission_3_5
+					}
+				}
+				OR = {
+					owns = 248
+					war_score_against = {
+						who = SCO
+						value = 60
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = { 
+						OR = {
+							has_country_flag = EDG_IRE_action_together
+							has_country_flag = EDG_IRE_action_alone
+						}
+						
+					}
+					if = {
+						limit = { 
+							exists = WLS
+							WLS = {
+								is_subject = no
+							}
+						}
+						WLS = {
+							has_opinion = {
+								who = root
+								value = 190
+							}
+						}
+					}
+					if = {
+						limit = { 
+							exists = BRI
+							BRI = {
+								is_subject = no
+							}
+						}
+						BRI = {
+							has_opinion = {
+								who = root
+								value = 190
+							}
+						}
+					}
+					is_at_war = no
+				}
+				else = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_IRE_mission_2_6.condition.tt
+						mission_completed = EDG_IRE_mission_2_3
+						mission_completed = EDG_IRE_mission_3_5
+					}
+				}
+				owns = 248
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					OR = {
+						has_country_flag = EDG_IRE_action_alone
+						has_country_flag = EDG_IRE_action_together
+					}
+					OR = {
+						AND = {
+							exists = BRI
+							BRI = {
+								is_subject = no
+							}
+						}
+						AND = {
+							exists = WLS
+							WLS = {
+								is_subject = no
+							}
+						}
+					}
+				}
+				country_event = {
+					id = EDG_IREEvents.7
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_2_6.effect.tt
+				add_prestige_or_monarch_power = {
+					amount = 25
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_2_8 = {
+		icon = mission_unite_bengal
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				area = kingdom_of_the_isles_area
+				area = highlands_area
+			}
+		} 
+
+		trigger = {
+			is_great_power = yes
+			kingdom_of_the_isles_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			highlands_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			accepted_culture = highland_scottish
+			accepted_culture = scottish
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = SCO
+					}
+				}
+				country_event = {
+					id = EDG_IREEvents.13
+				}
+			}
+			else = {
+				custom_tooltip = EDG_IRE_mission_2_8.event.effect.tt
+				custom_tooltip = EDG_IREEvents.13.aa.tt
+				add_country_modifier = {
+					name = EDG_IRE_great_celtism
+					duration = -1
+				}
+				set_country_flag = EDG_flavorSCO_mission_9_a_tooltip_country_flag
+				hidden_effect = {
+					every_province = {
+						limit = {
+							culture = scottish
+						}
+						change_culture = highland_scottish
+					}
+					every_country = {
+						limit = {
+							primary_culture = scottish
+						}
+						change_primary_culture = highland_scottish
+						set_ruler_culture = highland_scottish
+						if = {
+							limit = {
+								has_heir = yes
+							}
+							set_heir_culture = highland_scottish
+						}
+						if = {
+							limit = {
+								has_consort = yes
+								consort_culture = scottish
+							}
+							set_consort_culture = highland_scottish
+						}
+					}
+				}
+			}
+			kingdom_of_the_isles_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+			highlands_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+			munster_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+			connacht_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+			leinster_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+			ulster_area = {
+				add_province_modifier = {
+					name = EDG_IRE_celtism_culture_renaissance
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_IRE_mission_2_10 = {
+		icon = expand_to_the_south
+		position = 10
+		required_missions = { EDG_IRE_mission_1_9 } 
+		provinces_to_highlight = {
+			region = british_isles_region
+			NOT = {
+				culture_group = irish
+			}
+		} 
+
+		trigger = {
+			british_isles_region = {
+				type = all
+				culture_group = irish
+			}
+		} 
+
+		effect = {
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_IRE_wave_celtic_nationalism
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_IRE_mission_2_10.effect.tt
+			add_country_modifier = {
+				name = EDG_IRE_nation_and_state
+				duration = -1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture_group = gaelic
+					}
+					add_base_production = 2
+					add_province_modifier = {
+						name = EDG_IRE_wave_celtic_nationalism
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}

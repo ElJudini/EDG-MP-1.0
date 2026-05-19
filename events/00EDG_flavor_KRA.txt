@@ -1,0 +1,160 @@
+namespace = EDG_flavor_KRA
+normal_or_historical_nations = yes
+country_event = {
+	id = EDG_flavor_KRA.1
+	is_triggered_only = yes
+	title = EDG_flavor_KRA.1.name
+	desc = EDG_flavor_KRA.1.desc
+	picture = DIPLOMACY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		# if = {
+		# 	limit = {
+		# 		ai = yes
+		# 	}
+		# 	tag = KRA
+		# 	MAZ = {
+		# 		ai = yes
+		# 	}
+		# }
+		# else = {
+		# 	OR = {
+		# 		tag = KRA
+		# 		tag = MAZ
+		# 	}
+		# 	ai = no
+		# }
+		if = {
+			limit = {
+				ai = yes
+			}
+			tag = MAZ
+			KRA = {
+				ai = yes
+			}
+		}
+		else = {
+			OR = {
+				tag = KRA
+				tag = MAZ
+			}
+			ai = no
+		}
+	}
+	option = {
+		name = "EDG_flavor_KRA.1.aa"
+		ai_chance = {
+			factor = 5
+		}
+		set_government_rank = 2
+		if = {
+			limit = { 
+				tag = KRA
+			}
+			define_ruler = {
+				max_random_adm = 2
+				max_random_dip = 2
+				max_random_mil = 2
+				dynasty = root
+				claim = 100
+				culture = polish
+			}
+			inherit = MAZ
+		}
+		if = {
+			limit = {
+				tag = MAZ
+			}
+			inherit = KRA
+		}
+		random_owned_province = {
+			limit = {
+				is_capital = no
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 1
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_capital = no
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 1
+			}
+		}
+		hidden_effect = {
+			set_country_flag = EDG_pol_union_flag
+		}
+	}
+	option = {
+		name = "EDG_flavor_KRA.1.bb"
+		ai_chance = {
+			factor = 10
+		}
+		if = {
+			limit = {
+				tag = MAZ
+			}
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			add_manpower = 10
+			add_treasury = 250
+		}
+		else = {
+			define_ruler = {
+				change_dip = 3
+				change_adm = 3
+				change_mil = 3
+				max_random_adm = 6
+				max_random_dip = 6
+				max_random_mil = 6
+				claim = 100
+				culture = polish
+				dynasty = random
+			}
+		}
+		add_stability_or_adm_power = yes
+		if = {
+			limit = {
+				tag = KRA
+			}
+			MAZ = {
+				add_opinion = {
+					who = ROOT
+					modifier = spa_declined_iberian_wedding
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = MAZ
+			}
+			KRA = {
+				add_opinion = {
+					who = ROOT
+					modifier = spa_declined_iberian_wedding
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_regency = no
+				has_consort = no
+				has_government_attribute = queen
+			}
+			define_consort = {
+				ADM = 2
+				MIL = 2
+				DIP = 2
+			}
+		}
+		hidden_effect = {
+			set_country_flag = EDG_pol_alone_flag
+		}
+	}
+}

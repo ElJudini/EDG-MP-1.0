@@ -1,0 +1,409 @@
+namespace = FOICommonEvents
+
+country_event = {
+	id = FOICommonEvents.0
+	is_triggered_only = yes
+	title = FOICommonEvents.0.name
+	desc = EDG_flavor_IBR_religion_conflict.1.d
+	picture = GFX_event_event_test
+	fire_only_once = yes
+	major = yes
+
+	trigger = {
+		tag = ASU
+	}
+
+	immediate = {
+		hidden_effect = {
+			declare_war_with_cb = {
+				casus_belli = cb_crusade
+				who = TLD
+			}
+			set_global_flag = EDG_flavor_IBR_religion_conflict_1_event_happen_flag
+			clr_global_flag = EDG_flavor_IBR_religion_conflict_situation_1
+			clr_global_flag = EDG_flavor_IBR_religion_conflict_situation_2
+			clr_global_flag = EDG_flavor_IBR_religion_conflict_situation_3
+			set_global_flag = EDG_flavor_IBR_religion_conflict_situation_4
+			clr_global_flag = EDG_flavor_IBR_religion_conflict_situation_5
+		}
+	}
+
+	option = {
+		name = FOICommonEvents.0.aa
+		custom_tooltip = FOICommonEvents_0_a_tt
+		custom_tooltip = set_EDG_IBR_religion_conflict_situation_4.tt
+	}
+}
+
+country_event = { #进攻援助
+	id = FOICommonEvents.1
+	is_triggered_only = yes
+	title = FOICommonEvents.1.name
+	desc = FOICommonEvents.1.desc
+	picture = GFX_event_event_test
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			region = iberia_region
+		}
+	}
+
+	option = {
+		name = FOICommonEvents.1.aa
+		ai_chance = {
+			factor = 3
+			modifier = {
+				factor = 1.5
+				OR = {
+					ai_attitude = {
+						who = from
+						attitude = attitude_friendly
+					}
+					ai_attitude = {
+						who = from
+						attitude = attitude_allied
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					num_of_loans = 5
+					NOT = {
+						manpower = 5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					is_rival = from
+					from = {
+						is_rival = root
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					is_enemy = root
+					root = {
+						is_enemy = root
+					}
+				}
+			}
+		}
+		add_yearly_manpower = -0.5
+		add_years_of_income = -0.5
+		from = {
+			add_yearly_manpower = 0.5
+			add_years_of_income = 0.5
+			# country_event = {
+			# 	id = FOICommonEvents.3
+			# }
+		}
+	}
+	option = {
+		name = FOICommonEvents.1.bb
+		ai_chance = {
+			factor = 5
+			#factor = 0
+		}
+	}
+}
+country_event = { #防御援助
+	id = FOICommonEvents.2
+	is_triggered_only = yes
+	title = FOICommonEvents.2.name
+	desc = FOICommonEvents.2.desc
+	picture = GFX_event_event_test
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			region = iberia_region
+		}
+	}
+
+	option = {
+		name = FOICommonEvents.1.aa
+		ai_chance = {
+			factor = 5
+			modifier = {
+				factor = 1.5
+				OR = {
+					ai_attitude = {
+						who = from
+						attitude = attitude_friendly
+					}
+					ai_attitude = {
+						who = from
+						attitude = attitude_allied
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					num_of_loans = 5
+					NOT = {
+						manpower = 5
+					}
+				}
+			}
+			modifier = {
+				factor = 0.1
+				OR = {
+					is_rival = from
+					from = {
+						is_rival = root
+					}
+				}
+			}
+			modifier = {
+				factor = 0.5
+				OR = {
+					is_enemy = root
+					root = {
+						is_enemy = root
+					}
+				}
+			}
+		}
+		add_yearly_manpower = -0.5
+		add_years_of_income = -0.5
+		from = {
+			country_event = {
+				id = FOICommonEvents.3
+			}
+		}
+	}
+	option = {
+		name = FOICommonEvents.1.bb
+		ai_chance = {
+			factor = 5
+		}
+	}
+}
+country_event = {
+	id = FOICommonEvents.3
+	is_triggered_only = yes
+	title = FOICommonEvents.3.name
+	desc = FOICommonEvents.3.desc
+
+	option = {
+		name = FOICommonEvents.3.aa
+		add_yearly_manpower = 0.5
+		add_years_of_income = 0.5
+		add_opinion = {
+			who = from
+			modifier = opinion_FOI_help_war_of_iberian
+		}
+	}
+}
+country_event = {
+	id = FOICommonEvents.4
+	is_triggered_only = yes
+	title = FOICommonEvents.4.name
+	desc = FOICommonEvents.4.desc
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	option = {
+		name = FOICommonEvents.4.aa
+		trigger = {
+			NOT = {
+				OR = {
+					tag = UCI
+					tag = FWF
+				}
+			}
+			government = monarchy
+		}
+		set_estate_privilege = estate_EDG_voyager_royal_patronage_privilege
+	}
+	option = {
+		name = FOICommonEvents.4.bb
+		trigger = {
+			NOT = {
+				OR = {
+					tag = UCI
+					tag = FWF
+					has_government_attribute = is_pirate_republic_reform
+				}
+			}
+		}
+		set_estate_privilege = estate_EDG_voyager_autonomy_of_association_privilege
+	}
+	option = {
+		name = FOICommonEvents.4.cc
+		trigger = {
+			NOT = {
+				OR = {
+					tag = UCI
+					tag = FWF
+					has_government_attribute = is_pirate_republic_reform
+				}
+			}
+			has_estate = estate_burghers
+		}
+		set_estate_privilege = estate_EDG_voyager_commercial_management_privilege
+	}
+	option = {
+		name = FOICommonEvents.4.dd
+		trigger = {
+			OR = {
+				tag = UCI
+				tag = FWF
+			}
+		}
+		set_estate_privilege = estate_EDG_voyager_national_administration_privilege
+	}
+	option = {
+		name = FOICommonEvents.4.ee
+		trigger = {
+			has_government_attribute = is_pirate_republic_reform
+		}
+		set_estate_privilege = estate_EDG_voyager_black_flag
+	}
+	option = {
+		name = FOICommonEvents.4.ff
+		highlight = yes
+		trigger = {
+			has_government_mechanic = EDG_H04_palace_splendor_mechanic
+		}
+		set_estate_privilege = estate_EDG_voyager_imperial_exploration_ociety
+	}
+	option = {
+		name = FOICommonEvents.4.gg
+		highlight = yes
+		trigger = {
+			OR = {
+				tag = RIG
+				tag = RGL
+			}
+		}
+		ai_chance = {
+			factor = 1000
+		}
+		set_estate_privilege = estate_EDG_voyager_sacred_bond
+	}
+}
+country_event = {
+	id = FOICommonEvents.500
+	title = FOICommonEvents.500.name
+	desc = FOICommonEvents.500.desc
+	picture = GFX_event_event_test
+	major = yes
+	major_trigger = {
+		capital_scope = {
+			region = iberia_region
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	trigger = {
+		is_at_war = no
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+		all_owned_province = {
+			is_core = root
+		}
+		is_subject = no
+		capital_scope = {
+			region = iberia_region
+		}
+		NOT = {
+			tag = MJO
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_neighbor_country = {
+				limit = {
+					OR = {
+						capital_scope = {
+							region = iberia_region
+						}
+						any_owned_province = {
+							region = iberia_region
+						}
+					}
+				}
+				save_event_target_as = FOI_the_random_war_target
+			}
+		}
+	}
+
+
+	option = {
+		name = FOICommonEvents.500.aa
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				alliance_with = event_target:FOI_the_random_war_target
+			}
+			modifier = {
+				factor = 0.5
+				NOT = {
+					army_strength = {
+						who = event_target:FOI_the_random_war_target
+						value = 1
+					}
+				}
+			}
+			modifier = {
+				factor = 10
+				OR = {
+					is_rival = event_target:FOI_the_random_war_target
+					event_target:FOI_the_random_war_target = {
+						is_rival = root
+					}
+				}
+			}
+			modifier = {
+				factor = 10
+				OR = {
+					is_enemy = event_target:FOI_the_random_war_target
+					event_target:FOI_the_random_war_target = {
+						is_enemy = root
+					}
+				}
+			}
+		}
+		EDG_FOI_declare_war_with_other = {
+			attacker = root
+			defender = event_target:FOI_the_random_war_target
+		}
+	}
+
+	option = {
+		name = FOICommonEvents.500.bb
+		ai_chance = {
+			factor = 5
+		}
+	}
+}
+
+country_event = {
+	id = FOICommonEvents.600
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		set_government_power = {
+			mechanic_type = FOI_ADU_bright_century_mechanic
+			power_type = FOI_ADU_bright_century
+			value = 0
+		}
+
+	}
+
+	option = {
+
+	}
+}

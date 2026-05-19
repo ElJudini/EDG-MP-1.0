@@ -1,0 +1,445 @@
+rig_disaster_1_mission_3_a = {
+	slot = 3
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_at_the_crack_of_dawn = { #破晓时分
+		icon = dom_ara_remensa_war
+		position = 1
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = riga_dawn_of_war
+		}
+		effect = {
+			custom_tooltip = rig_at_the_crack_of_dawn.tt
+			every_known_country = {
+				limit = {
+					is_subject_of = root
+				}
+				capital_scope = {
+					spawn_rebels = {
+						size = 50
+						type = riga_opponent_rebel
+						friend = prev
+					}
+					spawn_rebels = {
+						size = 12
+						type = particularist_rebels
+					}
+				}
+			}
+			random_known_country = {
+				limit = {
+					any_subject_country = {
+						tag = RIG
+					}
+				}
+				capital_scope = {
+					spawn_rebels = {
+						size = 50
+						type = riga_opponent_rebel
+						friend = root
+					}
+					spawn_rebels = {
+						size = 25
+						type = particularist_rebels
+					}
+				}
+			}
+		}
+	}
+	rig_stabilization_act = { #稳固条例
+		icon = mission_steppe_warriors
+		position = 3
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		required_missions = { "rig_at_the_crack_of_dawn" }
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			stability = 3
+		}
+		effect = {
+			custom_tooltip = rig_stabilization_act.tt
+			every_subject_country = {
+				add_liberty_desire = -10
+				add_yearly_manpower = -5
+			}
+			add_yearly_manpower = -5
+			hidden_effect = {
+				set_country_flag = rig_stabilization_act_flag
+				swap_non_generic_missions = yes
+			}
+		}
+	}
+}
+rig_disaster_1_mission_3_b = {
+	slot = 3
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = rig_stabilization_act_flag
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_resistance_act = { #反抗条例
+		icon = mission_conquer_50_development
+		position = 5
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		required_missions = { "rig_stabilization_act" }
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			liberty_desire = 50
+		}
+		effect = {
+			custom_tooltip = rig_resistance_act.tt
+			hidden_effect = {
+				set_country_flag = rig_resistance_act_flag
+				swap_non_generic_missions = yes
+			}
+			declare_war_with_cb = {
+				casus_belli = cb_independence_war
+				#who = event_target:riga_rebel_target
+				who = overlord
+			}
+		}
+	}
+	
+}
+rig_disaster_1_mission_3_c = {
+	slot = 3
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = rig_resistance_act_flag
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+	rig_at_dawn_time = { #黎明时刻
+		icon = mission_constantinople
+		position = 7
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		required_missions = { "rig_resistance_act" }
+		
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			if = {
+				limit = { 
+					exists = FSD
+				}
+				war_score_against = {
+					who = FSD
+					value = 40
+				}
+			}
+			else = {
+				war_score_against = {
+					who = event_target:riga_rebel_target
+					value = 40
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = rig_at_dawn_time.tt
+			event_target:riga_rebel_target = {
+				white_peace = root
+				release_all_subjects = yes
+			}
+			RIG = {
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_military_district
+					subject = event_target:riga_rebel_target
+					reform = yes
+				}
+			}
+			hidden_effect = {
+				clr_country_flag = already_begin_riga_dawn_of_war
+			}
+		}
+	}
+}
+rig_disaster_1_mission_1 = {
+	slot = 1
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_economic_recovery_act = { #经济复苏条例
+		icon = mission_european_church
+		position = 2
+		required_missions = { "rig_at_the_crack_of_dawn" }
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			is_bankrupt = yes
+			papal_influence = 50
+		}
+		effect = {
+			custom_tooltip = rig_economic_recovery_act.tt
+			add_papal_influence = -50
+			add_prestige = 100
+			add_stability = 3
+			hidden_effect = {
+				for = {
+					amount = 20
+					effect = "
+						add_loan = {
+							fixed_interest = yes
+							interest_modifier = 0
+							duration = 60
+							estate_loan = yes
+						}
+					"
+				}
+			}
+			add_adm_power = 500
+			add_dip_power = 500
+			add_mil_power = 500
+		}
+	}
+}
+rig_disaster_1_mission_2 = {
+	slot = 2
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_urban_renewal_ordinance = { #城市重建条例
+		icon = mission_early_game_buildings
+		position = 2
+		required_missions = { "rig_at_the_crack_of_dawn" }
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			papal_influence = 50
+		}
+		effect = {
+			add_papal_influence = -50
+			add_inflation = 10
+			capital_scope = {
+				add_base_tax = 20
+				add_base_production = 20
+				add_base_manpower = 20
+				add_devastation = -50
+			}
+		}
+	}
+}
+rig_disaster_1_mission_4 = {
+	slot = 4
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_military_support_act = { #军事支援条例
+		icon = mission_italian_condottiere
+		position = 2
+		required_missions = { "rig_at_the_crack_of_dawn" }
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = riga_dawn_of_war
+			capital_scope = {
+				base_manpower = 20
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_base_manpower = -10
+			}
+			capital_scope = {
+				spawn_rebels = {
+					size = 100
+					type = riga_opponent_rebel
+					friend = prev
+				}
+			}
+			# every_known_country = {
+			# 	limit = {
+			# 		is_subject_of = root
+			# 	}
+			# 	capital_scope = {
+			# 		spawn_rebels = {
+			# 			size = 100
+			# 			type = riga_opponent_rebel
+			# 			friend = prev
+			# 		}
+			# 	}
+			# }
+			random_known_country = {
+				limit = {
+					any_subject_country = {
+						tag = RIG
+					}
+				}
+				capital_scope = {
+					spawn_rebels = {
+						size = 100
+						type = riga_opponent_rebel
+					}
+				}
+			}
+		}
+	}
+}
+rig_disaster_1_mission_5 = {
+	slot = 5
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = already_begin_riga_dawn_of_war
+	}
+
+	rig_resource_reserve_act = { #资源准备条例
+		icon = mission_colonial
+		position = 2
+		required_missions = { "rig_at_the_crack_of_dawn" }
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = riga_dawn_of_war
+		}
+		effect = {
+			add_corruption = 10
+			capital_scope = {
+				add_base_tax = 20
+				add_base_production = 20
+				add_base_manpower = 20
+			}
+		}
+	}
+}
+rig_disaster_2_mission_3_a = {
+	slot = 3
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = begin_battle_of_heaven_flag
+	}
+	rig_the_heavenly_praise = { #天堂礼赞
+		icon = mission_colonial
+		position = 1
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = rig_battle_of_heaven
+		}
+		effect = {
+			country_event = {
+				id = RigaExpandSupplement.31
+			}
+		}
+	}
+}
+rig_disaster_2_mission_2 = {
+	slot = 2
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = begin_battle_of_heaven_flag
+		has_country_flag = rig_battle_of_heaven_internal_priority
+	}
+	rig_internal_affairs = { #内部事务
+		icon = mission_colonial
+		position = 2
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = rig_battle_of_heaven
+			stability = 1
+			adm_power = 200
+		}
+		effect = {
+			custom_tooltip = rig_internal_affairs.tt
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						NOT = {
+							is_subject_of_type = rig_trade_city
+						}
+					}
+					add_stability = 1
+					root = {
+						add_adm_power = -50
+					}
+				}
+			}
+		}
+	}
+}
+rig_disaster_2_mission_3 = {
+	slot = 2
+	generic = no
+	has_country_shield = yes
+	potential = {
+		tag = RIG
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = begin_battle_of_heaven_flag
+		has_country_flag = rig_battle_of_heaven_external_priority
+	}
+	rig_external_affairs = { #外部事务
+		icon = mission_colonial
+		position = 2
+		provinces_to_highlight = {
+			province_id = 38
+		}
+		trigger = {
+			has_disaster = rig_battle_of_heaven
+			stability = 1
+			dip_power = 200
+		}
+		effect = {
+			if = {
+				limit = { 
+					exists = RGL
+					RGL = {
+						is_subject_of = root
+					}
+				}
+				custom_tooltip = rig_external_affairs_1.tt
+			}
+			add_dip_power = -200
+			custom_tooltip = rig_external_affairs_2.tt
+		}
+	}
+}

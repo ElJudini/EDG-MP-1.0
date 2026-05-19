@@ -1,0 +1,144 @@
+EDG_AVE_new_established_fief_grant_mana_20_hidden = {
+    hidden_effect = {
+        $OVERLORD$ = {
+            add_adm_power = 20
+            add_dip_power = 20
+            add_mil_power = 20
+        }
+    }
+}
+
+# 我们和我们的非朝贡属国治下的所有属于§Y伊比利亚地区§!的省份都将割让给@ARA§Y阿拉贡§!，@ARA§Y阿拉贡§!将成为我们的§M英属君合邦联§!，并获得所有上述§Y伊比利亚地区§!的省份的核心。
+EDG_AVE_establish_iberia_anglican_personal_union_effect = {
+    $UNION$ = {
+        custom_tooltip = EDG_AVE_establish_iberia_anglican_personal_union_effect_loc
+    }
+    hidden_effect = {
+        iberia_region = {
+            limit = {
+                country_or_non_sovereign_subject_holds = ROOT
+                # always = yes
+            }
+            add_core = $UNION$
+        }
+        # 如果目标TAG不存在，那么先释放出这个TAG，以防出现无宗教bug
+        if = {
+            limit = {
+                NOT = { exists = $UNION$ }
+            }
+            219 = {
+                change_culture = castillian
+                owner = {
+                    release = $UNION$
+                }
+            }
+        }
+        iberia_region = {
+            limit = {
+                country_or_non_sovereign_subject_holds = ROOT
+                # always = yes
+            }
+            cede_province = $UNION$
+        }
+        create_subject = {
+            subject_type = EDG_AVE_union
+            subject = $UNION$
+        }  
+        $UNION$ = {
+            change_government = monarchy
+            add_government_reform = feudal_monarchy
+        }
+    }
+
+}
+
+EDG_AVE_establish_portugal_anglican_personal_union_hidden_effect = {
+    hidden_effect = {
+        every_province = {
+            limit = {
+                country_or_non_sovereign_subject_holds = ROOT
+                OR = {
+                    culture = portugese
+                    culture = EDG_Extremadura_culture
+                }
+                # always = yes
+            }
+            add_core = POR
+        }
+        # 如果目标TAG不存在，那么先释放出这个TAG，以防出现无宗教bug
+        # 227: 里斯本
+        if = {
+            limit = {
+                NOT = { exists = POR }
+            }
+            227 = {
+                change_culture = EDG_Extremadura_culture
+                owner = {
+                    release = POR
+                }
+            }
+        }
+        every_province = {
+            limit = {
+                country_or_non_sovereign_subject_holds = ROOT
+                OR = {
+                    culture = portugese
+                    culture = EDG_Extremadura_culture
+                }
+                # always = yes
+            }
+            cede_province = POR
+        }
+        create_subject = {
+            subject_type = EDG_AVE_union
+            subject = POR
+        }
+        POR = {
+            change_government = monarchy
+            add_government_reform = feudal_monarchy
+        }
+    }
+
+}
+
+EDG_AVE_upgrade_defeat_northern_force_or_permanify = {
+    # 升级战胜北民之军修正。如果已经是最高级，则改为永久。
+    custom_tooltip = EDG_AVE_defeat_northern_troop_upgrade_effect
+    if = {
+        limit = { has_country_modifier = EDG_AVE_mission_defeat_northern_forces_1}
+        remove_country_modifier = EDG_AVE_mission_defeat_northern_forces_1
+        add_country_modifier = {
+            name = EDG_AVE_mission_defeat_northern_forces_2
+            duration = $DUR$
+        }
+    }
+    else_if = {
+        limit = { has_country_modifier = EDG_AVE_mission_defeat_northern_forces_2 }
+        remove_country_modifier = EDG_AVE_mission_defeat_northern_forces_2
+        add_country_modifier = {
+            name = EDG_AVE_mission_defeat_northern_forces_3
+            duration = $DUR$
+        }
+    }
+    else_if = {
+        limit = { has_country_modifier = EDG_AVE_mission_defeat_northern_forces_3 }
+        remove_country_modifier = EDG_AVE_mission_defeat_northern_forces_3
+        add_country_modifier = {
+            name = EDG_AVE_mission_defeat_northern_forces_3
+            duration = -1
+        }
+    }
+}
+# 文本类scripted_effect
+
+EDG_AVE_dream_trigger_text = {
+    if = {
+        limit = {
+            has_country_flag = EDG_ENG_is_playing_Plantagenet_dream
+        }
+        custom_tooltip = EDG_ENG_mission_1_3_dream_1_yes_tt
+    }
+    else = {
+        custom_tooltip = EDG_ENG_mission_1_3_dream_1_no_tt
+    }
+}

@@ -1,0 +1,1695 @@
+
+EDG_TUR_gaomen_reform_effect = {
+	custom_tooltip = EDG_TUR_gaomen_reform_effect_tt
+	add_government_power = {
+		mechanic_type = ottoman_decadence_mechanic
+		power_type = ottoman_decadence
+		value = 2.5
+	}
+	add_government_power = {
+		mechanic_type = EDG_TUR_Monarchy_ability_2
+		power_type = EDG_TUR_Monarchy_mil_power
+		value = -5
+	}
+	add_government_power = {
+		mechanic_type = EDG_TUR_Monarchy_ability_3
+		power_type = EDG_TUR_Monarchy_adm_power
+		value = -5
+	}
+}
+EDG_TUR_gaomen_decree_in_10_years_effect = {
+	adm_power = -200
+	dip_power = -200
+	mil_power = -200
+	add_government_power = {
+		mechanic_type = ottoman_decadence_mechanic
+		power_type = ottoman_decadence
+		value = 10
+	}
+	add_government_power = {
+		mechanic_type = EDG_TUR_Monarchy_ability_2
+		power_type = EDG_TUR_Monarchy_mil_power
+		value = -25
+	}
+	add_government_power = {
+		mechanic_type = EDG_TUR_Monarchy_ability_3
+		power_type = EDG_TUR_Monarchy_adm_power
+		value = -25
+	}
+	add_country_modifier = { name = EDG_TUR_gaomen_decree_in_10_years_modifier duration = 3650 hidden = yes }
+}
+EDG_NEW_TUR_gaomen_target_effect = {
+	every_country = {
+		limit = { has_government_attribute = EDG_TUR_gaomen_ability }
+		save_global_event_target_as = EDG_TUR_gaomen_target
+	}
+}
+
+EDG_OA_BUL_active_attack_effect = {
+	if= {
+		limit = {
+			NOT = { has_country_flag = EDG_BUL_OA_war_to_KAR_flag }
+			OR = {
+				tag = BU1
+				tag = BUL
+			}
+			NOT = {
+				is_year = 1550
+			}
+			KAR = { is_neighbor_of = root }
+			army_size = 40
+			is_subject = no
+			is_at_war = NO
+			stability = 1
+			has_regency = no
+			has_any_disaster = no
+			is_bankrupt = no
+			NOT = { num_of_loans = 15 }
+			NOT = { war_exhaustion = 2 }
+			ai = yes
+			NOT = { is_year = 1550 }
+			KAR = {
+				ai = yes
+				is_subject = no
+				not = { alliance_with = root }
+				not = { truce_with = root }
+				not = { is_part_of_hre = yes }
+				not = { army_size = root }
+			}
+		}
+		set_country_flag = EDG_BUL_OA_war_to_KAR_flag
+		declare_war_with_cb = {
+			who = KAR
+			casus_belli = cb_EDG_WG_superiority_Expel_Turks_war
+		}
+	}
+	if= {
+		limit = {
+			OR = {
+				tag = BUL
+				tag = BU1
+			}
+			is_subject = no
+			has_country_flag = EDG_allow_Expel_Turks_cb_enable_flag
+			is_at_war = NO
+			stability = 1
+			has_regency = no
+			has_any_disaster = no
+			is_bankrupt = no
+			NOT = { num_of_loans = 15 }
+			NOT = { war_exhaustion = 2 }
+			ai = yes
+			NOT = { is_year = 1550 }
+			any_country = {
+				NOT = { culture_group = east_slavic }
+				is_subject = no
+				ai = yes
+				is_neighbor_of = root
+				culture = turkish
+				not = { alliance_with = root }
+				not = { truce_with = root }
+				not = { tag = BYZ }
+				not = { tag = VEN }
+				not = { tag = GEN }
+				OR = {
+					AND = {
+						ROOT = { army_size = 30 }
+						not = { army_strength = {
+							who = root
+							value = 0.75
+						} }
+						not = { naval_strength = {
+							who = root
+							value = 1
+						} }
+					}
+					AND = {
+						not = { army_strength = {
+							who = root
+							value = 0.33
+						} }
+						not = { naval_strength = {
+							who = root
+							value = 0.75
+						} }
+					}
+				}
+				not = { num_of_allies = 5 }
+				not = { alliance_with = emperor }
+				not = { is_part_of_hre = yes }
+				not = { total_development = 150 }
+				NOT = {
+					any_country = {
+						army_size = ROOT
+						alliance_with = PREV
+					}
+				}
+				
+			}
+		}
+		add_manpower = 3
+		random_country = {
+			limit = {
+				NOT = { culture_group = east_slavic }
+				is_subject = no
+				ai = yes
+				is_neighbor_of = root
+				culture = turkish
+				not = { alliance_with = root }
+				not = { truce_with = root }
+				not = { tag = BYZ }
+				not = { tag = VEN }
+				not = { tag = GEN }
+				OR = {
+					AND = {
+						ROOT = { army_size = 30 }
+						not = { army_strength = {
+							who = root
+							value = 0.75
+						} }
+						not = { naval_strength = {
+							who = root
+							value = 1
+						} }
+					}
+					AND = {
+						not = { army_strength = {
+							who = root
+							value = 0.33
+						} }
+						not = { naval_strength = {
+							who = root
+							value = 0.75
+						} }
+					}
+				}
+				not = { num_of_allies = 5 }
+				not = { alliance_with = emperor }
+				not = { is_part_of_hre = yes }
+				not = { total_development = 150 }
+				NOT = {
+					any_country = {
+						army_size = ROOT
+						alliance_with = PREV
+					}
+				}
+				
+			}
+			root = {
+				declare_war_with_cb = {
+					who = PREV
+					casus_belli = cb_EDG_WG_superiority_Expel_Turks_war
+				}
+			}
+		}
+		
+	}
+}
+EDG_OA_TUR_active_attack_effect = {
+	if = {
+		limit = { not = { has_country_modifier = EDG_MISSION_TUR_ban_declare_war_modifier } }
+		
+		if = {
+			limit = {
+				or = {
+					KAR = { is_subject_of = MHM }
+					KAR = { is_subject_of = TUR }
+				}
+			}
+			KAR = { remove_historical_friend = MHM }
+			KAR = { remove_historical_friend = TUR }
+			TUR = { remove_historical_friend = KAR }
+			MHM = { remove_historical_friend = KAR }
+		}
+		if= {
+			limit = {
+				NOT = { has_country_flag = EDG_MHM_OA_war_to_KAR_flag }
+				OR = {
+					tag = TUR
+					tag = MHM
+				}
+				or = {
+					is_year = 1455
+					KAR = { is_neighbor_of = root }
+				}
+				NOT = {
+					is_year = 1500
+				}
+				army_size = 30
+				is_subject = no
+				is_at_war = NO
+				stability = 1
+				has_regency = no
+				has_any_disaster = no
+				is_bankrupt = no
+				NOT = { num_of_loans = 15 }
+				NOT = { war_exhaustion = 2 }
+				ai = yes
+				NOT = { is_year = 1550 }
+				KAR = {
+					ai = yes
+					is_subject = no
+					not = { alliance_with = root }
+					not = { truce_with = root }
+					not = { is_part_of_hre = yes }
+					not = { army_size = root }
+					not = { total_development = 255 }
+				}
+			}
+			set_country_flag = EDG_MHM_OA_war_to_KAR_flag
+			declare_war_with_cb = {
+				who = KAR
+				casus_belli = cb_ottoman_subjugation_war
+			}
+		}
+		if= {
+			limit = {
+				OR = {
+					tag = TUR
+					tag = MHM
+				}
+				is_subject = no
+				is_at_war = NO
+				stability = 1
+				has_regency = no
+				has_any_disaster = no
+				is_bankrupt = no
+				NOT = { num_of_loans = 15 }
+				NOT = { war_exhaustion = 2 }
+				ai = yes
+				NOT = { is_year = 1550 }
+				any_country = {
+					NOT = { culture_group = east_slavic }
+					is_subject = no
+					ai = yes
+					OR = {
+						is_neighbor_of = root
+						tag = KAR
+						tag = MEN
+						tag = BKT
+					}
+					not = { tag = BYZ }
+					not = { tag = VEN }
+					not = { tag = GEN }
+					not = { tag = GSR }
+					not = { alliance_with = root }
+					not = { truce_with = root }
+					OR = {
+						AND = {
+							ROOT = { army_size = 30 }
+							not = { army_strength = {
+								who = root
+								value = 0.75
+							} }
+							not = { naval_strength = {
+								who = root
+								value = 1
+							} }
+						}
+						AND = {
+							not = { army_strength = {
+								who = root
+								value = 0.33
+							} }
+							not = { naval_strength = {
+								who = root
+								value = 0.75
+							} }
+						}
+					}
+					not = { num_of_allies = 5 }
+					not = { alliance_with = emperor }
+					not = { is_part_of_hre = yes }
+					not = { total_development = 150 }
+					NOT = {
+						any_country = {
+							army_size = ROOT
+							alliance_with = PREV
+						}
+					}
+					
+				}
+			}
+			add_manpower = 3
+			random_country = {
+				limit = {
+					NOT = { culture_group = east_slavic }
+					is_subject = no
+					ai = yes
+					OR = {
+						is_neighbor_of = root
+						tag = KAR
+						tag = MEN
+						tag = BKT
+					}
+					not = { tag = BYZ }
+					not = { tag = VEN }
+					not = { tag = GEN }
+					not = { tag = GSR }
+					not = { alliance_with = root }
+					not = { truce_with = root }
+					OR = {
+						AND = {
+							ROOT = { army_size = 30 }
+							not = { army_strength = {
+								who = root
+								value = 0.75
+							} }
+							not = { naval_strength = {
+								who = root
+								value = 1
+							} }
+						}
+						AND = {
+							not = { army_strength = {
+								who = root
+								value = 0.33
+							} }
+							not = { naval_strength = {
+								who = root
+								value = 0.75
+							} }
+						}
+					}
+					not = { num_of_allies = 5 }
+					not = { alliance_with = emperor }
+					not = { is_part_of_hre = yes }
+					not = { total_development = 150 }
+					NOT = {
+						any_country = {
+							army_size = ROOT
+							alliance_with = PREV
+						}
+					}
+					
+				}
+				root = {
+					declare_war_with_cb = {
+						who = PREV
+						casus_belli = cb_ottoman_subjugation_war
+					}
+				}
+			}
+			
+		}
+	}
+}
+
+EDG_FYM_conquer_event_effect = {
+	custom_tooltip = EDG_FYM_conquer_event_effect_tt
+	hidden_effect = {
+		country_event = { id = EDG_flavor_FYM_mission.10 days = 1 }
+	}
+	custom_tooltip = EDG_SPACE_TT
+}
+EDG_FYM_mission_3_1_modifier_update_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_FYM_mission_3_1_modifier }
+		custom_tooltip = EDG_FYM_mission_3_1_modifier_update_effect_tt_yes
+		hidden_effect = {
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability
+				power_type = EDG_FYM_Monarchy_power
+				value = 5
+			}
+			remove_country_modifier = EDG_FYM_mission_3_1_modifier
+		}
+		add_country_modifier = {
+			name = EDG_FYM_mission_3_1_modifier
+			duration = 3650
+		}
+	}
+	else = {
+		custom_tooltip = EDG_FYM_mission_3_1_modifier_update_effect_tt_no
+		add_country_modifier = {
+			name = EDG_FYM_mission_3_1_modifier
+			duration = 3650
+		}
+	}
+}
+EDG_KAZ_mission_loot_amount_modifier_effect = {
+	custom_tooltip = EDG_KAZ_mission_loot_amount_modifier_effect_tt
+	if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_loot_amount_modifier_5
+		}
+		remove_country_modifier = EDG_KAZ_mission_loot_amount_modifier_5
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_5
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_loot_amount_modifier_4
+		}
+		remove_country_modifier = EDG_KAZ_mission_loot_amount_modifier_4
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_5
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_loot_amount_modifier_3
+		}
+		remove_country_modifier = EDG_KAZ_mission_loot_amount_modifier_3
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_4
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_loot_amount_modifier_2
+		}
+		remove_country_modifier = EDG_KAZ_mission_loot_amount_modifier_2
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_3
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_loot_amount_modifier_1
+		}
+		remove_country_modifier = EDG_KAZ_mission_loot_amount_modifier_1
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_2
+			duration = 7300
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_KAZ_mission_loot_amount_modifier_1
+			duration = 7300
+		}
+	}
+}
+EDG_KAZ_mission_son_war_modifier_effect = {
+	custom_tooltip = EDG_KAZ_mission_son_war_modifier_effect_tt
+	if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_son_war_modifier_5
+		}
+		remove_country_modifier = EDG_KAZ_mission_son_war_modifier_5
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_5
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_son_war_modifier_4
+		}
+		remove_country_modifier = EDG_KAZ_mission_son_war_modifier_4
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_5
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_son_war_modifier_3
+		}
+		remove_country_modifier = EDG_KAZ_mission_son_war_modifier_3
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_4
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_son_war_modifier_2
+		}
+		remove_country_modifier = EDG_KAZ_mission_son_war_modifier_2
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_3
+			duration = 7300
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_KAZ_mission_son_war_modifier_1
+		}
+		remove_country_modifier = EDG_KAZ_mission_son_war_modifier_1
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_2
+			duration = 7300
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_KAZ_mission_son_war_modifier_1
+			duration = 7300
+		}
+	}
+}
+EDG_SIC_modifier_update_effect = {#西西里buff升级
+	custom_tooltip = EDG_SIC_modifier_update_effect_tt
+	if = {
+		limit = {
+			has_country_modifier = EDG_MISSION_SIC_5_4_modifier
+		}
+		remove_country_modifier = EDG_MISSION_SIC_5_4_modifier
+		add_country_modifier = {
+			name = EDG_MISSION_SIC_5_5_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_MISSION_SIC_5_3_modifier
+		}
+		remove_country_modifier = EDG_MISSION_SIC_5_3_modifier
+		add_country_modifier = {
+			name = EDG_MISSION_SIC_5_4_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_MISSION_SIC_5_2_modifier
+		}
+		remove_country_modifier = EDG_MISSION_SIC_5_2_modifier
+		add_country_modifier = {
+			name = EDG_MISSION_SIC_5_3_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = {
+			has_country_modifier = EDG_MISSION_SIC_5_1_modifier
+		}
+		remove_country_modifier = EDG_MISSION_SIC_5_1_modifier
+		add_country_modifier = {
+			name = EDG_MISSION_SIC_5_2_modifier
+			duration = -1
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_MISSION_SIC_5_1_modifier
+			duration = -1
+		}
+	}
+}
+EDG_LIT_Attracting_immigrants_effect = {#吸引移民垦殖
+	
+	if = {
+		limit = {
+			owner = { has_country_flag = EDG_LIT_mission_4_12_interaction_falg }
+		}
+		remove_province_modifier = EDG_LIT_Attracting_immigrants_effect_province_modifier_1
+		add_province_modifier = {
+			name = EDG_LIT_Attracting_immigrants_effect_province_modifier_2
+			duration = 7300
+		}
+	}
+	else = {
+		add_province_modifier = {
+			name = EDG_LIT_Attracting_immigrants_effect_province_modifier_1
+			duration = 7300
+		}
+	}
+}
+
+EDG_flavorSAX_16_a_modifier_upgrate_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_a_modifier_1 }
+		remove_country_modifier = EDG_flavorSAX_16_a_modifier_1
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_a_modifier_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_a_modifier_2 }
+		remove_country_modifier = EDG_flavorSAX_16_a_modifier_2
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_a_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_a_modifier_3 }
+		remove_country_modifier = EDG_flavorSAX_16_a_modifier_3
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_a_modifier_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_a_modifier_4 }
+		add_mil_power = 100
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_a_modifier_1
+			duration = -1
+		}
+	}
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_flavorSAX_16_modifier_upgrate_effect_tt
+	tooltip = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_a_modifier_4
+			duration = -1
+		}
+	}
+}
+EDG_flavorSAX_16_b_modifier_upgrate_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_b_modifier_1 }
+		remove_country_modifier = EDG_flavorSAX_16_b_modifier_1
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_b_modifier_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_b_modifier_2 }
+		remove_country_modifier = EDG_flavorSAX_16_b_modifier_2
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_b_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_b_modifier_3 }
+		remove_country_modifier = EDG_flavorSAX_16_b_modifier_3
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_b_modifier_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_b_modifier_4 }
+		add_mil_power = 100
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_b_modifier_1
+			duration = -1
+		}
+	}
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_flavorSAX_16_modifier_upgrate_effect_tt
+	tooltip = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_b_modifier_4
+			duration = -1
+		}
+	}
+}
+EDG_flavorSAX_16_c_modifier_upgrate_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_c_modifier_1 }
+		remove_country_modifier = EDG_flavorSAX_16_c_modifier_1
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_c_modifier_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_c_modifier_2 }
+		remove_country_modifier = EDG_flavorSAX_16_c_modifier_2
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_c_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_c_modifier_3 }
+		remove_country_modifier = EDG_flavorSAX_16_c_modifier_3
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_c_modifier_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_c_modifier_4 }
+		add_mil_power = 100
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_c_modifier_1
+			duration = -1
+		}
+	}
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_flavorSAX_16_modifier_upgrate_effect_tt
+	tooltip = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_c_modifier_4
+			duration = -1
+		}
+	}
+}
+EDG_flavorSAX_16_d_modifier_upgrate_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_d_modifier_1 }
+		remove_country_modifier = EDG_flavorSAX_16_d_modifier_1
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_d_modifier_2
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_d_modifier_2 }
+		remove_country_modifier = EDG_flavorSAX_16_d_modifier_2
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_d_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_d_modifier_3 }
+		remove_country_modifier = EDG_flavorSAX_16_d_modifier_3
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_d_modifier_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_flavorSAX_16_d_modifier_4 }
+		add_mil_power = 100
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_d_modifier_1
+			duration = -1
+		}
+	}
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_flavorSAX_16_modifier_upgrate_effect_tt
+	tooltip = {
+		add_country_modifier = {
+			name = EDG_flavorSAX_16_d_modifier_4
+			duration = -1
+		}
+	}
+}
+
+
+
+EDG_mission_GER_3_16_modifier_restore_effect = {
+	custom_tooltip = EDG_SPACE_TT
+	if = {
+		limit = {
+			has_country_modifier = EDG_mission_GER_3_16_modifier
+		}
+		custom_tooltip = EDG_mission_GER_3_16_modifier_restore_effect_tt_yes
+		hidden_effect = {
+			remove_country_modifier= EDG_mission_GER_3_16_modifier
+			add_country_modifier = {
+				name = EDG_mission_GER_3_16_modifier
+				duration = 9125
+			}
+		}
+	}
+	else = {
+		custom_tooltip = EDG_mission_GER_3_16_modifier_restore_effect_tt_no
+	}
+}
+EDG_flavorSAX_7_c_effect = {#结束祷告派移民
+	clr_country_flag = EDG_flavorSAX_6_a_flag
+	custom_tooltip = EDG_flavorSAX_7_c_effect_tt
+	hidden_effect = {
+		every_owned_province = {
+			remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_1
+			remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_2
+			remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_3
+		}
+	}
+}
+EDG_flavorSAX_7_a_effect = {#祷告派移民
+	if = {
+		limit = {
+			has_province_modifier = EDG_flavorSAX_7_a_privince_modifier_3
+		}
+		remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_3
+		change_religion = EDG_Euchites
+	}
+	else_if = {
+		limit = {
+			has_province_modifier = EDG_flavorSAX_7_a_privince_modifier_2
+		}
+		remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_2
+		if = {
+			limit = { development = 13 }
+			add_province_modifier = {
+				name = EDG_flavorSAX_7_a_privince_modifier_3
+				duration = -1
+			}
+		}
+		else = {
+			change_religion = EDG_Euchites
+		}
+	}
+	else_if = {
+		limit = {
+			has_province_modifier = EDG_flavorSAX_7_a_privince_modifier_1
+		}
+		remove_province_modifier = EDG_flavorSAX_7_a_privince_modifier_1
+		if = {
+			limit = { development = 7 }
+			add_province_modifier = {
+				name = EDG_flavorSAX_7_a_privince_modifier_2
+				duration = -1
+			}
+		}
+		else = {
+			change_religion = EDG_Euchites
+		}
+	}
+	else_if = {
+		add_province_modifier = {
+			name = EDG_flavorSAX_7_a_privince_modifier_1
+			duration = -1
+		}
+	}
+}
+
+
+EDG_SAX_Cultural_singularity_modifier_update_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_SAX_Cultural_singularity_modifier_4 }
+		remove_country_modifier = EDG_SAX_Cultural_singularity_modifier_4
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_5
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_SAX_Cultural_singularity_modifier_3 }
+		remove_country_modifier = EDG_SAX_Cultural_singularity_modifier_3
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_4
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_SAX_Cultural_singularity_modifier_2 }
+		remove_country_modifier = EDG_SAX_Cultural_singularity_modifier_2
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_SAX_Cultural_singularity_modifier_2 }
+		remove_country_modifier = EDG_SAX_Cultural_singularity_modifier_2
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_3
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { has_country_modifier = EDG_SAX_Cultural_singularity_modifier_1 }
+		remove_country_modifier = EDG_SAX_Cultural_singularity_modifier_1
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_2
+			duration = -1
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_SAX_Cultural_singularity_modifier_1
+			duration = -1
+		}
+	}
+}
+
+EDG_SAX_Generalissimo_dicision_value_upgrade = {
+	if = {
+		limit = {
+			check_variable = {
+				which = EDG_SAX_Generalissimo_dicision_value
+				value = 1
+			}
+		}
+		change_variable = {
+			which = EDG_SAX_Generalissimo_dicision_value
+			value = 1
+		}
+	}
+	else = {
+		set_variable = {
+			which = EDG_SAX_Generalissimo_dicision_value
+			value = 1
+		}
+	}
+}
+EDG_Prohibition_order_invalid_in_20_years_effect = {
+	custom_tooltip = EDG_Prohibition_order_invalid_in_20_years_effect_tt
+	hidden_effect = {
+		add_country_modifier = {
+		  name = EDG_Prohibition_order_invalid_in_20_years_modifier
+		  duration = 7300
+		  hidden = yes
+		}
+	}
+}
+edg_add_reform_desire_tiny_effect = {
+	#custom_tooltip = edg_add_reform_desire_tiny_effect_tt
+	add_reform_desire = 0.001
+	# hidden_effect = {
+	# 	add_reform_desire = 0.0005
+	# }
+}
+EDG_PER_disaster_Shah_insane_value_hard_effect = {
+	custom_tooltip = EDG_PER_disaster_Shah_insane_value_hard_effect_tt
+	change_variable = {
+		which = EDG_PER_disaster_Shah_insane_war_value
+		value = 1
+	}
+}
+EDG_PER_disaster_Shah_insane_value_weak_effect = {
+	custom_tooltip = EDG_PER_disaster_Shah_insane_value_weak_effect_tt
+	change_variable = {
+		which = EDG_PER_disaster_Shah_insane_war_value
+		value = -1
+	}
+}
+EDG_PER_Shahanshah_reform_effect = {
+	change_variable = {
+		which = EDG_PER_Shahanshah_authority_var
+		value = -100
+	}
+}
+EDG_NEW_PER_Shahanshah_target_effect = {
+	every_country = {
+		limit = { has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier NOT = { tag = ROOT } }
+		remove_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+	}
+	add_country_modifier = {
+		name = EDG_PER_Shahanshah_the_tag_modifier
+		duration = -1
+		hidden = yes
+	}
+	save_global_event_target_as = EDG_PER_Shahanshah_target
+	if = {
+		limit = {
+			NOT = {
+				check_variable = {
+					which = EDG_PER_Shahanshah_authority_var
+					value = 60
+				}
+			}
+		}
+		set_variable = {
+			which = EDG_PER_Shahanshah_authority_var
+			value = 60
+		}
+	}
+}
+EDG_PER_Shahanshah_decree_in_10_years_effect = {
+	if = {
+		limit = { has_country_modifier = EDG_PER_Shahanshah_decree_in_10_years_modifier }
+		custom_tooltip = EDG_PER_Shahanshah_decree_in_10_years_tt_1
+	}
+	else = {
+		custom_tooltip = EDG_PER_Shahanshah_decree_in_10_years_tt_2
+	}
+	hidden_effect = {
+		event_target:EDG_PER_Shahanshah_target = {
+			if = {
+				limit = { has_country_modifier = EDG_PER_Shahanshah_decree_in_10_years_modifier }
+				add_government_power = {
+				  mechanic_type = persian_influence_mechanic
+				  power_type = persian_influence
+				  value = -25
+				}
+			}
+			change_variable = {
+				which = EDG_PER_Shahanshah_authority_var
+				value = 10
+			}
+			remove_country_modifier = EDG_PER_Shahanshah_decree_in_10_years_modifier
+			add_country_modifier = { name = EDG_PER_Shahanshah_decree_in_10_years_modifier duration = 3650 hidden = yes }
+		}
+	}
+
+	custom_tooltip = EDG_SPACE_TT
+}
+
+EDG_lost_all_core_effect = {
+	custom_tooltip = EDG_lost_all_core_effect_tt
+	hidden_effect = {
+		every_province = {
+			limit = { is_core = ROOT NOT = { owned_by = ROOT } }
+			remove_core = ROOT
+		}
+	}
+}
+ME_distribute_development = {
+	hidden_effect = {
+		set_variable = {
+			which = ME_$type$_loop
+			value = 0
+		}
+		while = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = ME_$type$_loop
+						value = $amount$
+					}
+				}
+			}
+			random_owned_province = {
+				[[limit]
+					limit = {
+						$limit$
+					} 
+				]
+				add_base_$type$ = 1
+			}
+			change_variable = {
+				which = ME_$type$_loop
+				value = 1
+			}
+		}
+	}
+	custom_tooltip = $type$_$amount$
+}
+
+EDG_MLO_Concentration_development_effect_1 = {
+	random_province = {
+		limit = {
+			country_or_non_sovereign_subject_holds = ROOT
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+			NOT = { culture_group = latin }
+		}
+		EDG_MLO_Concentration_development_effect_2 = yes
+	}
+	random_owned_province = {
+		limit = {
+			culture_group = latin
+			NOT = { development = 50 }
+		}
+		random_list = {
+			33 = { add_base_tax = 1 }
+			34 = { add_base_production = 1 }
+			33 = { add_base_manpower = 1 }
+		}
+	}
+}
+EDG_MLO_Concentration_development_effect_2 = {
+    if = {
+		limit = { base_manpower = 2 }
+		add_base_manpower = -1
+	}
+    if = {
+		limit = { base_tax = 2 }
+		add_base_tax = -1
+	}
+    if = {
+		limit = { base_production = 2 }
+		add_base_production = -1
+	}
+	add_unrest = 5
+}
+EDG_distribute_development = {
+	hidden_effect = {
+		set_variable = {
+			which = EDG_$type$_loop
+			value = 0
+		}
+		while = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = EDG_$type$_loop
+						value = $amount$
+					}
+				}
+			}
+			random_owned_province = {
+				add_base_$type$ = 1
+			}
+			change_variable = {
+				which = EDG_$type$_loop
+				value = 1
+			}
+		}
+	}
+	custom_tooltip = $type$_$amount$
+}
+
+
+EDG_BUL_form_province_effect = {
+	add_liberty_desire = -100 add_historical_friend = ROOT
+	set_country_flag = is_EDG_BUL_viceroyalty_government_flag
+	add_trust = {
+		who = ROOT
+		value = 50
+		mutual = yes
+	} 
+	hidden_effect = {
+		change_government = monarchy
+		add_treasury = 500
+		add_years_of_income = 2.5
+		add_yearly_manpower = 10
+		add_yearly_sailors = 10
+		add_adm_power = 200
+		add_dip_power = 200
+		add_mil_power = 200
+		add_government_reform = EDG_Bulgaria_viceroyalty_government
+		add_government_reform = EDG_BUL_MIL_reform
+		change_religion = ROOT
+		change_primary_culture = ROOT
+		set_ruler_culture = ROOT
+		set_ruler_religion = ROOT
+		country_event = { id = ideagroups.1 } #Swap Ideas
+	}
+
+}
+
+EDG_more_conquer_personality_flag_effect = {
+	custom_tooltip = EDG_more_conquer_personality_flag_1_tt
+	if = {
+		limit = {
+			NOT = { has_country_flag = EDG_more_conquer_personality_flag_1 }
+		}
+		set_country_flag = EDG_more_conquer_personality_flag_1
+	}
+	else_if = {
+		limit = {
+			NOT = { has_country_flag = EDG_more_conquer_personality_flag_2 }
+		}
+		set_country_flag = EDG_more_conquer_personality_flag_2
+	}
+	else_if = {
+		limit = {
+			NOT = { has_country_flag = EDG_more_conquer_personality_flag_3 }
+		}
+		set_country_flag = EDG_more_conquer_personality_flag_3
+	}
+}
+
+EDG_MRE_power_change_small_effect = {
+	add_government_power = {
+		mechanic_type = EDG_Muwahhidun_government_ability
+		power_type = EDG_Muwahhidun_government_power
+		value = 2.5
+	}
+}
+EDG_MRE_power_change_big_effect = {
+	add_government_power = {
+		mechanic_type = EDG_Muwahhidun_government_ability
+		power_type = EDG_Muwahhidun_government_power
+		value = 5
+	}
+}
+EDG_on_loan_repaid_estate_privileges_effect = {
+	if = {
+		limit = {
+			has_estate_privilege = estate_edg_mafia_privilege_10
+			has_estate_loan = no
+		}
+		remove_estate_privilege = estate_edg_mafia_privilege_10
+	}
+	if = {
+		limit = {
+			has_estate_privilege = EDG_Caledonia_indebted_to_Caledonia
+			has_estate_loan = no
+		}
+		remove_estate_privilege = EDG_Caledonia_indebted_to_Caledonia
+	}
+}
+EDG_exploit_province_development_Five_times_effect = { 
+    if = {
+		limit = {
+			base_manpower = 6
+		}
+		add_base_manpower = -5
+		ROOT = {
+			add_mil_power = 125
+		}
+	}
+    else_if = {
+		limit = {
+			base_manpower = 5
+		}
+		add_base_manpower = -4
+		ROOT = {
+			add_mil_power = 100
+		}
+	}
+    else_if = {
+		limit = {
+			base_manpower = 4
+		}
+		add_base_manpower = -3
+		ROOT = {
+			add_mil_power = 75
+		}
+	}
+	else_if = {
+		limit = {
+			base_manpower = 3
+		}
+		add_base_manpower = -2
+		ROOT = {
+			add_mil_power = 50
+		}
+	}
+	else_if = {
+		limit = {
+			base_manpower = 2
+		}
+		add_base_manpower = -1
+		ROOT = {
+			add_mil_power = 25
+		}
+	}
+
+	
+    if = {
+		limit = {
+			base_production = 6
+		}
+		add_base_production = -5
+		ROOT = {
+			add_dip_power = 125
+		}
+	}
+    else_if = {
+		limit = {
+			base_production = 5
+		}
+		add_base_production = -4
+		ROOT = {
+			add_dip_power = 100
+		}
+	}
+    else_if = {
+		limit = {
+			base_production = 4
+		}
+		add_base_production = -3
+		ROOT = {
+			add_dip_power = 75
+		}
+	}
+    else_if = {
+		limit = {
+			base_production = 3
+		}
+		add_base_production = -2
+		ROOT = {
+			add_dip_power = 50
+		}
+	}
+    else_if = {
+		limit = {
+			base_production = 2
+		}
+		add_base_production = -1
+		ROOT = {
+			add_dip_power = 25
+		}
+	}
+	
+    if = {
+		limit = {
+			base_tax = 6
+		}
+		add_base_tax = -5
+		ROOT = {
+			add_adm_power = 125
+		}
+	}
+    else_if = {
+		limit = {
+			base_tax = 5
+		}
+		add_base_tax = -4
+		ROOT = {
+			add_adm_power = 100
+		}
+	}
+    else_if = {
+		limit = {
+			base_tax = 4
+		}
+		add_base_tax = -3
+		ROOT = {
+			add_adm_power = 75
+		}
+	}
+    else_if = {
+		limit = {
+			base_tax = 3
+		}
+		add_base_tax = -2
+		ROOT = {
+			add_adm_power = 50
+		}
+	}
+    else_if = {
+		limit = {
+			base_tax = 2
+		}
+		add_base_tax = -1
+		ROOT = {
+			add_adm_power = 25
+		}
+	}
+}
+
+EDG_add_or_extend_country_modifier_effect = {
+	if = {
+		limit = {
+			has_country_modifier = $MODIFIER$
+		}
+		remove_country_modifier = $MODIFIER$
+		add_country_modifier = { name = $MODIFIER$ duration = $DURATION$ }
+	}
+	else = {
+		add_country_modifier = { name = $MODIFIER$ duration = $DURATION$ }
+	}
+}
+
+EDG_add_or_extend_TTS_raising_mission_modifier_25_years_effect = {
+	custom_tooltip = EDG_add_or_extend_TTS_raising_mission_modifier_25_years_effect_tt
+	add_adm_power = 100
+	add_dip_power = 100
+	add_mil_power = 100
+	hidden_effect = {
+		remove_country_modifier = EDG_TTS_raising_mission_modifier
+		add_country_modifier = {
+			name = "EDG_TTS_raising_mission_modifier"
+			duration = 18250
+		}
+	}
+}
+
+EDG_DEBUG_remove_tag_effect_1 = {
+	
+	hidden_effect = {
+		north_america_superregion = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			decolonize = yes
+			change_native_size = 10
+			native_ferocity = 4
+			native_hostileness = 9 
+		}
+		brazil_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			decolonize = yes
+			change_native_size = 10
+			native_ferocity = 4
+			native_hostileness = 9 
+		}
+		east_indies_superregion = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			decolonize = yes
+			change_native_size = 10
+			native_ferocity = 4
+			native_hostileness = 9 
+		}
+		far_east_superregion = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			decolonize = yes
+			change_native_size = 10
+			native_ferocity = 4
+			native_hostileness = 9 
+		}
+		australia_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			decolonize = yes
+      change_native_size = 10
+      native_ferocity = 4
+      native_hostileness = 9 
+		}
+		andes_superregion = {
+			limit = {
+				owner = { culture_group = andean_group }
+			}
+			add_core = CSU cede_province = CSU
+		}
+	# 	kongo_region = {
+	# 		limit = {
+	# 			owner = { culture_group = kongo_group NOT = { tag = KON } }
+	# 		}
+	# 		#add_core = KON cede_province = KON
+	# 		decolonize = yes
+    #   change_native_size = 60
+    #   native_ferocity = 4
+    #   native_hostileness = 9
+	# 	}
+	# 	central_africa_region = {
+	# 		limit = {
+	# 			owner = { culture_group = kongo_group NOT = { tag = KON } }
+	# 		}
+	# 		#add_core = KON cede_province = KON
+	# 		decolonize = yes
+    #   change_native_size = 60
+    #   native_ferocity = 4
+    #   native_hostileness = 9
+	# 	}
+      mexico_region = {
+        limit = {
+          owner = { technology_group = mesoamerican }
+        }
+        add_core = AZT cede_province = AZT
+      }
+      mexico_region = {
+        limit = { base_manpower = 2 }
+        add_base_manpower = -1
+      }
+      mexico_region = {
+        limit = { base_production = 2 }
+        add_base_production = -1
+      }
+      mexico_region = {
+        limit = { base_tax = 2 }
+        add_base_tax = -1
+      }
+      east_africa_region = {
+        limit = {
+          #owner = { technology_group = east_african }
+          NOT = { owned_by = ZAN }
+        }
+        #add_core = ZAN cede_province = ZAN
+        decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9
+      }
+      east_africa_region = {
+        limit = { base_manpower = 2 }
+        add_base_manpower = -1
+      }
+      east_africa_region = {
+        limit = { base_production = 2 }
+        add_base_production = -1
+      }
+      east_africa_region = {
+        limit = { base_tax = 2 }
+        add_base_tax = -1
+      }
+      central_africa_region = {
+        limit = {
+          owner = { culture_group = great_lakes_group }
+        }
+        add_core = BNY cede_province = BNY
+      }
+      niger_region = {
+        limit = {
+          owner = { culture_group = west_african }
+        }
+        add_core = MAL cede_province = MAL
+      }
+      east_africa_region = {
+        limit = {
+          owner = { culture_group = southern_african }
+        }
+        add_core = ZIM cede_province = ZIM
+      }
+      central_america_region = {
+        limit = {
+          owner = { culture_group = maya }
+        }
+        add_core = CNP cede_province = CNP
+      }
+      #BEI = {
+        # SMB = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # BNJ = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # KUT = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # BEU = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # MKS = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # BNE = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # LUW = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # BTN = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+      #}
+      MLC = {
+        inherit = PAH
+        inherit = PAT
+        inherit = KEL
+        inherit = KED
+        every_owned_province = {
+          limit = { base_manpower = 2 }
+          add_base_manpower = -1
+        }
+        every_owned_province = {
+          limit = { base_production = 2 }
+          add_base_production = -1
+        }
+        every_owned_province = {
+          limit = { base_tax = 2 }
+          add_base_tax = -1
+        }
+      }
+      SAK = {
+        inherit = PLB
+        inherit = JMB
+        inherit = DLI
+        inherit = PSA
+        inherit = ATJ
+        inherit = BRS
+        inherit = IND
+        inherit = PGR
+        every_owned_province = {
+          limit = { base_manpower = 2 }
+          add_base_manpower = -1
+        }
+        every_owned_province = {
+          limit = { base_production = 2 }
+          add_base_production = -1
+        }
+        every_owned_province = {
+          limit = { base_tax = 2 }
+          add_base_tax = -1
+        }
+      }
+      #MIN = {
+        TDO = { every_owned_province = { decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9 } }
+        MAS = { every_owned_province = { decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9 } }
+        MGB = { every_owned_province = { decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9 } }
+        SUL = { every_owned_province = { decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9 } }
+        TER = { every_owned_province = { decolonize = yes
+        change_native_size = 60
+        native_ferocity = 4
+        native_hostileness = 9 } }
+      #}
+      #AIR = {
+        # KBO = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # KTS = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # KAN = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # WAD = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+        # YAO = { every_owned_province = { decolonize = yes
+        # change_native_size = 60
+        # native_ferocity = 4
+        # native_hostileness = 9 } }
+      #}
+      AVA = {
+        inherit = MYA
+        inherit = KAL
+        inherit = MNI
+        inherit = HSI
+        inherit = MPA
+        inherit = TAU
+        inherit = BPR
+        every_owned_province = {
+          limit = { base_manpower = 2 }
+          add_base_manpower = -1
+        }
+        every_owned_province = {
+          limit = { base_production = 2 }
+          add_base_production = -1
+        }
+        every_owned_province = {
+          limit = { base_tax = 2 }
+          add_base_tax = -1
+        }
+      }
+      BNG = {
+        inherit = TPR
+        inherit = KAC
+        inherit = MLB
+        inherit = ARK
+        inherit = KMR
+        every_owned_province = {
+          limit = { base_manpower = 2 }
+          add_base_manpower = -1
+        }
+        every_owned_province = {
+          limit = { base_production = 2 }
+          add_base_production = -1
+        }
+        every_owned_province = {
+          limit = { base_tax = 2 }
+          add_base_tax = -1
+        }
+      }
+    }
+}

@@ -1,0 +1,702 @@
+riga_set_up_rig_trade_city_effect = {
+	create_subject = {
+		subject_type = rig_trade_city
+		subject = $subject$
+	}
+	
+	$subject$ = {
+		[[reform]
+		change_government = rig_theocracy
+		add_government_reform = rig_trading_city_reform
+		change_religion = catholic
+		change_country_color = {
+			country = RIG
+		}
+		]
+	}
+}
+riga_set_up_special_vassal_effect = {
+	create_subject = {
+		subject_type = $type$
+		subject = $subject$
+	}
+	$subject$ = {
+		[[reform]
+		change_government = rig_theocracy
+		if = {
+			limit = {
+				RIG = {
+					mission_completed = rig_diocesan_renovation_ordinace
+				}
+			}
+			add_government_reform = rig_leading_clergy_reform
+		}
+		else = {
+			add_government_reform = leading_clergy_reform
+		}
+		change_religion = catholic
+		change_country_color = {
+			country = RIG
+		}
+		]
+	}
+}
+upgrade_riga_hansa_trade_disputes = {
+	RIG = {
+		change_variable = {
+			which = riga_hansa_trade_disputes_count
+			value = $value$
+		}
+		if = {
+			limit = { 
+				NOT = {
+					check_variable = {
+						which = riga_hansa_trade_disputes_count
+						value = 21
+					}
+				}
+			}
+			every_known_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+					NOT = {
+						tag = RIG
+					}
+				}
+				add_country_modifier = {
+					name = rig_riga_hansa_trade_conflict_normal
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = rig_riga_hansa_trade_conflict_normal
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = riga_hansa_trade_disputes_count
+					value = 21
+				}
+				NOT = {
+					check_variable = {
+						which = riga_hansa_trade_disputes_count
+						value = 41
+					}
+				}
+			}
+			every_known_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+					NOT = {
+						tag = RIG
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_normal
+				add_country_modifier = {
+					name = rig_riga_hansa_trade_conflict_aggravate
+					duration = -1
+				}
+			}
+			remove_country_modifier = rig_riga_hansa_trade_conflict_normal
+			add_country_modifier = {
+				name = rig_riga_hansa_trade_conflict_aggravate
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = riga_hansa_trade_disputes_count
+					value = 41
+				}
+				NOT = {
+					check_variable = {
+						which = riga_hansa_trade_disputes_count
+						value = 61
+					}
+				}
+			}
+			every_known_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+					NOT = {
+						tag = RIG
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+				add_country_modifier = {
+					name = rig_riga_hansa_trade_conflict_seriousness
+					duration = -1
+				}
+			}
+			remove_country_modifier = rig_riga_hansa_trade_conflict_aggravate
+			add_country_modifier = {
+				name = rig_riga_hansa_trade_conflict_seriousness
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = riga_hansa_trade_disputes_count
+					value = 61
+				}
+				NOT = {
+					check_variable = {
+						which = riga_hansa_trade_disputes_count
+						value = 81
+					}
+				}
+			}
+			every_known_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+					NOT = {
+						tag = RIG
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+				add_country_modifier = {
+					name = rig_riga_hansa_trade_conflict_extremely_seriousness
+					duration = -1
+				}
+			}
+			remove_country_modifier = rig_riga_hansa_trade_conflict_seriousness
+			add_country_modifier = {
+				name = rig_riga_hansa_trade_conflict_extremely_seriousness
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { 
+				check_variable = {
+					which = riga_hansa_trade_disputes_count
+					value = 81
+				}
+			}
+			every_known_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							region = north_german_region
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+					NOT = {
+						tag = RIG
+					}
+				}
+				remove_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+				add_country_modifier = {
+					name = rig_riga_hansa_trade_conflict_out_of_control
+					duration = -1
+				}
+			}
+			remove_country_modifier = rig_riga_hansa_trade_conflict_extremely_seriousness
+			add_country_modifier = {
+				name = rig_riga_hansa_trade_conflict_out_of_control
+				duration = -1
+			}
+		}
+	}
+}
+rig_add_subject_modifier_effect = {
+	every_subject_country = {
+		limit = {
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_trade_city
+					is_subject_of_type = tributary_state
+				}
+			}
+		}
+		add_country_modifier = {
+			name = $modifier$
+			duration = $days$
+		}
+	}
+}
+rig_remove_subject_modifier_effect = {
+	every_subject_country = {
+		limit = {
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_trade_city
+					is_subject_of_type = tributary_state
+				}
+			}
+		}
+		remove_country_modifier = $modifier$
+	}
+}
+rig_replace_subject_modifier_effect = {
+	every_subject_country = {
+		limit = {
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_trade_city
+					is_subject_of_type = tributary_state
+				}
+			}
+		}
+		remove_country_modifier = $remove_modifier$
+		add_country_modifier = {
+			name = $add_modifier$
+			duration = $days$
+		}
+	}
+}
+rig_release_special_vassal_effect = {
+	add_papal_influence = -50
+	$province$ = {
+		owner = {
+			release = $tag$
+		}
+	}
+	every_province = {
+		limit = {
+			country_or_non_sovereign_subject_holds = $who$
+		}
+		cede_province = $tag$
+	}
+	riga_set_up_special_vassal_effect = {
+		type = $type$
+		subject = $tag$
+		reform = yes
+	}
+	
+}
+rig_every_subject_country_effect = {
+	every_subject_country = {
+		limit = {
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_trade_city
+					is_subject_of_type = tributary_state
+				}
+			}
+		}
+		[[effect]
+			$effect$
+		]
+	}
+}
+subtract_variable_for_world_city_project = {
+	subtract_variable = {
+		which = world_city_project_base_develpment_cost
+		value = $value$
+	}
+	if = {
+		limit = { 
+			NOT = {
+				check_variable = {
+					which = world_city_project_base_develpment_cost
+					value = 6
+				}
+			}
+		}
+		set_variable = { #至少为5
+			which = world_city_project_base_develpment_cost
+			value = 5
+		}
+	}
+}
+calu_terrain_modifier_for_world_city_project = {
+	if = {
+		limit = { 
+			has_terrain = glacier #冰川
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 40
+		}
+		
+	}
+	else_if = {
+		limit = { 
+			has_terrain = farmlands
+		}
+		subtract_variable_for_world_city_project = {
+			value = 15
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = forest
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 15
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = hills
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 5
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = woods
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 5
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = mountain
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 15
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = grasslands
+		}
+		subtract_variable_for_world_city_project = {
+			value = 10
+		}
+
+	}
+	else_if = {
+		limit = { 
+			has_terrain = jungle
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 15
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = marsh
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 15
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = desert
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 10
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = coastline
+		}
+		subtract_variable_for_world_city_project = {
+			value = 10
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = coastal_desert
+		}
+		subtract_variable_for_world_city_project = {
+			value = 5
+		}
+	}
+	else_if = {
+		limit = {
+			has_terrain = drylands
+		}
+		subtract_variable_for_world_city_project = {
+			value = 5
+		}
+	}
+	else_if = {
+		limit = { 
+			has_terrain = highlands
+		}
+		change_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 25
+		}
+	}
+	else_if = {
+		limit = {
+			has_terrain = savannah
+		}
+		subtract_variable_for_world_city_project = {
+			value = 5
+		}
+	}
+	else_if = {
+		limit = {
+			has_terrain = savannah
+		}
+		subtract_variable_for_world_city_project = {
+			value = 10
+		}
+	}
+}
+declare_greate_war_effect = {
+	every_country = {
+		limit = {
+			NOT = {
+				OR = {
+					alliance_with = root
+					is_in_trade_league_with = root
+					guaranteed_by = root
+					AND = {
+						is_subject = yes
+						NOT = {
+							is_subject_of_type = tributary_state
+						}
+					}
+				}
+			}
+			capital_scope = {
+				region = $region$
+			}
+		}
+		root = {
+			if = {
+				limit = { 
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_conquer_provice
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_greate_war_of_riga_conquer_provice
+					who = prev
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_vassalize
+				}
+				if = {
+					limit = { 
+						prev = {
+							total_development = 350
+						}
+					}
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_conquer_provice
+						who = prev
+					}
+				}
+				else = {
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_vassalize
+						who = prev
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_dismemberment_country
+				}
+				if = {
+					limit = { 
+						prev = {
+							total_development = 350
+						}
+					}
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_dismemberment_country
+						who = prev
+					}
+				}
+				else = {
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_conquer_provice
+						who = prev
+					}
+				}
+			}
+		}
+	}
+}
+declare_greate_war_superregion_ffect = {
+	every_country = {
+		limit = {
+			NOT = {
+				OR = {
+					alliance_with = root
+					is_in_trade_league_with = root
+					guaranteed_by = root
+					AND = {
+						is_subject = yes
+						NOT = {
+							is_subject_of_type = tributary_state
+						}
+					}
+				}
+			}
+			capital_scope = {
+				superregion = $superregion$
+			}
+		}
+		root = {
+			if = {
+				limit = { 
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_conquer_provice
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_greate_war_of_riga_conquer_provice
+					who = prev
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_vassalize
+				}
+				if = {
+					limit = { 
+						prev = {
+							total_development = 350
+						}
+					}
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_conquer_provice
+						who = prev
+					}
+				}
+				else = {
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_vassalize
+						who = prev
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_flag = greate_war_use_cb_greate_war_of_riga_dismemberment_country
+				}
+				if = {
+					limit = { 
+						prev = {
+							total_development = 350
+						}
+					}
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_dismemberment_country
+						who = prev
+					}
+				}
+				else = {
+					declare_war_with_cb = {
+						casus_belli = cb_greate_war_of_riga_conquer_provice
+						who = prev
+					}
+				}
+			}
+		}
+	}
+}
+rig_cal_count_for_last_mission = {
+	if = {
+		limit = { 
+			has_country_modifier = rig_heavenly_praise
+		}
+		custom_tooltip = refresh_modifier_rig_heavenly_praise
+		hidden_effect = {
+			remove_country_modifier = rig_heavenly_praise
+			add_country_modifier = {
+				name = rig_heavenly_praise
+				duration = 1825
+			}
+			every_subject_country = {
+				limit = {
+					has_country_modifier = rig_heavenly_praise_subject
+				}
+				remove_country_modifier = rig_heavenly_praise_subject
+				add_country_modifier = {
+					name = rig_heavenly_praise_subject
+					duration = 1825
+				}
+			}
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = rig_heavenly_praise
+			duration = 1825
+		}
+		custom_tooltip = add_rig_heavenly_praise_modifier
+		hidden_effect = {
+			every_subject_country = {
+				limit = {
+					NOT = {
+						OR = {
+							is_subject_of_type = rig_trade_city
+							is_subject_of_type = tributary_state
+						}
+					}
+				}
+				add_country_modifier = {
+					name = rig_heavenly_praise_subject
+					duration = 1825
+				}
+			}
+		}
+	}
+	custom_tooltip = remove_religious_zeal_at_conv_modifier
+	hidden_effect = {
+		every_province = {
+			limit = {
+				riga_subject_of_subject_owned_land = { who = root }
+				has_province_modifier = religious_zeal_at_conv
+				NOT = {
+					religion = root
+				}
+			}
+			remove_province_modifier = religious_zeal_at_conv
+		}
+		change_variable = {
+			which = rig_count_missions_complete
+			value = 1
+		}
+	}
+	if = {
+		limit = { 
+			check_variable = {
+				which = rig_count_missions_complete
+				value = 16
+			}
+		}
+		hidden_effect = {
+			set_country_flag = rig_last_mission_flag
+		}
+		swap_non_generic_missions = yes
+	}
+}

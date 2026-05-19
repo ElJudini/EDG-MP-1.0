@@ -1,0 +1,821 @@
+FOI_UCI_premature_revolution = { #过早的革命
+	potential = {
+		exists = UCI
+		UCI = {
+			is_revolutionary = yes
+			is_revolution_target = yes
+			OR = {
+				capital_scope = {
+					continent = ROOT
+				}
+				is_neighbor_of = ROOT
+			}
+		}
+		NOT = {
+			tag = UCI
+		}
+	}
+	trigger = {
+		revolution_target_exists = yes
+		is_revolutionary = no
+		is_free_or_tributary_trigger = yes
+		NOT = {
+			OR = {
+				revolution_target = {
+					war_with = ROOT
+				}
+				revolution_target = {
+					truce_with = ROOT
+				} 
+			}
+		}
+		government = monarchy
+	}
+	prestige = 5
+	stability_cost_modifier = -0.3
+	global_unrest = -5
+}
+
+FOI_UCI_commune_armament = { #公社武装
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+	}
+	trigger = {
+		always = yes
+	}
+	regiment_manpower_usage = -0.25
+	merc_maintenance_modifier = 1
+	mercenary_discipline = -0.1
+	global_manpower_modifier = 0.25
+	land_morale = -0.25
+	discipline = -0.05
+	reinforce_cost_modifier = -0.75
+}
+
+FOI_UCI_commune_armament_war = {
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+	}
+	trigger = {
+		is_at_war = yes
+	}
+	war_taxes_cost_modifier	= -1
+	land_maintenance_modifier = -0.25
+	global_regiment_cost = -0.25
+	allowed_rev_guard_fraction = 0.1
+	global_manpower_modifier = 0.25
+	manpower_recovery_speed	 = 0.25
+	land_forcelimit_modifier = 0.25
+	yearly_revolutionary_zeal = 3
+}
+FOI_UCI_go_forward_hand = {
+	potential = {
+		exists = UCI
+		UCI = {
+			has_country_flag = FOI_UCI_expand_1_5_flag
+		}
+		alliance_with = UCI
+	}
+	trigger = {
+		is_at_war = yes
+	}
+	land_morale = 0.1
+	production_efficiency = 0.1
+	land_forcelimit_modifier = 0.15
+}
+FOI_AEL_catalonia_connection = { #加泰罗尼亚联系
+	potential = {
+		tag = AEL
+		is_subject = no
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+	}
+	trigger = {
+		alliance_with = CAT
+		custom_trigger_tooltip = {
+			tooltip = FOI_iberian_strife_not_end
+			NOT = {
+				has_global_flag = IBR_conflict_end_flag
+			}
+		}
+	}
+	possible_condottieri = 5
+	diplomatic_upkeep = 1
+	manpower_recovery_speed = 0.25
+}
+FOI_iberian_strife = {
+	potential = {
+		is_subject = no
+		NOT = {
+			has_global_flag = FOI_last_battle_flag
+		}
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+		capital_scope = {
+			region = iberia_region
+		}
+	}
+	trigger = {
+		OR = {
+			primary_culture = castillian
+			primary_culture = mexican
+			primary_culture = platinean
+			primary_culture = leonese
+			primary_culture = aragonese
+			primary_culture = catalan
+			primary_culture = galician
+			primary_culture = andalucian
+			primary_culture = portugese
+			primary_culture = brazilian
+			primary_culture = basque
+			primary_culture = EDG_Extremadura_culture
+			primary_culture = EDG_iberians
+			primary_culture = EDG_andalus
+		}
+		custom_trigger_tooltip = {
+			tooltip = FOI_iberian_strife_not_end
+			NOT = {
+				has_global_flag = IBR_conflict_end_flag
+			}
+		}
+	}
+	can_not_declare_war = yes
+	global_missionary_strength = -0.1
+	province_warscore_cost = -0.5
+	ae_impact = -0.5
+	core_creation = -0.5
+	land_forcelimit_modifier = 0.25
+	global_manpower_modifier = 0.25
+	manpower_recovery_speed = 0.25
+	land_maintenance_modifier = -0.1
+	global_regiment_cost = -0.25
+	ignore_coring_distance = yes
+}
+FOI_last_battle_for_iberia = {
+	potential = {
+		is_subject = no
+		has_global_flag = FOI_last_battle_flag
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+		capital_scope = {
+			region = iberia_region
+		}
+	}
+	trigger = {
+		OR = {
+			primary_culture = castillian
+			primary_culture = mexican
+			primary_culture = platinean
+			primary_culture = leonese
+			primary_culture = aragonese
+			primary_culture = catalan
+			primary_culture = galician
+			primary_culture = andalucian
+			primary_culture = portugese
+			primary_culture = brazilian
+			primary_culture = basque
+			primary_culture = EDG_Extremadura_culture
+			primary_culture = EDG_iberians
+			primary_culture = EDG_andalus
+		}
+		custom_trigger_tooltip = {
+			tooltip = FOI_iberian_strife_not_end
+			NOT = {
+				has_global_flag = IBR_conflict_end_flag
+			}
+		}
+	}
+	stability_cost_to_declare_war = -6
+	land_morale = 0.25
+	land_forcelimit_modifier = 0.5
+	manpower_recovery_speed = 0.5
+	land_maintenance_modifier = -0.5
+	defensiveness = 0.33
+	can_not_build_missionaries = yes
+	province_warscore_cost = -0.5
+	ae_impact = -0.5
+	core_creation = -0.5
+	global_manpower_modifier = 0.25
+	global_regiment_cost = -0.25
+	ignore_coring_distance = yes
+}
+FOI_battle_for_iberia = {
+	potential = {
+		capital_scope = {
+			region = iberia_region
+		}
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = FOI_iberian_strife_not_end
+			NOT = {
+				has_global_flag = IBR_conflict_end_flag
+			}
+		}
+		is_at_war = yes
+	}
+	siege_ability = 0.25
+	global_monthly_devastation = 0.5
+	land_maintenance_modifier = -0.25
+	manpower_recovery_speed = 0.25
+	global_regiment_cost = -0.5
+	war_exhaustion = -0.05
+}
+FOI_ADU_religious_tolerance_mechanic_piety_modifier ={
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+		uses_piety = yes
+	}
+	trigger = {
+		piety = 0
+	}
+	monthly_FOI_andalusia_religious_tolerance = -0.5
+}
+FOI_ADU_religious_tolerance_mechanic_not_piety_modifier ={
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+		uses_piety = yes
+	}
+	trigger = {
+		NOT = {
+			piety = 0
+		}
+	}
+	monthly_FOI_andalusia_religious_tolerance = 0.5
+}
+FOI_ADU_country_religion_catholic_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = catholic
+			tolerance_to_this = 6
+		}
+
+	}
+	tolerance_own = 1
+	global_heretic_missionary_strength = 0.01
+}
+FOI_ADU_country_religion_anglican_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = anglican
+			tolerance_to_this = 6
+		}
+
+	}
+	development_cost = -0.1
+	technology_cost = -0.05
+}
+FOI_ADU_country_religion_protestant_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = protestant
+			tolerance_to_this = 6
+		}
+
+	}
+	global_tax_modifier = 0.15
+	improve_relation_modifier = 0.15
+}
+FOI_ADU_country_religion_hussite_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = hussite
+			tolerance_to_this = 6
+		}
+
+	}
+	shock_damage_received = -0.05
+	church_loyalty_modifier = 0.05
+}
+FOI_ADU_country_religion_reformed_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = reformed
+			tolerance_to_this = 6
+		}
+
+	}
+	advisor_pool = 1
+	tolerance_heretic = 2
+}
+FOI_ADU_country_religion_orthodox_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = orthodox
+			tolerance_to_this = 6
+		}
+
+	}
+	stability_cost_modifier = -0.1
+	tolerance_own = 1
+}
+FOI_ADU_country_religion_coptic_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = coptic
+			tolerance_to_this = 6
+		}
+
+	}
+	defensiveness = 0.1
+	tolerance_own = 1
+}
+FOI_ADU_country_religion_EDG_Bogomili_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Bogomili
+			tolerance_to_this = 6
+		}
+
+	}
+	land_morale = 0.05
+	global_unrest = -1
+}
+FOI_ADU_country_religion_EDG_Celtic_Church_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Celtic_Church
+			tolerance_to_this = 6
+		}
+
+	}
+	idea_cost = -0.1
+	may_recruit_female_generals = yes
+}
+FOI_ADU_country_religion_EDG_Great_Celtic_Church_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Great_Celtic_Church
+			tolerance_to_this = 6
+		}
+
+	}
+	manpower_in_own_culture_provinces = 0.10
+	global_institution_spread = 0.1
+}
+FOI_ADU_country_religion_EDG_Krstjani_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Krstjani
+			tolerance_to_this = 6
+		}
+
+	}
+	tolerance_of_heretics_capacity = 1
+	tolerance_heretic = 1
+}
+FOI_ADU_country_religion_EDG_Nestorianism_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Nestorianism
+			tolerance_to_this = 6
+		}
+
+	}
+	missionary_maintenance_cost = -0.15
+	stability_cost_modifier = -0.15
+}
+FOI_ADU_country_religion_EDG_Waldenses_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Waldenses
+			tolerance_to_this = 6
+		}
+	}
+	advisor_cost = -0.1
+	yearly_corruption = -0.1
+}
+FOI_ADU_country_religion_EDG_Lollards_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Lollards
+			tolerance_to_this = 6
+		}
+
+	}
+	shock_damage = 0.1
+	development_cost = -0.1
+}
+FOI_ADU_country_religion_EDG_Euchites_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Euchites
+			tolerance_to_this = 6
+		}
+
+	}
+	manpower_in_own_culture_provinces = 0.1
+	heir_chance = 0.5
+}
+FOI_ADU_country_religion_EDG_Mozarabic_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_Mozarabic
+			tolerance_to_this = 6
+		}
+	}
+	global_trade_goods_size_modifier = 0.1
+	tolerance_of_heathens_capacity = 1
+}
+FOI_ADU_country_religion_EDG_catharism_modifier = {
+	potential = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		religion_group = muslim
+	}
+	trigger = {
+		has_government_power = {
+			mechanic_type = FOI_andalusia_religious_tolerance_mechanic
+			power_type = FOI_andalusia_religious_tolerance
+			value = 20
+		}
+		any_owned_province = {
+			region = iberia_region
+			religion = EDG_catharism
+			tolerance_to_this = 6
+		}
+	}
+	monarch_admin_power = 1
+	global_tax_modifier = 0.1
+}
+FOI_UCI_modifier_enemy = {#列强的角逐
+	potential = {
+		ai = yes
+	}
+	trigger = {
+		ai = yes
+		AND = {
+			has_global_flag = FOI_UCI_modifier_enemy_flag
+			OR = {
+				is_rival = UCI
+				is_rival = FWF
+				historical_friend_with = UCI
+				historical_friend_with = FWF
+				tag = SMO
+				#tag = FRA
+				tag = LOT
+				tag = AEL
+				#tag = BUL
+				tag = BU1
+				tag = MHM
+				tag = RUM
+				tag = BTA
+				tag = ROS
+				#tag = KAR
+				#tag = MLO
+				tag = HAB
+			}
+		}
+		is_subject = no
+		OR = {
+			AND = {
+				tag = SMO
+				has_reform = EDG_Citizen_Army_Government
+			}
+			is_great_power = yes
+			AND = {
+				NOT = { is_year = 1460 }
+				total_development = 120
+			}
+			AND = {
+				NOT = { is_year = 1500 }
+				total_development = 200
+			}
+		}
+	}
+	#global_manpower = 20
+	global_manpower_modifier = 0.2
+	global_regiment_cost = -0.1
+	land_maintenance_modifier = -0.1
+	army_tradition = 1
+	diplomatic_upkeep = 2
+	administrative_efficiency = 0.1
+	interest = -1
+	technology_cost = -0.1
+	idea_cost = -0.1
+	reserves_organisation = 0.2
+	land_forcelimit = 20
+	land_forcelimit_modifier = 0.33
+	global_tax_income = 36
+	reduced_liberty_desire = 30
+	diplomatic_annexation_cost = -0.2
+}
+FOI_UCI_modifier_arles_influence = {
+	potential = {
+		has_global_flag = FOI_UCI_modifier_enemy_flag
+		tag = CAT
+		NOT = {
+			has_global_flag = IBR_conflict_end_flag
+		}
+		exists = AEL
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = FOI_iberian_strife_not_end
+			NOT = {
+				has_global_flag = IBR_conflict_end_flag
+			}
+		}
+		exists = AEL
+		NOT = {
+			OR = {
+				is_rival = AEL
+				root = {
+					is_rival = AEL
+				}
+			}
+		}	
+	}
+	land_forcelimit = 10
+	merc_maintenance_modifier = -0.25
+	mercenary_cost = -0.25
+	mercenary_discipline = 0.05
+	global_tax_income = 24
+}
+FOI_UCI_modifier_fire_of_judge = {
+	potential = {
+		OR = {
+			tag = UCI
+			tag = FWF
+		}
+		has_country_flag = FOI_UCI_23_3_flag
+	}
+	trigger = {
+		is_at_war = yes
+		has_any_disaster = yes
+	}
+	allowed_rev_guard_fraction = 0.2
+	land_morale = 0.1
+	fire_damage = 0.05
+}
+FOI_SPA_lord_of_the_sea = {
+	potential = {
+		NOT = {
+			OR = {
+				tag = SPA
+				tag = IBR
+				is_subject_of = SPA
+				is_subject_of = IBR
+			}
+		}
+		OR = {
+			IBR = {
+				AND = {
+					is_great_power = yes
+					has_country_flag = EDG_spa_lord_of_the_sea_flag
+				}
+			}
+			SPA = {
+				AND = {
+					is_great_power = yes
+					has_country_flag = EDG_spa_lord_of_the_sea_flag
+				}
+			}
+		}
+	}
+	trigger = {
+		OR = {
+			NOT = {
+				war_with = SPA
+			}
+			NOT = {
+				war_with = IBR
+			}
+			SPA = {
+				is_bankrupt = no
+			}
+			IBR = {
+				is_bankrupt = no
+			}
+		}
+		
+	}
+	naval_morale = -0.25
+	naval_forcelimit_modifier = -0.25
+	sailor_maintenance_modifer = 0.25
+	trade_efficiency = -0.25
+	trade_steering = -0.25
+}
+FOI_fight_to_win_or_die = {
+	potential = {
+		has_disaster = EDG_FOI_iberia_great_famine
+	}
+	trigger = {
+		is_in_war = {
+			defender_leader = root
+		}
+		has_country_modifier = EDG_FOI_iberia_rehabilitate
+	}
+	global_regiment_cost = -0.5
+	global_regiment_recruit_speed = -0.5
+	land_maintenance_modifier = -0.25
+	land_forcelimit_modifier = 0.5
+	manpower_recovery_speed = -0.5
+}
+FOI_SPA_spain_rise = { #西班牙的崛起
+	potential = {
+		OR = {
+			tag = SPA
+			tag = IBR
+		}
+	}
+	trigger = {
+		has_government_mechanic = FOI_SPA_golden_age_mechanic	
+		OR = {
+			current_age = age_of_discovery
+			current_age = age_of_reformation
+		}
+	}
+	monthly_FOI_SPA_golden_age = 1
+	yearly_corruption = -1
+	inflation_reduction = 3
+}
+FOI_SPA_spain_weak = { #西班牙的衰弱
+	potential = {
+		OR = {
+			tag = SPA
+			tag = IBR
+		}
+	}
+	trigger = {
+		has_government_mechanic = FOI_SPA_golden_age_mechanic	
+		OR = {
+			current_age = age_of_absolutism
+			current_age = age_of_revolutions 
+		}
+	}
+	monthly_FOI_SPA_golden_age = -1
+}

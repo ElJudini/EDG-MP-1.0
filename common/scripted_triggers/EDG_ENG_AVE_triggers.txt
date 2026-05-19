@@ -1,0 +1,61 @@
+EDG_ENG_country_is_valid_ally_for_fiefdom = {
+	# 检查这个国家是否满足成为英属前地方贵族封邑的条件（结盟，150好感，50发展度以下，列强影响或赠送礼物）
+	# THIS scope = 未来的封邑国
+	# ROOT scope = 法兰/英格兰
+	has_opinion = {
+		who = ROOT
+		value = 150
+	}
+	OR = {
+		has_opinion_modifier = {
+			who = ROOT
+			modifier = sent_gift
+		}
+		has_opinion_modifier = {
+			who = ROOT
+			modifier = great_power_influence
+		}
+	}
+	alliance_with = ROOT
+	NOT = {
+		total_development = 50
+	}
+}
+
+EDG_ENG_province_control_or_influenced_ally_control = {
+	# ROOT scope = ENG or AVE
+	OR = {
+		country_or_non_sovereign_subject_holds = ROOT
+		owner = {
+			has_opinion = {
+				who = ROOT
+				value = 150
+			}
+			OR = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = sent_gift
+				}
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = great_power_influence
+				}
+			}
+			alliance_with = ROOT
+			NOT = {
+				total_development = 50
+			}
+		}
+	}
+}
+
+EDG_AVE_has_existing_defeat_northern_force = {
+    custom_trigger_tooltip = {
+        tooltip = EDG_AVE_defeat_northern_troop_exist_trigger
+        OR = {
+            has_country_modifier = EDG_AVE_mission_defeat_northern_forces_1
+            has_country_modifier = EDG_AVE_mission_defeat_northern_forces_2
+            has_country_modifier = EDG_AVE_mission_defeat_northern_forces_3
+        }
+    }
+}

@@ -1,0 +1,1702 @@
+EDG_H06_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = H06 } 
+
+	EDG_H06_mission_1_16 = {
+		icon = mission_ne_palisades
+		position = 16
+		required_missions = { EDG_H06_mission_3_15 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 135
+				province_id = 1864
+				province_id = 1772
+			}
+		} 
+
+		trigger = {
+			owns = 1864
+			owns = 1772
+			135 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+		} 
+
+		effect = {
+			135 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			1864 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			1772 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { amount = balkan_region }
+		} 
+	}
+
+	EDG_H06_mission_1_18 = {
+		icon = mission_unite_home_region
+		position = 18
+		required_missions = { EDG_H06_mission_1_16 } 
+		provinces_to_highlight = {
+			region = south_german_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = south_german_region
+				value = 10
+			}
+			any_owned_province = {
+				province_is_or_accepts_culture = yes
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_1_18.effect.tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject = no
+						capital_scope = {
+							region = south_german_region
+						}
+					}
+					root = {
+						add_casus_belli = {
+							type = cb_vassalize_mission
+							months = 300
+							target = prev
+						}
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_march_song
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_H06_mission_1_20 = {
+		icon = mission_dismantle_hre
+		position = 20
+		required_missions = { EDG_H06_mission_1_18 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = emperor
+				AND = {
+					region = south_german_region
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = south_german_region
+				value = 50
+			}
+			NOT = {
+				hre_size = 1
+			}
+
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_1_20.effect.tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject = no
+						capital_scope = {
+							OR = {
+								region = france_region
+								region = italy_region
+							}
+						}
+					}
+					root = {
+						add_casus_belli = {
+							type = cb_vassalize_mission
+							months = 300
+							target = prev
+						}
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_master_upstream
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = france_region}
+			EDG_add_claim = { area = italy_region}
+		} 
+	}
+
+	EDG_H06_mission_1_22 = {
+		icon = the_ostend_company
+		position = 22
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				num_of_subjects = 8
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				crown_land_share = 50
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_1_22.effect.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_enable_get_land_on_diplomatic_annex_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_1_22.effect_1.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_enable_get_land_on_annex_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			change_estate_land_share = {
+				estate = all
+				share = -10
+			}
+		} 
+	}
+
+	EDG_H06_mission_1_24 = {
+		icon = mission_indian_soldier_elephant
+		position = 24
+		required_missions = { EDG_H06_mission_1_22 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			alfold_area = {
+				type = all
+				owned_by = root
+			}
+			transdanubia_area = {
+				type = all
+				owned_by = root
+			}
+			development_in_provinces = {
+				OR = {
+					area = alfold_area
+					area = transdanubia_area
+				}
+				value = 100
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_1_24.effect.tt
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+					set_country_flag = EDG_H06_mission_1_24_flag
+				}
+			}
+			
+			alfold_area = {
+				add_province_modifier = {
+					name = EDG_H06_nourishing_plain
+					duration = -1
+				}
+				add_base_production = 1
+			}
+			transdanubia_area = {
+				add_province_modifier = {
+					name = EDG_H06_nourishing_plain
+					duration = -1
+				}
+				add_base_production = 1
+			}
+		} 
+	}
+}
+EDG_H06_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = H06 } 
+
+	EDG_H06_mission_2_16 = {
+		icon = mission_conquer_50_development
+		position = 16
+		required_missions = { EDG_H06_mission_3_15 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 156
+				province_id = 4126
+				province_id = 1954
+				province_id = 4532
+			}
+		} 
+
+		trigger = {
+			owns = 1954
+			owns = 4532
+			156 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+			4126 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+		} 
+
+		effect = {
+			156 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			4126 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			1954 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			4532 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { amount = south_german_region }
+		} 
+	}
+
+	EDG_H06_mission_2_17 = {
+		icon = mission_balkan_conquest
+		position = 17
+		required_missions = { 
+			EDG_H06_mission_1_16
+			EDG_H06_mission_2_16
+		} 
+		provinces_to_highlight = {
+			region = balkan_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = balkan_region
+				value = 35
+			}
+		} 
+
+		effect = {
+			create_unit_forcelimit_percentage = {
+				type = infantry
+				force_limit_percentage = 0.1
+				special_unit_category = cawa
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_kick_over_powder_keg
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_army_professionalism = 0.1
+			EDG_add_claim = { area = near_east_superregion }
+		} 
+	}
+
+	EDG_H06_mission_2_19 = {
+		icon = anatolian_frontier
+		position = 19
+		required_missions = { EDG_H06_mission_2_17 } 
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 35
+			}
+		} 
+
+		effect = {
+			create_unit_forcelimit_percentage = {
+				type = infantry
+				force_limit_percentage = 0.1
+				special_unit_category = janissaries
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_go_further
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_H06_mission_2_21 = {
+		icon = feast_of_pheasants
+		position = 21
+		required_missions = { EDG_H06_mission_3_20 } 
+		provinces_to_highlight = {
+			area = slovakia_area
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				area = slovakia_area
+				value = 65
+			}
+			slovakia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_2_21.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			slovakia_area = {
+				limit = {
+					owned_by = root
+				}
+				add_or_upgrade_manpower_building = yes
+				add_base_manpower = 1
+			}
+			hidden_effect = {
+				slovakia_area = {
+					change_culture = EDG_carpathian_slovakia
+				}
+			}
+		} 
+	}
+
+	EDG_H06_mission_2_23 = {
+		icon = state_of_the_presidi
+		position = 23
+		required_missions = {
+			EDG_H06_mission_1_22
+			EDG_H06_mission_3_22
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					culture_group = root
+					value = 100
+				}
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				check_variable = {
+					which = EDG_WAL_main_button_use_var
+					value = 100
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_2_23.effect.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_establish_communities_upgraded_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_2_23.effect_2.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_improve_inland_routes_upgraded_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			custom_tooltip = EDG_H06_mission_2_23.effect_3.tt
+			hidden_effect = {
+				set_country_flag = EDG_H06_mission_2_23_flag
+			}
+		} 
+	}
+
+	EDG_H06_mission_1_25 = {
+		icon = mission_rice_field
+		position = 25
+		required_missions = { EDG_H06_mission_1_24 } 
+		provinces_to_highlight = {
+			region = carpathia_region
+			trade_goods = grain
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				region = carpathia_region
+				trade_goods = grain
+				value = 75
+			}
+		} 
+
+		effect = {
+			every_province = {
+				limit = {
+					region = carpathia_region
+					trade_goods = grain
+				}
+				add_or_upgrade_production_building = yes
+				add_or_upgrade_manpower_building = yes
+				add_base_manpower = 5
+				add_base_production = 5
+			}
+		} 
+	}
+}
+EDG_H06_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = H06 } 
+
+	EDG_H06_mission_3_15 = {
+		icon = mission_empire
+		position = 15
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			tag = H06
+		} 
+
+		effect = {
+			add_legitimacy = 100
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				add_country_modifier = {
+					name = EDG_H06_new_empire_2
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_H06_new_empire_1
+					duration = 7300
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { amount = carpathia_region }
+			EDG_add_claim = { amount = north_german_region }
+			
+			EDG_add_claim = { amount = poland_region }
+			EDG_add_claim = { amount = ruthenia_region }
+			
+		} 
+	}
+
+	EDG_H06_mission_3_17 = {
+		icon = austria_prospers
+		position = 17
+		required_missions = { EDG_H06_mission_3_15 } 
+		provinces_to_highlight = {
+			province_id = 134
+		} 
+
+		trigger = {
+			owns = 134
+			treasury = 1000
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_17.effect.tt
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_17.effect_2.tt
+				custom_tooltip = EDG_SPACE_TT
+			}
+			hidden_effect = {
+				set_country_flag = EDG_H06_mission_3_17_flag
+			}
+			add_treasury = -1000
+			set_capital = 134
+			134 = {
+				change_religion = root
+				change_culture = root
+				add_province_modifier = {
+					name = EDG_H06_pearl_of_donau
+					duration = -1
+				}
+				add_base_tax = 2
+				add_base_manpower = 3
+				add_base_production = 2
+			}
+		} 
+	}
+
+	EDG_H06_mission_3_18 = {
+		icon = alpine_defenses
+		position = 18
+		required_missions = { EDG_H06_mission_3_17 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 72
+				province_id = 1872
+				province_id = 4711
+				province_id = 1868
+				province_id = 4710
+				province_id = 73
+				province_id = 2956
+				province_id = 2957
+				province_id = 133
+				province_id = 4762
+				province_id = 1770
+				province_id = 134
+				province_id = 1772
+				province_id = 4236
+				province_id = 154
+				province_id = 153
+				province_id = 1864
+				province_id = 4126
+				province_id = 4173
+				province_id = 1954
+				province_id = 1954
+				province_id = 4239
+				province_id = 156
+				province_id = 2746
+				province_id = 4532
+				province_id = 160
+				province_id = 150
+				province_id = 4531
+				province_id = 4704
+				province_id = 2998
+				province_id = 159
+				province_id = 4706
+				province_id = 4530
+				province_id = 1756
+				area = upper_bavaria_area
+				area = east_bavaria_area
+			}
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_H06_mission_3_18.trigger.tt
+				owns_or_non_sovereign_subject_of = 72
+				owns_or_non_sovereign_subject_of = 1872
+				owns_or_non_sovereign_subject_of = 4711
+				owns_or_non_sovereign_subject_of = 1868
+				owns_or_non_sovereign_subject_of = 4710
+				owns_or_non_sovereign_subject_of = 73
+				owns_or_non_sovereign_subject_of = 2956
+				owns_or_non_sovereign_subject_of = 2957
+				owns_or_non_sovereign_subject_of = 133
+				owns_or_non_sovereign_subject_of = 4762
+				owns_or_non_sovereign_subject_of = 1770
+				owns_or_non_sovereign_subject_of = 134
+				owns_or_non_sovereign_subject_of = 1772
+				owns_or_non_sovereign_subject_of = 4236
+				owns_or_non_sovereign_subject_of = 154
+				owns_or_non_sovereign_subject_of = 153 
+				owns_or_non_sovereign_subject_of = 1864
+				owns_or_non_sovereign_subject_of = 4126
+				owns_or_non_sovereign_subject_of = 4173
+				owns_or_non_sovereign_subject_of = 1954
+				owns_or_non_sovereign_subject_of = 1954
+				owns_or_non_sovereign_subject_of = 4239
+				owns_or_non_sovereign_subject_of = 156 
+				owns_or_non_sovereign_subject_of = 2746
+				owns_or_non_sovereign_subject_of = 4532
+				owns_or_non_sovereign_subject_of = 160 
+				owns_or_non_sovereign_subject_of = 150 
+				owns_or_non_sovereign_subject_of = 4531
+				owns_or_non_sovereign_subject_of = 4704
+				owns_or_non_sovereign_subject_of = 2998
+				owns_or_non_sovereign_subject_of = 159 
+				owns_or_non_sovereign_subject_of = 4706
+				owns_or_non_sovereign_subject_of = 4530
+				owns_or_non_sovereign_subject_of = 1756
+				upper_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				east_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_18.effect_1.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_add_power_on_diplomatic_annex_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_18.effect_2.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_add_power_on_annex_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			custom_tooltip = EDG_H06_mission_3_18.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_H06_rich_soil_of_donau
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_heart_of_donau
+				duration = -1
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							province_id = 72
+							province_id = 1872
+							province_id = 4711
+							province_id = 1868
+							province_id = 4710
+							province_id = 73
+							province_id = 2956
+							province_id = 2957
+							province_id = 133
+							province_id = 4762
+							province_id = 1770
+							province_id = 134
+							province_id = 1772
+							province_id = 4236
+							province_id = 154
+							province_id = 153
+							province_id = 1864
+							province_id = 4126
+							province_id = 4173
+							province_id = 1954
+							province_id = 1954
+							province_id = 4239
+							province_id = 156
+							province_id = 2746
+							province_id = 4532
+							province_id = 160
+							province_id = 150
+							province_id = 4531
+							province_id = 4704
+							province_id = 2998
+							province_id = 159
+							province_id = 4706
+							province_id = 4530
+							province_id = 1756
+							area = upper_bavaria_area
+							area = east_bavaria_area
+						}
+						country_or_non_sovereign_subject_holds = root
+					}
+					add_province_modifier = {
+						name = EDG_H06_rich_soil_of_donau
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_H06_mission_3_20 = {
+		icon = mission_unite_bengal
+		position = 20
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_accepted_cultures = 4
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_3_20.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_20.effect_2.tt
+				
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_20.effect_3.tt
+				custom_tooltip = EDG_SPACE_TT
+			}
+			hidden_effect = {
+				set_country_flag = EDG_H06_mission_3_20_flag
+			}
+			add_country_modifier = {
+				name = EDG_H06_ethnic_concept
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_H06_get_power_when_promot_culture_flag
+			}
+		} 
+	}
+
+	EDG_H06_mission_3_22 = {
+		icon = mission_subdue_malwa
+		position = 22
+		required_missions = {
+			EDG_H06_mission_2_21
+			EDG_H06_mission_4_21
+		}
+		provinces_to_highlight = {
+			culture_group = root
+			country_or_non_sovereign_subject_holds = root
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				culture_group = root
+				value = 50
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_3_22.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_H06_assimilate_culture
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				set_country_flag = EDG_H06_enable_promoted_culture_for_change_flag
+				every_owned_province = {
+					limit = {
+						NOT = {
+							culture_group = root
+						}
+						has_owner_accepted_culture = yes
+					}
+					add_province_modifier = {
+						name = EDG_H06_assimilate_culture
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_H06_mission_3_24 = {
+		icon = mission_mnd_maj_end_disaster
+		position = 24
+		required_missions = {
+			EDG_H06_mission_4_23
+			EDG_H06_mission_2_23
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				culture_group = root
+				value = 200
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_24.effect.tt
+				hidden_effect = {
+					set_country_flag = EDG_H06_reduce_liberty_desire_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_H06_moon_and_star_1
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_3_24.effect_1.tt
+				tooltip = {
+					add_province_modifier = {
+						name = EDG_H06_assimilate_culture
+						duration = -1
+					}
+				}
+				hidden_effect = {
+					set_country_flag = EDG_H06_enable_change_culture_modifier_for_penalty_flag
+				}
+				# custom_tooltip = EDG_H06_mission_3_24.effect_2.tt
+				# hidden_effect = {
+				# 	set_country_flag = EDG_H06_reduce_liberty_desire_flag
+				# }
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_H06_moon_and_star_2
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			add_legitimacy_or_mil_power = { amount = 25 }
+		} 
+	}
+
+	EDG_H06_mission_3_25 = {
+		icon = mission_industrialize_bengal
+		position = 25
+		provinces_to_highlight = {
+			area = slovakia_area
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				area = slovakia_area
+				value = 100
+			}
+			slovakia_area = {
+				type = all
+				OR = {
+					AND = {
+						has_production_building_trigger = yes
+						has_manufactory_trigger = yes
+					}
+					trade_goods = gold
+				}
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 5
+			custom_tooltip = EDG_SPACE_TT
+			create_unit_forcelimit_percentage = {
+				type = artillery
+				special_unit_category = cawa
+				force_limit_percentage = 0.05
+			}
+			custom_tooltip = EDG_SPACE_TT
+			slovakia_area = {
+				add_province_modifier = {
+					name = EDG_H06_slovak_industrialization
+					duration = -1
+				}
+				add_or_upgrade_production_building = yes
+				custom_tooltip = EDG_SPACE_TT
+				add_base_production = 3
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+		} 
+	}
+
+	EDG_H06_mission_3_26 = {
+		icon = mission_monarch_in_throne_room
+		position = 26
+		required_missions = {
+			EDG_H06_mission_3_25
+			EDG_H06_mission_1_25
+			EDG_H06_mission_4_25
+		}
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				has_government_power = {
+					mechanic_type = EDG_HUN_crown_prominence_mechanic
+					power_type = EDG_HUN_crown_prominence
+					value = 90
+				}
+				all_country = {
+					NOT = {
+						total_own_and_non_tributary_subject_development = root
+					}
+				}
+				total_own_and_non_tributary_subject_development = 1500
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				has_government_power = {
+					mechanic_type = EDG_WAL_atrocity_mechanic
+					power_type = EDG_WAL_atrocity
+					value = 90
+				}
+				all_country = {
+					NOT = {
+						total_development = root
+					}
+				}
+				total_development = 1000
+			}
+			
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				override_country_name = "EDG_H06_HUN_kapatia_empire"
+				custom_tooltip = EDG_H06_mission_3_26.effect.tt
+				hidden_effect = {
+					every_country = {
+						limit = {
+							is_subject = no
+						}
+						root = {
+							add_casus_belli = {
+								type = cb_vassalize_mission
+								months = -1
+								target = prev
+							}
+						}
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_H06_infinite_empire_1
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				override_country_name = "EDG_H06_HUN_twilight_empire"
+				change_country_color = {
+					color = { 33 26 14 }
+				}
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_H06_mission_3_26.effect_1.tt
+				hidden_effect = {
+					every_country = {
+						limit = {
+							is_subject = no
+						}
+						root = {
+							add_casus_belli = {
+								type = cb_annex
+								months = -1
+								target = prev
+							}
+						}
+					}
+				}
+				add_country_modifier = {
+					name = EDG_H06_infinite_empire_2
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_H06_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = H06 } 
+
+	EDG_H06_mission_4_16 = {
+		icon = mission_arabian_fort
+		position = 16
+		required_missions = { EDG_H06_mission_3_15 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1318
+				province_id = 162
+				province_id = 4236
+				province_id = 1952
+			}
+		} 
+
+		trigger = {
+			owns = 1318
+			owns = 162
+			4236 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+			1952 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+		} 
+
+		effect = {
+			4236 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			1952 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			162 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			1318 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = north_german_region }
+			EDG_add_claim = { area = poland_region }
+		} 
+	}
+
+	EDG_H06_mission_4_17 = {
+		icon = invade_poland
+		position = 17
+		required_missions = {
+			EDG_H06_mission_4_16
+			EDG_H06_mission_5_16
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = poland_region
+				region = north_german_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = poland_region
+					region = north_german_region
+				}
+				value = 75
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H06_mission_4_17.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject = no
+						capital_scope = {
+							OR = {
+								region = baltic_region
+								region = scandinavia_region
+							}
+						}
+					}
+					root = {
+						add_casus_belli = {
+							type = cb_vassalize_mission
+							months = 300
+							target = prev
+						}
+					}
+				}
+			}
+			create_unit_forcelimit_percentage = {
+				type = cavalry
+				force_limit_percentage = 0.1
+				special_unit_category = hussars
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_north_way
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = scandinavia_region }
+			EDG_add_claim = { area = baltic_region }
+		} 
+	}
+
+	EDG_H06_mission_4_19 = {
+		icon = mission_conquer_baltic_region
+		position = 19
+		required_missions = {
+			EDG_H06_mission_4_17
+			EDG_H06_mission_5_18
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = baltic_region
+				region = scandinavia_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = baltic_region
+					region = scandinavia_region
+				}
+				value = 50
+			}
+		} 
+
+		effect = {
+			create_unit_forcelimit_percentage = {
+				type = infantry
+				force_limit_percentage = 0.1
+				special_unit_category = carolean
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_north_ambition
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_H06_mission_4_21 = {
+		icon = mission_industria_sedera
+		position = 21
+		required_missions = { EDG_H06_mission_3_20 } 
+		provinces_to_highlight = {
+			OR = {
+				area = southern_transylvania_area
+				area = transylvania_area
+			}
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				OR = {
+					area = southern_transylvania_area
+					area = transylvania_area
+				}
+				value = 65
+			}
+			southern_transylvania_area = {
+				type = all
+				NOT = {
+					local_autonomy = 10
+				}
+			}
+			transylvania_area = {
+				type = all
+				NOT = {
+					local_autonomy = 10
+				}
+			}
+		} 
+
+		effect = {
+			transylvania_area = {
+				change_culture = transylvanian
+				custom_tooltip = EDG_SPACE_TT
+				add_or_upgrade_tax_building = yes
+				add_base_tax = 1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			southern_transylvania_area = {
+				change_culture = transylvanian
+				custom_tooltip = EDG_SPACE_TT
+				add_or_upgrade_tax_building = yes
+				add_base_tax = 1
+			}
+		} 
+	}
+
+	EDG_H06_mission_4_23 = {
+		icon = mission_the_livonians
+		position = 23
+		required_missions = {
+			EDG_H06_mission_5_22
+			EDG_H06_mission_3_22
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				calc_true_if = {
+					amount = 6
+					all_subject_country = {
+						NOT = {
+							culture_group = root
+						}
+						NOT = {
+							liberty_desire = 20
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				num_of_owned_provinces_with = {
+					NOT = {
+						culture_group = root
+					}
+					has_manpower_building_trigger = yes
+					value = 25
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_4_23.effect.tt
+				every_subject_country = {
+					limit = {
+						NOT = {
+							culture_group = root
+						}
+					}
+					change_primary_culture = root
+					capital_scope = {
+						change_culture = root
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}	
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_4_23.effect_1.tt
+				hidden_effect = {
+					for = {
+						amount = 25
+						effect = "
+							random_owned_province = {
+								limit = {
+									NOT = {
+										culture_group = root
+									}
+									has_manpower_building_trigger = yes
+								}
+								change_culture = root
+							}
+						"
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			add_country_modifier = {
+				name = EDG_H06_emerging_nation_concept
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_H06_mission_4_25 = {
+		icon = mission_dominate_persian_gulf
+		position = 25
+		required_missions = { EDG_H06_mission_5_24 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				trade_income_percentage = 0.4
+				production_income_percentage = 0.4
+				AND = {
+					trade_income_percentage = 0.2
+					production_income_percentage = 0.2
+				}
+				treasury = 10000
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_H06_diversified_economy
+				duration = 9125
+			}
+		} 
+	}
+}
+EDG_H06_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = H06 } 
+
+	EDG_H06_mission_5_16 = {
+		icon = mission_steppe_warriors
+		position = 16
+		required_missions = { EDG_H06_mission_3_15 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 160
+				province_id = 2998
+				province_id = 2405
+				province_id = 4529
+				province_id = 268
+				province_id = 1756
+				province_id = 4531
+			}
+		} 
+
+		trigger = {
+			owns = 160
+			owns = 2998
+			owns = 2405
+			owns = 4529
+			268 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+			1756 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+			4531 = {
+				owned_by = root
+				has_fort_building_trigger = yes
+				has_building = ramparts
+				base_manpower = 7
+			}
+		} 
+
+		effect = {
+			268 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			1756 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			4531 = {
+				add_or_upgrade_fort_building = yes
+				add_base_manpower = 3
+				add_province_modifier = {
+					name = EDG_H06_frontier_of_kapatia
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			160 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			2998 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			2405 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			4529 = {
+				add_province_triggered_modifier = EDG_H06_frontier_post
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { amount = ruthenia_region }
+			EDG_add_claim = { amount = crimea_region }
+		} 
+	}
+
+	EDG_H06_mission_5_18 = {
+		icon = mission_non-western_cavalry_raid
+		position = 18
+		required_missions = { EDG_H06_mission_5_16 } 
+		provinces_to_highlight = {
+			OR = {
+				region = ruthenia_region
+				region = crimea_region
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = ruthenia_region
+					region = crimea_region
+				}
+				value = 30
+			}
+		} 
+
+		effect = {
+			create_unit_forcelimit_percentage = {
+				type = cavalry
+				force_limit_percentage = 0.1
+				special_unit_category = cossacks
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_riding_tradition
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_army_tradition_or_mil_power = { amount = 25 }
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = ural_region }
+		} 
+	}
+
+	EDG_H06_mission_5_20 = {
+		icon = mission_polynesian_grand_navy
+		position = 20
+		required_missions = { EDG_H06_mission_5_18 } 
+		provinces_to_highlight = {
+			region = ural_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = ural_region
+				value = 25
+			}
+		} 
+
+		effect = {
+			create_unit_forcelimit_percentage = {
+				type = cavalry
+				force_limit_percentage = 0.1
+				special_unit_category = samurai
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H06_antecedents
+				duration = 3650
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = eastern_europe_superregion }
+		} 
+	}
+
+	EDG_H06_mission_5_22 = {
+		icon = mission_the_sudebnik
+		position = 22
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			government_reform_progress = 250
+			reform_level = 6
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_HUN_crown_prominence_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_5_22.effect.tt
+				custom_tooltip = EDG_SPACE_TT
+			}
+			else_if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_5_22.effect_1.tt
+				custom_tooltip = EDG_SPACE_TT
+			}
+			hidden_effect = {
+				set_country_flag = EDG_H06_mission_5_22_flag
+			}
+			add_country_modifier = {
+				name = EDG_H06_adm_reform
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			change_government_reform_progress = -250
+			custom_tooltip = EDG_SPACE_TT
+			add_adm_tech = 1
+		} 
+	}
+
+	EDG_H06_mission_5_24 = {
+		icon = mission_early_game_buildings
+		position = 24
+		required_missions = { EDG_H06_mission_5_22 } 
+		provinces_to_highlight = {
+			OR = {
+				area = wallachia_area
+				area = moldavia_area
+			}
+		} 
+
+		trigger = {
+			wallachia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			moldavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			development_in_provinces = {
+				OR = {
+					area = wallachia_area
+					area = moldavia_area
+				}
+				value = 150
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_government_mechanic = EDG_WAL_atrocity_mechanic
+				}
+				custom_tooltip = EDG_H06_mission_5_24.effect.tt
+				custom_tooltip = EDG_SPACE_TT
+				hidden_effect = {
+					set_country_flag = EDG_H06_mission_5_24_flag
+				}
+			}
+			wallachia_area = {
+				add_province_modifier = {
+					name = EDG_H06_develp_romania
+					duration = -1
+				}
+				add_base_production = 3
+				add_or_upgrade_manpower_building = yes
+				add_or_upgrade_production_building = yes
+			}
+			moldavia_area = {
+				add_province_modifier = {
+					name = EDG_H06_develp_romania
+					duration = -1
+				}
+				add_base_production = 3
+				add_or_upgrade_manpower_building = yes
+				add_or_upgrade_production_building = yes
+			}
+		} 
+	}
+}

@@ -1,0 +1,210 @@
+custom_button = {
+	name = EDG_TIM_GUI_skull_pyramid
+	tooltip = EDG_TIM_GUI_skull_pyramid_tooltip
+	potential = { 
+		FROM = {
+			has_country_flag = EDG_TIM_enable_skull_pyramid_effect_flag
+		}
+		owned_by = FROM
+	}
+
+	trigger = { 
+		FROM = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_mission_whip_of_god_flag
+				}
+				mil_power = 25
+			}
+			else = {
+				mil_power = 50
+			}
+		}
+		NOT = {
+			area_for_scope_province = {
+				owned_by = FROM
+				NOT = {
+					controlled_by = FROM
+				}
+			}
+		}
+		area_for_scope_province = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_TIM_GUI_skull_pyramid_trigger_tt
+				owned_by = FROM
+				NOT = {
+					is_core = FROM
+				}
+				NOT = {
+					EDG_TIM_has_province_modifier_skull_pyramid_trigger = yes
+				}
+			}
+		}
+	}
+
+	effect = {
+		FROM = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_mission_whip_of_god_flag
+				}
+				mil_power_cost = 25
+			}
+			else = {
+				mil_power_cost = 50
+			}
+			EDG_TIM_add_dread = { amount = 5 }
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 5
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_mission_elbe_flag
+				}
+				add_army_tradition = 5
+			}
+			hidden_effect = {
+				change_variable = {
+					which = EDG_TIM_skull_pyramid_num_var
+					value = 1
+				}
+			}
+		}
+		hidden_effect = {
+			area = {
+				if = {
+					limit = {
+						owned_by = FROM
+						NOT = {
+							is_core = FROM
+						}
+						NOT = {
+							EDG_TIM_has_province_modifier_skull_pyramid_trigger = yes
+						}
+					}
+					if = {
+						limit = {
+							FROM = {
+								has_country_flag = EDG_TIM_mission_elbe_flag
+							}
+						}
+						add_nationalism = -15
+					}
+					else = {
+						add_nationalism = -10
+					}
+					add_devastation = 40
+					EDG_TIM_add_skull_pyramid_province_modifier_effect = yes
+				}
+			}
+		}
+		custom_tooltip = EDG_TIM_GUI_skull_pyramid_tt
+		tooltip = {
+			from = {
+				if = {
+					limit = {
+						has_country_flag = EDG_TIM_mission_elbe_flag
+					}
+					add_nationalism = -15
+				}
+				else = {
+					add_nationalism = -10
+				}
+				add_devastation = 40
+				EDG_TIM_add_skull_pyramid_province_modifier_effect = yes
+			}
+		}
+	}
+}
+
+custom_button = {
+	name = EDG_TIM_GUI_skull_pyramid_for_enemy
+	tooltip = EDG_TIM_GUI_skull_pyramid_tooltip
+	potential = { 
+		FROM = {
+			has_country_flag = EDG_TIM_enable_skull_pyramid_effect_flag
+			has_country_flag = EDG_TIM_mission_knight_order_flag
+		}
+		NOT = {
+			owned_by = FROM
+		}
+	}
+
+	trigger = { 
+		FROM = {
+			OR = {
+				mil_power = 50
+				AND = {
+					has_country_flag = EDG_TIM_mission_whip_of_god_flag
+					mil_power = 25
+				}
+			}
+		}
+		owner = {
+			war_with = FROM
+		}
+		area_for_scope_province = {
+			type = any
+			controlled_by = FROM
+		}
+		NOT = {
+			has_province_modifier = EDG_TIM_skull_pyramid_for_enemy_modifier
+		}
+	}
+
+	effect = {
+		FROM = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_mission_whip_of_god_flag
+				}
+				mil_power_cost = 25
+			}
+			else = {
+				mil_power_cost = 50
+			}
+			EDG_TIM_add_dread = { amount = 5 }
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 5
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_mission_elbe_flag
+				}
+				add_army_tradition = 5
+			}
+			hidden_effect = {
+				change_variable = {
+					which = EDG_TIM_skull_pyramid_num_var
+					value = 1
+				}
+			}
+		}
+		hidden_effect = {
+			area = {
+				if = {
+					limit = {
+						owner = {
+							war_with = FROM
+						}
+					}
+					add_devastation = 40
+					add_province_modifier = {
+						name = EDG_TIM_skull_pyramid_for_enemy_modifier
+						duration = 1825
+					}
+				}
+			}
+		}
+		custom_tooltip = EDG_TIM_GUI_skull_pyramid_for_enemy_tt
+		tooltip = {
+			add_devastation = 40
+			add_province_modifier = {
+				name = EDG_TIM_skull_pyramid_for_enemy_modifier
+				duration = 1825
+			}
+		}
+	}
+}

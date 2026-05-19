@@ -1,0 +1,167 @@
+country_decisions = {
+
+	
+	EDG_MGB_Form_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_EDG_MGB_Form_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { tag = CDC }
+			NOT = { tag = ADU }
+			NOT = { tag = MGB }
+			NOT = { tag = MOR }
+			NOT = { tag = TUN }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			OR = {
+				primary_culture = moroccan
+				primary_culture = berber
+				primary_culture = tunisian
+				primary_culture = algerian
+			}
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 5	#Any big Moroccan tag will try to usurp the title
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		allow = {
+			NOT = { exists = MGB }
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			
+			num_of_owned_provinces_with = {
+				value = 50
+				region = maghreb_region
+			}
+			
+		}
+		effect = {
+			change_tag = MGB
+			restore_country_name = yes
+			#swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			maghreb_region = { limit = { NOT = { is_permanent_claim = ROOT } NOT = { is_core = ROOT	} } add_permanent_claim = ROOT }
+			add_prestige_or_monarch_power = { amount = 25}
+			if = {
+				limit = { NOT = { has_reform = celestial_empire } }
+				change_government_to_monarchy = yes #Desert tribes settling down, theocracies become monarchies.
+				#set_legacy_government = despotic_monarchy
+			}
+			set_country_flag = formed_EDG_MGB_Form_flag
+			if = {
+				limit = { 
+					has_custom_ideas = no
+					NOT = { has_idea_group = MGB_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_CDC_Form_empire_nation = {
+		major = yes
+		color = { 231   181   12 }
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			tag = CDC
+		}
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		allow = {
+			mission_completed = NYGX_CDC_recover_jerusalem
+			religion = catholic
+			government = monarchy
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			
+			num_of_owned_provinces_with = {
+				value = 50
+				region = maghreb_region
+			}
+			num_of_owned_provinces_with = {
+				value = 20
+				region = egypt_region
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = has_EDG_CDC_Form_empire_nation_flag }
+				}
+				restore_country_name = yes
+				#swap_non_generic_missions = yes
+				remove_non_electors_emperors_from_empire_effect = yes
+				if = {
+					limit = {
+						NOT = { government_rank = 3 }
+					}
+					set_government_rank = 3
+				}
+				add_prestige_or_monarch_power = { amount = 25}
+				set_country_flag = has_EDG_CDC_Form_empire_nation_flag
+				# if = {
+				# 	limit = { 
+				# 		has_custom_ideas = no
+				# 	}
+				# 	country_event = { id = ideagroups.1 } #Swap Ideas
+				# }
+			}
+			country_event = { id = NYGX_CDC.25 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+}

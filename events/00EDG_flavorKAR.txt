@@ -1,0 +1,206 @@
+namespace = EDG_flavorKAR
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavorKAR.1
+  title = "EDG_flavorKAR.1.t"
+  desc = "EDG_flavorKAR.1.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = KAR
+    NOT = {
+      has_global_flag = EDG_KAR_beat_TUR_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_KAR_beat_TUR_flag
+  }
+  mean_time_to_happen = {
+    days = 1
+  }
+  
+  option = {
+    name = "EDG_flavorKAR.1.a"
+    add_army_tradition = 25
+    add_prestige_or_monarch_power = { amount = 25}
+    add_mil_power = 100
+    add_stability = 1
+    add_country_modifier = {
+      name = "EDG_KAR_special_mission_6_modifier"
+      duration = 18250
+    }
+  }
+}
+country_event = {
+  id = EDG_flavorKAR.3
+  title = "EDG_flavorKAR.3.t"
+  desc = "EDG_flavorKAR.3.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = KAR
+    NOT = {
+      has_global_flag = EDG_KAR_ruler_choice_AFTER_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_KAR_ruler_choice_AFTER_flag
+  }
+  mean_time_to_happen = {
+    days = 1
+  }
+  option = {
+    name = "EDG_flavorKAR.3.a"
+    ai_chance = {
+      factor = 4
+    }
+	add_army_tradition = 20
+	add_cash = 500
+	add_manpower = 20
+    add_prestige_or_monarch_power = { amount = 10 }
+    capital_scope = {
+      infantry = ROOT
+      infantry = ROOT
+      infantry = ROOT
+      infantry = ROOT
+      cavalry = ROOT
+      cavalry = ROOT
+    }
+	add_ruler_modifier = {
+		name = "EDG_KAR_special_event_claim_mhm_modifier"
+		duration = -1
+	}
+	if = {
+		limit = { exists = MHM }
+		declare_war_with_cb = {
+			who = MHM
+			casus_belli = cb_annex
+		}
+   }
+ 	hidden_effect = {
+		if = {
+			limit = {
+				MHM = { ai = yes }
+			}
+			country_event = {
+				id = EDG_flavorBUL.4
+				days = 10
+			}
+		}
+	}
+	
+  }
+  option = {
+    name = "EDG_flavorKAR.3.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_prestige = -10
+  }
+}
+
+country_event = {
+  id = EDG_flavorKAR.4
+  title = "EDG_flavorKAR.4.t"
+  desc = "EDG_flavorKAR.4.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+	exists = KAR
+    tag = KAR
+	exists = MHM
+    NOT = {
+      has_global_flag = EDG_KAR_ruler_choice_AFTER_flag
+    }
+	NOT = { is_year = 1445 }
+  }
+  immediate = {
+    set_global_flag = EDG_KAR_ruler_choice_AFTER_flag
+  }
+  option = {
+    name = "EDG_flavorKAR.4.a"
+    ai_chance = {
+      factor = 4
+    }
+	add_army_tradition = 20
+	add_cash = 500
+	add_manpower = 20
+    add_prestige_or_monarch_power = { amount = 10 }
+    capital_scope = {
+      infantry = ROOT
+      infantry = ROOT
+      infantry = ROOT
+      infantry = ROOT
+      cavalry = ROOT
+      cavalry = ROOT
+    }
+	add_ruler_modifier = {
+		name = "EDG_KAR_special_event_claim_mhm_modifier"
+		duration = -1
+	}
+	if = {
+	limit = { exist = MHM }
+    declare_war_with_cb = {
+      who = MHM
+	  casus_belli = cb_annex
+    }
+   }
+	
+  }
+  option = {
+    name = "EDG_flavorKAR.4.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_prestige = -10
+  }
+}
+country_event = {
+  id = EDG_flavorKAR.2
+  title = "EDG_flavorKAR.2.t"
+  desc = "EDG_flavorKAR.2.d"
+  picture = COURT_eventPicture
+  trigger = {
+    is_year = 1447
+    tag = KAR
+	is_at_war = no
+    NOT = {
+      has_global_flag = EDG_KAR_ruler_choice_flag
+    }
+	  KAR = {
+		has_heir = "?��bN O�lKQ"
+	  }
+  }
+  immediate = {
+    set_global_flag = EDG_KAR_ruler_choice_flag
+  }
+  mean_time_to_happen = {
+    months = 6
+  }
+  option = {
+    name = "EDG_flavorKAR.2.a"
+    ai_chance = {
+      factor = 50
+    }
+	kill_ruler = yes
+ 	hidden_effect = {
+		country_event = {
+			id = EDG_flavorKAR.3
+			days = 10
+		}
+	}
+  }
+  option = {
+    name = "EDG_flavorKAR.2.b"
+    ai_chance = {
+      factor = 50
+    }
+	kill_heir = {}
+  }
+}

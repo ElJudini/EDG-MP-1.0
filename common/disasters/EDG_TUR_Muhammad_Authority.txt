@@ -1,0 +1,113 @@
+EDG_TUR_Muhammad_Authority = {#统治合法性受质疑
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = EDG_TUR_Muhammad_Authority_end_flag }
+		tag = MHM
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+	}
+	
+	
+	can_start = {
+		has_any_disaster = no
+	}
+	
+	can_stop = {
+		has_any_disaster = yes
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 5
+			always = yes
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			war_exhaustion = 1
+		} 
+		modifier = {
+			factor = 0.75
+			num_of_loans = 10
+			NOT = { num_of_loans = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 25
+		}
+		modifier = {
+			factor = 1
+			capital_scope = { controlled_by = REB }
+		}
+		modifier = {
+			factor = 1
+			is_bankrupt = yes
+		}
+	}
+	
+	can_end = {
+		if = {
+			limit = { ai = no }
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = disaster_active_for_20_years_tooltip
+					had_country_flag = {
+						flag = EDG_TUR_Muhammad_Authority_flag
+						days = 7300
+					}
+				}
+				AND = {
+					stability = 1
+					army_size = 20
+					NOT = { num_of_rebel_controlled_provinces = 1 }
+					NOT = { num_of_rebel_armies = 1 }
+					legitimacy = 95
+				}
+			}
+		}
+		else = {
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+			NOT = { num_of_rebel_armies = 1 }
+			legitimacy = 95
+		}
+	}
+	
+
+	modifier = {
+		legitimacy = 12
+		global_unrest = 5
+		monthly_EDG_TUR_Monarchy_adm_power = 0.1
+		monthly_EDG_TUR_Monarchy_mil_power = 0.1
+		monthly_ottoman_decadence = -0.1
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			flavor_lxa.1
+			flavor_lxa.2
+			flavor_lxa.3
+		}
+		random_events = { 
+			1000 = 0
+			50 = EDG_TUR_Muhammad_Authority.3
+			50 = EDG_TUR_Muhammad_Authority.4
+			50 = EDG_TUR_Muhammad_Authority.5
+			50 = EDG_TUR_Muhammad_Authority.6
+			100 = EDG_TUR_Muhammad_Authority.7
+			100 = EDG_TUR_Muhammad_Authority.8
+		
+		}
+	}
+	
+	
+	on_start = EDG_TUR_Muhammad_Authority.1 #General Estates / Storming of the Bastille
+	on_end = EDG_TUR_Muhammad_Authority.2 #Long live the Republic/Monarchy
+	
+}

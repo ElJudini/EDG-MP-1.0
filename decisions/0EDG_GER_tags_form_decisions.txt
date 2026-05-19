@@ -1,0 +1,323 @@
+country_decisions = {
+
+	EDG_H10_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_Elbe_Reich_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = H10 }
+			NOT = { tag = HOL }
+			NOT = { tag = NED }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			NOT = { tag = GER }
+			NOT = { tag = SAX }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+					adm_tech = 10
+				}
+			}
+			culture_group = germanic
+			OR = {
+				primary_culture = lower_saxon
+				primary_culture = saxon
+			}
+			NOT = { primary_culture = dutch }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			OR = {
+				has_country_flag = teu_can_form_Elbe_Reich
+				NOT = { has_mission = teu_pru_an_empire_of_blood_and_iron }	#Mission already makes you to Germany
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				culture = lower_saxon
+				culture = saxon
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_core_province = 50	#柏林
+			owns_core_province = 2964 #阿尔特马克
+			owns_core_province = 58 #安哈尔特
+			owns_core_province = 53 #安哈尔特
+			OR = {
+				owns_core_province = 1874	#不莱梅
+				owns_core_province = 45		#吕贝克
+				owns_core_province = 44 #汉堡
+			}
+			OR = {
+				owns_core_province = 61	#德累斯顿
+				owns_core_province = 62	#埃尔福特
+				owns_core_province = 63	#埃尔福特
+			}
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				OR = {
+					culture = lower_saxon
+					culture = saxon
+				}
+				value = 20
+			}
+		}
+		effect = {
+			change_tag = H10
+			on_change_tag_effect = yes
+			restore_country_name_effect = yes
+			# if = {
+			# 	limit = {
+			# 		is_emperor = yes
+			# 	}
+			# 	dismantle_hre = yes
+			# }
+			# else = {
+			# 	emperor = {
+			# 		add_opinion = {
+			# 			who = root
+			# 			modifier = opinion_left_empire
+			# 		}
+			# 	}
+			# 	set_in_empire = no
+			# 	emperor = {
+			# 		country_event = { id = hre_event.5 }
+			# 	}
+			# }
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				H10 = { set_government_rank = 2 }
+			}
+			north_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = H10
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_Elbe_Reich_flag
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			#swap_non_generic_missions = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { total_development = 500 }
+			}
+		}
+	}
+	EDG_H11_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_Rheinland_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = H11 }
+			NOT = { tag = HOL }
+			NOT = { tag = NED }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			NOT = { tag = GER }
+			NOT = { tag = SAX }
+			NOT = { tag = LOT }
+			NOT = { tag = HOL }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+					adm_tech = 10
+				}
+			}
+			culture_group = germanic
+			OR = {
+				primary_culture = hessian
+				primary_culture = dutch
+				primary_culture = franconian
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			if = {
+				limit = {
+					tag = H04
+				}
+				has_country_flag = EDG_H04_enable_change_tag_flag
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = upper_franconia_area
+				area = franconia_area
+				area = hesse_area
+				area = palatinate_area
+				area = north_rhine_area
+				area = lower_rhineland_area
+				area = frisia_area
+				area = north_brabant_area
+				area = holland_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		allow = {
+			if = {
+				limit = { 
+					NOT = {
+						tag = H04
+					}
+				}
+				adm_tech = 10
+			}
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_core_province = 1876	#法兰克福
+			OR = {
+				owns_core_province = 78	#美因茨
+				owns_core_province = 85		#科隆
+			}
+			OR = {
+				owns_core_province = 4383	#海牙
+				owns_core_province = 66	#班贝格
+			}
+			num_of_owned_provinces_with = {
+				is_core = ROOT
+				OR = {
+					area = upper_franconia_area
+					area = franconia_area
+					area = hesse_area
+					area = palatinate_area
+					area = north_rhine_area
+					area = lower_rhineland_area
+					area = frisia_area
+					area = north_brabant_area
+					area = holland_area
+				}
+				value = 20
+			}
+		}
+		effect = {
+			change_tag = H11
+			on_change_tag_effect = yes
+			restore_country_name_effect = yes
+			hidden_effect = {
+				if = {
+					limit = { 
+						OR = {
+							tag = H04
+							was_tag = H04
+						}
+					}
+					clear_global_event_target = EDG_H04_target
+					save_global_event_target_as = EDG_H04_target
+				}
+			}
+			# if = {
+			# 	limit = {
+			# 		is_emperor = yes
+			# 	}
+			# 	dismantle_hre = yes
+			# }
+			# else = {
+			# 	emperor = {
+			# 		add_opinion = {
+			# 			who = root
+			# 			modifier = opinion_left_empire
+			# 		}
+			# 	}
+			# 	set_in_empire = no
+			# 	emperor = {
+			# 		country_event = { id = hre_event.5 }
+			# 	}
+			# }
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				H11 = { set_government_rank = 2 }
+			}
+			EDG_add_claim = { area = upper_franconia_area }
+			EDG_add_claim = { area = franconia_area }
+			EDG_add_claim = { area = hesse_area }
+			EDG_add_claim = { area = palatinate_area }
+			EDG_add_claim = { area = north_rhine_area }
+			EDG_add_claim = { area = lower_rhineland_area }
+			EDG_add_claim = { area = frisia_area }
+			EDG_add_claim = { area = north_brabant_area }
+			EDG_add_claim = { area = holland_area }
+			# north_german_region = {
+			# 	limit = {
+			# 		NOT = { owned_by = ROOT }
+			# 	}
+			# 	add_permanent_claim = H10
+			# }
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_Rheinland_flag
+			# if = {
+			# 	limit = {
+			# 		has_custom_ideas = no
+			# 	}
+			# 	country_event = { id = ideagroups.1 } #Swap Ideas
+			# }
+			#swap_non_generic_missions = yes
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { total_development = 500 }
+			}
+		}
+	}
+}

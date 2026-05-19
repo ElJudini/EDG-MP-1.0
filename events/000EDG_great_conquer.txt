@@ -1,0 +1,597 @@
+namespace = EDG_flavor_great_conquer
+normal_or_historical_nations = yes
+country_event = {#是否启用伟大征服者
+  id = EDG_flavor_great_conquer.1
+  title = "EDG_flavor_great_conquer.1.t"
+  desc = "EDG_flavor_great_conquer.1.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+	ai = no
+  }
+  
+  option = {#启用神话征服者
+    name = "EDG_flavor_great_conquer.1.a"
+    ai_chance = {
+      factor = 10
+    }
+	set_global_flag = EDG_great_conquer_enable_flag
+	set_global_flag = EDG_mythical_conquer_enable_flag
+	custom_tooltip = EDG_mythical_conquer_enable_tooltip
+  }
+  
+  option = {#启用伟大征服者
+    name = "EDG_flavor_great_conquer.1.b"
+    ai_chance = {
+      factor = 1
+    }
+	set_global_flag = EDG_great_conquer_enable_flag
+	custom_tooltip = EDG_great_conquer_enable_tooltip
+  }
+  
+  option = {#不启用任何征服者
+    name = "EDG_flavor_great_conquer.1.c"
+    ai_chance = {
+      factor = 1
+    }
+	custom_tooltip = EDG_great_conquer_unable_tooltip
+	
+  }
+  option = {#禁用幸运国
+	  name = "EDG_flavor_great_conquer.1.e"
+	  custom_tooltip = EDG_lucky_tag_ban_flag_tt
+	  set_global_flag = EDG_lucky_tag_ban_flag
+  }
+}
+country_event = {#伟大征服者
+	id = EDG_flavor_great_conquer.2
+	title = "EDG_flavor_great_conquer.2.t"
+	desc = "EDG_flavor_great_conquer.2.d"
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		ai = yes
+		has_global_flag = EDG_great_conquer_enable_flag
+		is_subject = no
+		is_year = 1445
+		NOT = { government = republic }
+		NOT = { has_ruler_modifier = EDG_mythical_conqueror_modifier }
+		NOT = { has_ruler_modifier = EDG_great_conqueror_modifier }
+		NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+		NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+		OR = {
+			total_development = 200
+			tag = BUL
+			tag = MHM
+			tag = SCO
+			tag = VOL
+			tag = SWE
+		}
+		NOT = { has_ruler_flag = EDG_flavor_great_conquer_choice_flag }
+	}
+	immediate = {
+		if = {
+			limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+			clr_global_flag = EDG_great_conquer_NOW_flag
+			clr_country_flag = EDG_great_conquer_NOW_country_flag
+			remove_country_modifier = EDG_great_conqueror_modifier_AFTER
+			add_country_modifier = {
+				name = EDG_great_conqueror_modifier_AFTER
+				duration = 18250
+			}
+		}
+		if = {
+			limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+			clr_global_flag = EDG_great_conquer_NOW_flag
+			clr_country_flag = EDG_great_conquer_NOW_country_flag
+		}
+		if = {
+			limit = { has_country_flag = EDG_mythical_conquer_NOW_country_flag }
+			clr_global_flag = EDG_mythical_conquer_NOW_flag
+			clr_country_flag = EDG_mythical_conquer_NOW_country_flag
+			remove_country_modifier = EDG_great_conqueror_modifier_AFTER
+			add_country_modifier = {
+				name = EDG_great_conqueror_modifier_AFTER
+				duration = 18250
+			}
+		}
+		set_ruler_flag = EDG_flavor_great_conquer_choice_flag
+	}
+	
+	option = {#ai启用神话征服者
+		name = "EDG_flavor_great_conquer.2.a"
+		ai_chance = {
+		  factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					if = {
+						limit = { has_global_flag = mythical_conqueror }
+						REB = { check_variable = { nbGC = 13 } }									#No more than 10 Great Conqueror in the world
+					}
+					else = {
+						REB = { check_variable = { nbGC = 10 } }									#No more than 10 Great Conqueror in the world
+					}
+					is_bankrupt = yes																#Can't be bankrupt bitch
+					AND = {
+						any_neighbor_country = { ai = no }											#Doesn't target AI next to player before 1550
+						NOT = { is_year = 1550 }
+					}
+					coalition_target = ROOT															#Must not be the coalition target
+					NOT = { num_of_cities = 2 }														#Must have more than one province
+					government = tribal
+				}
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			}
+			modifier = {
+				factor = 10
+				has_global_flag = EDG_TUR_dream_global_flag
+			}
+			modifier = {
+				factor = 0.2
+				is_year = 1600
+			}
+			modifier = {
+				factor = 0
+				has_any_disaster = yes
+			}
+			modifier = {
+				factor = 0
+				tag = DLH
+				NOT = { is_year = 1500 }
+			}
+			modifier = {
+				factor = 0.2
+				is_part_of_hre = yes
+			}
+			modifier = {
+				factor = 0.25
+				technology_group = western
+			}
+			modifier = {
+				factor = 0.01
+				capital_scope = {
+					superregion = india_superregion
+				}
+				NOT = { has_country_modifier = EDG_MUG_strong_time_modifier }
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_great_conqueror_modifier_AFTER
+			}
+			modifier = {
+				factor = 1.5
+				MIL = 3 ADM = 3 DIP = 3
+			}
+			modifier = {
+				factor = 2
+				MIL = 4 ADM = 4 DIP = 4
+			}
+			modifier = {
+				factor = 2.5
+				MIL = 5 ADM = 5 DIP = 5
+			}
+			modifier = {
+				factor = 3
+				MIL = 6 ADM = 6 DIP = 6
+			}
+			modifier = {
+				factor = 15
+				calc_true_if = {
+					all_neighbor_country = {
+						NOT = { is_part_of_hre = yes }
+						NOT = { alliance_with = ROOT }
+						NOT = { is_subject_of = ROOT }
+						NOT = { army_strength = { who = ROOT value = 0.4 } }
+					}
+					amount = 6
+				}
+			}
+			modifier = {
+				factor = 5
+				is_great_power = yes
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					tag = BUL
+					tag = TUR
+					tag = ADU
+					tag = TAS
+					tag = SCA
+					tag = MUG
+					tag = SWE
+				}
+			}
+			modifier = {
+				factor = 0.01
+				OR = {
+					tag = ENG
+					tag = MAM
+				}
+			}
+		}
+		trigger = {
+		  has_global_flag = EDG_mythical_conquer_enable_flag
+		  NOT = { has_global_flag = EDG_mythical_conquer_NOW_flag }
+		  is_great_power = yes
+		  NOT = { has_ruler_modifier = EDG_mythical_conqueror_modifier }
+		  NOT = { has_ruler_modifier = EDG_great_conqueror_modifier }
+		  NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+		  NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+		}
+		
+		if = {
+			limit = {
+				NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+				NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+			}
+			change_adm = 4
+			change_dip = 4
+			change_mil = 4
+			if = {
+				limit = { is_emperor = yes }
+				set_ai_personality = {
+					personality = ai_diplomat
+					locked = yes
+				}
+			}
+			else = {
+				set_ai_personality = {
+					personality = ai_militarist
+					locked = yes
+				}
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_personality = EDG_mythical_conqueror_personality
+			add_ruler_modifier = {
+				name = EDG_mythical_conqueror_modifier
+				duration = -1
+			}
+			set_global_flag = EDG_mythical_conquer_NOW_flag
+			set_country_flag = EDG_mythical_conquer_NOW_country_flag
+		}
+	}
+
+	option = {#ai启用伟大征服者
+		name = "EDG_flavor_great_conquer.2.b"
+		ai_chance = {
+			factor = 2
+			
+			modifier = {
+				factor = 0
+				OR = {
+					if = {
+						limit = { has_global_flag = mythical_conqueror }
+						REB = { check_variable = { nbGC = 13 } }									#No more than 10 Great Conqueror in the world
+					}
+					else = {
+						REB = { check_variable = { nbGC = 10 } }									#No more than 10 Great Conqueror in the world
+					}
+					is_bankrupt = yes																#Can't be bankrupt bitch
+					AND = {
+						any_neighbor_country = { ai = no }											#Doesn't target AI next to player before 1550
+						NOT = { is_year = 1550 }
+					}
+					coalition_target = ROOT															#Must not be the coalition target
+					NOT = { num_of_cities = 2 }														#Must have more than one province
+					government = tribal
+				}
+			}
+			modifier = {
+				factor = 10
+				has_global_flag = EDG_TUR_dream_global_flag
+			}
+			modifier = {
+				factor = 0.2
+				is_year = 1600
+			}
+			modifier = {
+				factor = 0
+				has_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			}
+			modifier = {
+				factor = 0
+				has_any_disaster = yes
+			}
+			modifier = {
+				factor = 0
+				tag = DLH
+				NOT = { is_year = 1500 }
+			}
+			modifier = {
+				factor = 0.2
+				is_part_of_hre = yes
+			}
+			modifier = {
+				factor = 3
+				is_emperor = yes
+				is_part_of_hre = yes
+			}
+			modifier = {
+				factor = 0.25
+				technology_group = western
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { is_year = 1510 }
+				technology_group = western
+			}
+			modifier = {
+				factor = 0.01
+				capital_scope = {
+					superregion = india_superregion
+				}
+				NOT = { has_country_modifier = EDG_MUG_strong_time_modifier }
+			}
+			modifier = {
+				factor = 0
+				has_country_modifier = EDG_great_conqueror_modifier_AFTER
+			}
+			modifier = {
+				factor = 0.1
+				has_global_flag = EDG_great_conquer_NOW_flag
+			}
+			modifier = {
+				factor = 1.5
+				MIL = 3 ADM = 3 DIP = 3
+			}
+			modifier = {
+				factor = 2
+				MIL = 4 ADM = 4 DIP = 4
+			}
+			modifier = {
+				factor = 2.5
+				MIL = 5 ADM = 5 DIP = 5
+			}
+			modifier = {
+				factor = 3
+				MIL = 6 ADM = 6 DIP = 6
+			}
+			modifier = {
+				factor = 15
+				calc_true_if = {
+					all_neighbor_country = {
+						NOT = { is_part_of_hre = yes }
+						NOT = { alliance_with = ROOT }
+						NOT = { is_subject_of = ROOT }
+						NOT = { army_strength = { who = ROOT value = 0.4 } }
+					}
+					amount = 6
+				}
+			}
+			modifier = {
+				factor = 5
+				is_great_power = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = { is_year = 1500 }
+				any_neighbor_country = { ai = no }
+			}
+			modifier = {
+				factor = 3
+				OR = {
+					tag = BUL
+					tag = TUR
+					tag = SPA
+					tag = ADU
+					tag = TAS
+					tag = SCA
+					tag = MUG
+					tag = SWE
+				}
+			}
+			modifier = {
+				factor = 2
+				has_global_flag = EDG_mythical_conquer_enable_flag
+			}
+			modifier = {
+				factor = 0.01
+				OR = {
+					tag = ENG
+					tag = MAM
+				}
+			}
+		}
+		trigger = {
+		  # NOT = { has_global_flag = EDG_great_conquer_NOW_flag }
+			NOT = { has_ruler_modifier = EDG_mythical_conqueror_modifier }
+			NOT = { has_ruler_modifier = EDG_great_conqueror_modifier }
+			NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+			NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+		}
+		if = {
+			limit = {
+				NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+				NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+			}
+			change_adm = 3
+			change_dip = 3
+			change_mil = 3
+			
+			if = {
+				limit = { is_emperor = yes }
+				set_ai_personality = {
+					personality = ai_diplomat
+					locked = yes
+				}
+			}
+			else = {
+				set_ai_personality = {
+					personality = ai_militarist
+					locked = yes
+				}
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_personality = EDG_great_conqueror_personality
+			add_ruler_modifier = {
+				name = EDG_great_conqueror_modifier
+				duration = -1
+			}
+			set_global_flag = EDG_great_conquer_NOW_flag
+			set_country_flag = EDG_great_conquer_NOW_country_flag
+		}
+	}
+
+	option = {#ai不启用任何征服者
+		name = "EDG_flavor_great_conquer.2.c"
+		ai_chance = {
+			factor = 50
+			
+			modifier = {
+				factor = 5
+				NOT = { stability = 0 }
+			}
+			
+			modifier = {
+				factor = 1.5
+				overextension_percentage = 0.5
+			}
+			
+			modifier = {
+				factor = 1.5
+				average_effective_unrest = 1
+			}
+			
+			modifier = {
+				factor = 1.5
+				num_of_loans = 5
+			}
+			
+			modifier = {
+				factor = 1.5
+				corruption = 5
+			}
+			
+			modifier = {
+				factor = 1.5
+				NOT = { stability = 0 }
+			}
+			
+			modifier = {
+				factor = 50
+				government = republic
+			}
+			
+			modifier = {
+				factor = 25
+				government = theocracy
+			}
+			
+			modifier = {
+				factor = 10
+				is_subject = yes
+			}
+		}
+		if = {
+			limit = { has_country_flag = EDG_previous_ruler_was_great_conqueror_flag }
+			clr_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+		}
+		
+	}
+	after = {
+		if = {
+			limit = {
+				ruler_has_personality = EDG_great_conqueror_personality
+				ruler_has_personality = EDG_mythical_conqueror_personality
+			}
+			remove_ruler_personality = EDG_great_conqueror_personality
+			remove_country_modifier = EDG_great_conqueror_modifier
+		}
+	}
+}
+
+
+
+
+country_event = {
+	id = EDG_flavor_great_conquer.3
+	title = "EDG_flavor_great_conquer.3.t"
+	desc = "EDG_flavor_great_conquer.3.d"
+	Picture = CARIBBEAN_PIRATE_FORT_eventPicture
+	fire_only_once = yes
+	hidden = yes
+	trigger = {
+		always = no
+		NOT = { any_neighbor_country = { ai = no } }
+	  OR = {
+		AND = {
+			OR = {
+				tag = APU
+				tag = PUA
+				tag = CBI
+			}
+			is_year = 1455
+			PUA = { ai = yes }
+			CBI = { ai = yes }
+			SIC = { ai = yes }
+		}
+	  }
+	  is_at_war = no
+	  has_regency = no
+	  NOT = { has_country_flag = EDG_flavor_great_conquer_3_country_flag }
+	}
+	immediate = {
+		APU = { set_country_flag = EDG_flavor_great_conquer_3_country_flag }
+		PUA = { set_country_flag = EDG_flavor_great_conquer_3_country_flag }
+		CBI = { set_country_flag = EDG_flavor_great_conquer_3_country_flag }
+		
+		if = {
+		  limit = {
+			ai = yes
+			has_global_flag = EDG_great_conquer_enable_flag
+		  }
+		  define_ruler_to_general = {
+			fire = 3
+			shock = 4
+			manuever = 4
+			siege = 3
+			death_date = 1590.11.24
+		  }
+		  
+		  add_adm_power = 500
+		  add_dip_power = 500
+		  add_mil_power = 500
+				add_treasury = 1000
+				capital_scope = {
+				  infantry = VOL
+				  infantry = VOL
+				  infantry = VOL
+				  infantry = VOL
+				  infantry = VOL
+				  infantry = VOL
+				  infantry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				  cavalry = VOL
+				}
+	
+		  add_ruler_personality = EDG_great_conqueror_personality
+		  hidden_effect = {
+			set_ai_personality = {
+			  personality = ai_militarist
+			  locked = yes
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_modifier = {
+			  name = EDG_great_conqueror_modifier
+			  duration = -1
+			}
+			set_global_flag = EDG_great_conquer_NOW_flag
+			set_country_flag = EDG_great_conquer_NOW_country_flag
+		  }
+		}
+	}
+	option = {
+	  name = "EDG_flavor_great_conquer.3.a"
+	}
+  }

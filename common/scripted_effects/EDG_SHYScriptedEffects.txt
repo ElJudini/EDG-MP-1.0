@@ -1,0 +1,391 @@
+#this = province
+#root = country
+#remove_loot = yes	清空战利品
+#raze = yes			添加焚掠省份的修正
+#core = yes			授予owner核心
+EDG_auto_raze_province = {
+	add_devastation = 10
+	[[remove_loot]
+		remove_loot = {
+			who = owner
+			amount = 1000
+		}
+	]
+	owner = {
+		# set_variable = { EDG_base_raze_power = 0 }
+		# export_to_variable = {
+		# 	which = EDG_base_raze_power
+		# 	value = modifier:raze_power_gain
+		# }
+		# change_variable = {
+		# 	which = EDG_base_raze_power
+		# 	value = 1
+		# }
+		# prev = {
+		# 	set_variable = {
+		# 		which = EDG_base_raze_power
+		# 		value = prev
+		# 	}
+		# }
+		# set_variable = {
+		# 	which = EDG_mil_tech_level
+		# 	value = 0
+		# }
+		# export_to_variable = {
+		# 	which = EDG_mil_tech_level
+		# 	value = trigger_value:mil_tech
+		# }
+		# if = {
+		# 	limit = { 
+		# 		check_variable = {
+		# 			which = EDG_mil_tech_level
+		# 			value = 23
+		# 		}
+		# 	}
+		# 	set_variable = {
+		# 		which = EDG_mil_tech_level
+		# 		value = 23
+		# 	}
+		# }
+		# multiply_variable = {
+		# 	which = EDG_mil_tech_level
+		# 	value = -1
+		# }
+		# change_variable = {
+		# 	which = EDG_mil_tech_level
+		# 	value = 28
+		# }
+	}
+	set_variable = { EDG_local_develpment = 0 }
+	set_variable = { EDG_local_base_tax = 0 }
+	set_variable = { EDG_local_base_production = 0 }
+	set_variable = { EDG_local_base_manpower = 0 }
+	export_to_variable = {
+		which = EDG_local_develpment
+		value = trigger_value:development
+	}
+	set_variable = {
+		which = EDG_local_develpment_copy
+		which = EDG_local_develpment
+	}
+	divide_variable = {
+		which = EDG_local_develpment_copy
+		value = 2
+	}
+	while = {
+		limit = { 
+			check_variable = {
+				which = EDG_local_develpment_copy
+				value = 1
+			}
+		}
+		subtract_variable = {
+			which = EDG_local_develpment_copy
+			value = 1
+		}
+		owner = {
+			add_tribal_allegiance = 1
+		}
+	}
+	change_variable = {
+		which = EDG_local_develpment
+		value = 3
+	}
+	divide_variable = {
+		which = EDG_local_develpment
+		value = 3
+	}
+	while = {
+		limit = {
+			check_variable = {
+				which = EDG_local_develpment
+				value = 1
+			}
+		}
+		subtract_variable = {
+			which = EDG_local_develpment
+			value = 1
+		}
+		owner = {
+			add_treasury = 5
+		}
+	}
+	
+	export_to_variable = {
+		which = EDG_local_base_tax
+		value = trigger_value:base_tax
+	}
+	export_to_variable = {
+		which = EDG_local_base_production
+		value = trigger_value:base_production
+	}
+	export_to_variable = {
+		which = EDG_local_base_manpower
+		value = trigger_value:base_manpower
+	}
+	if = {
+		limit = { 
+			check_variable = {
+				which = EDG_local_base_tax
+				value = 2
+			}
+		}
+		change_variable = {
+			which = EDG_local_base_tax
+			value = 1
+		}
+		divide_variable = {
+			which = EDG_local_base_tax
+			value = 3
+		}
+		# multiply_variable = {
+		# 	which = EDG_local_base_tax
+		# 	value = 25
+		# }
+		# multiply_variable = {
+		# 	which = EDG_local_base_tax
+		# 	which = EDG_base_raze_power
+		# }
+		while = {
+			limit = { 
+				check_variable = {
+					which = EDG_local_base_tax
+					value = 1
+				}
+			}
+			add_base_tax = -1
+			subtract_variable = {
+				which = EDG_local_base_tax
+				value = 1
+			}
+			owner = {
+				add_adm_power = 25
+			}
+		}
+	}
+	if = {
+		limit = { 
+			check_variable = {
+				which = EDG_local_base_production
+				value = 2
+			}
+		}
+		change_variable = {
+			which = EDG_local_base_production
+			value = 1
+		}
+		divide_variable = {
+			which = EDG_local_base_production
+			value = 3
+		}
+		# multiply_variable = {
+		# 	which = EDG_local_base_production
+		# 	value = 25
+		# }
+		# multiply_variable = {
+		# 	which = EDG_local_base_production
+		# 	which = EDG_base_raze_power
+		# }
+		while = {
+			limit = { 
+				check_variable = {
+					which = EDG_local_base_production
+					value = 1
+				}
+			}
+			add_base_tax = -1
+			subtract_variable = {
+				which = EDG_local_base_production
+				value = 1
+			}
+			owner = {
+				add_dip_power = 25
+			}
+		}
+	}
+	if = {
+		limit = { 
+			check_variable = {
+				which = EDG_local_base_manpower
+				value = 2
+			}
+		}
+		change_variable = {
+			which = EDG_local_base_manpower
+			value = 1
+		}
+		divide_variable = {
+			which = EDG_local_base_manpower
+			value = 3
+		}
+		# multiply_variable = {
+		# 	which = EDG_local_base_manpower
+		# 	value = 25
+		# }
+		# multiply_variable = {
+		# 	which = EDG_local_base_manpower
+		# 	which = EDG_base_raze_power
+		# }
+		while = {
+			limit = { 
+				check_variable = {
+					which = EDG_local_base_manpower
+					value = 1
+				}
+			}
+			add_base_tax = -1
+			subtract_variable = {
+				which = EDG_local_base_manpower
+				value = 1
+			}
+			owner = {
+				add_mil_power = 25
+			}
+		}
+	}
+	[[raze]
+		add_permanent_province_modifier = {
+			name = province_razed
+			duration = 7300
+		}
+	]
+	[[core]
+		add_core = owner
+	]
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_SHY_enable_raze_get_core_flag
+			}
+		}
+		add_territorial_core = owner
+	}
+}
+#this = country 发起者
+#root = country 发起者
+EDG_SHY_declare_war_with_neighbor_country = {
+	custom_tooltip = EDG_SHY_declare_war_with_neighbor_country.tt
+	hidden_effect = {
+		every_neighbor_country = {
+			limit = {
+				is_subject = no
+				NOT = {
+					war_with = root
+				}
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+						superregion = eastern_europe_superregion
+					}
+				}
+			}
+			root = {
+				declare_war_with_cb = {
+					casus_belli = cb_annex
+					who = prev
+				}
+			}
+		}
+	}
+}
+#this = country 发起者
+#root = country 发起者
+EDG_SHY_civil_war_effect = {
+	every_province = {
+		limit = {
+			OR = {
+				owned_by = root
+				owner = {
+					is_subject_of = root
+					NOT = {
+						is_subject_of_type = tributary_state
+					}
+				}
+			}
+		}
+		if = {
+			limit = { 
+				is_core = root
+			}
+			set_province_flag = EDG_core_province_flag
+		}
+		set_province_flag = EDG_province_flag
+	}
+	release_all_possible_countries = yes
+	release_all_subjects = yes
+	every_province = {
+		limit = {
+			has_province_flag = EDG_province_flag
+		}
+		if = {
+			limit = { 
+				has_province_flag = EDG_core_province_flag
+				NOT = {
+					is_core = root
+				}
+			}
+			clr_province_flag = EDG_core_province_flag
+			add_core = root
+		}
+		if = {
+			limit = { 
+				is_capital_of = owner
+				NOT = {
+					owned_by = root
+				}
+			}
+			
+			owner = {
+				if = {
+					limit = { 
+						technology_group = nomad_group
+					}
+					change_religion = root
+					change_government = tribal
+					add_government_reform = steppe_horde
+					add_horde_unity = 100
+					country_event = {
+						id = EDG_flavor_nomad.0
+					}
+				}
+				
+				
+				add_adm_power = 200
+				add_dip_power = 200
+				add_mil_power = 200
+				add_stability = 1
+				root = {
+					declare_war_with_cb = {
+						casus_belli = cb_annex
+						who = prev
+					}
+				}
+				set_country_flag = EDG_SHY_civil_war_country_flag
+				add_country_modifier = {
+					name = EDG_SHY_unexpected_split
+					duration = 3650
+				}
+			}
+			build_to_forcelimit = {
+				cavalry = 0.6
+				infantry = 0.4
+			}
+		}
+		if = {
+			limit = { 
+				is_capital_of = root
+			}
+			every_neighbor_province = {
+				limit = {
+					OR = {
+						is_core = root
+						has_province_flag = EDG_province_flag
+					}
+				}
+				cede_province = root
+			}
+		}
+		clr_province_flag = EDG_province_flag
+	}
+	
+}

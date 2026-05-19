@@ -1,0 +1,571 @@
+namespace = EDG_FRNEvents
+
+
+country_event = {
+	id = EDG_FRNEvents.0
+	is_triggered_only = yes
+	title = EDG_FRNEvents.0.name
+	desc = EDG_FRNEvents.0.desc
+
+	option = {
+		name = EDG_FRNEvents.0.aa
+		add_republican_tradition = 5
+		custom_tooltip = EDG_SPACE_TT
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.1
+	is_triggered_only = yes
+	title = EDG_FRNEvents.1.name
+	desc = EDG_FRNEvents.1.desc
+
+	option = {
+		name = EDG_FRNEvents.1.aa
+		add_government_reform = EDG_FRN_free_city
+		if = {
+			limit = { 
+				ai = no
+			}
+			1876 = {
+				add_province_modifier = {
+					name = EDG_FRN_urban_defense
+					duration = -1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.2
+	is_triggered_only = yes
+	title = EDG_FRNEvents.2.name
+	desc = EDG_FRNEvents.2.desc
+
+	option = {
+		name = EDG_FRNEvents.2.aa
+		
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 40
+		}
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.3
+	is_triggered_only = yes
+	title = EDG_FRNEvents.3.name
+	desc = EDG_FRNEvents.3.desc
+
+	option = {
+		name = EDG_FRNEvents.3.aa
+		add_government_reform = EDG_FRN_artisans_association
+		custom_tooltip = EDG_SPACE_TT
+		custom_tooltip = EDG_FRN_mission_3_5.effect.tt
+		hidden_effect = {
+			add_idea_group = infrastructure_ideas
+			set_variable = {
+				which = EDG_FRN_page
+				value = 1
+			}
+		}
+		1876 = {
+			add_building = EDG_road_network
+		}
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.100
+	is_triggered_only = yes
+	title = EDG_FRNEvents.100.name
+	desc = EDG_FRNEvents.100.desc
+
+	option = {
+		name = EDG_FRNEvents.100.aa
+		custom_tooltip = EDG_FRNEvents.100.aa.tt
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.500
+	is_triggered_only = yes
+	title = EDG_FRNEvents.500.name
+	desc = EDG_FRNEvents.500.desc
+	goto = from
+
+	option = {
+		name = EDG_FRNEvents.500.aa
+		EDG_FRN_get_reward_use = yes
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.501
+	is_triggered_only = yes
+	title = EDG_FRNEvents.501.name
+	desc = EDG_FRNEvents.501.desc
+
+	option = { #经济
+		name = EDG_FRNEvents.501.aa
+		trigger = {
+			NOT = {
+				has_idea_group = economic_ideas
+			}
+		}
+		add_idea_group = economic_ideas
+	}
+	option = { #革新
+		name = EDG_FRNEvents.501.bb
+		trigger = {
+			NOT = {
+				has_idea_group = innovativeness_ideas
+			}
+		}
+		add_idea_group = innovativeness_ideas
+	}
+	option = { #财阀
+		name = EDG_FRNEvents.501.cc
+		trigger = {
+			NOT = {
+				has_idea_group = plutocracy_ideas
+			}
+		}
+		add_idea_group = plutocracy_ideas
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.502
+	is_triggered_only = yes
+	title = EDG_FRNEvents.502.name
+	desc = EDG_FRNEvents.502.desc
+	picture = LAND_MILITARY_eventPicture
+	goto = EDG_FRN_target_country_target_province
+
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					has_country_flag = EDG_FRN_target_country_flag
+				}
+				save_event_target_as = EDG_FRN_target_country_target
+				random_hired_mercenary_company = {
+					limit = {
+						template = merc_EDG_FRN_frankfurt_engineering_corps
+					}
+					location = {
+						save_event_target_as = EDG_FRN_target_country_target_province
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					has_country_flag = EDG_FRN_target_country_flag
+				}
+				clr_country_flag = EDG_FRN_target_country_flag
+			}
+		}
+	}
+
+	option = { #收益
+		name = EDG_FRNEvents.502.aa
+		custom_tooltip = EDG_FRNEvents.502.aa.effect.tt
+		add_mil_power = 25
+		add_army_professionalism = 0.01
+		hidden_effect = {
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_FRN_cal_monthly_income
+						value = 0
+					}
+				}
+				add_treasury = 1
+				subtract_variable = {
+					which = EDG_FRN_cal_monthly_income
+					value = 1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.600
+	is_triggered_only = yes
+	hidden = yes
+	trigger = {
+		has_government_attribute = EDG_FRN_enable_investment
+	}
+
+	immediate = {
+		set_variable = {
+			which = EDG_FRN_global_manpower_modifier_var
+			value = 0
+		}
+		set_variable = {
+			which = EDG_FRN_production_efficiency_var
+			value = 0
+		}
+		set_variable = {
+			which = EDG_FRN_global_tax_modifier_var
+			value = 0
+		}
+		export_to_variable = {
+			value = modifier:global_manpower_modifier
+			which = EDG_FRN_global_manpower_modifier_var
+		}
+		change_variable = {
+			which = EDG_FRN_global_manpower_modifier_var
+			value = 1
+		}
+		export_to_variable = {
+			value = modifier:production_efficiency
+			which = EDG_FRN_production_efficiency_var
+		}
+		change_variable = {
+			which = EDG_FRN_production_efficiency_var
+			value = 1
+		}
+		export_to_variable = {
+			value = modifier:global_tax_modifier
+			which = EDG_FRN_global_tax_modifier_var
+		}
+		change_variable = {
+			which = EDG_FRN_global_tax_modifier_var
+			value = 1
+		}
+		set_variable = {
+			which = EDG_FRN_investment_tax_copy
+			which = EDG_FRN_investment_tax
+		}
+		set_variable = {
+			which = EDG_FRN_investment_manpower_copy
+			which = EDG_FRN_investment_manpower
+		}
+
+
+		set_variable = {
+			which = EDG_FRN_materials_count_glass_copy
+			which = EDG_FRN_materials_count_glass
+		}
+		set_variable = {
+			which = EDG_FRN_materials_count_copper_copy
+			which = EDG_FRN_materials_count_copper
+		}
+		set_variable = {
+			which = EDG_FRN_materials_count_gems_copy
+			which = EDG_FRN_materials_count_gems
+		}
+		set_variable = {
+			which = EDG_FRN_materials_count_woods_copy
+			which = EDG_FRN_materials_count_woods
+		}
+		set_variable = {
+			which = EDG_FRN_materials_count_iron_copy
+			which = EDG_FRN_materials_count_iron
+		}
+		if = {
+			limit = { 
+				has_country_flag = EDG_FRN_mission_3_12_flag
+			}
+			multiply_variable = {
+				which = EDG_FRN_investment_manpower_copy
+				which = EDG_FRN_global_manpower_modifier_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_investment_tax_copy
+				which = EDG_FRN_global_tax_modifier_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_materials_count_glass_copy
+				which = EDG_FRN_production_efficiency_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_materials_count_copper_copy
+				which = EDG_FRN_production_efficiency_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_materials_count_gems_copy
+				which = EDG_FRN_production_efficiency_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_materials_count_woods_copy
+				which = EDG_FRN_production_efficiency_var
+			}
+			multiply_variable = {
+				which = EDG_FRN_materials_count_iron_copy
+				which = EDG_FRN_production_efficiency_var
+			}
+		}
+		
+		multiply_variable = {
+			which = EDG_FRN_materials_count_glass_copy
+			which = EDG_FRN_building_materials_improve_efficiency_for_glass
+		}
+		# multiply_variable = {
+		# 	which = EDG_FRN_materials_count_glass_copy
+		# 	value = 10
+		# }
+		
+		multiply_variable = {
+			which = EDG_FRN_materials_count_copper_copy
+			which = EDG_FRN_building_materials_improve_efficiency_for_copper
+		}
+		# multiply_variable = {
+		# 	which = EDG_FRN_materials_count_copper_copy
+		# 	value = 10
+		# }
+
+		multiply_variable = {
+			which = EDG_FRN_materials_count_gems_copy
+			which = EDG_FRN_building_materials_improve_efficiency_for_gems
+		}
+		# multiply_variable = {
+		# 	which = EDG_FRN_materials_count_gems_copy
+		# 	value = 10
+		# }
+		
+		multiply_variable = {
+			which = EDG_FRN_materials_count_woods_copy
+			which = EDG_FRN_building_materials_improve_efficiency_for_woods
+		}
+		# multiply_variable = {
+		# 	which = EDG_FRN_materials_count_woods_copy
+		# 	value = 10
+		# }
+		
+		multiply_variable = {
+			which = EDG_FRN_materials_count_iron_copy
+			which = EDG_FRN_building_materials_improve_efficiency_for_iron
+		}
+		# multiply_variable = {
+		# 	which = EDG_FRN_materials_count_iron_copy
+		# 	value = 10
+		# }
+
+		change_variable = {
+			which = EDG_FRN_materials_total_glass
+			which = EDG_FRN_materials_count_glass_copy
+		}
+		change_variable = {
+			which = EDG_FRN_materials_total_copper
+			which = EDG_FRN_materials_count_copper_copy
+		}
+		change_variable = {
+			which = EDG_FRN_materials_total_gems
+			which = EDG_FRN_materials_count_gems_copy
+		}
+		change_variable = {
+			which = EDG_FRN_materials_total_woods
+			which = EDG_FRN_materials_count_woods_copy
+		}
+		change_variable = {
+			which = EDG_FRN_materials_total_iron
+			which = EDG_FRN_materials_count_iron_copy
+		}
+
+		set_variable = {
+			which = EDG_FRN_investment_manpower_ues
+			which = EDG_FRN_investment_manpower_copy
+		}
+		set_variable = {
+			which = EDG_FRN_investment_tax_ues
+			which = EDG_FRN_investment_tax_copy
+		}
+
+		while = {
+			limit = { 
+				check_variable = {
+					which = EDG_FRN_investment_manpower_ues
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = EDG_FRN_investment_manpower_ues
+				value = 1
+			}
+			add_manpower = 0.02
+		}
+		while = {
+			limit = { 
+				check_variable = {
+					which = EDG_FRN_investment_tax_ues
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = EDG_FRN_investment_tax_ues
+				value = 1
+			}
+			add_treasury = 1
+		}
+	}
+
+	option = {
+		
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.700
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		set_country_flag = EDG_FRN_mission_4_6_flag
+		set_country_flag = EDG_FRN_mission_4_7_flag
+		# add_government_reform = EDG_FRN_artisans_association
+		# set_country_flag = EDG_FRN_delegation_1876_EDG_Frankfur_Romanplatz_flag
+		# add_government_reform = EDG_FRN_engineering_headquarters
+		# hidden_effect = {
+		# 	set_country_flag = EDG_FRN_mission_2_6_flag
+		# 	set_variable = { EDG_FRN_investment_tax = 2 }
+		# 	set_variable = { EDG_FRN_investment_manpower = 3 }
+		# 	set_variable = { EDG_FRN_materials_count_glass = 2 }
+		# 	set_variable = { EDG_FRN_materials_count_copper = 10 }
+		# 	set_variable = { EDG_FRN_materials_count_gems = 1 }
+		# 	set_variable = { EDG_FRN_materials_count_woods = 6 }
+		# 	set_variable = { EDG_FRN_materials_count_iron = 3 }
+		# 	set_variable = { EDG_FRN_materials_total_glass = 0 }
+		# 	set_variable = { EDG_FRN_materials_total_copper = 0 }
+		# 	set_variable = { EDG_FRN_materials_total_gems = 0 }
+		# 	set_variable = { EDG_FRN_materials_total_woods = 0 }
+		# 	set_variable = { EDG_FRN_materials_total_iron = 0 }
+		# 	set_variable = { EDG_FRN_building_materials_improve_efficiency_for_glass = 1 }
+		# 	set_variable = { EDG_FRN_building_materials_improve_efficiency_for_copper = 1 }
+		# 	set_variable = { EDG_FRN_building_materials_improve_efficiency_for_gems = 1 }
+		# 	set_variable = { EDG_FRN_building_materials_improve_efficiency_for_woods = 1 }
+		# 	set_variable = { EDG_FRN_building_materials_improve_efficiency_for_iron = 1 }
+			
+		# 	set_variable = {
+		# 		which = EDG_FRN_global_manpower_modifier_var
+		# 		value = 0
+		# 	}
+		# 	set_variable = {
+		# 		which = EDG_FRN_production_efficiency_var
+		# 		value = 0
+		# 	}
+		# 	set_variable = {
+		# 		which = EDG_FRN_global_tax_modifier_var
+		# 		value = 0
+		# 	}
+		# 	export_to_variable = {
+		# 		value = modifier:global_manpower_modifier
+		# 		which = EDG_FRN_global_manpower_modifier_var
+		# 	}
+		# 	export_to_variable = {
+		# 		value = modifier:production_efficiency
+		# 		which = EDG_FRN_production_efficiency_var
+		# 	}
+		# 	export_to_variable = {
+		# 		value = modifier:global_tax_modifier
+		# 		which = EDG_FRN_global_tax_modifier_var
+		# 	}
+		# }
+	}
+
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.800
+	is_triggered_only = yes
+	title = EDG_FRNEvents.800.name
+	desc = EDG_FRNEvents.800.desc
+	picture = GREAT_BUILDING_eventPicture
+
+	option = {
+		name = EDG_FRNEvents.800.aa
+		country_event = {
+			id = EDG_FRNEvents.801
+		}
+		# custom_tooltip = EDG_FRNEvents.800.aa.tt
+		# hidden_effect = {
+		# 	every_province = {
+		# 		limit = {
+		# 			NOT = {
+		# 				owned_by = root
+		# 			}
+		# 		}
+		# 		decolonize = yes
+		# 	}
+		# }
+	}
+}
+
+country_event = {
+	id = EDG_FRNEvents.801
+	is_triggered_only = yes
+	title = EDG_FRNEvents.801.name
+	desc = EDG_FRNEvents.801.desc
+	picture = GREAT_BUILDING_eventPicture
+
+	option = {
+		name = EDG_FRNEvents.801.aa
+		country_event = {
+			id = EDG_FRNEvents.802
+		}
+		# custom_tooltip = EDG_FRNEvents.800.aa.tt
+		# hidden_effect = {
+		# 	every_province = {
+		# 		limit = {
+		# 			NOT = {
+		# 				owned_by = root
+		# 			}
+		# 		}
+		# 		decolonize = yes
+		# 	}
+		# }
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.802
+	is_triggered_only = yes
+	title = EDG_FRNEvents.802.name
+	desc = EDG_FRNEvents.802.desc
+	picture = GREAT_BUILDING_eventPicture
+
+	option = {
+		name = EDG_FRNEvents.802.aa
+		country_event = {
+			id = EDG_FRNEvents.803
+		}
+		# custom_tooltip = EDG_FRNEvents.800.aa.tt
+		# hidden_effect = {
+		# 	every_province = {
+		# 		limit = {
+		# 			NOT = {
+		# 				owned_by = root
+		# 			}
+		# 		}
+		# 		decolonize = yes
+		# 	}
+		# }
+	}
+}
+country_event = {
+	id = EDG_FRNEvents.803
+	is_triggered_only = yes
+	title = EDG_FRNEvents.803.name
+	desc = EDG_FRNEvents.803.desc
+	picture = GREAT_BUILDING_eventPicture
+
+	option = {
+		name = EDG_FRNEvents.803.aa
+		custom_tooltip = EDG_FRNEvents.803.aa.tt
+		# custom_tooltip = EDG_FRNEvents.800.aa.tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					NOT = {
+						owned_by = root
+					}
+				}
+				decolonize = yes
+			}
+		}
+	}
+}

@@ -1,0 +1,1407 @@
+got_pirate_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+	}
+	has_country_shield = yes
+
+	
+
+	EDG_got_pirate_sink_the_swe = { #击败瑞典舰队
+		icon = mission_disrupt_portuguese_trade
+		position = 2
+		required_missions = { got_pirate_the_pirate_fleet }
+		provinces_to_highlight = {
+			is_capital_of = SWE
+		}
+		trigger = {
+			OR = {
+				NOT = { exists = SWE }
+				AND = {
+					navy_size = SWE
+					SWE = {
+						OR = {
+							current_war_losses = {
+								who_with = ROOT
+								type = ships
+								cause = battle
+								amount = 20
+							}
+							NOT = { navy_size = 5 }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = got_dread_of_the_baltic_sea
+				duration = 9125
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 30
+			}
+		}
+	}
+
+	got_pirate_raid_the_north_sea = {
+		icon = mission_seize_north_sea_trade
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1975
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 25
+						}
+					}
+				}
+				AND = {
+					province_id = 1269
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			1975 = {
+				privateer_power = {
+					country = ROOT
+					share = 25
+				}
+			}
+			1269 = {
+				privateer_power = {
+					country = ROOT
+					share = 10
+				}
+			}
+		}
+		effect = {
+			add_years_of_income = 3
+			holland_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			home_counties_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			flanders_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			1931 = {
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+			}
+		}
+	}
+
+	got_pirate_loot_london = {
+		icon = mission_fire_of_london
+		position = 4
+		required_missions = { got_pirate_raid_the_north_sea }
+		provinces_to_highlight = {
+			province_id = 236
+			NOT = { controlled_by = ROOT }
+		}
+		trigger = {
+			236 = {
+				controlled_by = root
+			}
+			controls = 236
+		}
+		effect = {
+			236 = {
+				add_loot_from_rich_province_general_effect = {
+					LOOTER = ROOT
+				}
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+				custom_tooltip = EDG_GOT_pirate_haven_other.tt
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+		}
+	}
+
+	got_pirate_renowned_pirate_king = {
+		icon = mission_eric_the_pirate
+		position = 5
+		required_missions = { }
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			has_leader_with = { admiral = yes total_pips = 12 }
+			is_monarch_leader = yes
+			republican_tradition = 95
+			navy_tradition = 50
+			OR = {
+				AND = {
+					ADM = 4
+					DIP = 4
+					MIL = 4
+				}
+				ADM = 6
+				DIP = 6
+				MIL = 6
+			}
+		}
+		
+		effect = {
+			custom_tooltip = got_pirate_renowned_pirate_king_tt
+			set_country_flag = can_gain_legendary_pirates_flag
+			random_list = {
+				1 = { trigger = { NOT = { ADM = 6 } } change_adm = 1 }
+				1 = { trigger = { NOT = { DIP = 6 } } change_dip = 1 }
+				1 = { trigger = { NOT = { MIL = 6 } } change_mil = 1 }
+			}
+			add_republican_tradition = 10
+		}
+	}
+
+	EDG_got_robin_hood = { #劫富济贫
+		icon = mission_landsknecht_soldier
+		position = 7
+		required_missions = { EDG_got_pirate_economy }
+		provinces_to_highlight = {
+		}
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					war_with = root
+				}
+				amount = 8
+			}
+			calc_true_if = {
+				all_country = {
+					NOT = {
+						total_development = 50
+					}
+					subsidised_percent_amount = {
+						value = 0.5
+					}
+				}
+				amount = 8
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_GOT_equality_among_pirates
+				duration = -1
+			}
+		}
+	}
+}
+
+got_pirate_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+	}
+	has_country_shield = yes
+
+	got_pirate_the_pirate_fleet = {
+		icon = mission_pirate_fleet
+		position = 1
+		required_missions = {}
+		provinces_to_highlight = {
+		}
+		trigger = {
+			naval_forcelimit = 20
+			navy_size_percentage = 1
+			num_of_light_ship = 6
+		}
+		effect = {
+			EDG_add_claim = { area = 1981 }
+			EDG_add_claim = { area = 4745 }
+			# 45 = {
+			# 	limit = {
+			# 		NOT = { is_core = ROOT }
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			# 43 = {
+			# 	limit = {
+			# 		NOT = { is_core = ROOT }
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			# 38 = {
+			# 	limit = {
+			# 		NOT = { is_core = ROOT }
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			# 12 = {
+			# 	limit = {
+			# 		NOT = { is_core = ROOT }
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			add_country_modifier = {
+				name = pirate_a_pirate_fleet
+				duration = 9125
+			}
+		}
+	}
+
+	EDG_got_sink_the_lubeck = {
+		icon = defend_the_city
+		position = 2
+		required_missions = { got_pirate_raid_the_baltics }
+		provinces_to_highlight = {
+			OR = {
+				is_capital_of = HSA
+				province_id = 45
+			}
+			NOT = {
+				controlled_by = root
+			}
+		}
+		trigger = {
+			45 = {
+				controlled_by = root
+			}
+		}
+		effect = {
+			45 = {
+				add_loot_from_rich_province_general_effect = {
+					LOOTER = root
+				}
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+				custom_tooltip = EDG_GOT_pirate_haven_other.tt
+			}
+			capital_scope = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			capital_scope = {
+				add_scaled_local_adm_power = 10 
+				add_scaled_local_dip_power = 10 
+				add_scaled_local_mil_power = 10
+			}
+			custom_tooltip = hsa_based_on_the_development_of_our_capital_tt
+		}
+	}
+
+
+	got_pirate_free_ports = {
+		icon = mission_raid_christian_trade
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4745
+				province_id = 25
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			OR = {
+				owns_or_non_sovereign_subject_of = 4745
+				exists = RUG
+			}
+			owns_or_non_sovereign_subject_of = 25
+		}
+		effect = {
+			create_admiral = {
+				tradition = 75
+			}
+			create_general = {
+				tradition = 75
+			}
+			if = {
+				limit = {
+					NOT = { exists = RUG }
+				}
+				if = {
+					limit = {
+						25 = { is_core = RUG }
+					}
+					25 = { add_core = RUG }
+				}
+				release = RUG
+				RUG = {
+					change_government = republic
+					add_government_reform = pirate_republic_reform
+					hidden_effect = {
+						add_historical_friend = ROOT
+						define_ruler = {
+							force_republican_names = yes
+							dynasty = "Störtebeker"
+							culture = pommeranian
+						}
+						add_republican_tradition = 50
+						swap_non_generic_missions = yes
+				
+						capital_scope = {
+							galley = root
+							galley = root
+							galley = root
+						}
+					}
+				}
+				
+				create_subject = {
+					subject_type = vassal
+					subject = RUG
+				}
+			}
+			25 = {
+				add_province_modifier = {
+					name = EDG_GOT_pirate_haven
+					duration = -1
+				}
+			}
+		}
+	}
+
+	got_pirate_loot_the_lowlands = {
+		icon = chater_the_voc
+		position = 4
+		required_missions = { got_pirate_raid_the_north_sea }
+		provinces_to_highlight = {
+			region = low_countries_region
+			trade_goods = cloth
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			NOT = { controlled_by = ROOT }
+			NOT = { has_province_modifier = slaves_raided }
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					region = low_countries_region
+					trade_goods = cloth
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						controlled_by = ROOT
+						has_province_modifier = slaves_raided
+					}
+				}
+				amount = 10
+			}
+		}
+		effect = {
+			custom_tooltip = got_pirate_loot_the_lowlands_tt
+			hidden_effect = {
+				low_countries_region = {
+					limit = {
+						trade_goods = cloth
+					}
+					if = {
+						limit = { country_or_non_sovereign_subject_holds = ROOT }
+						add_province_modifier = {
+							name = got_piratical_control
+							duration = 9125
+						}
+					}
+					else_if = {
+						limit = { controlled_by = ROOT }
+						remove_loot = {
+							who = ROOT
+							amount = 1000
+						}
+						ROOT = { add_treasury = 15 add_years_of_income = 0.05 }
+						add_province_modifier = {
+							name = got_heavily_looted
+							duration = 9125
+						}
+					}
+					else_if = {
+						limit = { has_province_modifier = slaves_raided }
+						ROOT = { add_treasury = 7.5 add_years_of_income = 0.025 }
+						add_province_modifier = {
+							name = got_quite_looted
+							duration = 9125
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = got_finest_pirate_cloths
+				duration = 9125
+			}
+			remove_country_modifier = poor_uniforms
+		}
+	}
+
+	EDG_got_pirate_economy = { #海盗经济学
+		icon = mission_war_chest
+		position = 6
+		required_missions = {}
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_reform = the_pirate_ways_reform
+		}
+		effect = {
+			custom_tooltip = EDG_got_pirate_economy.tt
+			hidden_effect = {
+				set_country_flag = EDG_got_pirate_economy_flag
+			}
+			add_government_reform = 100
+		}
+	}
+
+	
+}
+
+got_pirate_slot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+	}
+	has_country_shield = yes
+
+	EDG_got_sink_the_castle = { #
+		icon = mission_the_sound_toll
+		position = 2
+		required_missions = { got_pirate_raid_the_baltics }
+		provinces_to_highlight = {
+			province_id = 12
+			NOT = {
+				controlled_by = root
+			}
+		}
+		trigger = {
+			12 = {
+				controlled_by = root
+			}
+		}
+		effect = {
+			12 = {
+				add_loot_from_rich_province_general_effect = {
+					LOOTER = root
+				}
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+				custom_tooltip = EDG_GOT_pirate_haven_other.tt
+			}
+			capital_scope = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			capital_scope = {
+				add_scaled_local_adm_power = 10 
+				add_scaled_local_dip_power = 10 
+				add_scaled_local_mil_power = 10
+			}
+			custom_tooltip = hsa_based_on_the_development_of_our_capital_tt
+		}
+	}
+	
+
+	got_pirate_a_pirate_haven = {
+		icon = mission_pirate_havens
+		position = 3
+		required_missions = {
+			EDG_got_pirate_sink_the_swe
+			EDG_got_sink_the_lubeck
+			EDG_got_sink_the_castle
+			EDG_got_sink_the_danzig
+			EDG_got_sink_the_riga
+		}
+		provinces_to_highlight = {
+			continent = europe
+			OR = {
+				has_province_modifier = sound_toll
+				has_river_estuary_trigger = yes
+				province_has_center_of_trade_of_level = 1
+			}
+			has_port = yes
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				continent = europe
+				OR = {
+					has_province_modifier = sound_toll
+					has_river_estuary_trigger = yes
+					province_has_center_of_trade_of_level = 1
+				}
+				has_port = yes
+				value = 10
+			}
+		}
+		effect = {
+			faction_in_power_effect = {
+				faction = pr_buccaneers
+				effect = "
+					add_country_modifier = {
+						name = got_the_buccaneers_focus
+						duration = -1
+					}
+				"
+			}
+			faction_in_power_effect = {
+				faction = pr_smugglers
+				effect = "
+					add_country_modifier = {
+						name = got_the_smugglers_focus
+						duration = -1
+					}
+				"
+			}
+			faction_in_power_effect = {
+				faction = pr_captains
+				effect = "
+					add_country_modifier = {
+						name = got_the_captains_focus
+						duration = -1
+					}
+				"
+			}
+			custom_tooltip = got_republic_dominate_commerce_tt
+			set_country_flag = got_unlock_pirate_faction_decisions
+		}
+	}
+
+	# got_pirate_the_lubeck_port = {
+	# 	icon = defend_the_city
+	# 	position = 2
+	# 	required_missions = { got_pirate_raid_the_baltics }
+	# 	provinces_to_highlight = {
+	# 		province_id = 45
+	# 		NOT = { country_or_non_sovereign_subject_holds = ROOT }
+	# 	}
+	# 	trigger = {
+	# 		owns_or_non_sovereign_subject_of = 45
+	# 	}
+	# 	effect = {
+	# 		add_mercantilism = 3
+	# 		45 = {
+	# 			set_center_level_2_center_of_trade = yes
+	# 			add_province_modifier = {
+	# 				name = got_free_pirate_port
+	# 				duration = -1
+	# 			}
+	# 		}
+	# 	}
+	# }
+
+	got_pirate_raid_the_berbers = {
+		icon = mission_raid_the_berbers
+		position = 4
+		required_missions = { got_pirate_reach_the_mediterrenean_sea }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						province_id = 1110
+						province_id = 341
+					}
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 20
+						}
+					}
+				}
+				AND = {
+					region = maghreb_region
+					has_port = yes
+					NOT = { has_province_modifier = slaves_raided }
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					has_port = yes
+					region = maghreb_region
+					OR = {
+						has_province_modifier = slaves_raided
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				amount = 15
+			}
+			1110 = {
+				privateer_power = {
+					country = ROOT
+					share = 20
+				}
+			}
+			341 = {
+				privateer_power = {
+					country = ROOT
+					share = 20
+				}
+			}
+			num_of_ports = 1
+		}
+		effect = {
+			if = {
+				limit = { NOT = { owns_or_non_sovereign_subject_of = 341 } }
+				country_event = {
+					id = flavor_got.41
+				}
+			}
+			else = {
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					create_flagship = { 
+						name = "Hayrettin Barbarossa"
+						type = heavy_ship 
+					}
+				}
+			}
+			add_navy_tradition = 40
+		}
+	}
+}
+
+got_pirate_slot_3_new_world = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+		is_random_new_world = no
+	}
+	has_country_shield = yes
+
+	got_pirate_beyond_the_sound_toll = {
+		icon = mission_exploration
+		position = 5
+		required_missions = { }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 481
+				colonial_region = colonial_the_carribean
+			}
+			NOT = { has_discovered = ROOT }
+		}
+		trigger = {
+			has_discovered = 481
+			colonial_the_carribean = {
+				has_discovered = ROOT
+			}
+		}
+		effect = {
+			create_colony_mission_reward = {
+				province = 481
+			}
+			custom_tooltip = swe_colonize_delaware_tt
+			hidden_effect = {
+				colonial_the_carribean = {
+					limit = {
+						OR = {
+							has_river_estuary_trigger = yes
+							province_has_center_of_trade_of_level = 1
+						}
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { owner = { is_subject_of = ROOT } }
+						has_port = yes
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+		}
+	}
+
+	got_pirate_take_over_the_caribbeans = {
+		icon = mission_caribbean_cn
+		position = 6
+		required_missions = { got_pirate_beyond_the_sound_toll }
+		provinces_to_highlight = {
+			province_id = 481
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			481 = {
+				country_or_non_sovereign_subject_holds = ROOT
+				is_city = yes
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					any_subject_country = {
+						capital_scope = {
+							colonial_region = colonial_the_carribean
+						}
+						OR = {
+							is_subject_of_type = colony
+							is_subject_of_type = crown_colony
+							is_subject_of_type = self_governing_colony
+							is_subject_of_type = private_enterprise
+						}
+					}
+				}
+				country_event = {
+					id = flavor_got.39
+				}
+			}
+			else = {
+				country_event = {
+					id = flavor_got.40
+				}
+			}
+		}
+	}
+
+	got_pirate_the_worst_pirate = {
+		icon = mission_sponsor_piracy
+		position = 7
+		required_missions = { got_pirate_take_over_the_caribbeans }
+		provinces_to_highlight = {
+			province_id = 489
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 489
+		}
+		effect = {
+			add_country_modifier = {
+				name = got_the_art_of_insults
+				duration = -1
+			}
+			489 = {
+				set_center_level_2_center_of_trade = yes
+				if = {
+					limit = {
+						has_dlc = "Leviathan"
+					}
+					set_great_project_tier_2 = {
+						type = tortuga_island
+					}
+				}
+				else = {
+					add_base_production = 2
+				}
+			}
+		}
+	}
+}
+
+got_pirate_slot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+	}
+	has_country_shield = yes
+
+	got_pirate_raid_the_baltics = {
+		icon = mission_pirate_flag
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 1926
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+				AND = {
+					OR = {
+						region = scandinavia_region
+						region = baltic_region
+						region = north_german_region
+						region = russia_region
+					}
+					has_port = yes
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = { has_province_modifier = slaves_raided }
+				}
+			}
+		}
+		trigger = {
+			1926 = {
+				privateer_power = {
+					country = ROOT
+					share = 10
+				}
+			}
+			calc_true_if = {
+				desc = got_pirate_raid_the_baltics_at
+				all_province = {
+					OR = {
+						region = scandinavia_region
+						region = baltic_region
+						region = north_german_region
+						region = russia_region
+					}
+					has_port = yes
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						has_province_modifier = slaves_raided
+					}
+				}
+				amount = 20
+			}
+		}
+		effect = {
+			custom_tooltip = got_pirate_raid_the_baltics_tt
+			hidden_effect = {
+				europe = {
+					limit = {
+						OR = {
+							area = karelia_area
+							area = holstein_area
+							area = mecklenburg_area
+							area = hinter_pommern_area
+							area = vorpommern_area
+							area = estonia_ingria_area
+							area = curonia_area
+							area = livonia_area
+							area = east_prussia_area
+							area = west_prussia_area
+						}
+						OR = {
+							province_has_center_of_trade_of_level = 1
+							has_river_estuary_trigger = yes
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_prestige = 25
+			25 = {
+				add_province_modifier = {
+					name = EDG_GOT_pirate_haven
+					duration = -1
+				}
+			}
+			custom_tooltip = got_pirate_raid_the_baltics.tt
+			hidden_effect = {
+				set_country_flag = enable_pirate_raid_cb_flag
+			}
+		}
+	}
+
+	# got_pirate_the_danzig_port = {
+	# 	icon = mission_danzig_or_war
+	# 	position = 2
+	# 	required_missions = { got_pirate_raid_the_baltics }
+	# 	provinces_to_highlight = {
+	# 		province_id = 43
+	# 		NOT = { country_or_non_sovereign_subject_holds = ROOT }
+	# 	}
+	# 	trigger = {
+	# 		owns_or_non_sovereign_subject_of = 43
+	# 	}
+	# 	effect = {
+	# 		add_mercantilism = 3
+	# 		43 = {
+	# 			add_province_modifier = {
+	# 				name = got_free_pirate_port
+	# 				duration = -1
+	# 			}
+	# 			set_center_level_2_center_of_trade = yes
+	# 		}
+	# 	}
+	# }
+	EDG_got_sink_the_danzig = {
+		icon = mission_danzig_or_war
+		position = 2
+		required_missions = { got_pirate_raid_the_baltics }
+		provinces_to_highlight = {
+			province_id = 43
+			NOT = {
+				controlled_by = root
+			}
+		}
+		trigger = {
+			43 = {
+				controlled_by = root
+			}
+		}
+		effect = {
+			43 = {
+				add_loot_from_rich_province_general_effect = {
+					LOOTER = root
+				}
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+				custom_tooltip = EDG_GOT_pirate_haven_other.tt
+			}
+			capital_scope = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			capital_scope = {
+				add_scaled_local_adm_power = 10 
+				add_scaled_local_dip_power = 10 
+				add_scaled_local_mil_power = 10
+			}
+			custom_tooltip = hsa_based_on_the_development_of_our_capital_tt
+		}
+	}
+
+	got_pirate_create_the_pirate_federation = {
+		icon = mission_alliances
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+		}
+		
+		trigger = {
+			OR = {
+				any_subject_country = {
+					has_reform = pirate_republic_reform
+				}
+				any_ally = {
+					has_reform = pirate_republic_reform
+				}
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = "pirate_federation"
+				duration = 9125
+			}
+		}
+	}
+
+	got_pirate_the_curia_treasure = {
+		icon = mission_war_chest
+		position = 4
+		required_missions = { got_pirate_reach_the_mediterrenean_sea }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 118
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = { controlled_by = ROOT }
+				}
+				AND = {
+					province_id = 1298
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			118 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+			1298 = {
+				privateer_power = {
+					country = ROOT
+					share = 10
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { owns_or_non_sovereign_subject_of = 118 }
+				add_treasury = 5000
+			}
+			else = {
+				country_event = {
+					id = flavor_got.42
+				}
+			}
+			add_army_tradition = 30
+		}
+	}
+
+	EDG_got_sea_wolf = { #海上群狼
+		icon = mission_polynesian_navy_build
+		position = 6
+		required_missions = { }
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			navy_size = 50
+			navy_tradition = 90
+			has_leader_with = { 
+				admiral = yes 
+				manuever = 6
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_GOT_sea_wolf
+				duration = -1
+			}
+		}
+	}
+}
+
+got_pirate_slot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential_on_load = {
+		has_dlc = "Lions of the North"
+	}
+	potential = {
+		OR = {
+			tag = GOT
+			tag = DDF
+		}
+		has_dlc = "Lions of the North"
+		NOT = { map_setup = map_setup_random }
+		has_country_flag = got_pirate_missions
+		NOT = { has_country_flag = got_republican_missions }
+		NOT = { has_country_flag = got_monarchy_missions }
+	}
+	has_country_shield = yes
+
+	EDG_got_sink_the_riga = {
+		icon = mission_conquer_riga
+		required_missions = { got_pirate_raid_the_baltics }
+		position = 2
+		provinces_to_highlight = {
+			province_id = 38
+			NOT = {
+				controlled_by = root
+			}
+		}
+		trigger = {
+			38 = {
+				controlled_by = root
+			}
+		}
+		effect = {
+			38 = {
+				add_loot_from_rich_province_general_effect = {
+					LOOTER = root
+				}
+				add_province_triggered_modifier = EDG_GOT_pirate_haven_other
+				custom_tooltip = EDG_GOT_pirate_haven_other.tt
+			}
+			capital_scope = {
+				add_base_tax = 3
+				add_base_production = 3
+				add_base_manpower = 3
+			}
+			capital_scope = {
+				add_scaled_local_adm_power = 10 
+				add_scaled_local_dip_power = 10 
+				add_scaled_local_mil_power = 10
+			}
+			custom_tooltip = hsa_based_on_the_development_of_our_capital_tt
+		}
+	}
+
+	got_pirate_reach_the_mediterrenean_sea = {
+		icon = mission_dominate_the_mediterranean
+		position = 3
+		required_missions = {  }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1295
+				province_id = 1298
+				province_id = 341
+				province_id = 1308
+				province_id = 137
+				province_id = 358
+				province_id = 1320
+				province_id = 377
+			}
+			NOT = {
+				privateer_power = {
+					country = ROOT
+					share = 5
+				}
+			}
+		}
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = got_pirate_reach_the_mediterrenean_sea_tt
+				OR = {
+					1295 = { privateer_power = { country = ROOT share = 5 } }
+					1298 = { privateer_power = { country = ROOT share = 5 } }
+					341 = { privateer_power = { country = ROOT share = 5 } }
+					1308 = { privateer_power = { country = ROOT share = 5 } }
+					137 = { privateer_power = { country = ROOT share = 5 } }
+					358 = { privateer_power = { country = ROOT share = 5 } }
+					1320 = { privateer_power = { country = ROOT share = 5 } }
+					377 = { privateer_power = { country = ROOT share = 5 } }
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = got_pirate_reach_the_mediterrenean_sea_ct
+			hidden_effect = {
+				baleares_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				corsica_sardinia_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				sicily_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				western_sicily_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				aegean_archipelago_area = {
+					limit = {
+						NOT = { is_core = ROOT }
+						NOT = { is_permanent_claim = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+				add_permanent_claim_province = {
+					province = 2954
+				}
+				add_permanent_claim_province = {
+					province = 112
+				}
+				add_permanent_claim_province = {
+					province = 163
+				}
+				add_permanent_claim_province = {
+					province = 321
+				}
+				add_permanent_claim_province = {
+					province = 4698
+				}
+				add_permanent_claim_province = {
+					province = 142
+				}
+			}
+		}
+	}
+
+	got_pirate_loot_venices_arsenal = {
+		icon = mission_raid_on_venice
+		position = 4
+		required_missions = { got_pirate_reach_the_mediterrenean_sea }
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 112
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = { controlled_by = ROOT }
+				}
+				AND = {
+					province_id = 1308
+					NOT = {
+						privateer_power = {
+							country = ROOT
+							share = 10
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			112 = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					controlled_by = ROOT
+				}
+			}
+			1308 = {
+				privateer_power = {
+					country = ROOT
+					share = 10
+				}
+			}
+			num_of_ports = 1
+		}
+		effect = {
+			if = {
+				limit = { owns_or_non_sovereign_subject_of = 112 }
+				add_country_modifier = {
+					name = got_stolen_weapons_of_the_venetian_arsenal
+					duration = -1
+				}
+			}
+			else = {
+				country_event = {
+					id = flavor_got.43
+				}
+			}
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				create_units_of_type_in_province = {
+					custom_tooltip = create_5_galleys_tt
+					who = ROOT
+					unit_type = galley
+					amount = 5
+				}
+			}
+		}
+	}
+
+	got_pirate_global_piracy = {
+		icon = Burn_Wooden_Wall
+		position = 5
+		required_missions = {  }
+		provinces_to_highlight = {
+			is_trade_node_province = yes
+			is_not_inland_trade_node_province = yes
+			NOT = {
+				privateer_power = {
+					country = ROOT
+					share = 15
+				}
+			}
+			has_discovered = ROOT
+		}
+		
+		trigger = {
+			calc_true_if = {
+				desc = got_pirate_global_piracy_tt
+				all_trade_node = {
+					privateer_power = {
+						country = ROOT
+						share = 15
+					}
+				}
+				amount = 10
+			}
+		}
+		
+		effect = {
+			add_country_modifier = {
+				name = got_global_piracy
+				duration = -1
+			}
+		}
+	}
+
+	EDG_got_scare_fleet = { #惊涛骇浪
+		icon = mission_rb_a_mighty_fleet
+		position = 7
+		required_missions = { EDG_got_sea_wolf }
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			is_at_war = no
+			government_reform_progress = 200
+			has_estate_privilege = estate_EDG_voyager_fear_fleet
+		}
+		effect = {
+			change_tag = DDF
+			on_change_tag_effect = yes
+
+			add_government_reform = EDG_GOT_scare_fleet_reform
+			hidden_effect = {
+				swap_free_idea_group = yes
+				complete_mission = EDG_got_scare_fleet
+			}
+		}
+	}
+}

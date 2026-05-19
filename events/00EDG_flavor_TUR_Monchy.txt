@@ -1,0 +1,912 @@
+namespace = EDG_flavor_TUR_Monchy
+normal_or_historical_nations = yes
+
+country_event = {#继承人的军功
+  id = EDG_flavor_TUR_Monchy.2
+  title = "EDG_flavor_TUR_Monchy.2.t"
+  desc = "EDG_flavor_TUR_Monchy.2.d"
+  picture = QUEEN_AND_MALE_HEIR_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+    has_government_attribute = EDG_TUR_choice_heir_ability
+    has_heir = yes
+    has_regency = no
+    heir_age = 15
+    is_heir_leader = no
+    NOT = { heir_mil = 5 }
+    NOT = { has_ruler_flag = EDG_flavor_TUR_Monchy_2_ruler_flag }
+  }
+  immediate = {
+	set_ruler_flag = EDG_flavor_TUR_Monchy_2_ruler_flag
+  }
+  mean_time_to_happen = {
+    months = 360
+    modifier = {
+      factor = 0.5
+	  NOT = { heir_mil = 3 }
+    }
+    modifier = {
+      factor = 0.5
+	  NOT = { heir_mil = 1 }
+    }
+  }
+  option = {
+    name = "EDG_flavor_TUR_Monchy.2.a"
+    ai_chance = {
+      factor = 16
+    }
+	if = {
+		limit = {
+			heir_mil = 1
+			NOT = { heir_mil = 2 }
+		}
+		convert_heir_to_general = 10
+	}
+	if = {
+		limit = {
+			heir_mil = 2
+			NOT = { heir_mil = 3 }
+		}
+		convert_heir_to_general = 20
+	}
+	if = {
+		limit = {
+			heir_mil = 3
+			NOT = { heir_mil = 4 }
+		}
+		convert_heir_to_general = 30
+	}
+	if = {
+		limit = {
+			heir_mil = 4
+			NOT = { heir_mil = 5 }
+		}
+		convert_heir_to_general = 40
+	}
+	if = {
+		limit = {
+			heir_mil = 5
+			NOT = { heir_mil = 6 }
+		}
+		convert_heir_to_general = 50
+	}
+	if = {
+		limit = {
+			heir_mil = 6
+		}
+		convert_heir_to_general = 70
+	}
+	if = {
+		limit = {
+			NOT = { heir_claim = 100 }
+		}
+		add_heir_claim = 5
+	}
+	if = {
+		limit = {
+			NOT = { heir_mil = 6 }
+		}
+		change_heir_mil = 1
+	}
+
+  }
+
+	option = {
+		name = "EDG_flavor_TUR_Monchy.2.b"
+		add_heir_claim = -20
+	}
+}
+
+
+#委任外放
+country_event = {
+	id = EDG_flavor_TUR_Monchy.3
+	title = harem_events.3.t
+	desc = EDG_flavor_TUR_Monchy.3.d
+	picture = 3_SONS_eventPicture
+	
+	trigger = {
+    has_government_attribute = EDG_TUR_choice_heir_ability
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+		has_heir = yes
+		ruler_age = 30
+		has_regency = no
+		heir_age = 15
+		NOT = { heir_age = 25 }
+		NOT = {
+			has_ruler_flag = sancaga_cikma
+		}
+		NOT = { heir_dip = 5 }
+		NOT = { heir_adm = 5 }
+		NOT = { heir_mil = 5 }
+		num_of_cities = 15
+		any_owned_province = {
+			has_owner_culture = yes
+			NOT = {
+				any_neighbor_province = {
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		NOT = { has_disaster = tur_disaster_plot_of_the_harem }
+	}
+	
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { owns = 1846 }
+				random_list = {
+					80 = {
+						1846 = {
+							save_event_target_as = sancaga_cikma_province
+						}
+					}
+					20 = {
+						random_owned_province = {
+							limit = {
+								has_owner_culture = yes
+								NOT = {
+									any_neighbor_province = {
+										NOT = { owned_by = ROOT }
+									}
+								}
+							}
+							save_event_target_as = sancaga_cikma_province
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { owns = 1846 } 
+				}
+				random_owned_province = {
+					limit = {
+						has_owner_culture = yes
+						NOT = {
+							any_neighbor_province = {
+								NOT = { owned_by = ROOT }
+							}
+						}
+					}
+					save_event_target_as = sancaga_cikma_province
+				}
+			}
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 1000
+		
+	}
+
+	option = {
+		name = harem_events.3.a
+		custom_tooltip = harem_events.3.a.tt
+		set_ruler_flag = sancaga_cikma
+		event_target:sancaga_cikma_province = {
+			add_province_modifier = {
+				name = "heir_in_training"
+				duration = 1825
+			}
+		}
+	}
+	option = {
+		name = harem_events.3.b
+		custom_tooltip = harem_events.3.b.tt
+		set_ruler_flag = sancaga_cikma #Event shouldn't trigger again for the same heir
+	}
+}
+
+
+
+# Heir returns (the province was either lost or the modifier ran out)
+country_event = {
+	id = EDG_flavor_TUR_Monchy.4
+	title = harem_events.4.t
+	desc = harem_events.4.d
+	picture = 3_SONS_eventPicture
+
+	trigger = {
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+		has_ruler_flag = sancaga_cikma
+		NOT = { has_ruler_flag = returned_from_sancaga_sikma_province }
+		NOT = {
+			any_owned_province = {
+				has_province_modifier = heir_in_training
+			}
+		}
+		NOT = { has_disaster = tur_disaster_plot_of_the_harem }
+	}
+	
+	mean_time_to_happen = {
+		months = 1
+	}
+	
+	option = {
+		name = harem_events.4.a
+		#Ruler flag only cleared on monarch or heir death.
+		set_ruler_flag = returned_from_sancaga_sikma_province
+		custom_tooltip = harem_events.4.a.tt
+	}
+}
+
+
+# Vali Ahad is plotting against the Sultan?
+# Very loosely based on the fate of Suleiman the Magnificent's son Mustafa
+country_event = {
+	id = EDG_flavor_TUR_Monchy.10
+	title = harem_events.10.t
+	desc = harem_events.10.d
+	picture = SPY_eventPicture
+	
+	 trigger = {
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+    has_government_attribute = EDG_TUR_choice_heir_ability
+		# has_government_attribute = has_harem_events
+		# has_government_attribute = queen
+		has_heir = yes
+		heir_age = 15
+		has_regency = no
+		is_female = no
+		# has_consort = yes
+		NOT = { has_ruler_flag = heir_plotting }
+		NOT = { has_ruler_flag = heir_framed_for_plot }
+	 }
+	
+	mean_time_to_happen = {
+		months = 600
+		modifier = {
+			factor = 0.25
+			has_disaster = tur_disaster_plot_of_the_harem
+		}
+	}
+	
+	immediate = {
+		hidden_effect = { #Some weightings, still mostly random
+			if = {
+				limit = {
+					OR = {
+						consort_has_personality = intricate_web_weaver_personality
+						consort_has_personality = malevolent_personality
+						consort_has_personality = cruel_personality
+					}
+					NOT = { heir_has_personality = intricate_web_weaver_personality }
+					NOT = { heir_has_personality = malevolent_personality }
+					NOT = { heir_has_personality = cruel_personality }
+				}
+				random_list = {
+					25 = {
+						set_ruler_flag = heir_plotting
+					}
+					75 = {
+						set_ruler_flag = heir_framed_for_plot
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { consort_has_personality = intricate_web_weaver_personality }
+					NOT = { consort_has_personality = malevolent_personality }
+					NOT = { consort_has_personality = cruel_personality }
+					OR = {
+						heir_has_personality = intricate_web_weaver_personality
+						heir_has_personality = malevolent_personality
+						heir_has_personality = cruel_personality
+					}
+				}
+				random_list = {
+					75 = {
+						set_ruler_flag = heir_plotting
+					}
+					25 = {
+						set_ruler_flag = heir_framed_for_plot
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { consort_has_personality = intricate_web_weaver_personality }
+					NOT = { consort_has_personality = malevolent_personality }
+					NOT = { consort_has_personality = cruel_personality }
+					NOT = { heir_has_personality = intricate_web_weaver_personality }
+					NOT = { heir_has_personality = malevolent_personality }
+					NOT = { heir_has_personality = cruel_personality }
+				}
+				random_list = {
+					50 = {
+						set_ruler_flag = heir_plotting
+					}
+					50 = {
+						set_ruler_flag = heir_framed_for_plot
+					}
+				}
+			}
+		}
+	}
+	 
+	option = {
+		name = harem_events.10.a #Then he must die.
+		custom_tooltip = harem_events.10.a.tt
+		#Possibly add outcome where heir flees here? Tie in to Cem?
+		hidden_effect = {
+			random_list = {
+				75 = { country_event = { id = harem_events.14 } }
+				25 = { country_event = { id = harem_events.13 } }
+			}
+			if = {
+				limit = { has_ruler_flag = heir_plotting }
+				clr_ruler_flag = heir_plotting
+			}
+			if = {
+				limit = { has_ruler_flag = heir_framed_for_plot }
+				clr_ruler_flag = heir_framed_for_plot
+			}
+		}
+	}
+	option = {
+		name = harem_events.10.b #Summon X
+		custom_tooltip = harem_events.10.b.tt
+		hidden_effect = {
+			trigger_switch = {
+				on_trigger = has_ruler_flag
+				heir_plotting = {
+					country_event = { id = harem_events.12 days = 7 }
+					clr_ruler_flag = heir_plotting
+				}
+				heir_framed_for_plot = {
+					country_event = { id = harem_events.11 days = 7 }
+					clr_ruler_flag = heir_framed_for_plot
+				}
+			}
+		}
+	}
+	option = {
+		name = harem_events.10.c #I will not listen to these lies!
+		custom_tooltip = harem_events.10.c.tt
+		remove_consort = yes
+		hidden_effect = {
+			define_consort = { }
+			trigger_switch = {
+				on_trigger = has_ruler_flag
+				heir_plotting = {
+					country_event = { id = harem_events.12 days = 7 }
+					clr_ruler_flag = heir_plotting
+				}
+				heir_framed_for_plot = {
+					country_event = { id = harem_events.11 days = 7 }
+					clr_ruler_flag = heir_framed_for_plot
+				}
+			}
+		}
+	}
+}
+
+
+# Sehzade on the Military Frontier
+country_event = {
+	id = EDG_flavor_TUR_Monchy.15
+	title = harem_events.15.t
+  desc = EDG_flavor_TUR_Monchy.15.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+	
+	trigger = {
+		
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+    has_government_attribute = EDG_TUR_choice_heir_ability
+		# has_government_attribute = has_harem_events
+		has_heir = yes
+		has_government_attribute = heir
+		heir_age = 15
+		is_at_war = yes
+		any_neighbor_country = {
+			war_with = ROOT
+		}
+		any_owned_province = {
+			controlled_by = ROOT
+			religion = ROOT
+			any_neighbor_province = {
+				owner = {
+					war_with = ROOT
+				}
+			}
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					controlled_by = ROOT
+					religion = ROOT
+					any_neighbor_province = {
+						owner = {
+							war_with = ROOT
+						}
+					}
+				}
+				save_event_target_as = ottoman_prince_here
+				random_neighbor_province = {
+					limit = {
+						owner = { war_with = ROOT }
+					}
+					owner = { save_event_target_as = enemy_neighbor_ottomans }
+				}
+			}
+		}
+	}
+	
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+	
+	#Choice should mostly be dependent on the random heirs.
+	
+	option = {
+		name = harem_events.15.a
+		define_heir = {
+			dynasty = original_dynasty
+			age = 25
+			change_mil = 1
+			male = yes
+			claim = 65
+		}
+		if = {
+			limit = {
+				event_target:enemy_neighbor_ottomans = {
+					NOT = { religion_group = muslim }
+				}
+				has_estate = estate_church
+			}
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 10
+			}
+		}
+		event_target:ottoman_prince_here = {
+			add_base_manpower = 1
+		}
+	}
+	option = {
+		name = EDG_flavor_TUR_Monchy.15.b
+		custom_tooltip = harem_events.15.b.tt
+		add_heir_claim = -5
+		event_target:ottoman_prince_here = {
+			add_base_manpower = 1
+		}
+	}
+}
+
+
+# Prince Ruins Province
+province_event = {
+	id = EDG_flavor_TUR_Monchy.22
+	title = harem_events.22.t
+	desc = harem_events.22.d
+	picture = BABBLING_BAFFOON_eventPicture
+	
+	trigger = {
+		is_state = yes
+		is_capital = no
+		owner = {
+			has_heir = yes
+			heir_age = 15
+      		has_government_attribute = EDG_TUR_choice_heir_ability
+		}
+		
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+	 }
+	
+	mean_time_to_happen = {
+		months = 400
+		modifier = {
+			owner = { has_disaster = tur_disaster_plot_of_the_harem }
+			factor = 0.5
+		}
+	}
+	
+	is_mtth_scaled_to_size = 1
+	 
+	option = {
+		name = harem_events.22.a
+		ai_chance = {
+			factor = 1
+		}
+		owner = {
+			add_prestige = -15
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				add_estate_loyalty = {
+					estate = estate_nobles
+					loyalty = -10
+				}
+			}
+		}
+	}
+	option = {
+		name = harem_events.22.b
+		ai_chance = {
+			factor = 0
+		}
+		add_base_production = -1
+	}
+}
+
+
+# Ruler is old - Opportunity
+country_event = {
+	id = EDG_flavor_TUR_Monchy.23
+	title = harem_events.23.t
+	desc = harem_events.23.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+	
+	trigger = {
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+    has_government_attribute = EDG_TUR_choice_heir_ability
+		has_regency = no
+		num_of_cities = 25
+		ruler_age = 60
+	}
+	 
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_state = yes
+					is_capital = no
+					is_in_capital_area = yes
+				}
+				save_event_target_as = revolter_prince
+			}
+		}
+	}
+	 
+	mean_time_to_happen = {
+		months = 400
+		modifier = {
+			has_disaster = tur_disaster_plot_of_the_harem
+			factor = 0.5
+		}
+	}
+	
+
+	option = {
+		name = harem_events.23.a
+		event_target:revolter_prince = {
+			spawn_rebels = {
+				type = pretender_rebels
+				culture = ROOT
+				religion = ROOT
+				size = 1.5
+			}
+		}
+	}
+}
+
+# Prince Improves Province
+province_event = {
+	id = EDG_flavor_TUR_Monchy.24
+	title = harem_events.24.t
+	desc = harem_events.24.d
+	picture = ECONOMICALLY_TALLANTED_RULER_eventPicture
+	
+	trigger = {
+		is_state = yes
+		is_capital = no
+		owner = {
+			has_government_attribute = heir
+			has_heir = yes
+			heir_age = 15
+      has_government_attribute = EDG_TUR_choice_heir_ability
+			NOT = { has_disaster = tur_disaster_plot_of_the_harem }
+		}
+		
+		OR = {
+			has_dlc = "Rights of Man"
+			has_dlc = "Domination"
+		}
+	 }
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+	
+	is_mtth_scaled_to_size = 1
+	 
+	option = {
+		name = harem_events.24.a
+		ai_chance = {
+			factor = 50
+		}
+		add_base_production = 1
+		owner = {
+			define_heir = {
+				dynasty = original_dynasty
+				male = yes
+				age = 20
+				change_adm = 1
+				claim = 60
+			}
+		}
+	}
+	option = {
+		name = harem_events.24.b
+		ai_chance = {
+			factor = 50
+		}
+		custom_tooltip = harem_events.24.b.tt
+		owner = { add_heir_claim = -5 }
+		add_base_production = 1
+	}
+}
+
+#腐败的导师
+country_event = {
+	id = EDG_flavor_TUR_Monchy.25
+	title = EDG_flavor_TUR_Monchy.25.t
+	desc = EDG_flavor_TUR_Monchy.25.d
+	picture = ECONOMICALLY_TALLANTED_RULER_eventPicture
+	
+	trigger = {
+		
+		has_government_attribute = EDG_TUR_choice_heir_ability
+		NOT = { has_country_modifier = EDG_flavor_TUR_Monchy_25_a_modifier }
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+	}
+  
+	option = {#我们离不开他们。
+		name = EDG_flavor_TUR_Monchy.25.a
+		ai_chance = {
+			factor = 50
+		}
+    add_adm_power = 50
+    add_country_modifier = {
+      name = EDG_flavor_TUR_Monchy_25_a_modifier
+      duration = 7300
+    }
+	}
+	option = {#和这群虫豸在一起，怎么能治理好国家？
+		name = EDG_flavor_TUR_Monchy.25.b
+		ai_chance = {
+			factor = 50
+		}
+		add_heir_claim = -10
+    add_corruption = -2
+	}
+}
+#奇兹尔巴什支持的继承人
+country_event = {
+	id = EDG_flavor_TUR_Monchy.26
+	title = EDG_flavor_TUR_Monchy.26.t
+	desc = EDG_flavor_TUR_Monchy.26.d
+	picture = COURT_INTRIGUE_eventPicture
+	
+	trigger = {
+		
+		has_government_attribute = EDG_TUR_choice_heir_ability
+		has_heir = yes
+		has_regency = no
+		heir_age = 15
+		NOT = { has_ruler_flag = EDG_flavor_TUR_Monchy_26_ruler_flag }
+		NOT = { has_ruler_modifier = EDG_flavor_TUR_Monchy_26_a_modifier }
+		NOT = { has_ruler_modifier = EDG_flavor_TUR_Monchy_26_b_modifier }
+	}
+
+	immediate = {
+		set_ruler_flag = EDG_flavor_TUR_Monchy_26_ruler_flag
+	}
+	
+	mean_time_to_happen = {
+		months = 400
+		modifier = {
+			factor = 0.75
+      heir_mil = 4
+		}
+		modifier = {
+			factor = 0.75
+      heir_mil = 5
+		}
+		modifier = {
+			factor = 0.75
+      heir_mil = 6
+		}
+	}
+  
+	option = {#这是一种好的倾向。
+		name = EDG_flavor_TUR_Monchy.26.a
+		ai_chance = {
+			factor = 50
+		}
+    set_heir_flag = EDG_flavor_TUR_Monchy_26_a_heir_flag
+    custom_tooltip = EDG_flavor_TUR_Monchy_26_a_heir_flag_tt
+    if = {
+      limit = { heir_dip = 6 }
+      add_dip_power = 100
+    }
+    else = {
+      change_heir_dip = 1
+    }
+    add_ruler_modifier = {
+      name = EDG_flavor_TUR_Monchy_26_a_modifier
+      duration = 7300
+    }
+	}
+	option = {#他的野心必然会威胁到[Root.Monarch.GetTitle]。
+		name = EDG_flavor_TUR_Monchy.26.b
+		ai_chance = {
+			factor = 50
+		}
+		add_heir_claim = -10
+    add_ruler_modifier = {
+      name = EDG_flavor_TUR_Monchy_26_b_modifier
+      duration = -1
+    }
+	}
+}
+#[Root.Heir.GetName]发动政变
+country_event = {
+	id = EDG_flavor_TUR_Monchy.27
+	title = EDG_flavor_TUR_Monchy.27.t
+	desc = EDG_flavor_TUR_Monchy.27.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+	
+	trigger = {
+		
+		has_government_attribute = EDG_TUR_choice_heir_ability
+		has_heir = yes
+		has_regency = no
+		heir_age = 15
+		NOT = { has_ruler_flag = EDG_flavor_TUR_Monchy_27_ruler_flag }
+		has_heir_flag = EDG_flavor_TUR_Monchy_26_a_heir_flag
+		has_ruler_modifier = EDG_flavor_TUR_Monchy_26_a_modifier
+	}
+
+  immediate = {
+    hidden_effect = {
+      set_ruler_flag = EDG_flavor_TUR_Monchy_27_ruler_flag
+      remove_country_modifier = EDG_flavor_TUR_Monchy_26_a_modifier
+    }
+  }
+	
+	mean_time_to_happen = {
+		months = 1440
+		modifier = {
+			factor = 0.8
+      		heir_mil = 4
+		}
+		modifier = {
+			factor = 0.8
+      		heir_mil = 5
+		}
+		modifier = {
+			factor = 0.8
+      		heir_mil = 6
+		}
+		modifier = {
+			factor = 0.8
+      		heir_adm = 4
+		}
+		modifier = {
+			factor = 0.8
+      		heir_adm = 5
+		}
+		modifier = {
+			factor = 0.8
+     		 heir_adm = 6
+		}
+		modifier = {
+			factor = 0.2
+			heir_adm = 5
+			heir_dip = 5
+			heir_mil = 5
+		}
+		modifier = {
+			factor = 0.1
+			heir_adm = 6
+			heir_dip = 6
+			heir_mil = 6
+		}
+	}
+  
+	option = {#朕方游心恬淡……
+		name = EDG_flavor_TUR_Monchy.27.a
+		ai_chance = {
+			factor = 1
+		}
+    kill_ruler = yes
+    add_ruler_modifier = {
+      name = EDG_flavor_TUR_Monchy_27_a_modifier
+      duration = 3650
+    }
+	}
+	option = {#他怎敢？
+		name = EDG_flavor_TUR_Monchy.26.b
+		ai_chance = {
+			factor = 50
+		}
+    kill_heir = {}
+    capital_scope = {
+			spawn_rebels = {
+				type = pretender_rebels
+				culture = ROOT
+				religion = ROOT
+				size = 2
+			}
+    }
+	}
+}
+#[Root.Heir.GetName]发动政变
+country_event = {
+	id = EDG_flavor_TUR_Monchy.28
+	title = EDG_flavor_TUR_Monchy.27.t
+	desc = EDG_flavor_TUR_Monchy.27.d
+	picture = MILITARISTICALLY_TALENTED_RULER_eventPicture
+	is_triggered_only = yes
+	
+	trigger = {
+		
+		has_government_attribute = EDG_TUR_choice_heir_ability
+		has_heir = yes
+		has_regency = no
+		heir_age = 15
+		has_heir_flag = EDG_flavor_TUR_Monchy_27_enable_flag
+	}
+
+	immediate = {
+		hidden_effect = {
+			
+		}
+	}
+  
+	option = {#朕方游心恬淡……
+		name = EDG_flavor_TUR_Monchy.27.a
+		ai_chance = {
+			factor = 1
+		}
+		kill_ruler = yes
+		add_ruler_modifier = {
+			name = EDG_flavor_TUR_Monchy_27_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#他怎敢？
+		name = EDG_flavor_TUR_Monchy.26.b
+		ai_chance = {
+			factor = 50
+		}
+		kill_heir = {}
+		capital_scope = {
+			spawn_rebels = {
+				type = pretender_rebels
+				culture = ROOT
+				religion = ROOT
+				size = 3
+			}
+		}
+	}
+}

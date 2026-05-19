@@ -1,0 +1,194 @@
+country_decisions = {
+
+	EDG_GSR_nation = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_GSR_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			tag = SER
+			EDG_not_RUS_tag_trigger = yes
+			NOT = { tag = VEN }
+			NOT = { tag = ALB }
+			NOT = { tag = BUL }
+			NOT = { tag = POL }
+			NOT = { tag = HAB }
+			OR = {
+				NOT = { exists = GSR }
+				ai = no
+			}
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = HUN }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1766			# 科索沃
+				province_id = 1827			# 拉什卡
+				province_id = 141			# 斯梅代雷沃
+				province_id = 3001			# 斯科普里
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			NOT = { exists = GSR }
+			NOT = { has_reform = states_general_reform }
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			NOT = { exists = ALB }
+			NOT = { exists = BUL }
+				owns_core_province = 1766			# 科索沃
+				owns_core_province = 1827			# 拉什卡
+				owns_core_province = 141			# 斯梅代雷沃
+				owns_core_province = 3001			# 斯科普里
+			
+		}
+		effect = {
+			change_tag = GSR
+			restore_country_name = yes
+			#swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { is_revolutionary = no }
+				
+					if = {
+						limit = { NOT = { government = monarchy } }
+						change_government_to_monarchy = yes
+					}
+				
+			}
+			GSR = { set_government_rank = 3 }
+			# if = {
+			# 	limit = {
+			# 		has_custom_ideas = no
+			# 	}
+			# 	# country_event = { id = ideagroups.1 } #Swap Ideas
+			# }
+			set_country_flag = formed_GSR_flag
+			add_prestige_or_monarch_power = { amount = 25}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { 
+						OR = {
+						TAG = SER
+					} 
+				}
+				NOT = {
+					calc_true_if = {
+						owns_core_province = 1766			# 科索沃
+						owns_core_province = 1827			# 拉什卡
+						owns_core_province = 141			# 斯梅代雷沃
+						owns_core_province = 3001			# 斯科普里
+					}
+				}
+			}
+		}
+		ai_importance = 10
+	}
+	
+
+	EDG_SER_nation = {
+		major = yes
+		potential = {
+			has_reform = EDG_GreatSerbia_law_government
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_GSR_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			tag = GSR
+			OR = {
+				NOT = { exists = SER }
+				ai = no
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+		}
+		allow = {
+			NOT = { exists = SER }
+			NOT = { has_reform = states_general_reform }
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			
+		}
+		effect = {
+			change_tag = SER
+			restore_country_name = yes
+			#swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { is_revolutionary = no }
+				
+					if = {
+						limit = { NOT = { government = monarchy } }
+						change_government_to_monarchy = yes
+					}
+			}
+			SER = { set_government_rank = 2 }
+			add_government_reform = EDG_Serbia_kingdom_government
+			# if = {
+			# 	limit = {
+			# 		has_custom_ideas = no
+			# 	}
+			# 	# country_event = { id = ideagroups.1 } #Swap Ideas
+			# }
+			set_country_flag = formed_SER_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					total_development = 100
+				}
+			}
+		}
+		ai_importance = 10
+	}
+	
+}

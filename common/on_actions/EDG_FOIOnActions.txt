@@ -1,0 +1,227 @@
+# on_adm_development = {
+# 	EDG_FOI_iberia_reconstruction_work_mechanic_effect = yes
+# }
+
+# # province
+# on_dip_development = {
+# 	EDG_FOI_iberia_reconstruction_work_mechanic_effect = yes
+# }
+
+# # province
+# on_mil_development = {
+# 	EDG_FOI_iberia_reconstruction_work_mechanic_effect = yes
+# }
+
+# on_startup = {
+# 	if = { #图莱图多十字军
+# 		limit = {
+# 			tag = ASU
+# 		}
+# 		country_event = {
+# 			id = FOICommonEvents.0
+# 		}
+# 	}
+# }
+on_startup = {
+	if = {
+		limit = {
+			tag = CAT
+			ai = no
+		}
+		country_event = {
+			id = FOI_ActionEvents.2
+			days = 7
+		}
+	}
+	if = {
+		limit = {
+			tag = BDH
+		}
+		country_event = {
+			id = EDG_ADCEvents.0
+			days = 7
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_global_flag = EDG_FOI_initialization_flag
+			}
+		}
+		2755 = {
+			remove_core = CAS
+		}
+		set_global_flag = EDG_FOI_initialization_flag
+	}
+}
+on_battle_won_country = {
+	if = {
+		limit = {
+			root = {
+				OR = {
+					tag = UCI
+					tag = FWF
+				}
+			}
+			from = {
+				OR = {
+					government = monarchy
+					government = theocracy
+				}
+			}
+		}
+		change_variable = {
+			which = FOI_UCI_battle_win_count
+			value = 1
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_expand_14_3_flag
+		}
+		add_revolutionary_zeal = 0.5
+	}
+	if = {
+		limit = {
+			has_country_flag = FOI_UCI_expand_16_3_flag
+		}
+		add_government_power = {
+			mechanic_type = FOI_UCI_liberation_mania_mechanic
+			power_type = FOI_UCI_liberation_mania
+			value = 0.3
+		}
+	}
+	
+}
+on_thri_yearly_pulse = {
+	events = {
+		EDG_flavorHRE.100
+	}
+}
+on_new_term_election = {
+	events = {
+		FOI_UCIEvents.500
+	}
+}
+on_monthly_pulse = {
+	events = {
+		FOI_ActionEvents.0
+		FOI_ActionEvents.1
+		FOI_ActionEvents.12
+	}
+}
+on_mil_tech_taken = { #ROOT - Country, executed after on_tech_taken!
+	events = {
+		FOI_UCIEvents.8
+		FOI_ActionEvents.17
+		FOI_ActionEvents.18
+		FOI_ActionEvents.19
+	}
+} 
+on_new_age = {
+	events = {
+		FOI_ActionEvents.11
+	}
+}
+on_siege_lost_province = {
+	if = {
+		limit = { 
+			is_claim = from
+			from = {
+				has_country_modifier = FOI_IBR_imperial_declaration_modifier
+			}
+			OR = {
+				region = france_region
+				region = maghreb_region
+				region = italy_region
+				region = egypt_region
+				region = balkan_region
+				region = anatolia_region
+				region = mashriq_region
+				region = carpathia_region
+				region = south_german_region
+				region = low_countries_region
+				region = british_isles_region
+			}
+			owner = {
+				capital_scope = {
+					OR = {
+						region = france_region
+						region = maghreb_region
+						region = italy_region
+						region = egypt_region
+						region = balkan_region
+						region = anatolia_region
+						region = mashriq_region
+						region = carpathia_region
+						region = south_german_region
+						region = low_countries_region
+						region = british_isles_region
+					}
+				}
+			}
+		}
+		if = {
+			limit = { 
+				owner = {
+					num_of_cities = 2
+				}
+			}
+			cede_province = from
+		}
+	}
+	if = {
+		limit = { 
+			is_core = from
+			NOT = {
+				owned_by = from
+			}
+			from = {
+				OR = {
+					tag = UCI
+					tag = FWF
+				}
+				has_country_flag = FOI_UCI_23_3_flag
+			}
+		}
+		if = {
+			limit = { 
+				owner = {
+					num_of_cities = 2
+				}
+			}
+			cede_province = from
+		}
+	}
+}
+on_capital_moved = {
+	if = {
+		limit = { 
+			owner = {
+				has_country_flag = FOI_UCI_20_3_flag
+			}
+		}
+		owner = {
+			every_owned_province = {
+				limit = {
+					has_province_modifier = EDG_FOI_UCI_assembly_seat_modifier
+				}
+				remove_province_modifier = EDG_FOI_UCI_assembly_seat_modifier
+			}
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = EDG_FOI_UCI_assembly_seat_modifier
+				duration = -1
+			}
+		}
+	}
+}
+# on_death_election = {
+# 	events = {
+# 		FOI_UCIEvents.500
+# 	}
+# }
+# on_colony_finished = { #ROOT - Province
+# 	on_colony_finished_effect = yes
+# }

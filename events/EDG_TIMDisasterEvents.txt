@@ -1,0 +1,1467 @@
+namespace = EDG_TIM_events
+
+#不祥之兆
+country_event = {
+  id = EDG_TIM_events.200
+  title = EDG_TIM_events.200.t
+  desc = EDG_TIM_events.200.d
+  picture = muslimgfx_COMET_SIGHTED_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 3
+  }
+
+  trigger = {
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+    is_subject = no
+    OR = {
+      mission_completed = EDG_TIM_mission_khorasan
+      AND = {
+        ai = yes
+        total_development = 300
+      }
+    }
+    has_heir = yes
+    if = {
+      limit = {
+        ai = yes
+      }
+      NOT = {
+        has_country_flag = EDG_TIM_rise_of_babur_flag
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.200.a
+    ai_chance = {
+      factor = 30
+    }
+    custom_tooltip = EDG_TIM_events.200.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_disaster_astrology_start_flag
+    set_country_flag = EDG_TIM_disaster_astrology_heir_killed_flag
+    kill_heir = {
+      allow_new_heir = no
+    }
+    add_stability = -2
+    add_legitimacy = -50
+    EDG_TIM_add_dread = { amount = 50 }
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.200.b
+    ai_chance = {
+      factor = 40
+    }
+    set_country_flag = EDG_TIM_disaster_astrology_heir_drifted_apart_flag
+    add_heir_claim = -50
+    add_ruler_modifier = {
+      name = EDG_TIM_paranoid_ruler_modifier
+      duration = 1825
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.201
+        days = 30
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.200.c
+    ai_chance = {
+      factor = 30
+    }
+    EDG_TIM_add_dread = { amount = -20 }
+    add_ruler_modifier = {
+      name = EDG_TIM_paranoid_ruler_modifier
+      duration = 1825
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.222
+        days = 100
+      }
+    }
+  }
+}
+
+#嫌隙渐生
+country_event = {
+  id = EDG_TIM_events.201
+  title = EDG_TIM_events.201.t
+  desc = EDG_TIM_events.201.d
+  picture = muslimgfx_SPY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.201.a
+    add_legitimacy = -10
+    set_country_flag = EDG_TIM_disaster_astrology_start_flag
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.202
+        days = 180
+      }
+    }
+  }
+}
+
+#继承人担惊受怕
+country_event = {
+  id = EDG_TIM_events.202
+  title = EDG_TIM_events.202.t
+  desc = EDG_TIM_events.202.d
+  picture = muslimgfx_BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.202.a
+    custom_tooltip = EDG_TIM_events.202.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    EDG_TIM_add_dread = { amount = 5 }
+  }
+}
+
+#占星之祸开始
+country_event = {
+  id = EDG_TIM_events.203
+  title = EDG_TIM_events.203.t
+  desc = EDG_TIM_events.203.d
+  picture = muslimgfx_GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  hidden = yes
+
+  immediate = {
+    set_country_flag = EDG_TIM_disaster_astrology_flag
+    if = {
+      limit = {
+        OR = {
+          has_country_flag = EDG_TIM_disaster_astrology_heir_drifted_apart_flag
+          has_country_flag = EDG_TIM_disaster_astrology_rumor_flag
+        }
+      }
+      country_event = {
+        id = EDG_TIM_events.204
+      }
+    }
+    else = {
+      country_event = {
+        id = EDG_TIM_events.205
+      }
+    }
+  }
+
+  option = {
+	}
+}
+
+#占星之祸开始：继承人叛乱
+country_event = {
+  id = EDG_TIM_events.204
+  title = EDG_TIM_events.204.t
+  desc = EDG_TIM_events.204.d
+  picture = muslimgfx_COMET_SIGHTED_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+
+  option = {
+    name = EDG_TIM_events.204.a
+    ai_chance = {
+      factor = 50
+    }
+    custom_tooltip = EDG_TIM_events.204.tt
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_disaster_astrology_heir_rebel_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    exile_heir_as = EDG_TIM_deposed_heir
+    custom_tooltip = EDG_TIM_events.204.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_stability = -2
+    capital_scope = {
+      spawn_rebels = {
+        size = 6
+        type = pretender_rebels
+        should_take_capital = yes
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = khorasan_region
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+        should_take_capital = yes
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = khorasan_region
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+        should_take_capital = yes
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = khorasan_region
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+        should_take_capital = yes
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.228
+        days = 40
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.204.b
+    ai_chance = {
+      factor = 50
+    }
+
+    custom_tooltip = EDG_TIM_events.204.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_legitimacy = -50
+    EDG_TIM_add_dread = { amount = -100 }
+    country_event = {
+      id = EDG_TIM_events.221
+      days = 10
+    }
+  }
+}
+
+#占星之祸开始：宫廷政变
+country_event = {
+  id = EDG_TIM_events.205
+  title = EDG_TIM_events.205.t
+  desc = EDG_TIM_events.205.d
+  picture = muslimgfx_COMET_SIGHTED_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+
+  option = {
+    name = EDG_TIM_events.205.a
+    custom_tooltip = EDG_TIM_events.204.tt
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    kill_ruler = yes
+    add_stability = -2
+    random_owned_province = {
+      spawn_rebels = {
+        size = 4
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 4
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        type = noble_rebels
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.207
+        days = 90
+      }
+      country_event = {
+        id = EDG_TIM_events.228
+        days = 20
+      }
+    }
+  }
+}
+
+#继承人夺取王位
+country_event = {
+  id = EDG_TIM_events.206
+  title = EDG_TIM_events.206.t
+  desc = EDG_TIM_events.206.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  fire_only_once = yes
+
+  trigger = {
+    has_country_flag = EDG_TIM_disaster_astrology_flag
+    has_country_flag = EDG_TIM_disaster_astrology_heir_rebel_flag
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    OR = {
+      num_of_rebel_controlled_provinces = 10
+      capital_scope = {
+        controlled_by = REB
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.206.a
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    set_heir = EDG_TIM_deposed_heir
+    kill_ruler = yes
+    add_prestige = 20
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.207
+        days = 90
+      }
+    }
+  }
+}
+
+#米尔扎篡位
+country_event = {
+  id = EDG_TIM_events.207
+  title = EDG_TIM_events.207.t
+  desc = EDG_TIM_events.207.d
+  picture = muslimgfx_CORRUPTION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.207.a
+    ai_chance = {
+      factor = 70
+    }
+    custom_tooltip = EDG_TIM_events.207.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    tooltip = {
+      kill_ruler = yes
+    }
+    hidden_effect = {
+      add_stability = -1
+    }
+    EDG_TIM_define_ruler_abdullah_mirza_effect = yes
+    set_ruler_flag = EDG_TIM_abdullah_mirza_ruler_flag
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = pretender_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = pretender_rebels
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.208
+        days = 200
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.207.b
+    ai_chance = {
+      factor = 30
+    }
+
+    capital_scope = {
+      spawn_rebels = {
+        size = 5
+        type = pretender_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        type = noble_rebels
+      }
+    }
+  }
+}
+
+#米尔扎被杀
+country_event = {
+  id = EDG_TIM_events.208
+  title = EDG_TIM_events.208.t
+  desc = EDG_TIM_events.208.d
+  picture = muslimgfx_ASSASSINATION_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 2
+  }
+
+  trigger = {
+    has_ruler_flag = EDG_TIM_abdullah_mirza_ruler_flag
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.208.a
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    kill_ruler = yes
+    random_owned_province = {
+      spawn_rebels = {
+        size = 4
+        type = noble_rebels
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.209
+        days = 800
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = central_asia_region
+        is_capital = no
+      }
+      spawn_rebels = {
+        size = 5
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = central_asia_region
+        is_capital = no
+      }
+      spawn_rebels = {
+        size = 2
+        type = tribal_rebels
+      }
+    }
+    random_owned_province = {
+      limit = {
+        region = central_asia_region
+        is_capital = no
+      }
+      spawn_rebels = {
+        size = 2
+        type = tribal_rebels
+      }
+    }
+  }
+}
+
+#卜撒因即位
+country_event = {
+  id = EDG_TIM_events.209
+  title = EDG_TIM_events.209.t
+  desc = EDG_TIM_events.209.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.209.a
+    set_country_flag = EDG_TIM_disaster_astrology_abu_said_flag
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_events.209.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    EDG_TIM_define_ruler_abu_said_effect = yes
+    set_ruler_flag = EDG_TIM_abu_said_ruler_flag
+    add_ruler_personality = bold_fighter_personality
+    add_ruler_personality = inspiring_leader_personality
+    define_ruler_to_general = {
+      fire = 4
+      shock = 5
+      manuever = 3
+      siege = 1
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 4
+        type = pretender_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = pretender_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 4
+        type = pretender_rebels
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.210
+        days = 300
+      }
+    }
+  }
+}
+
+#稳固统治：卜撒因
+country_event = {
+  id = EDG_TIM_events.210
+  title = EDG_TIM_events.210.t
+  desc = EDG_TIM_events.210.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    has_ruler_flag = EDG_TIM_abu_said_ruler_flag
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.210.a
+    set_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_stable_tt
+    custom_tooltip = EDG_SPACE_TT
+    add_stability = 2
+  }
+}
+
+#随机事件：费尔干纳总督叛乱
+country_event = {
+  id = EDG_TIM_events.211
+  title = EDG_TIM_events.211.t
+  desc = EDG_TIM_events.211.d
+  picture = muslimgfx_COUNTRY_COLLAPSE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    ferghana_area = {
+      type = any
+      owned_by = ROOT
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.211.a
+    random_owned_province = {
+      limit = {
+        area = ferghana_area
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+  }
+}
+
+#随机事件：呼罗珊总督叛乱
+country_event = {
+  id = EDG_TIM_events.212
+  title = EDG_TIM_events.212.t
+  desc = EDG_TIM_events.212.d
+  picture = muslimgfx_COUNTRY_COLLAPSE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    mashhad_area = {
+      type = any
+      owned_by = ROOT
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.212.a
+    random_owned_province = {
+      limit = {
+        area = mashhad_area
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+  }
+}
+
+#随机事件：阿富汗总督叛乱
+country_event = {
+  id = EDG_TIM_events.213
+  title = EDG_TIM_events.213.t
+  desc = EDG_TIM_events.213.d
+  picture = muslimgfx_COUNTRY_COLLAPSE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    kabulistan_area = {
+      type = any
+      owned_by = ROOT
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.213.a
+    random_owned_province = {
+      limit = {
+        area = kabulistan_area
+      }
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+  }
+}
+
+#随机事件：景教徒叛乱
+country_event = {
+  id = EDG_TIM_events.214
+  title = EDG_TIM_events.214.t
+  desc = EDG_TIM_events.214.d
+  picture = muslimgfx_RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    any_owned_province = {
+      religion = EDG_Nestorianism
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.214.a
+    random_owned_province = {
+      limit = {
+        religion = EDG_Nestorianism
+      }
+      spawn_rebels = {
+        size = 3
+        type = EDG_Nestorianism_rebels
+      }
+    }
+  }
+}
+
+#随机事件：什叶派叛乱
+country_event = {
+  id = EDG_TIM_events.215
+  title = EDG_TIM_events.215.t
+  desc = EDG_TIM_events.215.d
+  picture = muslimgfx_RELIGIOUS_TURMOIL_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    any_owned_province = {
+      religion = shiite
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.215.a
+    random_owned_province = {
+      limit = {
+        religion = shiite
+      }
+      spawn_rebels = {
+        size = 3
+        type = shiite_rebels
+      }
+    }
+  }
+}
+
+#随机事件：尔虞我诈
+country_event = {
+  id = EDG_TIM_events.216
+  title = EDG_TIM_events.216.t
+  desc = EDG_TIM_events.216.d
+  picture = muslimgfx_SPY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.216.a
+    add_stability = -1
+    if = {
+      limit = {
+        NOT = {
+          has_country_flag = EDG_TIM_gawhar_shad_killed_flag
+        }
+      }
+      random_list = {
+        20 = {
+          kill_leader = {
+            type = general
+          }
+        }
+        20 = {
+          kill_advisor = random
+        }
+        20 = {
+          add_legitimacy = -20
+        }
+        20 = {
+          add_prestige = -30
+        }
+        20 = {
+          add_adm_power = -50
+          add_dip_power = -50
+          add_mil_power = -50
+        }
+      }
+    }
+    else = {
+      random_list = {
+        20 = {
+          kill_leader = {
+            type = general
+          }
+        }
+        20 = {
+          kill_advisor = random
+        }
+        20 = {
+          add_legitimacy = -20
+        }
+        20 = {
+          add_prestige = -30
+        }
+        20 = {
+          add_adm_power = -50
+          add_dip_power = -50
+          add_mil_power = -50
+        }
+        60 = {
+          add_prestige = -5
+        }
+      }
+    }
+  }
+}
+
+#随机事件：手足相残
+country_event = {
+  id = EDG_TIM_events.217
+  title = EDG_TIM_events.217.t
+  desc = EDG_TIM_events.217.d
+  picture = THREE_HEIRS_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.217.a
+    ai_chance = {
+      factor = 30
+      modifier = {
+        factor = 0
+        has_ruler_flag = EDG_TIM_abu_said_ruler_flag
+      }
+    }
+    if = {
+      limit = {
+        NOT = {
+          has_country_flag = EDG_TIM_disaster_astrology_abu_said_flag
+        }
+      }
+      custom_tooltip = EDG_TIM_events.217.a.tt
+      custom_tooltip = EDG_SPACE_TT
+    }
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    tooltip = {
+      kill_ruler = yes
+    }
+    hidden_effect = {
+      add_stability = -1
+    }
+    define_ruler = {
+      dynasty = original_dynasty
+      religion = sunni
+      culture = uzbehk
+      claim = 50
+    }
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      random = {
+        chance = 30
+        country_event = {
+          id = EDG_TIM_events.209
+          days = 800
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.217.b
+    ai_chance = {
+      factor = 70
+    }
+
+    if = {
+      limit = {
+        NOT = {
+          has_country_flag = EDG_TIM_gawhar_shad_killed_flag
+        }
+      }
+      add_legitimacy = -10
+      random_owned_province = {
+        spawn_rebels = {
+          size = 4
+          type = pretender_rebels
+        }
+      }
+    }
+    else = {
+      random_owned_province = {
+        spawn_rebels = {
+          size = 2
+          type = pretender_rebels
+        }
+      }
+    }
+  }
+}
+
+#随机事件：国库亏空
+country_event = {
+  id = EDG_TIM_events.218
+  title = EDG_TIM_events.218.t
+  desc = EDG_TIM_events.218.d
+  picture = muslimgfx_BANKRUPTCY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.218.a
+    ai_chance = {
+      factor = 100
+    }
+    add_years_of_income = -0.5
+  }
+
+  option = {
+    name = EDG_TIM_events.218.b
+    ai_chance = {
+      factor = 0
+    }
+    add_corruption = 2
+  }
+}
+
+#随机事件：异端邪说
+country_event = {
+  id = EDG_TIM_events.219
+  title = EDG_TIM_events.219.t
+  desc = EDG_TIM_events.219.d
+  picture = MYSTICS_DANCING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.219.a
+    random_owned_province = {
+      limit = {
+        religion = sunni
+      }
+      change_religion = shiite
+    }
+    random_owned_province = {
+      limit = {
+        religion = sunni
+      }
+      change_religion = shiite
+    }
+  }
+}
+
+#稳固统治：非卜撒因
+country_event = {
+  id = EDG_TIM_events.220
+  title = EDG_TIM_events.220.t
+  desc = EDG_TIM_events.220.d
+  picture = muslimgfx_COURT_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 1
+  }
+
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    has_country_flag = EDG_TIM_disaster_astrology_flag
+    had_country_flag = {
+      flag = EDG_TIM_disaster_astrology_hold_throne_flag
+      days = 1825
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.220.a
+    set_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_stable_tt
+    custom_tooltip = EDG_SPACE_TT
+    add_stability = 2
+  }
+}
+
+#统治者逃跑，继承人上位
+country_event = {
+  id = EDG_TIM_events.221
+  title = EDG_TIM_events.221.t
+  desc = EDG_TIM_events.221.d
+  picture = muslimgfx_THEATRE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.221.a
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    kill_ruler = yes
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        type = noble_rebels
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        type = noble_rebels
+      }
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.207
+        days = 90
+      }
+      country_event = {
+        id = EDG_TIM_events.228
+        days = 20
+      }
+    }
+  }
+}
+
+#谣言四起
+country_event = {
+  id = EDG_TIM_events.222
+  title = EDG_TIM_events.222.t
+  desc = EDG_TIM_events.222.d
+  picture = muslimgfx_CORRUPTION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.222.a
+    set_country_flag = EDG_TIM_disaster_astrology_rumor_flag
+    add_legitimacy = -10
+    add_heir_claim = -50
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.201
+        days = 30
+      }
+    }
+  }
+}
+
+#占星之祸结束：帖木儿的灾厄
+country_event = {
+  id = EDG_TIM_events.223
+  title = EDG_TIM_events.223.t
+  desc = EDG_TIM_events.223.d
+  picture = muslimgfx_COUNTRY_COLLAPSE_eventPicture
+  fire_only_once = yes
+  major = yes
+
+  mean_time_to_happen = {
+    months = 1
+  }
+
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    had_country_flag = {
+      flag = EDG_TIM_disaster_astrology_flag
+      days = 3650
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.223.a
+    custom_tooltip = EDG_TIM_events.223.a.tt
+    custom_tooltip = EDG_SPACE_TT
+
+    set_country_flag = EDG_TIM_disaster_astrology_end_flag
+    end_disaster = EDG_TIM_calamity_of_astrology
+    kill_heir = {
+      allow_new_heir = no
+    }
+    kill_ruler = yes
+    add_stability = -6
+    add_legitimacy = -100
+    release_all_subjects = yes
+
+    hidden_effect = {
+      every_province = {
+        limit = {
+          culture = afghani
+        }
+        add_core = AFH
+      }
+    }
+    release = AFH
+    EDG_release_or_return_provice_effect = {
+      country = YM5
+    }
+    EDG_release_or_return_provice_effect = {
+      country = KHO
+    }
+    EDG_release_or_return_provice_effect = {
+      country = KHI
+    }
+    EDG_release_or_return_provice_effect = {
+      country = KOK
+    }
+    EDG_release_or_return_provice_effect = {
+      country = HSS
+    }
+    EDG_release_or_return_provice_effect = {
+      country = NOG
+    }
+    EDG_release_or_return_provice_effect = {
+      country = KZH
+    }
+    if = {
+      limit = {
+        NOT = {
+          exists = TRS
+        }
+      }
+      change_tag = TRS
+      hidden_effect = {
+        save_global_event_target_as = gurkani_target
+      }
+    }
+    else_if = {
+      limit = {
+        TRS = {
+          NOT = {
+            total_development = 30
+          }
+        }
+      }
+      hidden_effect = {
+        inherit = TRS
+      }
+      change_tag = TRS
+      hidden_effect = {
+        save_global_event_target_as = gurkani_target
+      }
+    }
+    release_all_possible_countries = yes
+    EDG_lost_all_core_effect = yes
+  }
+}
+
+#占星之祸结束：平定占星之祸（隐藏事件）
+country_event = {
+  id = EDG_TIM_events.224
+  title = EDG_TIM_events.224.t
+  desc = EDG_TIM_events.224.d
+  picture = muslimgfx_COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  hidden = yes
+
+  immediate = {
+    if = {
+      limit = {
+        has_ruler_flag = EDG_TIM_abu_said_ruler_flag
+      }
+      country_event = {
+        id = EDG_TIM_events.225
+      }
+    }
+    else = {
+      country_event = {
+        id = EDG_TIM_events.226
+      }
+    }
+  }
+
+  option = {
+  }
+}
+
+#占星之祸结束：平定占星之祸（卜撒因）
+country_event = {
+  id = EDG_TIM_events.225
+  title = EDG_TIM_events.225.t
+  desc = EDG_TIM_events.225.d
+  picture = muslimgfx_COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+
+  option = {
+    name = EDG_TIM_events.225.a
+    set_country_flag = EDG_TIM_disaster_astrology_end_flag
+    add_stability = 3
+    add_legitimacy = 100
+    EDG_TIM_add_dread = { amount = 50 }
+    add_ruler_modifier = {
+      name = EDG_TIM_iron_fist_ruler_modifier
+      duration = -1
+    }
+  }
+}
+
+#占星之祸结束：平定占星之祸（非卜撒因）
+country_event = {
+  id = EDG_TIM_events.226
+  title = EDG_TIM_events.226.t
+  desc = EDG_TIM_events.226.d
+  picture = muslimgfx_COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+
+  option = {
+    name = EDG_TIM_events.226.a
+    set_country_flag = EDG_TIM_disaster_astrology_end_flag
+    change_ruler_stat = {
+      type = mil
+      amount = 2
+    }
+    add_stability = 3
+    add_legitimacy = 100
+    EDG_TIM_add_dread = { amount = 50 }
+    add_ruler_modifier = {
+      name = EDG_TIM_iron_fist_ruler_modifier
+      duration = -1
+    }
+  }
+}
+
+#处决高哈尔沙
+country_event = {
+  id = EDG_TIM_events.227
+  title = EDG_TIM_events.227.t
+  desc = EDG_TIM_events.227.d
+  picture = muslimgfx_KING_SICK_IN_BED_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 12
+  }
+
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    NOT = {
+      is_year = 1480
+    }
+    had_country_flag = {
+      flag = EDG_TIM_disaster_astrology_flag
+      days = 365
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.227.a
+    trigger = {
+      NOT = {
+        OR = {
+          has_ruler_modifier = EDG_TIM_parricide_ruler_modifier
+          ruler_has_personality = malevolent_personality
+        }
+      }
+    }
+    add_legitimacy = 20
+    add_ruler_modifier = {
+      name = EDG_TIM_kindness_ruler_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.216
+        days = 10
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.227.b
+    add_legitimacy = -5
+  }
+
+  option = {
+    name = EDG_TIM_events.227.c
+    custom_tooltip = EDG_TIM_events.227.c.tt
+    set_country_flag = EDG_TIM_gawhar_shad_killed_flag
+    add_stability = -1
+    add_legitimacy = -20
+    EDG_TIM_add_dread = { amount = 10 }
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+  }
+}
+
+#卜撒因崛起
+country_event = {
+  id = EDG_TIM_events.228
+  title = EDG_TIM_events.228.t
+  desc = EDG_TIM_events.228.d
+  picture = muslimgfx_HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.228.a
+    if = {
+      limit = {
+        has_country_flag = EDG_TIM_disaster_astrology_heir_rebel_flag
+      }
+      custom_tooltip = EDG_TIM_events.228.a.tt1
+    }
+    else = {
+      custom_tooltip = EDG_TIM_events.228.a.tt2
+    }
+    custom_tooltip = EDG_SPACE_TT
+    capital_scope = {
+      spawn_rebels = {
+        size = 4
+        type = tribal_rebels
+      }
+    }
+  }
+}
+
+#手足相残保底事件
+country_event = {
+  id = EDG_TIM_events.229
+  title = EDG_TIM_events.217.t
+  desc = EDG_TIM_events.217.d
+  picture = THREE_HEIRS_eventPicture
+  fire_only_once = yes
+
+  trigger = {
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_stable_flag
+    }
+    NOT = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+    }
+    had_country_flag = {
+      flag = EDG_TIM_disaster_astrology_flag
+      days = 2500
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.217.a
+    ai_chance = {
+      factor = 100
+      modifier = {
+        factor = 0
+        has_ruler_flag = EDG_TIM_abu_said_ruler_flag
+      }
+    }
+    if = {
+      limit = {
+        NOT = {
+          has_country_flag = EDG_TIM_disaster_astrology_abu_said_flag
+        }
+      }
+      custom_tooltip = EDG_TIM_events.217.a.tt
+      custom_tooltip = EDG_SPACE_TT
+    }
+    clr_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    set_country_flag = EDG_TIM_disaster_astrology_hold_throne_flag
+    custom_tooltip = EDG_TIM_calamity_of_astrology_hold_throne_tt
+    custom_tooltip = EDG_SPACE_TT
+    tooltip = {
+      kill_ruler = yes
+    }
+    hidden_effect = {
+      add_stability = -1
+    }
+    define_ruler = {
+      dynasty = original_dynasty
+      religion = sunni
+      culture = uzbehk
+      claim = 50
+    }
+    add_ruler_modifier = {
+      name = EDG_TIM_parricide_ruler_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_TIM_events.209
+        days = 800
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.217.b
+    ai_chance = {
+      factor = 1
+    }
+
+    if = {
+      limit = {
+        NOT = {
+          has_country_flag = EDG_TIM_gawhar_shad_killed_flag
+        }
+      }
+      add_legitimacy = -10
+      random_owned_province = {
+        spawn_rebels = {
+          size = 4
+          type = pretender_rebels
+        }
+      }
+    }
+    else = {
+      random_owned_province = {
+        spawn_rebels = {
+          size = 2
+          type = pretender_rebels
+        }
+      }
+    }
+  }
+}

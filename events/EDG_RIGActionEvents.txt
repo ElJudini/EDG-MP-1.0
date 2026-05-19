@@ -1,0 +1,2139 @@
+namespace = rigExpandAction
+country_event = {
+	id = rigExpandAction.0
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		38 = {
+			every_neighbor_province = {
+				limit = {
+					OR = {
+						region = baltic_region
+						RIG = {
+							has_government_attribute = expansion_of_war_city_project
+						}
+					}
+					riga_subject_of_subject_owned_land = { who = root }
+					NOT = {
+						has_province_flag = rig_begin_build_province_flag
+					}
+				}
+				set_province_flag = rig_begin_build_province_flag
+			}
+			random_neighbor_province = {
+				limit = {
+					has_province_flag = rig_begin_build_province_flag
+				}
+				save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_1
+				province_event = {
+					id = rigExpandAction.1
+					days = 60
+				}
+			}
+		}
+		43 = {
+			every_neighbor_province = {
+				limit = {
+					OR = {
+						region = baltic_region
+						RIG = {
+							has_government_attribute = expansion_of_war_city_project
+						}
+					}
+					riga_subject_of_subject_owned_land = { who = root }
+					NOT = {
+						has_province_flag = rig_begin_build_province_flag
+					}
+				}
+				set_province_flag = rig_begin_build_province_flag
+			}
+			random_neighbor_province = {
+				limit = {
+					has_province_flag = rig_begin_build_province_flag
+				}
+				save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_2
+				province_event = {
+					id = rigExpandAction.2
+					days = 60
+				}
+			}
+		}
+		272 = {
+			every_neighbor_province = {
+				limit = {
+					OR = {
+						region = baltic_region
+						RIG = {
+							has_government_attribute = expansion_of_war_city_project
+						}
+					}
+					riga_subject_of_subject_owned_land = { who = root }
+					NOT = {
+						has_province_flag = rig_begin_build_province_flag
+					}
+				}
+				set_province_flag = rig_begin_build_province_flag
+			}
+			random_neighbor_province = {
+				limit = {
+					has_province_flag = rig_begin_build_province_flag
+				}
+				save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_3
+				province_event = {
+					id = rigExpandAction.3
+					days = 60
+				}
+			}
+		}
+	}
+
+	option = {}
+}
+province_event = {
+	id = rigExpandAction.1
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { 
+				NOT = {
+					exists = event_target:rig_world_city_project_fulcrum_province_work_target_1
+				}
+			}
+			save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_1
+		}
+		if = {
+			limit = { 
+				RIG = {
+					has_country_flag = riga_begin_world_city_project
+					check_variable = {
+						which = world_city_project_investment_pool
+						value = 100
+					}
+				}
+				country_or_non_sovereign_subject_holds = RIG
+				has_province_flag = rig_begin_build_province_flag
+				NOT = {
+					has_province_flag = compelete_buid_world_city_flag
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+						}
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							OR = {
+								has_province_flag = compelete_buid_world_city_flag
+								has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+							}
+						}
+					}
+					set_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+				}
+			}
+			set_variable = {
+				which = world_city_project_investment_pool
+				value = 0
+			}
+			RIG = {
+				root = {
+					set_variable = {
+						which = world_city_project_base_develpment_cost
+						which = prev
+					}
+				}
+			}
+			
+			calu_terrain_modifier_for_world_city_project = yes
+			set_variable = {
+				which = world_city_project_investment_pool
+				which = world_city_project_base_develpment_cost
+			}
+			set_variable = {
+				which = world_city_project_base_develpment_cost_1
+				which = world_city_project_base_develpment_cost
+			}
+			RIG = {
+				set_variable = {
+					which = world_city_project_base_develpment_cost_1
+					which = prev
+				}
+				subtract_variable = {
+					which = world_city_project_investment_pool
+					which = root
+				}
+			}
+			add_base_manpower = 1
+			add_base_production = 1
+			add_base_tax = 1
+			if = {
+				limit = { 
+					OR = {
+						has_province_flag = compelete_buid_world_city_flag
+						development = 25
+					}
+				}
+				set_province_flag = compelete_buid_world_city_flag
+				clr_province_flag = rig_begin_build_province_flag
+				clr_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+				clear_global_event_target = rig_world_city_project_fulcrum_province_work_target_1
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							region = baltic_region
+							RIG = {
+								has_government_attribute = expansion_of_war_city_project
+							}
+						}
+						NOT = {
+							has_province_flag = compelete_buid_world_city_flag
+						}
+					}
+					set_province_flag = rig_begin_build_province_flag
+				}
+				if = {
+					limit = { 
+						any_neighbor_province = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_1
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+						province_event = {
+							id = rigExpandAction.1
+							days = 60
+						}
+					}
+				}
+				else = {
+					random_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_1
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+						province_event = {
+							id = rigExpandAction.1
+							days = 60
+						}
+					}
+				}
+				if = {
+					limit = { 
+						owner = {
+							is_subject_of = RIG
+						}
+					}
+					if = {
+						limit = { 
+							exists = event_target:compelete_buid_world_city_target
+						}
+						clear_global_event_target = compelete_buid_world_city_target
+					}
+					save_global_event_target_as = compelete_buid_world_city_target
+					RIG = {
+						country_event = {
+							id = rigExpandAction.4
+						}
+					}
+				}
+			}
+			else = {
+				province_event = {
+					id = rigExpandAction.1
+					days = 60
+				}
+			}
+		}
+		else = {
+			set_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+		}
+		
+	}
+	option = {}
+}
+province_event = {
+	id = rigExpandAction.2
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { 
+				NOT = {
+					exists = event_target:rig_world_city_project_fulcrum_province_work_target_2
+				}
+			}
+			save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_2
+		}
+		if = {
+			limit = { 
+				RIG = {
+					has_country_flag = riga_begin_world_city_project
+					check_variable = {
+						which = world_city_project_investment_pool
+						value = 100
+					}
+				}
+				country_or_non_sovereign_subject_holds = RIG
+				has_province_flag = rig_begin_build_province_flag
+				NOT = {
+					has_province_flag = compelete_buid_world_city_flag
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+						}
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							OR = {
+								has_province_flag = compelete_buid_world_city_flag
+								has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+							}
+						}
+					}
+					set_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+				}
+			}
+			set_variable = {
+				which = world_city_project_investment_pool
+				value = 0
+			}
+			RIG = {
+				root = {
+					set_variable = {
+						which = world_city_project_base_develpment_cost
+						which = prev
+					}
+				}
+			}
+			
+			calu_terrain_modifier_for_world_city_project = yes
+			set_variable = {
+				which = world_city_project_investment_pool
+				which = world_city_project_base_develpment_cost
+			}
+			set_variable = {
+				which = world_city_project_base_develpment_cost_2
+				which = world_city_project_base_develpment_cost
+			}
+			RIG = {
+				set_variable = {
+					which = world_city_project_base_develpment_cost_2
+					which = prev
+				}
+				subtract_variable = {
+					which = world_city_project_investment_pool
+					which = root
+				}
+			}
+			add_base_manpower = 1
+			add_base_production = 1
+			add_base_tax = 1
+			if = {
+				limit = { 
+					development = 25
+				}
+				set_province_flag = compelete_buid_world_city_flag
+				clr_province_flag = rig_begin_build_province_flag
+				clr_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+				clear_global_event_target = rig_world_city_project_fulcrum_province_work_target_2
+				if = {
+					limit = { 
+						any_neighbor_province = {
+							
+						}
+					}
+				}
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							region = baltic_region
+							RIG = {
+								has_government_attribute = expansion_of_war_city_project
+							}
+						}
+						NOT = {
+							has_province_flag = compelete_buid_world_city_flag
+						}
+					}
+					set_province_flag = rig_begin_build_province_flag
+				}
+				if = {
+					limit = { 
+						any_neighbor_province = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_2
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+						province_event = {
+							id = rigExpandAction.2
+							days = 60
+						}
+					}
+
+				}
+				else = {
+					random_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_2
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+						province_event = {
+							id = rigExpandAction.2
+							days = 60
+						}
+					}
+				}
+				if = {
+					limit = { 
+						owner = {
+							is_subject_of = RIG
+						}
+					}
+					if = {
+						limit = { 
+							exists = event_target:compelete_buid_world_city_target
+						}
+						clear_global_event_target = compelete_buid_world_city_target
+					}
+					save_global_event_target_as = compelete_buid_world_city_target
+					RIG = {
+						country_event = {
+							id = rigExpandAction.4
+						}
+					}
+				}
+			}
+			else = {
+				province_event = {
+					id = rigExpandAction.2
+					days = 60
+				}
+			}
+		}
+		else = {
+			set_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+		}
+	}
+	option = {}
+}
+province_event = {
+	id = rigExpandAction.3
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { 
+				NOT = {
+					exists = event_target:rig_world_city_project_fulcrum_province_work_target_3
+				}
+			}
+			save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_3
+		}
+		if = {
+			limit = { 
+				RIG = {
+					has_country_flag = riga_begin_world_city_project
+					check_variable = {
+						which = world_city_project_investment_pool
+						value = 100
+					}
+				}
+				country_or_non_sovereign_subject_holds = RIG
+				has_province_flag = rig_begin_build_province_flag
+				NOT = {
+					has_province_flag = compelete_buid_world_city_flag
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+						}
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							OR = {
+								has_province_flag = compelete_buid_world_city_flag
+								has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+							}
+						}
+					}
+					set_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+				}
+			}
+			set_variable = {
+				which = world_city_project_investment_pool
+				value = 0
+			}
+			RIG = {
+				root = {
+					set_variable = {
+						which = world_city_project_base_develpment_cost
+						which = prev
+					}
+				}
+			}
+	
+			calu_terrain_modifier_for_world_city_project = yes
+			set_variable = {
+				which = world_city_project_investment_pool
+				which = world_city_project_base_develpment_cost
+			}
+			set_variable = {
+				which = world_city_project_base_develpment_cost_3
+				which = world_city_project_base_develpment_cost
+			}
+			RIG = {
+				set_variable = {
+					which = world_city_project_base_develpment_cost_3
+					which = prev
+				}
+				subtract_variable = {
+					which = world_city_project_investment_pool
+					which = root
+				}
+			}
+	
+			add_base_manpower = 1
+			add_base_production = 1
+			add_base_tax = 1
+			if = {
+				limit = { 
+					development = 25
+				}
+				set_province_flag = compelete_buid_world_city_flag
+				clr_province_flag = rig_begin_build_province_flag
+				clr_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+				clear_global_event_target = rig_world_city_project_fulcrum_province_work_target_3
+				every_neighbor_province = {
+					limit = {
+						OR = {
+							region = baltic_region
+							RIG = {
+								has_government_attribute = expansion_of_war_city_project
+							}
+						}
+						NOT = {
+							has_province_flag = compelete_buid_world_city_flag
+						}
+					}
+					set_province_flag = rig_begin_build_province_flag
+				}
+				if = {
+					limit = { 
+						any_neighbor_province = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+					}
+					random_neighbor_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_3
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+						province_event = {
+							id = rigExpandAction.3
+							days = 60
+						}
+					}
+				}
+				else = {
+					random_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+									has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+								}
+							}
+							has_province_flag = rig_begin_build_province_flag
+						}
+						save_global_event_target_as = rig_world_city_project_fulcrum_province_work_target_3
+						set_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+						province_event = {
+							id = rigExpandAction.3
+							days = 60
+						}
+					}
+				}
+				if = {
+					limit = { 
+						owner = {
+							is_subject_of = RIG
+						}
+					}
+					if = {
+						limit = { 
+							exists = event_target:compelete_buid_world_city_target
+						}
+						clear_global_event_target = compelete_buid_world_city_target
+					}
+					save_global_event_target_as = compelete_buid_world_city_target
+					RIG = {
+						country_event = {
+							id = rigExpandAction.4
+						}
+					}
+				}
+			}
+			else = {
+				province_event = {
+					id = rigExpandAction.3
+					days = 60
+				}
+			}
+		}
+		else = {
+			set_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+		}
+	}
+	option = {}
+}
+country_event = {
+	id = rigExpandAction.4
+	is_triggered_only = yes
+	title = rigExpandAction.4.name
+	desc = rigExpandAction.4.desc
+	picture = FARMING_eventPicture
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = rigExpandAction.4.aa
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
+		goto = from
+	}
+}
+country_event = {
+	id = rigExpandAction.5
+	is_triggered_only = yes
+	title = rigExpandAction.5.name
+	desc = rigExpandAction.5.desc
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = begin_rig_make_war_plans
+		}
+	}
+
+	option = {
+		name = rigExpandAction.5.aa
+		custom_tooltip = rigExpandAction.5.aa.tt
+		hidden_effect = { #进攻
+			set_country_flag = rig_make_war_plans_1
+			clr_country_flag = rig_make_war_plans_2
+			clr_country_flag = rig_make_war_plans_3
+			remove_country_modifier = rig_make_war_plans_2_modifier
+			remove_country_modifier = rig_make_war_plans_3_modifier
+		}
+		country_event = {
+			id = rigExpandAction.6
+			days = 365
+		}
+	}
+	option = { #防守
+		name = rigExpandAction.5.bb
+		custom_tooltip = rigExpandAction.5.bb.tt
+		hidden_effect = {
+			set_country_flag = rig_make_war_plans_2
+			clr_country_flag = rig_make_war_plans_1
+			clr_country_flag = rig_make_war_plans_3
+			remove_country_modifier = rig_make_war_plans_1_modifier
+			remove_country_modifier = rig_make_war_plans_3_modifier
+		}
+		country_event = {
+			id = rigExpandAction.6
+			days = 365
+		}
+	}
+	option = { #消耗
+		name = rigExpandAction.5.cc
+		custom_tooltip = rigExpandAction.5.cc.tt
+		hidden_effect = {
+			set_country_flag = rig_make_war_plans_3
+			clr_country_flag = rig_make_war_plans_2
+			clr_country_flag = rig_make_war_plans_1
+			remove_country_modifier = rig_make_war_plans_2_modifier
+			remove_country_modifier = rig_make_war_plans_1_modifier
+		}
+		country_event = {
+			id = rigExpandAction.6
+			days = 365
+		}
+	}
+	option = { #容我三思
+		name = rigExpandAction.5.dd
+		hidden_effect = {
+			clr_country_flag = begin_rig_make_war_plans
+		}
+	}
+}
+country_event = {
+	id = rigExpandAction.6
+	is_triggered_only = yes
+	title = rigExpandAction.6.name
+	desc = rigExpandAction.6.desc
+	picture = BATTLE_eventPicture
+
+	option = {
+		name = rigExpandAction.6.aa
+		if = {
+			limit = { 
+				has_country_flag = rig_make_war_plans_1
+			}
+			add_country_modifier = {
+				name = rig_make_war_plans_1_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = rig_make_war_plans_2
+			}
+			add_country_modifier = {
+				name = rig_make_war_plans_2_modifier
+				duration = -1
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = rig_make_war_plans_3_modifier
+				duration = -1
+			}
+		}
+		add_country_modifier = {
+			name = rig_riga_military_preparations
+			duration = 365
+		}
+		hidden_effect = {
+			set_country_flag = rig_make_war_plans_cd
+			clr_country_flag = begin_rig_make_war_plans
+			country_event = {
+				id = rigExpandAction.7
+				days = 1095
+			}
+		}
+	}
+}
+country_event = {
+	id = rigExpandAction.7
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		clr_country_flag = rig_make_war_plans_cd
+	}
+
+
+	option = {}
+}
+country_event = {
+	id = rigExpandAction.8
+	is_triggered_only = yes
+	title = rigExpandAction.8.name
+	desc = rigExpandAction.8.desc
+	picture = BATTLE_eventPicture
+	
+	option = {
+		name = rigExpandAction.8.aa
+		hidden_effect = {
+			set_country_flag = greate_battle_carpathia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.bb
+		hidden_effect = {
+			set_country_flag = greate_battle_balkan_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.cc
+		hidden_effect = {
+			set_country_flag = greate_battle_crimea_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.dd
+		hidden_effect = {
+			set_country_flag = greate_battle_russia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ee
+		hidden_effect = {
+			set_country_flag = greate_battle_scandinavia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ff
+		hidden_effect = {
+			set_country_flag = greate_battle_north_german_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.gg
+		hidden_effect = {
+			set_country_flag = greate_battle_south_german_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.hh
+		hidden_effect = {
+			set_country_flag = greate_battle_anatolia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ii
+		trigger = {
+			has_country_flag = enable_great_battle_for_arabia_persia_egypt_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_arabia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.jj
+		trigger = {
+			has_country_flag = enable_great_battle_for_arabia_persia_egypt_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_persia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.kk
+		trigger = {
+			has_country_flag = enable_great_battle_for_arabia_persia_egypt_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_egypt_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ll
+		trigger = {
+			has_country_flag = enable_great_battle_for_maghreb_horn_of_africa_khorasan_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_maghreb_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ll.expand
+		trigger = {
+			has_country_flag = enable_great_battle_for_maghreb_horn_of_africa_khorasan_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_iberia_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.mm
+		trigger = {
+			has_country_flag = enable_great_battle_for_maghreb_horn_of_africa_khorasan_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_horn_of_africa_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.nn
+		trigger = {
+			has_country_flag = enable_great_battle_for_maghreb_horn_of_africa_khorasan_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_khorasan_region_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.oo
+		trigger = {
+			has_country_flag = enable_great_battle_for_europe_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_europe_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.pp
+		trigger = {
+			has_country_flag = enable_great_battle_for_india_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_india_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.qq
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_china_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.rr
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_south_america_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ss
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_oceania_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.tt
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_tartary_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.uu
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_andes_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.vv
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_east_indies_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.ww
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_central_america_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.xx
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_southern_africa_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.yy
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_far_east_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.8.zz
+		trigger = {
+			has_country_flag = enable_great_battle_for_word_flag
+		}
+		hidden_effect = {
+			set_country_flag = greate_battle_north_america_superregion_target
+			country_event = {
+				id = rigExpandAction.9
+			}
+		}
+	}
+
+	option = {
+		name = rigExpandAction.8.00
+		hidden_effect = {
+			clr_country_flag = rig_start_grate_campaign_flag
+		}
+		add_mil_power = 200
+		add_adm_power = 200
+		add_dip_power = 200
+	}
+}
+country_event = {
+	id = rigExpandAction.9
+	is_triggered_only = yes
+	title = rigExpandAction.9.name
+	desc = rigExpandAction.9.desc
+	
+	option = {
+		name = rigExpandAction.9.aa
+		hidden_effect = {
+			set_country_flag = greate_war_use_cb_greate_war_of_riga_conquer_provice
+			country_event = {
+				id = RigaExpandSupplement.14
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.9.bb
+		hidden_effect = {
+			set_country_flag = greate_war_use_cb_greate_war_of_riga_vassalize
+			country_event = {
+				id = RigaExpandSupplement.14
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.9.cc
+		hidden_effect = {
+			set_country_flag = greate_war_use_cb_greate_war_of_riga_dismemberment_country
+			country_event = {
+				id = RigaExpandSupplement.14
+			}
+		}
+	}
+	option = {
+		name = rigExpandAction.9.dd
+		country_event = {
+			id = rigExpandAction.8
+		}
+		hidden_effect = {
+			clr_country_flag = greate_battle_carpathia_region_target
+			clr_country_flag = greate_battle_balkan_region_target
+			clr_country_flag = greate_battle_crimea_region_target
+			clr_country_flag = greate_battle_russia_region_target
+			clr_country_flag = greate_battle_scandinavia_region_target
+			clr_country_flag = greate_battle_north_german_region_target
+			clr_country_flag = greate_battle_south_german_region_target
+			clr_country_flag = greate_battle_anatolia_region_target
+			clr_country_flag = greate_battle_arabia_region_target
+			clr_country_flag = greate_battle_persia_region_target
+			clr_country_flag = greate_battle_egypt_region_target
+			clr_country_flag = greate_battle_maghreb_region_target
+			clr_country_flag = greate_battle_iberia_region_target
+			clr_country_flag = greate_battle_horn_of_africa_region_target
+			clr_country_flag = greate_battle_khorasan_region_target
+			clr_country_flag = greate_battle_europe_superregion_target
+			clr_country_flag = greate_battle_india_superregion_target
+			clr_country_flag = greate_battle_china_superregion_target
+			clr_country_flag = greate_battle_south_america_superregion_target
+			clr_country_flag = greate_battle_oceania_superregion_target
+			clr_country_flag = greate_battle_tartary_superregion_target
+			clr_country_flag = greate_battle_andes_superregion_target
+			clr_country_flag = greate_battle_east_indies_superregion_target
+			clr_country_flag = greate_battle_central_america_superregion_target
+			clr_country_flag = greate_battle_southern_africa_superregion_target
+			clr_country_flag = greate_battle_far_east_superregion_target
+			clr_country_flag = greate_battle_north_america_superregion_target
+		}
+	}
+	option = {
+		name = rigExpandAction.9.00
+		hidden_effect = {
+			clr_country_flag = greate_battle_carpathia_region_target
+			clr_country_flag = greate_battle_balkan_region_target
+			clr_country_flag = greate_battle_crimea_region_target
+			clr_country_flag = greate_battle_russia_region_target
+			clr_country_flag = greate_battle_scandinavia_region_target
+			clr_country_flag = greate_battle_north_german_region_target
+			clr_country_flag = greate_battle_south_german_region_target
+			clr_country_flag = greate_battle_anatolia_region_target
+			clr_country_flag = greate_battle_arabia_region_target
+			clr_country_flag = greate_battle_persia_region_target
+			clr_country_flag = greate_battle_egypt_region_target
+			clr_country_flag = greate_battle_maghreb_region_target
+			clr_country_flag = greate_battle_iberia_region_target
+			clr_country_flag = greate_battle_horn_of_africa_region_target
+			clr_country_flag = greate_battle_khorasan_region_target
+			clr_country_flag = greate_battle_europe_superregion_target
+			clr_country_flag = greate_battle_india_superregion_target
+			clr_country_flag = greate_battle_china_superregion_target
+			clr_country_flag = greate_battle_south_america_superregion_target
+			clr_country_flag = greate_battle_oceania_superregion_target
+			clr_country_flag = greate_battle_tartary_superregion_target
+			clr_country_flag = greate_battle_andes_superregion_target
+			clr_country_flag = greate_battle_east_indies_superregion_target
+			clr_country_flag = greate_battle_central_america_superregion_target
+			clr_country_flag = greate_battle_southern_africa_superregion_target
+			clr_country_flag = greate_battle_far_east_superregion_target
+			clr_country_flag = greate_battle_north_america_superregion_target
+		}
+		add_mil_power = 200
+		add_adm_power = 200
+		add_dip_power = 200
+	}
+}
+country_event = {
+	id = rigExpandAction.10
+	is_triggered_only = yes
+	title = rigExpandAction.10.name
+	desc = rigExpandAction.10.desc
+	trigger = {
+		has_country_flag = rig_start_grate_campaign_flag
+	}
+	
+	option = {
+		name = rigExpandAction.10.aa
+		add_country_modifier = {
+			name = rig_greate_war_of_riga_modifier
+			duration = 1825
+		}
+		rig_add_subject_modifier_effect = {
+			modifier = rig_greate_war_of_riga_modifier
+			days = 1825
+		}
+		if = {
+			limit = { 
+				has_country_flag = greate_battle_carpathia_region_target
+			}
+			declare_greate_war_effect = {
+				region = carpathia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_balkan_region_target
+			}
+			declare_greate_war_effect = {
+				region = balkan_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_crimea_region_target
+			}
+			declare_greate_war_effect = {
+				region = crimea_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_russia_region_target
+			}
+			declare_greate_war_effect = {
+				region = russia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_scandinavia_region_target
+			}
+			declare_greate_war_effect = {
+				region = scandinavia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_north_german_region_target
+			}
+			declare_greate_war_effect = {
+				region = north_german_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_south_german_region_target
+			}
+			declare_greate_war_effect = {
+				region = south_german_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_anatolia_region_target
+			}
+			declare_greate_war_effect = {
+				region = anatolia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_arabia_region_target
+			}
+			declare_greate_war_effect = {
+				region = arabia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_persia_region_target
+			}
+			declare_greate_war_effect = {
+				region = persia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_egypt_region_target
+			}
+			declare_greate_war_effect = {
+				region = egypt_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_maghreb_region_target
+			}
+			declare_greate_war_effect = {
+				region = maghreb_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_iberia_region_target
+			}
+			declare_greate_war_effect = {
+				region = iberia_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_horn_of_africa_region_target
+			}
+			declare_greate_war_effect = {
+				region = horn_of_africa_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_khorasan_region_target
+			}
+			declare_greate_war_effect = {
+				region = khorasan_region
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_europe_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = europe_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_india_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = india_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_china_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = china_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_south_america_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = south_america_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_oceania_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = oceania_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_tartary_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = tartary_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_andes_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = andes_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_east_indies_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = east_indies_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_central_america_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = central_america_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_southern_africa_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = southern_africa_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_far_east_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = far_east_superregion
+			}
+		}
+		else_if = {
+			limit = { 
+				has_country_flag = greate_battle_north_america_superregion_target
+			}
+			declare_greate_war_superregion_ffect = {
+				superregion = north_america_superregion
+			}
+		}
+		hidden_effect = {
+			clr_country_flag = greate_war_use_cb_greate_war_of_riga_conquer_provice
+			clr_country_flag = greate_war_use_cb_greate_war_of_riga_vassalize
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = rig_universal_declaration_flag
+					}
+				}
+				set_country_flag = rig_grate_campaign_cd_flag
+				country_event = {
+					id = rigExpandAction.11
+					days = 1825
+				}
+			}
+			clr_country_flag = rig_start_grate_campaign_flag
+			clr_country_flag = greate_war_use_cb_greate_war_of_riga_dismemberment_country
+			
+			
+			clr_country_flag = greate_battle_carpathia_region_target
+			clr_country_flag = greate_battle_balkan_region_target
+			clr_country_flag = greate_battle_crimea_region_target
+			clr_country_flag = greate_battle_russia_region_target
+			clr_country_flag = greate_battle_scandinavia_region_target
+			clr_country_flag = greate_battle_north_german_region_target
+			clr_country_flag = greate_battle_south_german_region_target
+			clr_country_flag = greate_battle_anatolia_region_target
+			clr_country_flag = greate_battle_arabia_region_target
+			clr_country_flag = greate_battle_persia_region_target
+			clr_country_flag = greate_battle_egypt_region_target
+			clr_country_flag = greate_battle_maghreb_region_target
+			clr_country_flag = greate_battle_iberia_region_target
+			clr_country_flag = greate_battle_horn_of_africa_region_target
+			clr_country_flag = greate_battle_khorasan_region_target
+			clr_country_flag = greate_battle_europe_superregion_target
+			clr_country_flag = greate_battle_india_superregion_target
+			clr_country_flag = greate_battle_china_superregion_target
+			clr_country_flag = greate_battle_south_america_superregion_target
+			clr_country_flag = greate_battle_oceania_superregion_target
+			clr_country_flag = greate_battle_tartary_superregion_target
+			clr_country_flag = greate_battle_andes_superregion_target
+			clr_country_flag = greate_battle_east_indies_superregion_target
+			clr_country_flag = greate_battle_central_america_superregion_target
+			clr_country_flag = greate_battle_southern_africa_superregion_target
+			clr_country_flag = greate_battle_far_east_superregion_target
+			clr_country_flag = greate_battle_north_america_superregion_target
+			
+		}
+		# carpathia_region = {
+
+		# }
+		# balkan_region = {
+
+		# }
+		# crimea_region = {
+
+		# }
+		# russia_region = {
+			
+		# }
+		# scandinavia_region = {
+			
+		# }
+		# north_german_region = {
+			
+		# }
+		# south_german_region = {
+			
+		# }
+		# anatolia_region = {
+			
+		# }
+		# arabia_region = {
+			
+		# }
+		# persia_region = {
+			
+		# }
+		# egypt_region = {
+			
+		# }
+		# maghreb_region = {
+			
+		# }
+		# horn_of_africa_region = {
+			
+		# }
+		# khorasan_region = {
+			
+		# }
+		# europe_superregion = {
+			
+		# }
+		# india_superregion = {
+			
+		# }
+	}
+}
+country_event = {
+	id = rigExpandAction.11
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		clr_country_flag = rig_grate_campaign_cd_flag
+	}
+
+
+	option = {}
+}
+country_event = {
+	id = rigExpandAction.20
+	is_triggered_only = yes
+	title = rigExpandAction.20.name
+	desc = rigExpandAction.20.desc
+	picture = none
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = rigExpandAction.20.aa
+	}
+}
+country_event = {
+	id = rigExpandAction.50
+	is_triggered_only = yes
+	title = rigExpandAction.50.name
+	desc = rigExpandAction.50.desc
+	picture = RELIGIOUS_TURMOIL_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		OR = {
+			AND = {
+				mission_completed = rig_treatise_on_campaigns
+				mission_completed = rig_concerning_civil_government
+			}
+			AND = {
+				tag = RIG
+				RIG = {
+					mission_completed = rig_terra_mariana
+				}
+				OR = {
+					current_age = age_of_reformation
+					current_age = age_of_absolutism
+					current_age = age_of_revolutions
+				}
+			}
+		}
+		
+	}
+
+	option = {
+		name = rigExpandAction.50.aa
+		hidden_effect = {
+			set_country_flag = begin_rig_religion_reformation
+			swap_non_generic_missions = yes
+		}
+	}
+}
+country_event = {
+	id = rigExpandAction.100
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	trigger = {
+		has_country_flag = rig_enable_automatic_investment_flag
+	}
+
+	immediate = {
+		if = {
+			limit = { 
+				adm_power = 3
+				dip_power = 3
+				mil_power = 3
+			}
+			add_adm_power = -3
+			add_dip_power = -3
+			add_mil_power = -3
+			change_variable = {
+				which = world_city_project_investment_pool
+				value = 3
+			}
+			
+		}
+		if = {
+			limit = { 
+				papal_influence = 6
+			}
+			add_papal_influence = -6
+			change_variable = {
+				which = world_city_project_investment_pool
+				value = 50
+			}
+		}
+		country_event = {
+			id = rigExpandAction.100
+			days = 30
+		}
+	}
+
+	option = {
+		
+	}
+}
+country_event = {
+	id = rigExpandAction.200
+	is_triggered_only = yes
+	title = none
+	desc = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		set_country_flag = rig_riga_begin_expand_city
+		set_variable = {
+			which = rig_riga_city_building_progress
+			value = 0		
+		}
+		if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_1
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 12
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_2
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 18
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_3
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 24
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_4
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 30
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_5
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 36
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_6
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 42
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_7
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 48
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_8
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 54
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_9
+				}
+			}
+			set_variable = {
+				which = rig_riga_city_building_total_progress
+				value = 60
+			}
+		}
+		country_event = {
+			id = rigExpandAction.201
+		}
+	}
+
+	option = {}
+}
+country_event = {
+	id = rigExpandAction.201
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+	immediate = {
+		if = {
+			limit = { 
+				check_variable = {
+					which = rig_riga_city_building_progress
+					which = rig_riga_city_building_total_progress
+				}
+			}
+			clr_country_flag = rig_riga_begin_expand_city
+			country_event = {
+				id = rigExpandAction.202
+			}
+		}
+		else = {
+			change_variable = {
+				which = rig_riga_city_building_progress
+				which = rig_riga_city_building_speed
+			}
+			set_variable = {
+				which = rig_riga_city_building_progress_per
+				which = rig_riga_city_building_progress
+			}
+			divide_variable = {
+				which = rig_riga_city_building_progress_per
+				which = rig_riga_city_building_total_progress
+			}
+			multiply_variable = {
+				which = rig_riga_city_building_progress_per
+				value = 100
+			}
+			country_event = {
+				id = rigExpandAction.201
+				days = 30
+			}
+			# if = {
+			# 	limit = { 
+			# 		check_variable = {
+			# 			which = rig_riga_city_building_progress
+			# 			which = rig_riga_city_building_total_progress
+			# 		}
+			# 	}
+			# 	clr_country_flag = rig_riga_begin_expand_city
+			# 	country_event = {
+			# 		id = rigExpandAction.202
+			# 	}
+			# }
+		}
+	}
+
+	option = {
+	}
+}
+country_event = {
+	id = rigExpandAction.202
+	is_triggered_only = yes
+	title = rigExpandAction.202.tile
+	desc = rigExpandAction.202.desc
+	picture = none
+
+	immediate = {
+		
+	}
+
+	option = {
+		name = rigExpandAction.202.aa
+		if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_1
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_1
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_2
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_2
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_2
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_3
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_3
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_3
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_4
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_4
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_4
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_5
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_5
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_5
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_6
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_6
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_6
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_7
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_7
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_7
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_8
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_8
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_8
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_9
+			}
+		}
+		else_if = {
+			limit = { 
+				38 = {
+					has_province_modifier = rig_riga_city_size_9
+				}
+			}
+			hidden_effect = {
+				38 = {
+					remove_province_triggered_modifier = rig_riga_city_size_9
+				}
+			}
+			38 = {
+				add_province_triggered_modifier = rig_riga_city_size_10
+			}
+		}
+	}
+}
+country_event = {
+	id = rigExpandAction.500
+	is_triggered_only = yes
+	title = none
+	desc = none
+	picture = none
+	hidden = yes
+
+
+	immediate = {
+		set_country_flag = rig_already_pre_for_world_city_project
+		38 = {
+			set_province_flag = rig_world_city_project_fulcrum_flag
+			save_global_event_target_as = rig_world_city_project_fulcrum_target_1
+		}
+		43 = {
+			set_province_flag = rig_world_city_project_fulcrum_flag
+			save_global_event_target_as = rig_world_city_project_fulcrum_target_2
+		}
+		272 = {
+			set_province_flag = rig_world_city_project_fulcrum_flag
+			save_global_event_target_as = rig_world_city_project_fulcrum_target_3
+		}
+		set_variable = {
+			which = world_city_project_base_develpment_speed
+			value = 60
+		}
+		set_variable = {
+			which = world_city_project_investment_pool
+			value = 10000
+		}
+		set_variable = {
+			which = world_city_project_base_develpment_cost
+			value = 100
+		}
+		set_variable = {
+			which = world_city_project_base_develpment_cost_1
+			value = 0
+		}
+		set_variable = {
+			which = world_city_project_base_develpment_cost_2
+			value = 0
+		}
+		set_variable = {
+			which = world_city_project_base_develpment_cost_3
+			value = 0
+		}
+	}
+
+	option = {
+		
+	}
+}
+country_event = {
+	id = rigExpandAction.600
+	is_triggered_only = yes
+	hidden = yes
+	title = none
+	desc = none
+	picture = none
+	fire_only_once = yes
+
+	trigger = {
+		from = {
+			tag = KNI
+		}
+	}
+
+	immediate = {
+		RIG = {
+			country_event = {
+				id = RigaExpandSupplement.10
+				days = 5
+				random = 30
+			}
+		}
+	}
+
+	option = {
+	}
+}
+country_event = {
+	id = rigExpandAction.601
+	is_triggered_only = yes
+	hidden = yes
+	title = none
+	desc = none
+	picture = none
+	fire_only_once = yes
+
+	trigger = {
+		from = {
+			tag = KTP
+		}
+	}
+
+	immediate = {
+		RIG = {
+			country_event = {
+				id = RigaExpandSupplement.11
+				days = 5
+				random = 30
+			}
+		}
+	}
+
+	option = {
+	}
+}

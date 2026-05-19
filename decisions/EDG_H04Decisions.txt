@@ -1,0 +1,730 @@
+country_decisions = {
+	EDG_H04_restore_hre = {
+		potential = {
+			has_country_flag = EDG_H04_restore_hre_flag
+		}
+		allow = {
+			is_emperor = yes
+		}
+		effect = {
+			change_tag = HLR
+			on_change_tag_effect = yes
+			hidden_effect = {
+				if = {
+					limit = { 
+						OR = {
+							tag = H04
+							was_tag = H04
+						}
+					}
+					clear_global_event_target = EDG_H04_target
+					save_global_event_target_as = EDG_H04_target
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_H04_restore_hre.effect.tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_part_of_hre = yes
+						NOT = {
+							tag = root
+						}
+					}
+					root = {
+						inherit = prev
+					}
+				}
+				clr_country_flag = EDG_H04_restore_hre_flag
+			}
+		}
+	}
+	EDG_H04_call_hre_member_join_war = {
+		potential = {
+			has_country_flag = EDG_H04_enable_hre_member_join_war_flag
+		}
+		allow = {
+			NOT = {
+				has_country_modifier = EDG_H04_call_hre_member_join_war_cooldown
+			}
+			is_at_war = yes
+			is_emperor = yes
+			imperial_influence = 50
+		}
+		effect = {
+			custom_tooltip = EDG_H04_call_hre_member_join_war.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_imperial_influence = -50
+			hidden_effect = {
+				add_country_modifier = {
+					name = EDG_H04_call_hre_member_join_war_cooldown
+					duration = 3650
+				}
+				every_country = {
+					limit = {
+						NOT = {
+							war_with = root
+						}
+						is_subject = no
+						is_part_of_hre = yes
+						NOT = {
+							tag = root
+						}
+					}
+					join_all_defensive_wars_of = root
+					join_all_offensive_wars_of = root
+				}
+			}
+		}
+	}
+	EDG_H04_enable_voc = {
+		major = yes
+		potential = {
+			OR = {
+				tag = H04
+				was_tag = H04
+			}
+			NOT = { has_country_flag = EDG_H04_enable_voc_flag }
+		}
+		allow = {
+			has_estate_privilege = estate_burghers_voc_privilege
+			num_of_owned_provinces_with = {
+				superregion = east_indies_superregion
+				value = 4
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_H04_enable_voc.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_H04_enable_voc_flag
+				every_owned_province = {
+					limit = {
+						 superregion = east_indies_superregion
+					}
+					cede_province = VOC
+					add_core = VOC
+				}
+				
+				create_subject = {
+					subject_type = commercial_enterprise
+					subject = VOC
+				}
+				VOC = {
+					change_government = republic
+					add_government_reform = trade_company_government
+					change_religion = ROOT
+					change_primary_culture = ROOT
+					add_adm_power = 100
+					add_dip_power = 100
+					add_mil_power = 100
+					add_treasury = 200
+					set_prestige_to_zero = yes
+					add_republican_tradition = 100
+					swap_free_idea_group = yes
+					adopt_technology_group_from_target = { target = root }
+				}
+				east_indies_superregion = { 
+					limit = { 	
+						NOT = { is_core = VOC } 
+						NOT = { country_or_non_sovereign_subject_holds = VOC }
+						NOT = { owned_by = VOC } 
+					}
+					add_permanent_claim = VOC 
+				}
+			}
+		}
+	}
+	EDG_H04_expand_voc = {
+		potential = {
+			VOC = {
+				is_subject_of_type_with_overlord = { who = ROOT type = commercial_enterprise }
+			}
+			NOT = {
+				east_indies_superregion = {
+					type = all
+					owned_by = VOC
+				}
+			}
+			has_estate_privilege = estate_burghers_voc_privilege
+		}
+		allow = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				has_estate_privilege = estate_burghers_voc_privilege
+			}
+			num_of_owned_provinces_with = {
+				superregion = east_indies_superregion
+				value = 1
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_H04_expand_voc.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_H04_enable_voc_flag
+				every_owned_province = {
+					limit = {
+						 superregion = east_indies_superregion
+					}
+					cede_province = VOC
+					add_core = VOC
+					if = {
+						limit = { 
+							has_global_flag = EDG_H04_enable_all_province_into_hre_flag
+						}
+						set_in_empire = yes
+					}
+				}
+			}
+			if = {
+				limit = { 
+					has_global_flag = EDG_H04_enable_all_province_into_hre_flag
+					VOC = {
+						is_part_of_hre = no
+					}
+				}
+				VOC = {
+					set_in_empire = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_H04_enable_wgc = {
+		major = yes
+		potential = {
+			OR = {
+				tag = H04
+				was_tag = H04
+			}
+			NOT = { has_country_flag = EDG_H04_enable_wgc_flag }
+		}
+		allow = {
+			has_estate_privilege = estate_EDG_wgc_privilege
+			num_of_owned_provinces_with = {
+				OR = {
+					region = guinea_region
+					superregion = southern_africa_superregion
+				}
+
+
+				value = 4
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_H04_enable_wgc.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_H04_enable_wgc_flag
+				every_owned_province = {
+					limit = {
+						OR = {
+							region = guinea_region
+							superregion = southern_africa_superregion
+						}
+					}
+					cede_province = WGC
+					add_core = WGC
+				}
+				
+				create_subject = {
+					subject_type = commercial_enterprise
+					subject = WGC
+				}
+				WGC = {
+					change_government = republic
+					add_government_reform = trade_company_government
+					change_religion = ROOT
+					change_primary_culture = ROOT
+					add_adm_power = 100
+					add_dip_power = 100
+					add_mil_power = 100
+					add_treasury = 200
+					set_prestige_to_zero = yes
+					add_republican_tradition = 100
+					swap_free_idea_group = yes
+					adopt_technology_group_from_target = { target = root }
+				}
+				southern_africa_superregion = { 
+					limit = { 	
+						NOT = { is_core = WGC } 
+						NOT = { country_or_non_sovereign_subject_holds = WGC }
+						NOT = { owned_by = WGC } 
+					}
+					add_permanent_claim = WGC 
+				}
+				guinea_region = { 
+					limit = { 	
+						NOT = { is_core = WGC } 
+						NOT = { country_or_non_sovereign_subject_holds = WGC }
+						NOT = { owned_by = WGC } 
+					}
+					add_permanent_claim = WGC 
+				}
+			}
+		}
+	}
+	EDG_H04_expand_wgc = {
+		potential = {
+			WGC = {
+				is_subject_of_type_with_overlord = { who = ROOT type = commercial_enterprise }
+			}
+			NOT = {
+				southern_africa_superregion = {
+					type = all
+					owned_by = WGC
+				}
+			}
+			has_estate_privilege = estate_EDG_wgc_privilege
+		}
+		allow = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				has_estate_privilege = estate_EDG_wgc_privilege
+			}
+			num_of_owned_provinces_with = {
+				OR = {
+					region = guinea_region
+					superregion = southern_africa_superregion
+				}
+				value = 1
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_H04_expand_wgc.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_H04_enable_wgc_flag
+				every_owned_province = {
+					limit = {
+						OR = {
+							region = guinea_region
+							superregion = southern_africa_superregion
+						}
+					}
+					cede_province = WGC
+					add_core = WGC
+					if = {
+						limit = { 
+							has_global_flag = EDG_H04_enable_all_province_into_hre_flag
+						}
+						set_in_empire = yes
+					}
+				}
+			}
+			if = {
+				limit = { 
+					has_global_flag = EDG_H04_enable_all_province_into_hre_flag
+					WGC = {
+						is_part_of_hre = no
+					}
+				}
+				WGC = {
+					set_in_empire = yes
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_H04_dissolve_electing_council = { #解散选王议会
+		potential = {
+			tag = H04
+			overlord_of = SCO
+			NOT = {
+				has_country_flag = EDG_H04_dissolve_electing_council_flag
+			}
+		}
+		allow = {
+			SCO = {
+				is_subject_of_type = personal_union
+			}
+		}
+		effect = {
+			SCO = {
+				add_government_reform = feudal_monarchy
+				add_liberty_desire = -100
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_legitimacy_or_mil_power = { amount = 10 }
+			hidden_effect = {
+				set_country_flag = EDG_H04_dissolve_electing_council_flag
+			}
+		}
+	}
+	EDG_H04_expand_religion_france = { #向法兰西地区派遣传教士
+		major = yes
+		potential = {
+			has_country_flag = EDG_H04_mission_expand_1_33_flag
+			OR = {
+				religion = reformed
+				religion = EDG_Euchites
+			}
+			NOT = {
+				has_country_flag = EDG_H04_expand_religion_france_flag
+			}
+		}
+		provinces_to_highlight = {
+			region = france_region
+		}
+		allow = {
+			fervor = 50
+		}
+		effect = {
+			custom_tooltip = EDG_H04_expand_religion_france.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_fervor = -50
+			hidden_effect = {
+				set_country_flag = EDG_H04_expand_religion_france_flag
+				random_province = {
+					limit = {
+						religion_group = christian
+						region = france_region
+						owner = {
+							NOT = {
+								any_owned_province = {
+									is_reformation_center = yes
+								}
+							}
+						}
+					}
+					change_religion = root
+					if = {
+						limit = { 
+							root = {
+								religion = reformed
+							}
+						}
+						add_reform_center = reformed
+					}
+					if = {
+						limit = { 
+							root = {
+								religion = EDG_Euchites
+							}
+						}
+						add_reform_center = EDG_Euchites
+						custom_tooltip = EDG_add_reform_center_EDG_Euchites_tooltip
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_H04_expand_religion_iberia = { #向伊比利亚地区派遣传教士
+		major = yes
+		potential = {
+			has_country_flag = EDG_H04_mission_expand_1_33_flag
+			OR = {
+				religion = reformed
+				religion = EDG_Euchites
+			}
+			NOT = {
+				has_country_flag = EDG_H04_expand_religion_iberia_flag
+			}
+		}
+		provinces_to_highlight = {
+			region = iberia_region
+		}
+		allow = {
+			fervor = 50
+		}
+		effect = {
+			custom_tooltip = EDG_H04_expand_religion_iberia.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_fervor = -50
+			hidden_effect = {
+				set_country_flag = EDG_H04_expand_religion_iberia_flag
+				random_province = {
+					limit = {
+						religion_group = christian
+						region = iberia_region
+						owner = {
+							NOT = {
+								any_owned_province = {
+									is_reformation_center = yes
+								}
+							}
+						}
+					}
+					change_religion = root
+					if = {
+						limit = { 
+							root = {
+								religion = reformed
+							}
+						}
+						add_reform_center = reformed
+					}
+					if = {
+						limit = { 
+							root = {
+								religion = EDG_Euchites
+							}
+						}
+						add_reform_center = EDG_Euchites
+						custom_tooltip = EDG_add_reform_center_EDG_Euchites_tooltip
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_H04_expand_religion_italy = { #向意大利地区派遣传教士
+		major = yes
+		potential = {
+			has_country_flag = EDG_H04_mission_expand_1_33_flag
+			OR = {
+				religion = reformed
+				religion = EDG_Euchites
+			}
+			NOT = {
+				has_country_flag = EDG_H04_expand_religion_italy_flag
+			}
+		}
+		provinces_to_highlight = {
+			region = italy_region
+		}
+		allow = {
+			fervor = 50
+		}
+		effect = {
+			custom_tooltip = EDG_H04_expand_religion_italy.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_fervor = -50
+			hidden_effect = {
+				set_country_flag = EDG_H04_expand_religion_italy_flag
+				random_province = {
+					limit = {
+						religion_group = christian
+						region = italy_region
+						owner = {
+							NOT = {
+								any_owned_province = {
+									is_reformation_center = yes
+								}
+							}
+						}
+					}
+					change_religion = root
+					if = {
+						limit = { 
+							root = {
+								religion = reformed
+							}
+						}
+						add_reform_center = reformed
+					}
+					if = {
+						limit = { 
+							root = {
+								religion = EDG_Euchites
+							}
+						}
+						add_reform_center = EDG_Euchites
+						custom_tooltip = EDG_add_reform_center_EDG_Euchites_tooltip
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_H04_begin_religion_war = {
+		major = yes
+		potential = {
+			has_country_flag = EDG_H04_begin_religion_war_flag
+			hre_leagues_enabled = yes
+		}
+		allow = {
+			OR = {
+				religion = reformed
+				religion = EDG_Euchites
+			}
+			is_emperor = no
+			in_league = protestant
+			NOT = {
+				truce_with = emperor
+			}
+		}
+		effect = {
+			declare_war_with_cb = {
+				casus_belli = cb_religious_league
+				who = emperor
+			}
+			custom_tooltip = EDG_H04_begin_religion_war.effect.tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						in_league = protestant
+					}
+					join_all_offensive_wars_of = root
+				}
+				every_country = {
+					limit = {
+						in_league = catholic
+					}
+					join_all_defensive_wars_of = root
+				}
+			}
+			hidden_effect = {
+				clr_country_flag = EDG_H04_begin_religion_war_flag
+			}
+		}
+		
+	}
+	EDG_convert_to_euchites = {
+		major = yes
+		potential = {
+			NOT = {
+				religion = EDG_Euchites
+			}
+			has_global_flag = EDG_H04_can_be_euchites_flag
+			religion = catholic
+			NOT = {
+				tag = PAP
+			}
+			is_emperor = no
+			any_owned_province = {
+				religion = EDG_Euchites
+			}
+			religion = catholic
+			is_lesser_in_union = no
+		}
+		allow = {
+			dominant_religion = EDG_Euchites
+		}
+		effect = {
+			add_reform_desire = 0.025
+			change_religion = EDG_Euchites
+			hidden_effect = {
+				add_prestige = 100
+				if = {
+					limit = { 
+						has_global_flag = EDG_H04_enable_euchites_all_be_friend_flag
+					}
+				}
+				every_country = {
+					limit = {
+						religion = EDG_Euchites
+					}
+					add_historical_friend = root
+					root = {
+						add_historical_friend = prev
+					}
+				}
+			}
+			remove_country_modifier = counter_reformation
+			remove_country_modifier = the_statue_in_restraint_of_appeals
+			remove_country_modifier = revocation_of_restraint_of_appeals
+			remove_country_modifier = bavarian_jesuits
+			remove_country_modifier = the_societas_jesu
+			remove_country_modifier = the_declaration_of_indulgence
+			remove_country_modifier = de_heretico_comburendo
+			remove_country_modifier = the_conventicle_act
+			add_country_modifier = {
+				name = "conversion_zeal"
+				duration = 3650
+			}
+			every_known_country = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_demote_pope
+					}
+				}
+				reverse_remove_opinion = {
+					who = ROOT
+					modifier = opinion_demote_pope
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_H04_call_allian = {
+		potential = {
+			OR = {
+				tag = H04
+				was_tag = H04
+			}
+			mission_completed = EDG_H04_mission_5_10
+		}
+		allow = {
+			is_at_war = yes
+			NOT = {
+				has_country_modifier = EDG_H04_call_hre_member_join_war_cooldown
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_H04_call_allian.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_H04_call_hre_member_join_war_cooldown
+				duration = 3650
+			}
+			hidden_effect = {
+				every_ally = {
+					limit = {
+						owes_favors = {
+							who = root
+							value = 10
+						}
+					}
+					add_favors = {
+						who = root
+						amount = -10
+					}
+					join_all_defensive_wars_of = root
+					join_all_offensive_wars_of = root
+					if = {
+						limit = {
+							is_at_war = yes
+						}
+						add_country_modifier = {
+							name = EDG_H04_at_one_fling
+							duration = 3650
+						}
+					}
+				}
+			}
+		}
+	}
+	EDG_H04_all_province_for_hre = {
+		major = yes
+		potential = {
+			mission_completed = EDG_H04_mission_3_17
+		}
+		allow = {
+			any_owned_province = {
+				NOT = {
+					is_part_of_hre = yes
+				}
+			}
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						is_part_of_hre = yes
+					}
+				}
+				set_in_empire = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

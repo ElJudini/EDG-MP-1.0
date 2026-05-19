@@ -1,0 +1,2997 @@
+#SB八哥让我写注释，SB八哥
+
+
+#可能的情况下加君主特质，否则加一个同名君主修正。
+#以下是有对应特质效果的。
+#patron_of_arts_personality 艺术赞助者
+#fu_papal_puppetmaster_personality 教宗的爹
+#great_engineer_personality 伟大工程师
+#legendary_conqueror_personality 伟大征服者
+#
+NYAB_add_ruler_personality = {
+	if = {
+		limit = {
+			NOT = {
+				num_of_ruler_traits = {
+					amount = 3
+				}
+			}
+		}
+		add_ruler_personality = $personality$ 
+	}
+	else = {
+		add_ruler_modifier = {
+			name = $personality$_modifier
+		}
+	}
+}
+#给某个tag移除对ROOT的xx观点修正，变量 tag modifier
+NYAB_remove_subject_opinion_effect = {
+	if = {
+		limit = {
+			$tag$ = {
+				has_opinion_modifier = {
+					who = ROOT
+					modifier = $modifier$
+				}
+			}
+		}
+		$tag$ = {
+			remove_opinion = {
+				who = ROOT
+				modifier = $modifier$
+			}
+		}
+	}
+}
+#作为奖励，移除附庸对你的附庸观点修正和ae修正
+NYAB_remove_subject_opinion_as_reward_effect = {
+	if = {
+		limit = {
+			overlord_of = $tag$
+		}
+		NYAB_remove_subject_opinion_effect = {
+			tag = $tag$
+			modifier = aggressive_expansion
+		}
+		NYAB_remove_subject_opinion_effect = {
+			tag = $tag$
+			modifier = they_force_vassalized_us
+		}
+		NYAB_remove_subject_opinion_effect = {
+			tag = $tag$
+			modifier = they_force_unioned_us
+		}
+		NYAB_remove_subject_opinion_effect = {
+			tag = $tag$
+			modifier = they_forced_tributary
+		}
+	}
+}
+NYAB_allow_colony_or_derectly_control_new_world_effect = {
+	custom_tooltip = NYAB_allow_colony_or_derectly_control_new_world_tt
+	set_country_flag = NYAB_allow_colony_or_derectly_control_new_world_flag
+}
+		
+#返还统一CB加核心的时代能力
+NYAB_half_unite_china_cost_age_ability_effect = {
+	custom_tooltip = NYAB_half_unite_china_cost_age_ability_effect_tt
+	hidden_effect = {
+		set_country_flag = NYAB_half_unite_china_cost_age_ability_flag
+	}
+}
+#加全球霸权理念
+NYAB_add_globaldomination_idea = {
+	if = {
+		limit = {
+			NOT = {
+				has_idea_group = globaldomination_ideas
+			}
+		}
+		add_idea_group = globaldomination_ideas
+	}
+	else = {
+		NYAB_add_mana_scaled_on_monarch_skill = yes
+	}
+}
+#降低霸权要求
+NYAB_reduce_hegemons_xuqie_effect = {
+	custom_tooltip = NYAB_reduce_hegemons_xuqie_effect_tt
+	hidden_effect = {
+		set_country_flag = halve_hegemony_requirements 
+	}
+}
+#额外赋予3牧首权威，当设立时
+NYAB_extra_patriarch_when_consecrate_effect = {
+	custom_tooltip = NYAB_extra_patriarch_when_consecrate_tt
+	hidden_effect = {
+		set_country_flag = NYAB_extra_patriarch_when_consecrate_flag
+	}
+}
+#移除草原地形惩罚
+NYAB_remove_steppe_terrain_debuff_effect = {
+	custom_tooltip = NYAB_remove_steppe_terrain_debuff_tt
+	hidden_effect = {
+		set_country_flag = NYAB_remove_steppe_terrain_debuff_flag
+		every_owned_province = {
+			limit = {
+				has_terrain = steppe
+			}
+			add_province_modifier = {
+				name = NYAB_remove_steppe_terrain_debuff_modfiier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+}
+#提升发展度时20%概率额外1点
+NYAB_enable_supplemental_development_effect = {
+	custom_tooltip = NYAB_enable_supplemental_development_tt
+	hidden_effect = {
+		set_country_flag = enable_supplemental_development_flag
+	}
+}
+#允许使用「§Y圣罗斯提斯拉夫圣像§!」
+NYAB_enable_slavic_icon_effect = {
+	custom_tooltip = NYAB_enable_slavic_icon_tt
+	hidden_effect = {
+		set_country_flag = NYAB_enable_slavic_icon_flag
+	}
+}
+
+#烧地获得5教会力量
+NYAB_burN_city_give_church_power = {
+	custom_tooltip = NYAB_burN_city_give_church_power_tt
+	hidden_effect = {
+		set_country_flag = NYAB_burN_city_give_church_power_flag
+	}
+}
+#烧地摧毁教堂并获得50%返还
+NYAB_raze_diff_religion_burn_church_effect = {
+	custom_tooltip = NYAB_raze_diff_religion_burn_church_tt
+	hidden_effect = {
+		set_country_flag = NYAB_raze_diff_religion_burn_church_flag
+	}
+}
+#烧地99%概率返还1基础税收
+NYAB_raze_prov_reduce_1_base_tax_lost_effect = {
+	custom_tooltip = NYAB_raze_prov_rudesc_1_base_tax_lost_tt
+	hidden_effect = {
+		set_country_flag = NYAB_raze_prov_rudesc_1_base_tax_lost_flag
+	}
+}
+#烧地减0.05厌战
+NYAB_raze_prov_reduce_war_exhaustion_effect = {
+	custom_tooltip = NYAB_raze_prov_reduce_war_exhaustion_tt
+	hidden_effect = {
+		set_country_flag = NYAB_raze_prov_reduce_war_exhaustion_flag
+	}
+}
+#烧地减2.5分离主义
+NYAB_raze_prov_reduce_nationlism_effect = {
+	custom_tooltip = NYAB_raze_prov_reduce_nationlism_tt
+	hidden_effect = {
+		set_country_flag = NYAB_raze_prov_reduce_nationlism_flag
+	}
+}
+
+#战斗胜利-0.05厌战
+NYAB_NYAB_battle_win_reduce_war_exhaustion_effect = {
+	custom_tooltip = NYAB_battle_win_reduce_war_exhaustion_tt
+	hidden_effect = {
+		set_country_flag = NYAB_battle_win_reduce_war_exhaustion_flag
+	}
+}
+
+#启用贸易传教
+NYAB_enbale_religion_trade_effect = {
+	custom_tooltip = can_use_propagate_religion_tt
+	custom_tooltip = " "
+	hidden_effect = {
+		set_country_flag = can_use_propagate_religion
+	}
+}
+#启用统一罗斯cb
+NYAB_unlock_unite_RUS_cb = {
+	custom_tooltip = NYAB_unlock_unite_RUS_cb_cb_tt
+	hidden_effect = {
+		set_country_flag = NYAB_unlock_unite_RUS_cb_flag
+	}
+}
+#启用清除异端cb
+NYAB_allow_war_against_heresy_cb = {
+	custom_tooltip = NYAB_allow_war_against_heresy_cb_tt
+	hidden_effect = {
+		set_country_flag = war_against_heresy_flag
+	}
+}
+#启用统一巴尔干cb
+NYAB_allow_unite_balkan_cb = {
+	custom_tooltip = NYAB_allow_unite_balkan_cb_tt
+	hidden_effect = {
+		set_country_flag = enable_unite_balkans_cb_flag
+	}
+}
+
+#加君主能力，溢出了加点数
+NYAB_change_ruler_stat = {
+    tooltip = {
+        change_$stat$ = $amount$
+    }
+    custom_tooltip = ADD_STAT_OR_POWER_$stat$
+    hidden_effect = {
+		set_variable = {
+			which = ForLoopCounter
+			value = $amount$
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = ForLoopCounter
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					NOT = { $stat$ = 6 }
+				}
+				change_$stat$ = 1
+			}
+			else = {
+				add_$stat$_power = 100
+			}
+			subtract_variable = {
+				which = ForLoopCounter
+				value = 1
+			}
+		}
+    }
+}
+
+
+#随机获得1点发展度
+NYAB_add_random_1_dev = {
+	random_list = {
+		1 = {
+			add_base_tax = 1
+		}
+		1 = {
+			add_base_production = 1
+		}
+		1 = {
+			add_base_manpower = 1
+		}
+	}
+}
+#升级道路，如果科技允许
+NYAB_level_uo_road_if_tech_allow = {
+	if = {
+		limit = {
+			owner = {
+				adm_tech = 30
+			}
+		}
+		add_building = rail_road
+	}
+	else_if = {
+		limit = { 
+			owner = {
+				adm_tech = 23
+			}
+		}
+		add_building = macadam_road
+	}
+	else_if = {
+		limit = { 
+			owner = {
+				adm_tech = 18
+			}
+		}
+		add_building = royal_road
+	}
+	else_if = {
+		limit = { 
+			owner = {
+				adm_tech = 10
+			}
+		}
+		add_building = gravel_road
+	}
+	else = {
+		add_building = early_road
+	}
+}
+#升级或者加一个教堂建筑
+NYAB_level_up_temple = {
+	if = {
+		limit = {
+			NOT = {
+				has_building = cathedral
+			}
+			has_building = temple
+		}
+		add_building = cathedral
+	}
+	else_if = {
+		limit = { 
+			has_building = cathedral
+		}
+		add_base_tax = 2
+	}
+	else = {
+		add_building = temple
+	}
+}
+#升级或者加一个集市建筑
+NYAB_level_up_marketplace = {
+	if = {
+		limit = { has_building = stock_exchange }
+		add_base_production = 2
+	}
+	else_if = {
+		limit = { has_building = trade_depot }
+		add_building = stock_exchange
+	}
+	else_if = {
+		limit = { has_building = marketplace }
+		add_building = trade_depot
+	}
+	else = {
+		add_building = marketplace 
+	}
+}
+#升级或者加一个市政厅建筑
+NYAB_level_up_courthous = {
+	if = {
+		limit = { has_building = courthouse }
+		add_building = town_hall
+	}
+	else_if = {
+		limit = { 
+			has_building = town_hall
+		}
+		add_base_tax = 2
+	}
+	else = {
+		add_building = courthouse
+	}
+}
+#升级或者加一个工坊建筑
+NYAB_level_up_workshop = {
+	if = {
+		limit = { has_building = workshop }
+		add_building = counting_house
+	}
+	else_if = {
+		limit = { 
+			has_building = counting_house
+		}
+		add_base_production = 2
+	}
+	else = {
+		add_building = workshop
+	}
+}
+#升级或者加一个兵营建筑
+NYAB_level_up_barracks = {
+	if = {
+		limit = { has_building = barracks }
+		add_building = training_fields
+	}
+	else_if = {
+		limit = { 
+			has_building = training_fields
+		}
+		add_base_manpower = 2
+	}
+	else = {
+		add_building = barracks
+	}
+}
+#升级或者加一个造船厂
+NYAB_level_up_shipyard = {
+	if = {
+		limit = { has_building = shipyard  }
+		add_building = grand_shipyard 
+	}
+	else_if = {
+		limit = { 
+			has_building = grand_shipyard 
+		}
+		add_base_manpower = 2
+	}
+	else = {
+		add_building = shipyard 
+	}
+}
+#升级或者加一个造船厂
+NYAB_level_up_dock = {
+	if = {
+		limit = { has_building = dock  }
+		add_building = drydock 
+	}
+	else_if = {
+		limit = { 
+			has_building = drydock 
+		}
+		add_base_tax = 2
+	}
+	else = {
+		add_building = dock 
+	}
+}
+#加热情点数，溢出的变adm，变量 amount
+#例子 ： NYAB_add_fervor_or_power = { amount = 25 }
+NYAB_add_fervor_or_power = {
+	tooltip = {
+		add_fervor = $amount$
+	}
+	custom_tooltip = NYAB_add_fervor_or_power_tt
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { fervor = 100 }
+					}
+					add_fervor = 1
+				}
+				else = {
+					add_mil_power = 1
+				}
+			"
+		}
+	}
+}
+#加牧首权威，溢出的变adm，变量 amount
+NYAB_add_patriarch_authority_or_power = {
+	tooltip = {
+		add_patriarch_authority = $amount$
+	}
+	custom_tooltip = NYAB_add_patriarch_authority_tt
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { patriarch_authority = 1 }
+					}
+					add_patriarch_authority = 0.01
+				}
+				else = {
+					add_adm_power = 1
+				}
+			"
+		}
+	}
+}
+#加融合宗教，变量 religion或者religion_group
+NYAB_add_harmonizd_religion_effect = {
+	tooltip = {
+		add_harmonized_religion = $religion$
+	}
+	custom_tooltip = NYAB_add_harmonizd_religion_effect_tt
+	hidden_effect = {
+		if = {
+			limit = {
+				[[religion_group]
+				NOT = {
+					OR = {
+						is_harmonizing_with = $religion_group$
+						has_harmonized_with = $religion_group$
+					}
+				}
+				]
+				[[no_religion_group]
+				NOT = {
+					OR = {
+						is_harmonizing_with = $religion$
+						has_harmonized_with = $religion$
+					}
+				}
+				]
+			}
+			add_harmonized_religion = $religion$
+		}
+		else = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		}
+		
+	}
+}
+#加和谐度或者3点数，变量 amount
+NYAB_add_harmony_or_power = {
+	tooltip = {
+		add_harmony = $amount$
+	}
+	custom_tooltip = NYAB_add_harmony_or_power_tt
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { harmony = 100 }
+					}
+					add_harmony = 1
+				}
+				else = {
+					add_mil_power = 1
+					add_adm_power = 1
+					add_dip_power = 1
+				}
+			"
+		}
+	}
+}
+#加教会力量或者随机点数
+NYAB_add_church_power_or_power = {
+	tooltip = {
+		add_church_power = $amount$
+	}
+	custom_tooltip = NYAB_add_church_power_or_power_tt
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { church_power = 200 }
+					}
+					add_church_power = 1
+				}
+				else = {
+					random_list = {
+						1 = {
+							add_mil_power = 1
+						}
+						1 = {
+							add_adm_power = 1
+						}
+						1 = {
+							add_dip_power = 1
+						}
+					}
+				}
+			"
+		}
+	}
+}
+#加天命或者5个3点数，变量 amount
+NYAB_add_mandate_or_power = {
+	if = {
+		limit = {
+			is_emperor_of_china = yes
+		}
+		tooltip = {
+			add_mandate = $amount$
+		}
+		custom_tooltip = NYAB_add_mandate_or_power_tt
+	}
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { imperial_mandate = 100 }
+					}
+					add_mandate = 1
+				}
+				else = {
+					add_mil_power = 5
+					add_adm_power = 5
+					add_dip_power = 5
+				}
+			"
+		}
+	}
+}
+#解锁某个奇观，现在内容很少，自己看。
+NYAB_unlock_great_project_effect = {
+	custom_tooltip = NYAB_unlock_$great_project$_effect_tt
+	hidden_effect = {
+		set_country_flag = NYAB_allow_$great_project$_flag
+	}
+	#拼音，目前有suyishi苏伊士，圣火庙shenghuomiao，迦太基jiataiji，顺化皇城shunhua
+}
+#让某个国家和ROOT政体一致。
+NYAB_change_goverment_to_ROOT_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				ROOT = {
+					government = monarchy
+				}
+			}
+			change_government = monarchy
+		}
+		if = {
+			limit = {
+				ROOT = {
+					government = republic
+				}
+			}
+			change_government = republic
+		}
+		if = {
+			limit = {
+				ROOT = {
+					government = theocracy
+				}
+			}
+			change_government = theocracy
+		}
+		if = {
+			limit = {
+				ROOT = {
+					government = tribal
+				}
+			}
+			change_government = tribal
+		}
+
+	}
+}
+#清空厌战度
+NYAB_clear_war_yanzhan_effect = {
+	custom_tooltip = NYAB_clear_war_yanzhan_tt
+	hidden_effect = {
+		add_war_exhaustion = -100
+	}
+}
+#加陆军传统，溢出的mil。变量 amount
+NYAB_add_army_tradition_or_mil_power = {
+	tooltip = {
+		add_army_tradition = $amount$
+	}
+	custom_tooltip = NYAB_add_army_tradition_or_mil_power_tt
+	hidden_effect = {
+		for = {
+			amount = $amount$
+			effect = "
+				if = {
+					limit = {
+						NOT = { army_tradition = 99.9 }
+					}
+					add_army_tradition = 1
+				}
+				else = {
+					add_mil_power = 1
+				}
+			"
+		}
+	}
+}
+#升级要塞或者加一个2级要塞
+NYAB_level_up_fort_effect = {
+	if = {
+		limit = {
+			has_building = fort_15th
+		}
+		add_building = fort_16th
+	}
+	else_if = {
+		limit = {
+			has_building = fort_16th
+		}
+		add_building = fort_17th
+	}
+	else_if = {
+		limit = {
+			has_building = fort_17th
+		}
+		add_building = fort_18th
+	}
+	else_if = {
+		limit = {
+			has_building = fort_18th
+		}
+		add_base_manpower = 3
+	}
+	else = {
+		add_building = fort_15th
+	}
+}
+#根据君主点数加点数，每1点加20点
+NYAB_add_mana_scaled_on_monarch_skill = {
+	if = {
+		limit = { ADM = 6 }
+		add_adm_power = 120
+	}
+	else_if = {
+		limit = { ADM = 5 }
+		add_adm_power = 100
+	}
+	else_if = {
+		limit = { ADM = 4 }
+		add_adm_power = 80
+	}
+	else_if = {
+		limit = { ADM = 3 }
+		add_adm_power = 60
+	}
+	else_if = {
+		limit = { ADM = 2 }
+		add_adm_power = 40
+	}
+	else = {
+		add_adm_power = 20
+	}
+	if = {
+		limit = { DIP = 6 }
+		add_dip_power = 120
+	}
+	else_if = {
+		limit = { DIP = 5 }
+		add_dip_power = 100
+	}
+	else_if = {
+		limit = { DIP = 4 }
+		add_dip_power = 80
+	}
+	else_if = {
+		limit = { DIP = 3 }
+		add_dip_power = 60
+	}
+	else_if = {
+		limit = { DIP = 2 }
+		add_dip_power = 40
+	}
+	else = {
+		add_dip_power = 20
+	}
+	if = {
+		limit = { MIL = 6 }
+		add_mil_power = 120
+	}
+	else_if = {
+		limit = { MIL = 5 }
+		add_mil_power = 100
+	}
+	else_if = {
+		limit = { MIL = 4 }
+		add_mil_power = 80
+	}
+	else_if = {
+		limit = { MIL = 3 }
+		add_mil_power = 60
+	}
+	else_if = {
+		limit = { MIL = 2 }
+		add_mil_power = 40
+	}
+	else = {
+		add_mil_power = 20
+	}
+}
+#加核心，别用，有bug，懒得改。
+NYAB_add_core_effect = {
+	hidden_effect = {
+		if = {
+			limit = {
+				owner = {
+					is_subject_of = ROOT
+				}
+				is_core = owner
+			}
+			add_core = PREV
+			remove_core = owner
+		}
+	}
+}
+#释放一个国家。变量 tag
+NYAB_release_a_country_effect = {
+	if = {
+		limit = {
+			NOT = {
+				exists = $tag$
+			}
+			any_owned_province = {
+				is_core = $tag$
+			}
+		}
+		release = $tag$
+		$tag$ = {
+			hidden_effect = {
+				capital_scope = {
+					$tag$ = {
+						change_religion = PREV
+					}
+				}
+			}
+			NYAB_country_start_effect = yes
+		}
+	}
+}
+#释放一个国家作为附庸。变量 tag
+NYAB_release_a_country_as_subject_effect = {
+	if = {
+		limit = {
+			NOT = {
+				exists = $tag$
+			}
+			any_owned_province = {
+				is_core = $tag$
+			}
+		}
+		release = $tag$
+		create_subject = {
+			subject_type = vassal
+			subject = $tag$
+		}
+		$tag$ = {
+			capital_scope = {
+				hidden_effect = {
+					$tag$ = {
+						change_religion = PREV
+					}
+				}
+			}
+			NYAB_country_start_effect = yes
+		}
+	}
+}
+#放一个八哥的骑士团附庸
+NYAB_create_a_knights_subject = {
+	hidden_effect = {
+		change_government = theocracy
+		add_government_reform = NSABE_PAPKnights_reform 
+		add_historical_friend = ROOT
+		change_religion = ROOT
+	}
+	ROOT = {
+		hidden_effect = {
+			add_historical_friend = PREV
+		}
+		create_subject = {
+			subject_type = NSABE_Knights_subject
+			subject = PREV
+		}
+	}
+	hidden_effect = {
+		NYAB_country_start_effect =  yes
+	}
+}
+NYAB_RIG_set_a_zhujiaoqu_effect = {
+	custom_tooltip = NYAB_RIG_if_NOT_your_religion_tt
+	if = {
+		limit = {
+			NOT = {
+				religion = ROOT
+			}
+		}
+		nationalist_rebels = 2
+	}
+	if = {
+		limit = {
+			NYAB_has_temple_building = no
+		}
+		add_building = temple
+	}
+
+}
+#给一个国家的附庸cb，变量 tag 和 MONTH，国家和时间。
+NYAB_subject_cb_effect = {
+	if = {
+		limit = {
+			$tag$ = {
+				OR = {
+					is_subject = no
+					is_subject_of_type = tributary_state
+				}
+				exists = yes
+			}
+		}
+		add_casus_belli = {
+			target = $tag$
+			months = $MONTH$
+			type = cb_vassalize_mission
+		}
+	}
+}
+NYAB_culture_integrate_effect = {
+	hidden_effect = {
+		every_province = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture = $OLD$
+			}
+			change_culture = $NEW$
+		}
+		every_country = {
+			limit = {
+				culture = $OLD$
+			}
+			change_primary_culture = $NEW$
+		}
+	}
+}
+#让某个国家科技与你一致
+NYAB_tech_follow_me_effect = {
+	hidden_effect = {
+		while = {
+			limit = { 
+				NOT = {
+					adm_tech = ROOT
+				}
+			}
+			add_adm_tech = 1
+		}
+		while = {
+			limit = { 
+				NOT = {
+					dip_tech = ROOT
+				}
+			}
+			add_dip_tech = 1
+		}
+		while = {
+			limit = { 
+				NOT = {
+					mil_tech = ROOT
+				}
+			}
+			add_mil_tech = 1
+		}
+	}
+}
+#开局基础的钱和人力，给新国家用的。不然一个新国家只有50块和1k人。
+NYAB_country_start_effect = {
+	hidden_effect = {
+		capital_scope = {
+			build_to_forcelimit = {
+				infantry = 0.8
+				cavalry = 0.2
+			}
+		}
+		create_general = {
+			tradition = 50
+		}
+		add_adm_power = 100
+		add_mil_power = 100
+		add_dip_power = 100
+		add_treasury = 100
+		add_manpower = 10
+		random_owned_province = {
+			limit = {
+				has_port = yes
+			}
+			build_to_forcelimit = {
+				transport = 0.6
+				galley = 0.2
+				light_ship = 0.1
+			}
+		}
+		NYAB_tech_follow_me_effect = yes
+		while = {
+			limit = {
+				crown_land_share = 36
+				has_estate = yes
+			}
+			change_estate_land_share = {
+				estate = all
+				share = 1
+			}
+		}
+	}
+}
+#设立到1级中心，不然就+1级，不会加到3级
+NYAB_set_COT_l1_effect = {
+	if = {
+		limit = {
+			NOT = {
+				province_has_center_of_trade_of_level = 1
+			}
+		}
+		center_of_trade = 1
+	}
+	else = {
+		NYAB_add_center_of_trade_level1_effect = yes
+	}
+}
+#设立到2级中心，不然就+1级，会加到3级
+NYAB_set_COT_l2_effect = {
+	if = {
+		limit = {
+			NOT = {
+				province_has_center_of_trade_of_level = 1
+			}
+		}
+		center_of_trade = 2
+	}
+	else = {
+		NYAB_add_center_of_trade_level2_effect = yes
+	}
+}
+#加1级贸易中心。不会加到3级。
+NYAB_add_center_of_trade_level1_effect = {
+	if = {
+		limit = {
+			NOT = {
+				province_has_center_of_trade_of_level = 2
+			}
+			province_has_center_of_trade_of_level = 1
+		}
+		add_center_of_trade_level = 1
+	}
+	else = {
+		add_base_production = 1
+	}
+}
+#加1级贸易中心，会加到3级。
+NYAB_add_center_of_trade_level2_effect = {
+	if = {
+		limit = {
+			NOT = {
+				province_has_center_of_trade_of_level = 3
+			}
+			province_has_center_of_trade_of_level = 1
+		}
+		add_center_of_trade_level = 1
+	}
+	else = {
+		add_base_production = 2
+	}
+}
+#模拟游牧烧地的效果！
+NYAB_burn_city_effect = {
+	set_country_flag = NYAB_burn_city_money_flag_$dev_type$
+	if = {
+		limit = {
+			base_$dev_type$ = 20
+		}
+		add_base_$dev_type$ = -7
+		owner = {
+			add_$power_type$_power = 70
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 17
+		}
+		add_base_$dev_type$ = -6
+		owner = {
+			add_$power_type$_power = 60
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 14
+		}
+		add_base_$dev_type$ = -5
+		owner = {
+			add_$power_type$_power = 50
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 11
+		}
+		add_base_$dev_type$ = -4
+		owner = {
+			add_$power_type$_power = 40
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 8
+		}
+		add_base_$dev_type$ = -3
+		owner = {
+			add_$power_type$_power = 30
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 5
+		}
+		add_base_$dev_type$ = -2
+		owner = {
+			add_$power_type$_power = 20
+		}
+	}
+	else_if = {
+		limit = {
+			base_$dev_type$ = 2
+		}
+		add_base_$dev_type$ = -1
+		owner = {
+			add_$power_type$_power = 10
+		}
+	}
+	clr_country_flag = NYAB_burn_city_money_flag_$dev_type$
+}
+NYAB_KSA_burn_city_effect = {
+	if = {
+		limit = {
+			development = 4
+		}
+		add_devastation = 25
+	}
+	if = {
+		limit = {
+			base_tax = 2
+		}
+		NYAB_burn_city_effect = {
+			dev_type = tax
+			power_type = adm
+		}
+	}
+	if = {
+		limit = {
+			base_production = 2
+		}
+		NYAB_burn_city_effect = {
+			dev_type = production
+			power_type = dip
+		}
+	}
+	if = {
+		limit = {
+			base_manpower = 2
+		}
+		NYAB_burn_city_effect = {
+			dev_type = manpower
+			power_type = mil
+		}
+	}
+}
+#英格兰的接纳德意志文化
+NYAB_ENG_accepted_german_culture_effect = {
+	hidden_effect = {
+		random_list = {
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = swabian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = swabian
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = hannoverian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = hannoverian
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = hessian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = hessian
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = franconian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = franconian
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = swiss
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = swiss
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = bavarian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = bavarian
+						}
+					}
+				}
+			}
+			100 = {
+				add_accepted_culture_or_dip_power = {
+					culture = austrian
+				}
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture = austrian
+						}
+					}
+				}
+			}
+			1 = {
+				add_adm_power = 100
+				modifier = {
+					factor = 0
+					NOT = {
+						any_owned_province = {
+							culture_group = germanic
+						}
+					}
+				}
+			}
+		}
+	}
+}
+#英格兰移除升级的修正
+NYAB_ENG_remove_modifier = {
+	hidden_effect = {
+		remove_country_modifier = NYAB_ENG_king_of_britain_modifier
+		remove_country_modifier = NYAB_ENG_rule_sea_and_land_modifier
+		remove_country_modifier = NYAB_ENG_netherland_friend_modifier
+		remove_country_modifier = NYAB_ENG_roma_city_modifier
+		remove_country_modifier = NYAB_ENG_yelusaleng_modifier
+		remove_country_modifier = NYAB_ENG_east_afica_modifier
+		remove_country_modifier = NYAB_ENG_india2_modifier
+		remove_country_modifier = NYAB_ENG_spice_wockshop_modifier
+		remove_country_modifier = NYAB_ENG_the_sun_never_down_modifier
+	}
+}
+#试图高亮这里（）（）（）（）（）
+#onaction里面用来给新获得的省份加buff。（常用）
+NYAB_on_province_owner_change_update_modifiers_effect = {
+	#奥斯曼
+	NYAB_ottoman_trade_city_for_on_action2 = yes
+	#英格兰
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_ENG_rule_france
+			}
+			region = france_region
+			NOT = {
+				has_province_modifier = NYAB_ENG_rule_france_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_ENG_rule_france_modifier_prov
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_ENG_italy_ambition
+			}
+			region = italy_region
+			NOT = {
+				has_province_modifier = NYAB_ENG_italy_ambition_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_ENG_italy_ambition_modifier_prov
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_ENG_indochina
+			}
+			region = indo_china_region
+			NOT = {
+				has_province_modifier = NYAB_ENG_indochina_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_ENG_indochina_modifier_prov
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_ENG_miandian
+			}
+			region = burma_region
+			NOT = {
+				has_province_modifier = NYAB_ENG_miandian_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_ENG_miandian_modifier_prov
+			duration = -1
+		}
+	}
+	#可萨
+	if = {
+		limit = {
+			owner = {
+				mission_completed = ATL_CRI_move_to_xiwa
+			}
+			region = central_asia_region
+			NOT = {
+				has_province_modifier = ATL_CRI_move_to_xiwa_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = ATL_CRI_move_to_xiwa_modifier_prov
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = ATL_CRI_into_egy
+			}
+			region = egypt_region
+		}
+		add_province_modifier = {
+			name = ATL_CRI_into_egy_modifier_prov
+			duration = -1
+		}
+	}
+	#喀山——蒙古
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_rule_china2
+				has_country_flag = NYAB_GOL_chinese_flag
+			}
+			superregion = china_superregion
+		}
+		add_province_modifier = {
+			name = NYAB_KAZ_rule_china2_modifier1
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_rule_china2
+				has_country_flag = NYAB_GOL_mongol_flag
+			}
+			superregion = china_superregion
+		}
+		add_province_modifier = {
+			name = NYAB_KAZ_rule_china2_modifier2
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_restore_mianzhong
+			}
+			region = burma_region
+		}
+		add_province_modifier = {
+			name = NYAB_KAZ_restore_mianzhong_modifier
+			duration = -1
+		}
+	}
+	#明
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_M0G_kenghuang
+			}
+			superregion = china_superregion
+		}
+		add_province_modifier = {
+			name = NYAB_M0G_kenghuang_modifier_prov
+			duration = -1
+		}
+	} 
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_M0G_saiwang_horde
+			}
+			region = mongolia_region
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = NYAB_M0G_saiwang_horde_modifier_prov1_flag
+				}
+			}
+			add_province_modifier = {
+				name = NYAB_M0G_saiwang_horde_modifier_prov1
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = NYAB_M0G_saiwang_horde_modifier_prov2_flag
+				}
+			}
+			add_province_modifier = {
+				name = NYAB_M0G_saiwang_horde_modifier_prov2
+				duration = -1
+			}
+		}
+	} 
+	#移除草原发展成本惩罚
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_remove_steppe_terrain_debuff_flag
+			}
+			has_terrain = steppe
+		}
+		add_province_modifier = {
+			name = NYAB_remove_steppe_terrain_debuff_modfiier
+			duration = -1
+			hidden = yes
+		}
+		
+	}
+	#土司改革加buff
+	if = {
+		limit = {
+			OR = {
+				NYAB_sinize_tusi_culture = yes
+				NYAB_tusi_culture = yes
+			}
+			owner = {
+				has_government_attribute = NYAB_tusi_reform_ca
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_tusi_reform_modifier
+			duration = -1
+		}
+	}
+	#婆罗洲加buff
+	if = {
+		limit = {
+			owner = {
+				
+				mission_completed = NYAB_YUE_end_the_poluozhou
+			}
+			NYAB_poluozhou_region = yes
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = NYAB_YUE_colony_way_flag
+				}
+			}
+			add_province_modifier = {
+				name = NYAB_YUE_end_the_poluozhou_modifier_prov1
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = NYAB_YUE_peace_way_flag
+				}
+				NOT = {
+					culture_group = east_asian
+				}
+			}
+			add_province_modifier = {
+				name = NYAB_YUE_end_the_poluozhou_modifier_prov2
+				duration = -1
+			}
+		}
+	}
+	#莱州加buff
+	if = {
+		limit = {
+			OR = {
+				area = vogelkop_area
+				area = papua_area
+			}
+			owner = {
+				mission_completed = NYAB_M0G_laizhou
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_M0G_laizhou_modifier_prov
+			duration = -1
+		}
+	}
+	#给墨西哥中美洲加整合buff
+	if = {
+		limit = {
+			OR = {
+				region = mexico_region
+				region = central_america_region
+			}
+			owner = {
+				OR = {
+					mission_completed = NYAB_M0G_explore_yangzhou
+					overlord = {
+						mission_completed = NYAB_M0G_explore_yangzhou
+					}
+				}
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_M0G_explore_yangzhou_modifier_prov
+			duration = -1
+		}
+	}
+	#减轻热带对补给的惩罚
+	if = {
+		limit = {
+			OR = {
+				owner = {
+					overlord = {
+						has_country_flag = NYAB_adopt_hot_weather_flag
+					}
+				}
+				owner = {
+					has_country_flag = NYAB_adopt_hot_weather_flag
+				}
+			}
+			has_climate = tropical
+		}
+		add_province_modifier = {
+			name = NYAB_adopt_hot_weather_modifier
+			duration = -1
+		}
+	}
+	#西伯利亚开发
+	if = {
+		limit = { 
+			owner = { 
+				OR = {
+					has_country_flag = NYAB_M0G_develop_siberia_flag
+					overlord = {
+						has_country_flag = NYAB_M0G_develop_siberia_flag
+					}
+				}
+			} 
+			OR = {
+				region = east_siberia_region
+				region = west_siberia_region
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_M0G_develop_siberia_modifier
+			duration = -1
+		}
+	}
+	#冰岛
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_half_reduce_glacier_peanity_flag
+				NOT = {
+					has_country_flag = NYAB_remove_all_bad_terrain_modifier
+				}
+			}
+			has_terrain = glacier
+			NOT = {
+				has_province_modifier = NYAB_half_reduce_glacier_peanity_modifier
+			}
+
+		}
+		add_province_modifier = {
+			name = NYAB_half_reduce_glacier_peanity_modifier
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_remove_all_bad_terrain_modifier
+			}
+		}
+		NYAB_remove_all_bad_terrain_modifier_effect = yes
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_ICE_9b_flag
+			}
+			region = british_isles_region
+		}
+		add_province_modifier = {
+			name = NYAB_ICE_9b_modifier
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_ICE_vinland_colony_time
+			}
+			continent = north_america
+		}
+		add_province_modifier = {
+			name = NYAB_ICE_vinland_colony_time_modifier2
+			duration = -1
+		}
+	}
+	NYAB_on_province_owner_change_update_modifiers_effect_estate = yes
+}
+#↑特权用，
+NYAB_on_province_owner_change_update_modifiers_effect_estate = {
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = estate_shangren_shuidao_promote
+			}
+			trade_goods = grain
+		}
+		add_province_modifier = {
+			name = estate_shangren_shuidao_promote_modifier_prov
+			duration = -1
+		}
+	}
+}
+#当省份宗教改变时，on_action
+NYAB_on_province_religion_converted_effect = {
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = NYAB_finshish_transfer_religion_add_church_power
+			}
+		}
+		owner = {
+			add_church_power = 5
+			add_fervor = 2
+			add_papal_influence = 1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = NYAB_KSA_revenge_mechanic
+				any_war_enemy_country = {
+					religion = ROOT
+				}
+			}
+		}
+		add_government_power = {
+			mechanic_type = NYAB_KSA_revenge_mechanic
+			power_type = KSA_revenge_power
+			value = 0.5
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_ICE_religion_power_add_flag
+			}
+		}
+		if = {
+			limit = {
+				development = 30
+			}
+			owner = {
+				add_church_power = 10
+			}
+		}
+		else_if = {
+			limit = {
+				development = 25
+			}
+			owner = {
+				add_church_power = 8
+			}
+		}
+		else_if = {
+			limit = {
+				development = 20
+			}
+			owner = {
+				add_church_power = 6
+			}
+		}
+		else_if = {
+			limit = {
+				development = 15
+			}
+			owner = {
+				add_church_power = 5
+			}
+		}
+		else = {
+			owner = {
+				random_list = {
+					20 = {
+						add_church_power = 3
+					}
+					40 = {
+						add_church_power = 2
+					}
+					60 = {
+						add_church_power = 1
+					}
+				}
+			}
+		}
+	}
+}
+#当省份文化改变时，on_action
+NYAB_on_province_culture_converted_effect = {
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = NYAB_change_prov_culture_add_dev_randomly
+			}
+		}
+		random = {
+			chance = 50
+			add_base_tax = 1
+		}
+		random = {
+			chance = 50
+			add_base_production = 1
+		}
+		random = {
+			chance = 50
+			add_base_manpower = 1
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				NYAB_sinize_tusi_culture = yes
+				NYAB_tusi_culture = yes
+			}
+			owner = {
+				has_government_attribute = NYAB_tusi_reform_ca
+			}
+		}
+		add_province_modifier = {
+			name = NYAB_tusi_reform_modifier
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			NOT = {
+				OR = {
+					NYAB_sinize_tusi_culture = yes
+					NYAB_tusi_culture = yes
+				}
+			}
+			has_province_modifier = NYAB_tusi_reform_modifier
+			owner = {
+				has_government_attribute = NYAB_tusi_reform_ca
+			}
+		}
+		remove_province_modifier = NYAB_tusi_reform_modifier
+	}
+	if = {
+		limit = {
+			has_province_modifier = NYAB_YUE_end_the_poluozhou_modifier_prov2
+			culture_group = east_asian
+		}
+		random_list = {
+			1 = {
+				add_base_tax = 1
+			}
+			1 = {
+				add_base_production = 1
+			}
+			1 = {
+				add_base_manpower = 1
+			}
+		}
+		remove_province_modifier = NYAB_YUE_end_the_poluozhou_modifier_prov2
+	}
+	#可萨
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = NYAB_KSA_revenge_mechanic
+			}
+			NOT = {
+				has_province_flag = NYAB_KSA_get_bonus_flag
+			}
+			culture = ATL_kesa_tujue
+		}
+		set_permanent_province_flag = NYAB_KSA_get_bonus_flag
+		owner = {
+			add_government_power = {
+				mechanic_type = NYAB_KSA_revenge_mechanic
+				power_type = KSA_revenge_power
+				value = 2
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = ATL_CRI_rule_kesa
+			}
+			culture = ATL_kesa_tujue
+			NOT ={
+				has_province_modifier = ATL_CRI_rule_kesa_modifier_prov
+			}
+		}
+		add_province_modifier = {
+			name = ATL_CRI_rule_kesa_modifier_prov
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { 
+			has_province_modifier = ATL_CRI_rule_kesa_modifier_prov
+		}
+		remove_country_modifier = ATL_CRI_rule_kesa_modifier_prov
+	}
+}
+#当焚掠省份时，
+NYAB_on_raze_effect = {
+	#烧地加教会力量
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_burN_city_give_church_power_flag
+			}
+			NOT = {
+				religion = owner
+			}
+		}
+		owner = {
+			NYAB_add_church_power_or_power = {
+				amount = 5
+			}
+		}
+	}
+	#烧东斯拉夫地多一次
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_KSA_burn_silafu_more_flag
+			}
+			culture_group = east_slavic
+		}
+		NYAB_KSA_burn_city_effect = yes
+	}
+	#烧地摧毁教堂
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_raze_diff_religion_burn_church_flag
+			}
+			NOT = {
+				religion = owner
+			}
+			has_tax_building_trigger = yes
+		}
+		add_devastation = 10
+		if = {
+			limit = {
+				has_building = temple
+			}
+			remove_building = temple
+			owner = {
+				add_treasury = 50
+			}
+		}
+		if = {
+			limit = {
+				has_building = cathedral
+			}
+			remove_building = cathedral
+			owner = {
+				add_treasury = 150
+			}
+		}
+	}
+	#烧地99%概率返还1基础税收
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_raze_prov_rudesc_1_base_tax_lost_flag
+			}
+			base_tax = 2
+		}
+		random = {
+			chance = 99
+			add_base_tax = 1
+		}
+	}
+	#烧地时-0.05厌战
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_raze_prov_reduce_war_exhaustion_flag
+			}
+		}
+		owner = {
+			add_war_exhaustion = -0.05
+		}
+	}
+	#烧地时-2.5分离主义
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_raze_prov_reduce_nationlism_flag
+			}
+		}
+		add_devastation = 10
+		add_nationalism = -2.5
+	}
+	#烧印度多烧一次
+	if = {
+		limit = {
+			owner = {
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_KAZ_gate_of_india_modifier
+					}
+					has_country_modifier = NYAB_KAZ_gate_of_india_modifier
+				}
+			}
+			superregion = india_superregion
+		}
+		NYAB_KSA_burn_city_effect = yes
+	}
+	#烧印度20概率250人力
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_lajiepute
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_KAZ_gate_of_india_modifier
+					}
+					has_country_modifier = NYAB_KAZ_gate_of_india_modifier
+				}
+			}
+			superregion = india_superregion
+		}
+		random = {
+			chance = 20
+			owner = {
+				add_manpower = 0.25
+			}
+		}
+	}
+	#烧印度中心25%250块
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_across_henhe
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_KAZ_gate_of_india_modifier
+					}
+					has_country_modifier = NYAB_KAZ_gate_of_india_modifier
+				}
+			}
+			superregion = india_superregion
+			province_has_center_of_trade_of_level = 1
+		}
+		random = {
+			chance = 20
+			owner = {
+				add_treasury = 250
+			}
+		}
+	}
+	#烧印度有50概率给核心
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_KAZ_hi_deccan
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_KAZ_gate_of_india_modifier
+					}
+					has_country_modifier = NYAB_KAZ_gate_of_india_modifier
+				}
+			}
+			superregion = india_superregion
+		}
+		random = {
+			chance = 50
+			add_territorial_core = owner
+		}
+	}
+	#烧地加可萨复仇狂热和部落团结
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_raze_add_tride_unite_or_flag
+			}
+			any_core_country = {
+				ROOT = {
+					owner = {
+						historical_rival_with = prevprev
+					}
+				}
+			}
+		}
+		add_horde_unity = 0.25
+		add_government_power = {
+			mechanic_type = NYAB_KSA_revenge_mechanic
+			power_type = KSA_revenge_power
+			value = 0.25
+		}
+	}
+	#灰帐的俩
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = grh_razing_converts
+			}
+		}
+		change_religion = owner
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = grh_razing_less_destructive
+			}
+		}
+		add_devastation = -5
+	}
+}
+#当战斗胜利时，
+NYAB_on_battle_win_effect = {
+	#减厌战度
+	if = {
+		limit = {
+			ROOT = {
+				has_country_flag = NYAB_battle_win_reduce_war_exhaustion_flag
+			}
+		}
+		ROOT = {
+			add_war_exhaustion = -0.05
+		}
+	}
+	if = {
+		limit = {
+			OR = {
+				ROOT = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+				FROM = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+			}
+		}
+		if = {
+			limit = {
+				ROOT = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+				OR = {
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB1
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB2
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB3
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB4
+					}
+				}
+			}
+			ROOT = {
+				add_government_power = {
+					mechanic_type = NYAB_KSA_revenge_mechanic
+					power_type = KSA_revenge_power
+					value = 0.5
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+				NOT = {
+					religion = FROM
+				}
+			}
+			FROM = {
+				add_government_power = {
+					mechanic_type = NYAB_KSA_revenge_mechanic
+					power_type = KSA_revenge_power
+					value = -0.25
+				}
+			}
+		}
+	}
+}
+#当战争胜利时
+NYAB_on_war_won_effect = {
+	#可萨复仇狂热
+	if = {
+		limit = {
+			tag = KSA
+			has_government_mechanic = NYAB_KSA_revenge_mechanic
+			FROM = {
+				NOT = {
+					religion = ROOT
+				}
+			}
+		}
+		add_government_power = {
+			mechanic_type = NYAB_KSA_revenge_mechanic
+			power_type = KSA_revenge_power
+			value = 5
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				has_government_mechanic = NYAB_KSA_revenge_mechanic
+			}
+			NOT = {
+				religion = FROM
+			}
+		}
+		from = {
+			add_government_power = {
+				mechanic_type = NYAB_KSA_revenge_mechanic
+				power_type = KSA_revenge_power
+				value = -5
+			}
+		}
+	}
+}
+#当围城胜利时，占领省份
+NYAB_on_siege_won_province_effect = {
+	#统一中国给核心
+	if = {
+		limit = {
+			superregion = china_superregion
+			controller = {
+				OR = {
+					has_country_flag = NYAB_allow_unity_china_get_core_flag
+				}
+				OR = {
+					is_in_war = {
+						attacker_leader = this
+						casus_belli = cb_china_unification 
+					}
+					is_in_war = {
+						defender_leader = this
+						casus_belli = cb_china_unification 
+					}
+					is_in_war = {
+						attacker_leader = this
+						casus_belli = cb_chinese_unification 
+					}
+					is_in_war = {
+						defender_leader = this
+						casus_belli = cb_chinese_unification 
+					}
+				}
+				NOT = { is_core = ROOT }
+			}
+		}
+		controller = { 
+			add_core = ROOT
+			remove_claim = ROOT
+		}
+	}
+	#踩印度地给宣称
+	if = {
+		limit = { 
+			superregion = india_superregion
+			controller = {
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_KAZ_gate_of_india_modifier
+					}
+					any_owned_province = {
+						has_province_modifier = NYAB_M0G_gate_to_india_modifier
+					}
+					has_country_modifier = NYAB_KAZ_gate_of_india_modifier
+					has_country_modifier = NYAB_M0G_gate_to_india_modifier
+				}
+			}
+			NOT = {
+				OR = {
+					is_core = controller
+					is_claim = controller
+				}
+			}
+		}
+		controller = {
+			add_permanent_claim = ROOT
+		}
+	}
+	#踩地6月即割地
+	if = {
+		limit = {
+			controller = {
+				OR = {
+					has_country_flag = NYAB_control_is_cede_and_core_flag_12months
+				}
+			}
+		}
+		province_event = {
+			id = NYAB_KAZ.100
+			days = 180
+		}
+	}
+	#踩地给宣称，政府机制
+	if = {
+		limit = {
+			controller = {
+				war_with = FROM
+				has_government_attribute = enable_war_permanent_claim
+				NOT = { is_core = ROOT }
+			}
+		}
+		controller = { 
+			add_permanent_claim = ROOT
+		}
+	}
+	#马契丹意大利核心
+	if = {
+		limit = {
+			region = italy_region
+			controller = {
+				has_country_flag = NYAB_MAD_italy_core_flag
+				NOT = { is_core = ROOT }
+			}
+		}
+		controller = {
+			remove_claim = ROOT
+			add_territorial_core = ROOT
+		}
+	}
+	#中华混战
+	if = {
+		limit = {
+			superregion = china_superregion
+			owner = {
+				has_country_flag = NYAB_fight_for_china_flag
+			}
+			controller = {
+				has_country_flag = NYAB_fight_for_china_flag
+			}
+		}
+		cede_province = controller
+		add_core = controller
+	}
+	if = {
+		limit = {
+			OR = {
+				culture_group = Mongolian
+				region = mongolia_region
+			}
+			controller = {
+				has_country_flag = NYAB_fight_for_mongolia_flag
+			}
+			owner = {
+				OR = {
+					overlord = {
+						has_disaster = ming_crisis
+					}
+					has_disaster = ming_crisis
+				}
+			}
+		}
+		cede_province = controller
+		add_core = controller
+	}
+	if = {
+		limit = {
+			OR = {
+				culture = manchu
+				culture = manchu_new
+				region = manchuria_region
+			}
+			controller = {
+				has_country_flag = NYAB_fight_for_manchu_flag
+			}
+			owner = {
+				OR = {
+					overlord = {
+						has_disaster = ming_crisis
+					}
+					has_disaster = ming_crisis
+				}
+			}
+		}
+		cede_province = controller
+		add_core = controller
+	}
+	if = {
+		limit = {
+			controller = {
+				has_disaster = ming_crisis
+			}
+			owner = {
+				OR = {
+					has_country_flag = NYAB_fight_for_china_flag
+					has_country_flag = NYAB_fight_for_mongolia_flag
+					has_country_flag = NYAB_fight_for_manchu_flag
+				}
+			}
+		}
+		cede_province = controller
+		add_core = controller
+	}
+	#齐阳日本加核心
+	if = {
+		limit = {
+			region = japan_region
+			controller = {
+				OR = {
+					mission_completed = NYAB_QYG_tianhuang
+				}
+				NOT = { is_core = ROOT }
+			}
+		}
+		controller = { 
+			add_core = ROOT
+			remove_claim = ROOT
+		}
+	}
+	#可萨
+	if = {
+		limit = {
+			OR = {
+				controller = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				} 
+				owner = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+			}
+			controller = {
+				OR = {
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB1
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB2
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB3
+					}
+					is_in_war = {
+						casus_belli = cb_renvenge_KSA_NYAB4
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				controller = {
+					has_government_mechanic = NYAB_KSA_revenge_mechanic
+				}
+			}
+			if = {
+				limit = {
+					has_fort_building_trigger = yes
+				}
+				controller = {
+					add_government_power = {
+						mechanic_type = NYAB_KSA_revenge_mechanic
+						power_type = KSA_revenge_power
+						value = 1
+					}
+				}
+			}
+			else = {
+				controller = {
+					add_government_power = {
+						mechanic_type = NYAB_KSA_revenge_mechanic
+						power_type = KSA_revenge_power
+						value = 0.1
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				is_core = owner
+				religion = jewish
+			}
+			owner = {
+				add_government_power = {
+					mechanic_type = NYAB_KSA_revenge_mechanic
+					power_type = KSA_revenge_power
+					value = -0.1
+				}
+			}
+		}
+	}
+	#冰岛
+	if = {
+		limit = {
+			controller = {
+				has_country_modifier = ICE_recounquer_british_modifier
+			}
+			is_claim = controller
+		}
+		controller = {
+			remove_claim = ROOT
+			add_permanent_claim = ROOT
+		}
+	}
+}
+#当发展度提升时
+#总集
+NYAB_on_each_development_effect = {
+	#可萨
+	if = {
+		limit = { 
+			owner = { 
+				has_country_modifier = ATL_CRI_east_han_modifier 
+			} 
+			has_terrain = steppe
+		}
+		random = {
+			add_base_$type$ = 1
+			chance = 50
+		}
+	}
+	#楚
+	if = {
+		limit = { 
+			owner = { 
+				has_country_flag = allow_nanyang_develop_extra_1_flag
+			} 
+			OR = {
+				region = malaya_region
+				region = indonesia_region
+				region = moluccas_region
+			}
+		}
+		random = {
+			add_base_$type$ = 1
+			chance = 20
+		}
+	}
+	#明
+	if = {
+		limit = { 
+			owner = { 
+				has_country_modifier = NYAB_M0G_kenghuang_modifier 
+			} 
+			superregion = china_superregion
+		}
+		random = {
+			add_base_$type$ = 1
+			chance = 10
+		}
+	}
+	if = {
+		limit = { 
+			owner = { 
+				has_country_modifier = NYAB_M0G_ciqi_modifier 
+			} 
+			trade_goods = chinaware
+		}
+		random = {
+			add_base_production = 1
+			chance = 25
+		}
+	}
+	if = {
+		limit = { 
+			owner = { 
+				OR = {
+					has_country_flag = NYAB_M0G_develop_siberia_flag
+					overlord = {
+						has_country_flag = NYAB_M0G_develop_siberia_flag
+					}
+				}
+			} 
+			OR = {
+				region = east_siberia_region
+				region = west_siberia_region
+			}
+		}
+		random = {
+			add_base_$type$ = 1
+			chance = 20
+		}
+	}
+}
+NYAB_on_adm_development_effect = {
+	NYAB_on_each_development_effect = {
+		type = tax
+	}
+}
+NYAB_on_dip_development_effect = {
+	NYAB_on_each_development_effect = {
+		type = production
+	}
+}
+NYAB_on_mil_development_effect = {
+	NYAB_on_each_development_effect = {
+		type = manpower
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = NYAB_move_daiyomi_ready_flag
+			}
+		}
+		province_event = {
+			id = NYAB_M0G_event.60
+		}
+	}
+}
+#当殖民地建立时
+NYAB_on_colony_established_effect = {
+	hidden_effect = {
+		
+		#冰岛任务
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						has_country_flag = NYAB_ICE_colony_new_world_good_modifier_prov_add_flag
+					}
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_ICE_colony_new_world_good_modifier_prov_add_flag
+						}
+					}
+				} 
+			}
+			add_province_modifier = {
+				name = NYAB_ICE_colony_new_world_good_modifier_prov
+				duration = 9125
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						has_country_flag = NYAB_ICE_vinland_colony_time_flag
+					}
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_ICE_vinland_colony_time_flag
+						}
+					}
+				} 
+			}
+			add_province_modifier = {
+				name = NYAB_ICE_vinland_colony_time_modifier1
+				duration = -1
+			}
+		}
+		#殖民带200人
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						has_country_flag = NYAB_new_world_colony_200_flag
+					}
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_new_world_colony_200_flag
+						}
+					}
+				}
+				OR = {
+					continent = north_america
+					continent = south_america
+					continent = new_world
+				}
+			}
+			add_colonysize = 200
+		}
+		#殖民新大陆带100人
+		else_if = {
+			limit = {
+				OR = {
+					FROM = {
+						has_country_flag = NYAB_new_world_colony_100_flag
+					}
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_new_world_colony_100_flag
+						}
+					}
+				}
+				OR = {
+					continent = north_america
+					continent = south_america
+					continent = new_world
+				}
+			}
+			add_colonysize = 100
+		}
+		#大明殖民澳大利亚自带基础200人
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						overlord = {
+							mission_completed = NYAB_M0G_far_south_expand
+						}
+					}
+					FROM = {
+						mission_completed = NYAB_M0G_far_south_expand
+					}
+				}
+				superregion = oceania_superregion
+			}
+			add_colonysize = 200
+		}
+		#加buff
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						overlord = {
+							mission_completed = NYAB_M0G_shuozhou
+						}
+					}
+					FROM = {
+						mission_completed = NYAB_M0G_shuozhou
+					}
+				}
+				region = australia_region
+			}
+			add_province_modifier = {
+				name = NYAB_M0G_shuozhou_modifier_prov
+				duration = 3650
+			}
+		}
+		#移除气候对殖民的影响
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_adopt_hot_colony_flag
+						}
+					}
+					FROM = {
+						has_country_flag = NYAB_adopt_hot_colony_flag
+					}
+				}
+				OR = {
+					has_climate = tropical
+					has_climate = arid
+				}
+			}
+			add_province_modifier = {
+				name = NYAB_adopt_hot_colony_modifier
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					FROM = {
+						overlord = {
+							has_country_flag = NYAB_adopt_cold_colony_flag
+						}
+					}
+					FROM = {
+						has_country_flag = NYAB_adopt_cold_colony_flag
+					}
+				}
+				has_climate = arctic
+			}
+			add_province_modifier = {
+				name = NYAB_adopt_cold_colony_modifier
+				duration = -1
+			}
+		}
+		#南洋3级
+		if = {
+			limit = {
+				FROM = {
+					NYAB_YUE_nanyang_tier_modifier2 = {
+						3 = yes
+					}
+				}
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = NYAB_YUE_colony_way_flag
+					}
+				}
+				add_colonysize = 50
+			}
+			if = {
+				limit = {
+					FROM = {
+						has_country_flag = NYAB_YUE_peace_way_flag
+					}
+				}
+				change_native_ferocity = -2
+				change_native_hostileness = -2
+			}
+			if = {
+				limit = {
+					OR = {
+						superregion = east_indies_superregion
+						superregion = oceania_superregion
+					}
+				}
+				add_colonysize = 100
+				province_event = {
+					id = NYAB_YUE_event.100
+				}
+			}
+		}
+	}
+	
+}
+#当殖民者带来移民时
+NYAB_on_colonist_boosting_colony_effect = {
+	
+}
+#放弃殖民地时
+# province
+# root = location, from = country that abandons colony
+# Fired right before the colony is abandoned.
+NYAB_on_abandon_colony_effect = {
+	remove_province_modifier = NYAB_M0G_shuozhou_modifier_prov
+	if = {
+		limit = {
+			has_province_flag = NYAB_had_changed_trade_goods_flag
+		}
+		change_trade_goods = unknown
+	}
+	if = {
+		limit = {
+			has_province_flag = NYAB_has_changed_native_flag
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = NYAB_YUE_peace_way_flag
+				}
+			}
+			change_native_ferocity = 2
+			change_native_hostileness = 2
+		}
+	}
+}
+#当上中华皇帝时
+NYAB_on_mandate_of_heaven_gained_effect = {
+	remove_country_modifier = NYAB_M0G_event_10a_modifier
+}
+#劫掠海岸时
+NYAB_on_raid_coast_effect = {
+}
+#探索到土著省份时
+NYAB_on_conquistador_native_effect = {
+	if = {
+		limit = {
+			FROM = {
+				mission_completed = NYAB_M0G_explore_yangzhou
+			}
+		}
+		add_claim = FROM
+	}
+}
+#征服新省份时 
+NYAB_on_conquest_effect = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYAB_M0G_kemanluode_coast
+				OR = {
+					any_owned_province = {
+						has_province_modifier = NYAB_M0G_gate_to_india_modifier
+					}
+					has_country_modifier = NYAB_M0G_gate_to_india_modifier
+				}
+			}
+			superregion = india_superregion
+		}
+		add_nationalism = -5
+	}
+}
+#君主死亡时
+NYAB_on_monarch_death_effect = {
+	if = {
+		limit = {
+			tag = KSA
+			has_country_flag = NY_ATL_CRI_kesa_flag
+		}
+		country_event = { id = ATL_NY_CRI_event.9 }
+	}
+	if = {
+		limit = {
+			tag = SHY
+		}
+		country_event = {
+			id = NYAB_SHY.1
+		}
+	}
+	if = {
+		limit = {
+			has_global_flag = NYAB_ARS_normal_to_liantong_flag
+			OR = {
+				tag = UPB
+				tag = LWB
+			}
+			UPB = {
+				is_subject = no
+			}
+			LWB = {
+				is_subject = no
+			}
+		}
+		if = {
+			limit = {
+				tag = UPB
+			}
+			LWB = {
+				create_subject = {
+					subject_type = personal_union
+					subject = UPB
+				}
+				UPB = {
+					add_liberty_desire = -50
+				}
+			}
+		}
+		if = {
+			limit = {
+				tag = LWB
+			}
+			UPB = {
+				create_subject = {
+					subject_type = personal_union
+					subject = LWB
+				}
+				LWB = {
+					add_liberty_desire = -50
+				}
+			}
+		}
+		clr_global_flag = NYAB_ARS_normal_to_liantong_flag
+	}
+}
+#新君主上位时
+NYAB_on_new_monarch_effect = {
+	if = {
+		limit = {
+			NOT = {
+				ruler_has_personality = NYAB_zhu_xuemai
+			}
+			NYAB_zhu_wangchao = yes
+			mission_completed = NYAB_M0G_great_ming
+		}
+		add_ruler_personality = NYAB_zhu_xuemai
+	}
+}
+#游戏开始时
+NYAB_on_startup_effect = {
+	if = {
+		limit = {
+			2140 = {
+				religion = confucianism
+				NOT = {
+					has_province_modifier = religious_center
+				}
+			}
+		}
+		add_province_triggered_modifier = religious_center
+	}
+	if = {
+		limit = {
+			ai = no
+			tag = NOR
+			NOT = {
+				has_country_flag = NYAB_ICE_happened_flag
+			}
+			NOT = {
+				is_year = 1445
+			}
+			NOT = {
+				exists = ICE
+			}
+		}
+		country_event = {
+			id = NYAB_ICE.1
+			days = 15
+			random = 15
+		}
+	}
+	if = {
+		limit = {
+			ai = no
+			NOT = {
+				has_country_flag = has_trigger_rule_road_event_start_flag
+			}
+		}
+		country_event = {
+			id = NYAB_rule_event.10
+		}
+	}
+	#国家开局
+	if = {
+		limit = {
+			tag = YUA
+		}
+		country_event = { id =  NYAB_M0G_event.9  days = 60 }
+	}
+	if = {
+		limit = {
+			tag = SNG
+		}
+		country_event = { id = NYAB_SNG.1 }
+	}
+	if = {
+		limit = {
+			tag = KIE
+		}
+		country_event = { id = NYAB_KIE.1 }
+	}
+	if = {
+		limit = {
+			OR = {
+				tag = VL1
+				tag = WSL
+				tag = QUB
+			}
+			NOT = {
+				is_year = 1445
+			}
+		}
+		country_event = { id = NYAB_lost_land.1 }
+	}
+}
+#宣战时
+NYAB_on_war_declaration_effect = {
+	if = {
+		limit = {
+			has_country_flag = NYAB_ROM_VEN_help_flag
+		}
+		clr_country_flag = NYAB_ROM_VEN_help_flag
+		country_event = {
+			id = NYAB_ROM.12
+		}
+	}
+}
+#大圣战，太卡了，先放一放。
+#Cut because the Grand Crusade war doesn't really have any place in the current content, but it could be very useful for the future.
+#Also modders should have the chance to just uncomment it all so they can experience the great 30 Years War like Crusade.
+# enable_grand_crusade = {
+# 	custom_tooltip = enable_grand_crusade_tt
+# 	set_country_flag = can_declare_grand_crusade_wars
+# 	hidden_effect = {
+# 		save_global_event_target_as = grand_crusader_war_monger
+# 		set_global_flag = grand_crusades_enabled
+# 		set_country_flag = grand_crusader_war_monger_flag
+# 	}
+# }
+#enable_grand_crusade_tt: "Enables the §YGrand Crusade§! casus belli against all §YHeathen§! nations which have at least §Y300§! total development.\nThis casus belli enables a decision for every independent §YCatholic§! nation to join the Grand Crusade.\n\nTo join the Grand Crusade the Catholic nation must fulfil the following conditions:\nHas at least §Y100§! opinion of us or vice versa\nIs NOT allied with the §YGrand Crusade Target§! target\nHas NOT a truce with the §YGrand Crusade Target§!\nIs not at war\nDid NOT complete the §YHumanist§! idea group\n\n§RNations of the religion group of the §YGrand Crusade Target§! can join the defender's side.§!"

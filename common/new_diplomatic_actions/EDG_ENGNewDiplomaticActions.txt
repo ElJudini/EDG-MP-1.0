@@ -1,0 +1,43 @@
+EDG_ENG_Dumping_fabrics = { #倾销布匹
+    category = influence
+	require_acceptance = no
+	alert_index = 35
+	alert_tooltip = EDG_EDG_ENG_Dumping_fabrics_alert_tooltip
+    is_allowed = {
+		NOT = { has_country_modifier = EDG_ENG_Dumping_fabrics_10year_modifier }
+	}
+    is_visible = {
+        has_country_flag = EDG_ENG_mission_2_14_decision_2_unlock_diplo_act_flag
+    }
+    on_accept = {
+        add_country_modifier = {
+            name = EDG_ENG_Dumping_fabrics_10year_modifier
+            duration = 3650
+        }
+        FROM = {
+            set_variable = {
+                which = EDG_years_of_income
+                value = 0
+            }
+            export_to_variable = {
+                which = EDG_years_of_income
+                value = years_of_income
+            }
+            ROOT = {
+                set_variable = {
+                    which = EDG_years_of_income
+                    which = PREV
+                }
+            }
+        }
+        transfer_treasury = {
+            giver = FROM
+            taker = ROOT
+            variable = EDG_years_of_income
+            custom_tooltip = EDG_years_of_income.tt
+        }
+    }
+    ai_will_do = { 
+        always = no
+    }
+}

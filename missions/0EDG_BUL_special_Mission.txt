@@ -1,0 +1,704 @@
+EDG_BUL_special_Mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = BUL
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+
+	EDG_BUL_special_Mission_1_1 = {
+		icon = mission_sovereign_principality
+		required_missions = {  }
+		position = 1 
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		  OR = {
+		    NOT = { exists = ALB }
+			ALB = {
+				has_opinion = {
+					who = ROOT
+					value = 200
+				}
+			}
+		  }
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_mil_power = 100
+			define_advisor = {
+				type = diplomat
+				skill = 1
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			ALB = {
+				add_historical_friend = ROOT
+			}
+			ROOT = {
+				add_historical_friend = ALB
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	EDG_BUL_special_Mission_1_3 = {
+		icon = foothold_in_greece
+		required_missions = { EDG_BUL_special_Mission_1_1 }
+		position = 3
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_dip_advisor = yes
+		}
+		effect = {
+			add_dip_power = 50
+			add_country_modifier = {
+				name = "EDG_modifier_BUL_mission_1_3"
+				duration = 7300
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	EDG_BUL_special_Mission_1_4 = {
+		icon = foothold_in_greece
+		required_missions = { EDG_BUL_special_Mission_1_3 }
+		position = 4
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				government_rank = 3
+				emperor = {
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+		}
+		effect = {
+			add_dip_power = 100
+			emperor = {
+				add_historical_friend = ROOT
+			}
+			ROOT = {
+				add_historical_friend = emperor
+			}
+		}
+	}
+}
+
+
+EDG_BUL_special_Mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = BUL
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	EDG_BUL_special_Mission_2_2 = {
+		icon = hand-picked_bureaucrats
+		required_missions = {  }
+		position = 2
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				AND = {
+					has_adm_advisor = yes
+					adm_power = 50
+				}
+				AND = {
+					is_year = 1450
+					ai = yes
+				}
+			}
+		}
+		effect = {
+			add_adm_power = -50
+			add_country_modifier = {
+				name = "EDG_modifier_BUL_mission_2_2"
+				duration = 7300
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	EDG_BUL_special_Mission_2_4 = {
+		icon = knights_of_the_new_world
+		required_missions = { EDG_BUL_special_Mission_2_2 EDG_BUL_special_Mission_1_3 EDG_BUL_special_Mission_3_3 }
+		position = 4
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		  OR = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = albania_area
+			}
+			AND = {
+				exists = ALB
+				ALB = {
+					NOT = {
+					  army_strength = {
+						who = root
+						value = 0.5
+					  }
+					}
+				  }
+				ALB = {
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+				ALB = {
+					is_subject = no
+				}
+			}
+		  }
+		}
+		effect = {
+			add_dip_power = 100
+			IF = {
+				limit = {
+					ALB = { ai = yes }
+					exists = ALB
+					ALB = {
+						is_subject = no
+					}
+				}
+			 vassalize = ALB
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+
+	EDG_BUL_special_Mission_2_5 = {
+		icon = rein_in_the_nobles
+		required_missions = { EDG_BUL_special_Mission_2_4 }
+		position = 5
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		  accepted_culture = albanian
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				area = albania_area
+			}
+		}
+		effect = {
+			
+			albania_area = {
+				limit = {
+					owned_by = Root
+				}
+				add_province_modifier = {
+					name = "EDG_City_manpower_bloom"
+					duration = -1
+				}
+				add_base_manpower = 2
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+
+}
+
+EDG_BUL_special_Mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = BUL
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	bul_independence = {
+		position = 1
+		icon = mission_noble_council
+		required_missions = { }
+		provinces_to_highlight = {
+			OR = {
+				area = bulgaria_area
+				area = silistria_area
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			is_subject = no
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_modifier_BUL_independence"
+				duration = 7300
+			}
+			country_event = { id = 	EDG_flavorBUL.8	}
+		}
+		ai_weight = {
+			factor = 500	#Alt-History, but if Bulgaria existss than they should want to reconquer stuff
+		}
+	}
+
+	
+	EDG_BUL_special_Mission_3_2 = {
+		icon = the_land_of_moses
+		required_missions = { bul_independence }
+		position = 2
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			is_subject = NO
+			num_of_generals = 1
+			OR = {
+				war_score_against = {
+					who = GSR
+					value = 60
+				}
+				NOT = { exists = GSR }
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			
+			serbia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			rascia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			macedonia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			151 = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	
+	EDG_BUL_special_Mission_3_3 = {
+		icon = confront_the_lombards
+		required_missions = { EDG_BUL_special_Mission_3_2 EDG_BUL_special_Mission_2_2 EDG_BUL_special_Mission_4_2 }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				area = rascia_area
+				area = bulgaria_area
+				provinces_id = 3001
+				provinces_id = 4780
+			}
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			OR = {
+				AND = {
+					rascia_area = {
+						type = all
+						owned_by = ROOT
+					}
+					bulgaria_area = {
+						type = all
+						owned_by = ROOT
+					}
+					3001 = { owned_by = ROOT }
+					4780 = { owned_by = ROOT }
+				}
+				AND = {
+					is_year = 1460
+					ai = yes
+				}
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			add_country_modifier = {
+				name = "EDG_bul_restore_empire_modifier"
+				duration = 18250
+			}
+			silesia_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			
+			
+			
+			balkan_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			carpathia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			anatolia_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	EDG_BUL_special_Mission_3_5 = {
+		icon = mission_rb_angevin_kingdom
+		required_missions = { EDG_BUL_special_Mission_3_3 }
+		position = 5
+		provinces_to_highlight = {
+		}
+		trigger = {
+			OR = {
+				NOT = { exists = BYZ }
+				thrace_area = {
+					type = all
+					owned_by = ROOT
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				set_country_flag = GET_EDG_NSF_empire_Mission
+			}
+			swap_non_generic_missions = yes
+			add_country_modifier = {
+				name = "EDG_BUL_special_Mission_3_5_modifier"
+				duration = -1
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+
+
+}
+
+
+
+
+
+EDG_BUL_special_Mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = BUL
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	EDG_BUL_special_Mission_4_2 = {
+		icon = restore_the_hospitallers
+		required_missions = {  }
+		position = 2
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				AND = {
+					has_mil_advisor = yes
+					mil_power = 50
+				}
+				AND = {
+					is_year = 1450
+					ai = yes
+				}
+			}
+		}
+		effect = {
+			add_mil_power = -50
+			add_country_modifier = {
+				name = "EDG_modifier_BUL_mission_4_2"
+				duration = 7300
+			}
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+	EDG_BUL_special_Mission_4_4 = {
+		icon = immaculate_government
+		required_missions = { EDG_BUL_special_Mission_3_3  }
+		position = 4
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			151 = { owned_by = ROOT }
+		}
+		effect = {
+			thrace_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			morea_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			northern_greece_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = {  is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+
+	EDG_BUL_special_Mission_4_5 = {
+		icon = renaissance_city
+		required_missions = { EDG_BUL_special_Mission_4_4 }
+		position = 5
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			has_country_flag = had_EDG_BUL_adm_tech_6_decision_flag
+			full_idea_group = religious_ideas
+			accepted_culture = greek
+			thrace_area = {
+				type = all
+				owned_by = ROOT
+			}
+			macedonia_area = {
+				type = all
+				owned_by = ROOT
+			}
+			morea_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_4_5_modifier"
+				duration = -1
+			}
+			
+		}
+		ai_weight = {
+			factor = 10000
+		}
+	}
+
+
+
+
+}
+
+
+
+EDG_BUL_special_Mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = BUL
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	EDG_NSF_empire_Mission_5_3 = {
+		icon = moravian_arms
+		required_missions = {   }
+		position = 3
+		provinces_to_highlight = {
+		
+		}
+		trigger = {
+			army_size = 20
+			cavalry_fraction = 0.3
+		}
+		effect = {
+			add_mil_power = 100
+			capital_scope = {
+			  cavalry = Root
+			  cavalry = Root
+			  cavalry = Root
+			  cavalry = Root
+			  cavalry = Root
+			  cavalry = Root
+			}
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_5_3_modifier"
+				duration = 7300
+			}
+		}
+	}
+	EDG_NSF_empire_Mission_5_4 = {
+		icon = assert_our_sovereignty
+		required_missions = { EDG_NSF_empire_Mission_5_3  }
+		position = 4
+		provinces_to_highlight = {
+		
+		}
+		trigger = {
+			mil_tech = 4
+			OR = {
+				mil = 5
+				has_mil_advisor_3 = yes
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			capital_scope = {
+			  infantry = Root
+			  infantry = Root
+			  infantry = Root
+			  infantry = Root
+			  infantry = Root
+			  infantry = Root
+			}
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_5_4_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_NSF_empire_Mission_5_5 = {
+		icon = moravian_arms
+		required_missions = { EDG_NSF_empire_Mission_5_4  }
+		position = 5
+		provinces_to_highlight = {
+		
+		}
+		trigger = {
+			mil_tech = 6
+			mil_power = 100
+		}
+		effect = {
+			add_mil_power = -100
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_5_5_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_NSF_empire_Mission_5_6 = {
+		icon = shift_the_balance
+		required_missions = { EDG_NSF_empire_Mission_5_5  }
+		position = 6
+		provinces_to_highlight = {
+		
+		}
+		trigger = {
+			mil_tech = 9
+			army_tradition = 60
+			has_mil_advisor_3 = yes
+
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_5_6_modifier"
+				duration = -1
+			}
+		}
+	}
+
+
+	EDG_NSF_empire_Mission_5_7 = {
+		icon = neapolitan_govenance
+		required_missions = { EDG_NSF_empire_Mission_5_6 }
+		position = 7
+		provinces_to_highlight = {
+		
+		}
+		trigger = {
+			army_professionalism = 0.40
+			has_reform = EDG_BUL_army_reform
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_NSF_empire_Mission_5_7_modifier"
+				duration = -1
+			}
+		}
+	}
+
+
+
+
+}

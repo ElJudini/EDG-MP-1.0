@@ -1,0 +1,601 @@
+country_decisions = {
+	EDG_SHY_change_name = {
+		major = yes
+		color = { 141 247 240 }
+		potential = {
+			ai = no
+			OR = {
+				tag = SHY
+				was_tag = SHY
+			}
+		}
+		allow = {
+			
+		}
+		effect = {
+			custom_tooltip = EDG_SHY_change_name.effect.tt
+			if = {
+				limit = { 
+					tag = SHY
+				}
+				override_country_name = "EDG_SHY_SHY_Horde" #青帐
+			}
+			else_if = {
+				limit = { 
+					tag = BUK
+				}
+				override_country_name = "EDG_SHY_BUK_Horde" #黄帐
+			}
+			else_if = {
+				limit = { 
+					tag = YUA
+				}
+				override_country_name = "EDG_SHY_YUA_Horde" #红帐
+			}
+			else_if = {
+				limit = { 
+					tag = TAS
+				}
+				override_country_name = "EDG_SHY_TAS_Horde" #黑帐
+			}
+			else_if = {
+				limit = { 
+					tag = MUG
+				}
+				override_country_name = "EDG_SHY_MUG_Horde" #绿帐
+			}
+			else_if = {
+				limit = { 
+					tag = MOT
+				}
+				override_country_name = "EDG_SHY_MOT_Horde" #白帐
+			}
+			else_if = {
+				limit = { 
+					tag = ILK
+				}
+				override_country_name = "EDG_SHY_ILK_Horde" #橙帐
+			}
+		}
+	}
+	EDG_SHY_change_tag = {
+		major = yes
+		color = { 141 247 240 }
+		potential = {
+			has_country_flag = EDG_SHY_change_tag_flag
+		}
+		allow = {
+			is_at_war = no
+			stability = 0
+		}
+		effect = {
+			custom_tooltip = EDG_SHY_change_tag.effect.tt
+			country_event = {
+				id = EDG_SHYEvents.16
+			}
+			hidden_effect = {
+				clr_country_flag = EDG_SHY_change_tag_flag
+			}
+		}
+	}
+	EDG_SHY_return_to_tengger = { 
+		major = yes
+		color = { 141 247 240 }
+		potential = {
+			has_country_flag = EDG_SHY_enable_change_religion_to_tengri_pagan_reformed_flag
+			NOT = {
+				religion = tengri_pagan_reformed
+			}
+		}
+		allow = {
+			stability = 3
+			prestige = 50
+			NOT = {
+				has_country_modifier = EDG_SHY_return_to_tengger_modifier
+			}
+		}
+		effect = {
+			change_religion = tengri_pagan_reformed
+			capital_scope = {
+				change_religion = tengri_pagan_reformed
+			}
+			add_stability = -1
+			hidden_effect = {
+				add_prestige = 100
+			}
+			add_country_modifier = {
+				name = EDG_SHY_return_to_tengger_modifier
+				duration = 3650
+			}
+		}
+	}
+	EDG_SHY_recruit_guards = {
+		major = yes
+		color = { 141 247 240 }
+		potential = {
+			has_country_flag = EDG_SHY_enable_recruit_guards_cavalry_flag
+		}
+		allow = {
+			if = {
+				limit = { 
+					uses_horde_unity = yes
+				}
+				horde_unity = 80
+			}
+			else = {
+				legitimacy = 80
+			}
+			capital_scope = {
+				base_manpower = 10
+				NOT = {
+					devastation = 10
+				}
+			}
+			NOT = {
+				has_country_modifier = EDG_SHY_recruit_guards_modifier
+			}
+		}
+		effect = {
+			capital_scope = {
+				add_base_manpower = -6
+				add_devastation = 50
+			}
+			if = {
+				limit = { 
+					uses_horde_unity = yes
+				}
+				add_horde_unity = -25
+			}
+			else = {
+				add_legitimacy = -25
+			}
+			add_country_modifier = {
+				name = EDG_SHY_recruit_guards_modifier
+				duration = 3650
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = cawa
+				type = cavalry
+				force_limit_percentage = 0.1
+			}
+			add_government_power = {
+				mechanic_type = EDG_SHY_elite_cavalry_mechanic
+				power_type = EDG_SHY_elite_cavalry
+				value = 5
+			}
+		}
+	}
+	EDG_SHY_extended_meadow = {
+		major = yes
+		color = { 141 247 240 }
+		potential = {
+			has_country_flag = EDG_SHY_enable_extended_meadow_flag
+		}
+		allow = {
+			any_owned_province = {
+				OR = {
+					has_terrain = grasslands
+					has_terrain = steppe
+				}
+				NOT = {
+					trade_goods = livestock
+				}
+				base_production = 5
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_SHY_extended_meadow.effect.tt
+			tooltip = {
+				random_owned_province = {
+					limit = { 
+						OR = {
+							has_terrain = grasslands
+							has_terrain = steppe
+						}
+						NOT = {
+							trade_goods = livestock
+						}
+						base_production = 5
+					}
+					change_trade_goods = livestock
+					add_base_production = -4
+				}
+			}
+			hidden_effect = {
+				while = {
+					limit = { 
+						any_owned_province = {
+							OR = {
+								has_terrain = grasslands
+								has_terrain = steppe
+							}
+							NOT = {
+								trade_goods = livestock
+							}
+							base_production = 5
+						}
+					}
+					random_owned_province = {
+						limit = { 
+							OR = {
+								has_terrain = grasslands
+								has_terrain = steppe
+							}
+							NOT = {
+								trade_goods = livestock
+							}
+						}
+						change_trade_goods = livestock
+						add_base_production = -4
+					}
+				}
+			}
+		}
+	}
+	EDG_SHY_building_pasture = {
+		major = yes
+		color = { 141 247 240 }
+		provinces_to_highlight = {
+			trade_goods = livestock
+			OR = {
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_flag
+						}
+					}
+					OR = {
+						has_terrain = grasslands
+						has_terrain = steppe
+					}
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_drylands_flag
+						}
+					}
+					has_terrain = drylands
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_mountain_flag
+						}
+					}
+					OR = {
+						has_terrain = mountain
+						has_terrain = hills
+						has_terrain = highlands
+					}
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_desert_flag
+						}
+					}
+					OR = {
+						has_terrain = desert
+						has_terrain = coastal_desert
+					}
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_woods_flag
+						}
+					}
+					OR = {
+						has_terrain = woods
+						has_terrain = forest
+						has_terrain = jungle
+					}
+					
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_farmlands_flag
+						}
+					}
+					has_terrain = farmlands
+				}
+				if = {
+					limit = { 
+						root = {
+							has_country_flag = EDG_SHY_enable_build_pasture_in_savannah_flag
+						}
+					}
+					OR = {
+						has_terrain = savannah
+						has_terrain = coastline
+					}
+				}
+			}
+			NOT = {
+				has_province_modifier = EDG_SHY_pasture
+			}	
+		}
+		potential = {
+			has_country_flag = EDG_SHY_enable_build_pasture_flag
+		}
+		allow = {
+			treasury = 50
+			any_owned_province = {
+				trade_goods = livestock
+				OR = {
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_flag
+							}
+						}
+						OR = {
+							has_terrain = grasslands
+							has_terrain = steppe
+						}
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_drylands_flag
+							}
+						}
+						has_terrain = drylands
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_mountain_flag
+							}
+						}
+						OR = {
+							has_terrain = mountain
+							has_terrain = hills
+							has_terrain = highlands
+						}
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_desert_flag
+							}
+						}
+						OR = {
+							has_terrain = desert
+							has_terrain = coastal_desert
+						}
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_woods_flag
+							}
+						}
+						OR = {
+							has_terrain = woods
+							has_terrain = forest
+							has_terrain = jungle
+						}
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_farmlands_flag
+							}
+						}
+						has_terrain = farmlands
+					}
+					if = {
+						limit = { 
+							root = {
+								has_country_flag = EDG_SHY_enable_build_pasture_in_savannah_flag
+							}
+						}
+						OR = {
+							has_terrain = savannah
+							has_terrain = coastline
+						}
+					}
+				}
+				NOT = {
+					has_province_modifier = EDG_SHY_pasture
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_SHY_building_pasture.effect.tt
+			tooltip = {
+				random_owned_province = {
+					limit = { 
+						trade_goods = livestock
+						OR = {
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_flag
+									}
+								}
+								OR = {
+									has_terrain = grasslands
+									has_terrain = steppe
+								}
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_drylands_flag
+									}
+								}
+								has_terrain = drylands
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_mountain_flag
+									}
+								}
+								OR = {
+									has_terrain = mountain
+									has_terrain = hills
+									has_terrain = highlands
+								}
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_desert_flag
+									}
+								}
+								OR = {
+									has_terrain = desert
+									has_terrain = coastal_desert
+								}
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_woods_flag
+									}
+								}
+								OR = {
+									has_terrain = woods
+									has_terrain = forest
+									has_terrain = jungle
+								}
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_farmlands_flag
+									}
+								}
+								has_terrain = farmlands
+							}
+							if = {
+								limit = { 
+									root = {
+										has_country_flag = EDG_SHY_enable_build_pasture_in_savannah_flag
+									}
+								}
+								OR = {
+									has_terrain = savannah
+									has_terrain = coastline
+								}
+							}
+						}
+						NOT = {
+							has_province_modifier = EDG_SHY_pasture
+						}
+					}
+					add_province_modifier = {
+						name = EDG_SHY_pasture
+						duration = -1
+					}
+				}
+			}
+			hidden_effect = {
+				while = {
+					limit = { 
+						treasury = 50
+						any_owned_province = {
+							trade_goods = livestock
+							OR = {
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_flag
+										}
+									}
+									OR = {
+										has_terrain = grasslands
+										has_terrain = steppe
+									}
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_drylands_flag
+										}
+									}
+									has_terrain = drylands
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_mountain_flag
+										}
+									}
+									OR = {
+										has_terrain = mountain
+										has_terrain = hills
+										has_terrain = highlands
+									}
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_desert_flag
+										}
+									}
+									OR = {
+										has_terrain = desert
+										has_terrain = coastal_desert
+									}
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_woods_flag
+										}
+									}
+									OR = {
+										has_terrain = woods
+										has_terrain = forest
+										has_terrain = jungle
+									}
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_farmlands_flag
+										}
+									}
+									has_terrain = farmlands
+								}
+								if = {
+									limit = { 
+										root = {
+											has_country_flag = EDG_SHY_enable_build_pasture_in_savannah_flag
+										}
+									}
+									OR = {
+										has_terrain = savannah
+										has_terrain = coastline
+									}
+								}
+							}
+							NOT = {
+								has_province_modifier = EDG_SHY_pasture
+							}
+						}
+					}
+					add_treasury = -50
+					random_owned_province = {
+						limit = { 
+							trade_goods = livestock
+							NOT = {
+								has_province_modifier = EDG_SHY_pasture
+							}
+						}
+						add_province_modifier = {
+							name = EDG_SHY_pasture
+							duration = -1
+						}
+					}
+				}
+			}
+		}
+	}
+}

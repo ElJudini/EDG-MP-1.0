@@ -1,0 +1,670 @@
+EDG_FRN_build_building = {
+	from = {
+		add_manpower = -$manpower$
+	}
+	custom_tooltip = EDG_SPACE_TT
+	if = {
+		limit = { 
+			NOT = {
+				owned_by = from
+			}
+			from = {
+				NOT = {
+					has_country_flag = EDG_enable_manpower_building_window_flag
+				}
+			}
+		}
+		custom_tooltip = EDG_FRN_building_complete_tt
+		hidden_effect = {
+			set_province_flag = EDG_FRN_on_building_flag
+		}
+	}
+	if = {
+		limit = { 
+			from = {
+					has_government_power = {
+					mechanic_type = EDG_FRN_construction_attainments_mechanic
+					power_type = EDG_FRN_construction_attainments
+					value = 75
+				}
+			}
+		}
+		add_building_construction = {
+			building = $building$
+			speed = 0.25
+			cost = 0
+		}
+	}
+	else_if = {
+		limit = { 
+			from = {
+				has_government_power = {
+					mechanic_type = EDG_FRN_construction_attainments_mechanic
+					power_type = EDG_FRN_construction_attainments
+					value = 50
+				}
+			}
+		}
+		add_building_construction = {
+			building = $building$
+			speed = 0.5
+			cost = 0
+		}
+	}
+	else_if = {
+		limit = { 
+			from = {
+				has_government_power = {
+					mechanic_type = EDG_FRN_construction_attainments_mechanic
+					power_type = EDG_FRN_construction_attainments
+					value = 25
+				}
+			}
+		}
+		add_building_construction = {
+			building = $building$
+			speed = 0.75
+			cost = 0
+		}
+	}
+	else = {
+		add_building_construction = {
+			building = $building$
+			speed = 1
+			cost = 0
+		}
+	}
+}
+EDG_FRN_obtain_ca_small = {
+	if = {
+		limit = {
+			has_province_flag = EDG_FRN_on_building_flag
+		}
+		FRN = {
+			add_treasury = $bounty$
+			add_government_power = {
+				mechanic_type = EDG_FRN_construction_attainments_mechanic
+				power_type = EDG_FRN_construction_attainments
+				value = 0.05
+			}
+			add_prestige = 1
+		}
+		if = {
+			limit = { 
+				any_country = {
+					has_country_flag = EDG_FRN_mission_2_11_flag
+				}
+			}
+			add_random_development = 1
+		}
+		hidden_effect = {
+			clr_province_flag = EDG_FRN_on_building_flag
+		}
+	}
+}
+EDG_FRN_obtain_ca_common = {
+	if = {
+		limit = {
+			has_province_flag = EDG_FRN_on_building_flag
+		}
+		FRN = {
+			add_treasury = $bounty$
+			add_government_power = {
+				mechanic_type = EDG_FRN_construction_attainments_mechanic
+				power_type = EDG_FRN_construction_attainments
+				value = 0.1
+			}
+			add_prestige = 3
+		}
+		if = {
+			limit = { 
+				any_country = {
+					has_country_flag = EDG_FRN_mission_2_11_flag
+				}
+			}
+			add_random_development = 1
+		}
+		hidden_effect = {
+			clr_province_flag = EDG_FRN_on_building_flag
+		}
+	}
+}
+EDG_FRN_obtain_ca_big = {
+	if = {
+		limit = {
+			has_province_flag = EDG_FRN_on_building_flag
+		}
+		FRN = {
+			add_treasury = $bounty$
+			add_government_power = {
+				mechanic_type = EDG_FRN_construction_attainments_mechanic
+				power_type = EDG_FRN_construction_attainments
+				value = 0.25
+			}
+			add_prestige = 5
+		}
+		if = {
+			limit = { 
+				any_country = {
+					has_country_flag = EDG_FRN_mission_2_11_flag
+				}
+			}
+			add_random_development = 1
+		}
+		hidden_effect = {
+			clr_province_flag = EDG_FRN_on_building_flag
+		}
+	}
+}
+EDG_FRN_create_delegation_effect = {
+	custom_tooltip = EDG_FRN_delegation_$province$_$great_project$_tooltip
+	hidden_effect = {
+		set_country_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+	}
+	$province$ = {
+		save_event_target_as = agenda_province
+	}
+}
+EDG_FRN_begin_build_great_project = {
+	custom_tooltip = EDG_FRN_begin_build_great_project.tt
+	custom_tooltip = EDG_SPACE_TT
+	add_manpower = -$manpower$
+	$province$ = {
+		if = {
+			limit = {
+				root = {
+					mission_completed = EDG_FRN_mission_5_9
+				}
+			}
+			add_building_construction = {
+				building = EDG_great_project_building_$scale$
+				cost = 0
+				speed = 0.5
+			}
+		}
+		else_if = {
+			limit = { 
+				root = {
+					mission_completed = EDG_FRN_mission_5_8
+				}
+			}
+			add_building_construction = {
+				building = EDG_great_project_building_$scale$
+				cost = 0
+				speed = 0.6
+			}
+		}
+		else_if = {
+			limit = { 
+				root = {
+					mission_completed = EDG_FRN_mission_4_8
+				}
+			}
+			add_building_construction = {
+				building = EDG_great_project_building_$scale$
+				cost = 0
+				speed = 0.7
+			}
+		}
+		else_if = {
+			limit = { 
+				root = {
+					mission_completed = EDG_FRN_mission_5_7
+				}
+			}
+			add_building_construction = {
+				building = EDG_great_project_building_$scale$
+				cost = 0
+				speed = 0.8
+			}
+		}
+		else = {
+			add_building_construction = {
+				building = EDG_great_project_building_$scale$
+				cost = 0
+				speed = 1
+			}
+		}
+		custom_tooltip = EDG_SPACE_TT
+		hidden_effect = {
+			set_province_flag = EDG_FRN_$level$_level_gp_flag
+			set_province_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+		}
+	}
+	[[upgrade]
+		custom_tooltip = EDG_FRN_will_upgrade_gp_tt
+		custom_tooltip = EDG_SPACE_TT
+	]
+	[[glass]
+		subtract_variable = {
+			which = EDG_FRN_materials_total_glass
+			value = $glass$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_glass_need_tt
+		# 	has_country_flag = EDG_FRN_material_glass
+		# }
+	]
+	[[iron]
+		subtract_variable = {
+			which = EDG_FRN_materials_total_iron
+			value = $iron$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_iron_need_tt
+		# 	has_country_flag = EDG_FRN_material_iron
+		# }
+	]
+	[[gems]
+		subtract_variable = {
+			which = EDG_FRN_materials_total_gems
+			value = $gems$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_gems_need_tt
+		# 	has_country_flag = EDG_FRN_material_gems
+		# }
+	]
+	[[woods]
+		subtract_variable = {
+			which = EDG_FRN_materials_total_woods
+			value = $woods$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_woods_need_tt
+		# 	has_country_flag = EDG_FRN_material_woods
+		# }
+	]
+	[[copper]
+		subtract_variable = {
+			which = EDG_FRN_materials_total_copper
+			value = $copper$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_copper_need_tt
+		# 	has_country_flag = EDG_FRN_material_copper
+		# }
+	]
+}
+EDG_FRN_begin_build_greawt_project_use = {
+	if = {
+		limit = { 
+			has_country_flag = $event$.flag
+		}
+		EDG_FRN_begin_build_great_project = {
+			manpower = $manpower$
+			province = $province$
+			level = $level$
+			scale = $scale$ #small medium large
+			great_project = $great_project$
+		}
+	}
+	else = {
+		country_event = {
+			id = $id$
+		}
+		hidden_effect = {
+			EDG_FRN_begin_build_great_project = {
+				manpower = $manpower$
+				province = $province$
+				level = $level$
+				scale = $scale$ #small medium large
+				great_project = $great_project$
+			}
+		}
+	}
+}
+EDG_FRN_get_reward = {
+	custom_tooltip = EDG_SPACE_TT
+	add_treasury = $treasury$
+	custom_tooltip = EDG_SPACE_TT
+	[[prestige]
+		add_prestige_or_monarch_power = { amount = $prestige$ }
+	]
+	[[ca]
+		custom_tooltip = EDG_SPACE_TT
+		add_government_power = {
+			mechanic_type = EDG_FRN_construction_attainments_mechanic
+			power_type = EDG_FRN_construction_attainments
+			value = $ca$
+		}
+	]
+}
+EDG_FRN_get_reward_use = {
+	custom_tooltip = EDG_SPACE_TT
+	if = {
+		limit = { 
+			from = {
+				has_province_flag = EDG_FRN_already_complete_gp_flag
+			}
+		}
+		
+		if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_I_level_gp_flag
+				}
+			}
+			change_variable = {
+				which = EDG_FRN_I_level_gp_build_count
+				value = 1
+			}
+			EDG_FRN_get_reward = {
+				treasury = 250
+				ca = 1
+				prestige = 5
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_FRN_mission_4_10_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+				change_innovativeness = 2
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_I_level_gp_flag
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_II_level_gp_flag
+				}
+			}
+			change_variable = {
+				which = EDG_FRN_II_level_gp_build_count
+				value = 1
+			}
+			EDG_FRN_get_reward = {
+				treasury = 500
+				ca = 2
+				prestige = 10
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_FRN_mission_4_10_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+				change_innovativeness = 4
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_II_level_gp_flag
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_III_level_gp_flag
+				}
+			}
+			change_variable = {
+				which = EDG_FRN_III_level_gp_build_count
+				value = 1
+			}
+			EDG_FRN_get_reward = {
+				treasury = 750
+				ca = 3
+				prestige = 15
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_FRN_mission_4_10_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+				change_innovativeness = 6
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_III_level_gp_flag
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_IV_level_gp_flag
+				}
+			}
+			change_variable = {
+				which = EDG_FRN_IV_level_gp_build_count
+				value = 1
+			}
+			EDG_FRN_get_reward = {
+				treasury = 1000
+				ca = 4
+				prestige = 20
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_FRN_mission_4_10_flag
+				}
+				custom_tooltip = EDG_SPACE_TT
+				change_innovativeness = 8
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_IV_level_gp_flag
+			}
+		}
+		hidden_effect = {
+			clr_province_flag = EDG_FRN_already_complete_gp_flag
+		}
+	}
+	else = {
+		if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_I_level_gp_flag
+				}
+			}
+			EDG_FRN_get_reward = {
+				treasury = 100
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_II_level_gp_flag
+				}
+			}
+			EDG_FRN_get_reward = {
+				treasury = 150
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_III_level_gp_flag
+				}
+			}
+			EDG_FRN_get_reward = {
+				treasury = 200
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					has_province_flag = EDG_FRN_IV_level_gp_flag
+				}
+			}
+			EDG_FRN_get_reward = {
+				treasury = 250
+			}
+		}
+	}
+}
+EDG_FRN_upgrade_gp_effect = {
+	if = {
+		limit = { 
+			has_province_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+		}
+		set_global_flag = EDG_FRN_upgrade_$great_project$_flag
+	}
+}
+EDG_FRN_add_great_project_tier = {
+	if = {
+		limit = { 
+			has_province_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+		}
+		add_great_project_tier = {
+			type = $great_project$
+			tier = 1
+		}
+		# set_great_project_tier_3 = {
+		# 	type = $great_project$
+		# }
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_great_project = {
+						type = $great_project$
+						tier = 3
+					}
+				}
+				EDG_FRN_upgrade_gp_effect = { province = 85 great_project = cologne_cathedral }
+				EDG_FRN_upgrade_gp_effect = { province = 1872 great_project = ulm_minster_great_project }
+				EDG_FRN_upgrade_gp_effect = { province = 118 great_project = schonbrunn_palace }
+				set_province_flag = EDG_FRN_already_complete_gp_flag
+			}
+			clr_province_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+		}
+	}
+}
+EDG_FRN_add_great_project_tier_use = {
+	EDG_FRN_add_great_project_tier = { province = 118 great_project = EDG_Dreifaltigkeit_Dom }
+	EDG_FRN_add_great_project_tier = { province = 1876 great_project = EDG_Sanctus_Spiritus_Unitas }
+	EDG_FRN_add_great_project_tier = { province = 379 great_project = EDG_Sieges_Maria_und_St_Michael }
+	EDG_FRN_add_great_project_tier = { province = 38 great_project = riga_world_city }
+	EDG_FRN_add_great_project_tier = { province = 1876 great_project = EDG_Frankfur_Romanplatz }
+	EDG_FRN_add_great_project_tier = { province = 1876 great_project = EDG_Frankfurt_Cathedral }
+	EDG_FRN_add_great_project_tier = { province = 1876 great_project = EDG_Chateau_Rheingau }
+	EDG_FRN_add_great_project_tier = { province = 78 great_project = EDG_Mainz_StMartins_Cathedral }
+	EDG_FRN_add_great_project_tier = { province = 85 great_project = cologne_cathedral }
+	EDG_FRN_add_great_project_tier = { province = 1872 great_project = ulm_minster_great_project }
+	EDG_FRN_add_great_project_tier = { province = 1878 great_project = EDG_Aachener_Dom }
+	EDG_FRN_add_great_project_tier = { province = 4381 great_project = EDG_Ethel_Palace }
+	EDG_FRN_add_great_project_tier = { province = 97 great_project = dutch_polders }
+	EDG_FRN_add_great_project_tier = { province = 45 great_project = EDG_Heiligen_Geist_Hospital }
+	EDG_FRN_add_great_project_tier = { province = 118 great_project = schonbrunn_palace }
+	EDG_FRN_add_great_project_tier = { province = 104 great_project = duomo_milano }
+	EDG_FRN_add_great_project_tier = { province = 146 great_project = parthenon }
+	EDG_FRN_add_great_project_tier = { province = 341 great_project = EDG_St_Cyprian_Cathedral }
+	EDG_FRN_add_great_project_tier = { province = 236 great_project = EDG_Westminster_Abbey }
+	EDG_FRN_add_great_project_tier = { province = 358 great_project = EDG_Library_of_Alexandria }
+	EDG_FRN_add_great_project_tier = { province = 183 great_project = notre_dame_cathedral }
+	EDG_FRN_add_great_project_tier = { province = 1760 great_project = EDG_Max_Castle }
+	EDG_FRN_add_great_project_tier = { province = 80 great_project = EDG_Eltz_Castle }
+	EDG_FRN_add_great_project_tier = { province = 4713 great_project = EDG_Lichtenstein_Castle }
+	EDG_FRN_add_great_project_tier = { province = 186 great_project = EDG_Fontainebleau }
+	EDG_FRN_add_great_project_tier = { province = 4385 great_project = EDG_Mont_Saint_Michel }
+}
+
+EDG_FRN_get_reward_from_agendas = {
+	custom_tooltip = EDG_SPACE_TT
+	[[I]
+		add_manpower = 1
+	]
+	[[II]
+		add_manpower = 1.5
+	]
+	[[III]
+		add_manpower = 2
+	]
+	[[IV]
+		add_manpower = 2.5
+	]
+}
+
+EDG_FRN_get_building_materials = {
+	if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					trade_goods = glass
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_glass
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					OR = {
+						trade_goods = gold
+						trade_goods = gems
+					}
+					
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_gems
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					trade_goods = iron
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_iron
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					trade_goods = copper
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_copper
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					OR = {
+						has_terrain = forest
+						has_terrain = woods
+					}
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_woods
+			value = 1
+		}
+	}
+	else_if = {
+		limit = { 
+			any_hired_mercenary_company = {
+				template = merc_EDG_FRN_building_materials_exploration_team
+				location = {
+					OR = {
+						has_terrain = mountain
+						has_terrain = hills
+					}
+				}
+			}
+		}
+		change_variable = {
+			which = EDG_FRN_materials_count_copper
+			value = 1
+		}
+	}
+}

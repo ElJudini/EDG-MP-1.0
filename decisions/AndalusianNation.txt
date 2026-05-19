@@ -1,0 +1,551 @@
+country_decisions = {
+	andalusian_nation = {
+		major = yes
+		potential = {
+			always = no
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_andalusia_flag }
+			NOT = { has_country_flag = formed_EDG_Spanish_NATION_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { tag = MGB }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			NOT = { tag = SPA }
+			NOT = { tag = ADU }
+			NOT = { tag = ADC }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			OR = {
+				primary_culture = andalucian
+				culture_group = maghrebi
+			}
+			religion_group = muslim
+			OR = {
+				ai = no
+				AND = {
+					NOT = { exists = ADU }
+					num_of_cities = 6
+					any_owned_province = {
+						OR = {
+							area = upper_andalucia_area
+							area = lower_andalucia_area
+						}
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				OR = {
+					province_id = 221	# Murcia
+					province_id = 223	# Granada
+					province_id = 224	# Andalucia
+					province_id = 225	# Cordoba
+					province_id = 226	# Gibraltar
+					province_id = 1748	# Jaen
+					province_id = 1749	# Cadiz
+					province_id = 222	# Almeria
+					province_id = 4547
+					province_id = 4549
+					province_id = 4548
+				}
+				AND = {
+					OR = {
+						province_id = 229
+						province_id = 230
+					}
+					ROOT = { NOT = { owns_core_province = 1750 } }
+				}
+				AND = {
+					OR = {
+						province_id = 1750
+						province_id = 4549
+					}
+					ROOT = { NOT = { owns_core_province = 230 } }
+					ROOT = { NOT = { owns_core_province = 229 } }
+					ROOT = { NOT = { owns_core_province = 4549 } }
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = FOI_iberian_strife_already_end
+				has_global_flag = IBR_conflict_end_flag
+			}
+			NOT = { exists = ADU }
+			is_nomad = no
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			is_tribal = no
+			OR = {
+				AND = {
+					owns_core_province = 221	# Murcia
+					owns_core_province = 223	# Granada
+					owns_core_province = 224	# Andalucia
+					owns_core_province = 226	# Gibraltar
+					owns_core_province = 1748	# Jaen
+					owns_core_province = 1749	# Cadiz
+					owns_core_province = 222	# Almeria
+					owns_core_province = 4547
+					owns_core_province = 4549
+					owns_core_province = 4548
+				}
+				total_development = 800
+			}
+			225 = { owned_by = ROOT }	# Cordoba
+			225 = { 							# Cordoba
+				is_state = yes
+			}
+			OR = {
+				AND = {
+					owns_core_province = 230			# Algarve
+					owns_core_province = 229			# Alentejo
+				}
+				AND = {
+					owns_core_province = 1750			# Alicante
+					owns_core_province = 4549
+				}
+			}
+		}
+		effect = {
+			set_country_flag = formed_andalusia_flag
+			set_country_flag = formed_EDG_Spanish_NATION_flag
+			225 = {	#Cordoba
+				move_capital_effect = yes
+			}
+			hidden_effect = {
+				if = {
+					limit = { 
+						tag = MOR 
+						has_dlc = "Golden Century"
+					}
+					complete_mission = gra_overcome_internal_strife
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { 
+						tag = MOR 
+						has_dlc = "Golden Century"
+					}
+					complete_mission = gra_friends_in_high_places
+				}
+			}
+			change_tag = ADU
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			add_country_modifier = {
+				name = centralization_modifier
+				duration = 3650
+			}
+			set_capital = 225 # Cordoba
+			if = {
+				limit = {
+					NOT = { primary_culture = andalucian }
+				}
+				change_primary_culture = andalucian
+			}
+			if = {
+				limit = {
+					government = tribal
+				}
+				change_government_to_monarchy = yes #Desert tribes settling down, theocracies become monarchies.
+				#set_legacy_government = despotic_monarchy
+			}
+			lower_andalucia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ADU
+			}
+			upper_andalucia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ADU
+			}
+			toledo_area = {
+				limit = {
+					NOT = {
+						owned_by = ROOT
+					}
+				}
+				add_permanent_claim = ADU
+			}
+			add_permanent_claim = 218
+			add_permanent_claim = 220
+			add_permanent_claim = 1750
+			add_permanent_claim = 1747
+			if = {
+				limit = {
+					mission_completed = gra_reconquer_sevilla
+					has_dlc = "Golden Century"
+				}
+				alentejo_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				beieras_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					mission_completed = gra_restore_trade_superiority
+					has_dlc = "Golden Century"
+				}
+				corsica_sardinia_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				baleares_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					mission_completed = gra_restore_faith_in_the_throne
+					has_dlc = "Golden Century"
+				}
+				algiers_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				hautes_plaines_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				barbary_coast_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				kabylia_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				tunisia_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				djerba_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				tripolitania_area = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = ROOT
+								is_core = ROOT
+							}
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = {
+					mission_completed = gra_restore_faith_in_the_throne
+					has_dlc = "Golden Century"
+				}
+				northern_morocco_area = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				marrekesh_area = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+				western_morocco_area = {
+					limit = {
+						NOT = {
+							owned_by = ROOT
+						}
+						NOT = {
+							is_core = ROOT
+						}
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			country_event = {
+				id = EDG_flavorADU.5
+			}
+			add_government_reform = EDG_Andalusian_monarchy
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_AndalusiaChristian_nation = {
+		major = yes
+		potential = {
+			always = no
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = EDG_formed_AndalusiaChristian_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { tag = MGB }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			NOT = { tag = SPA }
+			NOT = { tag = ADU }
+			NOT = { tag = ADC }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			OR = {
+				primary_culture = andalucian
+				#culture_group = maghrebi
+			}
+			OR = {
+				ai = no
+				AND = {
+					NOT = { exists = ADC }
+					num_of_cities = 6
+					any_owned_province = {
+						OR = {
+							area = upper_andalucia_area
+							area = lower_andalucia_area
+						}
+					}
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				OR = {
+					province_id = 221	# Murcia
+					province_id = 223	# Granada
+					province_id = 224	# Andalucia
+					province_id = 225	# Cordoba
+					province_id = 226	# Gibraltar
+					province_id = 1748	# Jaen
+					province_id = 1749	# Cadiz
+					province_id = 222	# Almeria
+					province_id = 4547
+					province_id = 4549
+					province_id = 4548
+				}
+				AND = {
+					OR = {
+						province_id = 229
+						province_id = 230
+					}
+					ROOT = { NOT = { owns_core_province = 1750 } }
+				}
+				AND = {
+					OR = {
+						province_id = 1750
+						province_id = 4549
+					}
+					ROOT = { NOT = { owns_core_province = 230 } }
+					ROOT = { NOT = { owns_core_province = 229 } }
+					ROOT = { NOT = { owns_core_province = 4549 } }
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = FOI_iberian_strife_already_end
+				has_global_flag = IBR_conflict_end_flag
+			}
+			NOT = { exists = ADC }
+			is_nomad = no
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			is_tribal = no
+			religion_group = christian
+			upper_andalucia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { owner = { religion_group = muslim } }
+			}
+			lower_andalucia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { owner = { religion_group = muslim } }
+			}
+		}
+		effect = {
+			set_country_flag = EDG_formed_AndalusiaChristian_flag
+			set_country_flag = formed_EDG_Spanish_NATION_flag
+			change_tag = ADC
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = {
+					technology_group = muslim
+				}
+				change_technology_group = EDG_Maghreb_groups
+				change_unit_type = EDG_Maghreb_groups
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			add_country_modifier = {
+				name = centralization_modifier
+				duration = 3650
+			}
+			if = {
+				limit = {
+					NOT = { primary_culture = andalucian }
+				}
+				change_primary_culture = andalucian
+			}
+			if = {
+				limit = {
+					government = tribal
+				}
+				change_government_to_monarchy = yes #Desert tribes settling down, theocracies become monarchies.
+				#set_legacy_government = despotic_monarchy
+			}
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			add_government_reform = EDG_ADC_monarchy_government
+		}
+		ai_will_do = {
+			factor = 400
+		}
+	}
+}

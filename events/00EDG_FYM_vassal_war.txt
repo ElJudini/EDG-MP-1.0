@@ -1,0 +1,346 @@
+namespace = EDG_FYM_vassal_war
+country_event = {#
+  id = EDG_FYM_vassal_war.1
+  title = "EDG_FYM_vassal_war.1.title"
+  desc = "EDG_FYM_vassal_war.1.desc"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+      log = "[Root.GetName] has EDG_FYM_vassal_war Disaster."
+      set_country_flag = EDG_FYM_vassal_war_flag
+      set_global_flag = EDG_FYM_vassal_war_global_flag
+    }
+    hidden_effect = {
+		  add_stability = -6
+    }
+  }
+  option = {
+    name = "EDG_FYM_vassal_war.1.aa"
+    tooltip = { add_stability = -6 }
+	
+  }
+  
+}
+
+country_event = {#
+  id = EDG_FYM_vassal_war.2
+  title = "EDG_FYM_vassal_war.2.title"
+  desc = "EDG_FYM_vassal_war.2.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+	set_country_flag = EDG_FYM_vassal_war_end_flag
+  }
+  option = {
+    name = "EDG_FYM_vassal_war.2.aa"
+    add_stability = 2
+    hidden_effect = {
+      every_country = {
+        remove_country_modifier = EDG_FYM_vassal_war_3_A_modifier
+        remove_country_modifier = EDG_FYM_vassal_war_3_B_modifier
+        remove_country_modifier = EDG_FYM_vassal_war_3_B_modifier_2
+        remove_country_modifier = EDG_FYM_vassal_war_4_A_modifier
+        remove_country_modifier = EDG_FYM_vassal_war_4_B_modifier
+        remove_country_modifier = EDG_FYM_vassal_war_4_B_modifier_2
+      }
+    }
+    add_country_modifier = {
+      name = EDG_FYM_vassal_war_2_a_modifier
+      duration = -1
+    }
+  }
+}
+
+
+country_event = {#行省谋求独立
+  id = EDG_FYM_vassal_war.3
+  title = "EDG_FYM_vassal_war.3.title"
+  desc = "EDG_FYM_vassal_war.3.desc"
+  picture = REIREUTION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    any_country = {
+      is_subject_of = root
+      is_EDG_FYM_eyalet_trigger = yes
+      not = { has_country_modifier = EDG_FYM_vassal_war_3_A_modifier }
+      not = { has_country_modifier = EDG_FYM_vassal_war_3_B_modifier }
+    }
+  }
+  immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+          is_subject_of = root
+          OR = {
+            is_subject_of_type = vassal
+            is_subject_of_type = EDG_FYM_slave_vassal
+            is_subject_of_type = EDG_FYM_Agha_dip_vassal
+            is_subject_of_type = EDG_FYM_Agha_mil_vassal
+          }
+          not = { has_country_modifier = EDG_FYM_vassal_war_3_A_modifier }
+          not = { has_country_modifier = EDG_FYM_vassal_war_3_B_modifier }
+          not = { has_country_modifier = EDG_FYM_vassal_war_subject_defeated_modifier }
+				}
+				save_event_target_as = EDG_FYM_vassal_war_3_target_country
+			}
+		}
+  }
+  option = {#我们必须安抚他们。
+    name = "EDG_FYM_vassal_war.3.aa"
+    if = {
+      limit = {
+        adm_power = 100
+        dip_power = 100
+        mil_power = 100
+      }
+      add_adm_power = -100
+      add_dip_power = -100
+      add_mil_power = -100
+      event_target:EDG_FYM_vassal_war_3_target_country = {
+        add_liberty_desire = -25
+        add_adm_power = 100
+        add_dip_power = 100
+        add_mil_power = 100
+        add_country_modifier = {
+          name = EDG_FYM_vassal_war_3_A_modifier
+          duration = 1825
+          hidden = yes
+        }
+      }
+    }
+    else = {
+
+      event_target:EDG_FYM_vassal_war_3_target_country = {
+        add_liberty_desire = -25
+        add_adm_power = 100
+        add_dip_power = 100
+        add_mil_power = 100
+        add_country_modifier = {
+          name = EDG_FYM_vassal_war_3_A_modifier
+          duration = 1825
+          hidden = yes
+        }
+      }
+      every_country = {
+        limit = { is_subject_of = root not = { tag = event_target:EDG_FYM_vassal_war_3_target_country } }
+        add_liberty_desire = 25
+      }
+    }
+  }
+  option = {#让他们用剑来拿！
+    name = "EDG_FYM_vassal_war.3.bb"
+    event_target:EDG_FYM_vassal_war_3_target_country = {
+      declare_war_with_cb = {
+        who = ROOT
+        casus_belli = cb_independence_war
+      }
+      add_country_modifier = {
+        name = EDG_FYM_vassal_war_3_B_modifier
+        duration = -1
+      }
+    }
+  }
+  
+}
+
+
+country_event = {#总督被篡权！
+  id = EDG_FYM_vassal_war.4
+  title = "EDG_FYM_vassal_war.4.title"
+  desc = "EDG_FYM_vassal_war.4.desc"
+  picture = REIREUTION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    any_country = {
+      is_subject_of = root
+      is_EDG_FYM_eyalet_trigger = yes
+      not = { has_country_modifier = EDG_FYM_vassal_war_4_A_modifier }
+      not = { has_country_modifier = EDG_FYM_vassal_war_4_B_modifier }
+      not = { has_country_modifier = EDG_FYM_vassal_war_subject_defeated_modifier }
+    }
+  }
+  immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+          is_subject_of = root
+          OR = {
+            is_subject_of_type = vassal
+            is_subject_of_type = EDG_FYM_slave_vassal
+            is_subject_of_type = EDG_FYM_Agha_dip_vassal
+            is_subject_of_type = EDG_FYM_Agha_mil_vassal
+          }
+          not = { has_country_modifier = EDG_FYM_vassal_war_4_A_modifier }
+          not = { has_country_modifier = EDG_FYM_vassal_war_4_B_modifier }
+				}
+				save_event_target_as = EDG_FYM_vassal_war_4_target_country
+        define_ruler = {
+          culture = ROOT
+          change_adm = 2
+          change_dip = 2
+          change_mil = 2
+          claim = 95
+          age = 45
+        }
+			}
+		}
+  }
+  option = {#只要他愿意承认我们的宗主权。
+    name = "EDG_FYM_vassal_war.4.aa"
+    event_target:EDG_FYM_vassal_war_4_target_country = {
+      add_ruler_modifier = {
+        name = EDG_FYM_vassal_war_4_A_modifier
+        duration = -1
+      }
+    }
+    every_country = {
+      limit = { not = { tag = event_target:EDG_FYM_vassal_war_4_target_country } not = { has_country_modifier = EDG_FYM_vassal_war_4_A_modifier } is_subject_of = root }
+      add_liberty_desire = 10
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_FYM_vassal_war_4_a_opinion_modifier
+      }
+    }
+  }
+  option = {#我们拒绝承认他们的谋逆行为。
+    name = "EDG_FYM_vassal_war.4.bb"
+    add_prestige_or_monarch_power = { amount = 10 }
+    custom_tooltip = EDG_FYM_vassal_war_when_we_win_tt
+    event_target:EDG_FYM_vassal_war_4_target_country = {
+      declare_war_with_cb = {
+        who = ROOT
+        casus_belli = cb_independence_war
+      }
+      add_ruler_modifier = {
+        name = EDG_FYM_vassal_war_4_B_modifier
+        duration = -1
+        hidden = yes
+      }
+    }
+  }
+  
+}
+
+
+country_event = {#成功镇压叛乱
+  id = EDG_FYM_vassal_war.5
+  title = "EDG_FYM_vassal_war.5.title"
+  desc = "EDG_FYM_vassal_war.5.desc"
+  picture = REIREUTION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    any_country = {
+      or = {
+        has_country_modifier = EDG_FYM_vassal_war_3_B_modifier
+        has_country_modifier = EDG_FYM_vassal_war_4_B_modifier
+      }
+      NOT = {
+        war_score_against = {
+          who = ROOT
+          value = -75
+        }
+      }
+    }
+  }
+  option = {#[Root.GetName]笑到最后！
+    name = "EDG_FYM_vassal_war.5.aa"
+    add_prestige_or_monarch_power = { amount = 10 }
+    every_country = {
+      limit = {
+        or = {
+          has_country_modifier = EDG_FYM_vassal_war_3_B_modifier
+          has_country_modifier = EDG_FYM_vassal_war_4_B_modifier
+        }
+        NOT = {
+          war_score_against = {
+            who = ROOT
+            value = -75
+          }
+        }
+      }
+      add_country_modifier = {
+        name = EDG_FYM_vassal_war_subject_defeated_modifier
+        duration = -1
+      }
+      if = {
+        limit = { has_country_modifier = EDG_FYM_vassal_war_3_B_modifier }
+        remove_country_modifier = EDG_FYM_vassal_war_3_B_modifier
+      }
+      if = {
+        limit = { has_country_modifier = EDG_FYM_vassal_war_4_B_modifier }
+        remove_country_modifier = EDG_FYM_vassal_war_4_B_modifier
+        define_ruler = {
+          culture = ROOT
+          religion = ROOT
+          dynasty = ROOT
+          max_random_adm = 5
+          max_random_dip = 5
+          max_random_mil = 5
+          claim = 95
+          age = 30
+        }
+        define_heir = {
+          culture = ROOT
+          religion = ROOT
+          dynasty = ROOT
+          max_random_adm = 5
+          max_random_dip = 5
+          max_random_mil = 5
+          claim = 95
+          age = 15
+        }
+      }
+      white_peace = ROOT
+      add_liberty_desire = -200
+    }
+  }
+}
+
+country_event = {#法赫达  有继承人版
+  id = EDG_FYM_vassal_war.6
+  title = "EDG_FYM_vassal_war.6.title"
+  desc = "EDG_FYM_vassal_war.6.desc"
+  picture = REIREUTION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    has_heir = yes
+    not = { has_country_flag = EDG_FYM_Faheda_event_flag }
+  }
+  immediate = {
+    set_country_flag = EDG_FYM_Faheda_event_flag
+  }
+  option = {#法赫达是最佳的选择。
+    name = "EDG_FYM_vassal_war.6.aa"
+    EDG_FYM_vassal_war_6_a_effect = yes
+  }
+  option = {#我们有别的选择。
+    name = "EDG_FYM_vassal_war.6.bb"
+    add_stability = -1
+  }
+}
+country_event = {#法赫达  无继承人版
+  id = EDG_FYM_vassal_war.7
+  title = "EDG_FYM_vassal_war.7.title"
+  desc = "EDG_FYM_vassal_war.7.desc"
+  picture = REIREUTION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    has_heir = no
+    not = { has_country_flag = EDG_FYM_Faheda_event_flag }
+  }
+  immediate = {
+    set_country_flag = EDG_FYM_Faheda_event_flag
+  }
+  option = {#法赫达是最佳的选择。
+    name = "EDG_FYM_vassal_war.6.aa"
+    EDG_FYM_vassal_war_6_a_effect = yes
+  }
+  option = {#我们有别的选择。
+    name = "EDG_FYM_vassal_war.6.bb"
+    add_stability = -1
+  }
+}

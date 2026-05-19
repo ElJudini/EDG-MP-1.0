@@ -1,0 +1,141 @@
+namespace = EDG_FWFEvents
+
+country_event = {
+	id = EDG_FWFEvents.0
+	is_triggered_only = yes
+	title = EDG_FWFEvents.0.name
+	desc = EDG_FWFEvents.0.desc
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+
+	option = {
+		name = EDG_FWFEvents.0.aa
+		change_tag = FWF
+		if = {
+			limit = { 
+				was_tag = UCI
+			}
+			add_government_reform = FOI_FWF_forward_front
+			hidden_effect = {
+				override_country_name = FWF_NAME
+			}
+		}
+		else_if = {
+			limit = { 
+				OR = {
+					tag = ROS
+					was_tag = ROS
+				}
+			}
+			custom_tooltip = EDG_FWFEvents.0.effect.tt
+			add_government_reform = EDG_ROS_FWF_forward_front
+		}
+		add_prestige_or_monarch_power = { amount = 25}
+		add_country_modifier = {
+			name = centralization_modifier
+			duration = 3650
+		}
+		swap_non_generic_missions = yes
+		country_event = { id = ideagroups.1 } #Swap Ideas
+	}
+	after = {
+		
+		if = {
+			limit = { 
+				OR = {
+					tag = ROS
+					was_tag = ROS
+				}
+			}
+			change_country_color = {
+				country = ROS
+			}
+			add_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 100
+			}
+		}
+		else = {
+			add_revolutionary_zeal = 100
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 100
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_FWFEvents.1
+	is_triggered_only = yes
+	title = EDG_FWFEvents.1.name
+	desc = EDG_FWFEvents.1.desc
+	picture = GREAT_BUILDING_eventPicture
+	major = yes
+
+	option = {
+		name = EDG_FWFEvents.0.aa
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 100
+				OR = {
+					tag = SMO
+					tag = ROS
+					alliance_with = from
+				}
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					is_rival = from
+					from = {
+						is_rival = root
+					}
+				}
+			}
+		}
+		from = {
+			inherit = root
+		}
+	}
+	option = {
+		name = EDG_FWFEvents.1.bb
+		if = {
+			limit = { 
+				NOT = {
+					total_development = 250
+				}
+			}
+			custom_tooltip = EDG_FWFEvents.1.bb.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						is_core = root
+					}
+					add_unrest = 10
+					add_core = from
+				}
+			}
+		}
+		ai_chance = {
+			factor = 1
+		}
+		add_stability = -3
+	}
+}
+
+country_event = {
+	id = EDG_FWFEvents.2
+	is_triggered_only = yes
+	title = EDG_FWFEvents.2.name
+	desc = EDG_FWFEvents.2.desc
+	picture = EDG_picture
+
+	option = {
+		name = EDG_FWFEvents.2.aa
+		custom_tooltip = EDG_FWFEvents.2.aa.tt
+
+	}
+}

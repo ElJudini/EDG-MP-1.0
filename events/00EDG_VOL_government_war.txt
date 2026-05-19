@@ -1,0 +1,148 @@
+namespace = EDG_VOL_government_war
+country_event = {
+  id = EDG_VOL_government_war.1
+  title = "EDG_VOL_government_war.1.EVTNAME"
+  desc = "EDG_VOL_government_war.1.EVTDESC"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  mean_time_to_happen = {
+    days = 1
+  }
+  immediate = {
+    hidden_effect = {
+      log = "[Root.GetName] has EDG_VOL_government_war Disaster."
+    }
+    set_country_flag = had_EDG_VOL_government_war
+    hidden_effect = {
+		add_stability = -6
+    }
+
+  }
+  option = {
+    name = "EDG_VOL_government_war.1.a"
+    add_prestige = -10
+	
+    if = {
+      limit = {
+        any_owned_province = {
+          development = 15
+          highest_supply_limit_in_area = yes
+          is_in_capital_area = yes
+          fort_level = 1
+          is_capital = no
+        }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 10
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 10
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 10
+		  }
+      }
+    }
+    else = {
+      random_owned_province = {
+        limit = {
+          highest_supply_limit_in_area = yes
+          is_capital = no
+        }
+		
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 10
+		  }
+      }
+    }
+    if = {
+      limit = {
+        NOT = {
+          has_dlc = "Emperor"
+        }
+      }
+      random_owned_province = {
+        limit = {
+          is_capital = yes
+        }
+		spawn_rebels = {
+			size = 2
+			win = yes
+		  }
+      }
+    }
+    tooltip = { add_stability = -6 }
+  }
+  
+}
+
+
+country_event = {
+  id = EDG_VOL_government_war.2
+  title = "EDG_VOL_government_war.2.EVTNAME"
+  desc = "EDG_VOL_government_war.2.EVTDESC"
+  picture = REVOLUTION_eventPicture
+  fire_only_once = yes
+  major = yes
+  is_triggered_only = yes
+  mean_time_to_happen = {
+    days = 1
+  }
+  option = {
+    name = "EDG_VOL_government_war.2.a"
+    add_stability_or_adm_power = yes
+    add_prestige_or_monarch_power = { amount = 25 }
+    custom_tooltip = EDG_VOL_government_war_2_tt
+    add_government_reform = EDG_zemsky_sobor_new
+    hidden_effect = {
+      every_owned_province = {
+        if = {
+          limit = {
+            has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+          }
+          remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+          add_province_modifier = {
+            name = EDG_RUS_landowners_integrate_province_modifier
+            duration = 7300
+          }
+        }
+        if = {
+          limit = {
+            has_province_modifier = EDG_RUS_landowners_church_province_modifier
+          }
+          remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+          add_province_modifier = {
+            name = EDG_RUS_landowners_integrate_province_modifier
+            duration = 7300
+          }
+        }
+        if = {
+          limit = {
+            has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+          }
+          remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+          add_province_modifier = {
+            name = EDG_RUS_landowners_integrate_province_modifier
+            duration = 7300
+          }
+        }
+        
+      }
+    }
+  }
+}

@@ -1,0 +1,640 @@
+namespace = EDG_flavor_religion_protestant
+normal_or_historical_nations = yes
+country_event = {#路德的逝世
+	id = EDG_flavor_religion_protestant.1
+	title = "EDG_flavor_religion_protestant.1.t"
+	desc = "EDG_flavor_religion_protestant.1.d"
+	picture = RELIGIOUS_WARS_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	major = yes
+	trigger = {
+		is_year = 1546
+		if = {
+			limit = {
+				any_country = {
+					religion = protestant
+				}
+			}
+			religion = protestant
+		}
+		religion_group = christian
+		has_global_flag = EDG_flavor_religion_protestant_enable_global_flag
+	}
+	immediate = {
+		clr_global_flag = EDG_flavor_religion_protestant_enable_global_flag
+	}
+	option = {#「即使知道世界明天就要毁灭，他今天也要种一颗小苹果树。」
+		name = "EDG_flavor_religion_protestant.1.a"
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_Luther_die_tt
+		set_global_flag = EDG_flavor_religion_protestant_events_Luther_die_flag
+	}
+}
+
+
+country_event = {#吸引路德宗移民
+	id = EDG_flavor_religion_protestant.2
+	title = "EDG_flavor_religion_protestant.2.t"
+	desc = "EDG_flavor_religion_protestant.2.d"
+	picture = MERCHANTS_TALKING_eventPicture
+	goto = EDG_flavor_religion_protestant_2_province
+	
+	trigger = {
+		num_of_cities = 10
+		religion = protestant
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_2_province
+			}
+		}
+	}
+	
+	option = {#让他们开垦土地。
+		name = "EDG_flavor_religion_protestant.2.a"
+		event_target:EDG_flavor_religion_protestant_2_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_2_a_province_modifier"
+				duration = 1825
+			}
+		
+		}
+	}
+	option = {#让他们进入城市。
+		name = "EDG_flavor_religion_protestant.2.b"
+		event_target:EDG_flavor_religion_protestant_2_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_2_b_province_modifier"
+				duration = 1825
+			}
+		
+		}		
+	}
+	option = {#让他们入伍。
+		name = "EDG_flavor_religion_protestant.2.c"
+		event_target:EDG_flavor_religion_protestant_2_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_2_c_province_modifier"
+				duration = 1825
+			}
+		
+		}			
+
+	}
+}
+
+country_event = {#优秀的新教工匠
+	id = EDG_flavor_religion_protestant.3
+	title = "EDG_flavor_religion_protestant.3.t"
+	desc = "EDG_flavor_religion_protestant.3.d"
+	picture = MERCHANTS_TALKING_eventPicture
+	goto = EDG_flavor_religion_protestant_3_province
+	
+	trigger = {
+		current_age = age_of_reformation
+		num_of_cities = 10
+		religion = protestant
+		is_at_war = no
+		culture_group = germanic
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_3_province
+			}
+		}
+	}
+	
+	option = {#欢迎他们的到来。
+		name = "EDG_flavor_religion_protestant.3.a"
+		event_target:EDG_flavor_religion_protestant_3_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_3_a_province_modifier"
+				duration = 1825
+			}
+		
+		}
+	}
+	option = {#为他们提供特权！
+		name = "EDG_flavor_religion_protestant.3.b"
+		event_target:EDG_flavor_religion_protestant_3_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_3_b_province_modifier"
+				duration = 1825
+			}
+		
+		}		
+	}
+	option = {#敲诈他们一笔。
+		name = "EDG_flavor_religion_protestant.3.c"
+		add_treasury = 25
+		event_target:EDG_flavor_religion_protestant_3_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_3_c_province_modifier"
+				duration = 1825
+			}
+		
+		}			
+
+	}
+}
+country_event = {#优秀的新教工匠
+	id = EDG_flavor_religion_protestant.4
+	title = "EDG_flavor_religion_protestant.4.t"
+	desc = "EDG_flavor_religion_protestant.4.d"
+	picture = ANGRY_MOB_eventPicture
+	goto = EDG_flavor_religion_protestant_4_province
+	
+	trigger = {
+		current_age = age_of_reformation
+		num_of_cities = 10
+		religion = catholic
+		any_owned_province = {
+			OR = {
+				religion = protestant
+				religion = reformed
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					OR = {
+						religion = protestant
+						religion = reformed
+					}
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_4_province
+			}
+		}
+	}
+	
+	option = {#把他们驱逐出境！
+		name = "EDG_flavor_religion_protestant.4.a"
+		add_papal_influence = 5
+		event_target:EDG_flavor_religion_protestant_4_province = {
+			change_religion = catholic
+			if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			}
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_4_a_province_modifier"
+				duration = 1825
+			}
+		
+		}
+	}
+	option = {#给他们一点特权吧。
+		name = "EDG_flavor_religion_protestant.4.b"
+		add_prestige = -5
+		add_papal_influence = -5
+		event_target:EDG_flavor_religion_protestant_4_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_4_b_province_modifier"
+				duration = 1825
+			}
+		}
+	}
+}
+country_event = {#新教徒渴望逃离
+	id = EDG_flavor_religion_protestant.5
+	title = "EDG_flavor_religion_protestant.5.t"
+	desc = "EDG_flavor_religion_protestant.5.d"
+	picture = BANKRUPTCY_eventPicture
+	goto = EDG_flavor_religion_protestant_5_province
+	
+	trigger = {
+		current_age = age_of_reformation
+		capital_scope = { continent = europe }
+		religion = catholic
+		any_owned_province = {
+			OR = {
+				religion = protestant
+				religion = reformed
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					OR = {
+						religion = protestant
+						religion = reformed
+					}
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_5_province
+			}
+		}
+	}
+	
+	option = {#让他们滚吧。
+		name = "EDG_flavor_religion_protestant.5.a"
+		add_prestige = -5
+		add_papal_influence = -5
+		event_target:EDG_flavor_religion_protestant_5_province = {
+			change_religion = catholic
+			if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			}
+			if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			}
+			if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1
+			}
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_5_a_province_modifier"
+				duration = 1825
+			}
+		
+		}
+		hidden_effect = {
+			random_country = {
+				limit = {
+					OR = {
+						religion = protestant
+						religion = reformed
+					}
+					capital_scope = { continent = europe }
+				}
+				country_event = { id = EDG_flavor_religion_protestant.6 }
+			}
+		}
+	}
+	option = {#我们决不允许。
+		name = "EDG_flavor_religion_protestant.5.b"
+		event_target:EDG_flavor_religion_protestant_5_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_5_b_province_modifier"
+				duration = 1825
+			}
+		}
+	}
+}
+country_event = {#新教徒移民迁入
+	id = EDG_flavor_religion_protestant.6
+	title = "EDG_flavor_religion_protestant.6.t"
+	desc = "EDG_flavor_religion_protestant.6.d"
+	picture = MERCHANTS_TALKING_eventPicture
+	goto = EDG_flavor_religion_protestant_6_province
+	
+	trigger = {
+		any_owned_province = {
+			is_city = yes
+			religion = ROOT
+			NOT = { development = 10 }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					religion = ROOT
+					NOT = { development = 10 }
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_6_province
+			}
+		}
+	}
+	
+	option = {#欢迎他们！
+		name = "EDG_flavor_religion_protestant.6.a"
+		add_dip_power = -20
+		event_target:EDG_flavor_religion_protestant_6_province = {
+			random_list = {
+				10 = { add_base_tax = 1 } 
+				10 = { add_base_production = 1 } 
+				10 = { add_base_manpower = 1 } 
+			}
+			add_province_modifier = {
+				name = "EDG_flavor_religion_protestant_6_a_province_modifier"
+				duration = 1825
+			}
+		
+		}
+	}
+	option = {#我们不愿意。
+		name = "EDG_flavor_religion_protestant.6.b"
+		add_prestige = -5
+	}
+}
+country_event = {#帝国宗教冲突
+	id = EDG_flavor_religion_protestant.7
+	title = "EDG_flavor_religion_protestant.7.t"
+	desc = "EDG_flavor_religion_protestant.7.d"
+	picture = ENCOMIENDA_eventPicture
+	goto = EDG_flavor_religion_protestant_7_province
+	
+	trigger = {
+		current_age = age_of_reformation
+		is_part_of_hre = yes
+		religion_group = christian
+		OR = {
+			religion = reformed
+			religion = protestant
+			religion = catholic
+		}
+		if = {
+			limit = { religion = catholic }
+			any_owned_province = {
+				OR = {
+					religion = reformed
+					religion = protestant
+				}
+			}
+		}
+		else = {
+			any_owned_province = {
+				religion = catholic
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					religion_group = christian
+					NOT = { religion = ROOT }
+				}
+				save_event_target_as = EDG_flavor_religion_protestant_7_province
+			}
+		}
+	}
+	
+	option = {#让他们滚吧。
+		name = "EDG_flavor_religion_protestant.5.a"
+		event_target:EDG_flavor_religion_protestant_7_province = {
+			change_religion = root
+			if = {
+				limit = { base_production = 2 }
+				add_base_production = -1
+			}
+			if = {
+				limit = { base_tax = 2 }
+				add_base_tax = -1
+			}
+			if = {
+				limit = { base_manpower = 2 }
+				add_base_manpower = -1
+			}
+		}
+	}
+	option = {#我们决不允许。
+		name = "EDG_flavor_religion_protestant.5.b"
+		event_target:EDG_flavor_religion_protestant_7_province = {
+			add_unrest = 5
+		}
+	}
+}
+country_event = {#教会忠诚
+	id = EDG_flavor_religion_protestant.8
+	title = "EDG_flavor_religion_protestant.8.t"
+	desc = "EDG_flavor_religion_protestant.8.d"
+	picture = MERCHANTS_TALKING_eventPicture
+	
+	trigger = {
+		num_of_cities = 10
+		religion = protestant
+		estate_loyalty = {
+			estate = estate_church
+			loyalty = 50
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {#让我们建设更高效的教会！
+		name = "EDG_flavor_religion_protestant.8.a"
+		add_church_power = 50
+	}
+	option = {#将资源投入行政系统。
+		name = "EDG_flavor_religion_protestant.8.b"
+		add_adm_power = 25
+	}
+	option = {#我们还有别的投资方向。
+		name = "EDG_flavor_religion_protestant.8.c"
+		add_dip_power = 25
+	}
+	
+}
+country_event = {#《致德意志民族的基督教贵族书》
+	id = EDG_flavor_religion_protestant.101
+	title = "EDG_flavor_religion_protestant.101.t"
+	desc = "EDG_flavor_religion_protestant.101.d"
+	picture = RELIGIOUS_TURMOIL_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {
+		name = "EDG_flavor_religion_protestant.101.a"
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		add_reform_desire = 0.1
+		add_prestige_or_monarch_power = { amount = 10 }
+		
+		if = {
+			limit = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+				}
+				has_country_flag = reformation_money
+				NOT = {
+					calc_true_if = {
+						all_province = {
+							religion = protestant
+							is_reformation_center = yes
+						}
+						amount = 5
+					}
+				}
+				NOT = {
+					any_owned_province = {
+						has_country_modifier = religious_center
+					}
+				}
+			}
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						can_have_center_of_reformation_trigger = {
+							RELIGION = protestant
+						}
+					}
+					change_religion = protestant
+					add_reform_center = protestant
+				}
+			}
+			custom_tooltip = CENTER_OF_REFORMATION_POSSIBLE
+		}
+
+		custom_tooltip = EDG_SPACE_TT
+		add_country_modifier = {
+			name = EDG_protestant_religion_decision_essay_1_modifier
+			name = 1825
+		}
+
+		custom_tooltip = EDG_SPACE_TT
+		every_country = {
+			limit = { religion = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = EDG_protestant_religion_decision_essay_1_opinion
+			}
+		}
+	}
+	
+}
+country_event = {#《论基督徒的自由》
+	id = EDG_flavor_religion_protestant.102
+	title = "EDG_flavor_religion_protestant.102.t"
+	desc = "EDG_flavor_religion_protestant.102.d"
+	picture = RELIGIOUS_TURMOIL_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {
+		name = "EDG_flavor_religion_protestant.102.a"
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		add_reform_desire = 0.1
+		add_prestige_or_monarch_power = { amount = 10 }
+		
+		if = {
+			limit = {
+				OR = {
+					current_age = age_of_discovery
+					current_age = age_of_reformation
+				}
+				has_country_flag = reformation_money
+				NOT = {
+					calc_true_if = {
+						all_province = {
+							religion = protestant
+							is_reformation_center = yes
+						}
+						amount = 5
+					}
+				}
+				NOT = {
+					any_owned_province = {
+						has_country_modifier = religious_center
+					}
+				}
+			}
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						can_have_center_of_reformation_trigger = {
+							RELIGION = protestant
+						}
+					}
+					change_religion = protestant
+					add_reform_center = protestant
+				}
+			}
+			custom_tooltip = CENTER_OF_REFORMATION_POSSIBLE
+		}
+
+		custom_tooltip = EDG_SPACE_TT
+		add_country_modifier = {
+			name = EDG_protestant_religion_decision_essay_2_modifier
+			name = 1825
+		}
+
+		custom_tooltip = EDG_SPACE_TT
+		every_country = {
+			limit = { religion = ROOT }
+			add_opinion = {
+				who = ROOT
+				modifier = EDG_protestant_religion_decision_essay_2_opinion
+			}
+		}
+	}
+	
+}

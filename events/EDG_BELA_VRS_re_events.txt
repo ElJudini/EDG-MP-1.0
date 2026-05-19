@@ -1,0 +1,1095 @@
+
+#Belaslav
+
+namespace = EDG_ers
+
+#统一罗斯系列
+country_event = {#统一罗斯宣言
+    id = EDG_ers.101
+    title = EDG_ers.101t
+    desc = EDG_ers.101d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+    immediate = {
+        hidden_effect = {
+            280 = {
+                owner = {
+                    save_event_target_as = EDG_ers_101_target
+                }
+            }
+        }
+    }
+    
+    option = {
+        name = "EDG_ers.101A"
+        ai_chance = { factor = 0.3 }
+        if = {
+            limit = {
+                280 = {
+                    country_or_non_sovereign_subject_holds = ROOT
+                }
+            }
+        }
+        else = {
+            event_target:EDG_ers_101_target = {
+                add_historical_rival = ROOT
+            }
+            ROOT = {
+                add_historical_rival = event_target:EDG_ers_101_target
+            }
+        }
+        russia_region = {
+            limit = {
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+            }
+            add_permanent_claim = ROOT
+        }
+        ruthenia_region = {
+            limit = {
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+            }
+            add_permanent_claim = ROOT
+        }
+        add_ruler_modifier = {
+            name = EDG_ers_unite_rus_announce_modifier
+            duration = -1  
+        }
+    }
+}
+country_event = {#弗拉基米尔的信使
+    id = EDG_ers.102
+    title = EDG_ers.102t
+    desc = EDG_ers.102d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.102A"
+        FROM = { vassalize = ROOT }
+        if = {
+            limit = { tag = RYA }
+            VRS = {
+                country_event = {
+                    id = EDG_ers.103
+                }
+            }
+        }
+        else_if = {
+            limit = { tag = PLT }
+            VRS = {
+                country_event = {
+                    id = EDG_ers.105
+                }
+            }
+        }
+        ai_chance = { factor = 1.0 }  
+    }
+    option = {
+        name = "EDG_ers.102B"
+        ai_chance = { factor = 0.1 }
+        if = {
+            limit = { tag = RYA }
+            VRS = {
+                country_event = {
+                    id = EDG_ers.104
+                }
+            }
+        }
+        else_if = {
+            limit = { tag = PLT }
+            VRS = {
+                country_event = {
+                    id = EDG_ers.106
+                }
+            }
+        }
+    }
+}
+country_event = {#梁赞的回复y
+    id = EDG_ers.103
+    title = EDG_ers.103t
+    desc = EDG_ers.102d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.103A"
+        ai_chance = { factor = 0.3 }
+        RYA = { add_historical_friend = VRS }
+        VRS = { add_historical_friend = RYA }
+    }
+}
+country_event = {#梁赞的回复n
+    id = EDG_ers.104
+    title = EDG_ers.104t
+    desc = EDG_ers.104d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.104A"
+        ai_chance = { factor = 0.3 }
+        RYA = { add_historical_rival = VRS }
+        VRS = { add_historical_rival = RYA }
+    }
+}
+country_event = {#波洛茨克的回复y
+    id = EDG_ers.105
+    title = EDG_ers.105t
+    desc = EDG_ers.105d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.105A"
+        ai_chance = { factor = 0.3 }
+        PLT = { add_historical_friend = VRS }
+        VRS = { add_historical_friend = PLT }
+    }
+}
+country_event = {#波洛茨克的回复n
+    id = EDG_ers.106
+    title = EDG_ers.106t
+    desc = EDG_ers.106d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.106A"
+        ai_chance = { factor = 0.3 }
+        PLT = { add_historical_rival = VRS }
+        VRS = { add_historical_rival = PLT }
+    }
+}
+country_event = {#基辅的历史意义
+    id = EDG_ers.107
+    title = EDG_ers.107t
+    desc = EDG_ers.107d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.107A"
+        add_legitimacy = 5
+        set_country_flag = EDG_ers_shoudu_kie_flag
+        ai_chance = { factor = 0.3 } 
+        custom_tooltip = EDG_ers_shoudu_kie_flag_tooltip
+    }
+    option = {
+        name = "EDG_ers.107B"
+        add_prestige = 10
+        add_country_modifier = {
+            name = EDG_ers_vladimir_rus_modifier
+            duration = 7300
+        }
+        ai_chance = { factor = 0.1 }
+    }
+}
+#文化传播系列
+province_event = {#波罗的海传播罗斯文化
+    id = EDG_ers.201
+    title = EDG_ers.201t
+    desc = EDG_ers.201d
+    picture = SEJM_eventPicture
+
+    mean_time_to_happen = {
+    	months = 24
+    	modifier = {
+    		factor = 0.5
+    		stability = 0
+    	}
+    }
+    hidden = yes
+    trigger = {
+        owner = { has_country_flag = EDG_ers_baltic_culture_flag }
+        culture_group = baltic
+        religion = orthodox
+    }
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    any_neighbor_province = {
+                        culture_group = east_slavic
+                    }
+                }
+                random = {
+                    25 = {
+                        change_culture = novgorodian
+                    }
+                    5 = {
+                        change_culture = russian
+                    }
+                    70 = {
+                        change_culture = byelorussian
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        name = "EDG_ers.201A"
+        ai_chance = { factor = 1 }  
+    }
+}
+country_event = {#卡累利阿文化统一
+    id = EDG_ers.202
+    title = EDG_ers.201t
+    desc = EDG_ers.201d
+    picture = SEJM_eventPicture
+
+    mean_time_to_happen = {
+        
+        
+    }
+    hidden = yes
+    trigger = {
+        has_country_flag = EDG_ERS_1_10_karelia_flag
+        any_owned_province = {
+            OR = {
+                culture = finnish
+                culture = sapmi
+            }
+            religion = orthodox
+        }
+    }
+
+    option = {
+        name = "EDG_ers.201A"
+        random_owned_province = {
+            limit = {
+                OR = {
+                    culture = finnish
+                    culture = sapmi
+                }
+                religion = orthodox
+            }
+            change_culture = karelian
+        }
+        ai_chance = { factor = 1 }  
+    }
+}
+country_event = {
+    id = EDG_ers.203
+    title = EDG_ers.201t
+    desc = EDG_ers.201d
+    picture = SEJM_eventPicture
+
+    mean_time_to_happen = {
+    	months = 36
+    	modifier = {
+    		factor = 0.5
+    		stability = 0
+    	}
+    }
+    hidden = yes
+    trigger = {
+        has_country_flag = EDG_ers_colonize_steppe_flag
+        any_owned_province = {
+            culture_group = tartar
+            religion = orthodox
+        }
+    }
+
+    option = {
+        name = "EDG_ers.201A"
+        random_owned_province = {
+            limit = {
+                culture_group = tartar
+                religion = orthodox
+            }
+            random_list = {
+                35 = {
+                    change_culture = ROOT
+                }
+                50 = {
+                    change_culture = ryazanian
+                }
+                15 = {
+                    change_culture = ruthenian
+                }
+            }
+        }
+        ai_chance = { factor = 1 }  
+    }
+}
+country_event = {
+    id = EDG_ers.204
+    title = EDG_ers.201t
+    desc = EDG_ers.201d
+    picture = SEJM_eventPicture
+
+    mean_time_to_happen = {
+    	months = 108
+    	modifier = {
+    		factor = 0.5
+    		stability = 0
+    	}
+    }
+    hidden = yes
+    trigger = {
+        has_country_flag = EDG_ers_colonize_steppe_flag
+        any_owned_province = {
+            culture_group = tartar
+            NOT = { religion = orthodox }
+        }
+    }
+
+    option = {
+        name = "EDG_ers.201A"
+        random_owned_province = {
+            limit = {
+                culture_group = tartar
+                NOT = { religion = orthodox }
+            }
+            change_culture = ROOT
+            change_religion = ROOT
+        }
+        ai_chance = { factor = 1 }  
+    }
+}
+#鞑靼系列
+country_event = {#终结鞑靼民族
+    id = EDG_ers.401
+    title = EDG_ers.301t
+    desc = EDG_ers.301d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+    major = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.301A"
+        466 = {
+            change_culture = ROOT
+            change_religion = ROOT
+            set_base_tax = 1
+            set_base_production = 1
+            set_base_manpower = 1
+            add_devastation = -95
+        }
+        add_years_of_income = 0.25
+        add_power_projection = {
+            type = mission_rewards_power_projection
+            amount = 25
+        }
+        ai_chance = { factor = 0.3 }  
+    }
+    option = {
+        name = "EDG_ers.301B"
+        ai_chance = { factor = 0.1 }
+    }
+}
+#特别军事行动
+province_event = {#特别军事行动
+	id = EDG_ers.1001
+	title = EDG_ers.1t
+	desc = EDG_ers.1d
+	picture = SEJM_eventPicture
+	hidden = yes
+	trigger = {
+		NOT = { controlled_by = owner }
+		NOT = { units_in_province = owner }
+		controller = {
+            tag = VRS
+			is_in_war = {
+                casus_belli = EDG_ers_annex_war_cb
+            }
+		}
+        OR = {
+            province_is_on_an_island = yes
+            any_neighbor_province = {
+                is_core = VRS
+            }
+        }
+		is_claim = controller
+        NOT = { is_core = controller }
+	}
+	immediate = {
+		controller = { save_event_target_as = EDG_ers_rus_controller_target }
+        every_neighbor_province = {
+			limit = {NOT = {has_discovered = event_target:EDG_ers_rus_controller_target }}
+			discover_country = event_target:EDG_ers_rus_controller_target
+		}
+		add_territorial_core = controller
+        add_nationalism = 30
+        add_unrest = 5
+        if = {
+            limit = { development = 16 }
+            event_target:EDG_ers_rus_controller_target = {
+                every_known_country = {
+                    limit = {
+                        AND = {
+                            NOT = {
+                                alliance_with = VRS
+                            }
+                            NOT = {
+                                is_subject = yes
+                            }
+                            NOT = {
+                                has_opinion = {
+                                    who = VRS
+                                    value = 50
+                                }
+                            }
+                        }
+                    }
+                    add_aggressive_expansion = {
+                        who = event_target:EDG_ers_rus_controller_target
+                        value = 1
+                        apply_calc = no
+                    }
+                }
+            }
+        }
+        if = {
+            limit = { development = 31 }
+            event_target:EDG_ers_rus_controller_target = {
+                every_known_country = {
+                    limit = {
+                        AND = {
+                            NOT = {
+                                alliance_with = VRS
+                            }
+                            NOT = {
+                                is_subject = yes
+                            }
+                            NOT = {
+                                has_opinion = {
+                                    who = VRS
+                                    value = 50
+                                }
+                            }
+                        }
+                    }
+                    add_aggressive_expansion = {
+                        who = event_target:EDG_ers_rus_controller_target
+                        value = 1
+                        apply_calc = no
+                    }
+                }
+            }
+        }
+        if = {
+            limit = { development = 46 }
+            event_target:EDG_ers_rus_controller_target = {
+                every_known_country = {
+                    limit = {
+                        AND = {
+                            NOT = {
+                                alliance_with = VRS
+                            }
+                            NOT = {
+                                is_subject = yes
+                            }
+                            NOT = {
+                                has_opinion = {
+                                    who = VRS
+                                    value = 50
+                                }
+                            }
+                        }
+                    }
+                    add_aggressive_expansion = {
+                        who = event_target:EDG_ers_rus_controller_target
+                        value = 1
+                        apply_calc = no
+                    }
+                }
+            }
+        }
+	}
+	option = {
+        name = EDG_ers.1A
+        ai_chance = { factor = 0.6 }
+    }
+}
+province_event = {#特别军事行动
+	id = EDG_ers.1009
+	title = EDG_ers.1t
+	desc = EDG_ers.1d
+	picture = SEJM_eventPicture
+	hidden = yes
+	trigger = {
+		NOT = { controlled_by = owner }
+		NOT = { units_in_province = owner }
+		controller = {
+			is_in_war = {
+                casus_belli = EDG_ers_annex_war_cb
+            }
+		}
+        OR = {
+            province_is_on_an_island = yes
+            any_neighbor_province = {
+                owner = {
+                    is_in_war = {
+                        casus_belli = EDG_ers_annex_war_cb
+                    }
+                }
+                is_core = VRS
+                owned_by = VRS
+            }
+        }
+		is_core = controller
+	}
+	immediate = {
+        owner = { save_event_target_as = EDG_ers_rus_owner_target }
+        if = {
+            limit = {
+                owner = {
+                    num_of_cities = 2
+                }
+            }
+            cede_province = controller
+            add_local_autonomy = 100
+        }
+        else_if = {
+            limit = {
+                owner = {
+                    is_in_war = {
+                        casus_belli = EDG_ers_annex_war_cb
+                        defender_leader = event_target:EDG_ers_rus_owner_target
+                    }
+                }
+            }
+            every_country = {
+                limit = {
+                    is_in_war = {
+                        casus_belli = EDG_ers_annex_war_cb
+                        defender_leader = event_target:EDG_ers_rus_owner_target
+                    }
+                    defensive_war_with = VRS
+                }
+                white_peace = VRS
+            }
+            cede_province = VRS
+            add_local_autonomy = 100
+        }
+        else = {
+            cede_province = controller
+            add_local_autonomy = 100
+        }
+	}
+	option = {
+        name = EDG_ers.1A
+        ai_chance = { factor = 0.6 }
+    }
+}
+country_event = {#射击军使命
+    id = EDG_ers.1002
+    title = EDG_ers.2t
+    desc = EDG_ers.2d
+    picture = SEJM_eventPicture
+
+    mean_time_to_happen = {
+        months = 6
+    }
+
+    fire_only_once = yes
+
+    trigger = {
+        has_country_flag = EDG_Vladimir_GP_flag
+    }
+
+    option = {
+        name = "EDG_ers.2A"
+        custom_tooltip = flavor_rus.130.a.tt
+        add_country_modifier = {
+            name = rus_ensured_regular_payment
+            duration = -1
+        }
+        set_country_flag = EDG_ers_handle_streltsy_flag
+        custom_tooltip = EDG_ers_handle_streltsy_flag_modifier
+        ai_chance = { factor = 0.3 }  
+    }
+}
+country_event = {
+    id = EDG_ers.1003
+    title = EDG_ers.3t
+    desc = EDG_ers.3d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_ers.3A"
+        custom_tooltip = EDG_ers_handle_streltsy_event_flag_tooltip_1
+        set_country_flag = EDG_ers_army_reform_flag_1
+        set_country_flag = EDG_ers_army_reform_flag_2
+        set_country_flag = EDG_ers_army_reform_flag_3
+        set_country_flag = EDG_ers_army_reform_flag_4
+        ai_chance = { factor = 0.3 }  
+    }
+    option = {
+        name = "EDG_ers.3B"
+        custom_tooltip = EDG_ers_handle_streltsy_event_flag_tooltip_2
+        set_country_flag = EDG_ers_handle_streltsy_event_flag_1_1
+        set_country_flag = EDG_ers_handle_streltsy_event_flag_2_1
+        #set_country_flag = EDG_ers_handle_streltsy_event_flag_3_1
+        #set_country_flag = EDG_ers_handle_streltsy_event_flag_4_1
+        #set_country_flag = EDG_ers_handle_streltsy_event_flag_1_2
+        #set_country_flag = EDG_ers_handle_streltsy_event_flag_2_2
+        set_country_flag = EDG_ers_handle_streltsy_event_flag_3_2
+        set_country_flag = EDG_ers_handle_streltsy_event_flag_4_2
+        ai_chance = { factor = 0.6 }  
+    }
+}
+country_event = {
+    id = EDG_ers.1004
+    title = EDG_ers.4t
+    desc = EDG_ers.4d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.4A"
+        add_ruler_modifier = {
+            name = EDG_ers4A_modifier
+            duration = -1
+        }
+        ai_chance = { factor = 0.3 }  
+    }
+    option = {
+        name = "EDG_ers.4B"
+        add_ruler_modifier = {
+            name = EDG_ers4B_modifier
+            duration = -1
+        }
+        ai_chance = { factor = 0.1 }
+    }
+    option = {
+        name = "EDG_ers.4C"
+        add_ruler_modifier = {
+            name = EDG_ers4C_modifier
+            duration = -1
+        }
+        ai_chance = { factor = 0.6 }
+    }
+}
+
+country_event = {
+    id = EDG_ers.1005
+    title = EDG_ers.5t
+    desc = EDG_ers.5d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.5A"
+        FROM = {
+            country_event = {
+                id = EDG_ers.1007
+            }
+        }
+        ai_chance = { factor = 0 }  
+    }
+    option = {
+        name = "EDG_ers.5B"
+        FROM = {
+            country_event = {
+                id = EDG_ers.1006
+            }
+        }
+        ai_chance = { factor = 3 }
+    }
+}
+country_event = {
+    id = EDG_ers.1006
+    title = EDG_ers.6t
+    desc = EDG_ers.6d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+    immediate = {
+        hidden_effect = {
+            151 = {
+                owner = { save_event_target_as = EDG_ers_jb_target }
+            }
+        }
+    }
+    option = {
+        name = "EDG_ers.6A"
+        add_casus_belli = {
+            target = event_target:EDG_ers_jb_target
+            type = cb_vassalize_mission
+            months = 60
+        }
+        ai_chance = { factor = 0.3 }  
+    }
+}
+country_event = {
+    id = EDG_ers.1007
+    title = EDG_ers.7t
+    desc = EDG_ers.7d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+    immediate = {
+        151 = {
+            owner = { save_event_target_as = EDG_ers_jb_target }
+        }
+    }
+    option = {
+        name = "EDG_ers.7A"
+        ROOT = { vassalize = event_target:EDG_ers_jb_target }
+        ai_chance = { factor = 0.3 }  
+    }
+}
+
+country_event = {
+    id = EDG_ers.1008
+    title = EDG_ers.8t
+    desc = EDG_ers.8d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.8A"
+        trigger = {
+            has_country_flag = EDG_ers_shoudu_kie_flag
+        }
+        ai_chance = { factor = 0.1 }
+        280 = { move_capital_effect = yes } 
+    }
+    option = {
+        name = "EDG_ers.8B"
+        ai_chance = { factor = 1.5 }
+        294 = { move_capital_effect = yes } 
+    }
+    option = {
+        name = "EDG_ers.8C"
+        ai_chance = { factor = 0.9 }
+        310 = { move_capital_effect = yes } 
+    }
+    option = {
+        name = "EDG_ers.8E"
+        ai_chance = { factor = 0.6 }
+        295 = { move_capital_effect = yes } 
+    }
+}
+#无能之主
+country_event = {#失去控制
+    id = EDG_ers.501
+    title = EDG_ers.501t
+    desc = EDG_ers.501d
+    picture = CIVIL_WAR_eventPicture
+    is_triggered_only = yes
+
+    major = yes
+    immediate = {
+        hidden_effect = {
+            set_variable = {
+                which = EDG_ers_heir_var
+                value = 0
+            }
+            add_adm_power = -50
+            add_dip_power = -50
+            add_mil_power = -50
+        }
+    }
+    option = {
+        name = "EDG_ers.501A"
+        ai_chance = {
+            factor = 10
+        }
+        random = {
+            chance = 33
+            add_stability = -1
+        }
+        tooltip = {
+            add_adm_power = -50
+            add_dip_power = -50
+            add_mil_power = -50
+        }
+    }
+}
+country_event = {#重回正轨
+    id = EDG_ers.502
+    title = EDG_ers.502t
+    desc = EDG_ers.502d
+    picture = BAD_WITH_MONARCH_eventPicture
+
+    is_triggered_only = yes
+    
+    major = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_ers.502A"
+        ai_chance = { factor = 0.3 } 
+        add_prestige_or_monarch_power = { amount = 25 }
+        add_stability = 1
+        if = {
+            limit = {
+                NOT = { has_country_flag = EDG_ers_heir_flag }
+            }
+            set_country_flag = EDG_ers_heir_flag
+        }
+        if = {
+            limit = {
+                not = {
+                    has_country_modifier = EDG_ers_heir_modifier
+                }
+            }
+            add_country_modifier = {
+                name = EDG_ers_heir_modifier
+                duration = -1
+            }
+        }
+        custom_tooltip = EDG_ers_heir_flag_tooltip
+    }
+}
+country_event = {#一位新大公
+    id = EDG_ers.503
+    title = EDG_ers.503t
+    desc = EDG_ers.503d
+    picture = BAD_WITH_MONARCH_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+        months_of_ruling = 2
+    }
+
+    option = {
+        name = "EDG_ers.503A"
+        ai_chance = { factor = 0.1 } 
+        define_ruler = {
+            dynasty = ROOT
+            culture = ROOT
+            religion = ROOT
+            claim = 75
+            change_adm = 1
+            change_dip = 1
+            change_mil = 1
+        }
+        if = {
+            limit = {
+                has_heir = yes
+            }
+            kill_heir = { allow_new_heir = no }
+        }
+        set_variable = {
+            which = EDG_ers_heir_var
+            value = 0
+        }
+        add_country_modifier = {
+            name = EDG_ers_503_modifier
+            duration = 365
+        }
+    }
+    option = {
+        name = "EDG_ers.503B"
+        trigger = {
+            ruler_total_stats = {
+                amount = 9
+            }
+            always = no
+        }
+        capital_scope = {
+            spawn_rebels = {
+                type = noble_rebels
+                size = 2
+                win = no
+            }
+        }
+        change_variable = {
+            which = EDG_ers_heir_var
+            value = 5
+        }
+        ai_chance = { factor = 1 } 
+    }
+}
+country_event = {#增加掌控度
+    id = EDG_ers.504
+    title = EDG_ers.504t
+    desc = EDG_ers.504d
+    picture = BAD_WITH_MONARCH_eventPicture
+
+    is_triggered_only = yes
+
+    hidden = yes
+
+    trigger = {
+    }
+
+    immediate = {
+        if = {
+            limit = {
+                AND = {
+                    ruler_total_stats = {
+                        amount = 9
+                    }
+                    NOT = {
+                        ruler_total_stats = {
+                            amount = 12
+                        }
+                    }
+                }
+            }
+            change_variable = {
+                which = EDG_ers_heir_var
+                value = 1
+            }
+        }
+        if = {
+            limit = {
+                AND = {
+                    ruler_total_stats = {
+                        amount = 12
+                    }
+                    NOT = {
+                        ruler_total_stats = {
+                            amount = 15
+                        }
+                    }
+                }
+            }
+            change_variable = {
+                which = EDG_ers_heir_var
+                value = 3
+            }
+        }
+        if = {
+            limit = {
+                ruler_total_stats = {
+                    amount = 15
+                }
+            }
+            change_variable = {
+                which = EDG_ers_heir_var
+                value = 5
+            }
+        }
+    }
+
+    option = {
+        name = "EDG_ers.504A"
+        ai_chance = { factor = 0.3 } 
+    }
+}
+country_event = {#王位的继承
+    id = EDG_ers.505
+    title = EDG_ers.505t
+    desc = EDG_ers.505d
+    picture = BAD_WITH_MONARCH_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_ers.505A"
+        ai_chance = { factor = 3 }
+        define_heir = {
+            dynasty = ROOT
+            age = 9
+            change_adm = 1
+            claim = 75
+            male = yes
+            no_consort_with_heir = yes
+        } 
+    }
+    option = {
+        name = "EDG_ers.505B"
+        ai_chance = { factor = 3 }
+        define_heir = {
+            dynasty = ROOT
+            age = 9
+            change_mil = 1
+            claim = 75
+            male = yes
+            no_consort_with_heir = yes
+        } 
+    }
+    option = {
+        name = "EDG_ers.505C"
+        ai_chance = { factor = 3 }
+        define_heir = {
+            dynasty = ROOT
+            age = 9
+            change_dip = 1
+            claim = 75
+            male = yes
+            no_consort_with_heir = yes
+        }
+    }
+    option = {
+        name = "EDG_ers.505E"
+        ai_chance = { factor = 3 }
+        define_heir = {
+            dynasty = ROOT
+            age = 9
+            change_adm = 1
+            change_dip = 1
+            change_mil = 1
+            claim = 50
+            female = yes
+            no_consort_with_heir = yes
+        }
+    }
+    option = {
+        name = "EDG_ers.505F"
+        ai_chance = { factor = 1 }
+        add_country_modifier = {
+            name = EDG_ers_505_modifier
+            duration = 730
+        }
+    }
+    after = {
+        set_country_flag = EDG_ers_heir_flag
+    }
+}
+

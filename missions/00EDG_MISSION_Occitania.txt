@@ -1,0 +1,1596 @@
+EDG_GUY_mission_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = GUY
+			tag = OCC
+		}
+	}	 
+
+	EDG_GUY_mission_bow_to_france = {
+		icon = adjust_the_general_means
+		position = 1
+		required_missions = {  }
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size_percentage = 1
+		} 
+
+		effect = {
+			add_prestige = -25
+			add_country_modifier = {
+				name = edg_occ_fra_master
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_GUY_mission_prepare_army_fra = {
+		icon = hispanic_monarchy
+		position = 2
+		required_missions = { EDG_GUY_mission_bow_to_france } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				add_base_manpower = 5
+				value = 4
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_prepare_war
+				duration = 7300
+			}
+			add_spy_network_in = {
+				who = FRA
+				value = 30
+			}
+		} 
+	}
+
+	EDG_GUY_mission_stay_still_fra = {
+		icon = mission_monarch_in_throne_room
+		position = 3
+		required_missions = { EDG_GUY_mission_prepare_army_fra EDG_GUY_mission_stand_france } 
+		provinces_to_highlight = {
+			area = poitou_area
+		  } 
+
+		trigger = {
+			ai = no
+			is_subject = yes
+			has_spy_network_in = {
+					who = FRA
+					value = 60
+				}
+			poitou_area = {
+				country_or_subject_holds = FRA
+				type = all
+			}
+		} 
+
+		effect = {
+			add_spy_network_in = {
+    				who = FRA
+    				value = -60
+				}
+			FRA = { 
+				country_event = { 
+            		id = EDG_GUY_events.52
+            		days = 3
+            	}
+			}
+			poitou_area = {
+				cede_province = ROOT
+                add_core = ROOT
+			}
+		} 
+	}
+	
+	EDG_GUY_mission_march_east_fra = {
+		icon = mission_guns_of_urban
+		position = 4
+		required_missions = { EDG_GUY_mission_stay_still_fra } 
+		provinces_to_highlight = {
+			OR = {
+				area = provence_area
+				area = languedoc_area
+			}
+		  } 
+
+		trigger = {
+			is_subject = yes
+			has_spy_network_in = {
+					who = FRA
+					value = 60
+				}
+			languedoc_area = {
+				country_or_subject_holds = FRA
+				type = all
+			}
+			provence_area = {
+				country_or_subject_holds = FRA
+				type = all
+			}
+		} 
+
+		effect = {
+			add_spy_network_in = {
+    				who = FRA
+    				value = -60
+				}
+			FRA = { 
+				country_event = { 
+            		id = EDG_GUY_events.53
+            		days = 3
+            	}
+			}
+			languedoc_area = {
+				cede_province = ROOT
+                add_core = ROOT
+			}
+			provence_area = {
+				cede_province = ROOT
+                add_core = ROOT
+			}
+		} 
+	}
+
+	# EDG_GUY_mission_upwards_fra = {
+	# 	icon = mission_control_surat
+	# 	position = 5
+	# 	required_missions = { EDG_GUY_mission_march_east_fra } 
+	# 	provinces_to_highlight = { area = massif_central_area  } 
+
+	# 	trigger = { 
+	# 		is_subject = yes
+	# 		massif_central_area = {
+	# 			country_or_subject_holds = FRA
+	# 			type = all
+	# 		}
+	# 	  } 
+
+	# 	effect = {
+	# 		add_prestige = 15
+	# 		add_government_power = {
+	# 			mechanic_type = EDG_occitania_farming_government_ability
+	# 			power_type = EDG_occitan_farm
+	# 			value = 50
+	# 		}
+	# 		add_spy_network_in = {
+	# 			who = FRA
+	# 			value = 45
+	# 		}
+	# 	} 
+	# }
+
+	EDG_GUY_mission_still_lived_fra = {
+		icon = mission_italian_condottiere
+		position = 5
+		required_missions = { EDG_GUY_mission_march_east_fra } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			is_subject = no
+			is_at_war = no
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_free_from_fra
+				duration = 9125
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_let_u_free = {
+		icon = mission_invade_the_deccan_ori
+		position = 7
+		required_missions = { EDG_GUY_mission_occitania_dream } 
+		provinces_to_highlight = { province_id = 173  } 
+
+		trigger = { 
+			173 = {
+				num_of_times_improved = 5
+			}
+		  } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_free_basque_tt
+			basque_country = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			country_event_with_option_insight = {
+                id = EDG_GUY_events.43
+				option_1 = "
+                add_country_modifier = {
+                    name = edg_occ_strong_euskera_farm
+                    duration = 9125
+                    } 
+				"
+				option_2 = "   
+                add_country_modifier = {
+                    name = edg_occ_euskara_defense
+                    duration = 9125
+                    }
+				"
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_free_basque = {
+		icon = mission_south_african_bases
+		position = 8
+		required_missions = { EDG_GUY_mission_let_u_free } 
+		provinces_to_highlight = { area = basque_country  } 
+
+		trigger = {
+			BSK = {
+				exists = yes
+			}
+			basque_country = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_tradition_culture
+				duration = 9125
+			}
+			2989 = {
+				change_culture = EDG_basque_occ
+			}
+			basque_country = {
+				cede_province = BSK
+				add_core = BSK
+				change_culture = EDG_basque_occ
+			}
+		  } 
+	}
+
+
+	EDG_GUY_mission_bordeux_strong = {
+		icon = ned_in_flanders_fields
+		position = 12
+		provinces_to_highlight = {
+			OR = {
+				province_id = 174
+				province_id = 194
+			}
+		  } 
+
+		trigger = {
+			OR = {
+				174 = {
+					num_of_times_improved = 3
+				}
+				194 = {
+					num_of_times_improved = 3
+				}
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_econ_income
+				duration = 3650
+			}
+			custom_tooltip = edg_aquitaine_occ_econ_tt
+		  } 
+	}
+
+	EDG_GUY_mission_build_mountainous = {
+		icon = take_the_bishoprics
+		position = 13
+		required_missions = { EDG_GUY_mission_bordeux_strong } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			is_at_war = no
+			innovativeness = 10
+			treasury = 300
+		  } 
+
+		effect = {
+			add_treasury = -300
+			change_government_reform_progress = 200
+			custom_tooltip = edg_aquitaine_auton_reform_tt
+		  } 
+	}
+
+	EDG_GUY_mission_better_grain = {
+		icon = mission_establish_the_prikazy
+		position = 14
+		required_missions = { EDG_GUY_mission_build_mountainous } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			innovativeness = 30
+			total_development = 500
+			full_idea_group = innovativeness_ideas
+		} 
+
+		effect = {
+			change_government_reform_progress = 150
+			add_country_modifier = {
+				name = edg_occ_better_grain_yes
+				duration = 9125
+			}
+		}
+	}
+}
+
+EDG_GUY_mission_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = GUY
+			tag = OCC
+		}
+	}
+
+	EDG_GUY_mission_stand_france = {
+		icon = king_of_france
+		position = 2
+		required_missions = { EDG_GUY_mission_choose_future } 
+		provinces_to_highlight = {  } 
+
+		trigger = { ai = no has_country_flag = edg_occ_viva_la_fra_flag } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_bow_to_fra_tt
+		  } 
+	}
+	
+	EDG_GUY_mission_povatie_land = {
+		icon = mission_livonian_intervention
+		position = 4
+		required_missions = { EDG_GUY_mission_il_ne_passeront_pas } 
+		provinces_to_highlight = { area = poitou_area  } 
+
+		trigger = { 
+			poitou_area = {
+				owned_by = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 50
+			}
+			add_country_modifier = {
+				name = edg_occ_expand_north_culture
+				duration = 7300
+			}
+			poitou_area = {
+				change_culture = gascon
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_aragon = {
+		icon = mission_end_arakan_piracy
+		position = 8
+		required_missions = { EDG_GUY_mission_let_u_free } 
+		provinces_to_highlight = { area = aragon_area  } 
+
+		trigger = {
+			ARA = {
+				exists = no
+			}
+			aragon_area = {
+				country_or_subject_holds = ROOT
+                type = all
+			}
+		  } 
+
+		effect = {
+			aragon_area = {
+				cede_province = ARA
+				add_core = ARA
+				change_culture = EDG_aragon_occ
+			}
+			create_subject = {
+				subject_type = EDG_OCC_vassal
+				subject = ARA
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_build_plain = {
+		icon = ned_dykes
+		position = 13
+		required_missions = { EDG_GUY_mission_bordeux_strong } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 300
+			is_at_war = no
+			num_of_owned_provinces_with = {
+				development = 20
+				value = 10
+			}
+		  } 
+
+		effect = {
+			add_treasury = -300
+			change_government_reform_progress = 200
+			custom_tooltip = edg_aquitaine_admin_reform_tt
+		  } 
+	}
+
+	EDG_GUY_mission_mordern_govern = {
+		icon = austria_prospers
+		position = 14
+		required_missions = { EDG_GUY_mission_build_plain } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				development = 20
+				value = 20
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = edg_aquitaine_choose_important_tt
+			if = {
+				limit = {
+					crown_land_share = 50
+				}
+				country_event = { id = EDG_GUY_events.45 } 
+			}
+			else = {
+				country_event = { id = EDG_GUY_events.46 } 
+			}
+
+		} 
+	}
+}
+EDG_GUY_mission_slot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = GUY
+			tag = OCC
+		}
+	}
+
+	EDG_GUY_mission_choose_future = {
+		icon = mission_strengthen_the_vegvar
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			ai = no
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		} 
+
+		effect = { 
+			country_event = { id = EDG_GUY_events.4 } 
+			pyrenees_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			languedoc_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			guyenne_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			poitou_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			massif_central_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			savoy_dauphine_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			provence_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            } 
+		} 
+	}
+
+	EDG_GUY_mission_freedom_cry = {
+		icon = mission_subdue_rajputana
+		position = 2
+		required_missions = {EDG_GUY_mission_choose_future } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				army_size = 15
+				army_size = FRA
+				army_size = AEL
+			}
+			OR = {
+				war_with = FRA
+				war_with = AEL
+				AND = {
+					NOT = { exists = FRA }
+					NOT = { exists = AEL }
+				}
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_GUY_events.41 }
+			custom_tooltip = edg_aquitaine_occ3_mission_tt
+		} 
+	}
+
+	EDG_GUY_mission_il_ne_passeront_pas = {
+		icon = moravian_arms
+		position = 3
+		required_missions = {EDG_GUY_mission_freedom_cry } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_mil_advisor_2 = yes
+			174 = {
+				EDG_has_building_fort_trigger = yes
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_GUY_events.2 }
+			france_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			add_country_modifier = {
+				name = edg_occ_u_shall_not_pass
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_GUY_mission_reclaim_ovnie = {
+		icon = fra_napoleonic_navy
+		position = 4
+		required_missions = {EDG_GUY_mission_il_ne_passeront_pas } 
+		provinces_to_highlight = { area = massif_central_area  } 
+
+		trigger = { 
+			massif_central_area = {
+				owned_by = ROOT
+                type = all
+			}
+			190 = {
+				owned_by = ROOT	
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_sucure_north
+				duration = 7300
+			}
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 50
+			}
+			190 = {
+				change_culture = occitain
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_freedom_final = {
+		icon = mission_the_sudebnik
+		position = 5
+		required_missions = {
+			EDG_GUY_mission_reclaim_ovnie
+			EDG_GUY_mission_povatie_land
+			EDG_GUY_mission_oc_home
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = languedoc_area
+				area = massif_central_area
+				area = savoy_dauphine_area
+				area = provence_area
+				area = guyenne_area
+				province_id = 175
+				province_id = 176
+				province_id = 4694
+			}
+		  } 
+
+		trigger = {
+			is_subject = no
+			owns_core_province = 175
+			owns_core_province = 176
+			owns_core_province = 4694
+			languedoc_area = {
+                owned_by = ROOT
+                type = all
+            }
+			massif_central_area = {
+                owned_by = ROOT
+                type = all
+            }
+			savoy_dauphine_area = {
+                owned_by = ROOT
+                type = all
+            }
+			provence_area = {
+                owned_by = ROOT
+                type = all
+            }
+			guyenne_area = {
+                owned_by = ROOT
+                type = all
+            }
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 25
+			}
+			add_country_modifier = {
+				name = edg_occ_sucure_occ
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_GUY_mission_occitania_dream = {
+		icon = mission_invade_occitania
+		position = 6
+		required_missions = {
+			EDG_GUY_mission_freedom_final
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = languedoc_area
+				area = massif_central_area
+				area = savoy_dauphine_area
+				area = provence_area
+				area = guyenne_area
+				province_id = 175
+				province_id = 176
+				province_id = 4694
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			is_subject = no
+			stability = 2
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+			has_government_power = { 
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 75
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_GUY_events.1 }
+			add_country_modifier = {
+				name = edg_occ_free_at_last
+				duration = -1
+			}
+			custom_tooltip = edg_aquitaine_occ_culture_change_tt
+			piedmont_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			aragon_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			catalonia_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			valencia_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			baleares_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			liguria_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			corsica_sardinia_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			lombardy_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			po_valley_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			emilia_romagna_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			tuscany_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			lazio_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			central_italy_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+		  } 
+	}
+
+	EDG_GUY_mission_katalan = {
+		icon = mission_hessian_jaeger_corps
+		position = 7
+		required_missions = {EDG_GUY_mission_occitania_dream } 
+		provinces_to_highlight = { area = catalonia_area  } 
+
+		trigger = {
+			catalonia_area = {
+				country_or_subject_holds = ROOT
+                type = all
+			}
+			CLT = {
+				exists = no
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_katalan_trade
+				duration = 9125
+			}
+			catalonia_area = {
+				cede_province = CLT
+                add_core = CLT
+				change_culture = EDG_katalan_occ
+			}
+			create_subject = {
+				subject_type = EDG_OCC_vassal
+				subject = CLT
+			}
+			CLT = {
+				override_country_name = edg_occ_katalan
+				change_primary_culture = EDG_katalan_occ
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_valencia_gained = {
+		icon = mission_potosi_silver
+		position = 8
+		required_missions = {EDG_GUY_mission_katalan } 
+		provinces_to_highlight = { area = valencia_area  } 
+
+		trigger = {
+			valencia_area = {
+				country_or_subject_holds = ROOT
+                type = all
+			}
+			VAL = {
+				exists = no
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_free_south_true
+				duration = 9125
+			}
+			valencia_area = {
+				cede_province = VAL
+                add_core = VAL
+				change_culture = EDG_valencia_occ
+			}
+			create_subject = {
+				subject_type = EDG_OCC_vassal
+				subject = VAL
+			}
+			VAL = {
+				change_primary_culture = EDG_valencia_occ
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_malueka = {
+		icon = mission_portuguese_interference
+		position = 9
+		required_missions = {
+			EDG_GUY_mission_valencia_gained
+			EDG_GUY_mission_aragon
+			EDG_GUY_mission_proud_to_be
+		}
+		provinces_to_highlight = { area = baleares_area  } 
+
+		trigger = { 
+			baleares_area = {
+				country_or_subject_holds = ROOT
+                type = all
+			}
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_south_trade
+				duration = 9125
+			}
+			baleares_area = {
+				cede_province = CLT
+                add_core = CLT
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_true_south = {
+		icon = mission_plc_edict_education
+		position = 10
+		required_missions = { EDG_GUY_mission_malueka } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_great_power = yes
+			calc_true_if = {
+				all_province = {
+					culture_group = root
+					country_or_non_sovereign_subject_holds = root
+				}
+				amount = 50
+			}
+		} 
+
+		effect = { 
+			country_event = { id = EDG_GUY_events.44 }
+			OCC = {
+				override_country_name = edg_occ_confederate
+			}
+		  } 
+	}
+
+	
+
+}
+EDG_GUY_mission_slot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = GUY
+			tag = OCC
+		}
+	}
+
+	EDG_GUY_mission_stand_arle = {
+		icon = the_gallic_wars
+		position = 2
+		required_missions = {EDG_GUY_mission_choose_future } 
+		provinces_to_highlight = {  } 
+
+		trigger = { ai = no has_country_flag = edg_occ_arle_bro_flag  } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_bow_to_ale_tt
+		  } 
+	}
+
+	EDG_GUY_mission_oc_home = {
+		icon = fund_the_monasteries
+		position = 4
+		required_missions = {EDG_GUY_mission_il_ne_passeront_pas } 
+		provinces_to_highlight = { area = languedoc_area  } 
+
+		trigger = { 
+			languedoc_area = {
+				owned_by = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 50
+			}
+			add_country_modifier = {
+				name = edg_occ_eastern_home
+				duration = 7300
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_proud_to_be = {
+		icon = rule_corsica
+		position = 8
+		required_missions = {EDG_GUY_mission_eastern_occ } 
+		provinces_to_highlight = { area = corsica_sardinia_area  } 
+
+		trigger = {
+			COR = {
+				exists = no
+			}
+			corsica_sardinia_area = {
+				country_or_subject_holds = ROOT
+                type = all
+			}
+		  } 
+
+		effect = {
+			corsica_sardinia_area = {
+				cede_province = COR
+				add_core = COR
+				change_culture = EDG_corsica_occ
+			}
+			create_subject = {
+				subject_type = EDG_OCC_vassal
+				subject = COR
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_britannie_free = {
+		icon = mission_brazilian_bandeirantes
+		position = 13
+		required_missions = {EDG_GUY_mission_use_langdoc } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			diplomatic_reputation = 3
+			is_subject = no
+		  } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_get_brittany_tt
+			if = {
+				limit = {
+					BRI = {
+						OR = {
+							exists = no
+							is_subject = yes
+						}
+					}
+				}
+				brittany_area = {
+                	limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+            	}
+				233 = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				wales_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				kingdom_of_the_isles_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				highlands_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				lowlands_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				ulster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				connacht_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				leinster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				munster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+			}
+			else = {
+				BRI = {
+					country_event = { 
+                		id = EDG_GUY_events.51
+                		days = 3
+             		}
+				}
+				233 = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				wales_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				kingdom_of_the_isles_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				highlands_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				lowlands_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				ulster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				connacht_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				leinster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+				munster_area = {
+					limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+					add_permanent_claim = ROOT
+				}
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_together_for_victory = {
+		icon = mission_modern_ottoman_soldiers
+		position = 14
+		required_missions = {EDG_GUY_mission_britannie_free } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 233
+				area = wales_area
+				area = kingdom_of_the_isles_area
+				area = highlands_area
+				area = lowlands_area
+				area = ulster_area
+				area = connacht_area
+				area = leinster_area
+				area = munster_area
+			}
+		  } 
+
+		trigger = {
+			DMS = {
+				exists = no
+			}
+			233 = {
+				country_or_subject_holds = ROOT
+			}
+			wales_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			kingdom_of_the_isles_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			highlands_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			lowlands_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			ulster_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			connacht_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			leinster_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+			munster_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			233 = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			wales_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			kingdom_of_the_isles_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			highlands_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			lowlands_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			ulster_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			connacht_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			leinster_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			munster_area = {
+				cede_province = DMS
+                add_core = DMS
+			}
+			create_subject = {
+            	subject_type = EDG_OCC_vassal
+            	subject = DMS
+        	}	
+			DMS = {
+				override_country_name = edg_occ_dms
+			}
+		  } 
+	}
+
+}
+EDG_GUY_mission_slot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = GUY
+			tag = OCC
+		}
+	}
+
+	EDG_GUY_mission_against_fra = {
+		icon = mission_unite_rajputana
+		position = 1
+		required_missions = {  } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			OR = {
+				alliance_with = AEL
+				is_subject_of = AEL
+				NOT = { exists = AEL }
+			}
+			OR = {
+				NOT = { exists = FRA }
+				war_with = FRA
+				army_strength = {
+					who = FRA
+					value = 0.8
+				}
+			}
+		} 
+
+		effect = {
+			add_manpower = 10
+			add_country_modifier = {
+				name = edg_occ_protect
+				duration = 7300
+			}
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 75
+			}
+		} 
+	}
+	
+	EDG_GUY_mission_from_shadow = {
+		icon = strengthen_the_vroedschappen
+		position = 2
+		required_missions = { EDG_GUY_mission_against_fra } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_spy_network_in = {
+					who = AEL
+					value = 35
+				}
+		  } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_help_shadow_tt
+			if = {
+				limit = {
+					alliance_with = AEL
+				}
+				add_prestige = -35
+				add_favors = {
+					who = AEL
+					amount = 35
+				}
+			}
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				add_government_power = {
+					mechanic_type = EDG_occitania_farming_government_ability
+					power_type = EDG_occitan_farm
+					value = 50
+				}
+			}
+			else = {
+				add_government_power = {
+					mechanic_type = EDG_occitania_farming_government_ability
+					power_type = EDG_occitan_farm
+					value = 50
+				}
+			}
+		} 
+	}
+	# EDG_GUY_mission_bow_to_arle = {
+	# 	icon = mission_noble_council
+	# 	position = 3
+	# 	required_missions = { EDG_GUY_mission_from_shadow EDG_GUY_mission_stand_arle } 
+	# 	provinces_to_highlight = {  } 
+
+	# 	trigger = {
+	# 		ai = no
+	# 	} 
+
+	# 	effect = {
+	# 		add_country_modifier = {
+	# 			name = edg_occ_aiding_treaty
+	# 			duration = 7300
+	# 		}
+	# 	  } 
+	# }
+
+	EDG_GUY_mission_unite_against_north = {
+		icon = mission_plc_prevent_deluge
+		position = 3
+		required_missions = { EDG_GUY_mission_from_shadow EDG_GUY_mission_stand_arle } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			AEL = {
+				owes_favors = { 
+         			who = ROOT
+         			value = 25
+				}
+			}
+			army_size_percentage = 0.8
+		}
+
+		effect = {
+			add_favors = {
+   					who = AEL
+   					amount = 25
+				}
+			add_government_power = {
+				mechanic_type = EDG_occitania_farming_government_ability
+				power_type = EDG_occitan_farm
+				value = 50
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_unite_beat_down = {
+		icon = settle_north_america
+		position = 4
+		required_missions = { EDG_GUY_mission_unite_against_north } 
+		provinces_to_highlight = {
+			OR = {
+				area = provence_area
+				area = savoy_dauphine_area
+			}
+		  } 
+
+		trigger = {
+			196 = {
+				owned_by = ROOT
+			}
+			198 = {
+				owned_by = ROOT
+			}
+		} 
+
+		effect = {
+			custom_tooltip = edg_occ_unite_breat_tt
+			if = {
+				limit = {
+					provence_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+					savoy_dauphine_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+					alliance_with = AEL
+					AEL = {
+						owes_favors = { 
+         					who = ROOT
+         					value = 55
+						}
+					}
+				}
+				add_favors = {
+   					who = AEL
+   					amount = -55
+				}
+				provence_area = {
+					cede_province = ROOT
+                	add_core = ROOT
+				}
+				savoy_dauphine_area = {
+					cede_province = ROOT
+                	add_core = ROOT
+				}
+			}
+			if = {
+				limit = {
+					provence_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+					savoy_dauphine_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+					is_subject = yes
+				}
+				provence_area = {
+                	add_core = ROOT
+				}
+				savoy_dauphine_area = {
+                	add_core = ROOT
+				}
+			}
+			if = {
+				limit = {
+					provence_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+					savoy_dauphine_area = {
+						country_or_subject_holds = ROOT
+						type = all
+					}
+				}
+				provence_area = {
+                	add_core = ROOT
+				}
+				savoy_dauphine_area = {
+                	add_core = ROOT
+				}
+			}
+			else = {
+				provence_area = {
+                	add_core = ROOT
+				}
+				savoy_dauphine_area = {
+                	add_core = ROOT
+				}
+			}
+		}
+	}
+
+	EDG_GUY_mission_unite_glorious_independence = {
+		icon = the_holy_league
+		position = 5
+		required_missions = {EDG_GUY_mission_unite_beat_down } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_subject = no
+			is_at_war = no
+		  } 
+
+		effect = {
+			add_country_modifier = {
+				name = edg_occ_bow_to_none
+				duration = 9125
+			}
+		  } 
+	}
+	EDG_GUY_mission_eastern_occ = {
+		icon = mission_rule_italy
+		position = 7
+		required_missions = {EDG_GUY_mission_occitania_dream } 
+		provinces_to_highlight = { area = piedmont_area  } 
+
+		trigger = {
+			SZO = {
+				exists = no
+			}
+			piedmont_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			apulia_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			naples_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			calabria_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			sicily_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			western_sicily_area = {
+                limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+            }
+			piedmont_area = {
+				cede_province = SZO
+                add_core = SZO
+				change_culture = EDG_apls_occ
+			}
+			create_subject = {
+				subject_type = EDG_OCC_vassal
+				subject = SZO
+			}
+			SZO = {
+				override_country_name = edg_occ_italia
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_gain_geneo = {
+		icon = mission_swedish_military_advise
+		position = 8
+		required_missions = {EDG_GUY_mission_eastern_occ } 
+		provinces_to_highlight = { area = liguria_area  } 
+
+		trigger = {
+			liguria_area = {
+				country_or_subject_holds = ROOT
+				type = all
+			}
+		  } 
+
+		effect = {
+			102 = {
+				cede_province = SZO
+				change_culture = EDG_apls_occ
+			}
+			2992 = {
+				change_culture = EDG_apls_occ
+			}
+			101 = {
+				change_culture = EDG_apls_occ
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_use_langdoc = {
+		icon = mjz_for_the_horde
+		position = 12
+		provinces_to_highlight = { province_id = 4112  } 
+
+		trigger = {
+			num_of_allies = 2
+			4112 = {
+				owned_by = ROOT
+				num_of_buildings_in_province = 1
+				num_of_times_improved = 4
+			}
+		} 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_language_ally_tt
+			add_country_modifier = {
+				name = edg_occ_renasicance
+				duration = 9125
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_francophonie_league = {
+		icon = mission_court_education
+		position = 13
+		required_missions = { EDG_GUY_mission_use_langdoc } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			treasury = 400
+			ROOT = {
+				num_of_subjects = 4
+			}
+		  } 
+
+		effect = {
+			add_treasury = -400
+			add_prestige = 25
+			add_country_modifier = {
+				name = edg_occ_alliance
+				duration = 9125
+			}
+		  } 
+	}
+
+	EDG_GUY_mission_minorities_league = {
+		icon = alpine_fortifications
+		position = 14
+		required_missions = { EDG_GUY_mission_francophonie_league } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_allies = 2
+			ROOT = {
+				num_of_subjects = 5
+			}
+		  } 
+
+		effect = {
+			custom_tooltip = edg_aquitaine_friends_tt
+			add_country_modifier = {
+				name = edg_occ_minorities
+				duration = 7300
+			}
+		  } 
+	}
+
+}

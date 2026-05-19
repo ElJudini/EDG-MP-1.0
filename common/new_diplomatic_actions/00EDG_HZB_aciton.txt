@@ -1,0 +1,413 @@
+
+EDG_HZB_great_conquer_diplomatic_action = {#筹划大入侵
+	category = influence
+	require_acceptance = no
+
+	is_visible = {
+		OR = {
+			FROM = {
+				is_neighbor_of = root
+				NOT = { is_subject_of = root }
+			}
+			any_subject_country = {
+				is_neighbor_of = FROM
+			}
+		}
+		has_country_flag = EDG_HZB_great_conquer_enable_flag
+	}
+	is_allowed = {
+		has_government_power = {
+			mechanic_type = persian_influence_mechanic
+			power_type = persian_influence
+			value = 35
+		}
+		has_any_disaster = no
+		OR = {
+			FROM = {
+				is_neighbor_of = root
+				NOT = { is_subject_of = root }
+			}
+			any_subject_country = {
+				is_neighbor_of = FROM
+			}
+		}
+	}
+	on_accept = {
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = -35 }
+		FROM = {
+			country_event = { id = EDG_flavor_HZB_mission.5 days = 60 }
+			if = {
+				limit = {
+					capital_scope = {
+						superregion = europe_superregion
+					}
+				}
+				root = {
+					add_government_power = {
+						mechanic_type = persian_influence_mechanic
+						power_type = persian_influence
+						value = 10
+					}
+				}
+			}
+		}
+	}
+
+	ai_will_do = {
+		always = no
+	}
+}
+
+
+EDG_Transforming_tributary_state_into_cultural_sphere_of_influence_subject_state_action = {#将朝贡国转变为文化影响国
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_tributary_state_into_cultural_sphere_of_influence_subject_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_Transforming_tributary_state_into_cultural_sphere_of_influence_subject_state_action_enable_flag
+		FROM = {
+			is_subject_of = ROOT
+			is_subject_of_type = tributary_state
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = cultural_sphere_of_influence_subject subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+
+EDG_Transforming_cultural_sphere_of_influence_subject_state_into_tributary_state_action = {#将文化影响国转变为朝贡国
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Transforming_cultural_sphere_of_influence_subject_state_into_tributary_state_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_Transforming_cultural_sphere_of_influence_subject_state_into_tributary_state_action_enable_flag
+		FROM = {
+			is_subject_of = ROOT
+			is_subject_of_type = cultural_sphere_of_influence_subject
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		create_subject = { subject_type = tributary_state subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+EDG_HZB_set_mongol_brother_realm_action = {#设立宗王领地
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_HZB_set_mongol_brother_realm_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_HZB_set_mongol_brother_realm_enable_flag
+		FROM = {
+			is_subject_of = ROOT
+			NOT = { is_colonial_nation_of = ROOT }
+			NOT = { is_subject_of_type = mongol_brother_realm }
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_government_power = {
+			mechanic_type = persian_influence_mechanic
+			power_type = persian_influence
+			value = 95
+		}
+		if = {
+			limit = {
+				FROM = { liberty_desire = 50 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_REBELLIOUS_TT
+				FROM = { liberty_desire = 50 }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		add_government_power = {
+			mechanic_type = persian_influence_mechanic
+			power_type = persian_influence
+			value = -95
+		}
+		create_subject = { subject_type = mongol_brother_realm subject = FROM }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+       add_entry = {
+			name = DIPLO_OPPINION_100_base
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 200
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.5
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.15
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}

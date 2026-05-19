@@ -1,0 +1,829 @@
+namespace = EDG_FYM_Caliph_war
+country_event = {#逊尼派运动
+  id = EDG_FYM_Caliph_war.1
+  title = "EDG_FYM_Caliph_war.1.title"
+  desc = "EDG_FYM_Caliph_war.1.desc"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+      log = "[Root.GetName] has EDG_FYM_Caliph_war Disaster."
+      set_country_flag = EDG_FYM_Caliph_war_flag
+      set_global_flag = EDG_FYM_Caliph_war_global_flag
+    }
+    hidden_effect = {
+		  add_stability = -6
+		  play_sound = EDGFYMsound1
+    }
+  }
+  option = {#我们才是真主在大地上的影子！
+    name = "EDG_FYM_Caliph_war.1.a"
+    tooltip = { add_stability = -6 }
+    custom_tooltip = EDG_FYM_Caliph_war_1_a_tt
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 30
+		}
+  }
+  
+}
+
+country_event = {#真主在大地上的影子
+  id = EDG_FYM_Caliph_war.2
+  title = "EDG_FYM_Caliph_war.2.title"
+  desc = "EDG_FYM_Caliph_war.2.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+	  set_country_flag = EDG_FYM_Caliph_war_end_flag
+  }
+  option = {#「唯有最血腥的手段才能创造最虔诚的国度。」
+    name = "EDG_FYM_Caliph_war.2.a"
+    set_country_flag = EDG_FYM_Caliph_war_end_flag
+    set_country_flag = estate_EDG_FYM_Abbasid_caliphate_privilege_2_disaster_end_flag
+    if = {
+      limit = {
+        has_estate_privilege = estate_EDG_FYM_Abbasid_caliphate_privilege
+      }
+      remove_estate_privilege = estate_EDG_FYM_Abbasid_caliphate_privilege
+      set_estate_privilege = estate_EDG_FYM_Abbasid_caliphate_privilege_2
+    }
+  }
+}
+
+
+country_event = {#阿拔斯归来
+  id = EDG_FYM_Caliph_war.3
+  title = "EDG_FYM_Caliph_war.3.title"
+  desc = "EDG_FYM_Caliph_war.3.desc"
+  picture = EDG_EVENT_PICTURE_HSN_1
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+	  set_country_flag = EDG_FYM_Caliph_war_3_flag
+    capital_scope = {
+      set_province_flag = EDG_FYM_Caliph_war_3_captial_province_flag
+    }
+    hidden_effect = {
+      EDG_FYM_Caliph_war_3_effect = yes
+			ABS = {
+        grant_independence = yes
+				change_country_color = { color = { 225 225 225 } }
+			}
+      declare_war_with_cb = {
+        who = ABS
+        casus_belli = cb_annex
+      }
+    }
+  }
+  option = {#让我们看看谁才是真主在人间的代表！
+    name = "EDG_FYM_Caliph_war.3.a"
+    custom_tooltip = EDG_FYM_Caliph_war_3_a_tt
+    if = {
+      limit = {
+        not = { has_global_flag = EDG_FYM_civil_war_abs_son_died_global_flag }
+      }
+      custom_tooltip = EDG_FYM_Caliph_war_3_a_son_tt
+      if = {
+        limit = { has_global_flag = EDG_great_conquer_enable_flag }
+        if = {
+          limit = { has_global_flag = EDG_mythical_conquer_enable_flag }
+          custom_tooltip = EDG_FYM_Caliph_war_3_a_son_tt_mythical_conquer
+        }
+        else = {
+          custom_tooltip = EDG_FYM_Caliph_war_3_a_son_tt_great_conquer
+        }
+      }
+      custom_tooltip = EDG_FYM_Caliph_war_3_a_son_tt_hehe
+    }
+    if = {
+      limit = {
+        capital_scope = {
+          not = { has_province_flag = EDG_FYM_Caliph_war_3_captial_province_flag }
+        }
+      }
+      set_country_flag = EDG_FYM_Caliph_war_3_captial_flag
+    }
+  }
+}
+
+
+country_event = {#虫豸
+  id = EDG_FYM_Caliph_war.4
+  title = "EDG_FYM_Caliph_war.4.title"
+  desc = "EDG_FYM_Caliph_war.4.desc"
+  picture = ACCUSATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    had_country_flag = {
+      flag = EDG_FYM_Caliph_war_flag
+      days = 730
+    }
+  }
+  option = {#他们假借安拉的名义荼毒真理！
+    name = "EDG_FYM_Caliph_war.4.a"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = -2
+    }
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_4_a_modifier
+      duration = 3650
+    }
+  }
+  option = {#但他们很好地规训了我们的百姓。
+    name = "EDG_FYM_Caliph_war.4.b"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = 5
+    }
+  }
+  option = {#不能将学术问题上升为政治问题……
+    name = "EDG_FYM_Caliph_war.4.c"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = 5
+    }
+  }
+  option = {#毛拉能坐到这个位置上，自然有他的过人之处。
+    name = "EDG_FYM_Caliph_war.4.d"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = 5
+    }
+  }
+  option = {#只要大毛拉够自信，想怎么解释都可以。
+    name = "EDG_FYM_Caliph_war.4.e"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = 5
+    }
+  }
+  option = {#是谁在以卑犯尊？
+    name = "EDG_FYM_Caliph_war.4.f"
+    add_government_power = {
+      mechanic_type = EDG_FYM_Monarchy_ability_2
+      power_type = EDG_FYM_Monarchy_power_2
+      value = 5
+    }
+  }
+}
+
+
+country_event = {#圣城的叛乱
+  id = EDG_FYM_Caliph_war.5
+  title = "EDG_FYM_Caliph_war.5.title"
+  desc = "EDG_FYM_Caliph_war.5.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    had_country_flag = {
+      flag = EDG_FYM_Caliph_war_flag
+      days = 900
+    }
+  }
+  immediate = {
+
+  }
+  option = {#你们在做什么？！
+    name = "EDG_FYM_Caliph_war.5.a"
+    add_stability = -1
+    capital_scope = {
+      if = { limit = {  base_tax = 2 } add_base_tax = -1 }
+      if = { limit = {  base_production = 2 } add_base_production = -1 }
+      if = { limit = {  base_manpower = 2 } add_base_manpower = -1 }
+      spawn_rebels = {
+        type = sunni_rebels
+        size = 3
+        unrest = 20
+      }
+    }
+    384 = {
+      limit = { country_or_non_sovereign_subject_holds = root }
+      if = { limit = {  base_tax = 2 } add_base_tax = -1 }
+      if = { limit = {  base_production = 2 } add_base_production = -1 }
+      if = { limit = {  base_manpower = 2 } add_base_manpower = -1 }
+      spawn_rebels = {
+        type = sunni_rebels
+        size = 3
+        unrest = 20
+      }
+    }
+    385 = {
+      limit = { country_or_non_sovereign_subject_holds = root }
+      if = { limit = {  base_tax = 2 } add_base_tax = -1 }
+      if = { limit = {  base_production = 2 } add_base_production = -1 }
+      if = { limit = {  base_manpower = 2 } add_base_manpower = -1 }
+      spawn_rebels = {
+        type = sunni_rebels
+        size = 3
+        unrest = 20
+      }
+    }
+    379 = {
+      limit = { country_or_non_sovereign_subject_holds = root }
+      if = { limit = {  base_tax = 2 } add_base_tax = -1 }
+      if = { limit = {  base_production = 2 } add_base_production = -1 }
+      if = { limit = {  base_manpower = 2 } add_base_manpower = -1 }
+      spawn_rebels = {
+        type = sunni_rebels
+        size = 2
+        unrest = 20
+      }
+    }
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 10
+		}
+  }
+}
+
+
+country_event = {#军队中的叛逃者
+  id = EDG_FYM_Caliph_war.6
+  title = "EDG_FYM_Caliph_war.6.title"
+  desc = "EDG_FYM_Caliph_war.6.desc"
+  picture = BATTLE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    war_with = ABS
+  }
+  immediate = {
+
+  }
+  option = {#如此愚昧！
+    name = "EDG_FYM_Caliph_war.6.a"
+    add_army_tradition = -3
+    add_spy_network_from = {
+      who = ABS
+      value = 25
+    }
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+  }
+}
+
+country_event = {#政府中的叛徒
+  id = EDG_FYM_Caliph_war.7
+  title = "EDG_FYM_Caliph_war.7.title"
+  desc = "EDG_FYM_Caliph_war.7.desc"
+  picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    war_with = ABS
+  }
+  immediate = {
+
+  }
+  option = {#将他们当众车裂！
+    name = "EDG_FYM_Caliph_war.7.a"
+    add_treasury = -50
+    add_adm_power = -25
+    add_dip_power = -25
+    add_mil_power = -25
+    ABS = {
+      add_treasury = 50
+      add_adm_power = 25
+      add_dip_power = 25
+      add_mil_power = 25
+    }
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+  }
+}
+
+
+country_event = {#哈里发洗劫$CAPITAL$
+  id = EDG_FYM_Caliph_war.8
+  title = "EDG_FYM_Caliph_war.8.title"
+  desc = "EDG_FYM_Caliph_war.8.desc"
+  picture = EDG_EVENT_PICTURE_hell_3
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    tag = FYM
+    has_any_disaster = yes
+    war_with = ABS
+    capital_scope = { controlled_by = ABS }
+  }
+  immediate = {
+
+  }
+  option = {#我们会加倍奉还！
+    name = "EDG_FYM_Caliph_war.8.a"
+    add_treasury = -1000
+    add_prestige = -50
+    ABS = {
+      add_treasury = 1000
+      add_prestige = 50
+    }
+    capital_scope = {
+      add_base_tax = -5
+      add_base_production = -5
+      add_base_manpower = -5
+      add_devastation = 100
+    }
+  }
+}
+
+
+country_event = {#罗塞塔会议
+  id = EDG_FYM_Caliph_war.9
+  title = "EDG_FYM_Caliph_war.9.title"
+  desc = "EDG_FYM_Caliph_war.9.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    had_country_flag = {
+      flag = EDG_FYM_Caliph_war_flag
+      days = 360
+    }
+  }
+  immediate = {
+
+  }
+  option = {#我们必须釜底抽薪。
+    name = "EDG_FYM_Caliph_war.9.a"
+			define_advisor = { 
+				type = inquisitor 
+				cost_multiplier = 0.25
+				skill = 3 
+			}
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_9_a_modifier
+      duration = 7300
+    }
+  }
+  option = {#这是因为他们的权利受到了损害。
+    name = "EDG_FYM_Caliph_war.9.b"
+    add_stability_or_adm_power = yes
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_9_b_modifier
+      duration = 7300
+    }
+  }
+}
+
+
+country_event = {#阿卜杜勒-瓦哈卜 「矮子」
+  id = EDG_FYM_Caliph_war.10
+  title = "EDG_FYM_Caliph_war.10.title"
+  desc = "EDG_FYM_Caliph_war.10.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    
+  }
+  immediate = {
+
+  }
+  option = {#让他统领我们的军队。
+    name = "EDG_FYM_Caliph_war.10.a"
+		EDG_FYM_Caliph_war_10_a_name_effect = yes
+  }
+  option = {#让他驻守我们的首都。
+    name = "EDG_FYM_Caliph_war.10.b"
+    capital_scope = {
+      add_province_modifier = {
+        name = EDG_FYM_Caliph_war_10_province_modifier
+        duration = 9125
+      }
+    }
+  }
+}
+
+
+country_event = {#尼扎尔·库屈克
+  id = EDG_FYM_Caliph_war.11
+  title = "EDG_FYM_Caliph_war.11.title"
+  desc = "EDG_FYM_Caliph_war.11.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    
+  }
+  immediate = {
+
+  }
+  option = {#他应当率军征战。
+    name = "EDG_FYM_Caliph_war.11.a"
+		EDG_FYM_Caliph_war_11_a_name_effect = yes
+  }
+  option = {#让他操练马穆鲁克。
+    name = "EDG_FYM_Caliph_war.11.b"
+    custom_tooltip = EDG_FYM_Caliph_war_11_b_tt
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_11_b_modifier
+      duration = 7300
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_Caliph_war.12 days = 7305 }
+    }
+  }
+}
+
+country_event = {#马穆鲁克训练永久化
+  id = EDG_FYM_Caliph_war.12
+  title = "EDG_FYM_Caliph_war.12.title"
+  desc = "EDG_FYM_Caliph_war.12.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {
+
+  }
+  option = {#我们应该保留这一模式。
+    name = "EDG_FYM_Caliph_war.12.a"
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_11_b_modifier
+      duration = -1
+    }
+  }
+  option = {#太花钱了。
+    name = "EDG_FYM_Caliph_war.12.b"
+    add_prestige = -5
+  }
+}
+
+country_event = {#[Root.GetAdjective]苏菲派
+  id = EDG_FYM_Caliph_war.13
+  title = "EDG_FYM_Caliph_war.13.title"
+  desc = "EDG_FYM_Caliph_war.13.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    had_country_flag = {
+      flag = EDG_FYM_Caliph_war_flag
+      days = 1500
+    }
+  }
+  immediate = {
+
+  }
+  option = {#我们需要苏菲派的支持。
+    name = "EDG_FYM_Caliph_war.13.a"
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_13_a_modifier
+      duration = -1
+    }
+  }
+  option = {#这是胡闹！
+    name = "EDG_FYM_Caliph_war.13.b"
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_13_b_modifier
+      duration = -1
+    }
+  }
+}
+
+country_event = {#不信任逊尼派军队
+  id = EDG_FYM_Caliph_war.14
+  title = "EDG_FYM_Caliph_war.14.title"
+  desc = "EDG_FYM_Caliph_war.14.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    NOT = { exists = ABS }
+    had_country_flag = {
+      flag = EDG_FYM_Caliph_war_flag
+      days = 900
+    }
+  }
+  immediate = {
+
+  }
+  option = {#我们不需要逊尼派信徒作为我们的军队来源。
+    name = "EDG_FYM_Caliph_war.14.a"
+    add_army_tradition = -5
+    custom_tooltip = EDG_FYM_Caliph_war_14_a_tt
+    tooltip = {
+      add_province_modifier = {
+        name = EDG_FYM_Caliph_war_14_a_province_modifier
+        duration = 9125
+      }
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = { religion = sunni }
+        add_province_modifier = {
+          name = EDG_FYM_Caliph_war_14_a_province_modifier
+          duration = 9125
+        }
+      }
+    }
+  }
+  option = {#驱虎吞狼，让异端攻杀异端岂不是更好？
+    name = "EDG_FYM_Caliph_war.14.b"
+    add_army_tradition = 5
+  }
+}
+
+country_event = {#命定之战
+  id = EDG_FYM_Caliph_war.15
+  title = "EDG_FYM_Caliph_war.15.title"
+  desc = "EDG_FYM_Caliph_war.15.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    tag = FYM
+    has_any_disaster = yes
+    war_with = ABS
+    NOT = {
+      war_score_against = {
+        who = ABS
+        value = 0
+      }
+    }
+  }
+  immediate = {
+
+  }
+  option = {#只有懦夫才会逃避。
+    name = "EDG_FYM_Caliph_war.15.a"
+    if = {
+      limit = {
+        has_heir = yes
+      }
+      custom_tooltip = EDG_FYM_Caliph_war_a_15_tt_1
+      country_event = { id = EDG_FYM_Caliph_war.16 }
+    }
+    else = {
+      custom_tooltip = EDG_FYM_Caliph_war_a_15_tt_2
+      country_event = { id = EDG_FYM_Caliph_war.17 }
+    }
+  }
+  option = {#我们不会中了他的诡计。
+    name = "EDG_FYM_Caliph_war.15.b"
+    add_prestige = -5
+  }
+}
+
+country_event = {#[Root.Heir.GetName]的冲锋
+  id = EDG_FYM_Caliph_war.16
+  title = "EDG_FYM_Caliph_war.16.title"
+  desc = "EDG_FYM_Caliph_war.16.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  trigger = {
+
+  }
+  immediate = {
+
+  }
+  option = {#他会付出代价的！
+    name = "EDG_FYM_Caliph_war.16.a"
+    kill_heir = { }
+    custom_tooltip = EDG_FYM_Caliph_war_a_15_tt_2
+    country_event = { id = EDG_FYM_Caliph_war.17 }
+  }
+  option = {#不！
+    name = "EDG_FYM_Caliph_war.16.b"
+    kill_heir = { }
+    add_prestige = -10
+  }
+}
+
+
+country_event = {#命中注定
+  id = EDG_FYM_Caliph_war.17
+  title = "EDG_FYM_Caliph_war.17.title"
+  desc = "EDG_FYM_Caliph_war.17.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {#
+
+  }
+  option = {#不！
+    name = "EDG_FYM_Caliph_war.17.a"
+    set_country_flag = EDG_FYM_Caliph_war_17_a_flag
+    custom_tooltip = EDG_FYM_Caliph_war_17_a_flag_tt
+    kill_ruler = yes
+    tooltip = {
+      add_stability = -2
+    }
+    add_country_modifier = {
+      name = EDG_FYM_Caliph_war_17_a_modifier
+      duration = 1825
+    }
+    hidden_effect = {
+      country_event = { id = EDG_FYM_Caliph_war.18 days = 100 }
+    }
+  }
+}
+
+#灾难版
+country_event = {#伊德里斯·海伊斯·萨哈达
+  id = EDG_FYM_Caliph_war.18
+  title = "EDG_FYM_Caliph_war.18.title"
+  desc = "EDG_FYM_Caliph_war.18.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_FYM_Caliph_war_17_a_flag
+    NOT = { has_country_flag = EDG_FYM_YIDDELISI_FLAG }
+  }
+  immediate = {
+    set_country_flag = EDG_FYM_YIDDELISI_FLAG
+  }
+  option = {#帝国需要他！
+    name = "EDG_FYM_Caliph_war.18.a"
+    remove_country_modifier = EDG_FYM_Caliph_war_17_a_modifier
+    EDG_FYM_Caliph_war_18_a_name_effect = yes
+  }
+  option = {#[Root.Monarch.GetName]不会允许他夺取权力。
+    name = "EDG_FYM_Caliph_war.18.b"
+    add_stability = -1
+    if = {
+      limit = {
+        capital_scope = {
+          controlled_by = root
+        }
+      }
+      capital_scope = {
+        pretender_rebels = 3
+      }
+    }
+    else = {
+      random_owned_province = {
+        limit = { controlled_by = root }
+        capital_scope = {
+          pretender_rebels = 3
+        }
+      }
+    }
+  }
+}
+
+
+country_event = {#处决乌理玛
+  id = EDG_FYM_Caliph_war.19
+  title = "EDG_FYM_Caliph_war.19.title"
+  desc = "EDG_FYM_Caliph_war.19.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {
+
+  }
+  option = {#将他们处死！
+    name = "EDG_FYM_Caliph_war.19.a"
+    random_owned_province = {
+      limit = { religion_group = muslim not = { religion = root } }
+      add_province_modifier = {
+        name = EDG_FYM_Caliph_war_19_a_province_modifier
+        duration = 3650
+      }
+    }
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+  }
+  option = {#这太极端了。
+    name = "EDG_FYM_Caliph_war.19.b"
+    add_adm_power = -25
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+  }
+  
+}
+
+
+#普通版本
+country_event = {#伊德里斯·海伊斯·萨哈达
+  id = EDG_FYM_Caliph_war.20
+  title = "EDG_FYM_Caliph_war.20.title"
+  desc = "EDG_FYM_Caliph_war.20.desc"
+  picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_FYM_Caliph_war_end_flag
+    NOT = { ruler_has_personality = EDG_personality_zhayide }
+    NOT = { has_country_flag = EDG_FYM_YIDDELISI_FLAG }
+  }
+  immediate = {
+    set_country_flag = EDG_FYM_YIDDELISI_FLAG
+  }
+  option = {#帝国需要他！
+    name = "EDG_FYM_Caliph_war.20.a"
+    remove_country_modifier = EDG_FYM_Caliph_war_17_a_modifier
+    EDG_FYM_Caliph_war_20_a_name_effect = yes
+  }
+  option = {#[Root.Monarch.GetName]不会允许他夺取权力。
+    name = "EDG_FYM_Caliph_war.20.b"
+    add_stability = -1
+    if = {
+      limit = {
+        capital_scope = {
+          controlled_by = root
+        }
+      }
+      capital_scope = {
+        pretender_rebels = 3
+      }
+    }
+    else = {
+      random_owned_province = {
+        limit = { controlled_by = root }
+        capital_scope = {
+          pretender_rebels = 3
+        }
+      }
+    }
+  }
+}
+
+
+
+country_event = {#月之至明不过晨曦
+  id = EDG_FYM_Caliph_war.21
+  title = "EDG_FYM_Caliph_war.21.title"
+  desc = "EDG_FYM_Caliph_war.21.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_Caliph_war_21_flag }
+    has_country_flag = EDG_FYM_Caliph_war_3_flag
+    OR = {
+      war_score_against = {
+        who = ABS
+        value = 60
+      }
+      NOT = { exists = ABS }
+    }
+  }
+  
+  immediate = {
+    hidden_effect = {
+      inherit = ABS
+    }
+  }
+  
+  option = {#
+    name = "EDG_FYM_Caliph_war.21.aa"
+    ai_chance = {
+      factor = 100
+    }
+    add_treasury = 2000
+    add_manpower = 50
+    tooltip = {
+      inherit = ABS
+    }
+    add_stability_or_adm_power = yes
+	  add_prestige_or_monarch_power = { amount = 100 }
+    set_country_flag = EDG_FYM_Caliph_war_21_a_flag
+    set_estate_privilege = estate_EDG_FYM_Abbasid_caliphate_privilege
+    custom_tooltip = EDG_sunni_Caliph_interaction_button_1_effect_tt
+    hidden_effect = {
+      every_province = {
+        limit = { has_province_modifier = EDG_Abbasid_Caliphate_province_modifier }
+        remove_province_modifier = EDG_Abbasid_Caliphate_province_modifier
+      }
+      capital_scope = {
+        add_permanent_province_modifier = {
+          name = EDG_Abbasid_Caliphate_province_modifier
+          duration = -1
+        }
+      }
+    }
+      set_global_flag = EDG_FYM_Caliph_war_21_flag
+  }
+}

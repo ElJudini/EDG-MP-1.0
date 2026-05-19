@@ -1,0 +1,143 @@
+country_decisions = {
+
+	EDG_BRI_in_gongyitongmeng_decision = { #公益同盟向法兰西宣战
+		major = yes
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			#has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+			has_country_flag = EDG_BRI_in_gongyitongmeng_decision_enable_flag
+			NOT = { has_country_flag = EDG_BRI_in_gongyitongmeng_decision_flag }
+		}
+		allow = {
+			has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+			is_subject_of = FRA
+			any_country = {
+				has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+			}
+		}
+		effect = {
+			every_country = {
+				limit = {
+					has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+					is_subject_of = FRA
+					NOT = { has_truce = FRA }
+					not = { tag = ROOT }
+				}
+				create_alliance = ROOT
+			}
+			declare_war_with_cb = {
+				who = FRA
+				casus_belli = cb_EDG_gongyitongmeng_war
+			}
+			set_country_flag = EDG_BRI_in_gongyitongmeng_decision_flag
+			custom_tooltip = EDG_BRI_in_gongyitongmeng_decision_tt
+			every_country = {
+				limit = {
+					has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+					#NOT = { has_truce = FRA }
+				}
+				join_all_offensive_wars_of = ROOT
+				join_all_defensive_wars_of = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	EDG_BRI_quite_gongyitongmeng_decision = { #退出公益同盟
+		major = yes
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+			NOT = { has_country_flag = EDG_BRI_in_gongyitongmeng_decision_enable_flag }
+		}
+		allow = {
+			has_country_flag = EDG_BRI_in_gongyitongmeng_flag
+		}
+		effect = {
+			clr_country_flag = EDG_BRI_in_gongyitongmeng_flag
+			custom_tooltip = EDG_BRI_quite_gongyitongmeng_decision_tt
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_mission_BRI_5_16_decision = { #举办萨温节庆典
+		major = yes
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			or = {
+				has_country_flag = EDG_mission_BRI_5_16_decision_global_flag
+				and = {
+					has_global_flag = EDG_mission_BRI_5_16_decision_global_flag
+					or = {
+						tag = FA3
+						tag = BRI
+					}
+				}
+			}
+			NOT = { has_country_flag = EDG_mission_BRI_5_16_decision_ruler_flag }
+		}
+		allow = {
+			mil = 2
+			mil_power = 50
+			has_regency = no
+			not = { has_country_modifier = EDG_flavor_BRI_mission_9_ruler_modifier_1 }
+			not = { has_country_modifier = EDG_flavor_BRI_mission_9_ruler_modifier_2 }
+			not = { has_country_modifier = EDG_flavor_BRI_mission_9_ruler_modifier_3 }
+		}
+		effect = {
+			add_mil_power = -50
+			set_country_flag = EDG_mission_BRI_5_16_decision_ruler_flag
+			country_event = { id = EDG_flavor_BRI_mission.9 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_mission_BRI_2_17_decision = { #召开野狩大会
+		major = yes
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_mission_BRI_2_17_decision_enable_flag
+		}
+		allow = {
+			NOT = { mil = 6 }
+			army_tradition = 10
+			has_regency = no
+			treasury = 100
+			NOT = { is_in_deficit = yes }
+			NOT = { num_of_loans = 1 }
+			NOT = { has_country_modifier = EDG_mission_BRI_2_17_decision_in_10_years_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_mission_BRI_2_17_decision_tt
+			add_army_tradition = -10
+			add_years_of_income = -0.5
+			change_mil = 1
+			add_ruler_modifier = {
+				name = EDG_mission_BRI_2_17_decision_in_10_years_modifier
+				duration = 3650
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

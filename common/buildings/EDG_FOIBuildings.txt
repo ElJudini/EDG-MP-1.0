@@ -1,0 +1,60 @@
+FOI_infrastructure = {
+	cost = 50
+	time = 6
+
+	ai_will_do = {
+		factor = 0
+	}
+	on_built = {
+		EDG_FOI_add_infrastructure_modifier = yes
+		EDG_FOI_iberia_reconstruction_work_mechanic_effect = yes
+	}
+}
+FOI_path_of_gold = {
+	cost = 250
+	time = 4
+	ai_will_do = {
+		factor = 0
+	}
+	on_built = {
+		clr_province_flag = FOI_ADU_base_for_path_of_gold_flag
+		clr_province_flag = FOI_ADU_already_base_for_path_of_gold_flag
+		every_neighbor_province = {
+			limit = {
+				has_province_flag = FOI_ADU_base_for_path_of_gold_flag
+			}
+			set_province_flag = FOI_ADU_already_base_for_path_of_gold_flag
+		}
+		add_permanent_province_modifier = {
+			name = EDG_FOI_ADU_path_of_gold_province_modifier
+			duration = -1
+		}
+		if = {
+			limit = { 
+				trade_goods = gold
+			}
+			add_permanent_province_modifier = {
+				name = EDG_FOI_ADU_path_of_gold_trade_goods_modifier
+				duration = -1
+			}
+		}
+		remove_building = FOI_path_of_gold
+		# if = {
+		# 	limit = { 
+		# 		owner = {
+		# 			NOT = {
+		# 				any_owned_province = {
+		# 					OR = {
+		# 						region = maghreb_region
+		# 						area = lower_andalucia_area
+		# 						area = upper_andalucia_area
+		# 					}
+		# 					has_province_flag = FOI_ADU_base_for_path_of_gold_flag
+		# 				}
+		# 			}
+		# 		}
+		# 	}
+			
+		# }
+	}
+}

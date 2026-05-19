@@ -1,0 +1,283 @@
+EDG_FRN_building_trigger = {
+	from = {
+		manpower = $manpower$
+	}
+	custom_trigger_tooltip = {
+		tooltip = EDG_FRN_can_build_trigger.tt
+		NOT = {
+			OR = {
+				has_construction = building
+				has_construction = core
+				has_construction = culture
+				has_construction = great_project
+				has_construction = canal
+				has_construction = missionary
+				has_construction = state_house
+			}
+		}
+	}
+	# NOT = {
+	# 	OR = {
+	# 		has_construction = building
+	# 		has_construction = core
+	# 		has_construction = culture
+	# 		has_construction = great_project
+	# 		has_construction = canal
+	# 		has_construction = missionary
+	# 		has_construction = state_house
+	# 	}
+	# }
+	num_free_building_slots = 1
+}
+EDG_FRN_can_build_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_FRN_can_build_trigger.tt
+		NOT = {
+			OR = {
+				has_construction = building
+				has_construction = core
+				has_construction = culture
+				has_construction = great_project
+				has_construction = canal
+				has_construction = missionary
+				has_construction = state_house
+			}
+		}
+	}
+}
+EDG_FRN_delegation_decision_trigger = {
+	has_country_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+	NOT = {
+		has_country_flag = EDG_FRN_delegation_control_flag
+	}
+	$province$ = {
+		NOT = {
+			has_great_project = {
+				type = $great_project$
+				tier = 3
+			}
+		}
+	}
+}
+EDG_FRN_delegation_decision_use_trigger = {
+	$province$ = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_FRN_can_build_trigger.tt
+			NOT = {
+				OR = {
+					has_construction = building
+					has_construction = core
+					has_construction = culture
+					has_construction = great_project
+					has_construction = canal
+					has_construction = missionary
+					has_construction = state_house
+				}
+			}
+		}
+		[[road]
+			has_building = EDG_road_network
+		]
+	}
+	[[glass]
+		check_variable = {
+			which = EDG_FRN_materials_total_glass
+			value = $glass$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_glass_need_tt
+		# 	has_country_flag = EDG_FRN_material_glass
+		# }
+	]
+	[[iron]
+		check_variable = {
+			which = EDG_FRN_materials_total_iron
+			value = $iron$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_iron_need_tt
+		# 	has_country_flag = EDG_FRN_material_iron
+		# }
+	]
+	[[gems]
+		check_variable = {
+			which = EDG_FRN_materials_total_gems
+			value = $gems$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_gems_need_tt
+		# 	has_country_flag = EDG_FRN_material_gems
+		# }
+	]
+	[[woods]
+		check_variable = {
+			which = EDG_FRN_materials_total_woods
+			value = $woods$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_woods_need_tt
+		# 	has_country_flag = EDG_FRN_material_woods
+		# }
+	]
+	[[copper]
+		check_variable = {
+			which = EDG_FRN_materials_total_copper
+			value = $copper$
+		}
+		# custom_trigger_tooltip = {
+		# 	tooltip = EDG_FRN_material_copper_need_tt
+		# 	has_country_flag = EDG_FRN_material_copper
+		# }
+	]
+	[[I]
+		manpower = 2.5
+		mission_completed = EDG_FRN_mission_4_7
+	]
+	[[II]
+		manpower = 5
+		mission_completed = EDG_FRN_mission_5_7
+	]
+	[[III]
+		manpower = 7.5
+		mission_completed = EDG_FRN_mission_4_8
+	]
+	[[IV]
+		manpower = 10
+		mission_completed = EDG_FRN_mission_5_9
+	]
+}
+EDG_FRN_exploration_of_building_materials_trigger = {
+	any_hired_mercenary_company = {
+		template = merc_EDG_FRN_building_materials_exploration_team
+		location = {
+			controlled_by = owner
+			if = {
+				limit = { 
+					OR = {
+						province_id = 225
+						province_id = 410
+						province_id = 361
+						province_id = 38
+						province_id = 97
+						province_id = 183
+						province_id = 118
+						province_id = 134
+						province_id = 266
+						province_id = 12
+						province_id = 257
+						province_id = 280
+						province_id = 294
+						province_id = 151
+						province_id = 1878
+					}
+				}
+				NOT = {
+					development = 75
+				}
+			}
+			else = {
+				NOT = {
+					development = 30
+				}
+			}
+			NOT = {
+				owned_by = root
+			}
+			OR = {
+				trade_goods = glass
+				trade_goods = iron
+				trade_goods = copper
+				trade_goods = gold
+				trade_goods = gems
+				has_terrain = forest
+				has_terrain = woods
+				has_terrain = mountain
+				has_terrain = hills
+			}
+		}
+	}
+}
+EDG_disable_estate_privileges = {
+	NOT = {
+		has_country_flag = EDG_FRN_mission_4_6_flag
+	}
+}
+EDG_FRN_create_delegation_complete_trigger = {
+	$province$ = {
+		has_great_project = {
+			type = $great_project$
+			tier = 3
+		}
+	}
+}
+EDG_FRN_create_delegation_trigger = {
+	NOT = {
+		has_country_flag = EDG_FRN_delegation_$province$_$great_project$_flag
+	}
+	has_country_flag = EDG_FRN_mission_4_7_flag
+	$province$ = {
+		NOT = {
+			has_great_project = {
+				type = $great_project$
+				tier = 3
+			}
+		}
+	}
+	[[I]
+		mission_completed = EDG_FRN_mission_4_7
+	]
+	[[II]
+		mission_completed = EDG_FRN_mission_5_7
+	]
+	[[III]
+		mission_completed = EDG_FRN_mission_4_8
+	]
+	[[IV]
+		mission_completed = EDG_FRN_mission_5_9
+	]
+}
+EDG_FRN_can_use_gui_trigger = {
+	OR = {
+		is_part_of_hre = yes
+		AND = {
+			from = {
+				has_country_flag = EDG_FRN_mission_3_9_flag
+			}
+			OR = {
+				region = north_german_region
+				region = south_german_region
+				region = low_countries_region
+			}
+		}
+		AND = {
+			from = {
+				has_country_flag = EDG_FRN_expand_the_division_france_flag
+			}
+			OR = {
+				region = france_region
+				region = british_isles_region
+				region = iberia_region
+			}
+		}
+		AND = {
+			from = {
+				has_country_flag = EDG_FRN_expand_the_division_italy_flag
+			}
+			OR = {
+				region = italy_region
+				region = maghreb_region
+				region = balkan_region
+			}
+		}
+		AND = {
+			from = {
+				has_country_flag = EDG_FRN_expand_the_division_east_poland_flag
+			}
+			OR = {
+				region = poland_region
+				region = carpathia_region
+				region = baltic_region
+			}
+		}
+	}
+}

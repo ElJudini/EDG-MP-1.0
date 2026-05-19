@@ -1,0 +1,159 @@
+EDG_MRK_civil_war_1 = {#
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = EDG_MRK_civil_war_1_flag }
+		has_country_flag = EDG_MRK_flag
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+		has_country_flag = EDG_flavorMRK_mission_3_b_flag
+		NOT = { has_country_flag = EDG_flavorMRK_mission_7_b_tt_FLAG }
+	}
+	
+	
+	can_start = {
+		has_any_disaster = no
+		any_owned_province = {
+			NOT = { culture = berber }
+			culture_group = maghrebi
+		}
+		OR = {
+			NOT = { stability = 2 }
+			NOT = { estate_loyalty = { estate = estate_nobles loyalty = 50 } }
+			NOT = { estate_loyalty = { estate = estate_church loyalty = 50 } }
+			NOT = { estate_loyalty = { estate = estate_burghers loyalty = 50 } }
+		}
+	}
+	
+	can_stop = {
+		OR = {
+			has_any_disaster = yes
+			AND = {
+				estate_loyalty = { estate = estate_nobles loyalty = 50 }
+				estate_loyalty = { estate = estate_church loyalty = 50 }
+				estate_loyalty = { estate = estate_burghers loyalty = 50 }
+				stability = 2
+			}
+			all_owned_province = {
+				OR = {
+					culture = berber
+					NOT = { culture_group = maghrebi }
+				}
+			}
+			has_country_flag = EDG_flavorMRK_mission_7_b_tt_FLAG
+		}
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 0.5
+			NOT = { estate_loyalty = { estate = estate_nobles loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { estate_loyalty = { estate = estate_church loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { estate_loyalty = { estate = estate_burghers loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { adm = 3 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { dip = 3 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { mil = 3 }
+		}
+		modifier = {
+			factor = 1
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 1
+			war_exhaustion = 5
+		} 
+		modifier = {
+			factor = 0.75
+			num_of_loans = 10
+			NOT = { num_of_loans = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 25
+		}
+		modifier = {
+			factor = 0.5
+			corruption = 5
+			NOT = { corruption = 10 }
+		}
+		modifier = {
+			factor = 1
+			corruption = 10
+		}
+		modifier = {
+			factor = 3
+			capital_scope = { controlled_by = REB }
+		}
+		modifier = {
+			factor = 10
+			is_bankrupt = yes
+		}
+	}
+	
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = disaster_active_for_20_years_tooltip
+				had_country_flag = {
+					flag = EDG_MRK_civil_war_1_flag
+					days = 7300
+				}
+			}
+			all_owned_province = {
+				OR = {
+					culture = berber
+					NOT = { culture_group = maghrebi }
+				}
+			}
+			AND = {
+				stability = 2
+				NOT = { num_of_rebel_controlled_provinces = 1 }
+				NOT = { num_of_rebel_armies = 1 }
+				legitimacy = 95
+			}
+		}
+	}
+	
+
+	modifier = {
+		global_unrest = 10
+		stability_cost_modifier = 0.25
+		years_of_nationalism = 30
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			flavor_lxa.1
+			flavor_lxa.2
+			flavor_lxa.3
+		}
+		random_events = {
+			1000 = 0
+			100 = EDG_MRK_civil_war_1_event.3
+			100 = EDG_MRK_civil_war_1_event.4
+		}
+	}
+	
+	
+	on_start = EDG_MRK_civil_war_1_event.1 #General Estates / Storming of the Bastille
+	on_end = EDG_MRK_civil_war_1_event.2 #Long live the Republic/Monarchy
+	
+}

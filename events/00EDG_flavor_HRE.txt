@@ -1,0 +1,3302 @@
+namespace = EDG_flavorHRE
+normal_or_historical_nations = yes
+country_event = {#[Root.Monarch.GetName]加冕神圣罗马帝国皇帝
+  id = EDG_flavorHRE.0
+  title = "EDG_flavorHRE.0.t"
+  desc = "EDG_flavorHRE.0.d"
+  picture = HRE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+	NOT = { has_ruler_flag = EDG_flavorHRE_ruler_flag }
+	has_ruler_modifier = EDG_HAV_HRE_devote_modifier
+	is_emperor = yes
+	has_regency = no
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	set_ruler_flag = EDG_flavorHRE_ruler_flag
+  }
+  
+  option = {#我们已经是神圣罗马皇帝！
+    name = "EDG_flavorHRE.0.a"
+    ai_chance = {
+      factor = 10
+    }
+	#删除加冕罗马人国王的buff
+	remove_country_modifier = EDG_HAV_HRE_devote_modifier 
+	custom_tooltip = EDG_SPACE_TT
+	#删除加冕帝国大元帅的buff
+	if = {
+		limit = { NOT = { has_country_modifier = EDG_hereditary_Generalissimo_modifier } }
+		remove_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier 
+		custom_tooltip = EDG_SPACE_TT
+	}
+	#
+	#当选国王
+	if = {
+		limit = {
+			NOT = { has_global_flag = EDG_HRE_Elected_Emperor_flag }
+		}
+		custom_tooltip = EDG_Emperor_uncrowned_by_the_Pope_tt_short
+		#custom_tooltip = EDG_Emperor_uncrowned_by_the_Pope_tt
+		#custom_tooltip = EDG_SPACE_TT
+		add_ruler_modifier = {
+			name = "EDG_Emperor_uncrowned_by_the_Pope_modifier"
+			duration = -1
+		}
+	}
+	#参加加冕礼
+	if = { limit = { MAI = { exists = yes is_part_of_hre = yes } }#美因茨大主教参与加冕礼
+		custom_tooltip = EDG_flavorHRE_0_archbishop_MAI_tt_yes	hidden_effect = { add_imperial_influence = 1 }
+	}
+	else = { custom_tooltip = EDG_flavorHRE_0_archbishop_MAI_tt_no }
+	if = { limit = { TRI = { exists = yes is_part_of_hre = yes } }#特里尔大主教参与加冕礼
+		custom_tooltip = EDG_flavorHRE_0_archbishop_TRI_tt_yes	hidden_effect = { add_imperial_influence = 1 }
+	}
+	else = { custom_tooltip = EDG_flavorHRE_0_archbishop_TRI_tt_no }
+	if = { limit = { KOL = { exists = yes is_part_of_hre = yes } }#科隆大主教参与加冕礼
+		custom_tooltip = EDG_flavorHRE_0_archbishop_KOL_tt_yes	hidden_effect = { add_imperial_influence = 1 }
+	}
+	else = { custom_tooltip = EDG_flavorHRE_0_archbishop_KOL_tt_no }
+	if = { limit = { PAP = { exists = yes is_part_of_hre = yes } }#教宗参与加冕礼
+		custom_tooltip = EDG_flavorHRE_0_archbishop_PAP_tt_yes	hidden_effect = { add_imperial_influence = 1 }
+	}
+
+
+
+
+    hidden_effect = {
+		if = {
+			limit = {
+				NOT = {
+					check_variable = {
+						which = EDG_HRE_recently_Appoint_variable
+						value = 1
+					}
+				}
+			}
+			set_variable = {
+				which = EDG_HRE_recently_Appoint_variable
+				value = 0
+			}
+		}
+	}
+  }
+}
+
+country_event = {#[From.GetAdjective]羞辱帝国税官
+  id = EDG_flavorHRE.2
+  title = "EDG_flavorHRE.2.t"
+  desc = "EDG_flavorHRE.2.d"
+  picture = ACCUSATION_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#他们真是十足的蠢货。
+    name = "EDG_flavorHRE.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige = -1
+    add_opinion = {
+      who = FROM
+      modifier = opinion_EDG_HRE_Insult_tax_official
+    }
+
+  }
+
+}
+country_event = {#[From.GetAdjective]肯定帝国体制
+  id = EDG_flavorHRE.3
+  title = "EDG_flavorHRE.3.t"
+  desc = "EDG_flavorHRE.3.d"
+  picture = WESTERNISATION_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们的好伙伴！
+    name = "EDG_flavorHRE.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_imperial_influence = 1
+    add_opinion = {
+      who = FROM
+      modifier = opinion_EDG_HRE_Confirmed_the_imperial_system
+    }
+  }
+
+}
+country_event = {#[From.GetAdjective]提议授予侯爵称号
+  id = EDG_flavorHRE.4
+  title = "EDG_flavorHRE.4.t"
+  desc = "EDG_flavorHRE.4.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.4.a"
+    ai_chance = {
+      factor = 4
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 3
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 10
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 50
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	add_imperial_influence = -5
+	add_prestige_or_monarch_power = { amount = 10 }
+	add_country_modifier = {
+		name = "EDG_EMP_Confer_title_Marquis_modifier"
+		duration = -1
+	}
+    add_opinion = {
+      who = FROM
+      modifier = opinion_EDG_EMP_Confer_title_Marquis
+    }
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.7 }
+		}
+	}
+  }
+  option = {#这是一个甜蜜的陷阱！
+    name = "EDG_flavorHRE.4.b"
+    ai_chance = {
+      factor = 0.25
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+      }
+    }
+	FROM = {
+		add_opinion = {
+		  who = ROOT
+		  modifier = opinion_EDG_EMP_think_you_stupid
+		}
+	}
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.8 }
+		}
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]提议授予藩候特权
+  id = EDG_flavorHRE.5
+  title = "EDG_flavorHRE.5.t"
+  desc = "EDG_flavorHRE.5.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.5.a"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 0
+        has_country_flag = EDG_HAB_flag
+      }
+      modifier = {
+        factor = 2
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	add_imperial_influence = -2
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Confer_title_Markgraf_action
+	}
+	add_government_reform = EDG_Markgraf_state
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.7 }
+		}
+	}
+  }
+  option = {#这是一个甜蜜的陷阱！
+    name = "EDG_flavorHRE.5.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+		NOT = { has_country_flag = EDG_HAB_flag }
+      }
+    }
+	if = {
+		limit = { total_development = 50 }
+		add_prestige_or_monarch_power = { amount = 5 }
+	}
+	else = {
+		FROM = {
+			add_opinion = {
+			  who = ROOT
+			  modifier = opinion_EDG_EMP_think_you_stupid
+			}
+		}
+	}
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.8 }
+		}
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]提议授予铸币特权
+  id = EDG_flavorHRE.6
+  title = "EDG_flavorHRE.6.t"
+  desc = "EDG_flavorHRE.6.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.6.a"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 2
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	add_imperial_influence = -2
+	add_country_modifier = {
+		name = "EDG_EMP_Grant_Mint_Privilege_modifier"
+		duration = -1
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Grant_Mint_Privilege
+	}
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.7 }
+		}
+	}
+  }
+  option = {#这是一个甜蜜的陷阱！
+    name = "EDG_flavorHRE.6.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+      }
+    }
+	FROM = {
+		add_opinion = {
+		  who = ROOT
+		  modifier = opinion_EDG_EMP_think_you_stupid
+		}
+	}
+	
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.8 }
+		}
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]接受了我们的提议
+  id = EDG_flavorHRE.7
+  title = "EDG_flavorHRE.7.t"
+  desc = "EDG_flavorHRE.7.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#很好。
+    name = "EDG_flavorHRE.7.a"
+	
+  }
+
+}
+country_event = {#[From.GetAdjective]拒绝了我们的提议
+  id = EDG_flavorHRE.8
+  title = "EDG_flavorHRE.8.t"
+  desc = "EDG_flavorHRE.8.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#很好。
+    name = "EDG_flavorHRE.8.a"
+	tooltip = {
+		add_opinion = {
+		  who = FROM
+		  modifier = opinion_EDG_EMP_think_you_stupid
+		}
+	}
+	
+  }
+
+}
+country_event = {#[From.GetAdjective]撤销了我们的铸币特权
+  id = EDG_flavorHRE.9
+  title = "EDG_flavorHRE.9.t"
+  desc = "EDG_flavorHRE.9.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	hidden_effect = {
+		remove_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier
+	}
+  }
+  option = {#他们会后悔的。
+    name = "EDG_flavorHRE.9.a"
+	tooltip ={
+		remove_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Revoke_Mint_Privilege
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]提议委任帝国大元帅
+  id = EDG_flavorHRE.10
+  title = "EDG_flavorHRE.10.t"
+  desc = "EDG_flavorHRE.10.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.10.a"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 2
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	add_imperial_influence = -5
+	add_ruler_modifier = {
+		name = "EDG_EMP_Appoint_Generalissimo_action_modifier"
+		duration = -1
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Appoint_Generalissimo
+	}
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.7 }
+		}
+	}
+  }
+  option = {#这是一个甜蜜的陷阱！
+    name = "EDG_flavorHRE.10.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+      }
+    }
+	FROM = {
+		add_opinion = {
+		  who = ROOT
+		  modifier = opinion_EDG_EMP_think_you_stupid
+		}
+	}
+	
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.8 }
+		}
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]撤销了我们帝国大元帅的职务
+  id = EDG_flavorHRE.11
+  title = "EDG_flavorHRE.11.t"
+  desc = "EDG_flavorHRE.11.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	hidden_effect = {
+		remove_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier
+	}
+  }
+  option = {#他们会后悔的。
+    name = "EDG_flavorHRE.11.a"
+	tooltip ={
+		remove_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Revoke_Generalissimo
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]提议委任帝国圈长官
+  id = EDG_flavorHRE.12
+  title = "EDG_flavorHRE.12.t"
+  desc = "EDG_flavorHRE.12.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.12.a"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 2
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	#add_imperial_influence = -5
+	add_country_modifier = {
+		name = "EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier"
+		duration = -1
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Appoint_Marquis_Imperial_Circle
+	}
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.7 }
+		}
+	}
+  }
+  option = {#这是一个甜蜜的陷阱！
+    name = "EDG_flavorHRE.12.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+      }
+    }
+	FROM = {
+		add_opinion = {
+		  who = ROOT
+		  modifier = opinion_EDG_EMP_think_you_stupid
+		}
+	}
+	
+	hidden_effect = {
+		FROM = {
+			country_event = { id = EDG_flavorHRE.8 }
+		}
+	}
+  }
+
+}
+country_event = {#[From.GetAdjective]撤销了我们帝国圈侯爵的职务
+  id = EDG_flavorHRE.13
+  title = "EDG_flavorHRE.13.t"
+  desc = "EDG_flavorHRE.13.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	hidden_effect = {
+		remove_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier
+	}
+  }
+  option = {#他们会后悔的。
+    name = "EDG_flavorHRE.13.a"
+	tooltip ={
+		remove_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Revoke_Marquis_Imperial_Circle
+	}
+  }
+
+}
+
+
+country_event = {#[From.GetAdjective]请求正式加冕为皇帝
+  id = EDG_flavorHRE.14
+  title = "EDG_flavorHRE.14.t"
+  desc = "EDG_flavorHRE.14.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#教宗会亲手为[From.Monarch.GetName]加冕。
+    name = "EDG_flavorHRE.14.a"
+	trigger = {
+		NOT = { has_global_flag = EDG_HRE_Elected_Emperor_flag }
+	}
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 100
+        }
+      }
+      modifier = {
+        factor = 2
+        has_opinion = {
+          who = emperor
+          value = 150
+        }
+      }
+      modifier = {
+        factor = 2
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = emperor
+      }
+	}
+	FROM = {
+		country_event = { id = EDG_flavorHRE.15 days = 2 }
+	}
+
+  }
+  option = {#[From.Monarch.GetName]可以做「当选皇帝」。
+    name = "EDG_flavorHRE.14.b"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+	}
+	FROM = {
+		country_event = { id = EDG_flavorHRE.16 days = 2 }
+	}
+
+  }
+  option = {#[PAP.Monarch.GetName]对此表示厌恶。
+    name = "EDG_flavorHRE.14.c"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 100
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+	}
+	FROM = {
+		country_event = { id = EDG_flavorHRE.17 days = 2 }
+		add_opinion = {
+			who = ROOT
+			modifier = opinion_EDG_flavorHRE_14_c
+		}
+		
+	}
+
+  }
+
+}
+
+country_event = {#教宗将会亲手为我们加冕
+  id = EDG_flavorHRE.15
+  title = "EDG_flavorHRE.15.t"
+  desc = "EDG_flavorHRE.15.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#[Root.Monarch.GetName]将即刻启程前往罗马！
+    name = "EDG_flavorHRE.15.a"
+	custom_tooltip = EDG_flavorHRE_15_a_tt
+	hidden_effect = {
+		country_event = { id = EDG_flavorHRE.18 days = 32 }
+	}
+
+  }
+  
+
+}
+country_event = {#「当选皇帝」
+  id = EDG_flavorHRE.16
+  title = "EDG_flavorHRE.16.t"
+  desc = "EDG_flavorHRE.16.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#此后的皇帝将不需要经由教宗加冕。
+    name = "EDG_flavorHRE.16.a"
+	custom_tooltip = EDG_HRE_Elected_Emperor_TT
+	set_global_flag = EDG_HRE_Elected_Emperor_flag
+	remove_country_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+
+  }
+  
+
+}
+country_event = {#教宗拒绝加冕
+  id = EDG_flavorHRE.17
+  title = "EDG_flavorHRE.17.t"
+  desc = "EDG_flavorHRE.17.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#他们真是目光短浅。
+    name = "EDG_flavorHRE.17.a"
+	#custom_tooltip = EDG_flavorHRE_17_a_tt
+	hidden_effect = {
+		add_ruler_modifier = {
+			name = "EDG_flavorHRE_17_modifier"
+			duration = 3650
+		}
+	}
+  }
+  
+
+}
+country_event = {#教宗为[Root.Monarch.GetName]加冕
+  id = EDG_flavorHRE.18
+  title = "EDG_flavorHRE.18.t"
+  desc = "EDG_flavorHRE.18.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#我们是经由教宗加冕的神圣罗马皇帝！
+    name = "EDG_flavorHRE.18.a"
+	#custom_tooltip = EDG_flavorHRE_18_a_tt
+	add_ruler_modifier = {
+		name = "EDG_Emperor_crowned_by_the_Pope_modifier"
+		duration = -1
+	}
+	remove_country_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+
+  }
+  
+
+}
+country_event = {#[Root.GetName]大主教
+  id = EDG_flavorHRE.19
+  title = "EDG_flavorHRE.19.t"
+  desc = "EDG_flavorHRE.19.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_flavorHRE_19_flag }
+	is_part_of_hre = yes
+	religion = catholic
+	OR = { 
+		tag = MAI
+		tag = TRI
+		tag = KOL
+	}
+	NOT = { has_reform = EDG_HRE_archbishop }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	set_country_flag = EDG_flavorHRE_19_flag
+  }
+  option = {#我们是帝国的大主教。
+    name = "EDG_flavorHRE.19.a"
+	ai_chance = {
+		factor = 10
+	}
+	add_stability = 1
+	add_prestige = 50
+	change_government = theocracy
+	if = {
+		limit = {
+			NOT = { has_reform = EDG_HRE_archbishop }
+		}
+		add_government_reform = EDG_HRE_archbishop
+	}
+  }
+  option = {#我们不想继续为帝国和教廷服务了。
+    name = "EDG_flavorHRE.19.b"
+	ai_chance = {
+		factor = 0
+	}
+	add_stability = -1
+	add_prestige = -20
+  }
+  
+
+}
+
+country_event = {#帝国盐路的修建
+  id = EDG_flavorHRE.20
+  title = "EDG_flavorHRE.20.t"
+  desc = "EDG_flavorHRE.20.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#太好了！
+    name = "EDG_flavorHRE.20.a"
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Build_Imperial_Salt_Road
+	}
+	add_country_modifier = {
+		name = "EDG_HRE_decision_emperor_Build_Imperial_Salt_Road_modifier"
+		duration = 3650
+	}
+	every_owned_province = {
+		limit = {
+			OR = {
+				province_id = 44
+				province_id = 45
+				province_id = 53
+				province_id = 1857
+				province_id = 4772
+				province_id = 2996
+			}
+		}
+		add_base_production = 2
+		add_permanent_province_modifier = {
+			name = "EDG_HRE_decision_emperor_Build_Imperial_Salt_Road_province_modifier"
+			duration = -1
+		}
+	}
+
+  }
+  
+
+}
+
+country_event = {#盐路的复兴
+  id = EDG_flavorHRE.21
+  title = "EDG_flavorHRE.21.t"
+  desc = "EDG_flavorHRE.21.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+	is_year = 1477
+	any_owned_province = {
+		OR = {
+			province_id = 44
+			province_id = 45
+			province_id = 53
+			province_id = 1857
+			province_id = 4772
+			province_id = 2996
+		}
+	}
+  }
+  mean_time_to_happen = {
+	months = 60
+  }
+  immediate = {
+  }
+  option = {#白色的黄金更加珍贵了。
+    name = "EDG_flavorHRE.21.a"
+	set_global_flag = EDG_flavorHRE_21_flag
+	custom_tooltip = EDG_flavorHRE_21_tt
+	add_treasury = 507.84
+	change_price = {
+		trade_goods = salt
+		key = EDG_flavorHRE_21_price_tt
+		value = 0.25
+		duration = 7300
+	}
+	
+
+  }
+  
+
+}
+
+country_event = {#「当选皇帝」（自行采用版）
+  id = EDG_flavorHRE.22
+  title = "EDG_flavorHRE.22.t"
+  desc = "EDG_flavorHRE.22.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#帝国的命运由自己主宰。
+    name = "EDG_flavorHRE.22.a"
+	tooltip = {
+		add_reform_desire = 0.05
+		add_imperial_influence = -5
+		add_papal_influence = -50
+		custom_tooltip = EDG_HRE_Elected_Emperor_TT
+		set_global_flag = EDG_HRE_Elected_Emperor_flag
+		remove_country_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+		PAP = {
+			add_opinion = {
+				who = ROOT
+				modifier = opinion_EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_2
+			}
+			
+		}
+	}
+
+  }
+  
+
+}
+
+
+country_event = {#给予自由市特权
+  id = EDG_flavorHRE.23
+  title = "EDG_flavorHRE.23.t"
+  desc = "EDG_flavorHRE.23.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#减免他们的赋税。
+    name = "EDG_flavorHRE.23.a"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_23_a_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_part_of_hre = yes
+				has_reform = free_city
+			}
+			set_country_flag = EDG_flavorHRE_23_a_flag
+			country_event = { id = EDG_flavorHRE.24 }
+		}
+	}
+	custom_tooltip = EDG_all_free_city_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_a_effect = yes
+	}
+  }
+  option = {#免除他们的兵役。
+    name = "EDG_flavorHRE.23.b"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_23_b_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_part_of_hre = yes
+				has_reform = free_city
+			}
+			set_country_flag = EDG_flavorHRE_23_b_flag
+			country_event = { id = EDG_flavorHRE.24 }
+		}
+	}
+	custom_tooltip = EDG_all_free_city_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_b_effect = yes
+	}
+  }
+  option = {#给予他们商业特权。
+    name = "EDG_flavorHRE.23.c"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_23_c_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_part_of_hre = yes
+				has_reform = free_city
+			}
+			set_country_flag = EDG_flavorHRE_23_c_flag
+			country_event = { id = EDG_flavorHRE.24 }
+		}
+	}
+	custom_tooltip = EDG_all_free_city_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_c_effect = yes
+	}
+  }
+  option = {#支持他们的文化产业。
+    name = "EDG_flavorHRE.23.d"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_23_d_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_part_of_hre = yes
+				has_reform = free_city
+			}
+			set_country_flag = EDG_flavorHRE_23_d_flag
+			country_event = { id = EDG_flavorHRE.24 }
+		}
+	}
+	custom_tooltip = EDG_all_free_city_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_d_effect = yes
+	}
+  }
+  
+
+}
+
+country_event = {#自由市特权
+  id = EDG_flavorHRE.24
+  title = "EDG_flavorHRE.24.t"
+  desc = "EDG_flavorHRE.24.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#这是属于我们的特权。
+    name = "EDG_flavorHRE.24.a"
+	EDG_HRE_privilege_Freie_Stadt_effect = yes
+  }
+
+  after = {
+	clr_country_flag = EDG_flavorHRE_23_a_flag
+	clr_country_flag = EDG_flavorHRE_23_b_flag
+	clr_country_flag = EDG_flavorHRE_23_c_flag
+	clr_country_flag = EDG_flavorHRE_23_d_flag
+  }
+
+}
+
+
+country_event = {#给予选帝侯特权
+  id = EDG_flavorHRE.25
+  title = "EDG_flavorHRE.25.t"
+  desc = "EDG_flavorHRE.25.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#他们将
+    name = "EDG_flavorHRE.25.a"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_25_a_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_emperor = no
+				is_elector = yes
+			}
+			set_country_flag = EDG_flavorHRE_23_a_flag
+			country_event = { id = EDG_flavorHRE.26 }
+		}
+	}
+	custom_tooltip = EDG_all_elector_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_a_effect = yes
+	}
+  }
+  option = {#免除他们的兵役。
+    name = "EDG_flavorHRE.25.b"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_25_b_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_emperor = no
+				is_elector = yes
+			}
+			set_country_flag = EDG_flavorHRE_23_b_flag
+			country_event = { id = EDG_flavorHRE.26 }
+		}
+	}
+	custom_tooltip = EDG_all_elector_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_b_effect = yes
+	}
+  }
+  option = {#给予他们商业特权。
+    name = "EDG_flavorHRE.25.c"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_25_c_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_emperor = no
+				is_elector = yes
+			}
+			set_country_flag = EDG_flavorHRE_23_c_flag
+			country_event = { id = EDG_flavorHRE.26 }
+		}
+	}
+	custom_tooltip = EDG_all_elector_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_c_effect = yes
+	}
+  }
+  option = {#支持他们的文化产业。
+    name = "EDG_flavorHRE.25.d"
+	add_ruler_modifier = {
+		name = "EDG_flavorHRE_25_d_modifier_emp"
+		duration = 7300
+	}
+	hidden_effect = {
+		every_country = {
+			limit = {
+				is_emperor = no
+				is_elector = yes
+			}
+			set_country_flag = EDG_flavorHRE_23_d_flag
+			country_event = { id = EDG_flavorHRE.26 }
+		}
+	}
+	custom_tooltip = EDG_all_elector_get_the_modifier_tt
+	tooltip = {
+		EDG_flavorHRE_23_d_effect = yes
+	}
+  }
+  
+
+}
+
+country_event = {#选帝侯特权
+  id = EDG_flavorHRE.26
+  title = "EDG_flavorHRE.26.t"
+  desc = "EDG_flavorHRE.26.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#这是属于我们的特权。
+    name = "EDG_flavorHRE.26.a"
+	EDG_HRE_privilege_Freie_Stadt_effect = yes
+  }
+
+  after = {
+	clr_country_flag = EDG_flavorHRE_23_a_flag
+	clr_country_flag = EDG_flavorHRE_23_b_flag
+	clr_country_flag = EDG_flavorHRE_23_c_flag
+	clr_country_flag = EDG_flavorHRE_23_d_flag
+  }
+
+}
+
+country_event = {#诸侯特权刷新
+  id = EDG_flavorHRE.27
+  title = "EDG_flavorHRE.27.t"
+  desc = "EDG_flavorHRE.27.dd"
+  picture = EDG_SPACE_EVENT_PICTURE
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	is_part_of_hre = yes
+	OR = {
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_1_1
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_1_1_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_2_1
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_2_1_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_3_2
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_3_2_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_3_3
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_3_3_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_4_2
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_4_2_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_5_1
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_5_1_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_5_3
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_5_3_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_6_2
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_6_2_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_6_3
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_6_3_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_7_1
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_7_1_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_7_2
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_7_2_member_modifier }
+		}
+		AND = {
+			has_global_flag = EDG_HRE_extra_reform_7_3
+			NOT = { has_country_modifier = EDG_HRE_extra_reform_7_3_member_modifier }
+		}
+	}
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#这是属于我们的特权。
+    name = "EDG_flavorHRE.27.a"
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_1_1 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_1_1_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_2_1 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_2_1_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_3_2 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_3_2_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_3_3 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_3_3_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_4_2 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_4_2_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_5_1 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_5_1_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_5_3 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_5_3_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_6_2 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_6_2_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_6_3 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_6_3_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_7_1 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_7_1_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_7_2 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_7_2_member_modifier"
+			duration = -1
+		}
+	}
+	if = {
+		limit = { has_global_flag = EDG_HRE_extra_reform_7_3 }
+		add_country_modifier = {
+			name = "EDG_HRE_extra_reform_7_3_member_modifier"
+			duration = -1
+		}
+	}
+  }
+
+
+}
+
+country_event = {#诸侯特权丧失
+  id = EDG_flavorHRE.28
+  title = "EDG_flavorHRE.28.t"
+  desc = "EDG_flavorHRE.28.dd"
+  picture = EDG_SPACE_EVENT_PICTURE
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	NOT = { is_part_of_hre = yes }
+	OR = {
+		has_country_flag = EDG_HRE_extra_reform_1444_member_flag
+		has_country_modifier = EDG_HRE_extra_reform_1_1_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_2_1_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_3_2_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_3_3_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_4_2_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_5_1_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_5_3_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_6_2_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_6_3_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_7_1_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_7_2_member_modifier
+		has_country_modifier = EDG_HRE_extra_reform_7_3_member_modifier
+	}
+	NOT = { has_country_flag = EDG_flavorHRE_28_ing_flag }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+	clr_country_flag = EDG_HRE_extra_reform_1444_member_flag
+	set_country_flag = EDG_flavorHRE_28_ing_flag
+  }
+  option = {#我们不需要这些。
+    name = "EDG_flavorHRE.28.a"
+	remove_country_modifier = EDG_HRE_extra_reform_1_1_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_2_1_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_3_2_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_3_3_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_4_2_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_5_1_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_5_3_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_6_2_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_6_3_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_7_1_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_7_2_member_modifier
+	remove_country_modifier = EDG_HRE_extra_reform_7_3_member_modifier
+	every_owned_province = {
+		limit = {
+			OR = {
+				has_province_modifier = EDG_HRE_imperial_town_province_modifier
+				has_province_modifier = EDG_HRE_imperial_town_province_remove_modifier
+			}
+		}
+		remove_province_modifier = EDG_HRE_imperial_town_province_modifier
+		remove_province_modifier = EDG_HRE_imperial_town_province_remove_modifier
+	}
+  }
+  after = {
+	clr_country_flag = EDG_flavorHRE_28_ing_flag
+  }
+
+}
+
+
+country_event = {#[From.GetAdjective]对我们发布帝国禁令
+  id = EDG_flavorHRE.29
+  title = "EDG_flavorHRE.29.t"
+  desc = "EDG_flavorHRE.29.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们会记住这一刻。
+    name = "EDG_flavorHRE.29.a"
+    ai_chance = {
+      factor = 10
+    }
+	custom_tooltip = EDG_flavorHRE_29_tooltip
+	add_ruler_modifier = {
+		name = EDG_EMP_Imperial_Prohibition_action_modifier
+		duration = 9125
+	}
+	add_opinion = {
+		who = FROM
+		modifier = EDG_EMP_Imperial_Prohibition_action_opinion
+	}
+	
+  }
+  
+
+}
+
+
+country_event = {#[From.GetAdjective]请求吞并帝国自由村庄
+  id = EDG_flavorHRE.30
+  title = "EDG_flavorHRE.30.t"
+  desc = "EDG_flavorHRE.30.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#让他们去吧。
+    name = "EDG_flavorHRE.30.a"
+    ai_chance = {
+		factor = 0.3
+		modifier = { factor = 0 FROM = {  treasury = 50 } }
+		modifier = { factor = 1.25 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 100 is_subject_of = FROM }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 1.75 FROM = { total_development = 50 } }
+		modifier = { factor = 1.75 FROM = { total_development = 100 } }
+		modifier = { factor = 1.75 FROM = { total_development = 150 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { prestige = 75 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { military_strength = { who = ROOT value = 0.5 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.0 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.5 } } }
+		modifier = { factor = 1.25 is_year = 1501 }
+		modifier = { factor = 1.50 is_year = 1550 }
+		modifier = { factor = 1.25 is_year = 1600 }
+		modifier = {
+			factor = 0
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+    }
+	add_imperial_influence = -1
+	FROM = {
+		country_event = { id = EDG_flavorHRE.31 }
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_30_a_opinion
+		}
+	}
+  }
+  option = {#只要他们肯付出相应的代价……
+    name = "EDG_flavorHRE.30.b"
+    ai_chance = {
+		factor = 0.3
+		modifier = { factor = 1.25 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 100 is_subject_of = FROM }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 2  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 1.75 FROM = { total_development = 50 } }
+		modifier = { factor = 1.75 FROM = { total_development = 100 } }
+		modifier = { factor = 1.75 FROM = { total_development = 150 } }
+		modifier = { factor = 1.75 FROM = { military_strength = { who = ROOT value = 0.5 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.0 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.5 } } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { prestige = 75 } }
+		modifier = { factor = 1.5 is_in_deficit = yes }
+		modifier = { factor = 1.5 num_of_loans = 2 }
+		modifier = { factor = 3 treasury = 100 } 
+		modifier = { factor = 3 treasury = 500 } 
+		modifier = { factor = 1.25 is_year = 1501 }
+		modifier = { factor = 1.50 is_year = 1550 }
+		modifier = { factor = 1.25 is_year = 1600 }
+		modifier = { factor = 50 FROM = { treasury = 50 } }
+		modifier = {
+			factor = 0
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+	}
+	add_imperial_influence = -1
+	custom_tooltip = EDG_flavorHRE_31_b_tt
+	FROM = {
+		country_event = { id = EDG_flavorHRE.32 }
+	}
+  }
+  option = {#皇帝不能同意。
+    name = "EDG_flavorHRE.30.c"
+    ai_chance = {
+		factor = 3
+		modifier = { factor = 0.25 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 0.75 FROM = { total_development = 50 } }
+		modifier = { factor = 0.75 FROM = { total_development = 100 } }
+		modifier = { factor = 0.75 FROM = { total_development = 150 } }
+		modifier = { factor = 0.75 FROM = { prestige = 25 } }
+		modifier = { factor = 0.75 FROM = { prestige = 50 } }
+		modifier = { factor = 0.75 is_year = 1501 }
+		modifier = { factor = 0.50 is_year = 1550 }
+		modifier = { factor = 0.25 is_year = 1600 }
+		modifier = { factor = 0.1 FROM = { treasury = 50 } }
+		modifier = {
+			factor = 100
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+	}
+	FROM = {
+		country_event = { id = EDG_flavorHRE.33 }
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_30_c_opinion
+		}
+	}
+  }
+
+
+}
+
+country_event = {#皇帝同意了我们的请求
+  id = EDG_flavorHRE.31
+  title = "EDG_flavorHRE.31.t"
+  desc = "EDG_flavorHRE.31.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#太好了！
+    name = "EDG_flavorHRE.31.a"
+	tooltip = {
+		add_opinion = {
+			who = emperor
+			modifier = EDG_flavorHRE_30_a_opinion
+		}
+	}
+	random_owned_province = {
+		limit = { has_province_modifier = EDG_HRE_imperial_town_province_modifier }
+		remove_province_modifier = EDG_HRE_imperial_town_province_modifier
+		add_province_modifier = {
+			name = EDG_HRE_imperial_town_province_remove_modifier
+			duration = 9125
+		}
+	}
+  }
+  
+}
+
+country_event = {#皇帝要求回报
+  id = EDG_flavorHRE.32
+  title = "EDG_flavorHRE.32.t"
+  desc = "EDG_flavorHRE.32.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#好吧……
+    name = "EDG_flavorHRE.32.a"
+    ai_chance = {
+		factor = 10
+	}
+	add_treasury = -50
+	emperor = {
+		add_treasury = 50
+	}
+	random_owned_province = {
+		limit = { has_province_modifier = EDG_HRE_imperial_town_province_modifier }
+		remove_province_modifier = EDG_HRE_imperial_town_province_modifier
+		add_province_modifier = {
+			name = EDG_HRE_imperial_town_province_remove_modifier
+			duration = 9125
+		}
+	}
+  }
+  option = {#我们不会为此掏钱。
+    name = "EDG_flavorHRE.32.b"
+    ai_chance = {
+		factor = 0
+	}
+	
+  }
+  
+}
+
+country_event = {#皇帝否决了我们的请求
+  id = EDG_flavorHRE.33
+  title = "EDG_flavorHRE.33.t"
+  desc = "EDG_flavorHRE.33.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#
+    name = "EDG_flavorHRE.33.a"
+	tooltip = {
+		add_opinion = {
+			who = emperor
+			modifier = EDG_flavorHRE_30_c_opinion
+		}
+	}
+  }
+  
+}
+
+country_event = {#[From.GetAdjective]私铸帝国马克
+  id = EDG_flavorHRE.34
+  title = "EDG_flavorHRE.34.t"
+  desc = "EDG_flavorHRE.34.dd"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#
+    name = "EDG_flavorHRE.34.a"
+	custom_tooltip = EDG_flavorHRE_34_a_tt
+	add_imperial_influence = -1
+	emperor = {
+		add_opinion = {
+			who = FROM
+			modifier = EDG_HRE_decision_Privately_minting_currency_opinion
+		}
+	}
+  }
+  
+}
+
+country_event = {#[From.GetAdjective]请求提供兵丁
+  id = EDG_flavorHRE.35
+  title = "EDG_flavorHRE.35.t"
+  desc = "EDG_flavorHRE.35.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#我们愿意接受
+    name = "EDG_flavorHRE.35.a"
+    ai_chance = {
+		factor = 0.3
+		modifier = { factor = 1.5 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 100 is_subject_of = FROM }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 1.75 FROM = { total_development = 50 } }
+		modifier = { factor = 1.75 FROM = { total_development = 100 } }
+		modifier = { factor = 1.75 FROM = { total_development = 150 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 50 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 100 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 150 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { prestige = 75 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { military_strength = { who = ROOT value = 0.5 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.0 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.5 } } }
+		modifier = {
+			factor = 0
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+    }
+	if = {
+		limit = { is_emperor = yes }
+		add_imperial_influence = 2
+		add_manpower = -5
+		FROM = {
+			country_event = { id = EDG_flavorHRE.37 }
+			tooltip = {
+				add_ruler_modifier = {
+					name = EDG_flavorHRE_35_a_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+	else = {
+		add_manpower = -1
+		FROM = {
+			add_manpower = 1
+			add_opinion = {
+				who = ROOT
+				modifier = EDG_flavorHRE_35_a_opinion
+			}
+		}
+	}
+	if = {
+		limit = { NOT = { has_global_flag = EDG_Generalissimo_gain_legal_global_flag } }
+		add_opinion = {
+			who = FROM
+			modifier = EDG_flavorHRE_35_a_opinion_2
+		}
+	}
+  }
+  option = {#我们不同意。
+    name = "EDG_flavorHRE.35.b"
+    ai_chance = {
+		factor = 3
+		modifier = { factor = 0.25 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 0.75 FROM = { total_development = 50 } }
+		modifier = { factor = 0.75 FROM = { total_development = 100 } }
+		modifier = { factor = 0.75 FROM = { total_development = 150 } }
+		modifier = { factor = 0.75 FROM = { prestige = 25 } }
+		modifier = { factor = 0.75 FROM = { prestige = 50 } }
+		modifier = { factor = 0.75 is_year = 1501 }
+		modifier = { factor = 0.50 is_year = 1550 }
+		modifier = { factor = 0.25 is_year = 1600 }
+		modifier = {
+			factor = 100
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+	}
+	if = {
+		limit = { is_emperor = yes }
+		add_imperial_influence = -2
+	}
+	FROM = {
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_35_b_opinion
+		}
+	}
+  }
+
+
+}
+
+country_event = {#[From.GetAdjective]请求提供金钱
+  id = EDG_flavorHRE.36
+  title = "EDG_flavorHRE.36.t"
+  desc = "EDG_flavorHRE.36.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  immediate = {
+	hidden_effect = {
+		export_to_variable = {
+			which = money_to_transfer
+			value = years_of_income
+			who = ROOT
+		}
+		multiply_variable = {
+			which = money_to_transfer
+			value = 0.5
+		}
+		change_variable = {
+			which = money_to_transfer
+			value = 1
+		}
+		set_variable = {
+			which = money_to_transfer_info
+			which = money_to_transfer
+		}
+	}
+  }
+  option = {#我们愿意接受
+    name = "EDG_flavorHRE.35.a"
+    ai_chance = {
+		factor = 0.1
+		modifier = { factor = 1.5 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 100 is_subject_of = FROM }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 1.5 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 1.5  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 1.75 FROM = { total_development = 50 } }
+		modifier = { factor = 1.75 FROM = { total_development = 100 } }
+		modifier = { factor = 1.75 FROM = { total_development = 150 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 50 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 100 } }
+		modifier = { factor = 0.75 ROOT = { total_development = 150 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { prestige = 75 } }
+		modifier = { factor = 1.75 FROM = { prestige = 50 } }
+		modifier = { factor = 1.75 FROM = { military_strength = { who = ROOT value = 0.5 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.0 } } }
+		modifier = { factor = 2.75 FROM = { military_strength = { who = ROOT value = 1.5 } } }
+		modifier = {
+			factor = 0
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+    }
+	if = {
+		limit = { is_emperor = yes }
+		add_imperial_influence = 2
+		add_years_of_income = -0.1
+		FROM = {
+			country_event = { id = EDG_flavorHRE.38 }
+			tooltip = {
+				add_ruler_modifier = {
+					name = EDG_flavorHRE_36_a_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+	else = {
+		transfer_treasury = {
+		  custom_tooltip = flavor_rus.295.a.tt
+		  giver = ROOT
+		  taker = FROM
+		  variable = money_to_transfer
+		}
+	}
+	FROM = {
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_35_a_opinion
+		}
+	}
+	if = {
+		limit = { NOT = { has_global_flag = EDG_Generalissimo_gain_legal_global_flag } }
+		add_opinion = {
+			who = FROM
+			modifier = EDG_flavorHRE_35_a_opinion_2
+		}
+	}
+  }
+  option = {#我们不同意。
+    name = "EDG_flavorHRE.35.b"
+    ai_chance = {
+		factor = 3
+		modifier = { factor = 0.25 FROM = {  alliance_with = ROOT } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 2 } }
+		modifier = { factor = 0.75 FROM = {  diplomatic_reputation = 3 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 100 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 150 } }
+		modifier = { factor = 0.5  has_opinion = { who = FROM value = 180 } }
+		modifier = { factor = 0.75 FROM = { total_development = 50 } }
+		modifier = { factor = 0.75 FROM = { total_development = 100 } }
+		modifier = { factor = 0.75 FROM = { total_development = 150 } }
+		modifier = { factor = 0.75 FROM = { prestige = 25 } }
+		modifier = { factor = 0.75 FROM = { prestige = 50 } }
+		modifier = { factor = 0.75 is_year = 1501 }
+		modifier = { factor = 0.50 is_year = 1550 }
+		modifier = { factor = 0.25 is_year = 1600 }
+		modifier = {
+			factor = 100
+			FROM = {
+				OR = {
+					is_rival = ROOT
+					is_enemy = ROOT
+					is_league_enemy = ROOT
+					is_at_war = ROOT
+				}
+			}
+		}
+	}
+	if = {
+		limit = { is_emperor = yes }
+		add_imperial_influence = -2
+	}
+	FROM = {
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_35_b_opinion
+		}
+	}
+  }
+
+
+}
+
+country_event = {#皇帝同意了我们的请求（请求皇帝提供兵源）
+  id = EDG_flavorHRE.37
+  title = "EDG_flavorHRE.31.t"
+  desc = "EDG_flavorHRE.31.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#太好了！
+    name = "EDG_flavorHRE.31.a"
+	add_ruler_modifier = {
+		name = EDG_flavorHRE_35_a_modifier
+		duration = 3650
+	}
+  }
+  
+}
+country_event = {#皇帝同意了我们的请求（请求皇帝提供战争税）
+  id = EDG_flavorHRE.38
+  title = "EDG_flavorHRE.31.t"
+  desc = "EDG_flavorHRE.31.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#太好了！
+    name = "EDG_flavorHRE.31.a"
+	add_ruler_modifier = {
+		name = EDG_flavorHRE_36_a_modifier
+		duration = 3650
+	}
+  }
+  
+}
+
+country_event = {#[From.GetAdjective]请求委任帝国大元帅
+  id = EDG_flavorHRE.39
+  title = "EDG_flavorHRE.39.t"
+  desc = "EDG_flavorHRE.39.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#他们当然有资格！
+    name = "EDG_flavorHRE.39.a"
+    ai_chance = {
+      factor = 2
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = FROM
+          is_enemy = FROM
+          is_league_enemy = FROM
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = FROM
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 2
+        alliance_with = FROM
+      }
+      modifier = {
+        factor = 2
+        is_league_friend = FROM
+      }
+      modifier = {
+        factor = 1.5
+        FROM = {
+          diplomatic_reputation = 2
+        }
+      }
+    }
+	FROM = {
+		country_event = { id = EDG_flavorHRE.40 }
+		tooltip = {
+			add_imperial_influence = -5
+			add_ruler_modifier = {
+				name = "EDG_EMP_Appoint_Generalissimo_action_modifier"
+				duration = -1
+			}
+			add_opinion = {
+				who = FROM
+				modifier = opinion_EDG_EMP_Appoint_Generalissimo
+			}
+		}
+	}
+  }
+  option = {#开玩笑吧？
+    name = "EDG_flavorHRE.39.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = FROM
+      }
+      modifier = {
+        factor = 0
+        FROM = { ai = no }
+      }
+    }
+	FROM = {
+		country_event = { id = EDG_flavorHRE.33 }
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_39_b_opinion
+		}
+	}
+  }
+
+}
+
+country_event = {#皇帝同意委任帝国大元帅
+  id = EDG_flavorHRE.40
+  title = "EDG_flavorHRE.31.t"
+  desc = "EDG_flavorHRE.31.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意接受。
+    name = "EDG_flavorHRE.10.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_imperial_influence = -5
+	add_ruler_modifier = {
+		name = "EDG_EMP_Appoint_Generalissimo_action_modifier"
+		duration = -1
+	}
+	add_opinion = {
+	  who = FROM
+	  modifier = opinion_EDG_EMP_Appoint_Generalissimo
+	}
+  }
+
+}
+
+country_event = {#[From.GetAdjective]请求结为同盟
+  id = EDG_flavorHRE.41
+  title = "EDG_flavorHRE.41.t"
+  desc = "EDG_flavorHRE.41.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#皇帝与大元帅应当站在一起。
+    name = "EDG_flavorHRE.41.a"
+    ai_chance = {
+      factor = 100
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = FROM
+          is_enemy = FROM
+          is_league_enemy = FROM
+        }
+      }
+    }
+	create_alliance = FROM
+	FROM = {
+		country_event = { id = EDG_flavorHRE.42 }
+	}
+  }
+  
+  option = {#我们并不需要他们。
+    name = "EDG_flavorHRE.41.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        FROM = { ai = no }
+		has_opinion = {
+			who = FROM
+			value = 25
+		}
+      }
+      modifier = {
+        factor = 100
+        OR = {
+          is_rival = FROM
+          is_enemy = FROM
+          is_league_enemy = FROM
+        }
+      }
+    }
+	FROM = {
+		country_event = { id = EDG_flavorHRE.33 }
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_flavorHRE_41_b_opinion
+		}
+	}
+  }
+  
+
+}
+
+country_event = {#[From.GetAdjective]同意了我们的请求
+  id = EDG_flavorHRE.42
+  title = "EDG_flavorHRE.42.t"
+  desc = "EDG_flavorHRE.42.dd"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  option = {#太好了！
+    name = "EDG_flavorHRE.42.a"
+	tooltip = {
+		create_alliance = FROM
+	}
+  }
+  
+}
+
+country_event = {#帝国议会	皇帝挑选国家
+	id = EDG_flavorHRE.100
+	title = "EDG_flavorHRE.100.t"
+	desc = "EDG_flavorHRE.100.d"
+	picture = EDG_SPACE_EVENT_PICTURE
+	is_triggered_only = yes
+	trigger = {
+		hre_size = 4
+		is_emperor = yes
+		#has_global_flag = EDG_HRE_reform_1_pass_global_flag
+		#OR = {
+			#NOT = { has_saved_global_event_target = EDG_flavorHRE_100_aim_target_yes }
+			#event_target:EDG_flavorHRE_100_aim_target_yes = { exists = no }
+		#}
+	}
+	immediate = {
+		hidden_effect = {
+			EDG_HRE_EDG_flavorHRE_HREparliament_end_effect = yes
+			set_global_flag = EDG_flavorHRE_Imperial_Conference_is_in_progress_flag
+			set_global_flag = EDG_flavorHRE_100_emperor_is_chosing_aim_flag
+			random_country = {#选第一个幸运国家
+				limit = {
+					is_emperor = no
+					is_part_of_hre = yes
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_1_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_2_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_3_target_flag }
+				}
+				save_global_event_target_as = EDG_flavorHRE_100_aim_1_target
+				set_country_flag = EDG_flavorHRE_100_aim_1_target_flag
+			}
+			random_country = {#选第二个幸运国家
+				limit = {
+					is_emperor = no
+					is_part_of_hre = yes
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_1_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_2_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_3_target_flag }
+				}
+				save_global_event_target_as = EDG_flavorHRE_100_aim_2_target
+				set_country_flag = EDG_flavorHRE_100_aim_2_target_flag
+			}
+			random_country = {#选第三个幸运国家
+				limit = {
+					is_emperor = no
+					is_part_of_hre = yes
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_1_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_2_target_flag }
+					NOT = { has_country_flag = EDG_flavorHRE_100_aim_3_target_flag }
+				}
+				save_global_event_target_as = EDG_flavorHRE_100_aim_3_target
+				set_country_flag = EDG_flavorHRE_100_aim_3_target_flag
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		#months = 36
+	}
+	option = {#第一个幸运国家
+		name = "EDG_flavorHRE_100_a_1"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 100
+				event_target:EDG_flavorHRE_100_aim_1_target = { ai = no }
+			}
+		}
+		event_target:EDG_flavorHRE_100_aim_1_target = {
+			EDG_HRE_EDG_flavorHRE_100_chosen_effect = yes
+			clr_country_flag = EDG_flavorHRE_100_aim_1_target_flag
+		}
+	}
+	option = {#第一个幸运国家
+		name = "EDG_flavorHRE_100_a_2"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 100
+				event_target:EDG_flavorHRE_100_aim_2_target = { ai = no }
+			}
+		}
+		event_target:EDG_flavorHRE_100_aim_2_target = {
+			EDG_HRE_EDG_flavorHRE_100_chosen_effect = yes
+			clr_country_flag = EDG_flavorHRE_100_aim_2_target_flag
+		}
+	}
+	option = {#第一个幸运国家
+		name = "EDG_flavorHRE_100_a_3"
+		ai_chance = {
+			factor = 2
+			modifier = {
+				factor = 100
+				event_target:EDG_flavorHRE_100_aim_3_target = { ai = no }
+			}
+		}
+		event_target:EDG_flavorHRE_100_aim_3_target = {
+			EDG_HRE_EDG_flavorHRE_100_chosen_effect = yes
+			clr_country_flag = EDG_flavorHRE_100_aim_3_target_flag
+		}
+	}
+	after = {
+		hidden_effect = {
+			clr_global_flag = EDG_flavorHRE_100_emperor_is_chosing_aim_flag
+			clear_global_event_target = EDG_flavorHRE_100_aim_1_target
+			clear_global_event_target = EDG_flavorHRE_100_aim_2_target
+			clear_global_event_target = EDG_flavorHRE_100_aim_3_target
+		}
+	}
+}
+country_event = {#帝国议会	被选中的国家
+	id = EDG_flavorHRE.101
+	title = "EDG_flavorHRE.101.t"
+	desc = "EDG_flavorHRE.101.d"
+	picture = EDG_SPACE_EVENT_PICTURE
+	is_triggered_only = yes
+	trigger = {
+
+	}
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				25 = { set_country_flag = pre_EDG_flavorHRE_101_a_1_flag }#减免公捐税 
+				25 = { set_country_flag = pre_EDG_flavorHRE_101_a_2_flag }#给予信托担保
+				25 = { set_country_flag = pre_EDG_flavorHRE_101_a_3_flag }#资助当地教会
+				25 = { set_country_flag = pre_EDG_flavorHRE_101_a_4_flag }#委托主教巡游
+			}
+			random_list = {
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_b_1_flag }#减免通行税
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_b_2_flag }#保障缓冲国独立
+			}
+			random_list = {
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_b_3_flag }#商业特许令
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_b_4_flag }#资助邮政业务
+			}
+			random_list = {
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_c_1_flag }#委派帝国骑士
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_c_2_flag }#拓展佣兵契约
+			}
+			random_list = {
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_c_3_flag }#给予筑城特权
+				50 = { set_country_flag = pre_EDG_flavorHRE_101_c_4_flag }#扩大封建兵役
+			}
+			random_list = {
+				10 = { set_country_flag = pre_EDG_flavorHRE_101_e_1_flag }#赞助邦国大学
+				30 = { set_country_flag = pre_EDG_flavorHRE_101_e_2_flag }#协助封禁书籍
+				30 = { set_country_flag = pre_EDG_flavorHRE_101_e_3_flag }#赞助神学著作
+				30 = { set_country_flag = pre_EDG_flavorHRE_101_e_4_flag }#传播本土文学
+			}
+			if = {
+				limit = {
+					has_government_attribute = EDG_HRE_Reichstag_participated
+				}
+				random_list = {
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_f_1_flag }#申请封爵
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_f_2_flag }#请求协助清除盗匪
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_f_3_flag }#扩大外交影响
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_f_4_flag }#请愿孤立主义
+				}
+			}
+			if = {
+				limit = {
+					has_government_attribute = EDG_HRE_Reichstag_participated
+				}
+				random_list = {
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_g_1_flag }#宴请高朋
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_g_2_flag }#纵容烧荒
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_g_3_flag }#加强文化交流
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_g_4_flag }#外派常驻使节
+				}
+			}
+			if = {
+				limit = {
+					has_government_attribute = EDG_HRE_Reichstag_participated
+				}
+				random_list = {
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_h_1_flag }#加强国家宣传
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_h_2_flag }#批准夺取宣称
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_h_3_flag }#协助审查印刷品
+					25 = { set_country_flag = pre_EDG_flavorHRE_101_h_4_flag }#扩散民族主义
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+	}
+	option = {#减免公捐税。
+		name = "EDG_flavorHRE_101_a_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_a_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_a_1
+		tooltip = { EDG_flavorHRE_101_a_1_give_effect = yes }
+	}
+	option = {#给予信托担保
+		name = "EDG_flavorHRE_101_a_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_a_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_a_2
+		tooltip = { EDG_flavorHRE_101_a_2_give_effect = yes }
+	}
+	option = {#资助当地教会
+		name = "EDG_flavorHRE_101_a_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_a_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_a_3
+		tooltip = { EDG_flavorHRE_101_a_3_give_effect = yes }
+	}
+	option = {#委托主教巡游
+		name = "EDG_flavorHRE_101_a_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_a_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_a_4
+		tooltip = { EDG_flavorHRE_101_a_4_give_effect = yes }
+	}
+
+	option = {#减免通行税
+		name = "EDG_flavorHRE_101_b_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_b_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_b_1
+		tooltip = { EDG_flavorHRE_101_b_1_give_effect = yes }
+	}
+	option = {#保障缓冲国独立
+		name = "EDG_flavorHRE_101_b_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_b_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_b_2
+		tooltip = { EDG_flavorHRE_101_b_2_give_effect = yes }
+	}
+	option = {#商业特许令
+		name = "EDG_flavorHRE_101_b_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_b_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_b_3
+		tooltip = { EDG_flavorHRE_101_b_3_give_effect = yes }
+	}
+	option = {#资助邮政业务
+		name = "EDG_flavorHRE_101_b_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_b_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_b_4
+		tooltip = { EDG_flavorHRE_101_b_4_give_effect = yes }
+	}
+	
+	option = {#委派帝国骑士
+		name = "EDG_flavorHRE_101_c_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_c_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_c_1
+		tooltip = { EDG_flavorHRE_101_c_1_give_effect = yes }
+	}
+	option = {#拓展佣兵契约
+		name = "EDG_flavorHRE_101_c_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_c_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_c_2
+		tooltip = { EDG_flavorHRE_101_c_2_give_effect = yes }
+	}
+	option = {#给予筑城特权
+		name = "EDG_flavorHRE_101_c_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_c_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_c_3
+		tooltip = { EDG_flavorHRE_101_c_3_give_effect = yes }
+	}
+	option = {#扩大封建兵役
+		name = "EDG_flavorHRE_101_c_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_c_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_c_4
+		tooltip = { EDG_flavorHRE_101_c_4_give_effect = yes }
+	}
+	
+	option = {#赞助邦国大学
+		name = "EDG_flavorHRE_101_e_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_e_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_e_1
+		tooltip = { EDG_flavorHRE_101_e_1_give_effect = yes }
+	}
+	option = {#协助封禁书籍
+		name = "EDG_flavorHRE_101_e_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_e_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_e_2
+		tooltip = { EDG_flavorHRE_101_e_2_give_effect = yes }
+	}
+	option = {#赞助神学著作
+		name = "EDG_flavorHRE_101_e_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_e_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_e_3
+		tooltip = { EDG_flavorHRE_101_e_3_give_effect = yes }
+	}
+	option = {#传播本土文学
+		name = "EDG_flavorHRE_101_e_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_e_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_e_4
+		tooltip = { EDG_flavorHRE_101_e_4_give_effect = yes }
+	}
+	
+	option = {#请求册封家臣为骑士
+		name = "EDG_flavorHRE_101_f_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_f_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_f_1
+		tooltip = { EDG_flavorHRE_101_f_1_give_effect = yes }
+	}
+	option = {#请求协助清除盗匪
+		name = "EDG_flavorHRE_101_f_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_f_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_f_2
+		tooltip = { EDG_flavorHRE_101_f_2_give_effect = yes }
+	}
+	option = {#扩大外交影响
+		name = "EDG_flavorHRE_101_f_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_f_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_f_3
+		tooltip = { EDG_flavorHRE_101_f_3_give_effect = yes }
+	}
+	option = {#请愿孤立主义
+		name = "EDG_flavorHRE_101_f_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_f_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_f_4
+		tooltip = { EDG_flavorHRE_101_f_4_give_effect = yes }
+	}
+	
+	option = {#宴请高朋
+		name = "EDG_flavorHRE_101_g_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_g_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_g_1
+		tooltip = { EDG_flavorHRE_101_g_1_give_effect = yes }
+	}
+	option = {#纵容烧荒
+		name = "EDG_flavorHRE_101_g_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_g_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_g_2
+		tooltip = { EDG_flavorHRE_101_g_2_give_effect = yes }
+	}
+	option = {#加强文化交流
+		name = "EDG_flavorHRE_101_g_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_g_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_g_3
+		tooltip = { EDG_flavorHRE_101_g_3_give_effect = yes }
+	}
+	option = {#外派常驻使节
+		name = "EDG_flavorHRE_101_g_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_g_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_g_4
+		tooltip = { EDG_flavorHRE_101_g_4_give_effect = yes }
+	}
+	
+	option = {#加强国家宣传
+		name = "EDG_flavorHRE_101_h_1"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_h_1_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_h_1
+		tooltip = { EDG_flavorHRE_101_h_1_give_effect = yes }
+	}
+	option = {#批准夺取宣称
+		name = "EDG_flavorHRE_101_h_2"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_h_2_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_h_2
+		tooltip = { EDG_flavorHRE_101_h_2_give_effect = yes }
+	}
+	option = {#协助审查印刷品
+		name = "EDG_flavorHRE_101_h_3"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_h_3_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_h_3
+		tooltip = { EDG_flavorHRE_101_h_3_give_effect = yes }
+	}
+	option = {#扩散民族主义
+		name = "EDG_flavorHRE_101_h_4"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			has_country_flag = pre_EDG_flavorHRE_101_h_4_flag
+		}
+		custom_tooltip = EDG_flavorHRE_101_if_success_effect_tt
+		set_country_flag = EDG_flavorHRE_101_want_flag_h_4
+		tooltip = { EDG_flavorHRE_101_h_4_give_effect = yes }
+	}
+	
+	after = {
+		hidden_effect = {
+			EDG_HRE_pre_EDG_flavorHRE_101_clr_flag_effect = yes
+			set_country_flag = has_EDG_flavorHRE_102_vote_finished_flag
+		}
+	}
+}
+country_event = {#帝国议会	其他国家投票
+	id = EDG_flavorHRE.102
+	title = "EDG_flavorHRE.102.t"
+	desc = "EDG_flavorHRE.102.d"
+	picture = EDG_SPACE_EVENT_PICTURE
+	is_triggered_only = yes
+	trigger = {
+		is_part_of_hre = yes
+		NOT = { has_country_flag = has_EDG_flavorHRE_102_vote_finished_flag }
+		NOT = { has_country_flag = has_EDG_flavorHRE_102_voting_flag }
+		has_saved_global_event_target = EDG_flavorHRE_100_aim_target_yes
+		event_target:EDG_flavorHRE_100_aim_target_yes = { exists = yes }
+	}
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = has_EDG_flavorHRE_102_vote_finished_flag
+			set_country_flag = has_EDG_flavorHRE_102_voting_flag
+		}
+	}
+
+	mean_time_to_happen = {
+	}
+	option = {#同意
+		name = "EDG_flavorHRE_102.a"
+		ai_chance = {
+			factor = 8
+			modifier = {
+				factor = 0
+				OR = {
+					is_rival = EDG_flavorHRE_100_aim_target_yes
+					is_enemy = EDG_flavorHRE_100_aim_target_yes
+					is_league_enemy = EDG_flavorHRE_100_aim_target_yes
+				}
+			}
+			modifier = {
+				factor = 1.2
+				has_opinion = {
+					who = EDG_flavorHRE_100_aim_target_yes
+					value = 10
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = {
+					who = EDG_flavorHRE_100_aim_target_yes
+					value = 50
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = {
+					who = EDG_flavorHRE_100_aim_target_yes
+					value = 100
+				}
+			}
+			modifier = {
+				factor = 1.5
+				has_opinion = {
+					who = EDG_flavorHRE_100_aim_target_yes
+					value = 150
+				}
+			}
+			modifier = {
+				factor = 3
+				has_opinion = {
+					who = EDG_flavorHRE_100_aim_target_yes
+					value = 180
+				}
+			}
+			modifier = {
+				factor = 5
+				alliance_with = EDG_flavorHRE_100_aim_target_yes
+			}
+			modifier = {
+				factor = 5
+				is_league_friend = EDG_flavorHRE_100_aim_target_yes
+			}
+			modifier = {
+				factor = 1.5
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					diplomatic_reputation = 2
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					diplomatic_reputation = 4
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					diplomatic_reputation = 6
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					diplomatic_reputation = 8
+				}
+			}
+			modifier = {
+				factor = 1.5
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					diplomatic_reputation = 10
+				}
+			}
+			modifier = {
+				factor = 2
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					NOT = { army_size = 10 }
+				}
+				NOT = {
+					military_strength = {
+						who = event_target:EDG_flavorHRE_100_aim_target_yes
+						value = 1.0
+					}
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_102_option_endorse_effect_tt
+		event_target:EDG_flavorHRE_100_aim_target_yes = {
+			EDG_HRE_EDG_flavorHRE_102_option_endorse_effect = yes
+			tooltip = {
+				EDG_HRE_EDG_flavorHRE_modifier_give_effect = yes
+			}
+		}
+		
+	}
+	option = {#反对
+		name = "EDG_flavorHRE_102.b"
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 2
+				NOT = {
+					has_opinion = {
+						who = event_target:EDG_flavorHRE_100_aim_target_yes
+						value = -20
+					}
+				}
+			}
+			modifier = {
+				factor = 5
+				NOT = {
+					has_opinion = {
+						who = event_target:EDG_flavorHRE_100_aim_target_yes
+						value = -50
+					}
+				}
+			}
+			modifier = {
+				factor = 50
+				NOT = {
+					has_opinion = {
+						who = event_target:EDG_flavorHRE_100_aim_target_yes
+						value = -100
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				is_subject_of = EDG_flavorHRE_100_aim_target_yes
+			}
+			modifier = {
+				factor = 0.75
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					prestige = 50
+				}
+			}
+			modifier = {
+				factor = 1.25
+				event_target:EDG_flavorHRE_100_aim_target_yes = {
+					NOT = { army_size = 10 }
+				}
+				military_strength = {
+					who = event_target:EDG_flavorHRE_100_aim_target_yes
+					value = 5.0
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_102_option_protest_effect_tt
+		event_target:EDG_flavorHRE_100_aim_target_yes = {
+			EDG_HRE_EDG_flavorHRE_102_option_protest_effect = yes
+		}
+	}
+	after = {
+		hidden_effect = {
+			set_country_flag = has_EDG_flavorHRE_102_vote_finished_flag
+			clr_country_flag = has_EDG_flavorHRE_102_voting_flag
+		}
+	}
+}
+country_event = {#帝国议会	受益国报告
+	id = EDG_flavorHRE.103
+	title = "EDG_flavorHRE.103.t"
+	desc = "EDG_flavorHRE.103.d"
+	picture = EDG_SPACE_EVENT_PICTURE
+	is_triggered_only = yes
+	trigger = {
+		is_part_of_hre = yes
+		event_target:EDG_flavorHRE_100_aim_target_yes = { exists = yes }
+		has_country_flag = EDG_flavorHRE_100_aim_target_yes_country_flag
+		NOT = { has_country_flag = has_EDG_flavorHRE_103_checking_flag }
+		NOT = { has_country_flag = has_EDG_flavorHRE_103_checked_flag }
+		all_country = {
+			OR = {
+				NOT = { is_part_of_hre = yes }
+				AND = {
+					is_part_of_hre = yes
+					has_country_flag = has_EDG_flavorHRE_102_vote_finished_flag
+				}
+			}
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = has_EDG_flavorHRE_103_checking_flag
+			set_country_flag = has_EDG_flavorHRE_103_checked_flag
+		}
+	}
+
+	mean_time_to_happen = {
+	}
+	option = {#通过。
+		name = "EDG_flavorHRE_103.a"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			event_target:EDG_flavorHRE_100_aim_target_yes = {
+				check_variable = {
+					which = EDG_flavorHRE_102_endorse
+					which = EDG_flavorHRE_102_protest
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_vote_check_tt
+		EDG_HRE_EDG_flavorHRE_modifier_give_effect = yes
+	}
+	option = {#未通过。
+		name = "EDG_flavorHRE_103.b"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			event_target:EDG_flavorHRE_100_aim_target_yes = {
+				NOT = {
+					check_variable = {
+						which = EDG_flavorHRE_102_endorse
+						which = EDG_flavorHRE_102_protest
+					}
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_vote_check_tt
+		
+	}
+	after = {
+		hidden_effect = {
+			every_country - {
+				limit = { is_part_of_hre = yes }
+				country_event = { id = EDG_flavorHRE.104 }
+			}
+				clr_country_flag = has_EDG_flavorHRE_103_checking_flag
+			#EDG_HRE_EDG_flavorHRE_HREparliament_end_effect = yes
+			EDG_HRE_EDG_flavorHRE_101_want_flag_clr_flag_want_effect = yes
+			clr_global_flag = EDG_flavorHRE_Imperial_Conference_is_in_progress_flag
+		}
+	}
+}
+country_event = {#帝国议会	诸侯国报告
+	id = EDG_flavorHRE.104
+	title = "EDG_flavorHRE.104.t"
+	desc = "EDG_flavorHRE.104.d"
+	picture = EDG_SPACE_EVENT_PICTURE
+	is_triggered_only = yes
+	trigger = {
+		is_part_of_hre = yes
+		event_target:EDG_flavorHRE_100_aim_target_yes = { exists = yes }
+		NOT = { has_country_flag = EDG_flavorHRE_100_aim_target_yes_country_flag }
+		NOT = { has_country_flag = has_EDG_flavorHRE_103_checking_flag }
+		NOT = { has_country_flag = has_EDG_flavorHRE_103_checked_flag }
+		all_country = {
+			OR = {
+				NOT = { is_part_of_hre = yes }
+				AND = {
+					is_part_of_hre = yes
+					has_country_flag = has_EDG_flavorHRE_102_vote_finished_flag
+				}
+			}
+		}
+	}
+	immediate = {
+		hidden_effect = {
+			set_country_flag = has_EDG_flavorHRE_103_checking_flag
+			set_country_flag = has_EDG_flavorHRE_103_checked_flag
+		}
+	}
+
+	mean_time_to_happen = {
+	}
+	option = {#通过。
+		name = "EDG_flavorHRE_104.a"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			event_target:EDG_flavorHRE_100_aim_target_yes = {
+				check_variable = {
+					which = EDG_flavorHRE_102_endorse
+					which = EDG_flavorHRE_102_protest
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_vote_check_tt
+	}
+	option = {#未通过。
+		name = "EDG_flavorHRE_104.b"
+		ai_chance = {
+			factor = 10
+		}
+		trigger = {
+			event_target:EDG_flavorHRE_100_aim_target_yes = {
+				NOT = {
+					check_variable = {
+						which = EDG_flavorHRE_102_endorse
+						which = EDG_flavorHRE_102_protest
+					}
+				}
+			}
+		}
+		custom_tooltip = EDG_HRE_EDG_flavorHRE_vote_check_tt
+		
+	}
+	option = {#好的。
+		name = "EDG_flavorHRE_104.c"
+		ai_chance = {
+			factor = 10
+		}
+
+	}
+	after = {
+		hidden_effect = {
+			clr_country_flag = has_EDG_flavorHRE_103_checking_flag
+			#EDG_HRE_EDG_flavorHRE_HREparliament_end_effect = yes
+		}
+	}
+}

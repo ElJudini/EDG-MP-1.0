@@ -1,0 +1,175 @@
+custom_button = {#经济生产:丝绸重心
+	name = EDG_ERS_GUI_create_silk_button
+	tooltip = EDG_create_silk_button_txt
+	potential = {
+		from = {
+			ai = no
+			has_country_flag = EDG_ERS_silk_create_flag
+		}
+		owned_by = from
+		OR = {
+			superregion = persia_superregion
+			AND = {
+				NOT = {
+					superregion = persia_superregion
+				}
+				FROM = {
+					has_country_flag = EDG_ERS_mission_13_1_flag
+				}
+			}
+		}
+		NOT = {
+			trade_goods = silk
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_create_silk_button_trigger_txt
+			owned_by = from
+			OR = {
+				superregion = persia_superregion
+				AND = {
+					NOT = {
+						superregion = persia_superregion
+					}
+					FROM = {
+						has_country_flag = EDG_ERS_mission_13_1_flag
+					}
+				}
+			}
+		}
+		from = {
+			has_country_flag = EDG_ERS_silk_create_flag
+		}
+		OR = {
+			superregion = persia_superregion
+			AND = {
+				NOT = {
+					superregion = persia_superregion
+				}
+				FROM = {
+					has_country_flag = EDG_ERS_mission_13_1_flag
+				}
+			}
+		}
+		NOT = {
+			has_province_modifier = EDG_create_silk_button_province_modifier
+		}
+		development = 15
+	}
+	effect = {
+		set_province_flag = change_province_create_silk_yes
+		change_trade_goods = silk
+		if = {
+			limit = { 
+				base_production = 7
+				NOT = {
+					base_production = 8
+				}
+			}
+			add_base_production = 1
+		}
+		if = {
+			limit = {  base_manpower = 7 }
+			add_base_manpower = -1
+		}
+		if = {
+			limit = {
+				has_province_flag = change_province_remove_silk_yes
+			}
+			clr_province_flag = change_province_remove_silk_yes
+			set_province_flag = change_province_create_silk_yes
+		}
+		remove_province_modifier = EDG_create_silk_button_province_modifier
+		add_province_modifier = {
+			name = EDG_create_silk_button_province_modifier
+			duration = 3650
+		}
+	}
+}
+custom_button = {#经济生产:撤销丝绸重心
+	name = EDG_ERS_GUI_create_other_button
+	tooltip = EDG_remove_silk_button_txt
+	potential = {
+		from = {
+			ai = no
+			has_country_flag = EDG_ERS_Minority_industries_create_flag
+		}
+		owned_by = from
+		OR = {
+			superregion = persia_superregion
+			AND = {
+				NOT = {
+					superregion = persia_superregion
+				}
+				FROM = {
+					has_country_flag = EDG_ERS_mission_13_1_flag
+				}
+			}
+		}
+		trade_goods = silk
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_create_silk_button_trigger_txt
+			owned_by = from
+			OR = {
+				superregion = persia_superregion
+				AND = {
+					NOT = {
+						superregion = persia_superregion
+					}
+					FROM = {
+						has_country_flag = EDG_ERS_mission_13_1_flag
+					}
+				}
+			}
+		}
+		from = {
+			has_country_flag = EDG_ERS_Minority_industries_create_flag
+		}
+		OR = {
+			superregion = persia_superregion
+			AND = {
+				NOT = {
+					superregion = persia_superregion
+				}
+				FROM = {
+					has_country_flag = EDG_ERS_mission_13_1_flag
+				}
+			}
+		}
+		trade_goods = silk
+		development = 15
+	}
+	effect = {
+		province_event = {
+			id = mission_EDGERSmission.81
+		}
+		remove_province_modifier = EDG_create_silk_button_province_modifier
+		add_province_modifier = {
+			name = EDG_remove_silk_button_province_modifier
+			duration = 3650
+		}
+		if = {
+			limit = { 
+				base_production = 7
+				NOT = {
+					base_production = 8
+				}
+			}
+			add_base_production = 1
+		}
+		if = {
+			limit = {  base_manpower = 7 }
+			add_base_manpower = -1
+		}
+		if = {
+			limit = {
+				has_province_flag = change_province_create_silk_yes
+			}
+			clr_province_flag = change_province_create_silk_yes
+			set_province_flag = change_province_remove_silk_yes
+		}
+	}
+}

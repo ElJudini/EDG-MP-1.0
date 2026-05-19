@@ -1,0 +1,506 @@
+# EDG_GEN_deposit_to_bank = { #存款入热那亚银行
+# 	category = economy
+# 	require_acceptance = no
+# 	is_visible = {
+# 		from = {
+# 			has_government_mechanic = EDG_GEN_george_house_mechanic
+# 		}
+# 		NOT = {
+# 			OR = {
+# 				has_reform = FOI_UCI_union_commune_of_iberian
+# 				has_reform = FOI_FWF_forward_front
+# 			}
+# 		}
+# 	}
+# 	is_allowed = {
+# 		EDG_GEN_enable_george_house_dip_trigger = yes
+# 		from = {
+# 			NOT = {
+# 				has_government_power = {
+# 					mechanic_type = EDG_GEN_george_house_mechanic
+# 					power_type = EDG_GEN_george_house
+# 					value = 1000000
+# 				}
+# 			}
+# 		}
+# 		treasury = 100
+# 		hidden_trigger = {
+# 			NOT = {
+# 				has_country_flag = EDG_GENCommonEvents_1_flag
+# 			}
+# 		}
+# 	}
+# 	ai_will_do = {
+# 		# OR = {
+# 		# 	NOT = {
+# 		# 		has_country_modifier = EDG_GEN_currency_management
+# 		# 	}
+# 		# }
+# 		is_at_war = no
+# 		is_in_deficit = no
+# 		OR = {
+# 			monthly_income = 5
+# 			AND = {
+# 				num_of_loans = 1
+# 				inflation = 5
+# 			}
+# 			inflation = 3
+# 			corruption = 1
+# 		}
+# 		if = {
+# 			limit = { 
+# 				NOT = {
+# 					total_development = 100
+# 				}
+# 			}
+# 			NOT = {
+# 				check_variable = {
+# 					which = EDG_GEN_deposit_to_bank_var
+# 					value = 2
+# 				}
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = { 
+# 				total_development = 100
+# 				NOT = {
+# 					total_development = 250
+# 				}
+# 			}
+# 			NOT = {
+# 				check_variable = {
+# 					which = EDG_GEN_deposit_to_bank_var
+# 					value = 4
+# 				}
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = { 
+# 				total_development = 250
+# 				NOT = {
+# 					total_development = 500
+# 				}
+# 			}
+# 			NOT = {
+# 				check_variable = {
+# 					which = EDG_GEN_deposit_to_bank_var
+# 					value = 6
+# 				}
+# 			}
+# 		}
+# 		else_if = {
+# 			limit = { 
+# 				total_development = 500
+# 				NOT = {
+# 					total_development = 1000
+# 				}
+# 			}
+# 			NOT = {
+# 				check_variable = {
+# 					which = EDG_GEN_deposit_to_bank_var
+# 					value = 11
+# 				}
+# 			}
+# 		}
+# 		else = {
+# 			NOT = {
+# 				check_variable = {
+# 					which = EDG_GEN_deposit_to_bank_var
+# 					value = 21
+# 				}
+# 			}
+# 		}
+# 	}
+# 	on_accept = {
+# 		country_event = {
+# 			id = EDG_GENCommonEvents.1
+# 		}
+# 	}
+# }
+# EDG_GEN_withdrawal_from_bank = { #从热那亚银行取款
+# 	category = economy
+# 	require_acceptance = no
+# 	is_visible = {
+# 		from = {
+# 			has_government_mechanic = EDG_GEN_george_house_mechanic
+# 		}
+# 		NOT = {
+# 			OR = {
+# 				has_reform = FOI_UCI_union_commune_of_iberian
+# 				has_reform = FOI_FWF_forward_front
+# 			}
+# 		}
+# 	}
+# 	is_allowed = {
+# 		EDG_GEN_enable_george_house_dip_trigger = yes
+# 		check_variable = {
+# 			which = EDG_GEN_deposit_to_bank_var
+# 			value = 1
+# 		}
+# 		hidden_trigger = {
+# 			NOT = {
+# 				has_country_flag = EDG_GENCommonEvents_2_flag
+# 			}
+# 		}
+# 		from = {
+# 			has_government_power = {
+# 				mechanic_type = EDG_GEN_george_house_mechanic
+# 				power_type = EDG_GEN_george_house
+# 				value = 200
+# 			}
+# 		}
+# 		NOT = {
+# 			has_country_modifier = EDG_GEN_currency_management
+# 		}
+# 	}
+# 	ai_will_do = {
+# 		OR = {
+# 			is_in_deficit = yes
+# 			is_at_war = yes
+# 		}
+# 	}
+# 	on_accept = {
+# 		country_event = {
+# 			id = EDG_GENCommonEvents.2
+# 		}
+# 	}
+# }
+# EDG_GEN_borrow_money_from_bank = { #从热那亚银行借款
+# 	category = economy
+# 	require_acceptance = no
+# 	is_visible = {
+# 		from = {
+# 			has_government_mechanic = EDG_GEN_george_house_mechanic
+# 		}
+# 		NOT = {
+# 			OR = {
+# 				has_reform = FOI_UCI_union_commune_of_iberian
+# 				has_reform = FOI_FWF_forward_front
+# 			}
+# 		}
+# 	}
+# 	is_allowed = {
+# 		EDG_GEN_enable_george_house_dip_trigger = yes
+# 		NOT = {
+# 			check_variable = {
+# 				which = EDG_GEN_borrow_to_bank_var
+# 				value = 1
+# 			}
+# 		}
+# 		hidden_trigger = {
+# 			NOT = {
+# 				has_country_flag = EDG_GENCommonEvents_3_flag
+# 			}
+# 		}
+# 		from = {
+# 			has_government_power = {
+# 				mechanic_type = EDG_GEN_george_house_mechanic
+# 				power_type = EDG_GEN_george_house
+# 				value = 200
+# 			}
+# 		}
+# 	}
+# 	ai_will_do = {
+# 		OR = {
+# 			is_at_war = yes
+# 			is_in_deficit = yes
+# 		}
+# 		#num_of_loans = 5
+# 	}
+# 	on_accept = {
+# 		country_event = {
+# 			id = EDG_GENCommonEvents.3
+# 		}
+# 	}
+# }
+EDG_GEN_acquiring_country = { #收购国家
+	category = influence
+	alert_index = 34
+	alert_tooltip = EDG_GEN_acquiring_country_alert_tooltip
+	require_acceptance = yes
+	is_visible = {
+		has_government_mechanic = EDG_GEN_george_house_mechanic
+		from = {
+			is_subject = no
+		}
+		ai = no
+		has_country_flag = EDG_enable_EDG_GEN_purchase
+	}
+	is_allowed = {
+		is_bankrupt = no
+		from = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_GEN_main_surface_button_6.condition_1.tt
+				OR = {
+					capital_scope = {
+						superregion = europe_superregion
+					}
+					capital_scope = {
+						superregion = eastern_europe_superregion
+					}
+					has_country_flag = EDG_GEN_enable_use_bank
+				}
+				
+			}
+		}
+		hidden_trigger = {
+			NOT = {
+				has_country_flag = EDG_GENCommonEvents_7_flag
+			}
+		}
+	}
+	on_accept = {
+		from = {
+			clear_global_event_target = EDG_GEN_assign_country_target
+			save_global_event_target_as = EDG_GEN_assign_country_target
+		}
+		country_event = {
+			id = EDG_GENCommonEvents.7
+		}
+	}
+	on_decline = {
+		declare_war_with_cb = {
+			casus_belli = cb_EDG_GEN_preemption
+			who = from
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -75
+			}
+		}
+		add_entry = {
+			name = EDG_GOV_RANK_1
+			limit = {
+				from = {
+					government_rank = 1
+					NOT = {
+						government_rank = 2
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -25
+			}
+		}
+		add_entry = {
+			name = EDG_GOV_RANK_2
+			limit = {
+				from = {
+					government_rank = 2
+					NOT = {
+						government_rank = 3
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -75
+			}
+		}
+		add_entry = {
+			name = EDG_GOV_RANK_3
+			limit = {
+				from = {
+					government_rank = 3
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_GO_BROKE
+			limit = {
+				is_bankrupt = yes
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 1000
+			}
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.2
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 1
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 4
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+		add_entry = {
+			name = AI_PERSONALITY
+			limit = {
+				FROM = {
+					OR = {
+						personality = ai_capitalist
+						personality = ai_balanced
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = 15
+			}
+		}
+		add_entry = {
+			name = AI_PERSONALITY
+			limit = {
+				FROM = {
+					OR = {
+						personality = ai_diplomat
+						personality = ai_colonialist
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+		add_entry = {
+			name = AI_PERSONALITY
+			limit = {
+				FROM = {
+					personality = ai_militarist
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			
+			multiply_variable = {
+				which = ai_value
+				value = -25
+			}
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}

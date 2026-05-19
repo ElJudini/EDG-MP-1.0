@@ -1,0 +1,882 @@
+namespace = EDG_flavor_development
+normal_or_historical_nations = yes
+country_event = {#移民的到来
+	id = EDG_flavor_development.0
+	title = "EDG_flavor_development.0.tt"
+	desc = "EDG_flavor_development.0.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_0_province
+	
+	trigger = {
+		any_owned_province = { is_city = yes NOT = { development = 20 } }
+	}
+	
+	is_triggered_only = yes
+
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					NOT = { development = 20 }
+				}
+				save_event_target_as = EDG_flavor_development_0_province
+			}
+		}
+	}
+	
+	option = {#欢迎他们的到来！
+		name = "EDG_flavor_development.0.a"
+		ai_chance = {
+		  factor = 2
+		}
+		add_adm_power = -25
+		add_dip_power = -25
+		event_target:EDG_flavor_development_0_province = {
+			random_list = {
+				10 = { add_base_tax = 1 }
+				10 = { add_base_production = 1 }
+				10 = { add_base_manpower = 1 }
+			}
+		}
+	}
+	option = {#我们才不接受他们。
+		name = "EDG_flavor_development.0.b"
+		ai_chance = {
+		  factor = 1
+		}
+		add_prestige = -5
+	}
+}
+
+country_event = {#灾荒
+	id = EDG_flavor_development.1
+	title = "EDG_flavor_development.1.tt"
+	desc = "EDG_flavor_development.1.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_1_province
+	
+	trigger = {
+		not = { has_country_flag = EDG_RandomEvents_unable_EDG_flavor_development_1_and_6_flag }
+		OR = {
+			num_of_cities = 5
+			total_development = 30
+			is_part_of_hre = yes
+		}
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+	}
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+				}
+				save_event_target_as = EDG_flavor_development_1_province
+			}
+		}
+	}
+	
+	option = {#我们不在乎。
+		name = "EDG_flavor_development.1.a"
+		ai_chance = {
+		  factor = 1
+		  modifier = {
+			factor = 4
+			num_of_cities = 5
+		  }
+		  modifier = {
+			factor = 2
+			is_part_of_hre = yes
+		  }
+		  modifier = {
+			factor = 2
+			culture_group = germanic
+		  }
+		  modifier = {
+			factor = 5
+			capital_scope = {
+				OR = {
+					region = carpathia_region
+					region = balkan_region
+				}
+			}
+		  }
+		}
+		event_target:EDG_flavor_development_1_province = {
+			add_base_tax = -1
+			add_base_production = -1 
+			add_base_manpower = -1 
+		}
+	}
+	option = {#免除他们三年的赋税。
+		name = "EDG_flavor_development.1.b"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_1_province = {
+			add_province_modifier = {
+				name = EDG_flavor_development_1_province_modifier
+				duration = 1095
+			}
+		}
+	}
+	option = {#我们必须赈灾！
+		name = "EDG_flavor_development.1.c"
+		ai_chance = {
+		  factor = 1
+		}
+		add_adm_power = -25
+	}
+}
+
+
+country_event = {#农奴渴望逃离
+	id = EDG_flavor_development.2
+	title = "EDG_flavor_development.2.tt"
+	desc = "EDG_flavor_development.2.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_2_province
+	
+	trigger = {
+		NOT = { 
+			OR = {
+				has_government_attribute = EDG_Peasant_regime 
+				has_government_attribute = is_peasants_republic
+			}
+		}
+		NOT = { prestige = 0 }
+		OR = {
+			num_of_cities = 3
+			total_development = 30
+			is_part_of_hre = yes
+		}
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+			NOT = { has_province_modifier = EDG_flavor_development_2_c_province_modifier }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+					NOT = { has_province_modifier = EDG_flavor_development_2_c_province_modifier }
+				}
+				save_event_target_as = EDG_flavor_development_2_province
+			}
+		}
+	}
+	
+	option = {#让他们离开吧。
+		name = "EDG_flavor_development.2.a"
+		ai_chance = {
+		  factor = 10
+		}
+		event_target:EDG_flavor_development_2_province = {
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						country_event = { id = EDG_flavor_development.0 }
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						country_event = { id = EDG_flavor_development.0 }
+					}
+				}
+			}
+		}
+	}
+	option = {#没收他们的财产再允许他们离开。
+		name = "EDG_flavor_development.2.b"
+		ai_chance = {
+		  factor = 10
+		}
+		add_treasury = 25
+		add_adm_power = -10
+		event_target:EDG_flavor_development_2_province = {
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#他们怎敢？
+		name = "EDG_flavor_development.2.c"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_2_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_development_2_c_province_modifier"
+				duration = 3650
+			}
+		}			
+
+	}
+}
+
+country_event = {#农民战争的波澜
+	id = EDG_flavor_development.3
+	title = "EDG_flavor_development.3.tt"
+	desc = "EDG_flavor_development.3.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_3_province
+	
+	trigger = {
+		NOT = { 
+			OR = {
+				has_government_attribute = EDG_Peasant_regime 
+				has_government_attribute = is_peasants_republic
+			}
+		}
+		has_global_flag = great_peasants_war_flag
+		is_part_of_hre = yes
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+			NOT = { has_province_modifier = EDG_flavor_development_3_c_province_modifier }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+					NOT = { has_province_modifier = EDG_flavor_development_3_c_province_modifier }
+				}
+				save_event_target_as = EDG_flavor_development_3_province
+			}
+		}
+	}
+	
+	option = {#让他们离开吧。
+		name = "EDG_flavor_development.2.a"
+		ai_chance = {
+		  factor = 10
+		}
+		event_target:EDG_flavor_development_3_province = {
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#没收他们的财产再允许他们离开。
+		name = "EDG_flavor_development.2.b"
+		ai_chance = {
+		  factor = 10
+		}
+		add_treasury = 25
+		add_adm_power = -10
+		event_target:EDG_flavor_development_3_province = {
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#他们怎敢？
+		name = "EDG_flavor_development.2.c"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_3_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_development_3_c_province_modifier"
+				duration = 3650
+			}
+		}			
+
+	}
+	option = {#好吧。
+		name = "EDG_flavor_development.2.d"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_3_province = {
+			add_local_autonomy = 25
+			add_province_modifier = {
+				name = "EDG_flavor_development_3_d_province_modifier"
+				duration = 3650
+			}
+		}			
+
+	}
+}
+
+country_event = {#狡猾的邻居
+	id = EDG_flavor_development.4
+	title = "EDG_flavor_development.4.tt"
+	desc = "EDG_flavor_development.4.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_4_province
+	
+	trigger = {
+		is_part_of_hre = yes
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+	}
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+					NOT = { has_province_modifier = EDG_flavor_development_4_c_province_modifier }
+				}
+				save_event_target_as = EDG_flavor_development_4_province
+			}
+		}
+	}
+	
+	option = {#让他们离开吧。
+		name = "EDG_flavor_development.2.a"
+		ai_chance = {
+			factor = 10
+		  }
+		event_target:EDG_flavor_development_4_province = {
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#没收他们的财产再允许他们离开。
+		name = "EDG_flavor_development.2.b"
+		add_treasury = 25
+		add_adm_power = -10
+		ai_chance = {
+			factor = 10
+		  }
+		event_target:EDG_flavor_development_4_province = {
+			
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#他们怎敢？
+		name = "EDG_flavor_development.2.c"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_4_province = {
+			add_province_modifier = {
+				name = "EDG_flavor_development_4_c_province_modifier"
+				duration = 3650
+			}
+		}			
+
+	}
+	option = {#如果我们愿意降低他们的赋税呢？
+		name = "EDG_flavor_development.4.d"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_4_province = {
+			add_local_autonomy = 25
+			add_province_modifier = {
+				name = "EDG_flavor_development_1_province_modifier"
+				duration = 3650
+			}
+		}			
+
+	}
+}
+
+
+
+country_event = {#农奴渴望逃离2
+	id = EDG_flavor_development.5
+	title = "EDG_flavor_development.2.tt"
+	desc = "EDG_flavor_development.2.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_5_province
+	
+	trigger = {
+		is_year = 1525
+		is_part_of_hre = yes
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+	}
+	
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+					NOT = { has_province_modifier = EDG_flavor_development_4_c_province_modifier }
+				}
+				save_event_target_as = EDG_flavor_development_5_province
+			}
+		}
+	}
+	
+	option = {#让他们离开吧。
+		ai_chance = {
+		factor = 10
+	  }
+		name = "EDG_flavor_development.2.a"
+		event_target:EDG_flavor_development_4_province = {
+			
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	option = {#没收他们的财产再允许他们离开。
+		name = "EDG_flavor_development.2.b"
+		ai_chance = {
+			factor = 10
+		  }
+		add_treasury = 25
+		add_adm_power = -10
+		event_target:EDG_flavor_development_4_province = {
+			
+			random_list = {
+				10 = { add_base_tax = -1 }
+				10 = { add_base_production = -1 }
+				10 = { add_base_manpower = -1 }
+			}
+			if = {
+				limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region region = north_german_region region = south_german_region region = scandinavia_region } }
+				if = {
+					limit = { OR = { region = france_region region = iberia_region region = british_isles_region region = italy_region} }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } } 
+						}
+						random_list = {
+							3 = { }
+							1 = { country_event = { id = EDG_flavor_development.0 } }
+						}
+					}
+				}
+				else_if = {
+					limit = { OR = { region = north_german_region region = south_german_region region = scandinavia_region } }
+					random_country = {
+						limit = {
+							any_owned_province = { is_city = yes NOT = { development = 20 } }
+							capital_scope = { OR = { region = poland_region 	region = baltic_region region = ruthenia_region region = carpathia_region region = balkan_region } } 
+						}
+						random_list = { 3 = { } 1 = { country_event = { id = EDG_flavor_development.0 } } }
+					}
+				}
+			}
+		}
+	}
+	
+}
+
+
+
+country_event = {#灾荒2
+	id = EDG_flavor_development.6
+	title = "EDG_flavor_development.1.tt"
+	desc = "EDG_flavor_development.1.dd"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_6_province
+	
+	trigger = {
+		not = { has_country_flag = EDG_RandomEvents_unable_EDG_flavor_development_1_and_6_flag }
+		is_year = 1550
+		OR = {
+			num_of_cities = 5
+			total_development = 30
+			is_part_of_hre = yes
+		}
+		any_owned_province = {
+			base_tax = 2
+			base_production = 2
+			base_manpower = 2
+		}
+	}
+	
+	is_triggered_only = yes
+
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					base_production = 2
+					base_manpower = 2
+				}
+				save_event_target_as = EDG_flavor_development_6_province
+			}
+		}
+	}
+	
+	option = {#我们不在乎。
+		name = "EDG_flavor_development.1.a"
+		ai_chance = {
+		  factor = 1
+		  modifier = {
+			factor = 4
+			num_of_cities = 5
+		  }
+		  modifier = {
+			factor = 2
+			is_part_of_hre = yes
+		  }
+		  modifier = {
+			factor = 2
+			culture_group = germanic
+		  }
+		  modifier = {
+			factor = 5
+			capital_scope = {
+				OR = {
+					region = carpathia_region
+					region = balkan_region
+				}
+			}
+		  }
+		}
+		event_target:EDG_flavor_development_6_province = {
+			add_base_tax = -1
+			add_base_production = -1 
+			add_base_manpower = -1 
+		}
+	}
+	option = {#免除他们三年的赋税。
+		name = "EDG_flavor_development.1.b"
+		ai_chance = {
+		  factor = 1
+		}
+		event_target:EDG_flavor_development_6_province = {
+			add_province_modifier = {
+				name = EDG_flavor_development_1_province_modifier
+				duration = 1095
+			}
+		}
+	}
+	option = {#我们必须赈灾！
+		name = "EDG_flavor_development.1.c"
+		ai_chance = {
+		  factor = 1
+		}
+		add_adm_power = -25
+	}
+}
+
+
+
+
+
+country_event = {#价格革命引起的衰退
+	id = EDG_flavor_development.7
+	title = "EDG_flavor_development.7.tt"
+	desc = "EDG_flavor_development.7.desc"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_development_7_province
+	
+	trigger = {
+		has_global_flag = EDG_Price_Revolution_global_flag
+		any_owned_province = {
+			is_city = yes
+			base_tax = 5
+			base_production = 5
+			base_manpower = 2
+			NOT = { has_province_flag = EDG_flavor_development_7_province_flag }
+		}
+	}
+	
+	is_triggered_only = yes
+
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 5
+					base_production = 5
+					base_manpower = 3
+					NOT = { has_province_flag = EDG_flavor_development_7_province_flag }
+				}
+				save_event_target_as = EDG_flavor_development_7_province
+			}
+		}
+	}
+	
+	option = {#这些并不重要。
+		name = "EDG_flavor_development.7.aa"
+		ai_chance = {
+		  factor = 1
+		  modifier = {
+			factor = 4
+			num_of_cities = 5
+		  }
+		  modifier = {
+			factor = 2
+			is_part_of_hre = yes
+		  }
+		  modifier = {
+			factor = 2
+			culture_group = germanic
+		  }
+		  modifier = {
+			factor = 5
+			capital_scope = {
+				OR = {
+					region = carpathia_region
+					region = balkan_region
+				}
+			}
+		  }
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_development_7_province = {
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -2
+		}
+	}
+	option = {#我们需要保护这些市民。
+		name = "EDG_flavor_development.7.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_treasury = -100
+	}
+	option = {#用我们所有的资源保住这座美丽的城市！
+		name = "EDG_flavor_development.7.cc"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_adm_power = -50
+		add_dip_power = -50
+		add_mil_power = -50
+		add_treasury = -200
+	}
+}
+

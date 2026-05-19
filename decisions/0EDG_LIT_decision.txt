@@ -1,0 +1,268 @@
+country_decisions = {
+
+	EDG_mission_LIT_manipulate_faction_decision = { #操纵派系
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_LIT_mission_1_2_flag
+		}
+		allow = {
+			OR = {
+				has_reform = EDG_LIT_grand_duchy_reform_1
+				has_reform = EDG_LIT_grand_duchy_reform_2
+			}
+			prestige = 5
+			has_government_power = {
+				mechanic_type = EDG_LIT_Monarchy_ability
+				power_type = EDG_LIT_Monarchy_power
+				value = 5
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_LIT_Monarchy_ability
+				power_type = EDG_LIT_Monarchy_power
+				value = -5
+			}
+			country_event = { id = EDG_flavor_LIT.31 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_flavor_LIT_103_decision = { #更新民族社区法案
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_LIT_mission_Attracting_immigrants_flag
+			NOT = { has_country_flag = EDG_flavor_LIT_103_decision_doing_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_flavor_LIT_103_decision_in_5_years_modifier }
+		}
+		effect = {
+			set_country_flag = EDG_flavor_LIT_103_decision_doing_flag
+			country_event = { id = EDG_flavor_LIT.103 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	
+	EDG_LIT_commonwealth_enforced = {
+		major = yes
+		potential = {
+			has_country_flag = EDG_LIT_mission_5_9_flag
+			NOT = { has_country_flag = pol_chose_pu_flag }
+			NOT = { has_country_flag = EDG_LIT_RUS_enforced_flag }
+			PLC = { exists = no }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 272	# Vilna
+				province_id = 276	# Minsk
+				province_id = 280	# Kiev
+				province_id = 1941	# Turov
+				province_id = 262	# Krakow
+				province_id = 257	# Warszawa
+				province_id = 43		# Danzig
+				province_id = 1841	# Marienburg
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			#adm_tech = 10
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			#stability = 3
+			is_at_war = no
+			owns_core_province = 272				# Vilna
+			owns_core_province = 276				# Minsk
+			owns_core_province = 280				# Kiev
+			owns_core_province = 1941				# Turov
+			owns_or_non_sovereign_subject_of = 262				# Krakow
+			owns_or_non_sovereign_subject_of = 257				# Warszawa
+			owns_or_non_sovereign_subject_of = 43					# Danzig
+			owns_or_non_sovereign_subject_of = 1841				# Marienburg
+			MAZ = { exists = no }
+			POL = {
+				OR = {
+					exists = no 
+					AND = {
+						is_subject_of = ROOT
+						NOT = { liberty_desire = 25 }
+					}
+				}
+			}
+			PLC = { exists = no }
+		}
+		effect = {
+			custom_tooltip = EDG_LIT_form_pol_tt
+			if = {
+				limit = {
+					POL = { is_subject_of = ROOT }
+				}
+				inherit = POL
+			}
+			change_tag = PLC
+			on_change_tag_effect = yes
+			if = { 
+				limit = { 
+					OR = { 
+						tag = LIT 
+						primary_culture = lithuanian 
+					}
+				}
+				override_country_name = LPC
+				set_country_flag = is_LPC_flag
+			}
+			else = { restore_country_name = yes }
+			if = {
+				limit = { has_country_flag = EDG_flavor_LIT_laqiweiwu_flag }
+				change_country_color = { color = { 0  128  0 } }
+			}
+			else_if = {
+				limit = { has_country_flag = EDG_flavor_LIT_yagailong_flag }
+				change_country_color = { color = { 154  69  116 } }
+			}
+			else = {
+				change_country_color = { color = { 250  182  3 } }
+			}
+			set_country_flag = pol_chose_pu_flag
+			#swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { NOT = { government_rank = 2 } }
+				PLC = { set_government_rank = 2 }
+			}
+			if = {
+				limit = {
+					NOT = { primary_culture = lithuanian }
+					NOT = { accepted_culture = lithuanian }
+				}
+				add_accepted_culture = lithuanian
+			}
+			add_country_modifier = {
+				name = plc_polish_lithuanian_union
+				duration = -1
+			}
+			
+			
+			set_country_flag = formed_plc_flag
+			add_prestige = 25
+			
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 200
+	}
+
+	
+	EDG_LIT_RUS_enforced = {
+		major = yes
+		potential = {
+			has_country_flag = EDG_LIT_mission_3_6_flag
+			#NOT = { has_country_flag = pol_chose_pu_flag }
+			NOT = { has_country_flag = EDG_LIT_RUS_enforced_flag }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 272	# Vilna
+				province_id = 276	# Minsk
+				province_id = 280	# Kiev
+				province_id = 1941	# Turov
+				province_id = 294	# Krakow
+				province_id = 310	# Warszawa
+				province_id = 295		# Danzig
+				province_id = 301	# Marienburg
+				province_id = 283	# Marienburg
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			owns_core_province = 272				# Vilna
+			owns_core_province = 276				# Minsk
+			owns_core_province = 280				# Kiev
+			owns_core_province = 1941				# Turov
+			owns_or_non_sovereign_subject_of = 294				# Krakow
+			owns_or_non_sovereign_subject_of = 310				# Warszawa
+			owns_or_non_sovereign_subject_of = 295					# Danzig
+			owns_or_non_sovereign_subject_of = 301				# Marienburg
+			owns_or_non_sovereign_subject_of = 283				# Marienburg
+		}
+		effect = {
+			custom_tooltip = EDG_LIT_form_rus_tt
+			every_country = {
+				limit = {
+					is_subject_of = ROOT
+					culture_group = east_slavic
+				}
+				ROOT = {
+					inherit = PREV
+				}
+			}
+			override_country_name = EDG_LIT_RUS_name
+			if = {
+				limit = { has_country_flag = EDG_flavor_LIT_laqiweiwu_flag }
+				change_country_color = { color = { 0  128  0 } }
+			}
+			else_if = {
+				limit = { has_country_flag = EDG_flavor_LIT_yagailong_flag }
+				change_country_color = { color = { 154  69  116 } }
+			}
+			else = {
+				change_country_color = { color = { 250  182  3 } }
+			}
+			set_country_flag = pol_chose_pu_flag
+			set_country_flag = EDG_LIT_RUS_enforced_flag
+
+			if = {
+				limit = {
+					NOT = { primary_culture = lithuanian }
+					NOT = { accepted_culture = lithuanian }
+				}
+				add_accepted_culture = lithuanian
+			}
+			add_country_modifier = {
+				name = EDG_LIT_RUS_enforced_modifier
+				duration = -1
+			}
+			add_accepted_culture = russian
+			add_accepted_culture = novgorodian
+			add_accepted_culture = ryazanian
+			add_accepted_culture = byelorussian
+			add_accepted_culture = ruthenian
+			add_accepted_culture = karelian
+			
+			
+			
+			add_prestige = 25
+			
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 200
+	}
+}

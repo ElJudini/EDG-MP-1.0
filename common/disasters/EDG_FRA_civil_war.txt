@@ -1,0 +1,216 @@
+EDG_FRA_civil_war = {#卡佩王朝战争
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		OR = {
+			tag = FRA
+			was_tag = FRA
+		}
+		NOT = { has_country_flag = had_EDG_FRA_civil_war_flag }
+		government = monarchy
+		is_free_or_tributary_trigger = yes
+		is_lesser_in_union = no
+		normal_or_historical_nations = yes
+		current_age = age_of_discovery
+		NOT = {
+			OR = {
+				is_revolution_target = yes
+				is_revolutionary = yes 
+			} 
+		}
+	}
+
+	can_start = {
+		has_any_disaster = no
+		government = monarchy
+		current_age = age_of_discovery
+		NOT = {
+			OR = {
+				is_revolution_target = yes
+				is_revolutionary = yes 
+			} 
+		}
+		NOT = { has_ruler_modifier = EDG_flavorFRA_mission_a_ruler_modifier }
+		OR = {
+			NOT = { stability = 0 }
+			NOT = { legitimacy = 50 }
+			calc_true_if = {
+				all_country = {
+					OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+				}
+				amount = 6
+			}
+		}
+	}
+	
+	can_stop = {
+		OR = {
+			has_any_disaster = yes
+			AND = {
+				stability = 3
+				legitimacy = 95
+			}
+		}
+	}
+	
+	progress = {
+		modifier = {
+			factor = 1
+			NOT = { legitimacy = 50 }
+		} 
+		modifier = {
+			factor = 0.5
+			NOT = { legitimacy = 75 }
+		} 
+		modifier = {
+			factor = 0.5
+			NOT = { legitimacy = 100 }
+		} 
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_subject_country = {
+					OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+				}
+				amount = 5
+			}
+		} 
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_subject_country = {
+					OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+				}
+				amount = 6
+			}
+		} 
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_subject_country = {
+					OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+				}
+				amount = 7
+			}
+		} 
+		modifier = {
+			factor = 0.5
+			calc_true_if = {
+				all_subject_country = {
+					OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+				}
+				amount = 8
+			}
+		} 
+		modifier = {
+			factor = 1
+			NOT = { stability = 2 }
+		}
+		modifier = {
+			factor = 1
+			NOT = { stability = 1 }
+		}
+		modifier = {
+			factor = 1
+			NOT = { stability = 0 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { adm = 5 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { dip = 5 }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { mil = 5 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 3 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { dip = 3 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { mil = 3 }
+		}
+		modifier = {
+			factor = 1
+			war_exhaustion = 5
+		} 
+		modifier = {
+			factor = 1
+			num_of_loans = 5
+		}
+		modifier = {
+			factor = 5
+			is_bankrupt = yes
+		}
+		modifier = {
+			factor = 1.5
+			NOT = { prestige = 0 }
+		}
+	}
+	
+	modifier = {
+		global_unrest = 10
+		legitimacy = 10
+		reduced_liberty_desire_on_same_continent = -35
+		vassal_forcelimit_bonus = -0.5
+		vassal_income = -0.25
+		nobles_loyalty_modifier = -0.2
+	}	
+	
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = disaster_active_for_20_years_tooltip
+				had_country_flag = {
+					flag = had_EDG_FRA_civil_war_flag
+					days = 7300
+				}
+			}
+			AND = {
+				legitimacy = 100
+				NOT = { num_of_rebel_armies = 1 }
+				NOT = { num_of_rebel_controlled_provinces = 1 }
+				NOT = { average_unrest = 1 }
+				stability = 3
+			}
+		}
+	}
+	
+	on_start = EDG_FRA_civil_war.1
+	on_end = EDG_FRA_civil_war.2
+	
+	on_monthly = {
+		events = { }
+		random_events = {
+			1000 = 0
+			100 = civil_war.5
+			100 = civil_war.9
+			100 = civil_war.10
+			100 = civil_war.12
+			200 = EDG_FRA_civil_war.3
+		}
+	}
+}
+

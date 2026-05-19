@@ -1,0 +1,451 @@
+country_decisions = {
+
+	italian_nation = {#鹰旗意大利王国
+		major = yes
+		color = { 246 181 116 }
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_italy_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = ITA }
+			NOT = { tag = IT1 }
+			NOT = { tag = ITA }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			culture_group = latin
+			NOT = { primary_culture = neapolitan }
+			NOT = { primary_culture = sicilian }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = italy_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 30
+								region = italy_region
+								is_core = root
+							}
+						}
+						owns_core_province = 101	
+						owns_core_province = 104	
+						owns_core_province = 116	 
+					}
+				}
+				province_id = 101	# Genoa
+				province_id = 104	# Milan
+				province_id = 116	# Firenze 
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			if = {
+				limit = {
+					has_country_flag = EDG_form_ITA_ignore_tech_flag
+				}
+			}
+			else = {
+				adm_tech = 10
+			}
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			owns_core_province = 101	# Genoa
+			owns_core_province = 104	# Milan
+			owns_core_province = 116	# Firenze 
+			num_of_owned_provinces_with = {
+				value = 30
+				region = italy_region
+				is_core = root
+			}
+		}
+		effect = {
+			restore_country_name = yes
+			if = {
+				limit = {
+					is_part_of_hre = yes
+					is_elector = no
+					is_emperor = no
+				}
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 2
+			}
+			change_tag = ITA
+			#this is so that a tier 1 reform is always selected, preventing the user from just never selecting one and enjoying loads of absolutism
+			if = {
+				limit = {
+					NOT = { has_reform_on_level = 0 }
+				}
+				add_government_reform = signoria_reform
+			}
+			italy_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ITA
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			ITA = {
+				set_capital = 118
+			}
+			if = {
+				limit = { has_custom_ideas = no }
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			} 
+			swap_non_generic_missions = yes
+			set_country_flag = formed_italy_flag
+			if = {
+				limit = {
+					has_government_mechanic = EDG_GEN_george_house_mechanic
+				}
+				clear_global_event_target = EDG_St_George_House_Target
+				save_global_event_target_as = EDG_St_George_House_Target
+			}
+		}
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				NOT = {
+					calc_true_if = {
+						owns_core_province = 101	# Genoa
+						owns_core_province = 104	# Milan
+						owns_core_province = 116	# Firenze
+						amount = 2
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					num_of_cities = 10
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm_tech = 8 }
+			}
+		}
+	}
+
+	gods_kingdom = {
+		major = yes
+		potential = {
+			normal_or_historical_nations = yes
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = ITA }
+			tag = PAP
+			NOT = { has_country_flag = is_kingdom_of_god_flag }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 101	# Genoa
+				province_id = 103	# Torino
+				province_id = 104	# Milano
+				province_id = 106	# Modena
+				province_id = 110	# Trento
+				province_id = 111	# Udine / Aquileia
+				province_id = 112	# Venice
+				province_id = 114	# Bologna + Ravenna
+				province_id = 116	# Firenze
+				province_id = 115	# Pisa
+				province_id = 119	# Ancona + Fermo
+				province_id = 2976	# Perugia
+				province_id = 2977	# Pesaro
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			#Ecclesiastical provinces of Northern Italy
+			owns_core_province = 101	# Genoa
+			owns_core_province = 103	# Torino
+			owns_core_province = 104	# Milano
+			owns_core_province = 106	# Modena
+			owns_core_province = 110	# Trento
+			owns_core_province = 111	# Udine / Aquileia
+			owns_core_province = 112	# Venice
+			owns_core_province = 114	# Bologna + Ravenna
+			owns_core_province = 116	# Firenze
+			owns_core_province = 115	# Pisa
+			owns_core_province = 119	# Ancona + Fermo
+			owns_core_province = 2976	# Perugia
+			owns_core_province = 2977	# Pesaro
+		}
+		effect = {
+			country_event  = { id = catholic_flavor.2 }
+			every_province = {
+				limit = {
+					region = italy_region
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			override_country_name = KINGDOM_OF_GOD
+			set_country_flag = is_kingdom_of_god_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	
+	
+	EDG_Lombard_Venice_nation = {#伦巴第-威尼斯托
+		major = yes
+		potential = {
+			has_country_flag = EDG_formed_EDG_Lombard_Venice_nation__enable_flag
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_EDG_Lombard_Venice_nation_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = LWU }
+			NOT = { tag = IT1 }
+			NOT = { tag = ITA }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = italy_region
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 10
+								region = italy_region
+								is_core = root
+							}
+						}
+						owns_core_province = 104	
+						owns_core_province = 112	
+					}
+				}
+				province_id = 104	# Milan
+				province_id = 112	# ven
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			is_free_or_tributary_trigger = yes
+			is_at_war = no
+			OR = {
+				VEN = {
+					is_subject_of = ROOT
+				}
+				venetia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			OR = {
+				MLO = {
+					is_subject_of = ROOT
+				}
+				lombardy_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+			112 = { country_or_non_sovereign_subject_holds = ROOT  }
+			104 = { country_or_non_sovereign_subject_holds = ROOT  }
+			num_of_owned_provinces_with = {
+				value = 10
+				region = italy_region
+				is_core = root
+			}
+		}
+		effect = {
+			set_country_flag = formed_EDG_Lombard_Venice_nation_flag
+			if = {
+				limit = {
+					MLO = {
+						is_subject_of = ROOT
+					}
+				}
+				inherit = MLO
+			}
+			if = {
+				limit = {
+					VEN = {
+						is_subject_of = ROOT
+					}
+				}
+				inherit = VEN
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 2 }
+				}
+				hidden_effect = {
+					set_in_empire = no
+				}
+				set_government_rank = 2
+			}
+			
+			if = {
+				limit = {
+					NOT = { tag = MLO }
+					any_owned_province = {
+						is_core = MLO
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_core = MLO
+					}
+					remove_core = MLO
+				}
+			}
+			if = {
+				limit = {
+					NOT = { tag = VEN }
+					any_owned_province = {
+						is_core = VEN
+					}
+				}
+				every_owned_province = {
+					limit = {
+						is_core = VEN
+					}
+					remove_core = VEN
+				}
+			}
+			change_tag = LWU
+			#this is so that a tier 1 reform is always selected, preventing the user from just never selecting one and enjoying loads of absolutism
+			if = {
+				limit = {
+					NOT = { has_reform_on_level = 0 }
+				}
+				add_government_reform = signoria_reform
+			}
+			venetia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lombardy_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			po_valley_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			emilia_romagna_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			#if = {
+			#	limit = { has_custom_ideas = no }
+			#	country_event = { id = ideagroups.1 } #Swap Ideas
+			#}
+			#swap_non_generic_missions = yes
+		}
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				NOT = {
+					num_of_cities = 10
+				}
+			}
+		}
+	}
+
+}

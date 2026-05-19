@@ -1,0 +1,155 @@
+po_EDG_SHY_get_ship = {
+	category = 6
+	power_projection = humiliated_rival
+	power_cost_base = 1.0
+	prestige_base = 1.0 # Base factor for prestige gain and loss. Scales with war score cost.
+	ae_base = 0
+	warscore_cap = -1
+	applies_to_war_target = yes
+	requires_is_allowed = no
+	warscore_cost = {
+		# Which of the giver's provinces' war score costs are included and by how much. All entries default to 0. Any combination of entries can be used. Try negative values at your own risk.
+		all_provinces = 0 # All the giver's provinces
+		no_provinces = 25.0 # This is just a constant. Equivalent to a single province with with war score cost 1
+		owner_keeps = 0.0 # The provinces that are not of any of the types below
+		conquered = 0.0 # Provinces that are selected by a Demand Province treaty
+		returned_core = 0.0 # Provinces that are selected by a Return Core treaty
+		released_nation = 0.0 # Provinces that will become a part of a selected released-to-be nation
+		cancelled_subject = 0.0 # This one should not be relevant here since Giver can't be a cancelled subject. Including anyway for completeness
+		concede_colonial_region = 0.0 # Ditto
+	}
+	is_visible = {
+		has_country_flag = EDG_SHY_enable_get_ship_flag
+		FROM = {
+			navy_size = 10
+		}
+	}
+	is_allowed = {
+		capital_scope = {
+			has_port = yes
+			controlled_by = root
+		}
+	}
+	effect = {
+		set_variable = {
+			which = EDG_SHY_get_mult
+			value = 0.5
+		}
+		from = {
+			add_country_modifier = {
+				name = EDG_SHY_decommissioning_of_navy
+				duration = 3650
+			}
+			export_to_variable = {
+				which = EDG_SHY_count_transport
+				value = trigger_value:num_of_transport
+			}
+			export_to_variable = {
+				which = EDG_SHY_count_galley
+				value = trigger_value:num_of_galley
+			}
+			export_to_variable = {
+				which = EDG_SHY_count_light_ship
+				value = trigger_value:num_of_light_ship
+			}
+			export_to_variable = {
+				which = EDG_SHY_count_heavy_ship
+				value = trigger_value:num_of_heavy_ship
+			}
+			set_variable = {
+				which = EDG_SHY_get_mult
+				which = prev
+			}
+			multiply_variable = {
+				which = EDG_SHY_count_transport
+				which = EDG_SHY_get_mult
+			}
+			multiply_variable = {
+				which = EDG_SHY_count_galley
+				which = EDG_SHY_get_mult
+			}
+			multiply_variable = {
+				which = EDG_SHY_count_light_ship
+				which = EDG_SHY_get_mult
+			}
+			multiply_variable = {
+				which = EDG_SHY_count_heavy_ship
+				which = EDG_SHY_get_mult
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_SHY_count_transport
+						value = 1
+					}
+				}
+				root = {
+					capital_scope = {
+						transport = root
+					}
+				}
+				subtract_variable = {
+					which = EDG_SHY_count_transport
+					value = 1
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_SHY_count_galley
+						value = 1
+					}
+				}
+				root = {
+					capital_scope = {
+						galley = root
+					}
+				}
+				subtract_variable = {
+					which = EDG_SHY_count_galley
+					value = 1
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_SHY_count_light_ship
+						value = 1
+					}
+				}
+				root = {
+					capital_scope = {
+						light_ship = root
+					}
+				}
+				subtract_variable = {
+					which = EDG_SHY_count_light_ship
+					value = 1
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_SHY_count_heavy_ship
+						value = 1
+					}
+				}
+				root = {
+					capital_scope = {
+						heavy_ship = root
+					}
+				}
+				subtract_variable = {
+					which = EDG_SHY_count_heavy_ship
+					value = 1
+				}
+			}
+		}
+	}
+	ai_weight = { 
+		export_to_variable = {
+			variable_name = ai_value 
+			value = 10
+		}
+	}
+}

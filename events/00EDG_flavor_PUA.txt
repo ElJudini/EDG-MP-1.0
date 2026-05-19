@@ -1,0 +1,109 @@
+namespace = EDG_flavor_PUA
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavor_PUA.0
+  title = "EDG_flavor_PUA.0.t"
+  desc = "EDG_flavor_PUA.0.d"
+  picture = OVEREXTENSION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  
+  trigger = {
+    tag = PUA
+  }
+  option = {
+    name = "EDG_flavor_PUA.0.a"
+    ai_chance = {
+      factor = 16
+    }
+	add_country_modifier = {
+		name = "EDG_modifier_PUA_NATION_RETORE"
+		duration = 36500
+	}
+		change_religion = EDG_catharism
+		if = {
+			limit = {
+				has_reform = EDG_Norman_Monarchy
+			}
+			add_stability = 1
+		}
+		else = {
+			add_stability = -3
+			add_prestige = -100
+		}
+		remove_country_modifier = counter_reformation
+		remove_country_modifier = the_statue_in_restraint_of_appeals
+		remove_country_modifier = revocation_of_restraint_of_appeals
+		remove_country_modifier = bavarian_jesuits
+		remove_country_modifier = the_societas_jesu
+		remove_country_modifier = the_declaration_of_indulgence
+		remove_country_modifier = de_heretico_comburendo
+		remove_country_modifier = the_conventicle_act
+		add_country_modifier = {
+			name = "conversion_zeal"
+			duration = 3650
+		}
+		every_known_country = {
+			limit = {
+				reverse_has_opinion_modifier = {
+					who = ROOT
+					modifier = opinion_demote_pope
+				}
+			}
+			reverse_remove_opinion = {
+				who = ROOT
+				modifier = opinion_demote_pope
+			}
+		}
+		add_government_reform = EDG_Catharism_Court
+		add_reform_desire = 0.025
+  }
+  option = {
+    name = "EDG_flavor_PUA.0.b"
+    ai_chance = {
+      factor = 3
+    }
+	add_stability = 1
+	add_papal_influence = 25
+  }
+}
+
+country_event = {
+  id = EDG_flavor_PUA.1
+  title = "EDG_flavor_PUA.1.t"
+  desc = "EDG_flavor_PUA.1.d"
+  picture = OVEREXTENSION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+    months = 16
+  }
+  fire_only_once = yes
+  option = {
+    name = "EDG_flavor_PUA.1.a"
+    ai_chance = {
+      factor = 15
+    }
+	if = {
+		limit = {
+			exists = PUA
+		}
+        PUA = {
+			country_event = {
+			  id = EDG_flavor_PUA.0
+			}
+		}
+	}
+	
+  }
+  option = {
+    name = "EDG_flavor_PUA.1.b"
+    ai_chance = {
+      factor = 5
+    }
+	add_prestige = -10
+  }
+}

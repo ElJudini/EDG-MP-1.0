@@ -1,0 +1,146 @@
+namespace = EDG_flavor_LOT
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavor_LOT.1
+  title = "EDG_flavor_LOT.1.t"
+  desc = "EDG_flavor_LOT.1.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  trigger = {
+    tag = FRA
+	exists = LOT
+    LOT = {
+		is_free_or_tributary_trigger = yes
+		government = monarchy
+		total_development = 190
+		has_regency = no
+	}
+    FRA = {
+		is_free_or_tributary_trigger = yes
+		government = monarchy
+	}
+	NOT = {
+	  is_year = 1500
+	}
+	has_regency = no
+	NOT = { dynasty = "aSiO" }
+  NOT = { legitimacy = 30 }
+  }
+  option = {
+    name = "EDG_flavor_LOT.1.a"
+    ai_chance = {
+      factor = 10
+    }
+	LOT = { country_event = { id = EDG_flavor_LOT.2 } }
+  }
+  option = {
+    name = "EDG_flavor_LOT.1.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_adm_power = 25
+  }
+}
+country_event = {
+  id = EDG_flavor_LOT.2
+  title = "EDG_flavor_LOT.2.t"
+  desc = "EDG_flavor_LOT.2.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = LOT
+  }
+  option = {
+    name = "EDG_flavor_LOT.2.a"
+    ai_chance = {
+      factor = 10
+    }
+	FRA = {
+        every_owned_province = {
+          limit = {
+            OR = {
+              culture = burgundian
+            }
+          }
+          add_core = LOT
+		  cede_province = LOT
+        }
+		add_historical_friend = LOT
+		override_country_name = EDG_THE_WEST_Frankish
+	}
+	LOT = {
+		every_subject_country = {
+			limit = {
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+					}
+				}
+			}
+			LOT = { inherit = PREV }
+		}
+		add_historical_friend = FRA
+		override_country_name = EDG_THE_MIDDLE_Frankish
+		create_union = FRA
+	}
+  }
+  option = {
+    name = "EDG_flavor_LOT.2.b"
+    ai_chance = {
+      factor = 0
+    }
+	trigger = { ai = no }
+	add_adm_power = 25
+	
+  }
+}
+
+country_event = {
+  id = EDG_flavor_LOT.3
+  title = "EDG_flavor_LOT.3.t"
+  desc = "EDG_flavor_LOT.3.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = LOT
+	exists = FRA
+    LOT = {
+		is_free_or_tributary_trigger = yes
+		government = monarchy
+		overlord_of = FRA
+	}
+	FRA = { ai = yes }
+  }
+  mean_time_to_happen = {
+    months = 7300
+  }
+  option = {
+    name = "EDG_flavor_LOT.3.a"
+    ai_chance = {
+      factor = 10
+    }
+	FRA = {
+		every_subject_country = {
+			limit = {
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+					}
+				}
+			}
+			FRA = { inherit = PREV }
+		}
+	}
+	inherit = FRA
+  }
+  option = {
+    name = "EDG_flavor_LOT.3.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_dip_power = 100
+  }
+}

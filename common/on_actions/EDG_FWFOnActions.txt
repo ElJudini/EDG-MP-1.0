@@ -1,0 +1,219 @@
+on_siege_lost_province = {
+	if = {
+		limit = {
+			NOT = {
+				is_core = from
+			}
+			NOT = {
+				owned_by = from
+			}
+			superregion = europe_superregion
+			from = {
+				has_country_modifier = EDG_FWF_forward_attack
+			}
+		}
+		add_core = from
+	}
+	if = {
+		limit = {
+			NOT = {
+				is_core = from
+			}
+			NOT = {
+				owned_by = from
+			}
+			superregion = eastern_europe_superregion
+			from = {
+				has_country_modifier = EDG_FWF_house_on_fire
+			}
+		}
+		add_core = from
+	}
+	if = {
+		limit = {
+			has_fort_building_trigger = yes
+			from = {
+				has_country_flag = EDG_FWF_mission_4_26_flag
+			}
+		}
+		if = {
+			limit = {
+				owned_by = from
+			}
+			every_neighbor_province = {
+				limit = {
+					NOT = {
+						controlled_by = from	
+					}
+					OR = {
+						owned_by = from
+						owner = {
+							war_with = from
+						}
+					}
+					NOT = {
+						has_fort_building_trigger = yes
+					}
+				}
+				change_controller = from
+			}
+		}
+		else = {
+			every_neighbor_province = {
+				limit = {
+					NOT = {
+						controlled_by = from	
+					}
+					NOT = {
+						owned_by = root
+					}
+					NOT = {
+						has_fort_building_trigger = yes
+					}
+					owner = {
+						war_with = from
+					}
+				}
+				change_controller = from
+			}
+		}
+		
+	}
+}
+on_province_owner_change = {
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_FWF_mission_3_27_flag
+			}
+		}
+		while = {
+			limit = { 
+				nationalism = 1
+			}
+			add_nationalism = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_FWF_mission_1_27_flag
+			}
+			base_tax = 2
+		}
+		while = {
+			limit = { 
+				base_tax = 2
+			}
+			add_base_tax = -1
+			add_base_production = 1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_FWF_mission_2_26_flag
+			}
+			trade_goods = slaves
+		}
+		random_list = {
+			2 = {
+				change_trade_goods = livestock
+			}
+			2 = {
+				change_trade_goods = grain
+			}
+			2 = {
+				change_trade_goods = salt
+			}
+			2 = {
+				change_trade_goods = wool
+			}
+			1 = {
+				change_trade_goods = spices
+			}
+			1 = {
+				change_trade_goods = sugar
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_FWF_mission_5_27_flag
+			}
+		}
+		add_random_development = 1
+	}
+}
+on_yearly_pulse = {
+	if = {
+		limit = {
+			has_country_flag = EDG_FWF_mission_3_27_flag
+		}
+		every_province = {
+			limit = {
+				has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+			}
+			remove_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+			add_core = root
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = EDG_FWF_mission_3_25_flag
+		}
+		every_province = {
+			limit = {
+				OR = {
+					is_core = root
+					has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+				}
+			}
+			every_neighbor_province = {
+				limit = {
+					NOT = {
+						is_core = root
+					}
+					NOT = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+					}
+				}
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 7300
+				}
+			}
+		}
+	}
+}
+on_adm_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_FWF_build_plane
+			}
+		}
+		add_base_tax = 1
+	}
+}
+on_dip_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_FWF_build_plane
+			}
+		}
+		add_base_production = 1
+	}
+}
+on_mil_development = {
+	if = {
+		limit = {
+			owner = {
+				has_country_modifier = EDG_FWF_build_plane
+			}
+		}
+		add_base_manpower = 1
+	}
+}

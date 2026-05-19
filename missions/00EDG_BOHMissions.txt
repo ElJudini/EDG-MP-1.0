@@ -1,0 +1,1457 @@
+EDG_BOH_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		NOT = {
+			has_global_flag = EDG_death_of_Sigismund
+		}
+	} 
+
+	EDG_BOH_mission_1_3 = {
+		icon = mission_have_two_subjects
+		position = 3
+		required_missions = { EDG_BOH_mission_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_Sigismund_live.tt
+				NOT = {
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 50
+			}
+		} 
+
+		effect = { 
+			define_advisor = {
+				type = recruitmaster
+				cost_multiplier = 0.5
+				skill = 3
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_legitimacy_or_mil_power = { amount = 5 }
+		} 
+	}
+}
+EDG_BOH_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		NOT = {
+			has_global_flag = EDG_death_of_Sigismund
+		}
+	} 
+
+	EDG_BOH_mission_2_2 = {
+		icon = saxon_manufacturing
+		position = 2
+		required_missions = { EDG_BOH_mission_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_Sigismund_live.tt
+				NOT = {
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+			NOT = {
+				army_size = 15
+			}
+			
+		} 
+
+		effect = {  
+			define_advisor = {
+				type = trader
+				cost_multiplier = 0.5
+				skill = 3
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_manpower = 5
+			add_yearly_manpower = 1
+		} 
+	}
+}
+EDG_BOH_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		NOT = {
+			has_global_flag = EDG_death_of_Sigismund
+		}
+	} 
+
+	EDG_BOH_mission_3_1 = {
+		icon = mch_bypass_great_wall
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_Sigismund_live.tt
+				NOT = {
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+			is_emperor = yes
+		} 
+
+		effect = { 
+			country_event = {
+				id = EDG_BOHEvents.0
+			}
+		} 
+	}
+
+	EDG_BOH_mission_3_3 = {
+		icon = the_ostend_company
+		position = 3
+		required_missions = {
+			EDG_BOH_mission_2_2
+			EDG_BOH_mission_4_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			if = {
+				limit = { 
+					ai = yes
+				}
+				always = no
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = EDG_BOH_Sigismund_live.tt
+					NOT = {
+						has_global_flag = EDG_death_of_Sigismund
+					}
+				}
+				OR = {
+					MEI = {
+						has_opinion = {
+							who = root
+							value = 190
+						}
+					}
+					H07 = {
+						has_opinion = {
+							who = root
+							value = 190
+						}
+					}
+					diplomatic_reputation = 4
+				}
+			}
+		} 
+
+		effect = {  
+			
+			complex_dynamic_effect_without_alternative = {
+				first_custom_tooltip = "EDG_BOH_mission_3_3.mei.tt"
+				first_limit = "
+					MEI = {
+						has_opinion = {
+							who = root
+							value = 190
+						}
+					}
+				"
+				first_effect = "
+					custom_tooltip = EDG_BOH_mission_3_3.mei.keep.tt
+					custom_tooltip = EDG_SPACE_TT
+					hidden_effect = {
+						set_country_flag = EDG_BOH_mission_3_3_mei_keep
+					}
+				"
+				second_custom_tooltip = "EDG_BOH_mission_3_3.h07.tt"
+				second_limit = "
+					H07 = {
+						has_opinion = {
+							who = root
+							value = 190
+						}
+					}
+				"
+				second_effect = "
+					custom_tooltip = EDG_BOH_mission_3_3.h07.keep.tt
+					custom_tooltip = EDG_SPACE_TT
+					hidden_effect = {
+						set_country_flag = EDG_BOH_mission_3_3_h07_keep
+					}
+				"
+				third_custom_tooltip = "EDG_BOH_mission_3_3.dip.tt"
+				third_limit = "
+					diplomatic_reputation = 4
+				"
+				third_effect = "
+					change_estate_land_share = {
+						estate = all
+						share = -5
+					}
+				"
+			}
+			
+		} 
+	}
+
+	EDG_BOH_mission_3_4 = {
+		icon = mission_hands_praying
+		position = 4
+		required_missions = { EDG_BOH_mission_3_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = yes
+				}
+				always = no
+			}
+			else = {
+				OR = {
+					NOT = {
+						army_size = 1
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 10
+						}
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_H04_mission_3_8.trigger.tt
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+		} 
+		effect = {
+			custom_tooltip =  EDG_BOH_mission_3_4.effect.tt
+			hidden_effect = {
+				country_event = {
+					id = flavor_boh.1
+					days = 365
+				}
+			}
+		} 
+	}
+}
+EDG_BOH_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		NOT = {
+			has_global_flag = EDG_death_of_Sigismund
+		}
+	} 
+
+	EDG_BOH_mission_4_2 = {
+		icon = mission_fall_of_constantinople
+		position = 2
+		required_missions = { EDG_BOH_mission_3_1 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = erzgebirge_area
+				area = bohemia_area
+			}
+		} 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_Sigismund_live.tt
+				NOT = {
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+			development_in_provinces = {
+				OR = {
+					area = bohemia_area
+					area = erzgebirge_area
+				}
+				value = 90
+			}
+		} 
+
+		effect = {  
+			define_advisor = {
+				type = economist
+				cost_multiplier = 0.5
+				skill = 3
+			}
+			custom_tooltip = EDG_SPACE_TT
+			erzgebirge_area = {
+				add_devastation = -20
+			}
+			bohemia_area = {
+				add_devastation = -20
+			}
+		} 
+	}
+}
+EDG_BOH_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		NOT = {
+			has_global_flag = EDG_death_of_Sigismund
+		}
+	} 
+
+	EDG_BOH_mission_5_5 = {
+		icon = mission_high_income
+		position = 3
+		required_missions = { EDG_BOH_mission_4_2 } 
+		provinces_to_highlight = { 
+
+		} 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_Sigismund_live.tt
+				NOT = {
+					has_global_flag = EDG_death_of_Sigismund
+				}
+			}
+			stability = 1
+			legitimacy = 95
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_BOH_mission_5_5.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_BOH_mission_5_5_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_stability_or_adm_power = yes
+		} 
+	}
+}
+EDG_BOH_mission_tapol_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+	} 
+}
+EDG_BOH_mission_tapol_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+	} 
+}
+EDG_BOH_mission_tapol_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+	} 
+}
+EDG_BOH_mission_tapol_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+	} 
+}
+EDG_BOH_mission_hussites_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+		NOT = {
+			has_country_flag = EDG_BOH_tapol_government_flag
+		}
+	} 
+
+	EDG_BOH_mission_hussites_1_1 = {
+		icon = mission_conquer_50_development
+		position = 1
+		provinces_to_highlight = {  
+			owned_by = root
+			is_core = root
+			religion = hussite
+		} 
+
+		trigger = { 
+			mission_completed = EDG_BOH_mission_hussites_3_1
+			calc_true_if = {
+				amount = 15
+				all_owned_province = {
+					religion = hussite
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_BOH_mission_hussites_1_1.effect.tt
+			tooltip = {
+				random_owned_province = {
+					limit = {
+						religion = hussite
+						is_core = root
+					}
+					add_province_modifier = {
+						name = EDG_BOH_replenishing_rural_population
+						duration = -1
+					}
+					custom_tooltip = EDG_SPACE_TT
+					add_devastation = -10
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						religion = hussite
+						is_core = root
+					}
+					add_province_modifier = {
+						name = EDG_BOH_replenishing_rural_population
+						duration = -1
+					}
+					add_devastation = -10
+				}
+			}
+		} 
+	}
+
+	EDG_BOH_mission_hussites_1_2 = {
+		icon = consolidate_switzerland
+		position = 2
+		required_missions = {
+			EDG_BOH_mission_hussites_1_1
+			EDG_BOH_mission_hussites_2_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_3 = {
+		icon = mission_pol_revival_krakow
+		position = 3
+		required_missions = { EDG_BOH_mission_hussites_1_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	
+}
+EDG_BOH_mission_hussites_common_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+	EDG_BOH_mission_hussites_1_7 = {
+		icon = EDG_ICON_forge
+		position = 7
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_8 = {
+		icon = mission_colonial
+		position = 8
+		required_missions = { EDG_BOH_mission_hussites_1_7 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_10 = {
+		icon = mission_asian_trader
+		position = 10
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_11 = {
+		icon = mission_pue_irrigation_cannals
+		position = 11
+		required_missions = { EDG_BOH_mission_hussites_1_10 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_13 = {
+		icon = per_language_of_poetry
+		position = 13
+		required_missions = {
+			EDG_BOH_mission_hussites_1_11
+			EDG_BOH_mission_hussites_2_12
+			EDG_BOH_mission_hussites_3_12
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_1_15 = {
+		icon = balance_of_power
+		position = 15
+		required_missions = {
+			EDG_BOH_mission_hussites_1_13
+			EDG_BOH_mission_hussites_2_14
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_hussites_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+		NOT = {
+			has_country_flag = EDG_BOH_tapol_government_flag
+		}
+	} 
+
+	EDG_BOH_mission_hussites_2_1 = {
+		icon = take_silesia
+		position = 1
+		provinces_to_highlight = {  
+			area = silesia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			silesia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_BOH_mission_hussites_2_1.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			silesia_area = {
+				add_devastation = -20
+				add_unrest = -10
+				add_nationalism = -20
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = silesia_area
+						religion = hussite
+					}
+					add_core = root
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = wielkopolska_area }
+			EDG_add_claim = { area = central_poland_area }
+			EDG_add_claim = { area = malopolska_area }
+		} 
+	}
+
+	EDG_BOH_mission_hussites_2_3 = {
+		icon = mission_early_game_buildings
+		position = 3
+		required_missions = { EDG_BOH_mission_hussites_1_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_4 = {
+		icon = mission_occupy_alexandria
+		position = 4
+		required_missions = {
+			EDG_BOH_mission_hussites_1_3
+			EDG_BOH_mission_hussites_2_3
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_6 = {
+		icon = mission_plc_governance_act
+		position = 6
+		required_missions = { EDG_BOH_mission_hussites_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	
+}
+EDG_BOH_mission_hussites_common_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+	EDG_BOH_mission_hussites_2_8 = {
+		icon = mission_hundred_years_war
+		position = 8
+		required_missions = {
+			EDG_BOH_mission_hussites_1_7
+			EDG_BOH_mission_hussites_3_7
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_9 = {
+		icon = mission_cannons_firing
+		position = 9
+		required_missions = {
+			EDG_BOH_mission_hussites_1_8
+			EDG_BOH_mission_hussites_2_8
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_11 = {
+		icon = bohemian_crystal
+		position = 11
+		required_missions = { EDG_BOH_mission_hussites_1_10 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_12 = {
+		icon = fortify_malta
+		position = 12
+		required_missions = { EDG_BOH_mission_hussites_3_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_2_14 = {
+		icon = mission_consulate_of_the_sea
+		position = 14
+		required_missions = { EDG_BOH_mission_hussites_3_13 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_hussites_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+		NOT = {
+			has_country_flag = EDG_BOH_tapol_government_flag
+		}
+	} 
+
+	EDG_BOH_mission_hussites_3_1 = {
+		icon = hussite_regency
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			religion = hussite
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_BOHEvents.2
+			}
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { 
+					has_country_modifier = boh_hussite_destruction
+				}
+				remove_country_modifier = boh_hussite_destruction
+			}
+		} 
+	}
+
+	EDG_BOH_mission_hussites_3_4 = {
+		icon = mission_court_education
+		position = 4
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			religion = hussite
+			NOT = {
+				current_age = age_of_discovery
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_BOH_mission_hussites_3_4.trigger.tt
+				has_global_flag = EDG_BOH_rise_of_tapol_flag
+			}
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_5 = {
+		icon = counter_reformation
+		position = 5
+		required_missions = { EDG_BOH_mission_hussites_3_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			has_disaster = EDG_BOH_inversion_of_tarot
+		} 
+
+		effect = {  
+			
+		} 
+	}
+
+	EDG_BOH_mission_hussites_3_6 = {
+		icon = law_of_the_pious
+		position = 6
+		required_missions = { EDG_BOH_mission_hussites_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	
+}
+EDG_BOH_mission_hussites_common_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+	EDG_BOH_mission_hussites_3_7 = {
+		icon = mission_assemble_an_army
+		position = 7
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_10 = {
+		icon = mission_reclaim_lost_territory
+		position = 10
+		required_missions = {
+			EDG_BOH_mission_hussites_2_9
+			EDG_BOH_mission_hussites_4_9
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_11 = {
+		icon = mission_rice_field
+		position = 11
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_12 = {
+		icon = explore_caribbean
+		position = 12
+		required_missions = { EDG_BOH_mission_hussites_3_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_13 = {
+		icon = mission_early_modern_university
+		position = 13
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_14 = {
+		icon = per_restore_the_avesta
+		position = 14
+		required_missions = { EDG_BOH_mission_hussites_3_13 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_15 = {
+		icon = bohemian_commonwealth
+		position = 15
+		required_missions = {
+			EDG_BOH_mission_hussites_3_14
+			EDG_BOH_mission_hussites_2_14
+			EDG_BOH_mission_hussites_4_14
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_3_16 = {
+		icon = peace_in_europe
+		position = 16
+		required_missions = {
+			EDG_BOH_mission_hussites_1_15
+			EDG_BOH_mission_hussites_3_15
+			EDG_BOH_mission_hussites_5_15
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_hussites_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+		NOT = {
+			has_country_flag = EDG_BOH_tapol_government_flag
+		}
+	} 
+
+	EDG_BOH_mission_hussites_4_1 = {
+		icon = mission_unite_home_region
+		position = 1
+		provinces_to_highlight = {  
+			area = moravia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = { 
+			is_at_war = no
+			moravia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {  
+			moravia_area = {
+				add_devastation = -20
+				add_unrest = -20
+			}
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = "EDG_BOH_mission_hussites_4_1.mva.tt"
+				first_limit = "
+					exists = MVA
+					overlord_of = MVA
+				"
+				first_effect = "
+					inherit = MVA
+				"
+			}
+			EDG_add_claim = { area = slovakia_area }
+			EDG_add_claim = { area = austria_proper_area }
+		} 
+	}
+
+	EDG_BOH_mission_hussites_4_3 = {
+		icon = duchy_of_bavaria
+		position = 3
+		required_missions = { EDG_BOH_mission_hussites_5_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_4 = {
+		icon = mission_mal_restore_the_mali_empire
+		position = 4
+		required_missions = {
+			EDG_BOH_mission_hussites_4_3
+			EDG_BOH_mission_hussites_5_3
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_6 = {
+		icon = mission_the_triangle_trade
+		position = 6
+		required_missions = { EDG_BOH_mission_hussites_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	
+}
+EDG_BOH_mission_hussites_common_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+	EDG_BOH_mission_hussites_4_8 = {
+		icon = king_of_the_franks
+		position = 8
+		required_missions = {
+			EDG_BOH_mission_hussites_3_7
+			EDG_BOH_mission_hussites_5_7
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_9 = {
+		icon = mission_industria_sedera
+		position = 9
+		required_missions = {
+			EDG_BOH_mission_hussites_4_8
+			EDG_BOH_mission_hussites_5_8
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_11 = {
+		icon = mission_invade_the_deccan_dlh
+		position = 11
+		required_missions = { EDG_BOH_mission_hussites_5_10 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_12 = {
+		icon = mission_guilds_of_barcelona
+		position = 12
+		required_missions = { EDG_BOH_mission_hussites_3_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_4_14 = {
+		icon = per_the_persian_influence
+		position = 14
+		required_missions = { EDG_BOH_mission_hussites_3_13 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_hussites_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+		NOT = {
+			has_country_flag = EDG_BOH_tapol_government_flag
+		}
+	} 
+
+	EDG_BOH_mission_hussites_5_1 = {
+		icon = mission_alliances
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 2
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 60
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 60
+				}
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 60
+				}
+				estate_loyalty = {
+					estate = estate_EDG_peasants
+					loyalty = 60
+				}
+			}
+		} 
+
+		effect = {  
+			
+			complex_dynamic_effect_without_alternative = {
+				first_custom_tooltip = "EDG_BOH_mission_hussites_5_1.nobles.tt"
+				first_limit = "
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 60
+					}
+				"
+				first_effect = "
+					add_manpower = 10
+					add_yearly_manpower = 3
+					custom_tooltip = EDG_SPACE_TT
+				"
+				second_custom_tooltip = "EDG_BOH_mission_hussites_5_1.church.tt"
+				second_limit = "
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+				"
+				second_effect = "
+					add_church_power = 200
+					custom_tooltip = EDG_SPACE_TT
+				"
+				third_custom_tooltip = "EDG_BOH_mission_hussites_5_1.burghers.tt"
+				third_limit = "
+					estate_loyalty = {
+						estate = estate_burghers
+						loyalty = 60
+					}
+				"
+				third_effect = "
+					add_treasury = 100
+					add_years_of_income = 3
+					custom_tooltip = EDG_SPACE_TT
+				"
+				fourth_custom_tooltip = "EDG_BOH_mission_hussites_5_1.EDG_peasants.tt"
+				fourth_limit = "
+					estate_loyalty = {
+						estate = estate_EDG_peasants
+						loyalty = 60
+					}
+				"
+				fourth_effect = "
+					add_years_of_owned_provinces_production_income = {
+						years = 5
+						trigger = {
+							religion = hussite
+							OR = {
+								area = bohemia_area
+								area = erzgebirge_area
+							}
+						}
+						custom_tooltip = EDG_BOH_mission_hussites_5_1.production_income.tt
+					}
+				"
+			}
+			
+		} 
+	}
+
+	EDG_BOH_mission_hussites_5_2 = {
+		icon = push_on_to_bulgaria
+		position = 2
+		required_missions = {
+			EDG_BOH_mission_hussites_5_1
+			EDG_BOH_mission_hussites_4_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_3 = {
+		icon = mission_mare_nostrum
+		position = 3
+		required_missions = { EDG_BOH_mission_hussites_5_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	
+}
+EDG_BOH_mission_hussites_common_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+	EDG_BOH_mission_hussites_5_7 = {
+		icon = mission_control_fur_trade
+		position = 7
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_8 = {
+		icon = develop_naples
+		position = 8
+		required_missions = { EDG_BOH_mission_hussites_5_7 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_10 = {
+		icon = mission_entrepot_of_india
+		position = 10
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_11 = {
+		icon = mission_iron_and_copper
+		position = 11
+		required_missions = { EDG_BOH_mission_hussites_5_10 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_13 = {
+		icon = mission_the_sudebnik
+		position = 13
+		required_missions = {
+			EDG_BOH_mission_hussites_5_11
+			EDG_BOH_mission_hussites_4_12
+			EDG_BOH_mission_hussites_3_12
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_hussites_5_15 = {
+		icon = mission_pol_tend_east
+		position = 15
+		required_missions = {
+			EDG_BOH_mission_hussites_5_13
+			EDG_BOH_mission_hussites_4_14
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+
+EDG_BOH_mission_tapol_last_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+
+	EDG_BOH_mission_tapol_1_18 = {
+		icon = mission_grand_trunk_road_mug
+		position = 18
+		required_missions = { EDG_BOH_mission_tapol_3_17 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_tapol_1_20 = {
+		icon = mission_conquer_kanem_bornu
+		position = 20
+		required_missions = { EDG_BOH_mission_hussites_2_19 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_tapol_last_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+
+	EDG_BOH_mission_hussites_2_19 = {
+		icon = mission_envoy_to_ethiopia
+		position = 19
+		required_missions = {
+			EDG_BOH_mission_tapol_1_18
+			EDG_BOH_mission_tapol_3_18
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_tapol_last_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+
+	EDG_BOH_mission_tapol_3_17 = {
+		icon = mission_hussite_empire
+		position = 17
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_tapol_3_18 = {
+		icon = geo_a_house_divided
+		position = 18
+		required_missions = { EDG_BOH_mission_tapol_3_17 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_tapol_3_20 = {
+		icon = mission_rb_conquer_brittany
+		position = 20
+		required_missions = {
+			EDG_BOH_mission_hussites_2_19
+			EDG_BOH_mission_tapol_4_19
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_tapol_3_21 = {
+		icon = mission_rb_trinity_college_dublin
+		position = 21
+		required_missions = {
+			EDG_BOH_mission_tapol_1_20
+			EDG_BOH_mission_tapol_3_20
+			EDG_BOH_mission_tapol_5_20
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_tapol_last_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+		has_global_flag = EDG_death_of_Sigismund
+	} 
+
+	EDG_BOH_mission_tapol_4_19 = {
+		icon = mission_moroccan_ports
+		position = 19
+		required_missions = {
+			EDG_BOH_mission_tapol_3_18
+			EDG_BOH_mission_tapol_5_18
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}
+EDG_BOH_mission_tapol_last_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BOH 
+		has_country_flag = EDG_BOH_tapol_government_flag
+	} 
+
+	EDG_BOH_mission_tapol_5_18 = {
+		icon = mission_invade_arakan
+		position = 18
+		required_missions = { EDG_BOH_mission_tapol_3_17 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_BOH_mission_tapol_5_20 = {
+		icon = mission_rb_monopolize_the_channel
+		position = 20
+		required_missions = { EDG_BOH_mission_tapol_4_19 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+}

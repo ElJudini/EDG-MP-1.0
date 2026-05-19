@@ -1,0 +1,221 @@
+
+EDG_sunni_Caliph_condemns_action = {#逊尼派哈里发制裁
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_sunni_Caliph_condemns_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		EDG_sunni_Caliph_ability_trigger = yes
+		FROM = { religion = sunni }
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		NOT = { has_country_modifier = EDG_did_Caliph_condemns_action_in_10_years_modifier }
+		FROM = {
+			NOT = { has_country_modifier = EDG_Caliph_condemns_action_in_10_years_modifier }
+			religion = sunni
+		}
+	}
+	on_accept = {
+		add_dip_power = -100
+		add_country_modifier = {
+		  name = EDG_did_Caliph_condemns_action_in_10_years_modifier
+		  duration = 3650
+		  hidden = yes
+		}
+		FROM = {
+			country_event = { id = EDG_flavor_caliphate.1 }
+			add_country_modifier = {
+			  name = EDG_Caliph_condemns_action_in_10_years_modifier
+			  duration = 3650
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = {
+			OR = {
+				war_with = ROOT
+				is_rival = ROOT
+			}
+		}
+    }
+}
+
+
+EDG_shiite_Caliph_condemns_action = {#什叶派哈里发制裁
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_shiite_Caliph_condemns_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		EDG_shiite_Caliph_ability_trigger = yes
+		FROM = { religion = shiite }
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		NOT = { has_country_modifier = EDG_did_Caliph_condemns_action_in_10_years_modifier }
+		FROM = {
+			NOT = { has_country_modifier = EDG_Caliph_condemns_action_in_10_years_modifier }
+			religion = shiite
+		}
+	}
+	on_accept = {
+		add_dip_power = -100
+		add_country_modifier = {
+		  name = EDG_did_Caliph_condemns_action_in_10_years_modifier
+		  duration = 3650
+		  hidden = yes
+		}
+		FROM = {
+			country_event = { id = EDG_flavor_caliphate.1 }
+			add_country_modifier = {
+			  name = EDG_Caliph_condemns_action_in_10_years_modifier
+			  duration = 3650
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = {
+			OR = {
+				war_with = ROOT
+				is_rival = ROOT
+			}
+		}
+    }
+}
+
+
+
+EDG_Caliph_Jihad_action = {#发动吉哈德
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_sunni_Caliph_condemns_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		EDG_Caliph_ability_trigger = yes
+		FROM = { NOT = { religion_group = muslim } }
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		NOT = { has_country_modifier = EDG_Caliph_Jihad_action_in_10_years_modifier }
+		FROM = {
+			NOT = { 
+				religion_group = muslim	
+			}
+			if = {
+				limit = {
+					ROOT = {
+						EDG_sunni_Caliph_ability_trigger = yes
+						EDG_shiite_Caliph_ability_trigger = yes
+					}
+				}
+				OR = {
+					is_neighbor_of = ROOT
+					any_neighbor_country = { religion = sunni }
+					any_neighbor_country = { religion = shiite }
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						EDG_sunni_Caliph_ability_trigger = yes
+					}
+				}
+				OR = {
+					is_neighbor_of = ROOT
+					any_neighbor_country = { religion = sunni }
+				}
+			}
+			else_if = {
+				limit = {
+					ROOT = {
+						EDG_shiite_Caliph_ability_trigger = yes
+					}
+				}
+				OR = {
+					is_neighbor_of = ROOT
+					any_neighbor_country = { religion = shiite }
+				}
+			}
+			else = {
+				OR = {
+					is_neighbor_of = ROOT
+					any_neighbor_country = { religion = ROOT }
+				}
+			}
+		}
+	}
+	on_accept = {
+		add_dip_power = -100
+		add_country_modifier = {
+		  name = EDG_Caliph_Jihad_action_in_10_years_modifier
+		  duration = 3650
+		  hidden = yes
+		}
+		FROM = {
+			country_event = { id = EDG_flavor_caliphate.2 }
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = {
+			OR = {
+				war_with = ROOT
+				is_rival = ROOT
+			}
+		}
+    }
+}

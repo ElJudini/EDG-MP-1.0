@@ -1,0 +1,939 @@
+country_decisions = {
+
+	EDG_estate_edg_mafia_privilege_8_decision = {#对国内反对派实行绑架活动
+		major = yes
+		potential = {
+			has_estate_privilege = estate_edg_mafia_privilege_8
+		}
+		allow = {
+			adm_power = 50
+			dip_power = 50
+			mil_power = 50
+			has_estate_privilege = estate_edg_mafia_privilege_8
+			treasury = 100
+			NOT = { has_country_modifier = EDG_estate_edg_mafia_privilege_8_decision_modifier }
+		}
+		effect = {
+			add_treasury = -100
+			add_adm_power = -50
+			add_dip_power = -50
+			add_mil_power = -50
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 10
+			}
+			add_country_modifier = {
+				name = "EDG_estate_edg_mafia_privilege_8_decision_modifier"
+				duration = 3650
+			}
+			
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_TTS_decision_become_EDG_catharism = {#请求阿尔勒帮助[Root.GetAdjective]皈依清洁派
+		major = yes
+		potential = {
+			primary_culture = neapolitan
+			NOT = { has_country_flag = has_EDG_TTS_decision_become_EDG_catharism_flag }
+			religion = catholic
+			exists = AEL
+			PAP = {
+				NOT = {
+					has_opinion = {
+						who = ROOT
+						value = -100
+					}
+				}
+			}
+		}
+		allow = {
+			NOT = { religion = EDG_catharism }
+			NOT = { has_country_modifier = counter_reformation }
+			exists = AEL
+			AEL = { religion = EDG_catharism }
+			PAP = {
+				NOT = {
+					has_opinion = {
+						who = ROOT
+						value = -100
+					}
+				}
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_decision_become_EDG_catharism_flag
+			AEL = { country_event = { id = EDG_flavor_TTS.27 days = 3 } }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_TTS_decision_Anti_Reformation_Center = {#反宗教改革中心
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_decision_Anti_Reformation_Center_flag }
+			has_country_flag = EDG_TTS_decision_Anti_Reformation_Center_flag
+			religion = catholic
+		}
+		allow = {
+			religion = catholic
+			prestige = 50
+			has_country_modifier = counter_reformation
+			capital_scope = { religion = catholic }
+			owns = 8001
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_decision_Anti_Reformation_Center_flag
+			country_event = { id = EDG_flavor_TTS.26 }
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_TTS_decision_Relocate_capital_to_121 = {#迁都纳波利
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_decision_Relocate_capital_to_121_flag }
+			has_country_flag = EDG_allow_Relocate_capital_to_121_flag
+			NOT = { capital = 121 }
+		}
+		allow = {
+			adm_power = 50
+			stability = 1
+			NOT = { capital = 121 }
+			is_at_war = no
+			121 = {
+			  is_state = yes
+			}
+		}
+		effect = {
+			add_adm_power = -50
+			set_country_flag = has_EDG_TTS_decision_Relocate_capital_to_121_flag
+			add_core = 121
+			121 = {
+			  move_capital_effect = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  capital = 118
+			}
+		}
+	}
+
+	EDG_TTS_decision_EDG_TTS_mission_2_3 = {#加冕那不勒斯国王
+		major = yes
+		provinces_to_highlight = {
+			OR = {
+				area = apulia_area
+				area = calabria_area
+				area = naples_area
+				province_id = 120
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		potential = {
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { has_country_flag = has_EDG_TTS_decision_EDG_TTS_mission_2_3_flag }
+			has_country_flag = has_EDG_TTS_mission_2_3_flag
+			NOT = { tag = NAP }
+			NOT = { exists = NAP }
+			primary_culture = neapolitan
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		allow = {
+			apulia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			calabria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			naples_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			120 = { country_or_non_sovereign_subject_holds = ROOT }
+			stability = 1
+			is_at_war = no
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_decision_EDG_TTS_mission_2_3_flag
+			country_event = { id = EDG_flavor_TTS.4 }
+
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  capital = 118
+			}
+		}
+	}
+
+	
+	EDG_TTS_decision_release_AEL = {#释放阿尔勒王国
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_decision_release_AEL_flag }
+			has_country_flag = EDG_flavor_TTS_10_flag
+		}
+		allow = {
+			OR = {
+				NOT = { exists = AEL }
+				AEL = { is_subject_of = ROOT }
+			}
+			num_of_owned_provinces_with = {
+				value = 1
+				is_core = AEL
+			}
+		}
+		effect = { 
+			set_country_flag = has_EDG_TTS_decision_release_AEL_flag
+			add_prestige_or_monarch_power = { amount = 20 }
+			if = {
+				limit = {
+					NOT = { exists = AEL }
+				}
+				release = AEL
+			}
+			create_union = AEL
+			add_historical_friend = AEL
+			AEL = {
+				add_liberty_desire = -100
+				add_historical_friend = ROOT
+				add_trust = {
+					who = ROOT
+					value = 50
+					mutual = yes
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_TTS_decision_special_fleet_1 = {#建立地中海雄鹰舰队
+		#主力舰
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_decision_special_fleet_1_flag }
+			has_country_flag = EDG_flavor_TTS_12_a_1_flag 
+		}
+		allow = {
+			dip_power = 100
+			num_of_heavy_ship = 25
+			OR = {
+				navy_tradition = 75
+				full_idea_group = naval_ideas
+			}
+		}
+		effect = { 
+			add_dip_power = -100
+			set_country_flag = has_EDG_TTS_decision_special_fleet_1_flag
+			add_country_modifier = {
+				name = "EDG_TTS_decision_special_fleet_1_modifier"
+				duration = -1
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_decision_special_fleet_2 = {#建立地中海雄鹰舰队
+		#主力舰
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_decision_special_fleet_2_flag }
+			has_country_flag = EDG_flavor_TTS_12_a_2_flag 
+		}
+		allow = {
+			dip_power = 100
+			num_of_galley = 75
+			OR = {
+				navy_tradition = 75
+				full_idea_group = naval_ideas
+			}
+		}
+		effect = { 
+			add_dip_power = -100
+			set_country_flag = has_EDG_TTS_decision_special_fleet_2_flag
+			add_country_modifier = {
+				name = "EDG_TTS_decision_special_fleet_2_modifier"
+				duration = -1
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_1_8_decision_1 = {#蒂勒尼安海之主
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_1_8_decision_1_flag }
+			has_country_flag = allow_EDG_TTS_mission_1_8_decision_1_flag 
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					NOT = { is_strongest_trade_power = ROOT }
+					province_id = 1298
+				}
+				AND = {
+					NOT = { province_trade_power = 60 }
+					province_id = 101
+				}
+			}
+		}
+		allow = {
+			mercantilism = 20
+			1298 = {
+				is_strongest_trade_power = ROOT
+			}
+			101 = {
+				province_trade_power = 60
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_1_8_decision_1_flag
+			add_mercantilism = 5
+			add_inflation = -5
+			add_years_of_income = 0.5
+			set_country_flag = allow_EDG_TTS_mission_1_8_decision_1_flag
+			add_country_modifier = {
+				name = "EDG_trade_upgrade_1_modifier"
+				duration = 7300
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+
+	EDG_TTS_mission_1_8_decision_2 = {#西班牙问题
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_1_8_decision_2_flag }
+			has_country_flag = allow_EDG_TTS_mission_1_8_decision_2_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			if = { limit = { exists = SPA } navy_size = SPA }
+			if = { limit = { exists = CAT NOT = { exists = SPA } } navy_size = CAT }
+			if = { limit = { exists = VAL NOT = { exists = SPA }} navy_size = VAL }
+			if = { limit = { exists = ADU } navy_size = ADU }
+			if = { limit = { exists = GRA NOT = { exists = ADU } } navy_size = GRA }
+			if = { limit = { exists = SVL NOT = { exists = ADU } } navy_size = SVL }
+			#if = { limit = { exists = BU1 } navy_size = BU1 }
+			#if = { limit = { exists = TUR } navy_size = TUR }
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_1_8_decision_2_flag
+			add_navy_tradition = 10
+			add_yearly_sailors = 10
+			add_country_modifier = {
+				name = "EDG_trade_upgrade_2_modifier"
+				duration = 7300
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_TTS_mission_1_8_decision_3 = {#终止海峡税
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_1_8_decision_3_flag }
+			has_country_flag = allow_EDG_TTS_mission_1_8_decision_3_flag 
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = hudavendigar_area
+				area = thrace_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		allow = {
+			hudavendigar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			thrace_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_1_8_decision_3_flag
+			add_navy_tradition = 10
+			add_mercantilism = 5
+			add_country_modifier = {
+				name = "black_sea_ambition"
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_TTS_mission_2_8_decision_1 = {#修建阿诺河堤坝
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_2_8_decision_1_flag }
+			has_country_flag = allow_EDG_TTS_mission_2_8_decision_1_flag 
+		}
+		provinces_to_highlight = {
+			province_id = 116
+		}
+		allow = {
+			owns = 116
+			116 = {
+				NOT = { local_autonomy = 1 }
+				NOT = { devastation = 1 }
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_2_8_decision_1_flag
+			add_dip_power = 50
+			116 = {
+				add_base_production = 2
+				add_province_modifier = {
+					name = lan_arno_flood_controls
+					duration = -1
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_2_8_decision_2 = {#扶持美帝奇银行
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_2_8_decision_2_flag }
+			has_country_flag = allow_EDG_TTS_mission_2_8_decision_2_flag 
+		}
+		provinces_to_highlight = {
+			province_id = 116
+		}
+		allow = {
+			treasury = 500
+			custom_trigger_tooltip = {
+				tooltip = emp_lan_reliable_mints_tt
+				OR = {
+					all_neighbor_country = {
+						inflation = ROOT
+					}
+					NOT = { inflation = 0.1 }
+				}
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_2_8_decision_2_flag
+			add_inflation = -5
+			add_country_modifier = {
+				name = "lan_medici_banking"
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_2_8_decision_3 = {#赞助佛罗伦萨文艺复兴
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_2_8_decision_3_flag }
+			has_country_flag = allow_EDG_TTS_mission_2_8_decision_3_flag 
+		}
+		provinces_to_highlight = {
+			province_id = 116
+		}
+		allow = {
+			has_institution = renaissance
+			legitimacy_equivalent = 90
+			prestige = 50
+			116 = {
+				NOT = { devastation = 1 }
+			}
+			OR = {
+				philosopher = 3
+				natural_scientist = 3
+				artist = 3
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_2_8_decision_3_flag
+			add_country_modifier = {
+				name = "lan_florentine_renaissance_modifier"
+				duration = 7300
+			}
+			add_country_modifier = {
+				name = "lan_da_vincis_notebooks"
+				duration = 5475
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_4_8_decision_1 = {#秕糠学会
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_4_8_decision_1_flag }
+			has_country_flag = allow_EDG_TTS_mission_4_8_decision_1_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			has_institution = renaissance
+			legitimacy_equivalent = 90
+			OR = {
+				philosopher = 3
+				natural_scientist = 3
+				artist = 3
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_4_8_decision_1_flag
+			add_dip_power = 100
+			change_innovativeness = 3
+			add_country_modifier = {
+				name = "lan_la_crusca"
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_4_8_decision_2 = {#改革银行
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_4_8_decision_2_flag }
+			has_country_flag = allow_EDG_TTS_mission_4_8_decision_2_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			government_reform_progress = 5
+			trade_income_percentage = 0.4
+			OR = {
+				master_of_mint = 3
+				economist = 3
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_4_8_decision_2_flag
+			add_inflation = -5
+			change_innovativeness = 3
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "lan_secure_public_funds"
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_4_8_decision_3 = {#清廉政府
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_4_8_decision_3_flag }
+			has_country_flag = allow_EDG_TTS_mission_4_8_decision_3_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			government_reform_progress = 220
+			NOT = { corruption = 1 }
+			stability = 2
+			
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_4_8_decision_3_flag
+			add_prestige = 10
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "lan_clean_government"
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_5_8_decision_1 = {#训练瘟疫医生
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_5_8_decision_1_flag }
+			has_country_flag = allow_EDG_TTS_mission_5_8_decision_1_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			any_owned_province = {
+				has_building = university
+			}
+			stability = 2
+			innovativeness = 35
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_5_8_decision_1_flag
+			custom_tooltip = emp_ven_plague_doctor_training_tt
+			set_country_flag = has_competent_doctors
+			add_adm_power = 75
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_5_8_decision_2 = {#标准化外交报告
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_5_8_decision_2_flag }
+			has_country_flag = allow_EDG_TTS_mission_5_8_decision_2_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			OR = {
+				if = {
+					limit = {
+						is_revolutionary = no
+					}
+					absolutism = 30
+				}
+				else = {
+					revolutionary_zeal = 30
+				}
+				has_idea_group = administrative_ideas
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_5_8_decision_2_flag
+			add_dip_power = 75
+			add_country_modifier = {
+				name = ven_standardized_relazioni
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_5_8_decision_3 = {#阿尔迪内印刷厂
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_5_8_decision_3_flag }
+			has_country_flag = allow_EDG_TTS_mission_5_8_decision_3_flag 
+		}
+		provinces_to_highlight = { 
+		}
+		allow = {
+			has_institution = printing_press
+			innovativeness = 15
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_5_8_decision_3_flag
+			change_innovativeness = 3
+			add_country_modifier = {
+				name = ven_aldine_monopoly_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_3_9_decision_1 = {#组建瑞士佣兵队
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_3_9_decision_1_flag }
+			has_country_flag = allow_EDG_TTS_mission_3_9_decision_1_flag 
+		}
+		provinces_to_highlight = {
+			if = {
+				limit = { exists = SWI }
+				owned_by = SWI
+			}
+			else = {
+				OR = {
+					area = switzerland_area
+					area = romandie_area
+				}
+			}
+		}
+		allow = {
+			
+			OR = {
+				any_owned_province = {
+					OR = {
+						area = switzerland_area
+						area = romandie_area
+					}
+				}
+				SWI = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_3_9_decision_1_flag
+
+			custom_tooltip = allow_more_Switzerland_Mercenary_tt
+			set_country_flag = allow_more_Switzerland_Mercenary_tt_flag
+
+			custom_tooltip = allow_EDG_Geneva_Contract_Mercenary_Corps_tt
+			set_country_flag = allow_EDG_Geneva_Contract_Mercenary_Corps_flag
+			
+			add_mil_power = 75
+			add_country_modifier = {
+				name = mlo_the_swiss_mercs
+				duration = 10950
+			}
+			add_country_modifier = {
+				name = mercenaries_to_the_standard
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_3_9_decision_2 = {#成立伦巴第法院和大学
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_3_9_decision_2_flag }
+			has_country_flag = allow_EDG_TTS_mission_3_9_decision_2_flag 
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = { has_building = university }
+			has_courthouse_building_trigger = no
+			ROOT = {
+				NOT = {
+					num_of_owned_provinces_with = {
+						OR = {
+							has_building = university
+							has_building = courthouse
+							has_building = town_hall
+						}
+						value = 6
+					}
+				}
+			}
+		}
+		allow = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = university
+					has_building = courthouse
+					has_building = town_hall
+				}
+				value = 6
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_3_9_decision_2_flag
+			add_adm_power = 75
+			add_country_modifier = {
+				name = mlo_law_courts_and_university
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_TTS_mission_3_9_decision_3 = {#阿尔卑斯防御工事
+		major = yes
+		potential = {
+			NOT = { has_country_flag = has_EDG_TTS_mission_3_9_decision_3_flag }
+			has_country_flag = allow_EDG_TTS_mission_3_9_decision_3_flag 
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4740
+				province_id = 103
+				province_id = 4727
+				province_id = 102
+				province_id = 110
+				province_id = 111
+			}
+			OR = {
+				NOT = { owned_by = root }
+				AND = {
+					NOT = { has_building = fort_15th }
+					NOT = { has_building = fort_16th }
+					NOT = { has_building = fort_17th }
+					NOT = { has_building = fort_18th }
+				}
+			}
+		}
+		allow = {
+			num_of_owned_provinces_with = {
+				value = 5
+				OR = {
+					#has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				OR = {
+					province_id = 4740
+					province_id = 103
+					province_id = 4727
+					province_id = 102
+					province_id = 110
+					province_id = 111
+				}
+			}
+			if = {
+				limit = { culture_group = latin }
+				custom_trigger_tooltip = {
+					tooltip = emp_mlo_alpine_wall_trigger_tooltip
+					all_country = {
+						OR = {
+							AND = {
+								culture_group = latin
+								OR = {
+									is_subject = no
+									AND = {
+										is_subject = yes
+										overlord = { culture_group = latin }
+									}
+								}
+							}
+							NOT = {
+								any_owned_province = {
+									OR = {
+										area = lombardy_area
+										area = venetia_area
+										area = piedmont_area
+										area = liguria_area
+										area = emilia_romagna_area
+										area = po_valley_area
+										area = tuscany_area
+										AND = {
+											area = carinthia_area
+											culture_group = latin
+										}
+										AND = {
+											area = tirol_area
+											culture_group = latin
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			set_country_flag = has_EDG_TTS_mission_3_9_decision_3_flag
+			custom_tooltip = emp_mlo_fortify_alps_effects_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4740
+							province_id = 103
+							province_id = 4727
+							province_id = 102
+							province_id = 110
+							province_id = 111
+						}
+						has_building = fort_18th
+					}
+					add_province_modifier = {
+						name = mlo_expanded_fortifications
+						duration = 36500
+					}
+				}
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4740
+							province_id = 103
+							province_id = 4727
+							province_id = 102
+							province_id = 110
+							province_id = 111
+						}
+					}
+					if = {
+						limit = { has_building = fort_17th }
+						remove_building = fort_17th
+						add_building = fort_18th
+					}
+					else_if = {
+						limit = { has_building = fort_16th }
+						remove_building = fort_16th
+						add_building = fort_17th
+					}
+					else_if = {
+						limit = { has_building = fort_15th }
+						remove_building = fort_15th
+						add_building = fort_16th
+					}
+				}
+			}
+			add_country_modifier = {
+				name = mlo_alpine_fortifications
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+}

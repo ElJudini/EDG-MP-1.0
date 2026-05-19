@@ -1,0 +1,133 @@
+
+EDG_LIT_mission_Attracting_immigrants_action = {#转变为附庸国
+	category = influence           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_LIT_mission_Attracting_immigrants_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_LIT_mission_Attracting_immigrants_flag
+		NOT = { has_country_flag = EDG_flavor_LIT_101_unable_flag }
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			NOT = { has_country_modifier = EDG_LIT_mission_Attracting_immigrants_action_in_5_years_modifier }
+			is_at_war = no 
+			OR = {
+				is_neighbor_of = ROOT
+				alliance_with = ROOT
+				is_subject_of = ROOT
+			}
+			any_owned_province = { development = 4 } 
+			EDG_LIT_mission_Attracting_immigrants_culture_group_trigger = yes
+			if = {
+				limit = {
+					is_subject_of = ROOT
+				}
+				NOT = { liberty_desire = 50 }
+			}
+			if = {
+				limit = {
+					is_subject = yes
+				}
+				Overlord = {
+					NOT = { is_rival = ROOT }
+					NOT = { is_enemy = ROOT }
+					NOT = { war_with = ROOT }
+				}
+			}
+		}
+	}
+	on_accept = {
+		add_government_power = {
+			mechanic_type = EDG_LIT_Monarchy_ability
+			power_type = EDG_LIT_Monarchy_power
+			value = -1
+		}
+		FROM = {
+			country_event = { id = EDG_flavor_LIT.102 }
+			add_country_modifier = {
+				name = EDG_LIT_mission_Attracting_immigrants_action_in_5_years_modifier
+				duration = 1825
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.2
+			}
+		}
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.1
+			}
+        }
+        add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.8
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = 0.05
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}

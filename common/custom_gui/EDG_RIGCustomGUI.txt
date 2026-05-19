@@ -1,0 +1,68 @@
+custom_button = { #协助核心化
+	name = rig_assisted_core_for_subject
+	tooltip = rig_assisted_core_for_subject_tooltip
+	potential = { 
+		from = {
+			has_country_flag = rig_riga_conference_flag
+		}
+		owner = {
+			OR = {
+				is_subject_of = from
+				AND = {
+					NOT = {
+						is_subject_of = from
+					}
+					overlord = {
+						is_subject_of = from
+					}
+				}
+			}
+		}
+		NOT = {
+			is_core = owner
+		}
+	}
+	trigger = { 
+		from = {
+			adm_power = 50
+		}
+		controlled_by = owner
+		NOT = {
+			OR = {
+				has_construction = core
+				has_construction = missionary
+				has_construction = building
+			}
+		}
+	}
+	effect = { 
+		custom_tooltip = rig_assisted_core_for_subject_effect_tooltip
+		hidden_effect = {
+			set_variable = {
+				which = EDG_FOI_UCI_province_development
+				value = 0
+			}
+			export_to_variable = {
+				which = EDG_FOI_UCI_province_development
+				value = development
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_FOI_UCI_province_development
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_FOI_UCI_province_development
+					value = 1
+				}
+				from = {
+					add_adm_power = -5
+				}
+			}
+			#add_core_construction = yes
+			add_core = owner
+		}
+	}
+}

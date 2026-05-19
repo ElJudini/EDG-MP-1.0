@@ -1,0 +1,2255 @@
+EDG_WAL_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = WAL
+			AND = {
+				tag = RMN
+				was_tag = WAL
+			}
+			AND = {
+				tag = H06
+				was_tag = WAL
+			}
+		}
+	} 
+
+	EDG_WAL_mission_1_1 = {
+		icon = mission_quran
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			religion = orthodox
+			has_adm_advisor = yes
+			ai = no
+		} 
+
+		effect = {
+			add_manpower = 3
+			add_patriarch_authority = 0.2
+			add_country_modifier = {
+				name = EDG_WAL_to_the_apocalypse
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_WAL_mission_1_2 = {
+		icon = mission_noble_council
+		position = 2
+		required_missions = {
+			EDG_WAL_mission_1_1
+			EDG_WAL_mission_3_1
+		}
+		provinces_to_highlight = {
+			owned_by = MOL
+		} 
+
+		trigger = {
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_WAL_exploit_weakness
+				duration = -1
+			}
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			add_stability_or_adm_power = yes
+		} 
+	}
+
+	EDG_WAL_mission_1_3 = {
+		icon = mission_unite_home_region
+		position = 3
+		required_missions = { EDG_WAL_mission_1_2 } 
+		provinces_to_highlight = {
+			owned_by = MOL
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					exists = MOL
+				}
+				army_size = MOL
+				MOL = {
+					OR = {
+						is_subject_of = root
+						AND = {
+							has_opinion = {
+								who = root
+								value = 150
+							}
+							trust = {
+								who = root
+								value = 75
+							}
+						}
+						is_rival = root
+						AND = {
+							NOT = {
+								has_opinion = {
+									who = root
+									value = 0
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					owns = 268
+					268 = {
+						owner = {
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+					}
+				}
+				
+			}
+
+		} 
+
+		effect = {
+
+			if = {
+				limit = { 
+					exists = MOL
+					MOL = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				if = {
+					limit = { 
+						MOL = {
+							has_opinion = {
+								who = root
+								value = 150
+							}
+							trust = {
+								who = root
+								value = 75
+							}
+						}
+					}
+					MOL = {
+						country_event = {
+							id = EDG_WALEvents.0
+						}
+					}
+				}
+				else = {
+					custom_tooltip = EDG_WAL_mission_1_2.event.effect.tt
+					add_country_modifier = {
+						name = EDG_WAL_goodbye_moldavia
+						duration = 3650
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			EDG_add_claim = { area = moldavia_area }
+			EDG_add_claim = { area = transylvania_area }
+			EDG_add_claim = { area = southern_transylvania_area }
+		} 
+	}
+
+	EDG_WAL_mission_1_5 = {
+		icon = mission_polynesian_grand_navy
+		position = 5
+		required_missions = { EDG_WAL_mission_1_3 } 
+		provinces_to_highlight = {
+			OR = {
+				area = transylvania_area
+				area = southern_transylvania_area
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			transylvania_area = {
+				type = all
+				owned_by = root
+			}
+			southern_transylvania_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_1_5.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							area = transylvania_area
+							area = southern_transylvania_area
+						}
+					}
+					add_devastation = 100
+					set_variable = {
+						which = EDG_GEN_province_development
+						value = 0
+					}
+					export_to_variable = {
+						which = EDG_GEN_province_development
+						value = development
+					}
+					while = {
+						limit = {
+							check_variable = {
+								which = EDG_GEN_province_development
+								value = 1
+							}
+						}
+						subtract_variable = {
+							which = EDG_GEN_province_development
+							value = 1
+						}
+						root = {
+							add_treasury = 25
+						}
+					}
+					set_base_tax = 1
+					set_base_production = 1
+					set_base_manpower = 1
+				}
+			}
+			transylvania_area = {
+				add_nationalism = -20
+			}
+			southern_transylvania_area = {
+				add_nationalism = -20
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 25
+			}
+			4128 = {
+				set_great_project_tier_2 = {
+					type = bran_castle
+				}
+			}
+			EDG_add_claim = { area = carpathia_region }
+		} 
+	}
+
+	EDG_WAL_mission_1_7 = {
+		icon = mission_conquer_maharashtra
+		position = 7
+		required_missions = { EDG_WAL_mission_1_5 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						area = alfold_area
+						area = transdanubia_area
+					}
+					NOT = {
+						owned_by = root
+					}
+				}
+				owner = {
+					owns = 134
+				}
+			}
+		} 
+
+		trigger = {
+			alfold_area = {
+				type = all
+				owned_by = root
+			}
+			transdanubia_area = {
+				type = all
+				owned_by = root
+			}
+			if = {
+				limit = { 
+					134 = {
+						NOT = {
+							owned_by = root
+						}		
+					}
+				}
+				134 = {
+					owner = {
+						OR = {
+							has_opinion_modifier = {
+								who = root
+								modifier = insulted
+							}
+							has_opinion_modifier = {
+								who = root
+								modifier = scornfully_insulted
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					134 = {
+						NOT = {
+							owned_by = root
+						}
+					}
+				}
+				custom_tooltip = EDG_WAL_mission_1_7.effect.tt
+				hidden_effect = {
+					134 = {
+						owner = {
+							root = {
+								add_casus_belli = {
+									type = cb_annex
+									target = prev
+									months = 240
+								}
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 25
+				}
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 10
+			}
+			EDG_add_claim = { area = austria_proper_area }
+		} 
+	}
+
+	EDG_WAL_mission_1_8 = {
+		icon = mission_rb_control_state_religion
+		position = 8
+		required_missions = { EDG_WAL_mission_1_7 } 
+		provinces_to_highlight = {
+			province_id = 134
+		} 
+
+		trigger = {
+			OR = {
+				owns = 134
+				134 = {
+					owner = {
+						is_in_war = {
+							attacker_leader = root
+							defender_leader = this
+						}
+					}
+					controlled_by = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 134
+					}
+				}
+				add_years_of_income = 10
+				134 = {
+					add_devastation = 100
+					set_base_tax = 1
+					set_base_production = 1
+					set_base_manpower = 1
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 50
+				}
+			}
+			add_army_tradition = 25
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 20
+			}
+		} 
+	}
+
+	EDG_WAL_mission_1_9 = {
+		icon = the_imperial_border
+		position = 9
+		required_missions = { EDG_WAL_mission_1_8 } 
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					hre_size = 1
+				}
+				is_in_war = {
+					attacker_leader = root
+					defender_leader = emperor
+					war_score = 80
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					region = south_german_region
+					value = 5
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					hre_size = 1
+				}
+				custom_tooltip = EDG_WAL_mission_1_9.effect.tt
+				hidden_effect = {
+					every_country = {
+						limit = {
+							capital_scope = {
+								region = south_german_region
+							}
+						}
+						root = {
+							add_casus_belli = {
+								type = cb_annex
+								target = prev
+								months = 240
+							}
+						}
+					}
+				}
+				white_peace = emperor
+				dismantle_hre = yes
+			}
+			else = {
+				custom_tooltip = EDG_WAL_mission_1_9.effect.tt
+				hidden_effect = {
+					every_country = {
+						limit = {
+							capital_scope = {
+								region = south_german_region
+							}
+						}
+						root = {
+							add_casus_belli = {
+								type = cb_annex
+								target = prev
+								months = 240
+							}
+						}
+					}
+				}
+			}
+			add_prestige_or_monarch_power = {
+				amount = 100
+			}
+			EDG_add_claim = { area = south_german_region }
+
+		} 
+	}
+
+	EDG_WAL_mission_1_12 = {
+		icon = mission_gain_mana
+		position = 12
+		required_missions = { EDG_WAL_mission_2_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_WAL_spread_fear_var
+				value = 3
+			}
+			has_dip_advisor_3 = yes
+			dip_power_cost = 300
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_1_12.effect.tt
+			dip_power_cost = 300
+			change_variable = {
+				which = EDG_WAL_spread_fear_count
+				value = 1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_1_12_flag	
+			}
+		} 
+	}
+}
+EDG_WAL_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = WAL
+			AND = {
+				tag = RMN
+				was_tag = WAL
+			}
+			AND = {
+				tag = H06
+				was_tag = WAL
+			}
+		}
+	} 
+
+	EDG_WAL_mission_2_2 = {
+		icon = the_viennese_waltz
+		position = 2
+		required_missions = { EDG_WAL_mission_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			ai = no
+			stability = 1
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			estate_influence = {
+				estate = estate_nobles
+				influence = 50
+			}
+		} 
+
+		effect = {
+			add_government_reform = EDG_WAL_bloody_tyrant
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -30
+			}
+			add_estate_influence_modifier = {
+				estate = estate_nobles
+				influence = -30
+				duration = -3650
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_3 = {
+		icon = mission_ottoman_harem
+		position = 3
+		required_missions = {
+			EDG_WAL_mission_1_2
+			EDG_WAL_mission_3_2
+			EDG_WAL_mission_2_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 50
+			}
+			mil_power_cost = 100
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_3.effect.tt
+			mil_power_cost = 100
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_2_3_flag
+			}
+			change_variable = {
+				which = EDG_WAL_assassinate_count
+				value = 1
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = -50
+			}
+			
+		} 
+	}
+
+	EDG_WAL_mission_2_4 = {
+		icon = mission_monarch_in_throne_room
+		position = 4
+		required_missions = { EDG_WAL_mission_2_3 } 
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					total_own_and_non_tributary_subject_development = 100
+					is_rival = root
+				}
+				NOT = {
+					OR = {
+						has_opinion_modifier = {
+							who = root
+							modifier = insulted
+						}
+						has_opinion_modifier = {
+							who = root
+							modifier = scornfully_insulted
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			check_variable = {
+				which = EDG_WAL_assassination_monarch_count
+				value = 1
+			}
+			calc_true_if = {
+				all_country = {
+					OR = {
+						has_opinion_modifier = {
+							who = root
+							modifier = insulted
+						}
+						has_opinion_modifier = {
+							who = root
+							modifier = scornfully_insulted
+						}
+					}
+					OR = {
+						total_own_and_non_tributary_subject_development = 100
+						is_rival = root
+					}
+				}
+				amount = 6
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_4.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_2_4_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_6 = {
+		icon = multicultural_empire
+		position = 6
+		required_missions = {
+			EDG_WAL_mission_1_5
+			EDG_WAL_mission_2_4
+		}
+		provinces_to_highlight = {
+			region = carpathia_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = carpathia_region
+				is_core = root
+				value = 25
+			}
+			moldavia_area = {
+				type = all
+				owned_by = root
+				is_core = root
+			}
+			wallachia_area = {
+				type = all
+				owned_by = root
+				is_core = root
+			}
+			transylvania_area = {
+				type = all
+				owned_by = root
+				is_core = root
+			}
+			southern_transylvania_area = {
+				type = all
+				owned_by = root
+				is_core = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_6.effect.tt
+			carpathia_region = {
+				add_core = root	
+			}
+			hidden_effect = {
+				every_owned_province = {
+					add_nationalism = -20
+				}
+				EDG_remove_core_effect = {
+					owner = root
+					limit = "
+						OR = {
+							area = moldavia_area
+							area = transylvania_area
+							area = southern_transylvania_area
+							area = wallachia_area
+						}
+					"
+				}
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_7 = {
+		icon = mission_conquer_romania
+		position = 7
+		required_missions = { EDG_WAL_mission_2_6 } 
+		provinces_to_highlight = {
+			owned_by = HUN
+		} 
+
+		trigger = {
+			NOT = {
+				exists = HUN
+			}
+			tag = RMN
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_7.effect.tt
+			add_country_modifier = {
+				name = EDG_WAL_gray_knight
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_2_7_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_11 = {
+		icon = anatolian_frontier
+		position = 11
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+			OR = {
+				adm = 5
+				dip = 5
+				mil = 5
+			}
+		} 
+
+		effect = {
+			add_treasury = 300
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 10
+			}
+			change_variable = {
+				which = EDG_WAL_assassinate_count
+				value = 1
+			}
+			change_variable = {
+				which = EDG_WAL_spread_fear_count
+				value = 1
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_12 = {
+		icon = mission_conquer_assam
+		position = 12
+		required_missions = { EDG_WAL_mission_2_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_WAL_spread_fear_count
+				value = 3
+			}
+			has_mil_advisor_3 = yes
+			mil_power_cost = 300
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_12.effect.tt
+			mil_power_cost = 300
+			change_variable = {
+				which = EDG_WAL_assassinate_count
+				value = 1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_2_12_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_2_13 = {
+		icon = vaud_and_wallis
+		position = 13
+		required_missions = {
+			EDG_WAL_mission_1_12
+			EDG_WAL_mission_2_12
+			EDG_WAL_mission_3_12
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			NOT = {
+				num_of_rebel_armies = 1
+			}
+			NOT = {
+				num_of_rebel_controlled_provinces = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_2_13.effec.tt
+			add_country_modifier = {
+				name = EDG_WAL_white_terror
+				duration = -1
+			}
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_2_13_flag
+			}
+		} 
+	}
+}
+EDG_WAL_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = WAL
+			AND = {
+				tag = RMN
+				was_tag = WAL
+			}
+			AND = {
+				tag = H06
+				was_tag = WAL
+			}
+		}
+	} 
+
+	EDG_WAL_mission_3_1 = {
+		icon = the_hundred_years_war
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			ai = no
+			religion = orthodox
+			has_mil_advisor = yes
+			OR = {
+				army_size = 10
+				army_size_percentage = 1
+			}
+		} 
+
+		effect = {
+			add_prestige_or_monarch_power = {
+				amount = 30
+			}
+			define_general = {
+				shock = 5
+				fire = 3
+				manuever = 3
+				siege = 2
+			}
+			add_country_modifier = {
+				name = EDG_WAL_struggle_of_destiny
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_2 = {
+		icon = mission_impaled_soldies
+		position = 2
+		required_missions = { EDG_WAL_mission_3_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = yes
+				}
+				always = no
+			}
+			stability = 1
+			NOT = {
+				num_of_rebel_armies = 1
+			}
+			NOT = {
+				num_of_rebel_controlled_provinces = 1
+			}
+		} 
+
+		effect = {
+			EDG_WAL_vlad_dracula = yes
+			add_government_reform = EDG_WAL_walrys_piercing_collar
+			add_ruler_modifier = {
+				name = EDG_WAL_grand_duke_dracula
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_3 = {
+		icon = sponsor_the_arts
+		position = 3
+		required_missions = { EDG_WAL_mission_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_adm_advisor = yes
+			prestige = 30
+			NOT = {
+				estate_influence = {
+					estate = estate_church
+					influence = 45
+				}
+			}
+			NOT = {
+				estate_influence = {
+					estate = estate_burghers
+					influence = 45
+				}
+			}
+			NOT = {
+				estate_influence = {
+					estate = estate_nobles
+					influence = 45
+				}
+			}
+		} 
+
+		effect = {
+			change_adm = 1
+			add_country_modifier = {
+				name = EDG_WAL_loodletting
+				duration = -1
+			}
+			add_estate_influence_modifier = {
+				estate = all
+				influence = -10
+				duration = 73000
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_4 = {
+		icon = EDG_ICON_forge
+		position = 4
+		required_missions = { EDG_WAL_mission_3_3 } 
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					owns = 1764
+					owns = 141
+				}
+			}
+		} 
+
+		trigger = {
+			1764 = {
+				OR = {
+					owned_by = root
+					owner = {
+						OR = {
+							has_opinion_modifier = {
+								who = root
+								modifier = insulted
+							}
+							has_opinion_modifier = {
+								who = root
+								modifier = scornfully_insulted
+							}
+							is_rival = root
+						}
+						NOT = {
+							army_size = root
+						}
+					}
+				}
+			}
+			141 = {
+				OR = {
+					owned_by = root
+					owner = {
+						OR = {
+							has_opinion_modifier = {
+								who = root
+								modifier = insulted
+							}
+							has_opinion_modifier = {
+								who = root
+								modifier = scornfully_insulted
+							}
+							is_rival = root
+						}
+						NOT = {
+							army_size = root
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			change_variable = {
+				which = EDG_WAL_spread_fear_count
+				value = 1
+			}
+			change_variable = {
+				which = EDG_WAL_assassinate_count
+				value = 1
+			}
+			if = {
+				limit = { 
+					exists = GSR
+				}
+				add_spy_network_in = {
+					who = GSR
+					value = 50
+				}
+			}
+			if = {
+				limit = { 
+					exists = SER
+				}
+				add_spy_network_in = {
+					who = SER
+					value = 50
+				}
+			}
+			if = {
+				limit = { 
+					exists = BUL
+				}
+				add_spy_network_in = {
+					who = BUL
+					value = 50
+				}
+			}
+			if = {
+				limit = { 
+					exists = BU1
+				}
+				add_spy_network_in = {
+					who = BU1
+					value = 50
+				}
+			}
+			EDG_add_claim = { area = silistria_area }
+			EDG_add_claim = { area = bulgaria_area }
+			EDG_add_claim = { area = serbia_area }
+			EDG_add_claim = { area = rascia_area }
+		} 
+	}
+
+	EDG_WAL_mission_3_5 = {
+		icon = mission_livonian_intervention
+		position = 5
+		required_missions = { EDG_WAL_mission_3_4 } 
+		provinces_to_highlight = {
+			owner = {
+				owns = 1764
+			}
+		} 
+
+		trigger = {
+			1764 = {
+				OR = {
+					owner = {
+						root = {
+							is_in_war = {
+								attacker_leader = root
+								defender_leader = prev
+								war_score = 80
+							}
+						}
+					}
+					owned_by = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 1764
+					}
+				}
+				custom_tooltip = EDG_WAL_mission_3_5.effect.tt
+				hidden_effect = {
+					every_province = {
+						limit = {
+							controlled_by = root
+							NOT = {
+								owned_by = root
+							}
+							culture = bulgarian
+						}
+						cede_province = root
+					}
+				}
+			}
+			else = {
+				add_core = 1764
+			}
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+			add_country_modifier = {
+				name = EDG_WAL_bare_one_teeth
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_6 = {
+		icon = mission_prepare_an_invasion_force
+		position = 6
+		required_missions = { EDG_WAL_mission_3_5 } 
+		provinces_to_highlight = {
+			OR = {
+				area = silistria_area
+				area = bulgaria_area
+				area = serbia_area
+				area = rascia_area
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			silistria_area = {
+				type = all
+				owned_by = root
+			}
+			bulgaria_area = {
+				type = all
+				owned_by = root
+			}
+			serbia_area = {
+				type = all
+				owned_by = root
+			}
+			rascia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_WALEvents.2
+			}
+			EDG_add_claim = { area = thrace_area }
+			EDG_add_claim = { area = macedonia_area }
+			EDG_add_claim = { area = albania_area }
+		} 
+	}
+
+	EDG_WAL_mission_3_7 = {
+		icon = mission_empire
+		position = 7
+		required_missions = { EDG_WAL_mission_3_6 } 
+		provinces_to_highlight = {
+			province_id = 151
+		} 
+
+		trigger = {
+			owns = 151
+		} 
+
+		effect = {
+			set_government_rank = 3
+			add_government_reform = EDG_WAL_kalmanni_deprivation
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			EDG_add_claim = { area = balkan_region }
+			EDG_add_claim = { area = aegean_archipelago_area }
+		} 
+	}
+
+	EDG_WAL_mission_3_8 = {
+		icon = mission_grand_trunk_road_mug
+		position = 8
+		required_missions = { EDG_WAL_mission_3_7 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = balkan_region
+					NOT = {
+						religion_group = christian
+					}
+				}
+				owner = {
+					religion_group = muslim
+				}
+			}
+		} 
+
+		trigger = {
+			balkan_region = {
+				type = all
+				religion_group = christian
+			}
+			NOT = {
+				any_country = {
+					religion_group = muslim
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = balkan_region
+						value = 1
+					}
+				}
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_WAL_religious_fanaticism
+				duration = -1
+			}
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			EDG_add_claim = { area = anatolia_region }
+		} 
+	}
+
+	EDG_WAL_mission_3_9 = {
+		icon = overshadow_venice
+		position = 9
+		required_missions = { EDG_WAL_mission_3_8 } 
+		provinces_to_highlight = {
+			OR = {
+				region = balkan_region
+				area = hudavendigar_area
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = balkan_region
+				value = 30
+			}
+			hudavendigar_area = {
+				type = all
+				owned_by = root
+			}
+			treasury = 500
+		} 
+
+		effect = {
+			add_treasury = -500
+			thrace_area = {
+				add_province_modifier = {
+					name = EDG_WAL_revitalize_city
+					duration = -1
+				}
+			}
+			hudavendigar_area = {
+				add_province_modifier = {
+					name = EDG_WAL_revitalize_city
+					duration = -1
+				}
+			}
+			151 = {
+				add_trade_modifier = {
+					who = root
+					duration = -1
+					power = 50
+					key = EDG_WAL_mission_3_9_trade_modifier
+				}
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_10 = {
+		icon = mission_dominate_the_mediterranean
+		position = 10
+		required_missions = {
+			EDG_WAL_mission_1_9
+			EDG_WAL_mission_3_9
+			EDG_WAL_mission_5_9
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			prestige = 90
+			is_great_power = yes
+			army_size = 75
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_3_10.effect.tt
+			custom_tooltip = lit_halve_hegemony_reqs_tt
+			add_country_modifier = {
+				name = EDG_WAL_endless_march
+				duration = -1
+			}
+			add_prestige_or_monarch_power = {
+				amount = 100
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 50
+			}
+			hidden_effect = {
+				set_country_flag = halve_hegemony_requirements
+				every_province = {
+					limit = {
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+					}
+					add_permanent_claim = root
+				}
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_12 = {
+		icon = qara_qoyunlu_dominate_the_gulf
+		position = 12
+		required_missions = { EDG_WAL_mission_2_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_WAL_atrocity_interactions_1_count
+				value = 3
+			}
+			has_adm_advisor_3 = yes
+			adm_power_cost = 300
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_3_12.effect.tt
+			adm_power_cost = 300
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 50
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_3_12_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_3_14 = {
+		icon = expand_to_the_south
+		position = 14
+		required_missions = {
+			EDG_WAL_mission_4_13
+			EDG_WAL_mission_2_13
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 100
+			}
+			check_variable = {
+				which = EDG_num_of_exploited
+				value = 10
+			}
+			check_variable = {
+				which = EDG_WAL_spread_fear_var
+				value = 10
+			}
+			check_variable = {
+				which = EDG_WAL_atrocity_interactions_1_count
+				value = 10
+			}
+			check_variable = {
+				which = EDG_WAL_assassination_monarch_count
+				value = 5
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_3_14.effect.tt
+			add_prestige_or_monarch_power = {
+				amount = 100
+			}
+			hidden_effect = {
+				set_country_flag = EDG_enable_change_tag_h06_early_flag
+				set_country_flag = EDG_WAL_mission_3_14_flag
+			}
+		} 
+	}
+}
+EDG_WAL_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = WAL
+			AND = {
+				tag = RMN
+				was_tag = WAL
+			}
+			AND = {
+				tag = H06
+				was_tag = WAL
+			}
+		}
+	} 
+
+	EDG_WAL_mission_4_2 = {
+		icon = mission_destroy_the_hungarians
+		position = 2
+		required_missions = { EDG_WAL_mission_3_1 } 
+		provinces_to_highlight = {
+			owned_by = HUN
+		} 
+
+		trigger = {
+			ai = no
+			if = {
+				limit = { 
+					exists = HUN
+					HUN = {
+						is_subject = no
+					}
+				}
+				HUN = {
+					has_spy_network_from = {
+						who = root
+						value = 50
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					exists = HUN
+					HUN = {
+						is_subject = yes
+					}
+				}
+				HUN = {
+					overlord = {
+						has_spy_network_from = {
+							who = root
+							value = 50
+						}
+					}
+				}
+			}
+			else = {
+				OR = {
+					owns = 4128
+					4128 = {
+						owner = {
+							has_spy_network_from = {
+								who = root
+								value = 50
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = HUN
+				}
+				custom_tooltip = EDG_WAL_mission_4_2.effect.tt
+				hidden_effect = {
+					set_country_flag = EDG_WAL_mission_4_2_flag
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_annex
+					who = HUN
+				}
+			}
+			else = {
+				if = {
+					limit = { 
+						NOT = {
+							owns = 4128
+						}
+					}
+					4128 = {
+						owner = {
+							root = {
+								add_casus_belli = {
+									type = cb_annex
+									target = prev
+									months = 240
+								}
+							}
+						}
+					}
+				}
+				else = {
+					add_prestige_or_monarch_power = {
+						amount = 50
+					}
+				}
+			}
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_WAL_climb_over_carpathian
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_3 = {
+		icon = mission_crusade_for_varna
+		position = 3
+		required_missions = {
+			EDG_WAL_mission_4_2
+			EDG_WAL_mission_5_2
+			EDG_WAL_mission_3_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 70
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_WALEvents.1
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_4 = {
+		icon = mission_steppe_warriors
+		position = 4
+		required_missions = { EDG_WAL_mission_4_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 50
+			}
+			is_at_war = yes
+			calc_true_if = {
+				all_province = {
+					NOT = {
+						owned_by = root
+					}
+					controlled_by = root
+				}
+				amount = 12
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_4_4.effect.tt
+			EDG_get_power_from_controlled_provinces_develpment = {
+				controlled_by = root
+				amount = 5
+			}
+			add_army_tradition = 25
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_4_4_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_6 = {
+		icon = unite_the_league
+		position = 6
+		required_missions = { EDG_WAL_mission_4_4 } 
+		provinces_to_highlight = {
+			owner = {
+				owns = 280
+			}
+		} 
+
+		trigger = {
+			280 = {
+				OR = {
+					owned_by = root
+					owner = {
+						OR = {
+							has_opinion_modifier = {
+								who = root
+								modifier = insulted
+							}
+							has_opinion_modifier = {
+								who = root
+								modifier = scornfully_insulted
+							}
+							is_rival = root
+						}
+						NOT = {
+							army_size = root
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 280
+					}
+				}
+				country_event = {
+					id = EDG_WALEvents.3
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 50
+				}
+				EDG_add_claim = { area = ruthenia_region }
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_7 = {
+		icon = mission_restore_faith_in_the_throne
+		position = 7
+		required_missions = { EDG_WAL_mission_4_6 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				owns = 280
+				AND = {
+					280 = {
+						controlled_by = root
+						owner = {
+							NOT = {
+								war_score_against = {
+									who = root
+									value = -80
+								}
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 280
+					}
+				}
+				country_event = {
+					id = EDG_WALEvents.4
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 50
+				}
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_11 = {
+		icon = mission_the_sudebnik
+		position = 11
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			government = monarchy
+			has_estate = estate_nobles
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+		} 
+
+		effect = {
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_4_11_flag
+			}
+			set_estate_privilege = estate_EDG_silver_agreement
+		} 
+	}
+
+	EDG_WAL_mission_4_12 = {
+		icon = mission_have_two_subjects
+		position = 12
+		required_missions = { EDG_WAL_mission_4_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_estate_privilege = estate_EDG_silver_agreement
+			OR = {
+				AND = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 60
+					}
+					estate_influence = {
+						estate = estate_nobles
+						influence = 60
+					}
+					num_of_estate_privileges = {
+						estate = estate_nobles
+						value = 4
+					}
+				}
+				AND = {
+					NOT = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 40
+						}
+					}
+					NOT = {
+						num_of_estate_privileges = {
+							estate = estate_nobles
+							value = 2
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 60
+					}
+					estate_influence = {
+						estate = estate_nobles
+						influence = 60
+					}
+					num_of_estate_privileges = {
+						estate = estate_nobles
+						value = 4
+					}
+				}
+				custom_tooltip = EDG_WAL_mission_4_12.effect_1.tt
+				hidden_effect = {
+					set_country_flag = EDG_WAL_friendly_nobles_flag
+				}
+			}
+			else_if = {
+				limit = { 
+					NOT = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 40
+						}
+					}
+					NOT = {
+						num_of_estate_privileges = {
+							estate = estate_nobles
+							value = 2
+						}
+					}
+				}
+				custom_tooltip = EDG_WAL_mission_4_12.effect_2.tt
+				hidden_effect = {
+					set_country_flag = EDG_WAL_hostility_nobles_flag
+				}
+			}
+			else = {
+				custom_tooltip = EDG_WAL_mission_4_12.effect_3.tt
+			}
+		} 
+	}
+
+	EDG_WAL_mission_4_13 = {
+		icon = renovate_berlin
+		position = 13
+		required_missions = {
+			EDG_WAL_mission_4_12
+			EDG_WAL_mission_5_12
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_reform = EDG_WAL_bloody_tyrant
+			has_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 75
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_WAL_eternal_kingship
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_WAL_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = WAL
+			AND = {
+				tag = RMN
+				was_tag = WAL
+			}
+			AND = {
+				tag = H06
+				was_tag = WAL
+			}
+		}
+	} 
+
+	EDG_WAL_mission_5_1 = {
+		icon = mission_market_place_with_asian_traders
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			ai = no
+			is_at_war = no
+			legitimacy = 95
+			check_variable = {
+				which = EDG_num_of_exploited
+				value = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_1.effect.tt
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_1_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_2 = {
+		icon = mission_teutonic_knights
+		position = 2
+		required_missions = { EDG_WAL_mission_5_1 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			OR = {
+				has_mil_advisor_2 = yes
+				advisor = cavalry_commander
+			}
+			num_of_cities = 11
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_2.effect.tt
+			add_country_modifier = {
+				name = EDG_WAL_form_order_of_dragon
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_2_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_3 = {
+		icon = mission_control_unrest
+		position = 3
+		required_missions = { EDG_WAL_mission_5_2 } 
+		provinces_to_highlight = {
+			owner = {
+				war_with = root
+			}
+			NOT = {
+				controlled_by = root
+			}
+			has_fort_building_trigger = yes
+		} 
+
+		trigger = {
+			is_at_war = yes
+			calc_true_if = {
+				all_province = {
+					NOT = {
+						owned_by = root
+					}
+					controlled_by = root
+					has_siege = no
+					has_fort_building_trigger = yes
+					num_of_units_in_province = {
+						who = root
+						type = infantry
+						amount = 4
+					}
+				}
+				amount = 2
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_3.effect.tt
+			every_province = {
+				limit = {
+					NOT = {
+						owned_by = root
+					}
+					controlled_by = root
+					has_siege = no
+					has_fort_building_trigger = yes
+					num_of_units_in_province = {
+						who = root
+						type = infantry
+						amount = 4
+					}
+				}
+				kill_units = {
+					who = root
+					type = infantry
+					amount = 4
+				}
+				if = {
+					limit = { 
+						has_building = fort_15th
+					}
+					remove_building = fort_15th
+				}
+				else_if = {
+					limit = { 
+						has_building = fort_16th
+					}
+					remove_building = fort_16th
+				}
+				else_if = {
+					limit = { 
+						has_building = fort_17th
+					}
+					remove_building = fort_17th
+				}
+				else_if = {
+					limit = { 
+						has_building = fort_18th
+					}
+					remove_building = fort_18th
+				}
+				owner = {
+					add_war_exhaustion = 2
+				}
+				root = {
+					add_yearly_manpower = 0.5
+				}
+			}
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_3_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_5 = {
+		icon = reform_the_monte
+		position = 5
+		required_missions = {
+			EDG_WAL_mission_4_4
+			EDG_WAL_mission_5_3
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size = 25
+			monthly_mil = 12
+			OR = {
+				army_tradition = 50
+				army_professionalism = 0.1
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_5.effect.tt
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_5_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_7 = {
+		icon = mission_modernized_vikings
+		position = 7
+		required_missions = { EDG_WAL_mission_5_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_at_war = yes
+			calc_true_if = {
+				all_war_enemy_countries = {
+					capital_scope = {
+						controlled_by = root
+					}
+					has_spy_network_from = {
+						who = root
+						value = 50
+					}
+					has_regency = no
+					NOT = {
+						mil = 6
+					}
+				}
+				amount = 2
+			}
+			
+			capital_scope = {
+				has_province_modifier = EDG_WAL_crucifixion_modifier
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_7.effect.tt
+			every_war_enemy_country = {
+				limit = {
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+				if = {
+					limit = { 
+						has_spy_network_from = {
+							who = root
+							value = 50
+						}
+						has_regency = no
+						NOT = {
+							mil = 6
+						}
+					}
+					add_spy_network_from = {
+						who = root
+						value = -50
+					}
+					kill_ruler = yes
+				}
+				capital_scope = {
+					add_province_modifier = {
+						name = EDG_WAL_capital_was_recently_captured
+						duration = 7300
+					}
+				}
+				add_stability = -1
+			}
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+			add_government_power = {
+				mechanic_type = EDG_WAL_atrocity_mechanic
+				power_type = EDG_WAL_atrocity
+				value = 10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_7_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_8 = {
+		icon = fra_peninsular_war
+		position = 8
+		required_missions = { EDG_WAL_mission_5_7 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_WAL_spread_fear_var
+				value = 5
+			}
+			check_variable = {
+				which = EDG_WAL_spread_fear_var
+				value = 5
+			}
+			NOT = {
+				num_of_rebel_armies = 1
+			}
+			NOT = {
+				num_of_rebel_controlled_provinces = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_8.effect.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_WAL_iron_wall
+					duration = -1
+				}
+			}
+			
+			hidden_effect = {
+				every_owned_province = {
+					add_unrest = -10
+				}
+				set_country_flag = EDG_WAL_mission_5_8_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_9 = {
+		icon = mission_conquer_sindh_mer
+		position = 9
+		required_missions = { EDG_WAL_mission_5_8 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_WAL_mission_5_9.condition_1.tt
+				has_country_flag = EDG_WAL_years_of_terror_end_flag
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_WAL_mission_5_9.condition_2.tt
+				has_country_flag = EDG_WAL_hopelessness_ode_end_flag
+			}
+			stability = 3
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_9.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_WAL_mission_5_9_flag
+			}
+		} 
+	}
+
+	EDG_WAL_mission_5_12 = {
+		icon = mission_court_education
+		position = 12
+		required_missions = { EDG_WAL_mission_4_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_courthouse_building_trigger = yes
+				value = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_WAL_mission_5_12.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_WAL_be_inescapable
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_courthouse_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = EDG_WAL_be_inescapable
+						duration = -1
+					}
+				}
+				set_country_flag = EDG_WAL_mission_5_12_flag
+			}
+		} 
+	}
+}

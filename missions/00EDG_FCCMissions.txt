@@ -1,0 +1,1850 @@
+EDG_FCC_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = FCC
+			AND = {
+				was_tag = FCC
+				tag = BUR
+			}
+		}
+	} 
+	EDG_FCC_mission_1_1 = { #伯国武装
+		icon = mission_assemble_an_army
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			OR = {
+				army_size_percentage = 0.9
+				army_size = 10
+			}
+			num_of_generals = 1
+		} 
+
+		effect = {  
+			add_army_tradition = 5
+			add_manpower = 5
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = bourgogne_area }
+			EDG_add_claim = { area = west_burgundy_area }
+		} 
+	}
+	EDG_FCC_mission_1_4 = { #帝国代理人
+		icon = mission_noble_council
+		position = 4
+		provinces_to_highlight = {  
+			owner = {
+				is_elector = yes
+				NOT = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_1_1
+			EDG_FCC_mission_2_3
+		}
+
+		trigger = {  
+			army_size = 20
+			army_size_percentage = 1
+			has_mil_advisor = yes
+			calc_true_if = {
+				amount = 3
+				all_country = {
+					is_elector = yes
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_1_4.effect.tt
+			add_country_modifier = {
+				name = EDG_FCC_ecomic_support
+				duration = 365
+			}
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_elector = yes
+						has_opinion = {
+							who = root
+							value = 75
+						}
+					}
+					root = {
+						add_treasury = 50
+					}
+				}
+			}
+			
+		} 
+	}
+}
+EDG_BUR_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BUR
+	} 
+	EDG_FCC_mission_1_7 = { #第一修正案
+		icon = mission_book_of_royal_degrees
+		position = 7
+		provinces_to_highlight = {  
+			owned_by = FRA
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_6
+		}
+
+		trigger = {  
+			is_subject_of = FRA
+			has_spy_network_in = {
+				who = FRA
+				value = 25
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_1_7.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				FRA = {
+					every_subject_country = {
+						limit = {
+							NOT = {
+								tag = root
+							}
+							is_subject_of_type = appanage
+						}
+						every_owned_province = {
+							add_permanent_claim = root
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_FCC_annex_war
+				duration = 7300
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_liberty_desire = 10
+		} 
+	}
+	EDG_FCC_mission_1_9 = { #第二修正案
+		icon = mam_hormuz_straits
+		position = 9
+		provinces_to_highlight = {  
+			owner = {
+				is_subject_of_type = appanage
+				NOT = {
+					tag = root
+				}
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_8
+			EDG_FCC_mission_1_7
+		}
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				value = 10
+				region = france_region
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_1_9.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_declare_war_with_ael_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = france_region }
+		} 
+	}
+	EDG_FCC_mission_1_11 = { #第三修正案
+		icon = arb_unite_arabia
+		position = 11
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = FRA
+				owned_by = AEL
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_1_9
+		}
+
+		trigger = {  
+			has_reform = EDG_FCC_wine_lord
+			is_subject = no
+			NOT = {
+				exists = FRA
+			}
+			NOT = {
+				exists = AEL
+			}
+			num_of_owned_provinces_with = {
+				region = france_region
+				value = 40
+			}
+		} 
+
+		effect = {  
+			add_government_reform = EDG_FCC_grape_kingdom
+			custom_tooltip = EDG_SPACE_TT
+			override_country_name = "EDG_FCC_RoyaumeduRaisin"
+		} 
+	}
+	EDG_FCC_mission_1_15 = { #盛世天堂
+		icon = develop_our_capital
+		position = 15
+		provinces_to_highlight = {  
+			OR = {
+				AND = {
+					region = france_region
+					NOT = {
+						owned_by = root
+					}
+				}
+				AND = {
+					province_id = 192
+					NOT = {
+						AND = {
+							has_great_project = {
+								type = EDG_Chateau_Chablis
+								tier = 3
+							}
+							has_great_project = {
+								type = EDG_Chateau_Nuits
+								tier = 3
+							}
+							has_great_project = {
+								type = EDG_Chateau_Beaune
+								tier = 3
+							}
+							has_great_project = {
+								type = EDG_Chateau_Chalonnaise
+								tier = 3
+							}
+						}
+					}
+				}
+				AND = {
+					province_id = 174
+					NOT = {
+						174 = {
+							has_great_project = {
+								type = EDG_Chateau_Bordeaux
+								tier = 3
+							}
+						}
+					}
+				}
+				AND = {
+					province_id = 178
+					NOT = {
+						178 = {
+							has_great_project = {
+								type = EDG_Chateau_Loire_Valley
+								tier = 3
+							}
+						}
+					}
+				}
+				AND = {
+					province_id = 2753
+					NOT = {
+						2753 = {
+							has_great_project = {
+								type = EDG_Nabona_Wine_Farm
+								tier = 3
+							}
+						}
+					}
+				}
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_1_11
+			EDG_FCC_mission_2_14
+		}
+
+		trigger = {  
+			france_region = {
+				type = all
+				owned_by = root
+			}
+			192 = {
+				has_great_project = {
+					type = EDG_Chateau_Chablis
+					tier = 3
+				}
+				has_great_project = {
+					type = EDG_Chateau_Nuits
+					tier = 3
+				}
+				has_great_project = {
+					type = EDG_Chateau_Beaune
+					tier = 3
+				}
+				has_great_project = {
+					type = EDG_Chateau_Chalonnaise
+					tier = 3
+				}
+			}
+			174 = {
+				has_great_project = {
+					type = EDG_Chateau_Bordeaux
+					tier = 3
+				}
+			}
+			178 = {
+				has_great_project = {
+					type = EDG_Chateau_Loire_Valley
+					tier = 3
+				}
+			}
+			2753 = {
+				has_great_project = {
+					type = EDG_Nabona_Wine_Farm
+					tier = 3
+				}
+			}
+		} 
+
+		effect = {  
+			change_price = {
+				trade_goods = wine
+				key = EDG_FCC_mission_1_15_improve_price
+				value = 0.5
+				duration = 999999
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_1_15.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FCC_mission_1_15_modifier_copy
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 192
+							province_id = 174
+							province_id = 178
+							province_id = 2753
+						}
+					}
+					add_province_triggered_modifier = EDG_FCC_mission_1_15_modifier
+				}
+			}
+		} 
+	}
+}
+EDG_FCC_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = FCC
+			AND = {
+				was_tag = FCC
+				tag = BUR
+			}
+		}
+	} 
+	EDG_FCC_mission_2_3 = { #权利
+		icon = balance_of_power
+		position = 3
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_2
+		}
+
+		trigger = {  
+			is_part_of_hre = yes
+			emperor = {
+				has_opinion = {
+					who = root
+					value = 100
+				}
+			}
+			liberty_desire = 50
+		} 
+
+		effect = {  
+			emperor = {
+				add_trust = {
+					who = root
+					value = 20
+					mutual = yes
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FCC_army_support
+				duration = 1825
+			}
+		} 
+	}
+	
+}
+EDG_BUR_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BUR
+	} 
+	EDG_FCC_mission_2_7 = { #接管酒厂
+		icon = reclaim_the_ducal_lands
+		position = 7
+		provinces_to_highlight = {  
+
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_6
+		}
+
+		trigger = {  
+			OR = {
+				treasury = 1000
+				crown_land_share = 30
+			}
+			owns = 192
+		} 
+
+		effect = {  
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_FCC_mission_2_7.treasury.tt
+				first_limit = "
+					treasury = 1000
+				"
+				first_effect = "
+					add_treasury = -1000
+				"
+				second_custom_tooltip = EDG_SPACE_TT
+				second_limit = "
+					crown_land_share = 30
+				"
+				second_effect = "
+					change_estate_land_share = {
+						estate = all
+						share = 30
+					}
+				"
+			}
+			custom_tooltip = EDG_SPACE_TT
+			192 = {
+				set_great_project_tier_1 = { type = EDG_Chateau_Chablis }
+				set_great_project_tier_1 = { type = EDG_Chateau_Nuits }
+				set_great_project_tier_1 = { type = EDG_Chateau_Beaune }
+				set_great_project_tier_1 = { type = EDG_Chateau_Chalonnaise }
+			}
+		} 
+	}
+	EDG_FCC_mission_2_10 = { #白色黄金
+		icon = mission_son_own_develop_clothes_and_salt
+		position = 10
+		provinces_to_highlight = {  
+			owned_by = root
+			trade_goods = salt
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_9
+		}
+
+		trigger = {  
+			owns = 193
+			num_of_owned_provinces_with = {
+				trade_goods = salt
+				base_production = 12
+				has_production_building_trigger = yes
+				value = 3
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_2_10.modifier.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FCC_expand_salt_fields
+					duration = -1
+				}
+				add_building = wharf
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = salt
+						base_production = 12
+						has_production_building_trigger = yes
+					}
+					add_province_modifier = {
+						name = EDG_FCC_expand_salt_fields
+						duration = -1
+					}
+					add_building = wharf
+				}
+			}
+			custom_tooltip = EDG_FCC_mission_2_10.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			193 = {
+				set_great_project_tier_1 = { type = EDG_Royal_Saltwork_of_Arc }
+			}
+		} 
+	}
+	EDG_FCC_mission_2_13 = { #清新明快
+		icon = mission_develop_the_scandes
+		position = 13
+		provinces_to_highlight = {  
+			
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_12
+		}
+
+		trigger = {  
+			calc_true_if = {
+				amount = 2
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_chenin
+					has_country_flag = EDG_FCC_build_chenin_blanc_order_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_chardonnay
+					has_country_flag = EDG_FCC_build_chardonnay_order_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_riesling_noir
+					has_country_flag = EDG_FCC_build_riesling_order_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_sauvignon_blanc
+					has_country_flag = EDG_FCC_build_sauvignon_blanc_flag
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_2_13.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_army_tradition_or_mil_power = { amount = 10 }
+			add_army_professionalism = 0.05
+			hidden_effect = {
+				set_country_flag = EDG_FCC_enable_white_order_flag
+			}	
+		}
+	}
+	EDG_FCC_mission_2_14 = { #新的葡萄...
+		icon = mission_rb_colonise_spice_islands
+		position = 14
+		provinces_to_highlight = {  
+			province_id = 192
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_13
+		}
+
+		trigger = {  
+			owns = 192
+			192 = {
+				OR = {
+					has_great_project = {
+						type = EDG_Chateau_Chablis
+						tier = 3
+					}
+					AND = {
+						has_great_project = {
+							type = EDG_Chateau_Nuits
+							tier = 2
+						}
+						has_great_project = {
+							type = EDG_Chateau_Chalonnaise
+							tier = 2
+						}
+					}
+				}
+			}
+			OR = {
+				innovativeness = 20
+				AND = {
+					has_idea_group = innovativeness_ideas
+					has_idea = scientific_revolution
+				}
+			}
+		} 
+
+		effect = {  
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_FCC_mission.innovativeness_ideas.tt
+				first_limit = "
+					has_idea_group = innovativeness_ideas
+					has_idea = scientific_revolution
+				"
+				first_effect = "
+					change_innovativeness = 5
+				"
+				second_custom_tooltip = EDG_FCC_mission.innovativeness.tt
+				second_limit = "
+					NOT = {
+						has_idea_group = innovativeness_ideas
+					}
+					innovativeness = 25
+				"
+				second_effect = "
+					change_innovativeness = -20
+				"
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_2_14.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_can_build_chardonnay_order_flag
+			}
+		} 
+	}
+}
+EDG_FCC_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = FCC
+			AND = {
+				was_tag = FCC
+				tag = BUR
+			}
+		}
+	} 
+	EDG_FCC_mission_3_2 = { #双重身份
+		icon = mission_have_two_subjects
+		position = 2
+		provinces_to_highlight = {  
+			OR = {
+				owned_by = FRA
+				owned_by = emperor
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_1_1
+			EDG_FCC_mission_5_1
+		}
+
+		trigger = {  
+			is_subject_of = FRA
+			is_part_of_hre = yes
+			FRA = {
+				has_opinion = {
+					who = root
+					value = 100
+				}
+			}
+			emperor = {
+				has_opinion = {
+					who = root
+					value = 75
+				}
+			}
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_FCCEvents.0
+			}
+		} 
+	}
+	EDG_FCC_mission_3_4 = { #匕首
+		icon = mission_unite_home_region
+		position = 4
+		provinces_to_highlight = {  
+			owned_by = FRA
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_2
+		}
+
+		trigger = {  
+			is_subject_of = FRA
+			FRA = {
+				has_opinion = {
+					who = root
+					value = 150
+				}
+			}
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_FCCEvents.1
+			}
+		} 
+	}
+
+	EDG_FCC_mission_3_5 = { #雨夜
+		icon = mission_indian_stateman
+		position = 5
+		provinces_to_highlight = {  
+			OR = {
+				province_id = 192
+				province_id = 4392
+				province_id = 1877
+				province_id = 191
+			}
+			NOT = {
+				num_of_units_in_province = {
+					amount = 5
+					who = root
+				}
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_4
+			EDG_FCC_mission_1_4
+			EDG_FCC_mission_5_4
+		}
+
+		trigger = {  
+			if = {
+				limit = { 
+					ai = yes
+				}
+				always = no
+			}
+			192 = {
+				OR = {
+					owned_by = root
+					num_of_units_in_province = {
+						amount = 5
+						who = root
+					}
+				}
+			}
+			4392 = {
+				OR = {
+					owned_by = root
+					num_of_units_in_province = {
+						amount = 5
+						who = root
+					}
+				}
+			}
+			1877 = {
+				OR = {
+					owned_by = root
+					num_of_units_in_province = {
+						amount = 5
+						who = root
+					}
+				}
+			}
+			191 = {
+				OR = {
+					owned_by = root
+					num_of_units_in_province = {
+						amount = 5
+						who = root
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_FCCEvents.2
+			}
+			custom_tooltip = EDG_SPACE_TT
+			tooltip = {
+				192 = {
+					kill_units = {
+						who = root
+						amount = 5
+					}
+				}
+				4392 = {
+					kill_units = {
+						who = root
+						amount = 5
+					}
+				}
+				1877 = {
+					kill_units = {
+						who = root
+						amount = 5
+					}
+				}
+				191 = {
+					kill_units = {
+						who = root
+						amount = 5
+					}
+				}
+			}
+		} 
+	}
+	EDG_FCC_mission_3_6 = { #新的一天
+		icon = mission_portuguese_interference
+		position = 6
+		provinces_to_highlight = {  } 
+		required_missions = {
+			EDG_FCC_mission_3_5
+		}
+
+		trigger = {  
+			is_subject_of = FRA
+			owns = 192
+			is_core = 192
+			owns = 4392
+			is_core = 4392
+			owns = 1877
+			is_core = 1877
+			owns = 191
+			is_core = 191
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_FCCEvents.3
+			}
+			hidden_effect = {
+				country_event = {
+					id = EDG_FCCExpandEvents.0
+					days = 30
+					random = 30
+				}
+			}
+		} 
+	}
+}
+EDG_FRA_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BUR
+	} 
+	EDG_FCC_mission_3_8 = { #尊贵之法
+		icon = king_of_the_franks
+		position = 8
+		provinces_to_highlight = {  
+			OR = {
+				province_id = 192
+				province_id = 4392
+			}
+			NOT = {
+				development = 30
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_2_7
+			EDG_FCC_mission_4_7
+		}
+
+		trigger = {  
+			192 = {
+				development = 30
+			}
+			4392 = {
+				development = 20
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_3_8.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_enable_forge_crown_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_FCC_wine_lord
+			custom_tooltip = EDG_SPACE_TT
+			192 = {
+				add_or_upgrade_production_building = yes
+				add_or_upgrade_trade_building = yes
+			}
+			4392 = {
+				add_or_upgrade_production_building = yes
+				add_or_upgrade_trade_building = yes
+			}
+		} 
+	}
+	EDG_FCC_mission_3_9 = { #酒香四溢
+		icon = develop_the_po_valley
+		position = 9
+		provinces_to_highlight = {  } 
+		required_missions = {
+			EDG_FCC_mission_3_8
+		}
+
+		trigger = {  
+			192 = {
+				base_production = 25
+				NOT = {
+					OR = {
+						has_construction = building
+						has_construction = core
+						has_construction = culture
+						has_construction = great_project
+						has_construction = canal
+						has_construction = missionary
+						has_construction = state_house
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_3_9.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_wine_expand_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_FCC_noble_in_wine
+			custom_tooltip = EDG_SPACE_TT
+			192 = {
+				add_or_upgrade_production_building = yes
+				add_or_upgrade_trade_building = yes
+				add_building_construction = {
+					speed = 0.5
+					cost = 0
+					building = farm_estate
+				}
+			}
+		} 
+	}
+	EDG_FCC_mission_3_11 = { #花团锦簇
+		icon = the_great_city_of_buda
+		position = 11
+		provinces_to_highlight = {  
+			province_id = 192
+		} 
+		required_missions = {
+			EDG_FCC_mission_2_10
+			EDG_FCC_mission_4_10
+		}
+
+		trigger = {  
+			prestige = 95
+			legitimacy = 95
+			treasury = 1000
+			192 = {
+				development = 50
+				num_of_buildings_in_province = 6
+				num_of_times_expanded_infrastructure = 3
+			}
+		} 
+
+		effect = {  
+			add_treasury = -1000
+			custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_FCC_wine_festival_culture
+			custom_tooltip = EDG_SPACE_TT
+			192 = {
+				add_province_modifier = {
+					name = EDG_FCC_festival_hall
+					duration = -1
+				}
+			}
+		} 
+	}
+	EDG_FCC_mission_3_12 = { #骑士章程
+		icon = per_the_persian_influence
+		position = 12
+		provinces_to_highlight = {  
+			NOT = {
+				owned_by = root
+			}
+			OR = {
+				province_id = 192
+				province_id = 186
+				province_id = 174
+				province_id = 4765
+				province_id = 74
+				province_id = 1761
+				province_id = 78
+				province_id = 1876
+				province_id = 2753
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_11
+		}
+
+		trigger = { 
+			OR = {
+				army_tradition = 50
+				AND = {
+					has_idea_group = aristocracy_ideas
+					has_idea = noble_knights
+				}
+				AND = {
+					mil_power_cost = 300
+					government_reform_progress = 200
+				}
+			}
+			calc_true_if = {
+				amount = 3
+				all_owned_province = {
+					custom_trigger_tooltip = {
+						tooltip =  EDG_FCC_province_with_wine_great_project.tt
+						OR = {
+							province_id = 192
+							province_id = 186
+							province_id = 174
+							province_id = 4765
+							province_id = 74
+							province_id = 1761
+							province_id = 78
+							province_id = 1876
+							province_id = 2753
+						}
+					}
+				}
+			}
+			check_variable = {
+				which = EDG_FCC_num_of_celebration
+				value = 1
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = { 
+					NOT = {
+						army_tradition = 75
+					}
+				}
+				mil_power_cost = 300
+				change_government_reform_progress = -200
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_FCC_knights_of_the_grapes
+			custom_tooltip = EDG_SPACE_TT
+			add_army_tradition_or_mil_power = { amount = 10 }
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FCC_num_of_white_knight
+				value = 1
+			}
+			change_variable = {
+				which = EDG_FCC_num_of_red_knight
+				value = 1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FCC_mission_3_12_flag
+			}
+		} 
+	}
+	EDG_FCC_mission_3_13 = { #五彩斑斓
+		icon = mission_son_own_develop_clothes_and_salt
+		position = 13
+		provinces_to_highlight = {  
+
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_12
+		}
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_FCC_mission_3_13.trigger.tt
+				calc_true_if = {
+					amount = 1
+					has_country_flag = EDG_FCC_build_cabernet_sauvignon_order_flag
+					has_country_flag = EDG_FCC_build_chenin_blanc_order_flag
+					has_country_flag = EDG_FCC_build_cinsault_order_flag
+					has_country_flag = EDG_FCC_build_chardonnay_order_flag
+					has_country_flag = EDG_FCC_build_pinot_noir_order_flag
+					has_country_flag = EDG_FCC_build_riesling_order_flag
+				}
+			}
+			OR = {
+				innovativeness = 5
+				AND = {
+					has_idea_group = innovativeness_ideas
+					has_idea = empiricism
+				}
+			}
+		} 
+
+		effect = {  
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_FCC_mission.innovativeness_ideas.tt
+				first_limit = "
+					has_idea_group = innovativeness_ideas
+					has_idea = scientific_revolution
+				"
+				first_effect = "
+					change_innovativeness = 10
+				"
+				second_custom_tooltip = EDG_FCC_mission.innovativeness.tt
+				second_limit = "
+					innovativeness = 10
+				"
+				second_effect = "
+					change_innovativeness = -10
+				"
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_3_13.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_upgrade_innovativeness_ideas_flag
+				if = {
+					limit = { 
+						has_idea = patron_of_art
+					}
+					add_country_modifier = {
+						name = EDG_FCC_patron_of_art
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = empiricism
+					}
+					add_country_modifier = {
+						name = EDG_FCC_empiricism
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = scientific_revolution
+					}
+					add_country_modifier = {
+						name = EDG_FCC_scientific_revolution
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = dynamic_court
+					}
+					add_country_modifier = {
+						name = EDG_FCC_dynamic_court
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = print_culture
+					}
+					add_country_modifier = {
+						name = EDG_FCC_print_culture
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = optimism
+					}
+					add_country_modifier = {
+						name = EDG_FCC_optimism
+						duration = -1
+					}
+				}
+				if = {
+					limit = { 
+						has_idea = expanded_policies
+					}
+					add_country_modifier = {
+						name = EDG_FCC_expanded_policies
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+	EDG_FCC_mission_3_15 = { #美轮美奂
+		icon = feast_of_pheasants
+		position = 15
+		provinces_to_highlight = {  
+
+		} 
+		required_missions = {
+			EDG_FCC_mission_2_14
+			EDG_FCC_mission_4_14
+		}
+
+		trigger = {
+			is_at_war = no
+			FRA = {
+				is_at_war = no
+			}
+		}
+		effect = {
+			
+		}
+	}
+}
+EDG_FCC_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = FCC
+			AND = {
+				was_tag = FCC
+				tag = BUR
+			}
+		}
+	} 
+	EDG_FCC_mission_4_3 = { #诉求
+		icon = mission_religious
+		position = 3
+		provinces_to_highlight = {  } 
+		required_missions = {
+			EDG_FCC_mission_3_2
+		}
+
+		trigger = {  
+			calc_true_if = {
+				amount = 2
+				all_country = {
+					NOT = {
+						tag = root
+					}
+					is_subject_of_type = EDG_WEAK_appanage
+					OR = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						liberty_desire = 75
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_4_3.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_stability_or_adm_power = yes
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject_of_type = EDG_WEAK_appanage
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							liberty_desire = 75
+							tag = root
+						}
+					}
+					every_country = {
+						limit = {
+							is_subject_of_type = EDG_WEAK_appanage
+							OR = {
+								has_opinion = {
+									who = root
+									value = 100
+								}
+								liberty_desire = 75
+								tag = root
+							}
+						}
+						add_adm_power = 25
+						add_dip_power = 25
+						add_mil_power = 25
+					}
+					add_liberty_desire = 25
+				}
+			}
+		} 
+	}
+	
+}
+EDG_BUR_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BUR
+	} 
+	EDG_FCC_mission_4_7 = { #全新设备
+		icon = reform_the_monte
+		position = 7
+		provinces_to_highlight = {  
+			province_id = 4392
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_6
+		}
+
+		trigger = {  
+			OR = {
+				AND = {
+					dip_power = 300
+					adm_power = 300	
+				}
+				crown_land_share = 30
+			}
+			owns = 4392
+		} 
+
+		effect = {  
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_FCC_mission_4_7.treasury.tt
+				first_limit = "
+					dip_power = 300
+					adm_power = 300	
+				"
+				first_effect = "
+					dip_power_cost = 300
+					adm_power_cost = 300
+				"
+				second_custom_tooltip = EDG_SPACE_TT
+				second_limit = "
+					crown_land_share = 30
+				"
+				second_effect = "
+					change_estate_land_share = {
+						estate = all
+						share = 30
+					}
+				"
+			}
+			custom_tooltip = EDG_SPACE_TT
+			4392 = {
+				add_base_tax = 1
+				add_base_production = 2
+				add_base_manpower = 1
+				add_local_autonomy = -50
+				add_province_modifier = {
+					name = EDG_FCC_new_winery
+					duration = -1
+				}
+			}
+		} 
+	}
+	EDG_FCC_mission_4_10 = { #支柱产业
+		icon = mission_se_medicine_wheel
+		position = 10
+		provinces_to_highlight = {  
+			trade_goods = wine
+			NOT = {
+				owned_by = root
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_9
+		}
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				trade_goods = wine
+				base_production = 12
+				has_production_building_trigger = yes
+				value = 3
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_4_10.modifier.tt
+			custom_tooltip = EDG_SPACE_TT
+			every_owned_province = {
+				limit = {
+					trade_goods = wine
+					has_production_building_trigger = yes
+					base_production = 12
+				}
+				add_province_modifier = {
+					name = EDG_FCC_wine_engineering
+					duration = 3650
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_4_10.effect.tt
+		} 
+	}
+	EDG_FCC_mission_4_13 = { #馥郁绵长
+		icon = mission_rb_take_gibraltar
+		position = 13
+		provinces_to_highlight = {  
+
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_12
+		}
+
+		trigger = {  
+			calc_true_if = {
+				amount = 2
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_cabernet_sauvignon
+					has_country_flag = EDG_FCC_build_cabernet_sauvignon_order_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_cinsault
+					has_country_flag = EDG_FCC_build_cinsault_order_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FCC_already_build_order_of_pinot_noir
+					has_country_flag = EDG_FCC_build_pinot_noir_order_flag
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_4_13.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_army_tradition_or_mil_power = { amount = 10 }
+			add_army_professionalism = 0.05
+			hidden_effect = {
+				set_country_flag = EDG_FCC_enable_red_order_flag
+			}	
+		}
+	}
+	EDG_FCC_mission_4_14 = { #...还有香槟！
+		icon = mission_rb_import_potatoes
+		position = 14
+		provinces_to_highlight = {  
+
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_13
+		}
+
+		trigger = {  
+			owns = 186
+			owns = 2753
+			186 = {
+				has_great_project = {
+					type = EDG_Chateau_Champagne
+					tier = 2
+				}
+			}
+			2753 = {
+				OR = {
+					has_great_project = {
+						type = EDG_Nabona_Wine_Farm
+						tier = 2
+					}
+				}
+			}
+			OR = {
+				innovativeness = 20
+				AND = {
+					has_idea_group = innovativeness_ideas
+					has_idea = scientific_revolution
+				}
+			}
+		} 
+
+		effect = {  
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_FCC_mission.innovativeness_ideas.tt
+				first_limit = "
+					has_idea_group = innovativeness_ideas
+					has_idea = scientific_revolution
+				"
+				first_effect = "
+					change_innovativeness = 5
+				"
+				second_custom_tooltip = EDG_FCC_mission.innovativeness.tt
+				second_limit = "
+					NOT = {
+						has_idea_group = innovativeness_ideas
+					}
+					innovativeness = 25
+				"
+				second_effect = "
+					change_innovativeness = -20
+				"
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_4_14.celebration.tt
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_4_14.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = EDG_FCC_celebration_mechanic
+				power_type = EDG_FCC_celebration
+				value = 25
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FCC_mission_4_14_flag
+				set_country_flag = EDG_FCC_can_build_champagne_order_flag
+			}
+		} 
+	}
+}
+EDG_FCC_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = FCC
+			AND = {
+				was_tag = FCC
+				tag = BUR
+			}
+		}
+	} 
+	EDG_FCC_mission_5_1 = { #声名鹊起
+		icon = influence_the_princes
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			prestige = 10
+			diplomatic_reputation = 3
+		} 
+
+		effect = {  
+			every_country = {
+				limit = {
+					is_subject_of_type = EDG_WEAK_appanage
+					NOT = {
+						tag = root
+					}
+				}
+				add_opinion = {
+					who = root
+					modifier = opinion_EDG_FCC_burgundy_alliance
+				}
+				root = {
+					add_opinion = {
+						who = prev
+						modifier = opinion_EDG_FCC_burgundy_alliance
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_prestige_or_monarch_power = { amount = 25 }
+		} 
+	}
+	EDG_FCC_mission_5_4 = { #勃艮第联盟
+		icon = influence_the_princes
+		position = 4
+		provinces_to_highlight = {  } 
+		required_missions = {
+			EDG_FCC_mission_4_3
+			EDG_FCC_mission_5_1
+		}
+
+		trigger = {  
+			calc_true_if = {
+				amount = 4
+				all_country = {
+					NOT = {
+						tag = root
+					}
+					is_subject_of_type = EDG_WEAK_appanage
+					has_opinion = {
+						who = root
+						value = 100
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			every_country = {
+				limit = {
+					is_subject_of_type = EDG_WEAK_appanage
+					NOT = {
+						tag = root
+					}
+				}
+				add_trust = {
+					who = root
+					value = 20
+					mutual = yes
+				}
+				hidden_effect = {
+					set_country_flag = EDG_FCC_alliance_of_burgundy_flag
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_dip_power = 100
+		} 
+	}
+}
+EDG_BUR_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = BUR
+	} 
+	EDG_FCC_mission_5_7 = { #一次修正案
+		icon = the_crown_of_lothair
+		position = 7
+		provinces_to_highlight = {  
+			owned_by = emperor
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_6
+		}
+
+		trigger = {  
+			emperor = {
+				has_opinion = {
+					who = root
+					value = 100
+				}
+			}
+			has_spy_network_in = {
+				who = emperor
+				value = 25
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FCC_mission_5_7.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_FCC_hre_wine_expand_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			set_in_empire = yes
+			bourgogne_area = {
+				set_in_empire = yes
+			}
+			west_burgundy_area = {
+				set_in_empire = yes
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_liberty_desire = 10
+		} 
+	}
+	EDG_FCC_mission_5_9 = { #二次修正案
+		icon = unite_the_realm
+		position = 9
+		provinces_to_highlight = {  
+			owner = {
+				is_subject_of = FRA
+				NOT = {
+					tag = root
+				}
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_3_8
+			EDG_FCC_mission_5_7
+		}
+
+		trigger = {  
+			is_subject_of_type = appanage
+			liberty_desire = 50
+			custom_trigger_tooltip = {
+				tooltip = EDG_FCC_mission_5_9.trigger.tt
+				FRA = {
+					all_subject_country = {
+						OR = {
+							AND = {
+								is_subject_of_type = appanage
+								tag = root
+							}
+							NOT = {
+								is_subject_of_type = appanage
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			define_advisor = {
+				type = diplomat
+				cost_multiplier = 0.75
+				skill = 2
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_years_of_income = 3
+			custom_tooltip = EDG_SPACE_TT
+			add_liberty_desire = -50
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = alsace_area }
+			EDG_add_claim = { area = upper_rhineland_area }
+		} 
+	}
+	EDG_FCC_mission_5_11 = { #三次修正案
+		icon = mam_hormuz_straits
+		position = 11
+		provinces_to_highlight = {  
+			area = alsace_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+		required_missions = {
+			EDG_FCC_mission_5_9
+		}
+
+		trigger = {  
+			alsace_area = {
+				type = all
+				owned_by = root
+			}
+			check_variable = {
+				which = EDG_FCC_num_of_celebration
+				value = 3
+			}
+		} 
+
+		effect = {  
+			add_government_reform = EDG_FCC_alsace_treaty
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = north_german_region }
+			EDG_add_claim = { area = south_german_region }
+		} 
+	}
+	EDG_FCC_mission_5_15 = { #遗世梦境
+		icon = develop_konigsberg
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 4765
+					NOT = {
+						has_great_project = {
+							type = EDG_Chateau_Saukville
+							tier = 3
+						}
+					}
+				}
+				AND = {
+					province_id = 1761
+					NOT = {
+						has_great_project = {
+							type = EDG_Chateau_Mosel
+							tier = 3
+						}
+					}
+				}
+				AND = {
+					province_id = 1876
+					NOT = {
+						has_great_project = {
+							type = EDG_Chateau_Rheingau
+							tier = 3
+						}
+					}
+				}
+				AND = {
+					province_id = 78
+					NOT = {
+						has_great_project = {
+							type = EDG_Chateau_Hessen
+							tier = 3
+						}
+					}
+				}
+				AND = {
+					province_id = 74
+					NOT = {
+						has_great_project = {
+							type = EDG_Chateau_Barden
+							tier = 3
+						}
+					}
+				}
+			}
+		}
+		required_missions = {
+			EDG_FCC_mission_5_11
+			EDG_FCC_mission_4_14
+		}
+		trigger = {
+			4765 = {
+				owned_by = root
+				has_great_project = {
+					type = EDG_Chateau_Saukville
+					tier = 3
+				}
+			}
+			1761 = {
+				owned_by = root
+				has_great_project = {
+					type = EDG_Chateau_Mosel
+					tier = 3
+				}
+			}
+			1876 = {
+				owned_by = root
+				has_great_project = {
+					type = EDG_Chateau_Rheingau
+					tier = 3
+				}
+			}
+			78 = {
+				owned_by = root
+				has_great_project = {
+					type = EDG_Chateau_Hessen
+					tier = 3
+				}
+			}
+			74 = {
+				owned_by = root
+				has_great_project = {
+					type = EDG_Chateau_Barden
+					tier = 3
+				}
+			}
+		}
+		effect = {
+			change_price = {
+				trade_goods = wine
+				key = EDG_FCC_mission_5_15_improve_price
+				value = 0.5
+				duration = 999999
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FCC_mission_5_15.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FCC_mission_5_15_modifier_copy
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							province_id = 4765
+							province_id = 1761
+							province_id = 1876
+							province_id = 78
+							province_id = 74
+						}
+					}
+					add_province_triggered_modifier = EDG_FCC_mission_5_15_modifier
+				}
+			}
+		}
+	}
+}

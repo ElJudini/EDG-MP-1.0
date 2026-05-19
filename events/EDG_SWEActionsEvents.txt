@@ -1,0 +1,409 @@
+namespace = EDG_SWEActionEvents
+
+country_event = {
+	id = EDG_SWEActionEvents.0
+	is_triggered_only = yes
+	title = EDG_SWEActionEvents.0.name
+	desc = EDG_SWEActionEvents.0.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+	
+
+	trigger = {
+		has_government_attribute = EDG_SWE_electing_ability
+		has_government_attribute = has_ruler_election
+		NOT = {
+			has_country_flag = EDG_SWE_had_election_event
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_SWE_had_election_event
+			select_biggest_country_of_scope_type = {
+				limit = "
+					has_regency = no
+					is_free_or_tributary_trigger = yes
+					OR = {
+						has_estate = estate_nobles
+						has_estate = estate_brahmins
+						has_estate = estate_rajput
+					}
+					government = monarchy
+					NOT = { war_with = ROOT }
+					if = {
+						limit = {
+							ROOT = { religion_group = christian }
+						}
+						religion_group = christian
+					}
+				"
+				trigger_scope = "any_neighbor_country"
+				effect_scope = "random_neighbor_country"
+			}
+		}
+	}
+	after = {
+		clr_country_flag = EDG_SWE_had_election_event
+		if = {
+			limit = {
+				has_country_flag = has_internal_election_first
+			}
+			clr_country_flag = has_internal_election_first
+			country_event = {
+				id = 900
+			}
+		}
+	}
+	option = {
+		name = government_events.3.a
+		trigger = {
+			has_regency = no
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		add_legitimacy = 5
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 1000
+				OR = {
+					has_ruler_flag = EDG_SWE_gustaf_I_flag
+					has_ruler_flag = EDG_SWE_gustaf_II_flag
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm = 3 }
+				NOT = { dip = 3 }
+				NOT = { mil = 3 }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						NOT = { adm = 4 }
+						NOT = { dip = 2 }
+						NOT = { mil = 2 }
+					}
+					AND = {
+						NOT = { adm = 2 }
+						NOT = { dip = 4 }
+						NOT = { mil = 2 }
+					}
+					AND = {
+						NOT = { adm = 2 }
+						NOT = { dip = 2 }
+						NOT = { mil = 4 }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = government_events.3.aa
+		trigger = {
+			has_regency = yes
+			has_heir = yes
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		add_heir_claim = 10
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { heir_adm = 3 }
+				NOT = { heir_dip = 3 }
+				NOT = { heir_mil = 3 }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						NOT = { heir_adm = 4 }
+						NOT = { heir_dip = 2 }
+						NOT = { heir_mil = 2 }
+					}
+					AND = {
+						NOT = { heir_adm = 2 }
+						NOT = { heir_dip = 4 }
+						NOT = { heir_mil = 2 }
+					}
+					AND = {
+						NOT = { heir_adm = 2 }
+						NOT = { heir_dip = 2 }
+						NOT = { heir_mil = 4 }
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = government_events.3.b
+		trigger = {
+			has_saved_event_target = selected_biggest_country
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			change_dip = 1
+			max_random_adm = 6
+			max_random_dip = 6
+			max_random_mil = 6
+			dynasty = event_target:selected_biggest_country
+			culture = event_target:selected_biggest_country
+			religion = event_target:selected_biggest_country
+			claim = 80
+		}
+		kill_heir = { allow_new_heir = no }
+		
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.c
+		trigger = {
+			OR = {
+				has_estate = estate_nobles
+				has_estate = estate_maratha
+				has_estate = estate_rajput
+				AND = {
+					has_regency = yes
+					has_heir = no
+				}
+			}
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			change_mil = 1
+			max_random_adm = 6
+			max_random_dip = 6
+			max_random_mil = 6
+			claim = 80
+		}
+		if = {
+			limit = { has_estate = estate_nobles }
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 20
+			}
+		}
+		else_if = {
+			limit = { has_estate = estate_maratha }
+			add_estate_loyalty = {
+				estate = estate_maratha
+				loyalty = 20
+			}
+		}
+		else_if = {
+			limit = { has_estate = estate_rajput }
+			add_estate_loyalty = {
+				estate = estate_rajput
+				loyalty = 20
+			}
+		}
+		kill_heir = { allow_new_heir = no }
+		set_ruler_flag = has_elected_ruler
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.d
+		trigger = {
+			army_size = 30
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			max_random_adm = 3
+			max_random_dip = 6
+			max_random_mil = 6
+			change_dip = 1
+			change_mil = 2
+			claim = 60
+		}
+		add_army_tradition = 10
+		hidden_effect = {
+			convert_ruler_to_general = 50
+		}
+		kill_heir = { allow_new_heir = no }
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.e
+		trigger = {
+			navy_size = 30
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			max_random_adm = 3
+			max_random_dip = 6
+			max_random_mil = 6
+			change_mil = 1
+			change_dip = 2
+			claim = 60
+		}
+		add_navy_tradition = 10
+		convert_ruler_to_admiral = 50
+		kill_heir = { allow_new_heir = no }
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.f
+		trigger = {
+			OR = {
+				has_estate = estate_burghers
+				has_estate = estate_vaisyas
+			}
+			OR = {
+				estate_influence = {
+					influence = 80
+					estate = estate_burghers
+				}
+				estate_influence = {
+					influence = 80
+					estate = estate_vaisyas
+				}
+			}
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			change_adm = 2
+			max_random_mil = 3
+			claim = 75
+		}
+		add_years_of_income = 0.1
+		kill_heir = { allow_new_heir = no }
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.g
+		trigger = {
+			OR = {
+				is_subject = no
+				liberty_desire = 50
+			}
+		}
+		define_ruler = {
+			dynasty = ROOT
+			claim = 100
+		}
+		add_prestige = 10
+		kill_heir = { allow_new_heir = no }
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = government_events.3.h
+		trigger = {
+			is_subject = yes
+			NOT = {
+				liberty_desire = 50
+			}
+		}
+		add_prestige = 10
+		kill_heir = { allow_new_heir = no }
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEActionEvents.1
+	is_triggered_only = yes
+	title = EDG_SWEActionEvents.1.name
+	desc = EDG_SWEActionEvents.1.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_I_already_flag
+	}
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = EDG_SWE_gustaf_I_already_flag
+		}
+	}
+
+	option = {
+		name = EDG_SWEActionEvents.1.aa
+		add_stability = -2
+		remove_country_modifier = EDG_SWE_reform_of_centralization
+		add_country_modifier = {
+			name = EDG_SWE_time_of_chaos
+			duration = -1
+		}
+		random_owned_province = {
+			limit = {
+				is_core = root
+				region = scandinavia_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 5
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = root
+				region = scandinavia_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 3
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = root
+				region = scandinavia_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	id = EDG_SWEActionEvents.2
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		set_country_flag = EDG_SWE_gustaf_I_already_flag
+		set_country_flag = EDG_SWE_gustaf_II_already_flag
+	}
+
+	option = {
+		
+	}
+}

@@ -1,0 +1,3830 @@
+EDG_SWI_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SWI } 
+
+	EDG_SWI_mission_1_1 = {
+		icon = mission_diplomatic_relation
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				owned_by = WUR
+				owned_by = HAB
+			}
+		} 
+
+		trigger = {
+			has_dip_advisor = yes
+			treasury = 100
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					ai = no
+				}
+				country_event = {
+					id = EDG_SWIEvents.1
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_2 = {
+		icon = mission_bridge_the_heresy
+		position = 2
+		required_missions = { EDG_SWI_mission_1_1 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = { 
+			if = {
+				limit = { 
+					OR = {
+						exists = WUR
+						exists = HAB
+					}
+				}
+				OR = {
+					calc_true_if = {
+						all_ally = {
+							has_opinion = {
+								who = root
+								value = 150
+							}
+							if = {
+								limit = { 
+									exists = WUR
+								}
+								is_rival = WUR
+								WUR = {
+									is_rival = prev
+								}
+							}
+							else_if = {
+								limit = { 
+									exists = HAB
+								}
+								is_rival = HAB
+								HAB = {
+									is_rival = prev
+								}
+							}
+						}
+						amount = 1
+					}
+					calc_true_if = {
+						all_ally = {
+							has_opinion = {
+								who = root
+								value = 150
+							}
+						}
+						amount = 3
+					}
+				}
+			}
+			else = {
+				calc_true_if = {
+					all_ally = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					amount = 3
+				}
+				
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_1_2.effect.tt
+			add_country_modifier = {
+				name = EDG_SWI_turn_corner_on_diplomacy
+				duration = 18250
+			}
+			hidden_effect = {
+				every_ally = {
+					add_trust = {
+						who = root
+						value = 15
+					}
+					root = {
+						add_trust = {
+							who = prev
+							value = 15
+						}
+					}
+				}
+			}
+			country_event = {
+				id = SWIActionEvents.16
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_3 = {
+		icon = the_glorious_revolution
+		position = 5
+		required_missions = { EDG_SWI_mission_1_2 } 
+		provinces_to_highlight = {
+			owned_by = HSA
+		} 
+
+		trigger = {
+			OR = {
+				NOT = {
+					exists = HSA
+				}
+				AND = {
+					exists = HSA
+					HSA = {
+						has_opinion = {
+							who = root
+							value = 75
+						}
+					}
+				}
+				is_rival = HSA
+				HSA = {
+					is_rival = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					mission_completed = EDG_SWI_mission_1_2
+					NOT = {
+						OR = {
+							is_rival = HSA
+							HSA = {
+								is_rival = root
+							}
+						}
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							alliance_with = HSA
+						}
+					}
+					create_alliance = HSA
+					HSA = {
+						add_trust = {
+							who = root
+							value = 15
+						}
+					}
+				}
+				if = {
+					limit = { 
+						manpower = 5
+						HSA = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+					custom_tooltip = EDG_SWI_mission_1_3.modifier.tt
+					HSA = {
+						add_manpower = 5
+					}
+					hidden_effect = {
+						set_country_flag = EDG_SWI_mission_1_3_flag
+						HSA = {
+							set_country_flag = EDG_SWI_mission_1_3_flag
+						}
+					}
+				}
+				else = {
+					custom_tooltip = EDG_SWI_mission_1_3.effect.tt
+				}
+			}
+			else_if = {
+				limit = {
+					mission_completed = EDG_SWI_mission_1_2
+					OR = {
+						is_rival = HSA
+						HSA = {
+							is_rival = root
+						}
+					}
+				}
+				add_dip_power = 100
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_1_3.bouns.tt
+			}
+			
+		} 
+	}
+
+	EDG_SWI_mission_1_4 = {
+		icon = mission_noble_council
+		position = 7
+		required_missions = { EDG_SWI_mission_1_3 } 
+		provinces_to_highlight = {
+			owner = {
+				alliance_with = root
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_ally = {
+					has_opinion = {
+						who = root
+						value = 180
+					}
+					trust = {
+						who = root
+						value = 75
+					}
+				}
+				amount = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_1_4.effect.tt
+			add_government_reform = EDG_SWI_freedom_allian
+			if = {
+				limit = { 
+					NOT = {
+						reform_level = 5
+					}
+				}
+				custom_tooltip = EDG_SWI_mission_1_4.modifier.tt
+				add_country_modifier = {
+					name = EDG_SWI_radical_reform
+					duration = 3650
+				}
+			}
+			if = {
+				limit = { 
+					exists = SAR
+					SAR = {
+						OR = {
+							alliance_with = root
+							is_subject_of = root
+						}
+					}
+				}
+				EDG_SWI_create_freedom_allian = {
+					who = SAR
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_1_4.effect_1.tt
+			}
+			if = {
+				limit = { 
+					MLO = {
+						is_subject_of = root
+					}
+				}
+				EDG_SWI_create_swi_state = {
+					who = MLO
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_1_4.effect_2.tt
+			}
+			
+			EDG_add_claim = { area = south_german_region }
+		} 
+	}
+
+	EDG_SWI_mission_1_5 = {
+		icon = fra_appease_the_princes
+		position = 8
+		required_missions = { EDG_SWI_mission_1_4 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					OR = {
+						area = lower_swabia_area
+						area = upper_swabia_area
+						area = upper_bavaria_area
+						area = lower_bavaria_area
+						area = east_bavaria_area
+					}
+				}
+				is_subject = no
+				NOT = {
+					num_of_cities = 4
+				}
+				NOT = {
+					OR = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						has_spy_network_from = {
+							who = root
+							value = 30
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					OR = {
+						area = lower_swabia_area
+						area = upper_swabia_area
+						area = upper_bavaria_area
+						area = lower_bavaria_area
+						area = east_bavaria_area
+					}
+					value = 10
+				}
+				calc_true_if = {
+					all_country = {
+						capital_scope = {
+							OR = {
+								area = lower_swabia_area
+								area = upper_swabia_area
+								area = upper_bavaria_area
+								area = lower_bavaria_area
+								area = east_bavaria_area
+							}
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						is_subject = no
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+					}
+					amount = 4
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						OR = {
+							area = lower_swabia_area
+							area = upper_swabia_area
+							area = upper_bavaria_area
+							area = lower_bavaria_area
+							area = east_bavaria_area
+						}
+						value = 10
+					}
+				}
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_1_5.effect.tt
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+				hidden_effect = {
+					every_country = {
+						limit = {
+							capital_scope = {
+								OR = {
+									area = lower_swabia_area
+									area = upper_swabia_area
+									area = upper_bavaria_area
+									area = lower_bavaria_area
+									area = east_bavaria_area
+								}
+							}
+							NOT = {
+								num_of_cities = 4
+							}
+							is_subject = no
+							OR = {
+								has_opinion = {
+									who = root
+									value = 100
+								}
+								has_spy_network_from = {
+									who = root
+									value = 30
+								}
+							}
+						}
+						root = {
+							EDG_SWI_create_freedom_allian = {
+								who = prev
+							}
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_SWI_storm_coming
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_6 = {
+		icon = mission_steer_trade_to_bengal
+		position = 9
+		required_missions = { EDG_SWI_mission_1_5 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					region = south_german_region
+				}
+				NOT = {
+					OR = {
+						AND = {
+							NOT = {
+								num_of_cities = 4
+							}
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 180
+							}
+						}
+						is_subject_of_type = EDG_SWI_free_alliance
+						is_subject_of_type = EDG_SWI_swi_state
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					capital_scope = {
+						region = south_german_region
+					}
+					OR = {
+						AND = {
+							NOT = {
+								num_of_cities = 4
+							}
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 180
+							}
+						}
+						is_subject_of_type = EDG_SWI_free_alliance
+						is_subject_of_type = EDG_SWI_swi_state
+					}
+				}
+				amount = 10
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_1_6.effect.tt
+			add_country_modifier = {
+				name = EDG_SWI_expand_influence
+				duration = 18250
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							region = south_german_region
+						}
+						OR = {
+							AND = {
+								NOT = {
+									num_of_cities = 4
+								}
+								alliance_with = root
+								has_opinion = {
+									who = root
+									value = 180
+								}
+							}
+							is_subject_of_type = EDG_SWI_free_alliance
+						}
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = EDG_SWI_eden_dream_mechanic
+							power_type = EDG_SWI_eden_dream
+							value = 2
+						}
+					}
+				}
+			}
+			
+		} 
+	}
+
+	EDG_SWI_mission_1_7 = {
+		icon = mission_colonize_alaska
+		position = 11
+		required_missions = { EDG_SWI_mission_1_6 } 
+		provinces_to_highlight = {
+			province_id = 134
+		} 
+
+		trigger = {
+			stability = 1
+			OR = {
+				owns = 134
+				AND = {
+					134 = {
+						controlled_by = root
+						owner = {
+							war_with = root
+							root = {
+								war_score_against = {
+									who = prev
+									value = 80
+								}
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					134 = {
+						NOT = {
+							owned_by = root
+						}
+					}
+				}
+				if = {
+					limit = { 
+						73 = {
+							owner = {
+								war_with = root
+							}
+						}
+					}
+					73 = {
+						cede_province = root
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.5
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_SWI_south_germany
+					duration = 18250
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_8 = {
+		icon = sway_the_pope
+		position = 12
+		provinces_to_highlight = {
+			owned_by = PAP
+		} 
+
+		trigger = {
+			PAP = {
+				has_opinion = {
+					who = root
+					value = 120
+				}
+			}
+			papal_influence = 15
+			has_estate_privilege = estate_church_religious_diplomats
+		} 
+
+		effect = {
+			PAP = {
+				add_historical_friend = root
+			}
+			add_historical_friend = PAP
+			random_owned_province = {
+				limit = {
+					has_cardinal = no
+				}
+				add_cardinal = yes
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_9 = {
+		icon = mission_sell_indulgences
+		position = 13
+		required_missions = { EDG_SWI_mission_1_8 } 
+		provinces_to_highlight = {
+			owned_by = PAP
+		} 
+
+		trigger = {
+			PAP = {
+				has_opinion = {
+					who = root
+					value = 190
+				}
+			}
+			OR = {
+				is_in_war = {
+					defenders = root
+					defenders = PAP
+				}
+				is_in_war = {
+					attackers = PAP
+					attackers = root
+				}
+			}
+		} 
+
+		effect = {
+			add_papal_influence = 50
+			add_country_modifier = {
+				name = EDG_SWI_roma_definer
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_10 = {
+		icon = mission_have_two_subjects
+		position = 15
+		required_missions = { EDG_SWI_mission_1_9 } 
+		provinces_to_highlight = {
+			province_id = 1871
+			NOT = {
+				development = 10
+			}
+		} 
+
+		trigger = {
+			1871 = {
+				development = 10
+			}
+			PAP = {
+				trust = {
+					who = root
+					value = 75
+				}
+			}
+		} 
+
+		effect = {
+			add_papal_influence = 25
+			country_event = {
+				id = SWIActionEvents.4
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_11 = {
+		icon = mission_rb_monopolize_the_channel
+		position = 17
+		required_missions = { EDG_SWI_mission_1_10 } 
+		provinces_to_highlight = {
+			OR = {
+				area = provence_area
+				area = savoy_dauphine_area
+			}
+			NOT = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			PAP = {
+				alliance_with = root
+				trust = {
+					who = root
+					value = 90
+				}
+			}
+			savoy_dauphine_area = {
+				type = all
+				country_or_subject_holds = root
+				religion = root
+			}
+			provence_area = {
+				type = all
+				country_or_subject_holds = root
+				religion = root
+			}
+			treasury = 500
+		} 
+
+		effect = {
+			add_treasury = -500
+			add_country_modifier = {
+				name = EDG_SWI_beloved_kingdom_of_god
+				duration = -1
+			}
+			203 = {
+				set_great_project_tier_2 = {
+					type = EDG_Primatiale_St-Jean
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_12 = {
+		icon = religious_resolution
+		position = 19
+		required_missions = { EDG_SWI_mission_1_11 } 
+		provinces_to_highlight = {
+			country_or_subject_holds = root
+			NOT = {
+				has_tax_building_trigger = yes
+			}
+		} 
+
+		trigger = {
+			is_papal_controller = yes
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_tax_building_trigger = yes
+				value = 12
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_1_12.effect.tt
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_tax_building_trigger = yes
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = EDG_SWI_eden_dream_mechanic
+							power_type = EDG_SWI_eden_dream
+							value = 2
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_13 = {
+		icon = mission_religious
+		position = 21
+		required_missions = { EDG_SWI_mission_1_12 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = PAP
+				AND = {
+					province_id = 104
+					NOT = {
+						country_or_subject_holds = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			total_development = 300
+			is_papal_controller = yes
+			current_age = age_of_reformation
+			PAP = {
+				trust = {
+					who = root
+					value = 100
+				}
+			}
+			104 = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_SWIEvents.12
+			}
+		} 
+	}
+
+	EDG_SWI_mission_1_14 = {
+		icon = the_holy_league
+		position = 22
+		required_missions = { EDG_SWI_mission_1_13 } 
+		provinces_to_highlight = {
+			NOT = {
+				religion = root
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					religion = root
+				}
+				amount = 1000
+			}
+			check_variable = {
+				which = EDG_num_grand_crusade
+				value = 1
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_holy_land
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SWI_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SWI } 
+
+	EDG_SWI_mission_2_2 = {
+		icon = mission_conquer_gujarat_dlh
+		position = 2
+		required_missions = {
+			EDG_SWI_mission_1_1
+			EDG_SWI_mission_3_1
+		}
+		provinces_to_highlight = {
+			area = switzerland_area
+			NOT = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			OR = {
+				NOT = {
+					exists = TTL
+				}
+				overlord_of = TTL
+			}
+			switzerland_area = {
+				type = all
+				country_or_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_2_2.effect.tt
+			switzerland_area = {
+				limit = {
+					country_or_subject_holds = root
+				}
+				add_core = root
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+			
+			EDG_remove_core_effect = {
+				owner = SWI
+				limit = "
+					area = switzerland_area
+				"
+			}
+			if = {
+				limit = { 
+					NOT = {
+						exists = TIR
+					}
+					NOT = {
+						owns = 1768
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.2
+				}
+			}
+			EDG_add_claim = { area = tirol_area }
+			hidden_effect = {
+				country_event = {
+					id = EDG_SWIEvents.3
+					days = 90
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_3 = {
+		icon = mission_grand_bengali_shipyards
+		position = 4
+		required_missions = { 
+			EDG_SWI_mission_2_2 
+			EDG_SWI_mission_3_2
+		} 
+		provinces_to_highlight = {
+			owned_by = SAR
+		} 
+
+		trigger = {
+			any_owned_province = {
+				has_port = yes
+			}
+			OR = {
+				AND = {
+					exists = SAR
+				}
+			}
+			if = {
+				limit = { 
+					exists = SAR
+				}
+				SAR = {
+					OR = {
+						has_opinion_modifier = {
+							who = root
+							modifier = sent_gift
+						}
+						has_opinion = {
+							who = root
+							value = 75
+						}
+						is_subject_of = root
+					}
+				}
+			}
+			else = {
+				corsica_sardinia_area = {
+					type = all
+					country_or_subject_holds = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = SAR
+				}
+				if = {
+					limit = { 
+						overlord_of = SAR
+					}
+					SAR = {
+						add_liberty_desire = -100
+					}
+					add_dip_power = 100
+					add_manpower = 5
+				}
+				else = {
+					if = {
+						limit = { 
+							NOT = {
+								alliance_with = SAR
+							}
+						}
+						create_alliance = SAR
+						add_trust = {
+							who = SAR
+							value = 15
+						}
+						SAR = {
+							add_trust = {
+								who = root
+								value = 15
+							}
+						}
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			add_country_modifier = {
+				name = EDG_SWI_give_helping
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_4 = {
+		icon = mission_rb_control_the_hansa
+		position = 6
+		required_missions = {
+			EDG_SWI_mission_1_3
+		}
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			total_own_and_non_tributary_subject_development = 200
+			army_size = 30
+			OR = {
+				has_idea_group = diplomatic_ideas
+				has_idea_group = spy_ideas
+			}
+			emperor = {
+				OR = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+					has_opinion_modifier = {
+						who = root
+						modifier = insulted
+					}
+					has_opinion_modifier = {
+						who = root
+						modifier = scornfully_insulted
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					mission_completed = EDG_SWI_mission_1_3
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				add_dip_power = 150
+				add_country_modifier = {
+					name = EDG_SWI_amity_policy
+					duration = 7300
+				}
+			}
+			else_if = {
+				limit = { 
+					mission_completed = EDG_SWI_mission_1_3
+					OR = {
+						has_opinion_modifier = {
+							who = root
+							modifier = insulted
+						}
+						has_opinion_modifier = {
+							who = root
+							modifier = scornfully_insulted
+						}
+					}
+				}
+				add_country_modifier = {
+					name = EDG_SWI_military_policy
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_2_4.modifier.tt
+			}
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 30
+			}
+			EDG_add_claim = { area = north_german_region }
+		} 
+	}
+
+	EDG_SWI_mission_2_5 = {
+		icon = mission_marines
+		position = 8
+		required_missions = { EDG_SWI_mission_2_4 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					region = north_german_region
+				}
+				NOT = {
+					num_of_cities = 4
+				}
+				NOT = {
+					OR = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						alliance_with = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = north_german_region
+					value = 10
+				}
+				calc_true_if = {
+					all_country = {
+						capital_scope = {
+							region = north_german_region
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+						alliance_with = root
+						is_subject = no
+					}
+					amount = 3
+				}
+			}
+			
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_2_5.effec.tt
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+			hidden_effect = {
+				random_country = {
+					limit = {
+						capital_scope = {
+							region = north_german_region
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+						alliance_with = root
+						is_subject = no
+					}
+					root = {
+						EDG_SWI_create_freedom_allian = {
+							who = prev
+						}
+					}
+				}
+				random_country = {
+					limit = {
+						capital_scope = {
+							region = north_german_region
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+						alliance_with = root
+						is_subject = no
+					}
+					root = {
+						EDG_SWI_create_freedom_allian = {
+							who = prev
+						}
+					}
+				}
+				random_country = {
+					limit = {
+						capital_scope = {
+							region = north_german_region
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+						alliance_with = root
+						is_subject = no
+					}
+					root = {
+						EDG_SWI_create_freedom_allian = {
+							who = prev
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_6 = {
+		icon = mission_italian_condottiere
+		position = 10
+		required_missions = { EDG_SWI_mission_2_5 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					region = north_german_region
+				}
+				NOT = {
+					OR = {
+						AND = {
+							NOT = {
+								num_of_cities = 4
+							}
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 180
+							}
+						}
+						is_subject_of_type = EDG_SWI_free_alliance
+						is_subject_of_type = EDG_SWI_swi_state
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					capital_scope = {
+						region = north_german_region
+					}
+					OR = {
+						AND = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 180
+							}
+						}
+						is_subject_of_type = EDG_SWI_free_alliance
+						is_subject_of_type = EDG_SWI_swi_state
+					}
+				}
+				amount = 8
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_free_north
+				duration = 7300
+			}
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_7 = {
+		icon = mission_consulate_of_the_sea
+		position = 11
+		required_missions = { EDG_SWI_mission_2_6 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			prestige = 80
+			republican_tradition = 95
+			OR = {
+				total_own_and_non_tributary_subject_development = 300
+				calc_true_if = {
+					all_subject_country = {
+						OR = {
+							is_subject_of_type = EDG_SWI_free_alliance
+							is_subject_of_type = EDG_SWI_swi_state
+						}
+					}
+					amount = 5
+				}
+			}
+			OR = {
+				dip = 6
+				monthly_dip = 12
+			}
+			has_dip_advisor_3 = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_2_7.effect.tt
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 50
+			}
+			add_prestige_or_monarch_power = {
+				amount = 100
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_2_7_flag
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_8 = {
+		icon = subiaco_press
+		position = 13
+		required_missions = { EDG_SWI_mission_1_8 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				has_tax_building_trigger = yes
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_tax_building_trigger = yes
+				value = 4
+			}
+			has_estate_privilege = estate_church_influence_temples
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 50
+			}
+		} 
+
+		effect = {
+			PAP = {
+				add_trust = {
+					who = root
+					value = 15
+				}
+				add_favors = {
+					who = root
+					amount = 15
+				}
+			}
+			add_country_modifier = {
+				name = EDG_SWI_anti_cathari
+				duration = 18250
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_9 = {
+		icon = mission_conquer_maharashtra
+		position = 14
+		required_missions = { EDG_SWI_mission_2_8 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					exists = AEL
+					is_in_war = {
+						attacker_leader = root
+						defender_leader = AEL
+						war_score = 90
+					}
+				}
+				AND = {
+					NOT = {
+						exists = AEL
+					}
+					201 = {
+						country_or_subject_holds = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_SWIEvents.10
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_10 = {
+		icon = mission_rb_weather_the_reformation
+		position = 16
+		required_missions = { EDG_SWI_mission_2_9 } 
+		provinces_to_highlight = {
+			owned_by = PAP
+		} 
+
+		trigger = {
+			PAP = {
+				has_opinion = {
+					who = root
+					value = 200
+				}
+				trust = {
+					who = root
+					value = 100
+				}
+			}
+			invested_papal_influence = 50
+		} 
+
+		effect = {
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_2_10_flag
+			}
+			country_event = {
+				id = EDG_SWIEvents.11
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_11 = {
+		icon = mission_hands_praying
+		position = 18
+		required_missions = {
+			EDG_SWI_mission_3_11
+			EDG_SWI_mission_1_11
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			estate_influence = {
+				estate = estate_church
+				influence = 60
+			}
+			all_owned_province = {
+				has_tax_building_trigger = yes
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_2_11.effect.tt
+			hidden_effect = {
+				set_country_flag = enable_holy_orders_flag
+				every_owned_province = {
+					limit = {
+						has_tax_building_trigger = yes
+					}
+					root = {
+						add_papal_influence = 5
+					}
+				}
+			}
+			add_papal_influence = 25
+		} 
+	}
+
+	EDG_SWI_mission_2_12 = {
+		icon = the_london_steelyard
+		position = 20
+		required_missions = {
+			EDG_SWI_mission_3_12
+			EDG_SWI_mission_1_12
+		}
+		provinces_to_highlight = { } 
+
+		trigger = {
+			full_idea_group = humanist_ideas
+			4720 = {
+				owned_by = root
+				religion = root
+				num_of_buildings_in_province = 6
+			}
+		} 
+
+		effect = {
+			4720 = {
+				add_province_modifier = {
+					name = EDG_SWI_geneva_seminary
+					duration = -1
+				}
+				add_building = university
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+				
+			}
+		} 
+	}
+
+	EDG_SWI_mission_2_13 = {
+		icon = mission_rb_trinity_college_dublin
+		position = 22
+		required_missions = {
+			EDG_SWI_mission_3_13
+			EDG_SWI_mission_1_13
+		}
+		provinces_to_highlight = {
+			owner = {
+				NOT = {
+					government = republic
+				}
+			}
+		} 
+
+		trigger = {
+			total_own_and_non_tributary_subject_development = 1000
+			calc_true_if = {
+				all_country = {
+					government = republic
+				}
+				amount = 25
+			}
+			innovativeness = 50
+		} 
+
+		effect = {
+			custom_tooltip = pol_if_used_ge_rest_else_30_years_extension_tt 
+			if = {
+				limit = { has_had_golden_age = yes } 
+				reset_golden_age = yes 
+			}
+			else_if = {
+				limit = { in_golden_age = yes } 
+				extend_golden_age = 600
+			}
+			add_country_modifier = {
+				name = EDG_SWI_god_and_rational_spirit
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SWI_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SWI } 
+
+	EDG_SWI_mission_3_1 = {
+		icon = mission_monarch_in_throne_room
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 1
+			army_size_percentage = 0.9
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_SWIEvents.0
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_2 = {
+		icon = mission_battle_of_varna
+		position = 3
+		required_missions = { EDG_SWI_mission_3_1 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = AEL
+				owner = {
+					is_subject_of = AEL
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				war_with = AEL
+				NOT = {
+					exists = AEL
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = AEL
+				}
+				custom_tooltip = EDG_SWI_mission_3_2.effect.tt
+				add_country_modifier = {
+					name = EDG_SWI_across_lyon_narbonne_line
+					duration = 1825
+				}
+				
+				hidden_effect = {
+					every_province = {
+						limit = {
+							NOT = {
+								owned_by = root
+							}
+							controlled_by = root
+						}
+						root = {
+							add_dip_power = 10
+							add_treasury = 10
+						}
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			EDG_add_claim = { area = provence_area }
+			EDG_add_claim = { area = languedoc_area }
+			EDG_add_claim = { area = po_valley_area }
+		} 
+	}
+
+	EDG_SWI_mission_3_3 = {
+		icon = mission_impaled_soldies
+		position = 5
+		required_missions = { EDG_SWI_mission_3_2 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = piedmont_area
+					NOT = {
+						country_or_subject_holds = root
+					}
+				}
+				AND = {
+					province_id = 103
+					NOT = {
+						is_core = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			103 = {
+				religion = root
+				owned_by = root
+				is_core = root
+				infantry_in_province = 10
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_trial_of_turin
+				duration = 9125
+			}
+			piedmont_area = {
+				add_core = root
+			}
+			103 = {
+				add_reform_center = catholic
+				set_great_project_tier_2 = {
+					type = EDG_Duomo_di_Torino
+				}
+			}
+			if = {
+				limit = {
+					exists = GEN
+				}
+				add_casus_belli = {
+					type = cb_vassalize_mission
+					target = GEN
+					months = 240
+				}
+			}
+			EDG_add_claim = { area = liguria_area }
+			EDG_add_claim = { area = corsica_sardinia_area }
+		} 
+	}
+
+	EDG_SWI_mission_3_4 = {
+		icon = mission_growth_of_golcond
+		position = 7
+		required_missions = {  } 
+		provinces_to_highlight = {
+			owned_by = MLO
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					exists = MLO
+				}
+				MLO = {
+					OR = {
+						is_subject_of = root
+						AND = {
+							has_spy_network_from = {
+								who = root
+								value = 50
+							}
+							has_disaster = ambrosian_republic_disaster
+						}
+						custom_trigger_tooltip = {
+							tooltip = EDG_SWI_mission_3_4.condition.tt
+							has_country_flag = EDG_MLO_disasters_1_event_flag
+						}
+					}
+				}
+			}
+			else = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = italy_region
+					value = 6
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_4.effect.tt
+			if = {
+				limit = { 
+					exists = MLO
+					NOT = {
+						is_subject_of = root
+					}
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_vassalize_mission
+					who = MLO
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_3_4_flag
+			}
+			EDG_add_claim = { area = lombardy_area }
+			EDG_add_claim = { area = po_valley_area }
+		} 
+	}
+
+	EDG_SWI_mission_3_5 = {
+		icon = negotiate_for_avignon
+		position = 8
+		required_missions = { EDG_SWI_mission_3_4 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					OR = {
+						area = emilia_romagna_area
+						area = tuscany_area
+					}
+				}
+				NOT = {
+					OR = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						has_spy_network_from = {
+							who = root
+							value = 30
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			has_reform = EDG_SWI_freedom_allian
+			if = {
+				limit = { 
+					exists = GEN
+				}
+				OR = {
+					NOT = {
+						exists = GEN
+					}
+					overlord_of = GEN
+					GEN = {
+						has_opinion = {
+							who = root
+							value = 125
+						}
+						NOT = {
+							army_size = root
+						}
+					}
+				}
+			}
+			else = {
+				101 = {
+					country_or_subject_holds = root
+				}
+			}
+			if = {
+				limit = { 
+					exists = LAN
+				}
+				OR = {
+					NOT = {
+						exists = LAN
+					}
+					overlord_of = LAN
+					LAN = {
+						has_opinion = {
+							who = root
+							value = 125
+						}
+						NOT = {
+							army_size = root
+						}
+					}
+				}
+			}
+			else = {
+				101 = {
+					country_or_subject_holds = root
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_SWI_mission_3_5.condition_1.tt
+				all_country = {
+					OR = {
+						AND = {
+							capital_scope = {
+								area = emilia_romagna_area
+							}
+							OR = {
+								has_opinion = {
+									who = root
+									value = 100
+								}
+								has_spy_network_from = {
+									who = root
+									value = 30
+								}
+							}
+						}
+						capital_scope = {
+							NOT = {
+								area = emilia_romagna_area
+							}
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_SWI_mission_3_5.condition_2.tt
+				all_country = {
+					OR = {
+						AND = {
+							capital_scope = {
+								area = tuscany_area
+							}
+							OR = {
+								has_opinion = {
+									who = root
+									value = 100
+								}
+								has_spy_network_from = {
+									who = root
+									value = 30
+								}
+							}
+						}
+						capital_scope = {
+							NOT = {
+								area = tuscany_area
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_5.effect.tt
+			set_government_rank = 2
+			if = {
+				limit = { 
+					GEN = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.4
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								area = emilia_romagna_area
+								area = tuscany_area
+							}
+						}
+						NOT = {
+							num_of_cities = 4
+						}
+						is_subject = no
+						OR = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_spy_network_from = {
+								who = root
+								value = 30
+							}
+						}
+					}
+					root = {
+						EDG_SWI_create_freedom_allian = {
+							who = prev
+						}
+					}
+				}
+			}
+			EDG_add_claim = { area = venetia_area }
+			EDG_add_claim = { area = emilia_romagna_area }
+			EDG_add_claim = { area = tuscany_area }
+			if = {
+				limit = { 
+					exists = VEN
+				}
+				add_casus_belli = {
+					type = cb_vassalize_mission
+					target = VEN
+					months = 240
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_6 = {
+		icon = mission_ottoman_early_army
+		position = 10
+		required_missions = { EDG_SWI_mission_3_5 } 
+		provinces_to_highlight = {
+			owned_by = VEN
+		} 
+
+		trigger = {
+			has_reform = EDG_SWI_freedom_allian
+			OR = {
+				AND = {
+					overlord_of = VEN
+					112 = {
+						country_or_subject_holds = root
+					}
+				}
+				venetia_area = {
+					type = all
+					country_or_subject_holds = root
+				}
+				AND = {
+					exists = VEN
+					VEN = {
+						is_subject = no
+						government = monarchy
+					}
+					is_in_war = {
+						attacker_leader = root
+						defender_leader = VEN
+						war_score = 90
+					}
+				}
+				AND = {
+					exists = VEN
+					VEN = {
+						is_subject = no
+						government = republic
+						has_opinion = {
+							who = root
+							value = 190
+						}
+						trust = {
+							who = root
+							value = 85
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = VEN
+					VEN = {
+						is_subject = no
+						is_subject = no
+						government = republic
+						has_opinion = {
+							who = root
+							value = 190
+						}
+						trust = {
+							who = root
+							value = 85
+						}
+					}
+				}
+				EDG_SWI_create_freedom_allian = {
+					who = VEN
+				}
+			}
+			else_if = {
+				limit = {
+					exists = VEN
+					VEN = {
+						is_subject = no
+						government = monarchy
+					}
+					is_in_war = {
+						attacker_leader = root
+						defender_leader = VEN
+						war_score = 90
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.6
+				}
+			}
+			else_if = {
+				limit = { 
+					overlord_of = VEN
+				}
+				if = {
+					limit = { 
+						VEN = {
+							NOT = {
+								is_subject_of_type = EDG_SWI_free_alliance
+							}
+						}
+					}
+					EDG_SWI_create_freedom_allian = {
+						who = VEN
+					}
+				}
+				VEN = {
+					add_liberty_desire = -100
+				}
+			}
+			else = {
+				112 = {
+					owner = {
+						release = VEN
+					}
+				}
+				EDG_SWI_create_freedom_allian = {
+					who = VEN
+				}
+			}
+			EDG_add_claim = { area = italy_region }
+		} 
+	}
+
+	EDG_SWI_mission_3_7 = {
+		icon = interfere_in_germany
+		position = 11
+		required_missions = { 
+			EDG_SWI_mission_2_6
+			EDG_SWI_mission_3_6
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			prestige = 95
+			stability = 3
+			monthly_dip = 12
+			calc_true_if = {
+				all_ally = {
+					has_opinion = {
+						who = root
+						value = 190
+					}
+					trust = {
+						who = root
+						value = 90
+					}
+				}
+				amount = 6
+			}
+			calc_true_if = {
+				all_subject_country = {
+					is_subject_of_type = EDG_SWI_free_alliance
+				}
+				amount = 12
+			}
+			all_owned_province = {
+				OR = {
+					has_province_modifier = EDG_SWI_england_province_modifier_2
+					has_province_modifier = EDG_SWI_england_province_modifier_3
+					has_province_modifier = EDG_SWI_england_province_modifier_4
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_7.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_3_7_flag
+			}
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 50
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_8 = {
+		icon = mission_colonial
+		position = 12
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+		} 
+
+		effect = {
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			add_country_modifier = {
+				name = EDG_SWI_things_wait_to_be_done
+				duration = 9125
+			}
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_mountain_expansion
+			}
+			country_event = {
+				id = SWIActionEvents.20
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_9 = {
+		icon = mission_rice_field
+		position = 13
+		required_missions = { EDG_SWI_mission_3_8 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			estate_loyalty = {
+				estate = all
+				loyalty = 50
+			}
+			stability = 1
+			army_size_percentage = 1
+			land_maintenance = 1
+		} 
+
+		effect = {
+			capital_scope = {
+				spawn_rebels = {
+					type = noble_rebels
+					size = 5
+				}
+			}
+			change_estate_land_share = {
+				estate = all
+				share = -10
+			}
+			add_estate_influence_modifier = {
+				estate = all
+				influence = -10
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_10 = {
+		icon = mission_junnagadh_fort
+		position = 15
+		required_missions = { EDG_SWI_mission_3_9 } 
+		provinces_to_highlight = {
+			owned_by = root
+			trade_goods = livestock
+			OR = {
+				has_terrain = hills
+				has_terrain = mountain
+			}
+			NOT = {
+				AND = {
+					has_production_building_trigger = yes
+					development = 10
+				}
+			}
+		} 
+
+		trigger = {
+			owns = 1869
+			num_of_owned_provinces_with = {
+				OR = {
+					has_terrain = hills
+					has_terrain = mountain
+				}
+				trade_goods = livestock
+				has_production_building_trigger = yes
+				development = 10
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_10.effect.tt
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_SWI_alpine_pasture
+					duration = -1
+				}
+			}
+			1869 = {
+				change_trade_goods = livestock
+				if = {
+					limit = { 
+						NOT = {
+							has_building = farm_estate
+						}
+					}
+					add_building = farm_estate
+				}
+				else = {
+					add_base_production = 3
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_terrain = hills
+							has_terrain = mountain
+						}
+						trade_goods = livestock
+					}
+					add_province_modifier = {
+						name = EDG_SWI_alpine_pasture
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_11 = {
+		icon = mission_se_medicine_wheel
+		position = 17
+		required_missions = { EDG_SWI_mission_3_10 } 
+		provinces_to_highlight = {
+			country_or_subject_holds = root
+			
+			trade_goods = cloth
+			NOT = {
+				AND = {
+					has_production_building_trigger = yes
+					development = 15
+				}
+			}
+		} 
+
+		trigger = {
+			104 = {
+				has_production_building_trigger = yes
+				development = 15
+				country_or_subject_holds = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = cloth
+				has_production_building_trigger = yes
+				development = 15
+				value = 3
+			}
+			treasury = 500
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_11.effect.tt
+			104 = {
+				add_province_modifier = {
+					name = EDG_SWI_develop_textile_industry
+					duration = -1
+				}
+				hidden_effect = {
+					add_building = textile
+				}
+			}
+
+			hidden_effect = {
+				every_province = {
+					limit = {
+						NOT = {
+							province_id = 104
+						}
+						trade_goods = cloth
+						has_production_building_trigger = yes
+						development = 15
+						country_or_subject_holds = root
+					}
+					add_building = textile
+					add_province_modifier = {
+						name = EDG_SWI_develop_textile_industry
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_12 = {
+		icon = austria_prospers
+		position = 19
+		required_missions = { EDG_SWI_mission_3_11 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				has_building = courthouse
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_building = courthouse
+				development = 16
+				value = 5
+			}
+			treasury = 500
+			manpower = 10
+		} 
+
+		effect = {
+			add_treasury = -500
+			add_manpower = -10
+			add_country_modifier = {
+				name = EDG_SWI_nationalized_transformation
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_13 = {
+		icon = mission_conquer_orissa_dlh
+		position = 21
+		required_missions = { EDG_SWI_mission_3_12 } 
+		provinces_to_highlight = {
+			owned_by = root
+		} 
+
+		trigger = {
+			full_idea_group = economic_ideas
+			monthly_income = 300
+			num_of_owned_provinces_with = {
+				has_trade_building_trigger = yes
+				province_has_center_of_trade_of_level = 3
+				value = 3
+			}
+			mercantilism = 50
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_13.effect.tt
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 50
+			}
+			add_country_modifier = {
+				name = EDG_SWI_swiss_ministry_of_industry
+				duration = -1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					add_base_production = 1
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_3_14 = {
+		icon = mission_asian_trader
+		position = 22
+		required_missions = { EDG_SWI_mission_3_13 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_subject_country = {
+					OR = {
+						is_subject_of_type = EDG_SWI_free_alliance
+						is_subject_of_type = EDG_SWI_swi_state
+					}
+					capital_scope = {
+						has_trade_building_trigger = yes
+					}
+				}
+				amount = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_3_14.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_3_14_flag
+			}
+			add_country_modifier = {
+				name = EDG_SWI_economic_integration
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SWI_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SWI } 
+
+	EDG_SWI_mission_4_2 = {
+		icon = mission_develop_the_scandes
+		position = 2
+		required_missions = {
+			EDG_SWI_mission_3_1
+			EDG_SWI_mission_5_1
+		}
+		provinces_to_highlight = {
+			area = tirol_area
+			NOT = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		trigger = { 
+			4758 = {
+				country_or_subject_holds = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = tirol_area
+				value = 3
+			}
+			OR = {
+				NOT = {
+					exists = TIR
+				}
+				overlord_of = TIR
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_2.effect.tt
+			if = {
+				limit = { 
+					overlord_of = TIR
+				}
+				TIR = {
+					add_liberty_desire = -100
+				}
+			}
+			else = {
+				4758 = {
+					owner = {
+						release = TIR
+					}
+				}
+				create_subject = {
+					subject_type = vassal
+					subject = TIR
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = tirol_area
+					}
+					cede_province = TIR
+					add_core = TIR
+				}
+			}
+			tirol_area = {
+				add_core = TIR
+			}
+			country_event = {
+				id = SWIActionEvents.0
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_3 = {
+		icon = mission_chinese_general_riding
+		position = 4
+		required_missions = { 
+			EDG_SWI_mission_4_2 
+			EDG_SWI_mission_3_2
+		} 
+		provinces_to_highlight = {
+			area = po_valley_area
+			NOT = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			treasury = 500
+			po_valley_area = {
+				type = all
+				country_or_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_3.effect.tt
+			po_valley_area = {
+				change_trade_goods = grain
+				add_devotion = -50
+				add_province_modifier = {
+					name = EDG_SWI_billowing_wheat_fields
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						area = po_valley_area
+						country_or_subject_holds = root
+						has_production_building_trigger = yes
+						NOT = {
+							has_building = farm_estate
+						}
+					}
+					add_building = farm_estate
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_5 = {
+		icon = mission_marienburg
+		position = 6
+		required_missions = { EDG_SWI_mission_5_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			has_terrain = mountain
+			NOT = {
+				AND = {
+					has_fort_building_trigger = yes
+					base_manpower = 5
+				}
+			}
+		} 
+
+		trigger = {
+			treasury = 200
+			num_of_owned_provinces_with = {
+				has_fort_building_trigger = yes
+				has_terrain = mountain
+				base_manpower = 5
+				value = 2
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_5.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_fort_building_trigger = yes
+						has_terrain = mountain
+						base_manpower = 5
+					}
+					add_province_modifier = {
+						name = EDG_SWI_expand_alpine_defence
+						duration = -1
+					}
+				}
+			}
+			add_government_reform = EDG_SWI_son_of_alps
+		} 
+	}
+
+	EDG_SWI_mission_4_6 = {
+		icon = mission_early_modern_university
+		position = 8
+		required_missions = { EDG_SWI_mission_4_5 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 4720
+					NOT = {
+						has_manpower_building_trigger = yes
+					}
+				}
+				AND = {
+					owned_by = root
+					NOT = {
+						has_manpower_building_trigger = yes
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			4720 = {
+				owned_by = root
+				has_manpower_building_trigger = yes
+			}
+			has_completed_idea_group_of_category = {
+				mil_ideas = yes
+			}
+			num_of_owned_provinces_with = {
+				has_manpower_building_trigger = yes
+				value = 6
+			}
+			mil_power_cost = 300
+		} 
+
+		effect = {
+			mil_power_cost = 300
+			add_country_modifier = {
+				name = EDG_SWI_geneva_military_academy
+				duration = -1
+			}
+			
+		} 
+	}
+
+	EDG_SWI_mission_4_7 = {
+		icon = mission_rb_prospect_for_coal
+		position = 10
+		required_missions = { EDG_SWI_mission_4_6 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				mil = 6
+				monthly_mil = 12
+			}
+			1871 = {
+				owned_by = root
+				has_building = weapons
+			}
+			mil_power_cost = 300
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_7.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_4_7_flag
+			}
+			mil_power_cost = 300
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+		} 
+	}
+
+	
+
+	EDG_SWI_mission_4_8 = {
+		icon = mission_plc_purple_phoenix
+		position = 11
+		required_missions = { EDG_SWI_mission_3_6 } 
+		provinces_to_highlight = {
+			if = {
+				limit = { 
+					exists = SIC
+				}
+				owned_by = SIC
+			}
+			else = {
+				OR = {
+					area = sicily_area
+					area = western_sicily_area
+				}
+				NOT = {
+					country_or_subject_holds = root
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				overlord_of = SIC
+				AND = {
+					sicily_area = {
+						type = all
+						country_or_subject_holds = root
+					}
+					sicily_area = {
+						country_or_subject_holds = root
+					}
+				}
+				AND = {
+					SIC = {
+						is_subject = no
+						has_opinion = {
+							who = root
+							value = 150
+						}
+						trust = {
+							who = root
+							value = 75
+						}
+						has_spy_network_from = {
+							who = root
+							value = 50
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					sicily_area = {
+						type = all
+						country_or_subject_holds = root
+					}
+					sicily_area = {
+						country_or_subject_holds = root
+					}
+				}
+				124 = {
+					owner = {
+						release = SIC
+					}
+				}
+				EDG_SWI_create_freedom_allian = {
+					who = SIC
+				}
+			}
+			else_if = {
+				limit = { 
+					overlord_of = SIC
+				}
+				if = {
+					limit = { 
+						SIC = {
+							NOT = {
+								is_subject_of_type = EDG_SWI_free_alliance
+							}
+						}
+					}
+					EDG_SWI_create_freedom_allian = {
+						who = SIC
+					}
+				}
+				SIC = {
+					add_liberty_desire = -100
+				}
+			}
+			else_if = {
+				limit = { 
+					SIC = {
+						is_subject = no
+						has_opinion = {
+							who = root
+							value = 150
+						}
+						trust = {
+							who = root
+							value = 75
+						}
+						has_spy_network_from = {
+							who = root
+							value = 50
+						}
+					}
+				}
+				EDG_SWI_create_freedom_allian = {
+					who = SIC
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_4_8.effect.tt
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_9 = {
+		icon = mission_war_chest
+		position = 13
+		required_missions = { EDG_SWI_mission_3_8 } 
+		provinces_to_highlight = {
+			owned_by = root
+			religion = root
+			NOT = {
+				has_trade_building_trigger = yes
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_trade_building_trigger = yes
+				religion = root
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_9.effect.tt
+			switzerland_area = {
+				limit = {
+					country_or_subject_holds = root
+				}
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+			romandie_area = {
+				limit = {
+					country_or_subject_holds = root
+				}
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+			1871 = {
+				change_trade_goods = iron
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						religion = root
+						has_trade_building_trigger = yes
+					}
+					upgrade_building = {
+						trade = yes
+					}
+					add_base_production = 2
+				}
+				add_country_modifier = {
+					name = EDG_SWI_promote_trade
+					duration = 7300
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_10 = {
+		icon = mission_sw_torquoise_mining
+		position = 14
+		required_missions = { EDG_SWI_mission_4_9 } 
+		provinces_to_highlight = {
+			owned_by = root
+			trade_goods = iron
+			OR = {
+				has_terrain = hills
+				has_terrain = mountain
+			}
+			NOT = {
+				AND = {
+					has_production_building_trigger = yes
+					development = 10
+				}
+			}
+		} 
+
+		trigger = {
+			owns = 1871
+			num_of_owned_provinces_with = {
+				OR = {
+					has_terrain = hills
+					has_terrain = mountain
+				}
+				trade_goods = iron
+				has_production_building_trigger = yes
+				development = 10
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_10.effect.tt
+			1871 = {
+				add_province_modifier = {
+					name = EDG_SWI_swi_iron
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						NOT = {
+							province_id = 1871
+						}
+						OR = {
+							has_terrain = hills
+							has_terrain = mountain
+						}
+						trade_goods = iron
+					}
+					add_province_modifier = {
+						name = EDG_SWI_swi_iron
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_11 = {
+		icon = porcelain_from_meissen
+		position = 16
+		required_missions = { EDG_SWI_mission_4_10 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 205
+					NOT = {
+						AND = {
+							country_or_subject_holds = root
+							religion = root
+							base_production = 10
+							has_production_building_trigger = yes
+						}
+					}
+				}
+				AND = {
+					country_or_subject_holds = root
+					NOT = {
+						OR = {
+							has_province_modifier = EDG_SWI_saxony_province_modifier_1
+							has_province_modifier = EDG_SWI_saxony_province_modifier_2
+							has_province_modifier = EDG_SWI_saxony_province_modifier_3
+							has_province_modifier = EDG_SWI_saxony_province_modifier_4
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			all_owned_province = {
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_1
+					has_province_modifier = EDG_SWI_saxony_province_modifier_2
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+			}
+			205 = {
+				country_or_subject_holds = root
+				religion = root
+				base_production = 10
+				has_production_building_trigger = yes
+			}
+		} 
+
+		effect = {
+			205 = {
+				add_province_modifier = {
+					name = EDG_SWI_vice_capital_of_industry
+					duration = -1
+				}
+				set_great_project_tier_2 = {
+					type = EDG_Francois_Textile_Factory
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_12 = {
+		icon = dominant_economy
+		position = 18
+		required_missions = { EDG_SWI_mission_4_11 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				reform_level = 8
+				AND = {
+					government_reform_progress = 300
+					adm_power_cost = 250
+					dip_power_cost = 250
+				}
+			}
+			treasury = 1000
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_4_12.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_4_12_flag
+			}
+			add_treasury = -1000
+			if = {
+				limit = { 
+					NOT = {
+						reform_level = 8
+					}
+				}
+				adm_power_cost = 250
+				dip_power_cost = 250
+				change_government_reform_progress = 300
+			}
+			add_government_reform = EDG_GEN_state_ban
+		} 
+	}
+
+	EDG_SWI_mission_4_13 = {
+		icon = mission_entrepot_of_india
+		position = 20
+		required_missions = {
+			EDG_SWI_mission_3_12
+			EDG_SWI_mission_5_12
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				has_trade_building_trigger = yes
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_trade_building_trigger = yes
+				value = 12
+			}
+			OR = {
+				full_idea_group = trade_ideas
+				dip = 6
+			}
+			num_of_estate_privileges = {
+				estate = estate_burghers
+				value = 5
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+			num_of_estate_agendas_completed = {
+				estate = estate_burghers
+				value = 6
+			}
+			201 = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 6
+			201 = {
+				set_great_project_tier_2 = {
+					type = EDG_Merrana_Library
+				}
+			}
+			add_country_modifier = {
+				name = EDG_SWI_thriving_ecnomic
+				duration = 18250
+			}
+		} 
+	}
+
+	EDG_SWI_mission_4_14 = {
+		icon = mission_establish_the_prikazy
+		position = 22
+		required_missions = {
+			EDG_SWI_mission_5_13
+			EDG_SWI_mission_3_13
+		}
+		provinces_to_highlight = {
+			country_or_subject_holds = root
+			NOT = {
+				has_manufactory_trigger = yes
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				has_manufactory_trigger = yes
+				value = 25
+			}
+			all_owned_province = {
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+			}
+			OR = {
+				monthly_income = 1000
+				in_golden_age = yes
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_three_level_supervision_system
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SWI_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SWI } 
+
+	EDG_SWI_mission_5_1 = {
+		icon = mission_assemble_an_army
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_at_war = yes
+			NOT = {
+				manpower_percentage = 0.25
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_1.effect.tt
+			add_country_modifier = {
+				name = EDG_SWI_military_reorganization
+				duration = 365
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SWI_enbale_siw_mil_reform_decisions
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_2 = {
+		icon = mission_italian_condottiere
+		position = 2
+		required_missions = { EDG_SWI_mission_5_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			calc_true_if = {
+				all_rival_country = {
+					OR = {
+						has_opinion_modifier = {
+							who = root
+							modifier = insulted
+						}
+						has_opinion_modifier = {
+							who = root
+							modifier = scornfully_insulted
+						}
+					}
+				}
+				amount = 2
+			}
+			manpower_percentage = 0.75
+			num_of_regiments_at_full_drill = 5
+		} 
+
+		effect = {
+			country_event = {
+				id = SWIActionEvents.12
+			}
+			add_government_reform = EDG_SWI_independent
+		} 
+	}
+
+	EDG_SWI_mission_5_3 = {
+		icon = mission_cossack_cavalry
+		position = 5
+		required_missions = { EDG_SWI_mission_5_2 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_1
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+			}
+		} 
+
+		trigger = {
+			army_size = 25
+			all_owned_province = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_1
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+			}
+		} 
+
+		effect = {
+			add_army_professionalism = 0.05
+			add_country_modifier = {
+				name = EDG_SWI_don_quixote_tactics
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_4 = {
+		icon = the_italian_league
+		position = 7
+		required_missions = { EDG_SWI_mission_5_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_country_modifier_2
+					has_province_modifier = EDG_SWI_france_country_modifier_3
+					has_province_modifier = EDG_SWI_france_country_modifier_4
+				}
+			}
+		} 
+
+		trigger = {
+			OR = {
+				has_global_modifier_value = {
+					which = discipline
+					value = 0.15
+				}
+				army_size = 50
+			}
+			all_owned_province = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+			}
+			OR = {
+				army_tradition = 40
+				army_professionalism = 0.2
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_forest_state_army
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_5 = {
+		icon = mission_integrate_the_purbias
+		position = 8
+		required_missions = { EDG_SWI_mission_5_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_country_modifier = EDG_SWI_france_country_modifier_3
+			NOT = {
+				manpower_percentage = 0.25
+			}
+			has_mil_advisor_3 = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_5.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_5_5_flag
+			}
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_SWI_civil_service_tooltip_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_6 = {
+		icon = mission_plc_golden_liberty
+		position = 9
+		required_missions = {
+
+		}
+		provinces_to_highlight = {
+			owner = {
+				owns = 236
+			}
+		} 
+
+		trigger = {  
+			236 = {
+				owner = {
+					is_great_power = yes
+					OR = {
+						tag = root
+						AND = {
+							has_opinion = {
+								who = root
+								value = 100
+							}
+							has_opinion_modifier = {
+								who = ROOT
+								modifier = sent_gift
+							}
+						}
+						has_opinion_modifier = {
+							who = root
+							modifier = scornfully_insulted
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					236 = {
+						owner = {
+							is_great_power = yes
+							AND = {
+								has_opinion = {
+									who = root
+									value = 100
+								}
+								has_opinion_modifier = {
+									who = ROOT
+									modifier = sent_gift
+								}
+							}
+						}
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.7
+				}
+			}
+			else_if = {
+				limit = { 
+					236 = {
+						owner = {
+							is_great_power = yes
+							has_opinion_modifier = {
+								who = root
+								modifier = scornfully_insulted
+							}
+						}
+					}
+				}
+				country_event = {
+					id = EDG_SWIEvents.8
+				}
+			}
+			else_if = {
+				limit = {
+					owns = 236
+				}
+				add_prestige_or_monarch_power = {
+					amount = 100
+				}
+			}
+			else = {
+				custom_tooltip = EDG_SWI_mission_5_6.effect.tt
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_7 = {
+		icon = mission_cannons_firing
+		position = 11
+		required_missions = { 
+			EDG_SWI_mission_4_7
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_SWI_mission_5_7.condition.tt
+				has_country_modifier = EDG_SWI_improved_combat_uniforms
+				has_country_modifier = EDG_SWI_improved_march_rations
+				has_country_modifier = EDG_SWI_improved_muskets_powder_packs
+				has_country_modifier = EDG_SWI_standard_detachable_tool
+				has_country_modifier = EDG_SWI_improved_gun_airtight
+			}
+			mil_power_cost = 250
+		} 
+
+		effect = {
+			mil_power_cost = 250
+			country_event = {
+				id = EDG_SWIEvents.9
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_8 = {
+		icon = mission_native_build_army_mission
+		position = 12
+		provinces_to_highlight = {
+			area = switzerland_area
+			NOT = {
+				country_or_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			switzerland_area = {
+				type = all
+				country_or_subject_holds = root
+			}
+			OR = {
+				national_focus = DIP
+				has_dip_advisor = yes
+				dip = 4
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = SWIActionEvents.8
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_9 = {
+		icon = mission_serfdom
+		position = 13
+		required_missions = { EDG_SWI_mission_5_8 } 
+		provinces_to_highlight = {
+			owned_by = root
+
+		} 
+
+		trigger = { 
+			num_accepted_cultures = 2
+			num_of_owned_provinces_with = {
+				OR = {
+					has_province_modifier = EDG_SWI_slav_province_modifier_1
+					has_province_modifier = EDG_SWI_slav_province_modifier_2
+					has_province_modifier = EDG_SWI_slav_province_modifier_3
+					has_province_modifier = EDG_SWI_slav_province_modifier_4
+				}
+				value = 4
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_9.effect.tt
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_5_9_flag
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_10 = {
+		icon = mission_court_education
+		position = 15
+		required_missions = { EDG_SWI_mission_5_9 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+			num_of_owned_states_with = {
+				has_state_edict = edict_advancement_effort
+				value = 2
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_10.effect.tt
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_SWI_free_our_mind
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						development = 12
+					}
+					add_province_modifier = {
+						name = EDG_SWI_free_our_mind
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_11 = {
+		icon = mission_valencian_silk
+		position = 17
+		required_missions = { EDG_SWI_mission_5_10 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 3
+			has_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 50
+			}
+			OR = {
+				monthly_dip = 10
+				dip = 6
+			}
+			NOT = {
+				num_of_free_diplomatic_relations = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_11.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_5_11_flag
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_12 = {
+		icon = mission_conquer_timbuktu
+		position = 19
+		required_missions = { EDG_SWI_mission_5_11 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_1
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_slav_province_modifier_1
+					has_province_modifier = EDG_SWI_slav_province_modifier_2
+					has_province_modifier = EDG_SWI_slav_province_modifier_3
+					has_province_modifier = EDG_SWI_slav_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_varyag_province_modifier_1
+					has_province_modifier = EDG_SWI_varyag_province_modifier_2
+					has_province_modifier = EDG_SWI_varyag_province_modifier_3
+					has_province_modifier = EDG_SWI_varyag_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_england_province_modifier_1
+					has_province_modifier = EDG_SWI_england_province_modifier_2
+					has_province_modifier = EDG_SWI_england_province_modifier_3
+					has_province_modifier = EDG_SWI_england_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_1
+					has_province_modifier = EDG_SWI_saxony_province_modifier_2
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_chinese_province_modifier_1
+					has_province_modifier = EDG_SWI_chinese_province_modifier_2
+					has_province_modifier = EDG_SWI_chinese_province_modifier_3
+					has_province_modifier = EDG_SWI_chinese_province_modifier_4
+				}
+			}
+		} 
+
+		trigger = {
+			is_year = 1500
+			num_of_owned_provinces_with = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_1
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_slav_province_modifier_1
+					has_province_modifier = EDG_SWI_slav_province_modifier_2
+					has_province_modifier = EDG_SWI_slav_province_modifier_3
+					has_province_modifier = EDG_SWI_slav_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_varyag_province_modifier_1
+					has_province_modifier = EDG_SWI_varyag_province_modifier_2
+					has_province_modifier = EDG_SWI_varyag_province_modifier_3
+					has_province_modifier = EDG_SWI_varyag_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_england_province_modifier_1
+					has_province_modifier = EDG_SWI_england_province_modifier_2
+					has_province_modifier = EDG_SWI_england_province_modifier_3
+					has_province_modifier = EDG_SWI_england_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_1
+					has_province_modifier = EDG_SWI_saxony_province_modifier_2
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_chinese_province_modifier_1
+					has_province_modifier = EDG_SWI_chinese_province_modifier_2
+					has_province_modifier = EDG_SWI_chinese_province_modifier_3
+					has_province_modifier = EDG_SWI_chinese_province_modifier_4
+				}
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_12.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_5_12_flag
+			}
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 25
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_13 = {
+		icon = mission_se_along_the_river
+		position = 21
+		required_missions = { EDG_SWI_mission_5_12 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_slav_province_modifier_2
+					has_province_modifier = EDG_SWI_slav_province_modifier_3
+					has_province_modifier = EDG_SWI_slav_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_varyag_province_modifier_2
+					has_province_modifier = EDG_SWI_varyag_province_modifier_3
+					has_province_modifier = EDG_SWI_varyag_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_england_province_modifier_2
+					has_province_modifier = EDG_SWI_england_province_modifier_3
+					has_province_modifier = EDG_SWI_england_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_2
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+			}
+			NOT = {
+				OR = {
+					has_province_modifier = EDG_SWI_chinese_province_modifier_2
+					has_province_modifier = EDG_SWI_chinese_province_modifier_3
+					has_province_modifier = EDG_SWI_chinese_province_modifier_4
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_province_modifier = EDG_SWI_france_province_modifier_2
+					has_province_modifier = EDG_SWI_france_province_modifier_3
+					has_province_modifier = EDG_SWI_france_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_slav_province_modifier_2
+					has_province_modifier = EDG_SWI_slav_province_modifier_3
+					has_province_modifier = EDG_SWI_slav_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_varyag_province_modifier_2
+					has_province_modifier = EDG_SWI_varyag_province_modifier_3
+					has_province_modifier = EDG_SWI_varyag_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_england_province_modifier_2
+					has_province_modifier = EDG_SWI_england_province_modifier_3
+					has_province_modifier = EDG_SWI_england_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_saxony_province_modifier_2
+					has_province_modifier = EDG_SWI_saxony_province_modifier_3
+					has_province_modifier = EDG_SWI_saxony_province_modifier_4
+				}
+				OR = {
+					has_province_modifier = EDG_SWI_chinese_province_modifier_2
+					has_province_modifier = EDG_SWI_chinese_province_modifier_3
+					has_province_modifier = EDG_SWI_chinese_province_modifier_4
+				}
+				value = 5
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SWI_mission_5_13.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SWI_mission_5_13_flag
+			}
+			add_government_power = {
+				mechanic_type = EDG_SWI_eden_dream_mechanic
+				power_type = EDG_SWI_eden_dream
+				value = 50
+			}
+		} 
+	}
+
+	EDG_SWI_mission_5_14 = {
+		icon = mission_kowtow
+		position = 22
+		required_missions = { EDG_SWI_mission_5_13 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			total_own_and_non_tributary_subject_development = 1000
+			stability = 3
+			prestige = 75
+			has_country_modifier = EDG_SWI_france_country_modifier_4
+			has_country_modifier = EDG_SWI_chinese_country_modifier_4
+			has_country_modifier = EDG_SWI_varyag_country_modifier_4
+			has_country_modifier = EDG_SWI_slav_country_modifier_4
+			has_country_modifier = EDG_SWI_england_country_modifier_4
+			has_country_modifier = EDG_SWI_saxony_country_modifier_4
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SWI_garden_of_eden
+				duration = -1
+			}
+		} 
+	}
+}

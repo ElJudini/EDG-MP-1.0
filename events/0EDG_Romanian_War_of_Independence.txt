@@ -1,0 +1,238 @@
+namespace = EDG_Romanian_War_of_Independence
+country_event = {#米哈伊起义
+  id = EDG_Romanian_War_of_Independence.1
+  title = "EDG_Romanian_War_of_Independence.1.t"
+  desc = "EDG_Romanian_War_of_Independence.1.d"
+  picture = CIVIL_WAR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+      hidden_effect = {
+        set_global_flag = had_EDG_Romanian_War_of_Independence_flag
+      }
+      hidden_effect = {
+        add_stability = -1
+        southern_transylvania_area = { add_core = RMN }
+        transylvania_area = { add_core = RMN }
+        wallachia_area = { add_core = RMN }
+        moldavia_area = { add_core = RMN }
+        southern_transylvania_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_province_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        transylvania_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_province_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        wallachia_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_province_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        moldavia_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_province_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        if = {
+          limit = { NOT = { exists = TRA } }
+          southern_transylvania_area = { remove_core = TRA }
+          transylvania_area = { remove_core = TRA }
+          wallachia_area = { remove_core = TRA }
+          moldavia_area = { remove_core = TRA }
+        }
+        every_country = {
+          limit = {
+            EDG_Romanian_culture_country_trigger = yes
+            NOT = { tag = RMN }
+          }
+          set_country_flag = early_Independence_Romanian_country_flag
+        }
+      }
+  }
+  option = {#将他们扼杀在摇篮里。
+      name = "EDG_Romanian_War_of_Independence.1.a"
+      ai_chance = {
+        factor = 10
+      }
+      tooltip = {
+        southern_transylvania_area = { add_core = RMN }
+        transylvania_area = { add_core = RMN }
+        wallachia_area = { add_core = RMN }
+        moldavia_area = { add_core = RMN }
+        southern_transylvania_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_country_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        transylvania_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_country_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        wallachia_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_country_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+        moldavia_area = {
+          limit = { owner = { NOT = { EDG_Romanian_culture_country_trigger = yes } } }
+          add_unrest = 20 add_nationalism = 30
+        }
+      }
+      random_owned_province = {
+        limit = {
+            EDG_Romanian_culture_province_trigger = yes
+        }
+        spawn_rebels = {
+            type = nationalist_rebels
+            size = 2
+            win = yes
+            unrest = 20
+        }
+      }
+      tooltip = {
+        add_stability = -1
+      }
+  }
+  
+}
+
+country_event = {#罗马尼亚人反抗[Root.GetAdjective]
+  id = EDG_Romanian_War_of_Independence.2
+  title = "EDG_Romanian_War_of_Independence.2.t"
+  desc = "EDG_Romanian_War_of_Independence.2.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+      has_global_flag = had_EDG_Romanian_War_of_Independence_flag
+      NOT = { has_global_flag = had_EDG_Romanian_War_of_Independence_end_flag }
+      NOT = { EDG_Romanian_culture_country_trigger = yes }
+      any_owned_province = {
+          EDG_Romanian_culture_province_trigger = yes
+      }
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  option = {#杀光他们！
+    name = "EDG_Romanian_War_of_Independence.2.a"
+    random_owned_province = {
+      limit = {
+          EDG_Romanian_culture_province_trigger = yes
+      }
+      spawn_rebels = {
+          type = nationalist_rebels
+          size = 1
+          win = yes
+          unrest = 20
+      }
+    }
+  }
+}
+
+ 
+country_event = {#[Root.GetAdjective][Root.Monarch.GetTitle][Root.Monarch.GetName]
+  id = EDG_Romanian_War_of_Independence.3
+  title = "EDG_Romanian_War_of_Independence.3.t"
+  desc = "EDG_Romanian_War_of_Independence.3.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  major = yes
+  fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+    #EDG_Romanian_culture_province_trigger = yes
+    #NOT = { has_country_flag = early_Independence_Romanian_country_flag }
+    is_subject = no
+    tag = RMN
+    NOT = { has_global_flag = had_EDG_Romanian_War_of_Independence_end_flag }
+    has_global_flag = had_EDG_Romanian_War_of_Independence_flag
+  }
+  mean_time_to_happen = { 
+  }
+  option = {#[Root.Monarch.GetTitle][Root.Monarch.GetName]万岁！
+    name = "EDG_Romanian_War_of_Independence.3.a"
+    set_global_flag = had_EDG_Romanian_War_of_Independence_end_flag
+    add_stability_or_adm_power = yes
+    add_prestige_or_monarch_power = { amount = 25 }
+    add_manpower = 30
+    if = {
+      limit = {
+        ai = yes
+        has_global_flag = EDG_great_conquer_enable_flag
+      }
+      add_ruler_personality = EDG_great_conqueror_personality
+      hidden_effect = {
+        change_adm = 3
+        change_dip = 3
+        change_mil = 6
+        set_ai_personality = {
+          personality = ai_militarist
+          locked = yes
+        }
+        set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+        add_ruler_modifier = {
+          name = EDG_great_conqueror_modifier
+          duration = -1
+        }
+        set_global_flag = EDG_great_conquer_NOW_flag
+        set_country_flag = EDG_great_conquer_NOW_country_flag
+      }
+    }
+    hidden_effect = {
+      if = {
+        limit = { ai = yes }
+        add_adm_power = 500
+        add_dip_power = 500
+        add_mil_power = 500
+        
+        add_treasury = 1000
+        capital_scope = {
+          infantry = RMN
+          infantry = RMN
+          infantry = RMN
+          infantry = RMN
+          infantry = RMN
+          infantry = RMN
+          cavalry = RMN
+          cavalry = RMN
+          cavalry = RMN
+          cavalry = RMN
+          cavalry = RMN
+          cavalry = RMN
+        }
+      }
+    }
+    add_country_modifier = {
+      name = "EDG_Romanian_War_of_Independence_great_modifier"
+      duration = 9125 #25 years
+    }
+  }
+}
+
+
+country_event = {#罗马尼亚独立运动的结束
+  id = EDG_Romanian_War_of_Independence.4
+  title = "EDG_Romanian_War_of_Independence.4.t"
+  desc = "EDG_Romanian_War_of_Independence.4.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  major = yes
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = had_EDG_Romanian_War_of_Independence_end_flag }
+		had_global_flag = {
+			flag = had_EDG_Romanian_War_of_Independence_flag
+			days = 18250
+		}
+    any_owned_province = {
+        EDG_Romanian_culture_province_trigger = yes
+    }
+  }
+  mean_time_to_happen = { 
+  }
+  option = {#他们终于消停了。
+    name = "EDG_Romanian_War_of_Independence.4.a"
+    set_global_flag = had_EDG_Romanian_War_of_Independence_end_flag
+    add_stability_or_adm_power = yes
+    
+  }
+}
+

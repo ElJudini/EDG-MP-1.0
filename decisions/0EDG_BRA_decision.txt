@@ -1,0 +1,1231 @@
+country_decisions = {
+
+	EDG_BRA_decesion_germania = { #宣称日耳曼尼亚头衔
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			has_country_flag = EDG_BRA_unlock_decesion_germania_flag
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_germania_flag }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_prussia_flag }
+		}
+		provinces_to_highlight = {	
+			OR = {
+				culture = polish
+				culture = prussian
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		allow = {
+			mission_completed = EDG_BRA_mission_2_7
+			mission_completed = EDG_BRA_mission_5_3
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			
+			num_of_owned_provinces_with = {
+				value = 15
+				culture = polish
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				culture = prussian
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_BRA_decesion_germania_tt
+			override_country_name = EDG_BRA_germania_name
+			add_country_modifier = {
+				name = EDG_BRA_set_germania_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				set_government_rank = 3
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			set_country_flag = EDG_BRA_has_had_claim_germania_flag
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_prussian = { #宣称普鲁士人的国王头衔
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			has_country_flag = EDG_BRA_unlock_decesion_prussian_flag
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_germania_flag }
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_prussia_flag }
+		}
+		provinces_to_highlight = {	
+			OR = {
+				province_id = 43
+				province_id = 41
+				province_id = 2995
+			}
+		}
+		allow = {
+			mission_completed = EDG_BRA_mission_5_3
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			
+			43 = { owned_by = ROOT }
+			41 = { owned_by = ROOT }
+			2995 = { owned_by = ROOT }
+			OR = {
+				has_country_modifier = EDG_BRA2_mission_3_10_modifier
+				religion = protestant
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_BRA_decesion_prussian_tt
+			override_country_name = EDG_BRA_prussian_name
+			add_country_modifier = {
+				name = EDG_BRA_set_prussia_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					government_rank = 1
+				}
+				set_government_rank = 2
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			set_country_flag = EDG_BRA_has_had_claim_prussia_flag
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_restore_country_name = { #恢复初始国名
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			ai = no
+			OR = {
+				has_country_flag = EDG_BRA_has_had_claim_germania_flag
+				has_country_flag = EDG_BRA_has_had_claim_prussia_flag
+			}
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+		}
+		effect = {
+			restore_country_name = yes
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_selectheir = { #挑选霍亨索伦家族的继承人
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			has_country_flag = EDG_BRA_unlock_decesion_selectheir_flag
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			NOT = { has_heir_flag = EDG_BRA_has_had_select_heir_flag }
+		}
+		effect = {
+			country_event = { id = EDG_flavorBRA_mission.22 } 
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_1 = { #腓特烈军事改革：改革总参谋部
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_milreform_1_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			OR = {
+				army_tradition = 80
+				has_mil_advisor_3 = yes
+			}
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+			stability = 1
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_1_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_2 = { #腓特烈军事改革：颁布《二十一条军规》
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_flag = EDG_BRA_Markgraf_ability_strength_flag_14 }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			army_professionalism = 0.4
+			has_mil_advisor_3 = yes
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_2_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_decesion_milreform_2_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_14
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_3 = { #腓特烈军事改革：建立王室军械所
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_flag = EDG_BRA_Markgraf_ability_strength_flag_15 }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+			has_mil_advisor_3 = yes
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_3_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_decesion_milreform_3_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_15
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_4 = { #腓特烈军事改革：建立禁卫军系统
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_flag = EDG_BRA_Markgraf_ability_strength_flag_16 }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			num_of_owned_provinces_with = {
+				value = 20
+				has_manpower_building_trigger = yes 
+			}
+			has_mil_advisor_3 = yes
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_4_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_decesion_milreform_4_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_16
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_5 = { #腓特烈军事改革：建立战场指挥系统
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_flag = EDG_BRA_Markgraf_ability_strength_flag_17 }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			army_professionalism = 0.4
+			num_of_generals = 4
+			has_mil_advisor_3 = yes
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_5_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_decesion_milreform_5_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_17
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_6 = { #腓特烈军事改革：建立后勤部
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_flag = EDG_BRA_Markgraf_ability_strength_flag_18 }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			has_mil_advisor_3 = yes
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+					trade_goods = livestock
+					trade_goods = grain
+				}
+			}
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_6_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BRA_decesion_milreform_6_tt
+			set_country_flag = EDG_BRA_Markgraf_ability_strength_flag_18
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_milreform_7 = { #腓特烈军事改革：完善荣誉系统
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_milreform_7_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_monarch_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_1
+			mil_power = 100
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			army_professionalism = 0.9
+			num_of_generals = 4
+			army_tradition = 80
+			army_size = 100
+			has_mil_advisor_3 = yes
+			NOT = { has_country_modifier = EDG_BRA_milreform_debuff_modifier }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_milreform_7_modifier
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BRA_milreform_debuff_modifier
+				duration = 1825
+			}
+			change_variable = {
+       			which = EDG_BRA_num_milreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_1 = { #俾斯麦社会改革：建立警察制度
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_1_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 100
+			monthly_adm = 13
+			full_idea_group = spy_ideas
+			has_adm_advisor_3 = yes
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_1_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_2 = { #俾斯麦社会改革：建立社会福利保障制度
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_2_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 100
+			num_of_owned_provinces_with = {
+				value = 10
+				development = 20
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				development = 25
+			}
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+			has_adm_advisor_3 = yes
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_2_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_3 = { #俾斯麦社会改革：建立城市规划制度
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_3_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 300
+			dip_power = 300
+			mil_power = 300
+			EDG_num_of_completed_idea_groups_adm = { amount = 1 }
+			has_adm_advisor_3 = yes
+			legitimacy = 50
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_3_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_4 = { #俾斯麦社会改革：建立舆论新闻宣传策略
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_4_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 100
+			dip_power = 100
+			EDG_num_of_completed_idea_groups_dip = { amount = 1 }
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			monthly_adm = 10
+			monthly_dip = 10
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_4_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_5 = { #俾斯麦社会改革：完善内务部
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_5_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 100
+			has_adm_advisor_3 = yes
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_5_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_6 = { #俾斯麦社会改革：完善外交部
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_6_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 300
+			dip_power = 300
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			EDG_num_of_completed_idea_groups_dip = { amount = 2 }
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_6_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_admreform_7 = { #俾斯麦社会改革：完善中央集权
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			mission_completed = EDG_BRA_mission_5_3
+			NOT = { has_country_modifier = EDG_BRA_decesion_admreform_7_modifier }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			stability = 1
+			has_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = 50
+			}
+			has_country_flag = EDG_BRA_has_had_follow_minister_flag
+			has_country_modifier = EDG_flavorBRA_mission_23_modifier_2
+			adm_power = 300
+			dip_power = 300
+			mil_power = 300
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+			EDG_num_of_completed_idea_groups_adm = { amount = 1 }
+			EDG_num_of_completed_idea_groups_dip = { amount = 1 }
+			EDG_num_of_completed_idea_groups_mil = { amount = 1 }
+			prestige = 80
+			legitimacy = 90
+		}
+		effect = {
+			add_stability = -1
+			add_government_power = {
+				mechanic_type = EDG_BRA_Markgraf_ability
+				power_type = EDG_BRA_Markgraf_power
+				value = -50
+			}
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_BRA_decesion_admreform_7_modifier
+				duration = 9125
+			}
+			change_variable = {
+       			which = EDG_BRA_num_admreform
+        		value = 1
+    		}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_guide = { #勃兰登堡游玩指引
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			ai = no
+			OR = {
+				tag = BRA
+				AND = {
+					was_tag = BRA
+					tag = H10
+				} 
+				AND = {
+					was_tag = BRA
+					tag = GER
+				} 
+			}
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = EDG_BRA_guide_tt
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_decesion_weishu = { #帝国卫戍领
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			hre_size = 1
+			is_part_of_hre = yes
+			has_country_flag = EDG_BRA_unlock_decesion_weishu_flag
+			NOT = { has_country_flag = EDG_BRA_has_had_claim_weishu_flag }
+		}
+		provinces_to_highlight = {	}
+		allow = {
+			if = {
+				limit = { 
+					ai = no
+				}
+				emperor = {
+					has_opinion = {
+						who = root
+						value = 150
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_BRA_weishu_modifier
+				duration = -1
+			}
+			add_prestige_or_monarch_power = { amount = 25}
+			set_country_flag = EDG_BRA_has_had_claim_weishu_flag
+			custom_tooltip = EDG_BRA_decesion_weishu_tt
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		ai_importance = 400
+	}
+
+	EDG_BRA_from_GER_decision = { #勃兰登堡成立德意志
+		major = yes
+		color = { 123   90   90 }
+		potential = {
+			OR = {
+				tag = BRA
+				was_tag = BRA
+			}
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_germany_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { exists = GER }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			NOT = { tag = ROM }
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 15
+					adm_tech = 20
+				}
+			}
+			culture_group = germanic
+			NOT = { primary_culture = dutch }
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			# OR = {
+			# 	has_country_flag = teu_can_form_germany
+			# 	NOT = { has_mission = teu_pru_an_empire_of_blood_and_iron }	#Mission already makes you to Germany
+			# }
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = north_german_region
+						region = south_german_region
+					}
+					root = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								country_or_non_sovereign_subject_holds = root
+								OR = {
+									region = north_german_region
+									region = south_german_region
+								}
+								value = 50
+							}
+						}
+					}
+				}
+				province_id = 50
+				province_id = 57
+				province_id = 65
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 75 }
+						NOT = { owns_or_non_sovereign_subject_of = 41 }
+					}
+					OR = {
+						province_id = 75
+						province_id = 41
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 1868 }
+						NOT = { owns_or_non_sovereign_subject_of = 70 }
+					}
+					OR = {
+						province_id = 1868
+						province_id = 70
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 1876 }
+						NOT = { owns_or_non_sovereign_subject_of = 67 }
+					}
+					OR = {
+						province_id = 1876
+						province_id = 67
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 1762 }
+						NOT = { owns_or_non_sovereign_subject_of = 85 }
+					}
+					OR = {
+						province_id = 1762
+						province_id = 85
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 41 }
+						NOT = { owns_or_non_sovereign_subject_of = 75 }
+					}
+					OR = {
+						province_id = 41
+						province_id = 75
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 44 }
+						NOT = { owns_or_non_sovereign_subject_of = 45 }
+					}
+					OR = {
+						province_id = 44
+						province_id = 45
+					}
+				}
+				AND = {
+					ROOT = {
+						NOT = { owns_or_non_sovereign_subject_of = 61 }
+						NOT = { owns_or_non_sovereign_subject_of = 63 }
+					}
+					OR = {
+						province_id = 61
+						province_id = 63
+					}
+				}
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		}
+		allow = {
+			adm_tech = 20
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_or_non_sovereign_subject_of = 50	# Berlin
+			owns_or_non_sovereign_subject_of = 57	# Brunswick
+			owns_or_non_sovereign_subject_of = 65	# M�nchen
+			OR = {
+				owns_or_non_sovereign_subject_of = 1868 # Augsburg
+				owns_or_non_sovereign_subject_of = 70 # Wurttemberg
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 67	# N�rnberg
+				owns_or_non_sovereign_subject_of = 1876 # Frankfurt
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 1762 # Niederhessen
+				owns_or_non_sovereign_subject_of = 85	# K�ln
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 41	# K�nigsberg
+				owns_or_non_sovereign_subject_of = 75	# Strassburg
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 44	# Hamburg
+				owns_or_non_sovereign_subject_of = 45	# Lubeck
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 61	# Dresden
+				owns_or_non_sovereign_subject_of = 63	# Th�ringen
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+				value = 50
+			}
+		}
+		effect = {
+			custom_tooltip = HSA_german_nation.tt
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = north_german_region
+								region = south_german_region
+							}
+						}
+						
+					}
+					root = {
+						inherit = prev
+					}
+				}
+			}
+			change_tag = GER
+			on_change_tag_effect = yes
+			restore_country_name_effect = yes
+			if = {
+				limit = {
+					is_emperor = yes
+				}
+				dismantle_hre = yes
+			}
+			else = {
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+				emperor = {
+					country_event = { id = hre_event.5 }
+				}
+			}
+			GER = { set_government_rank = 3 }
+			north_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = GER
+			}
+			south_german_region = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = GER
+			}			
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_germany_flag
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+			
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				NOT = { adm_tech = 18 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { num_of_owned_provinces_with = { OR = { region = north_german_region region = south_german_region } value = 25 } }
+			}
+		}
+	}
+}

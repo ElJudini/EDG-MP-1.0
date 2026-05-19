@@ -1,0 +1,1066 @@
+EDG_ERS_Purchase_goods = { #购置商品
+    category = economy
+    require_acceptance = yes
+    alert_index = 35
+	alert_tooltip = EDG_ERS_Purchase_goods_alert_tooltip
+    is_visible = {
+        has_country_flag = Allow_strategic_trade_flag
+    }
+    is_allowed = {
+		if = {
+			limit = {
+				years_of_income = 1.5
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_ERS_Purchase_goods_allow_txt
+				FROM = {
+					capital_scope = {
+						trade_range = ROOT
+						OR = {
+							superregion = europe_superregion
+							superregion = eastern_europe_superregion
+							superregion = china_superregion
+							superregion = tartary_superregion
+							region = deccan_region
+						}
+					}
+				}
+			}
+		}
+	}
+    on_accept = {
+        if = {
+            limit = {
+                FROM = {
+                    capital_scope = {
+                        OR = {
+                            superregion = europe_superregion
+                           	superregion = eastern_europe_superregion
+                        }
+                    }
+                }
+            }
+			FROM = {
+				clear_global_event_target = EDG_ERS_E_Seller
+				save_global_event_target_as = EDG_ERS_E_Seller
+			}
+            country_event = {
+                id = mission_EDGERSmission.83
+            }
+        }
+        else_if = {
+			limit = {
+				FROM = {
+					capital_scope = {
+						OR = {
+							superregion = china_superregion
+							superregion = tartary_superregion
+							region = deccan_region
+						}
+					}
+				}
+			}
+			FROM = {
+				clear_global_event_target = EDG_ERS_A_Seller
+				save_global_event_target_as = EDG_ERS_A_Seller
+			}
+			country_event = {
+				id = mission_EDGERSmission.82
+			}
+		}
+    }
+    on_decline = {
+        ROOT  = {
+            add_opinion = {
+                who = FROM
+                modifier = opinion_EDG_TAB_used_holy_land
+            }
+        }
+    }
+    ai_acceptance = {
+        add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_1
+			limit = {
+				from = {
+					years_of_income = 1
+                    NOT = {
+                        years_of_income = 1.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_2
+			limit = {
+				from = {
+					years_of_income = 1.5
+                    NOT = {
+                        years_of_income = 2
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_3
+			limit = {
+				from = {
+					years_of_income = 2
+                    NOT = {
+                        years_of_income = 2.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_4
+			limit = {
+				from = {
+					years_of_income = 2.5
+                    NOT = {
+                        years_of_income = 3
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_5
+			limit = {
+				from = {
+					years_of_income = 3
+                    NOT = {
+                        years_of_income = 3.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_6
+			limit = {
+				from = {
+					years_of_income = 3.5
+                    NOT = {
+                        years_of_income = 4
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 30
+			}
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 100 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+    }
+}
+EDG_ERS_Selling_goods = { #出售商品
+    category = economy
+    require_acceptance = yes
+    alert_index = 35
+	alert_tooltip = EDG_ERS_Selling_goods_alert_tooltip
+    is_visible = {
+		has_country_flag = Allow_strategic_trade_flag
+	}
+    is_allowed = {
+		if = {
+			limit = {
+				years_of_income = 1.5
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_ERS_Selling_goods_allow_txt
+				FROM = {
+					capital_scope = {
+						trade_range = ROOT
+						OR = {
+							superregion = europe_superregion
+							superregion = eastern_europe_superregion
+							superregion = china_superregion
+							superregion = tartary_superregion
+							region = deccan_region
+						}
+					}
+				}
+			}
+		}
+	}
+    on_accept = {
+        if = {
+            limit = {
+                FROM = {
+                    capital_scope = {
+                        OR = {
+                            superregion = europe_superregion
+                           	superregion = eastern_europe_superregion
+                        }
+                    }
+                }
+            }
+			ROOT = {
+				clear_global_event_target = EDG_ERS_Acquirer
+				save_global_event_target_as = EDG_ERS_Acquirer
+			}
+			FROM = {
+				clear_global_event_target = EDG_ERS_E_purchaser
+				save_global_event_target_as = EDG_ERS_E_purchaser
+			}
+            country_event = {
+                id = mission_EDGERSmission.84
+            }
+        }
+		else_if = {
+			limit = {
+				FROM = {
+					capital_scope = {
+						OR = {
+							superregion = china_superregion
+							superregion = tartary_superregion
+							region = deccan_region
+						}
+					}
+				}
+			}
+			ROOT = {
+				clear_global_event_target = EDG_ERS_Acquirer
+				save_global_event_target_as = EDG_ERS_Acquirer
+			}
+			FROM = {
+				clear_global_event_target = EDG_ERS_A_purchaser
+				save_global_event_target_as = EDG_ERS_A_purchaser
+			}
+			country_event = {
+				id = mission_EDGERSmission.167
+			}
+		}
+    }
+    on_decline = {
+        ROOT  = {
+            add_opinion = {
+                who = FROM
+                modifier = opinion_EDG_TAB_used_holy_land
+            }
+        }
+    }
+    ai_acceptance = {
+        add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_1
+			limit = {
+				from = {
+					years_of_income = 1
+                    NOT = {
+                        years_of_income = 1.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_2
+			limit = {
+				from = {
+					years_of_income = 1.5
+                    NOT = {
+                        years_of_income = 2
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_3
+			limit = {
+				from = {
+					years_of_income = 2
+                    NOT = {
+                        years_of_income = 2.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_4
+			limit = {
+				from = {
+					years_of_income = 2.5
+                    NOT = {
+                        years_of_income = 3
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_5
+			limit = {
+				from = {
+					years_of_income = 3
+                    NOT = {
+                        years_of_income = 3.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_6
+			limit = {
+				from = {
+					years_of_income = 3.5
+                    NOT = {
+                        years_of_income = 4
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 30
+			}
+		}
+        add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+    }
+}
+EDG_ERS_Purchase_Purchase_advanced_technology = { #购买先进科技
+    category = economy
+    require_acceptance = yes
+    alert_index = 35
+	alert_tooltip = EDG_ERS_Selling_goods_alert_tooltip
+    is_visible = {
+		has_country_flag = EDG_ERS_mission_10_2_1_flag
+	}
+    is_allowed = {
+        any_neighbor_country = {
+            tech_difference = 1
+        } 
+	}
+    on_accept = {
+        change_variable = {
+            which = EDG_ERS_
+            value = 1
+        }
+    }
+    on_decline = {
+        
+    }
+	ai_acceptance = {
+        add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_1
+			limit = {
+				from = {
+					years_of_income = 1
+                    NOT = {
+                        years_of_income = 1.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_2
+			limit = {
+				from = {
+					years_of_income = 1.5
+                    NOT = {
+                        years_of_income = 2
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_3
+			limit = {
+				from = {
+					years_of_income = 2
+                    NOT = {
+                        years_of_income = 2.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_4
+			limit = {
+				from = {
+					years_of_income = 2.5
+                    NOT = {
+                        years_of_income = 3
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_5
+			limit = {
+				from = {
+					years_of_income = 3
+                    NOT = {
+                        years_of_income = 3.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_6
+			limit = {
+				from = {
+					years_of_income = 3.5
+                    NOT = {
+                        years_of_income = 4
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 30
+			}
+		}
+        add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+    }
+}
+EDG_ERS_Selling_Purchase_advanced_technology = { #出售先进科技
+    category = economy
+    require_acceptance = yes
+    alert_index = 35
+	alert_tooltip = EDG_ERS_Selling_goods_alert_tooltip
+    is_visible = {
+		has_country_flag = EDG_ERS_mission_10_2_1_flag
+	}
+    is_allowed = {
+        any_neighbor_country = {
+            tech_difference = 1
+        } 
+	}
+    on_accept = {
+		if = {
+            limit = {
+                FROM = {
+                    capital_scope = {
+                        OR = {
+                            superregion = europe_superregion
+                           	superregion = eastern_europe_superregion
+                        }
+                    }
+                }
+            }
+			FROM = {
+				clear_global_event_target = EDG_ERS_E_technology_Seller
+				save_global_event_target_as = EDG_ERS_E_technology_Seller
+			}
+            country_event = {
+                id = mission_EDGERSmission.83
+            }
+        }
+        else_if = {
+			limit = {
+				FROM = {
+					capital_scope = {
+						OR = {
+							superregion = china_superregion
+							superregion = tartary_superregion
+							region = deccan_region
+						}
+					}
+				}
+			}
+			FROM = {
+				clear_global_event_target = EDG_ERS_A_Seller
+				save_global_event_target_as = EDG_ERS_A_Seller
+			}
+			country_event = {
+				id = mission_EDGERSmission.82
+			}
+		}
+    }
+    on_decline = {
+        
+    }
+    ai_acceptance = {
+        add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_1
+			limit = {
+				from = {
+					years_of_income = 1
+                    NOT = {
+                        years_of_income = 1.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_2
+			limit = {
+				from = {
+					years_of_income = 1.5
+                    NOT = {
+                        years_of_income = 2
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_3
+			limit = {
+				from = {
+					years_of_income = 2
+                    NOT = {
+                        years_of_income = 2.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_4
+			limit = {
+				from = {
+					years_of_income = 2.5
+                    NOT = {
+                        years_of_income = 3
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_5
+			limit = {
+				from = {
+					years_of_income = 3
+                    NOT = {
+                        years_of_income = 3.5
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_treasury_6
+			limit = {
+				from = {
+					years_of_income = 3.5
+                    NOT = {
+                        years_of_income = 4
+                    }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 30
+			}
+		}
+        add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+    }
+}
+EDG_ERS_Join_Shahar = { #加入沙赫尔
+	category = influence  
+	require_acceptance = yes
+    alert_index = 35
+	alert_tooltip = EDG_ERS_Selling_goods_alert_tooltip
+	is_visible = {
+		has_government_attribute = EDG_ERS_Ask_need_protection
+		FROM = {
+			is_subject = no
+		}
+	}
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { 
+					total_development = 200
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_ERS_Join_Shahar_txt
+				FROM = { 
+					NOT = {
+						total_development = 200
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			change_religion = zoroastrian
+		}
+		create_subject = { 
+			subject_type = EDG_ERS_Shahr
+			subject = FROM 
+		}
+	}
+	ai_acceptance = {
+        add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = -20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_opinion_1
+			limit = {
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 50
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 10
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_opinion_2
+			limit = {
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 30
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 20
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_opinion_3
+			limit = {
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 150
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 30
+			}
+		}
+        add_entry = {
+			name = EDG_ERS_opinion_4
+			limit = {
+				FROM = {
+					has_opinion = {
+						who = ROOT
+						value = 200
+					}
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 40
+			}
+		}
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.01
+			}
+		}
+    }
+}

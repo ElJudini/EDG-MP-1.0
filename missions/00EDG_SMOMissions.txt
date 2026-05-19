@@ -1,0 +1,3262 @@
+EDG_SMO_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = SMO 
+			AND = {
+				was_tag = SMO
+				tag = ROS
+			}
+			AND = {
+				was_tag = SMO
+				tag = FWF
+			}
+		}
+	} 
+
+	EDG_SMO_mission_1_1 = {
+		icon = mission_have_two_subjects
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			owns = 293
+			custom_trigger_tooltip = {
+				tooltip = EDG_SMO_mission_3_1.trigger.tt
+				has_country_flag = had_EDG_SMO_disasters_1_flag
+			}
+			OR = {
+				has_reform = EDG_Citizen_Army_Government
+				has_reform = EDG_ROS_Citizen_Government
+			}
+			NOT = { num_of_rebel_armies = 1 }
+		} 
+
+		effect = {
+			add_stability_or_adm_power = yes
+			custom_tooltip = EDG_SPACE_TT
+			add_or_upgrade_fort_building = yes
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = "EDG_SMO_mission_1_1.greate_project.tt"
+				first_limit = "
+					treasury = 250
+				"
+				first_effect = "
+					add_treasury = -250
+					293 = { set_great_project_tier_2 = { type = EDG_Smolensk_Castle }  } 
+				"
+			}
+			
+		} 
+	}
+
+	EDG_SMO_mission_1_3 = {
+		icon = mission_persian_soldiers
+		position = 3
+		required_missions = { EDG_SMO_mission_2_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_generals = 3
+			OR = {
+				army_size = 50
+				AND = {
+					army_size = 25
+					army_size_percentage = 0.9
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_castle_master_provide_army_tradition_flag_tt
+			set_country_flag = EDG_castle_master_provide_army_tradition_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_yearly_manpower = 2
+			add_manpower = 5
+			custom_tooltip = EDG_SPACE_TT
+			293 = { set_great_project_tier_2 = { type = EDG_Alexander_Fortress }  } 
+		} 
+	}
+
+	EDG_SMO_mission_1_5 = {
+		icon = mission_demand_garjat_fealty
+		position = 5
+		required_missions = {
+			EDG_SMO_mission_1_3
+			EDG_SMO_mission_2_4
+		}
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_WAL_atrocity_mechanic
+					power_type = EDG_WAL_atrocity
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_WAL_atrocity_mechanic
+						power_type = EDG_WAL_atrocity
+						value = 0
+					}
+				}
+			}
+			OR = {
+				has_reform = EDG_Citizen_Army_Government
+				has_reform = EDG_ROS_Citizen_Government
+			}
+			OR = {
+				has_reform = EDG_Peasant_regime_Religious_principles_1
+				has_reform = EDG_Peasant_regime_Religious_principles_2
+				has_reform = EDG_Peasant_regime_Religious_principles_3
+				adm_power_cost = 200
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							has_reform = EDG_Peasant_regime_Religious_principles_1
+							has_reform = EDG_Peasant_regime_Religious_principles_2
+							has_reform = EDG_Peasant_regime_Religious_principles_3
+						}
+					}
+				}
+				adm_power_cost = 200
+				if = {
+					limit = { 
+						has_country_modifier = EDG_SWI_radical_reform
+					}
+					extend_country_modifier = {
+						name = EDG_SWI_radical_reform
+						duration = 1825
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = EDG_SWI_radical_reform
+						duration = 1825
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			country_event = { id = EDG_flavor_Bogomili.7 } 
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_missionary_gain_adm_power_flag_tt
+			set_country_flag = EDG_missionary_gain_adm_power_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_1_5_modifier"
+				duration = 9125
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			293 = {
+				add_province_modifier = {
+					name = "EDG_City_develop_2_modifier"
+					duration = -1
+				}
+				add_base_tax = 2
+				add_base_production = 2
+				add_base_manpower = 2
+			}
+		}
+	}
+
+	EDG_SMO_mission_1_6 = {
+		icon = mission_high_income
+		position = 6
+		required_missions = { EDG_SMO_mission_1_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 40
+				}
+				AND = {
+					NOT = {
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_influence = {
+							estate = estate_burghers
+							influence = 20
+						}
+					}
+				}
+			}
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 40
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -40
+					}
+				}
+			}
+			stability = 1
+		}
+
+		effect = { country_event = { id = EDG_flavorSMO_Mission.10 }  } 
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_1_8 = {
+		icon = mission_clear_the_delta
+		position = 8
+		required_missions = { EDG_SMO_mission_3_7 } 
+		provinces_to_highlight = {
+			region = russia_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = russia_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_1_8.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			russia_region = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+				add_devastation = -100
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = russia_region
+						owned_by = root
+						NOT = {
+							is_core = root
+						}
+						development = 12
+					}
+					add_core = root
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_1_10 = {
+		icon = mission_conquer_kathiawar
+		position = 10
+		required_missions = { EDG_SMO_mission_3_9 } 
+		provinces_to_highlight = {
+			region = scandinavia_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_SMO_war_plan_1_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_SMO_war_plan_not_start
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_1_flag
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_1_flag
+					}
+					NOT = {
+						has_country_modifier = EDG_SMO_war_plan_1_modifier
+					}
+				}
+				mil_power_cost = 150
+			}
+			else = {
+				has_country_modifier = EDG_SMO_war_plan_1_modifier
+			}
+			num_of_owned_provinces_with = {
+				region = scandinavia_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_1_modifier
+				}
+				add_country_modifier = {
+					name = EDG_SMO_recruitment_kar
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_army_tradition = 10
+				add_army_professionalism = 0.05
+				hidden_effect = {
+					remove_country_modifier = EDG_SMO_planned_offensive
+				}
+			}
+			else = {
+				mil_power_cost = 150
+			}
+		} 
+	}
+
+	EDG_SMO_mission_1_12 = {
+		icon = mission_dominate_home_trade_node
+		position = 12
+		required_missions = { EDG_SMO_mission_3_11 } 
+		provinces_to_highlight = {
+			NOT = {
+				owned_by = root
+			}
+			has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					NOT = {
+						owned_by = root
+					}
+					has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+				}
+				amount = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_1_12.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_1_12_flag
+				every_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+					}
+					every_neighbor_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+									owned_by = root
+									is_core = root
+								}
+							}
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_agitate_the_bottom
+							duration = 7300
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_1_13 = {
+		icon = mission_hanseatic_city
+		position = 13
+		provinces_to_highlight = {
+			province_id = 293
+		}
+		trigger = {
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -20
+					}
+				}
+			}
+			293 = { 
+				development = 30 
+				has_forcelimit_building_trigger = yes
+				has_tax_building_trigger = yes
+				has_production_building_trigger = yes
+				has_trade_building_trigger = yes
+			} 
+		}
+
+		effect = {
+			country_event = { id = EDG_flavor_Bogomili.8 } 
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_missionary_gain_mil_power_flag_tt
+			set_country_flag = EDG_missionary_gain_mil_power_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			define_advisor = {
+				type = economist
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+				religion = ROOT
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			293 = {
+				add_province_modifier = {
+					name = "EDG_City_the_great"
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_province_modifier = {
+					name = "EDG_Religious_piety_egy_shiite_modifier"
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	EDG_SMO_mission_1_15 = {
+		icon = mission_conquer_malwa_bng
+		position = 15
+		required_missions = { EDG_SMO_mission_1_13 } 
+		provinces_to_highlight = {
+			OR = {
+				region = ruthenia_region
+				region = russia_region
+			}
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+			}
+			development = 20
+			owned_by = root
+		} 
+
+		trigger = {
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -20
+					}
+				}
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				OR = {
+					region = ruthenia_region
+					region = russia_region
+				}
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				development = 20
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = { 
+					mission_completed = EDG_SMO_mission_5_15
+				}
+				country_event = {
+					id = EDG_flavorSMO.6
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			country_event = { id = EDG_flavor_Bogomili.9 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_missionary_gain_dip_power_flag_tt
+			set_country_flag = EDG_missionary_gain_dip_power_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_1_9_modifier"
+				duration = 9125
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = give_all_province_the_modifier_tooltip
+			tooltip = {
+				add_province_modifier = {
+					name = "EDG_City_develop_3_modifier"
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							region = ruthenia_region
+							region = russia_region
+						}
+						development = 20
+					}
+					add_province_modifier = {
+						name = "EDG_City_develop_3_modifier"
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_1_17 = {
+		icon = mission_russian_revolution
+		position = 17
+		required_missions = { EDG_SMO_mission_1_15 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				AND = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = 80
+					}
+					has_government_power = {
+						mechanic_type = EDG_SMO_estate_loyal_mechanic
+						power_type = EDG_SMO_estate_loyal
+						value = 80
+					}
+				}
+				AND = {
+					NOT = {
+						has_government_power = {
+							mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+							power_type = EDG_SMO_revolutionary_tendency
+							value = -80
+						}
+					}
+					NOT = {
+						has_government_power = {
+							mechanic_type = EDG_SMO_estate_loyal_mechanic
+							power_type = EDG_SMO_estate_loyal
+							value = -80
+						}
+					}
+				}
+			}
+			OR = {
+				army_tradition = 60
+				army_size = 300
+				army_professionalism = 0.25
+				land_morale = 7.5
+			}
+			
+		}
+
+		effect = {
+			custom_tooltip = EDG_The_Third_Legion_of_Rosia_tooltip
+			set_country_flag = EDG_The_Third_Legion_of_Rosia_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_culture_promoted_provide_10_army_tradition_flag_tt
+			set_country_flag = EDG_culture_promoted_provide_10_army_tradition_flag
+			custom_tooltip = EDG_SPACE_TT
+			define_advisor = {
+				type = recruitmaster
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+				religion = ROOT
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_1_11_modifier"
+				duration = -1
+			}
+		}
+	}
+
+	EDG_SMO_mission_1_19 = {
+		icon = mission_have_manufactories
+		position = 19
+		required_missions = {
+			#EDG_SMO_mission_1_17
+			EDG_SMO_mission_2_18
+		}
+		provinces_to_highlight = { province_id = 293 } 
+
+		trigger = {
+			OR = {
+				innovativeness = 25
+				full_idea_group = innovativeness_ideas
+			}
+			num_of_artillery = 25
+			mil_tech = 7
+			293 = { base_production = 16 } 
+		}
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_1_19.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_1_19_flag
+				
+			}
+			if = {
+				limit = { 
+					NOT = {
+						full_idea_group = innovativeness_ideas
+					}
+				}
+				change_innovativeness = -25
+				custom_tooltip = EDG_SPACE_TT
+			}
+			add_army_tradition = 25
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_1_13_modifier"
+				duration = -1
+			}
+		}
+	}
+
+	EDG_SMO_mission_1_21 = {
+		icon = mission_thirty_years_war
+		position = 21
+		required_missions = { EDG_SMO_mission_2_20 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				full_idea_group = quality_ideas
+				full_idea_group = offensive_ideas
+			}
+			army_tradition = 90
+			army_size = 500
+			OR = {
+				army_professionalism = 0.5
+				land_morale = 7.5
+			}
+		} 
+
+		effect = {  
+			add_army_professionalism = 0.05
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_2_8_modifier"
+				duration = -1
+			}
+			4245 = {
+				add_province_modifier = {
+					name = "EDG_City_develop_2_modifier"
+					duration = 9125
+				}
+				set_great_project_tier_2 = { type = EDG_Vladimir_temple } 
+			}
+			custom_tooltip = EDG_SPACE_TT
+
+		} 
+	}
+}
+EDG_SMO_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = SMO 
+			AND = {
+				was_tag = SMO
+				tag = ROS
+			}
+			AND = {
+				was_tag = SMO
+				tag = FWF
+			}
+		}
+	} 
+
+	EDG_SMO_mission_2_2 = {
+		icon = mission_rb_war_of_the_roses
+		position = 2
+		required_missions = { EDG_SMO_mission_1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 2
+			OR = {
+				has_adm_advisor = yes
+				has_dip_advisor = yes
+				has_mil_advisor = yes
+			}
+		} 
+
+		effect = {
+			
+			add_country_modifier = {
+				name = "EDG_SMO_mission_1_4_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			define_advisor = {
+				type = recruitmaster
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+				religion = ROOT
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			custom_tooltip = EDG_SPACE_TT
+			293 = { set_great_project_tier_2 = { type = EDG_Hero_Square }  } 
+		} 
+	}
+
+	EDG_SMO_mission_2_4 = {
+		icon = mission_colonial
+		position = 4
+		required_missions = { EDG_SMO_mission_3_3 } 
+		provinces_to_highlight = {
+			
+		}
+		trigger = { monthly_income = 10 } 
+
+		effect = {
+			add_country_modifier = {
+				name = "EDG_SMO_mission_2_4_modifier"
+				duration = -1
+			}
+			add_country_modifier = {
+				name = "EDG_SMO_mission_2_4_modifier_2"
+				duration = 9125
+			}
+			smolensk_area = {
+				add_province_modifier = {
+					name = "EDG_City_goods_bloom"
+					duration = 9125
+				}
+			}
+			define_advisor = {
+				type = natural_scientist
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_2_6 = {
+		icon = imperial_capitals
+		position = 6
+		required_missions = { EDG_SMO_mission_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = 20
+					}
+				}
+			}
+			owns_core_province = 310
+		} 
+
+		effect = { country_event = { id = EDG_flavorSMO_Mission.8 } } 
+		ai_weight = {
+			factor = 400
+		} 
+	}
+
+	EDG_SMO_mission_2_8 = {
+		icon = mission_se_medicine_wheel
+		position = 8
+		required_missions = { EDG_SMO_mission_3_7 } 
+		provinces_to_highlight = {
+			region = ruthenia_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = ruthenia_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_2_8.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			ruthenia_region = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+				add_devastation = -100
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = ruthenia_region
+						owned_by = root
+						NOT = {
+							is_core = root
+						}
+						has_terrain = farmlands
+					}
+					add_core = root
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_10 = {
+		icon = mission_conquer_aden
+		position = 10
+		required_missions = { EDG_SMO_mission_3_9 } 
+		provinces_to_highlight = {
+			region = baltic_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_SMO_war_plan_2_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_SMO_war_plan_not_start
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_2_flag
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_2_flag
+					}
+					NOT = {
+						has_country_modifier = EDG_SMO_war_plan_2_modifier
+					}
+				}
+				mil_power_cost = 150
+			}
+			else = {
+				has_country_modifier = EDG_SMO_war_plan_2_modifier
+			}
+			num_of_owned_provinces_with = {
+				region = baltic_region
+				value = 20
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_2_modifier
+				}
+				add_country_modifier = {
+					name = EDG_SMO_recruitment_kava
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_army_tradition = 10
+				add_army_professionalism = 0.05
+				hidden_effect = {
+					remove_country_modifier = EDG_SMO_planned_offensive
+				}
+			}
+			else = {
+				mil_power_cost = 150
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_12 = {
+		icon = mission_landsknecht_soldier
+		position = 12
+		required_missions = { EDG_SMO_mission_3_11 } 
+		provinces_to_highlight = {
+			is_core = root
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			army_size = 250
+			calc_true_if = {
+				all_province = {
+					is_core = root
+					NOT = {
+						owned_by = root
+					}
+				}
+				amount = 10
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = EDG_SMO_mission_2_12.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_2_12_flag
+				every_core_province = {
+					limit = {
+						NOT = {
+							owned_by = root
+						}
+					}
+					add_nationalism = 20
+					add_unrest = 20
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_14 = {
+		icon = mission_dismantle_hre
+		position = 14
+		required_missions = { EDG_SMO_mission_3_13 } 
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+		} 
+
+		trigger = {
+			is_at_war = no
+			OR = {
+				any_neighbor_country = {
+					is_part_of_hre = yes
+				}
+				NOT = {
+					hre_size = 1
+				}
+			}
+			
+		} 
+
+		effect = { 
+			complex_dynamic_effect = {
+				first_custom_tooltip = "EDG_SMO_mission_2_14.hre.tt"
+				first_limit = "
+					hre_size = 1
+				"
+				first_effect = "
+					custom_tooltip = EDG_SMO_mission_2_14.effect.tt
+					hidden_effect = {
+						declare_war_with_cb = {
+							casus_belli = cb_annex
+							who = emperor
+						}
+						every_country = {
+							limit = {
+								NOT = {
+									alliance_with = root
+								}
+								NOT = {
+									tag = root
+								}
+								is_subject = no
+								is_part_of_hre = yes
+							}
+							join_all_defensive_wars_of = emperor
+						}
+					}
+				"
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_prestige_or_monarch_power = { amount = 100 }
+		} 
+	}
+
+	EDG_SMO_mission_2_16 = {
+		icon = mission_european_politics
+		position = 16
+		required_missions = {
+			EDG_SMO_mission_1_15
+			EDG_SMO_mission_3_15
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 100
+			}
+			NOT = {
+				estate_influence = {
+					estate = estate_EDG_officials
+					influence = 5
+				}
+			}
+			NOT = {
+				estate_influence = {
+					estate = estate_church
+					influence = 20
+				}
+			}
+			NOT = {
+				estate_influence = {
+					estate = estate_burghers
+					influence = 20
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_2_16.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_2_16_flag
+				every_neighbor_province = {
+					limit = {
+						NOT = {
+							OR = {
+								owned_by = root
+								is_core = root
+								has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+							}
+						}
+					}
+					add_province_modifier = {
+						name = EDG_FOI_UCI_agitate_the_bottom
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_18 = {
+		icon = public_works
+		position = 18
+		provinces_to_highlight = {
+			province_id = 293
+		} 
+
+		trigger = {
+			293 = {
+				base_production = 10
+				num_of_units_in_province = {
+					type = artillery
+					amount = 10
+					who = root
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_2_18.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_2_18_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			293 = {
+				change_trade_goods = iron
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_artillery_application
+				duration = -1
+			}
+			hidden_effect = {
+				293 = {
+					set_variable = {
+						which = EDG_SMO_artillery_count
+						value = 0
+					}
+					while = {
+						limit = { 
+							root = {
+								treasury = 10
+							}
+							num_of_units_in_province = {
+								type = artillery
+								amount = 1
+								who = root
+							}
+						}
+						change_variable = {
+							which = EDG_SMO_artillery_count
+							value = 1
+						}
+						
+						kill_units = {
+							type = artillery
+							amount = 1
+							who = root
+						}
+					}
+					while = {
+						limit = { 
+							check_variable = {
+								which = EDG_SMO_artillery_count
+								value = 0
+							}
+						}
+						subtract_variable = {
+							which = EDG_SMO_artillery_count
+							value = 1
+						}
+						revolutionary_guard_artillery = root
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_19 = {
+		icon = mission_cannons_firing
+		position = 19
+		required_missions = { EDG_SMO_mission_2_18 } 
+		provinces_to_highlight = {
+			OR = {
+				trade_goods = iron
+				trade_goods = copper
+			}
+			development = 25
+			has_production_building_trigger = yes
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					trade_goods = iron
+					trade_goods = copper
+				}
+				development = 25
+				has_production_building_trigger = yes
+				value = 5
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_2_19.effect_1.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_SMO_gun_foundry_copy
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SMO_mission_2_19.effect_2.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_5_13_modifier"
+				duration = -1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							trade_goods = iron
+							trade_goods = copper
+						}
+						development = 25
+					}
+					add_building = weapons
+				}
+				for = {
+					amount = 5
+					effect = "
+						random_owned_province = {
+							limit = {
+								OR = {
+									trade_goods = iron
+									trade_goods = copper
+								}
+								development = 25
+								NOT = {
+									has_province_flag = EDG_SMO_select_flag
+								}
+							}
+							add_province_triggered_modifier = EDG_SMO_gun_foundry
+							set_province_flag = EDG_SMO_select_flag
+						}
+					"
+				}
+				every_province = {
+					limit = {
+						has_province_flag = EDG_SMO_select_flag
+					}
+					clr_province_flag = EDG_SMO_select_flag
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_20 = {
+		icon = mission_guns_of_urban
+		position = 20
+		required_missions = {
+			EDG_SMO_mission_1_19
+			EDG_SMO_mission_2_19
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				innovativeness = 25
+				full_idea_group = innovativeness_ideas
+			}
+			artillery_fraction = 0.25
+			land_forcelimit = 500
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_5_modifier
+				}
+				NOT = {
+					has_country_modifier = EDG_SMO_war_plan_5_modifier
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_2_20.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_2_20_flag
+			}
+			if = {
+				limit = { 
+					NOT = {
+						full_idea_group = innovativeness_ideas
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				change_innovativeness = -25
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_military_engineering
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_early_ballistics
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SMO_mission_2_22 = {
+		icon = per_language_of_poetry
+		position = 22
+		required_missions = { EDG_SMO_mission_3_21 } 
+		provinces_to_highlight = {  
+
+		} 
+
+		trigger = { 
+			governing_capacity_percentage = 0.9
+			total_development = 5000
+			num_of_owned_provinces_with = {
+				has_courthouse_building_trigger = yes
+				value = 75
+			}
+		} 
+
+		effect = { 
+			change_government_reform_progress = 250
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_administrative_reform
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SMO_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = SMO 
+			AND = {
+				was_tag = SMO
+				tag = ROS
+			}
+			AND = {
+				was_tag = SMO
+				tag = FWF
+			}
+		}
+	} 
+
+	EDG_SMO_mission_3_1 = {
+		icon = standardize_relazioni
+		position = 1
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_SMO_mission_3_1.trigger.tt
+				has_country_flag = had_EDG_SMO_disasters_1_flag
+			}
+			OR = {
+				has_reform = EDG_Citizen_Army_Government
+				has_reform = EDG_ROS_Citizen_Government
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.0 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_state_edicts_1_allow_tooltip
+			set_country_flag = EDG_state_edicts_1_allow_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SMO_mission_3_1.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_3_1_flag
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_3_2 = {
+		icon = mission_unite_home_region
+		position = 2
+		required_missions = { EDG_SMO_mission_3_1 } 
+		provinces_to_highlight = {
+			is_core = root
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			smolensk_area = {
+				type = all
+				owned_by = ROOT
+				is_core = ROOT
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_2_2_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			smolensk_area = {
+				add_base_production = 1
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = "EDG_City_goods_product_grain_1"
+					duration = -1
+				}
+				add_devastation = -100
+			}
+			# 297 = {
+			# 	add_base_production = 1
+			# 	add_base_manpower = 1
+			# 	add_province_modifier = {
+			# 		name = "EDG_City_goods_product_grain_1"
+			# 		duration = -1
+			# 	}
+			# 	add_devastation = -100
+			# }
+			# 4244 = {
+			# 	add_base_production = 1
+			# 	add_base_manpower = 1
+			# 	add_province_modifier = {
+			# 		name = "EDG_City_goods_product_grain_1"
+			# 		duration = -1
+			# 	}
+			# 	add_devastation = -100
+			# }
+			# 4245 = {
+			# 	add_base_production = 1
+			# 	add_base_manpower = 1
+			# 	add_province_modifier = {
+			# 		name = "EDG_Origin_of_high_quality_textiles_goods_modifier"
+			# 		duration = -1
+			# 	}
+			# 	add_devastation = -100
+			# }
+			# 293 = {
+			# 	add_province_modifier = {
+			# 		name = "EDG_City_manpower_bloom_2"
+			# 		duration = -1
+			# 	}
+			# 	add_devastation = -100
+			# }
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_3_3 = {
+		icon = mission_vedic_education
+		position = 3
+		required_missions = { EDG_SMO_mission_3_2 } 
+		provinces_to_highlight = { area = smolensk_area } 
+
+		trigger = {
+			development_in_provinces = {
+				value = 40
+				area = smolensk_area
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.1 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_state_edicts_2_allow_tooltip
+			custom_tooltip = EDG_state_edicts_3_allow_tooltip
+			custom_tooltip = EDG_state_edicts_5_allow_tooltip
+			custom_tooltip = EDG_state_edicts_6_allow_tooltip
+			set_country_flag = EDG_state_edicts_2_allow_flag
+			set_country_flag = EDG_state_edicts_3_allow_flag
+			set_country_flag = EDG_state_edicts_5_allow_flag
+			set_country_flag = EDG_state_edicts_6_allow_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_dip_policy_6_modifier"
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_5 = {
+		icon = mission_court_education
+		position = 5
+		required_missions = {
+			EDG_SMO_mission_2_4
+			EDG_SMO_mission_4_4
+		}
+		trigger = {
+			total_development = 100
+			stability = 1
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -20
+					}
+				}
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.14 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_cb_EDG_WG_Liberation_SMO_allow_tooltip
+			set_country_flag = EDG_cb_EDG_WG_Liberation_SMO_allow_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_18_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = russia_region }
+			EDG_add_claim = { area = ruthenia_region }
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_3_6 = {
+		icon = mission_develop_kiev
+		position = 6
+		required_missions = { EDG_SMO_mission_3_5 } 
+		provinces_to_highlight = { province_id = 280 } 
+
+		trigger = {
+			owns_core_province = 280
+			estate_loyalty = {
+				estate = estate_EDG_peasants
+				loyalty = 60
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.7 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_centralized_state_provide_10_government_reform_progress_flag_tt
+			set_country_flag = EDG_centralized_state_provide_10_government_reform_progress_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_dip_policy_1_modifier"
+				duration = 9125
+			}
+		} 
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_3_7 = {
+		icon = reform_the_nomocanon
+		position = 7
+		required_missions = {
+			EDG_SMO_mission_2_6
+			EDG_SMO_mission_3_6
+			EDG_SMO_mission_4_6
+			EDG_SMO_mission_1_6
+			EDG_SMO_mission_5_6
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			tag = ROS
+			#monthly_income = 100
+			NOT = { num_of_loans = 1 } 
+			is_in_deficit = no
+			stability = 1
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -20
+					}
+				}
+			}
+			OR = {
+				has_reform = EDG_Peasant_regime_National_virtue_1
+				has_reform = EDG_Peasant_regime_National_virtue_2
+				has_reform = EDG_Peasant_regime_National_virtue_3
+				adm_power_cost = 200
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						OR = {
+							has_reform = EDG_Peasant_regime_National_virtue_1
+							has_reform = EDG_Peasant_regime_National_virtue_2
+							has_reform = EDG_Peasant_regime_National_virtue_3
+						}
+					}
+				}
+				adm_power_cost = 200
+				if = {
+					limit = { 
+						has_country_modifier = EDG_SWI_radical_reform
+					}
+					extend_country_modifier = {
+						name = EDG_SWI_radical_reform
+						duration = 1825
+					}
+				}
+				else = {
+					add_country_modifier = {
+						name = EDG_SWI_radical_reform
+						duration = 1825
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			country_event = { id = EDG_flavorSMO_Mission.2 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.6 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_cb_EDG_WG_Liberation_SMO_allow_neighbor_tooltip
+			set_country_flag = EDG_cb_EDG_WG_Liberation_SMO_allow_neighbor_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SMO_remove_all_landowners_modifier
+			
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+							has_province_modifier = EDG_RUS_landowners_church_province_modifier
+							has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+						}
+					}
+					remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+					remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+					remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_produce_upgrade_1_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = ural_region }
+			EDG_add_claim = { area = crimea_region }
+		}
+	}
+
+	EDG_SMO_mission_3_9 = {
+		icon = mission_consulate_of_the_sea
+		position = 9
+		required_missions = {
+			EDG_SMO_mission_1_8
+			EDG_SMO_mission_2_8
+			EDG_SMO_mission_4_8
+			EDG_SMO_mission_5_8
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			legitimacy_equivalent = 80
+			is_great_power = yes
+			stability = 1
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 40
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -40
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.3 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.6 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SMO_mission_3_9.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_war_plan_1_flag
+				set_country_flag = EDG_SMO_war_plan_2_flag
+				set_country_flag = EDG_SMO_war_plan_3_flag
+				set_country_flag = EDG_SMO_war_plan_4_flag
+				set_country_flag = EDG_SMO_war_plan_5_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_dip_policy_5_modifier"
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_10 = {
+		icon = mission_conquer_andhra_vij
+		position = 10
+		required_missions = { EDG_SMO_mission_3_9 } 
+		provinces_to_highlight = {
+			region = poland_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_SMO_war_plan_3_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_SMO_war_plan_not_start
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_3_flag
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_3_flag
+					}
+					NOT = {
+						has_country_modifier = EDG_SMO_war_plan_3_modifier
+					}
+				}
+				mil_power_cost = 150
+			}
+			else = {
+				has_country_modifier = EDG_SMO_war_plan_3_modifier
+			}
+			num_of_owned_provinces_with = {
+				region = poland_region
+				value = 20
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_3_modifier
+				}
+				add_country_modifier = {
+					name = EDG_SMO_recruitment_winged
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_army_tradition = 10
+				add_army_professionalism = 0.05
+				hidden_effect = {
+					remove_country_modifier = EDG_SMO_planned_offensive
+				}
+			}
+			else = {
+				mil_power_cost = 150
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_11 = {
+		icon = mission_dominate_the_mediterranean
+		position = 11
+		required_missions = {
+			EDG_SMO_mission_1_10
+			EDG_SMO_mission_2_10
+			EDG_SMO_mission_3_10
+			EDG_SMO_mission_4_10
+			EDG_SMO_mission_5_10
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			land_morale = 6.5
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 60
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.4 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.6 } 
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SMO_mission_3_11.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_3_11_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_2_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = europe_superregion }
+		} 
+	}
+
+	EDG_SMO_mission_3_13 = {
+		icon = mission_plc_governance_act
+		position = 13
+		required_missions = {
+			EDG_SMO_mission_1_12
+			EDG_SMO_mission_2_12
+			EDG_SMO_mission_4_12
+			EDG_SMO_mission_5_12
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_great_power = yes
+			total_development = 1500
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 80
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.5 } 
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavorSMO_rank.6 } 
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_adm_policy_4_modifier"
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_14 = {
+		icon = EDG_ICON_revolutionary
+		position = 14
+		required_missions = { EDG_SMO_mission_3_13 } 
+		provinces_to_highlight = {
+			OR = {
+				region = north_german_region
+				region = south_german_region
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					owner = {
+						is_subject = no
+						OR = {
+							government = republic
+							government = EDG_Peasant_regime_government
+						}
+					}
+					OR = {
+						continent = europe
+						continent = asia
+					}
+				}
+				amount = 500
+			}
+		}
+
+		effect = {
+			custom_tooltip = EDG_cb_EDG_WG_Liberation_SMO_allow_all_tooltip
+			set_country_flag = EDG_cb_EDG_WG_Liberation_SMO_allow_all_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_4_10_modifier"
+				duration = 9125
+			}
+		}
+	}
+
+	EDG_SMO_mission_3_15 = {
+		icon = develop_naples
+		position = 15
+		required_missions = {
+			EDG_SMO_mission_2_14
+			EDG_SMO_mission_3_14
+			EDG_SMO_mission_4_14
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 3
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency	
+				value = 80
+			}
+			has_government_power = {
+				mechanic_type = EDG_SMO_estate_loyal_mechanic
+				power_type = EDG_SMO_estate_loyal
+				value = 60
+			}
+			has_government_power = {
+				mechanic_type = EDG_SMO_estate_influence_mechanic
+				power_type = EDG_SMO_estate_influence
+				value = 60
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.6 }  
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_5_modifier"
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_17 = {
+		icon = la_marseillaise
+		position = 17
+		required_missions = {
+			EDG_SMO_mission_4_16
+			EDG_SMO_mission_2_16
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency	
+				value = 100
+			}
+			# total_development = 2500
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_FWFEvents.0
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_18 = {
+		icon = glory_to_turin
+		position = 18
+		provinces_to_highlight = { 
+			OR = {
+				region = russia_region
+				region = ruthenia_region
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			russia_region = {
+				type = all
+				owned_by = root
+			}
+			ruthenia_region = {
+				type = all
+				owned_by = root
+			}
+			ural_region = {
+				type = all
+				owned_by = root
+			}
+			crimea_region = {
+				type = all
+				owned_by = root
+			}
+			is_at_war = no
+			OR = {
+				has_reform = EDG_Peasant_regime_economic_system_1	#自治村社
+				has_reform = EDG_Peasant_regime_economic_system_2	#集体农庄
+				has_reform = EDG_Peasant_regime_economic_system_3	#财政部
+				has_reform = EDG_Peasant_regime_economic_system_4	#财政总署
+				has_reform = EDG_Peasant_regime_economic_system_5	#经济委员会
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_3_18.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_3_18_flag
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_ten_year_plan_1
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_21 = {
+		icon = mission_rb_conquer_bengal
+		position = 21
+		required_missions = { EDG_SMO_mission_3_18 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			is_at_war = no
+			NOT = {
+				OR = {
+					has_country_modifier = EDG_SMO_ten_year_plan_1
+					has_country_modifier = EDG_SMO_ten_year_plan_2
+					has_country_modifier = EDG_SMO_ten_year_plan_3
+					has_country_modifier = EDG_SMO_ten_year_plan_4
+					has_country_modifier = EDG_SMO_ten_year_plan_5
+				}
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = EDG_SMO_five_year_plan
+				duration = 1825
+			}
+			custom_tooltip = EDG_SMO_mission_3_21.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_SMO_early_modern_urbanization
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_3_23 = {
+		icon = mission_plc_lifetime_of_war
+		position = 23
+		required_missions = {
+			EDG_SMO_mission_2_22
+			EDG_SMO_mission_4_22
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			land_morale = 10
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 100
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_SMO_flamestrike
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SMO_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = SMO 
+			AND = {
+				was_tag = SMO
+				tag = ROS
+			}
+			AND = {
+				was_tag = SMO
+				tag = FWF
+			}
+		}
+	} 
+
+	EDG_SMO_mission_4_2 = {
+		icon = mission_swedish_peasantry
+		position = 2
+		required_missions = { EDG_SMO_mission_5_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+				AND = {
+					NOT = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_influence = {
+							estate = estate_church
+							influence = 20
+						}
+					}
+				}
+			}
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 40
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -40
+					}
+				}
+			}
+			stability = 2
+		} 
+
+		effect = { country_event = { id = EDG_flavorSMO_Mission.12 }  } 
+	}
+
+	EDG_SMO_mission_4_4 = {
+		icon = mission_plc_edict_education
+		position = 4
+		required_missions = { EDG_SMO_mission_3_3 } 
+		provinces_to_highlight = { 
+			province_id = 297
+		} 
+
+		trigger = {
+			owns_core_province = 297
+			has_estate_privilege = estate_EDG_peasants_privilege_6
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.13 }
+			custom_tooltip = EDG_SPACE_TT
+			add_adm_power = 25
+			add_dip_power = 25
+			add_mil_power = 25
+		} 
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_4_6 = {
+		icon = mission_defeat_muscovy
+		position = 6
+		required_missions = { EDG_SMO_mission_3_5 } 
+		provinces_to_highlight = { province_id = 295 } 
+
+		trigger = {
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 20
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = 20
+					}
+				}
+			}
+			owns_core_province = 295
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.9 }
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_8_modifier"
+				duration = 9125
+			}
+		} 
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_4_8 = {
+		icon = mission_conquer_air
+		position = 8
+		required_missions = { EDG_SMO_mission_3_7 } 
+		provinces_to_highlight = {
+			region = crimea_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = crimea_region
+				value = 15
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_4_8.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			crimea_region = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+				add_devastation = -100
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = crimea_region
+						owned_by = root
+						NOT = {
+							is_core = root
+						}
+						NOT = {
+							development = 7
+						}
+					}
+					add_core = root
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_10 = {
+		icon = mission_conquer_lanka
+		position = 10
+		required_missions = { EDG_SMO_mission_3_9 } 
+		provinces_to_highlight = {
+			region = carpathia_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_SMO_war_plan_4_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_SMO_war_plan_not_start
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_4_flag
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_4_flag
+					}
+					NOT = {
+						has_country_modifier = EDG_SMO_war_plan_4_modifier
+					}
+				}
+				mil_power_cost = 150
+			}
+			else = {
+				has_country_modifier = EDG_SMO_war_plan_4_modifier
+			}
+			num_of_owned_provinces_with = {
+				region = carpathia_region
+				value = 25
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_4_modifier
+				}
+				add_country_modifier = {
+					name = EDG_SMO_recruitment_cossack
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_army_tradition = 10
+				add_army_professionalism = 0.05
+				hidden_effect = {
+					remove_country_modifier = EDG_SMO_planned_offensive
+				}
+			}
+			else = {
+				mil_power_cost = 150
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_12 = {
+		icon = mission_steppe_warriors
+		position = 12
+		required_missions = { EDG_SMO_mission_3_11 } 
+		provinces_to_highlight = {
+			owner = {
+				has_spy_network_from = {
+					who = root
+					value = 25
+				}
+			}
+		} 
+
+		trigger = {  
+			OR = {
+				full_idea_group = spy_ideas
+				calc_true_if = {
+					all_country = {
+						has_spy_network_from = {
+							who = root
+							value = 25
+						}
+					}
+					amount = 3
+				}
+			}
+			calc_true_if = {
+				all_province = {
+					OR = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+						AND = {
+							is_core = root
+							NOT = {
+								owned_by = root
+							}
+						}
+					}
+				}
+				amount = 25
+			}
+		} 
+
+		effect = { 
+			custom_tooltip = EDG_SMO_mission_4_12.effect.tt
+			hidden_effect = {
+				for = {
+					amount = 5
+					effect = "
+						random_province = {
+							limit = {
+								NOT = {
+									has_province_flag = EDG_SMO_select_flag
+								}
+								OR = {
+									has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+									AND = {
+										is_core = root
+										NOT = {
+											owned_by = root
+										}
+									}
+								}
+							}
+							set_province_flag = EDG_SMO_select_flag
+							spawn_rebels = {
+								type = EDG_SMO_foreign_forces_rebel
+								friend = root
+								size = 10
+							}
+						}
+					"
+				}
+				every_province = {
+					limit = {
+						has_province_flag = EDG_SMO_select_flag
+					}
+					clr_province_flag = EDG_SMO_select_flag
+				}
+				set_country_flag = EDG_SMO_mission_4_12_flag
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_14 = {
+		icon = protect_against_austria
+		position = 14
+		required_missions = { EDG_SMO_mission_3_13 } 
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					NOT = {
+						culture_group = root
+					}
+				}
+				amount = 250
+			}
+		} 
+
+		effect = {
+			#custom_tooltip = mechanic_EDG_assimilation_cultures_attributes_yes
+			#custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_SMO_liberation_committee
+		} 
+	}
+
+	EDG_SMO_mission_4_16 = {
+		icon = EDG_ICON_Ncaretaker
+		position = 16
+		required_missions = {
+			EDG_SMO_mission_5_15
+			EDG_SMO_mission_3_15
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 100
+			}
+			estate_loyalty = {
+				estate = estate_EDG_peasants
+				loyalty = 100
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_4_16.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						NOT = {
+							is_core = root
+						}
+					}
+					add_nationalism = -20
+				}
+				set_country_flag = EDG_SMO_mission_4_16_flag
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_18 = {
+		icon = EDG_ICON_logging_camp
+		position = 18
+		provinces_to_highlight = {
+			OR = {
+				has_terrain = forest
+				has_terrain = woods
+			}
+			OR = {
+				region = ural_region
+				region = russia_region
+			}
+			NOT = {
+				development = 12
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					has_terrain = forest
+					has_terrain = woods
+				}
+				OR = {
+					region = ural_region
+					region = russia_region
+				}
+				development = 12
+				value = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_4_18.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = give_all_province_the_modifier_tooltip
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_SMO_wood_produce
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_terrain = forest
+							has_terrain = woods
+						}
+						OR = {
+							region = ural_region
+							region = russia_region
+							region = east_siberia_region
+							region = west_siberia_region
+						}
+						NOT = {
+							development = 7
+						}
+					}
+					while = {
+						limit = { 
+							NOT = {
+								development = 7
+							}
+						}
+						add_random_development = 1
+					}
+				}
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_terrain = forest
+							has_terrain = woods
+						}
+						OR = {
+							region = ural_region
+							region = russia_region
+						}
+						development = 10
+					}
+					add_province_modifier = {
+						name = EDG_SMO_wood_produce
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_19 = {
+		icon = EDG_ICON_billionare
+		position = 19
+		required_missions = { EDG_SMO_mission_4_18 } 
+		provinces_to_highlight = {
+			owned_by = root
+			development = 30
+			num_of_buildings_in_province = 4
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				development = 30
+				num_of_buildings_in_province = 4
+				value = 20
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_SMO_mission_4_19.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_SMO_early_industrialization_process
+				duration = -1
+			}
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								development = 30
+								num_of_buildings_in_province = 4
+								NOT = {
+									development = 50
+								}
+							}
+							while = {
+								limit = { 
+									NOT = {
+										development = 50
+									}
+								}
+								add_random_development = 1
+							}
+						}
+					"
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_20 = {
+		icon = mission_asian_trader
+		position = 20
+		required_missions = {
+			EDG_SMO_mission_5_19
+			EDG_SMO_mission_4_19
+		}
+		provinces_to_highlight = {  
+			owned_by = root
+			has_province_modifier = EDG_SMO_early_modern_urbanization
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				has_province_modifier = EDG_SMO_early_modern_urbanization
+				value = 25
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_SMO_mission_4_20.effect.tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_SMO_modern_urbanization
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_province_modifier = EDG_SMO_early_modern_urbanization
+					}
+					remove_province_modifier = EDG_SMO_early_modern_urbanization
+					add_province_modifier = {
+						name = EDG_SMO_modern_urbanization
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_4_22 = {
+		icon = tuscan_birthright
+		position = 22
+		required_missions = { EDG_SMO_mission_3_21 } 
+		provinces_to_highlight = {  
+			owned_by = root
+			development = 15
+			num_of_buildings_in_province = 3
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					development = 15
+					num_of_buildings_in_province = 3
+				}
+				amount = 100
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = EDG_SMO_national_development_council
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_SMO_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = SMO 
+			AND = {
+				was_tag = SMO
+				tag = ROS
+			}
+			AND = {
+				was_tag = SMO
+				tag = FWF
+			}
+		}
+	} 
+
+	EDG_SMO_mission_5_1 = {
+		icon = mission_alliances
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			owns = 293
+			custom_trigger_tooltip = {
+				tooltip = EDG_SMO_mission_3_1.trigger.tt
+				has_country_flag = had_EDG_SMO_disasters_1_flag
+			}
+			OR = {
+				has_reform = EDG_Citizen_Army_Government
+				has_reform = EDG_ROS_Citizen_Government
+			}
+			stability = 0
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.17 } 
+			custom_tooltip = EDG_SPACE_TT
+			add_stability_or_adm_power = yes
+			custom_tooltip = EDG_SPACE_TT
+			remove_country_modifier = EDG_flavorSMO_0_modifier
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_5_3_modifier"
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_3 = {
+		icon = mission_religious
+		position = 3
+		required_missions = { EDG_SMO_mission_4_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			estate_loyalty = {
+				estate = estate_EDG_peasants
+				loyalty = 60
+			}
+			OR = {
+				estate_loyalty = {
+					estate = estate_EDG_officials
+					loyalty = 40
+				}
+				NOT = {
+					estate_influence = {
+						estate = estate_EDG_officials
+						influence = 25
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_5_3.effect_1.tt
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_5_3_flag
+			}
+			EDG_SMO_revolutionary_tendency_back_center_common_effect = yes
+			
+		} 
+	}
+
+	EDG_SMO_mission_5_5 = {
+		icon = king_of_the_franks
+		position = 5
+		required_missions = {
+			EDG_SMO_mission_5_3
+			EDG_SMO_mission_4_4
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 40
+			}
+			estate_loyalty = {
+				estate = estate_EDG_peasants
+				loyalty = 60
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_remove_all_landowners_modifier
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+							has_province_modifier = EDG_RUS_landowners_church_province_modifier
+							has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+						}
+					}
+					remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+					remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+					remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Praetorian_Prefect_enable_flag_tt
+			set_country_flag = EDG_Praetorian_Prefect_enable_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_republican_tradition = 10
+			add_adm_power = 50
+			custom_tooltip = EDG_SPACE_TT
+			change_estate_land_share = {
+				estate = estate_church
+				share = -100
+			}
+			change_estate_land_share = {
+				estate = estate_burghers
+				share = -100
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_6 = {
+		icon = mission_luther_theses
+		position = 6
+		required_missions = { EDG_SMO_mission_5_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_cities = 20
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorSMO_Mission.11 }
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_expansion_policy_4_modifier"
+				duration = 9125
+			}
+		} 
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_SMO_mission_5_8 = {
+		icon = mission_secure_khandesh
+		position = 8
+		required_missions = { EDG_SMO_mission_3_7 } 
+		provinces_to_highlight = {
+			region = ural_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				region = ural_region
+				value = 15
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_SMO_mission_5_8.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			ural_region = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -10
+				add_devastation = -100
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = ural_region
+						owned_by = root
+						NOT = {
+							is_core = root
+						}
+						OR = {
+							has_terrain = woods
+							has_terrain = forest
+						}
+					}
+					add_core = root
+				}
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_10 = {
+		icon = mission_invade_arakan
+		position = 10
+		required_missions = { EDG_SMO_mission_3_9 } 
+		provinces_to_highlight = {
+			region = balkan_region
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					has_country_flag = EDG_SMO_war_plan_5_flag
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_SMO_war_plan_not_start
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_5_flag
+					}
+				}
+			}
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = EDG_SMO_war_plan_5_flag
+					}
+					NOT = {
+						has_country_modifier = EDG_SMO_war_plan_5_modifier
+					}
+				}
+				mil_power_cost = 150
+			}
+			else = {
+				has_country_modifier = EDG_SMO_war_plan_5_modifier
+			}
+			num_of_owned_provinces_with = {
+				region = balkan_region
+				value = 40
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					has_country_modifier = EDG_SMO_war_plan_5_modifier
+				}
+				add_country_modifier = {
+					name = EDG_SMO_recruitment_warrior
+					duration = -1
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_army_tradition = 10
+				add_army_professionalism = 0.05
+				hidden_effect = {
+					remove_country_modifier = EDG_SMO_planned_offensive
+				}
+			}
+			else = {
+				mil_power_cost = 150
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_12 = {
+		icon = EDG_ICON_achievement_vox_populi
+		position = 12
+		required_missions = { EDG_SMO_mission_3_11 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				estate_loyalty = {
+					estate = estate_EDG_peasants
+					loyalty = 80
+				}
+				estate_loyalty = {
+					estate = estate_EDG_officials
+					loyalty = 80
+				}
+				
+			}
+			OR = {
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 80
+				}
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 80
+				}
+				AND = {
+					NOT = {
+						estate_influence = {
+							estate = estate_burghers
+							influence = 20
+						}
+					}
+					NOT = {
+						estate_influence = {
+							estate = estate_church
+							influence = 20
+						}
+					}
+				}
+			}
+			OR = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = 80
+				}
+				NOT = {
+					has_government_power = {
+						mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+						power_type = EDG_SMO_revolutionary_tendency
+						value = -80
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_SMO_mission_5_12.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 20
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SMO_mission_5_12_flag
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_13 = {
+		icon = mission_ne_agriculture
+		position = 13
+		provinces_to_highlight = {
+			owned_by = root
+			num_of_times_improved = 5
+			OR = {
+				trade_goods = grain
+				trade_goods = livestock
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				num_of_times_improved = 5
+				OR = {
+					trade_goods = grain
+					trade_goods = livestock
+				}
+			}
+			has_estate_privilege = estate_EDG_peasants_privilege_5
+		}
+
+		effect = {
+			if = {
+				limit = { has_reform = EDG_Peasant_regime_economic_system_1 } 
+				add_government_reform = EDG_Peasant_regime_economic_system_2
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_5_7_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = give_all_province_the_modifier_tooltip
+			tooltip = {
+				add_province_modifier = {
+					name = "EDG_SMO_develop_farmland"
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						num_of_times_improved = 5
+						OR = {
+							trade_goods = grain
+							trade_goods = livestock
+						}
+					}
+					add_province_modifier = {
+						name = "EDG_SMO_develop_farmland"
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	EDG_SMO_mission_5_15 = {
+		icon = mission_pol_breadbasket_europe
+		position = 15
+		required_missions = { EDG_SMO_mission_5_13 } 
+		provinces_to_highlight = {
+			owned_by = root
+			base_production = 10
+			OR = {
+				has_building = workshop
+				has_building = counting_house
+			}
+			OR = {
+				trade_goods = grain
+				has_building = farm_estate
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				base_production = 10
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+				OR = {
+					trade_goods = grain
+					has_building = farm_estate
+				}
+			}
+		}
+
+		effect = {
+			if = {
+				limit = { 
+					mission_completed = EDG_SMO_mission_1_15
+				}
+				country_event = {
+					id = EDG_flavorSMO.6
+				}
+				custom_tooltip = EDG_SPACE_TT
+			}
+			custom_tooltip = give_all_province_the_modifier_tooltip
+			tooltip = {
+				add_or_upgrade_manpower_building = yes
+				add_or_upgrade_production_building = yes
+				custom_tooltip = EDG_SPACE_TT
+				add_province_modifier = {
+					name = "EDG_City_goods_product_grain_1"
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						base_production = 10
+						OR = {
+							has_building = workshop
+							has_building = counting_house
+						}
+						OR = {
+							trade_goods = grain
+							has_building = farm_estate
+						}
+					}
+					add_province_modifier = {
+						name = "EDG_City_develop_farmland"
+						duration = -1
+					}
+					add_or_upgrade_manpower_building = yes
+					add_or_upgrade_production_building = yes
+				}
+			}
+		}
+	}
+
+	EDG_SMO_mission_5_17 = {
+		icon = mission_dominate_persian_gulf
+		position = 17
+		required_missions = { EDG_SMO_mission_5_15 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 25
+				has_building = farm_estate
+			}
+			OR = {
+				army_professionalism = 0.20
+				army_tradition = 75
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = merc__EDG_The_Legion_of_Rosia_4_tooltip
+			set_country_flag = EDG_The_Legion_of_Rosia_4_flag
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_5_11_modifier"
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_19 = {
+		icon = EDG_ICON_forge
+		position = 19
+		required_missions = {
+			#EDG_SMO_mission_5_17
+			EDG_SMO_mission_4_18
+		}
+		provinces_to_highlight = {  
+			owned_by = root
+			trade_goods = iron
+			NOT = {
+				AND = {
+					has_building = weapons
+					base_production = 8
+				}
+			}
+		} 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				base_production = 8
+				trade_goods = iron
+				has_building = weapons
+				value = 20
+			}
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.15
+			}
+		} 
+
+		effect = {  
+			add_country_modifier = {
+				name = EDG_SMO_upgrade_weapon
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_SMO_mission_5_21 = {
+		icon = mission_assemble_an_army
+		position = 21
+		required_missions = { EDG_SMO_mission_4_20 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			custom_trigger_tooltip = {
+				tooltip = EDG_SMO_mission_5_21.trigger.tt
+				all_country = {
+					NOT = {
+						army_size = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			
+			create_general = {
+				tradition = 100
+				add_fire = 2
+				culture = ROOT
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_2_12_modifier"
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = "EDG_SMO_mission_4_8_modifier"
+				duration = 9125
+			}
+		} 
+	}
+}

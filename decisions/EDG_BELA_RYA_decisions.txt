@@ -1,0 +1,636 @@
+country_decisions = {
+	#	EDG_rya_idea_refresh_decision = {
+	#		potential = {
+	#			ai = no
+	#		}
+	#		allow = {
+	#			ai = no
+	#		}
+	#		effect = { #
+	#			set_country_flag = EDG_rya_2_ideas_flag
+	#			if = {
+	#				limit = {
+	#					has_custom_ideas = no
+	#				}
+	#				country_event = { id = ideagroups.1 } #Swap Ideas
+	#			}
+	#		}
+	#		ai_will_do = {
+	#			factor = 0
+	#		}
+	#	}
+	EDG_OKA_SMO_decision = {
+		potential = {
+			tag = OKA
+			not = {
+				has_country_flag = has_send_to_SMO_flag
+			}
+		}
+		allow = {
+			exists = SMO
+			is_at_war = no
+		}
+		effect = {
+			SMO = {
+				country_event = {
+					id = EDG_RYA_events.1011
+					days = 10
+				}
+			}
+			set_country_flag = has_send_to_SMO_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_RYA_rurise_1_decision = {#重建王权
+		major = yes
+		potential = {
+			tag = RYA
+			has_country_modifier = EDG_RYA_events_104_modifier
+		}
+		allow = {
+			months_of_ruling = 12
+			check_variable = {
+				which = EDG_rya_rerise_1_var
+				value = 10
+			}
+			is_at_war = no
+		}
+		effect = {
+			remove_country_modifier = EDG_RYA_events_104_modifier
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_RYA_stop_landshare_decision = {#停止分配土地
+		potential = {
+			always = no
+			has_disaster = EDG_RYA_fall_disaster
+			tag = RYA
+			total_development = 300
+			not = {
+				has_country_flag = EDG_rya_stop_land_share_flag
+			}
+		}
+		allow = {
+			adm_power = 500
+			dip_power = 500
+			mil_power = 500
+		}
+		effect = {
+			adm_power_cost = 500
+			dip_power_cost = 500
+			mil_power_cost = 500
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = -50
+			}
+			change_estate_land_share = {
+				estate = estate_nobles
+				share = -5
+			}
+			set_country_flag = EDG_rya_stop_land_share_flag
+			remove_government_reform = EDG_BELA_RYA_boyal_landshare_reform
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_rus_gen_gov_name = {#罗斯改名字
+		potential = {
+			not = {
+				has_country_flag = EDG_rus_name_flag
+			}
+			tag = VRS
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			set_country_flag = EDG_rus_name_flag
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_rya_reunion_chr_decision = {#索取切尔尼戈夫王位
+	potential = {
+		always = no
+		tag = RYA
+		mission_completed = EDG_BELA_RYA_A_3_2
+	}
+	allow = {
+		always = yes
+	}
+	effect = {
+		change_variable = {
+			which = EDG_rya_army_reform_var
+			value = 100
+		}
+	}
+	ai_will_do = {
+		factor = 0
+	}
+	}
+	EDG_rya_army_reform_decision = {#梁赞军事改革——改革
+		potential = {
+			tag = RYA
+			mission_completed = EDG_BELA_RYA_A_3_2
+			not = {
+				check_variable = {
+					which = EDG_rya_num_army_reform_var
+					value = 20
+				}
+			}
+		}
+		allow = {
+			check_variable = {
+				which = EDG_rya_army_reform_var
+				value = 25
+			}
+			not = {
+				check_variable = {
+					which = EDG_rya_num_army_reform_var
+					value = 20
+				}
+			}
+		}
+		effect = {
+			subtract_variable = {
+				which = EDG_rya_army_reform_var
+				value = 25
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 0
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 1
+						}
+					}
+				}
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_1
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 1
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 2
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_1
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 2
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 3
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_2
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 3
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 4
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_3
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_4
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 4
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 5
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_4
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_5
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 5
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 6
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_5
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_6
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 6
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 7
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_6
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_7
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 7
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 8
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_7
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_8
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 8
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 9
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_8
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_9
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 9
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 10
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_9
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_10
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 10
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 11
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_10
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_11
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 11
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 12
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_11
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_12
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 12
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 13
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_12
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_13
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 13
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 14
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_13
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_14
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 14
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 15
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_14
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_15
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 15
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 16
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_15
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_16
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 16
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 17
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_16
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_17
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 17
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 18
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_17
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_18
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 18
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 19
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_18
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_19
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_rya_num_army_reform_var
+						value = 19
+					}
+					not = {
+						check_variable = {
+							which = EDG_rya_num_army_reform_var
+							value = 20
+						}
+					}
+				}
+				remove_country_modifier = EDG_rya_army_reform_modifier_19
+				add_country_modifier = {
+					name = EDG_rya_army_reform_modifier_20
+					duration = -1
+				}
+			}
+			change_variable = {
+				which = EDG_rya_num_army_reform_var
+				value = 1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_rya_army_reform_1_decision = {#提拔新军事贵族
+		potential = {
+			tag = RYA
+			has_country_flag = EDG_rya_tibajungui_flag
+		}
+		allow = {
+			check_variable = {
+				which = EDG_rya_army_reform_var
+				value = 5
+			}
+			prestige = 10
+			legitimacy = 95
+			not = {
+				has_country_modifier = EDG_rya_army_reform_1_modifier
+			}
+		}
+		effect = {
+			subtract_variable = {
+				which = EDG_rya_army_reform_var
+				value = 5
+			}
+			add_prestige = -5
+			add_legitimacy = -2
+			change_estate_land_share = {
+				estate = all
+				share = -1.0
+			}
+			add_country_modifier = {
+				name = EDG_rya_army_reform_1_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_rya_sjj_junxiang_decision = {#补发射击军军饷
+		potential = {
+			tag = RYA
+			has_country_modifier = EDG_rya_sjj_jjfy_modifier
+		}
+		allow = {
+			not = {
+				is_in_deficit = yes
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_rya_myjx_1_flag
+				}
+				clr_country_flag = EDG_rya_myjx_1_flag
+				add_country_modifier = {
+					name = EDG_rya_sjj_bfjx_1_modifier
+					duration = 365
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_rya_myjx_2_flag
+				}
+				clr_country_flag = EDG_rya_myjx_2_flag
+				add_country_modifier = {
+					name = EDG_rya_sjj_bfjx_2_modifier
+					duration = 365
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_rya_myjx_3_flag
+				}
+				clr_country_flag = EDG_rya_myjx_3_flag
+				add_country_modifier = {
+					name = EDG_rya_sjj_bfjx_3_modifier
+					duration = 365
+				}
+			}
+			remove_country_modifier = EDG_rya_sjj_jjfy_modifier
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

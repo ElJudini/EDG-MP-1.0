@@ -1,0 +1,207 @@
+namespace = incident_EDG_polish_marquises_event
+normal_or_historical_nations = yes
+country_event = {#波兹南申请加入帝国
+  id = incident_EDG_polish_marquises_event.0
+  title = "incident_EDG_polish_marquises_event.0.t"
+  desc = "incident_EDG_polish_marquises_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们欢迎这位波兰诸侯。
+    name = "incident_EDG_polish_marquises_event.0.a"
+    ai_chance = {
+      factor = 5
+    }
+    custom_tooltip = EDG_polish_marquises_tt_yes
+    set_global_flag = incident_EDG_polish_marquises_event_0_global_flag
+    add_imperial_influence = 10
+    if = {
+      limit = { exists = GPL }
+      GPL = {
+        every_owned_province = {
+          set_in_empire = yes
+        }
+      }
+    }
+  }
+  option = {#帝国内不需要更多的波兰人。
+    name = "incident_EDG_polish_marquises_event.0.b"
+    ai_chance = {
+      factor = 2
+    }
+    custom_tooltip = EDG_polish_marquises_tt_no
+    
+    
+  }
+}
+country_event = {#波兹南申请加入帝国
+  id = incident_EDG_polish_marquises_event.1
+  title = "incident_EDG_polish_marquises_event.1.t"
+  desc = "incident_EDG_polish_marquises_event.1.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    has_global_flag = incident_EDG_polish_marquises_event_1_enable_flag
+    NOT = { active_imperial_incident = any }
+    is_emperor = yes
+
+    exists = GPL
+  }
+  mean_time_to_happen = {
+  }
+  option = {#我们会认真处理此事！
+    name = "incident_EDG_polish_marquises_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    set_imperial_incident = incident_polish_marquises
+  }
+  option = {#帝国不欢迎波兰人。
+    name = "incident_EDG_polish_marquises_event.1.b"
+    ai_chance = {
+      factor = 0
+    }
+    
+  }
+
+}
+country_event = {#波兹南藩候？
+  id = incident_EDG_polish_marquises_event.2
+  title = "incident_EDG_polish_marquises_event.2.t"
+  desc = "incident_EDG_polish_marquises_event.2.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+    NOT = { active_imperial_incident = any }
+    exists = GPL
+    GPL = {
+      is_part_of_hre = yes
+    }
+    is_emperor = yes
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  option = {#向他们提议成为帝国的藩候。
+    name = "incident_EDG_polish_marquises_event.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = incident_EDG_polish_marquises_event_2_a_tt
+    GPL = {
+      country_event = { id = incident_EDG_polish_marquises_event.3 }
+    }
+  }
+  option = {#没有这个必要。
+    name = "incident_EDG_polish_marquises_event.2.b"
+    ai_chance = {
+      factor = 10
+    }
+    
+  }
+
+}
+country_event = {#波兹南藩候？
+  id = incident_EDG_polish_marquises_event.3
+  title = "incident_EDG_polish_marquises_event.3.t"
+  desc = "incident_EDG_polish_marquises_event.3.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  option = {#我们愿意成为帝国的藩候。
+    name = "incident_EDG_polish_marquises_event.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_imperial_influence = 5
+    add_government_reform = EDG_Markgraf_state
+  }
+  option = {#我们才不要。
+    name = "incident_EDG_polish_marquises_event.3.b"
+    ai_chance = {
+      factor = 0
+    }
+    emperor = {
+			add_opinion = {
+			  who = ROOT
+			  modifier = opinion_EDG_EMP_think_you_stupid
+			}
+    }
+  }
+
+}
+country_event = {#申请加入帝国？
+  id = incident_EDG_polish_marquises_event.4
+  title = "incident_EDG_polish_marquises_event.4.t"
+  desc = "incident_EDG_polish_marquises_event.4.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {
+    NOT = { active_imperial_incident = any }
+    hre_size = 5
+    tag = GPL
+    GPL = {
+      is_at_war = no
+      NOT = { is_part_of_hre = yes }
+      is_subject = no
+    }
+    OR = {
+      is_year = 1457
+      emperor = {
+        has_opinion = {
+          who = GPL
+          value = 150
+        }
+      }
+      GPL = {
+        has_opinion = {
+          who = emperor
+          value = 150
+        }
+      }
+    }
+  }
+  mean_time_to_happen = {
+    months = 6
+  }
+  option = {#让我们向皇帝提出申请。
+    name = "incident_EDG_polish_marquises_event.4.a"
+    ai_chance = {
+      factor = 10
+    }
+    set_global_flag = incident_EDG_polish_marquises_event_1_enable_flag
+    tooltip = {
+      emperor = { country_event = { id = incident_EDG_polish_marquises_event.1 } }
+    }
+  }
+  option = {#我们才不要。
+    name = "incident_EDG_polish_marquises_event.4.b"
+    ai_chance = {
+      factor = 0
+    }
+    emperor = {
+			add_opinion = {
+			  who = ROOT
+			  modifier = opinion_EDG_EMP_think_you_stupid
+			}
+    }
+  }
+
+}

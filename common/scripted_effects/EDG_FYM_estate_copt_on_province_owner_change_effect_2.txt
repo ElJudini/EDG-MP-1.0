@@ -1,0 +1,704 @@
+
+on_province_tax_building_built_estate_privileges_effect = {
+	if = {
+		limit = {
+			FROM = {
+				OR = {
+					religion = buddhism
+					religion = mahayana
+					religion = vajrayana
+				}
+				has_estate_privilege = estate_church_karma_temples
+			}
+		}
+		FROM = {
+			if = {
+				limit = {
+					has_government_attribute = buffed_monastic_temples
+				}
+				add_karma = 5
+			}
+			else = {
+				add_karma = 3
+			}
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				religion = catholic
+				has_estate_privilege = estate_church_influence_temples
+			}
+		}
+		FROM = {
+			add_papal_influence = 3
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = gets_manpower_from_tax_buildings
+			}
+		}
+		if = {
+			limit = {
+				has_owner_religion = yes
+				has_building = cathedral
+				NOT = { has_province_modifier = estate_nobles_religious_conscription_cathedral }
+			}
+			add_province_modifier = {
+				name = estate_nobles_religious_conscription_cathedral
+				duration = -1
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_temple
+		}
+		else_if = {
+			limit = {
+				has_owner_religion = yes
+				has_building = temple
+				NOT = { has_province_modifier = estate_nobles_religious_conscription_temple }
+			}
+			add_province_modifier = {
+				name = estate_nobles_religious_conscription_temple
+				duration = -1
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_cathedral
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = estate_nobles_religious_conscription_temple
+					has_province_modifier = estate_nobles_religious_conscription_cathedral
+				}
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_temple
+			remove_province_modifier = estate_nobles_religious_conscription_cathedral
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_church_development_of_temples }
+			OR = {
+				has_owner_religion = yes
+				has_owner_harmonized_religion = yes
+				has_owner_secondary_religion = yes
+			}
+		}
+		add_province_modifier = {
+			name = estate_church_development_of_temples_mod
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_brahmins_development_of_temples }
+			religion_group = dharmic
+			has_tax_building_trigger = yes
+		}
+		add_province_modifier = {
+			name = estate_brahmins_development_of_temples_mod
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = estate_dhimmi_development_of_communities
+				NOT = { religion_group = PREV }
+			}
+		}
+		add_province_modifier = {
+			name = estate_dhimmi_development_of_communities_mod
+			duration = -1
+		}
+	}
+
+}
+
+on_province_tax_building_destroyed_estate_privileges_effect = {
+	if = {
+		limit = {
+			FROM = {
+				OR = {
+					religion = buddhism
+					religion = mahayana
+					religion = vajrayana
+				}
+				has_estate_privilege = estate_church_karma_temples
+			}
+		}
+		FROM = {
+			if = {
+				limit = {
+					has_government_attribute = buffed_monastic_temples
+				}
+				add_karma = -5
+			}
+			else = {
+				add_karma = -3
+			}
+		}
+	}
+	if = {
+		limit = {
+			FROM = {
+				religion = catholic
+				has_estate_privilege = estate_church_influence_temples
+			}
+		}
+		FROM = {
+			add_papal_influence = -3
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = gets_manpower_from_tax_buildings
+			}
+		}
+		if = {
+			limit = {
+				has_owner_religion = yes
+				has_building = cathedral
+				NOT = { has_province_modifier = estate_nobles_religious_conscription_cathedral }
+			}
+			add_province_modifier = {
+				name = estate_nobles_religious_conscription_cathedral
+				duration = -1
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_temple
+		}
+		else_if = {
+			limit = {
+				has_owner_religion = yes
+				has_building = temple
+				NOT = { has_province_modifier = estate_nobles_religious_conscription_temple }
+			}
+			add_province_modifier = {
+				name = estate_nobles_religious_conscription_temple
+				duration = -1
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_cathedral
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_province_modifier = estate_nobles_religious_conscription_temple
+					has_province_modifier = estate_nobles_religious_conscription_cathedral
+				}
+			}
+			remove_province_modifier = estate_nobles_religious_conscription_temple
+			remove_province_modifier = estate_nobles_religious_conscription_cathedral
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_church_development_of_temples_mod
+		}
+		remove_province_modifier = estate_church_development_of_temples_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_brahmins_development_of_temples_mod
+		}
+		remove_province_modifier = estate_brahmins_development_of_temples_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_dhimmi_development_of_communities_mod
+		}
+		remove_province_modifier = estate_dhimmi_development_of_communities_mod
+	}
+}
+
+on_trade_good_changed_estate_privileges_effect = {
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_persian_rugs_modifier
+			NOT = { trade_goods = silk }
+			NOT = { trade_goods = cloth }
+			NOT = { trade_goods = dyes }
+		}
+		remove_province_modifier = estate_burghers_persian_rugs_modifier
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_persian_rugs }
+			NOT = { has_province_modifier = estate_burghers_persian_rugs_modifier }
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+				trade_goods = dyes
+			}
+		}
+		add_province_modifier = {
+			name = estate_burghers_persian_rugs_modifier
+			duration = -1
+		}
+	}
+	###MONOPOLIES###
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_monopoly_of_textiles_mod
+			NOT = { trade_goods = silk }
+			NOT = { trade_goods = cloth }
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_textiles_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_monopoly_of_textiles }
+			NOT = { has_province_modifier = estate_burghers_monopoly_of_textiles_mod }
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+			}
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_textiles_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_vaisyas_monopoly_of_textiles_mod
+			NOT = { trade_goods = silk }
+			NOT = { trade_goods = cloth }
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_textiles_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_vaisyas_monopoly_of_textiles }
+			NOT = { has_province_modifier = estate_vaisyas_monopoly_of_textiles_mod }
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+			}
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_textiles_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_jains_monopoly_of_textiles_mod
+			NOT = { trade_goods = silk }
+			NOT = { trade_goods = cloth }
+		}
+		remove_province_modifier = estate_jains_monopoly_of_textiles_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_jains_monopoly_of_textiles }
+			NOT = { has_province_modifier = estate_jains_monopoly_of_textiles_mod }
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+			}
+		}
+		remove_province_modifier = estate_jains_monopoly_of_textiles_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_monopoly_of_dyes_mod
+			NOT = { trade_goods = dyes }
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_dyes_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_monopoly_of_dyes }
+			NOT = { has_province_modifier = estate_burghers_monopoly_of_dyes_mod }
+			trade_goods = dyes
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_dyes_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_vaisyas_monopoly_of_dyes_mod
+			NOT = { trade_goods = dyes }
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_dyes_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_vaisyas_monopoly_of_dyes }
+			NOT = { has_province_modifier = estate_vaisyas_monopoly_of_dyes_mod }
+			trade_goods = dyes
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_dyes_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_jains_monopoly_of_dyes_mod
+			NOT = { trade_goods = dyes }
+		}
+		remove_province_modifier = estate_jains_monopoly_of_dyes_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_jains_monopoly_of_dyes }
+			NOT = { has_province_modifier = estate_jains_monopoly_of_dyes_mod }
+			trade_goods = dyes
+		}
+		remove_province_modifier = estate_jains_monopoly_of_dyes_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_monopoly_of_glass_mod
+			NOT = { trade_goods = glass }
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_glass_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_monopoly_of_glass }
+			NOT = { has_province_modifier = estate_burghers_monopoly_of_glass_mod }
+			trade_goods = glass
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_glass_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_vaisyas_monopoly_of_glass_mod
+			NOT = { trade_goods = glass }
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_glass_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_vaisyas_monopoly_of_glass }
+			NOT = { has_province_modifier = estate_vaisyas_monopoly_of_glass_mod }
+			trade_goods = glass
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_glass_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_jains_monopoly_of_glass_mod
+			NOT = { trade_goods = glass }
+		}
+		remove_province_modifier = estate_jains_monopoly_of_glass_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_jains_monopoly_of_glass }
+			NOT = { has_province_modifier = estate_jains_monopoly_of_glass_mod }
+			trade_goods = glass
+		}
+		remove_province_modifier = estate_jains_monopoly_of_glass_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_monopoly_of_paper_mod
+			NOT = { trade_goods = paper }
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_paper_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_monopoly_of_paper }
+			NOT = { has_province_modifier = estate_burghers_monopoly_of_paper_mod }
+			trade_goods = paper
+		}
+		remove_province_modifier = estate_burghers_monopoly_of_paper_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_vaisyas_monopoly_of_paper_mod
+			NOT = { trade_goods = paper }
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_paper_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_vaisyas_monopoly_of_paper }
+			NOT = { has_province_modifier = estate_vaisyas_monopoly_of_paper_mod }
+			trade_goods = paper
+		}
+		remove_province_modifier = estate_vaisyas_monopoly_of_paper_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_jains_monopoly_of_paper_mod
+			NOT = { trade_goods = paper }
+		}
+		remove_province_modifier = estate_jains_monopoly_of_paper_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_jains_monopoly_of_paper }
+			NOT = { has_province_modifier = estate_jains_monopoly_of_paper_mod }
+			trade_goods = paper
+		}
+		remove_province_modifier = estate_jains_monopoly_of_paper_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_church_monopoly_of_incense_mod
+			NOT = { trade_goods = incense }
+		}
+		remove_province_modifier = estate_church_monopoly_of_incense_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_church_monopoly_of_incense }
+			NOT = { has_province_modifier = estate_church_monopoly_of_incense_mod }
+			trade_goods = incense
+		}
+		remove_province_modifier = estate_church_monopoly_of_incense_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_brahmins_monopoly_of_incense_mod
+			NOT = { trade_goods = incense }
+		}
+		remove_province_modifier = estate_brahmins_monopoly_of_incense_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_brahmins_monopoly_of_incense }
+			NOT = { has_province_modifier = estate_brahmins_monopoly_of_incense_mod }
+			trade_goods = incense
+		}
+		remove_province_modifier = estate_brahmins_monopoly_of_incense_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_church_monopoly_of_wool_mod
+			NOT = { trade_goods = wool }
+		}
+		remove_province_modifier = estate_church_monopoly_of_wool_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_church_monopoly_of_wool }
+			NOT = { has_province_modifier = estate_church_monopoly_of_wool_mod }
+			trade_goods = wool
+		}
+		remove_province_modifier = estate_church_monopoly_of_wool_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_brahmins_monopoly_of_wool_mod
+			NOT = { trade_goods = wool }
+		}
+		remove_province_modifier = estate_brahmins_monopoly_of_wool_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_brahmins_monopoly_of_wool }
+			NOT = { has_province_modifier = estate_brahmins_monopoly_of_wool_mod }
+			trade_goods = wool
+		}
+		remove_province_modifier = estate_brahmins_monopoly_of_wool_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_church_monopoly_of_wine_mod
+			NOT = { trade_goods = wine }
+		}
+		remove_province_modifier = estate_church_monopoly_of_wine_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_church_monopoly_of_wine }
+			NOT = { has_province_modifier = estate_church_monopoly_of_wine_mod }
+			trade_goods = wine
+		}
+		remove_province_modifier = estate_church_monopoly_of_wine_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_church_monopoly_of_slaves_mod
+			NOT = { trade_goods = slaves }
+		}
+		remove_province_modifier = estate_church_monopoly_of_slaves_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_church_monopoly_of_slaves }
+			NOT = { has_province_modifier = estate_church_monopoly_of_slaves_mod }
+			trade_goods = slaves
+		}
+		remove_province_modifier = estate_church_monopoly_of_slaves_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_nobles_monopoly_of_metals_mod
+			NOT = { trade_goods = copper }
+			NOT = { trade_goods = iron }
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_metals_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_nobles_monopoly_of_metals }
+			NOT = { has_province_modifier = estate_nobles_monopoly_of_metals_mod }
+			OR = {
+				trade_goods = copper
+				trade_goods = iron
+			}
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_metals_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_rajput_monopoly_of_metals_mod
+			NOT = { trade_goods = copper }
+			NOT = { trade_goods = iron }
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_metals_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_rajput_monopoly_of_metals }
+			NOT = { has_province_modifier = estate_rajput_monopoly_of_metals_mod }
+			OR = {
+				trade_goods = copper
+				trade_goods = iron
+			}
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_metals_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_maratha_monopoly_of_metals_mod
+			NOT = { trade_goods = copper }
+			NOT = { trade_goods = iron }
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_metals_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_maratha_monopoly_of_metals }
+			NOT = { has_province_modifier = estate_maratha_monopoly_of_metals_mod }
+			OR = {
+				trade_goods = copper
+				trade_goods = iron
+			}
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_metals_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_nobles_monopoly_of_livestock_mod
+			NOT = { trade_goods = livestock }
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_livestock_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_nobles_monopoly_of_livestock }
+			NOT = { has_province_modifier = estate_nobles_monopoly_of_livestock_mod }
+			trade_goods = livestock
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_livestock_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_rajput_monopoly_of_livestock_mod
+			NOT = { trade_goods = livestock }
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_livestock_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_rajput_monopoly_of_livestock }
+			NOT = { has_province_modifier = estate_rajput_monopoly_of_livestock_mod }
+			trade_goods = livestock
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_livestock_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_maratha_monopoly_of_livestock_mod
+			NOT = { trade_goods = livestock }
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_livestock_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_maratha_monopoly_of_livestock }
+			NOT = { has_province_modifier = estate_maratha_monopoly_of_livestock_mod }
+			trade_goods = livestock
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_livestock_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_nobles_monopoly_of_gems_mod
+			NOT = { trade_goods = gems }
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_gems_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_nobles_monopoly_of_gems }
+			NOT = { has_province_modifier = estate_nobles_monopoly_of_gems_mod }
+			trade_goods = gems
+		}
+		remove_province_modifier = estate_nobles_monopoly_of_gems_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_rajput_monopoly_of_gems_mod
+			NOT = { trade_goods = gems }
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_gems_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_rajput_monopoly_of_gems }
+			NOT = { has_province_modifier = estate_rajput_monopoly_of_gems_mod }
+			trade_goods = gems
+		}
+		remove_province_modifier = estate_rajput_monopoly_of_gems_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_maratha_monopoly_of_gems_mod
+			NOT = { trade_goods = gems }
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_gems_mod
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_maratha_monopoly_of_gems }
+			NOT = { has_province_modifier = estate_maratha_monopoly_of_gems_mod }
+			trade_goods = gems
+		}
+		remove_province_modifier = estate_maratha_monopoly_of_gems_mod
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_burghers_control_over_gold_mine
+			NOT = { trade_goods = gold }
+		}
+		remove_province_modifier = estate_burghers_control_over_gold_mine
+	}
+	else_if = {
+		limit = {
+			from = { has_estate_privilege = estate_burghers_control_over_the_mint }
+			NOT = { has_province_modifier = estate_burghers_control_over_gold_mine }
+			trade_goods = gold
+		}
+		add_province_modifier = {
+			name = estate_burghers_control_over_gold_mine
+			duration = -1
+		}
+	}
+}
+
+on_loan_repaid_estate_privileges_effect = {
+	if = {
+		limit = {
+			has_estate_privilege = estate_burghers_indebted_to_burghers
+			has_estate_loan = no
+		}
+		remove_estate_privilege = estate_burghers_indebted_to_burghers
+	}
+	if = {
+		limit = {
+			has_estate_privilege = estate_jains_indebted_to_jains
+			has_estate_loan = no
+		}
+		remove_estate_privilege = estate_jains_indebted_to_jains
+	}
+}

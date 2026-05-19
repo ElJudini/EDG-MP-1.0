@@ -1,0 +1,108 @@
+EDG_BYZ_province = {}
+EDG_BYZ_mil_province = {}
+EDG_BYZ_province = {
+	copy_from = vassal
+	count = vassal
+
+	sprite = GFX_icon_EDG_BYZ_province
+	diplomacy_overlord_sprite = GFX_icon_diplomacy_am_EDG_BYZ_province
+	diplomacy_subject_sprite = GFX_icon_diplomacy_lead_EDG_BYZ_province
+	
+	#has_colonial_parent = yes
+	transfer_trade_power = yes
+	joins_overlords_wars = yes
+	can_be_annexed = no
+	has_power_projection = no
+	gets_help_with_rebels = yes
+	forms_trade_companies = no
+	takes_diplo_slot = yes
+	can_be_co_belligerented = yes
+	#can_be_called_to_wars = yes
+	extend_trading_range = yes
+	opinion_cost_instead_of_favors_cost = yes
+	opinion_cost_to_join_offensive_wars = 40
+	opinion_cost_to_join_defensive_wars = 20
+	opinion_on_subject_integration = 0
+
+	max_government_rank = 2
+	can_be_integrated = no
+
+	liberty_desire_development_ratio = 0.1
+	liberty_desire_same_dynasty = -100.0
+	pays_overlord = 2
+	forcelimit_to_overlord = 0.5						# Percent of subject FL to use as base for modifiers
+	naval_forcelimit_to_overlord = 0.5					# Percent of subject FL to use as base for modifiers
+	manpower_to_overlord = 0.5							# Percent of subject FL to use as base for modifiers
+	sailors_to_overlord = 0.5							# Percent of subject FL to use as base for modifiers
+
+	relative_power_class = 1
+	should_quit_wars_on_activation = yes
+
+	restoration_cb = cb_disloyal_eyalet
+
+	# Subject Interactions:
+	support_loyalists = yes
+	place_relative_on_throne = yes
+	sacrifice_ruler = yes
+	sacrifice_heir = yes
+	divert_trade = yes
+	seize_territory = yes
+	siphon_income = yes
+
+	# Modifiers:
+	modifier_subject = clear # Use this to clear after copy_from.
+	modifier_subject = {
+		modifier = EDG_BYZ_province_base_subject_modifier
+	}
+	modifier_subject = {
+		modifier = EDG_BYZ_province_extra_expand_modifier
+		trigger = {
+			overlord = {
+				has_government_attribute = EDG_BYZ_empire_province_reform_ability
+			}
+		}
+	}
+	modifier_subject = {
+		modifier = subject_tax_modifier
+		trigger = {
+			overlord = {
+				has_government_attribute = subject_tax_modifier_25
+			}
+		}
+	}
+	modifier_subject = {
+		modifier = same_religion_subject_bonus_mod
+		trigger = {
+			overlord = {
+				has_government_attribute = same_religion_subject_bonus
+				religion = PREV
+			}
+		}
+	}
+
+	overlord_opinion_modifier = is_eyalet
+	subject_opinion_modifier = is_eyalet
+}
+EDG_BYZ_mil_province = {
+	copy_from = hereditary_pronoia_subject_type
+	count = vassal
+
+	sprite = GFX_icon_EDG_BYZ_mil_province
+	diplomacy_overlord_sprite = GFX_icon_diplomacy_lead_EDG_BYZ_mil_province
+	diplomacy_subject_sprite = GFX_icon_diplomacy_am_EDG_BYZ_mil_province
+
+	created_by_overlord = no
+	base_liberty_desire = 0
+	disable_inheritance = yes
+	pays_overlord = 0.0
+	military_focus = 2.5
+	forcelimit_to_overlord = 0
+	naval_forcelimit_to_overlord = 0
+	manpower_to_overlord = 0
+	takes_diplo_slot = no
+	sailors_to_overlord = 0
+
+	modifier_subject = {
+		modifier = EDG_BYZ_mil_province_base_subject_modifier
+	}
+}

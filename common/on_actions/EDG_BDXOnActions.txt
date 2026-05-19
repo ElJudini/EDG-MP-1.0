@@ -1,0 +1,347 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = BDX
+		}
+		country_event = {
+			id = EDG_BDX_events.0
+		}
+	}
+}
+
+on_province_owner_change = {
+	if = {
+		limit = {
+			province_id = 151
+			NOT = {
+				has_province_flag = EDG_BDX_is_renamed_to_byzantine_province_flag
+			}
+			owner = {
+				mission_completed = EDG_BDX_mission_cross_strait
+			}
+		}
+		set_province_flag = EDG_BDX_is_renamed_to_byzantine_province_flag
+		EDG_BDX_rename_to_byzantine_effect = yes
+	}
+	
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_BDX_mission_commemorate_battles_flag
+			}
+		}
+		EDG_BDX_commemorate_battles_event_effect = {
+			province = ROOT
+			country = owner
+		}
+	}
+	else_if = {
+		limit = {
+			owner = {
+				overlord = {
+					has_country_flag = EDG_BDX_mission_commemorate_battles_flag
+				}
+			}
+		}
+		owner = {
+			EDG_BDX_commemorate_battles_event_effect = {
+				province = ROOT
+				country = overlord
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_BDX_mission_pluralism_flag
+			}
+			EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+		}
+		owner = {
+			if = {
+				limit = {
+					EDG_BDX_can_update_cultural_assimilation_buff_trigger = yes
+				}
+				country_event = {
+					id = EDG_BDX_events.1002
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			owner = {
+				AND = {
+					has_country_flag = EDG_BDX_mission_greek_buddhist_art_flag
+					has_estate_privilege = estate_EDG_BDX_greek_buddhist_art
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tax_building_trigger = yes
+				religion = mahayana
+			}
+			add_province_modifier = {
+				name = EDG_BDX_greek_buddhist_art_province_modifier
+				duration = -1
+			}
+		}
+		else = {
+			if = {
+				limit = { has_province_modifier = EDG_BDX_greek_buddhist_art_province_modifier }
+				remove_province_modifier = EDG_BDX_greek_buddhist_art_province_modifier
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			province_id = 454
+			owner = {
+				OR = {
+					tag = BDX
+					was_tag = BDX
+				}
+				has_ruler_flag = EDG_BDX_mir_mohammed_flag
+			}
+			from = {
+				tag = TIM
+			}
+		}
+		owner = {
+			country_event = {
+				id = EDG_BDX_events.46
+			}
+		}
+	}
+
+	EDG_BDX_refresh_province_has_phalanx_effect = yes
+
+	if = {
+		limit = {
+			religion_group = christian
+			NOT = {
+				religion = EDG_Nestorianism
+			}
+			owner = {
+				has_country_flag = EDG_BDX_mission_unify_christian_flag
+			}
+		}
+		change_religion = EDG_Nestorianism
+	}
+}
+
+on_province_religion_converted = {
+	if = {
+		limit = {
+			owner = {
+				AND = {
+					has_country_flag = EDG_BDX_mission_greek_buddhist_art_flag
+					has_estate_privilege = estate_EDG_BDX_greek_buddhist_art
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_tax_building_trigger = yes
+				religion = mahayana
+			}
+			add_province_modifier = {
+				name = EDG_BDX_greek_buddhist_art_province_modifier
+				duration = -1
+			}
+		}
+		else = {
+			if = {
+				limit = { has_province_modifier = EDG_BDX_greek_buddhist_art_province_modifier }
+				remove_province_modifier = EDG_BDX_greek_buddhist_art_province_modifier
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			religion = mahayana
+			owner = {
+				has_country_flag = EDG_BDX_mission_nagasena_flag
+			}
+			EDG_BDX_province_cultural_assimilation_buff_trigger = no
+		}
+		owner = {
+			change_variable = {
+				which = EDG_BDX_convert_province_to_mahayana_times_var
+				value = 1
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					check_variable = {
+						which = EDG_BDX_convert_province_to_mahayana_times_var
+						value = 3
+					}
+				}
+			}
+			EDG_BDX_cultural_assimilation_change_culture_effect = yes
+			owner = {
+				set_variable = {
+					which = EDG_BDX_convert_province_to_mahayana_times_var
+					value = 0
+				}
+			}
+		}
+	}
+}
+
+# root = location, from = losing country
+on_siege_won_province = {
+	if = {
+		limit = {
+			fort_level = 1
+		}
+		controller = {
+			change_variable = {
+				which = EDG_num_of_sieges_won_var
+				value = 1
+			}
+		}
+
+
+		if = {
+			limit = {
+				controller = {
+					has_country_flag = EDG_BDX_mission_besieger_flag
+					war_with = from
+				}
+			}
+			controller = {
+				save_event_target_as = EDG_besieger_target
+			}
+			every_neighbor_province = {
+				limit = {
+					NOT = {
+						fort_level = 1
+					}
+					controller = {
+						war_with = event_target:EDG_besieger_target
+					}
+				}
+				change_controller = event_target:EDG_besieger_target
+				EDG_BDX_great_conquer_on_control_province_effect = yes
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			controller = {
+				has_country_flag = EDG_BDX_mission_commemorate_battles_flag
+			}
+		}
+		EDG_BDX_commemorate_battles_event_effect = {
+			province = ROOT
+			country = controller
+		}
+	}
+
+	EDG_BDX_great_conquer_on_control_province_effect = yes
+}
+
+on_province_culture_converted = {
+	if = {
+		limit = {
+			owner = {
+				NOT = {
+					has_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = EDG_BDX_mission_pluralism_flag
+				}
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+			owner = {
+				if = {
+					limit = {
+						EDG_BDX_can_update_cultural_assimilation_buff_trigger = yes
+					}
+					country_event = {
+						id = EDG_BDX_events.1002
+					}
+				}
+			}
+		}
+
+		EDG_BDX_add_shahanshah_authority_on_province_culture_changed = yes
+	}
+
+	EDG_BDX_refresh_province_has_phalanx_effect = yes
+}
+
+on_province_culture_changed = {
+	if = {
+		limit = {
+			owner = {
+				NOT = {
+					has_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+				}
+			}
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = EDG_BDX_mission_pluralism_flag
+				}
+				EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+			}
+			owner = {
+				if = {
+					limit = {
+						EDG_BDX_can_update_cultural_assimilation_buff_trigger = yes
+					}
+					country_event = {
+						id = EDG_BDX_events.1002
+					}
+				}
+			}
+		}
+	
+		EDG_BDX_add_shahanshah_authority_on_province_culture_changed = yes
+	}
+
+	EDG_BDX_refresh_province_has_phalanx_effect = yes
+}
+
+#ROOT = province that was expanded in, FROM = country that did it
+on_expanded_infrastructure = {
+	if = {
+		limit = {
+			from = {
+				has_country_flag = EDG_BDX_mission_supply_network_flag
+			}
+		}
+		from = {
+			add_army_professionalism = 0.005
+		}
+	}
+}
+
+on_new_monarch = {
+	if = {
+		limit = {
+			has_government_attribute = EDG_more_stability_loss_on_monarch_death
+		}
+		add_stability = -1
+	}
+}
+
+on_monthly_pulse = {
+	EDG_BDX_great_conquer_on_monthly_effect = yes
+	EDG_BDX_great_conquer_on_monthly_for_diadochi_effect = yes
+}

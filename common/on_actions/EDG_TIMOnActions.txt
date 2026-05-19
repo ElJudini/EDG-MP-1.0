@@ -1,0 +1,584 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = TIM
+		}
+		country_event = {
+			id = EDG_TIM_events.0
+		}
+		EDG_good_comet_effect = yes
+	}
+}
+
+on_new_monarch = {
+	if = {
+		limit = {
+			tag = TIM
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_shah_rukh_died_flag
+			}
+		}
+		add_disaster_progress = {
+			disaster = EDG_TIM_shah_rukh_succession_crisis
+			value = 100
+		}
+		set_country_flag = EDG_TIM_shah_rukh_died_flag
+	}
+	if = {
+		limit = {
+			has_government_mechanic = EDG_TIM_dread
+		}
+		EDG_TIM_reset_dread_effect = yes
+	}
+}
+
+on_regent = {
+	if = {
+		limit = {
+			tag = TIM
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_shah_rukh_died_flag
+			}
+		}
+		add_disaster_progress = {
+			disaster = EDG_TIM_shah_rukh_succession_crisis
+			value = 100
+		}
+		set_country_flag = EDG_TIM_shah_rukh_died_flag
+	}
+	if = {
+		limit = {
+			has_government_mechanic = EDG_TIM_dread
+		}
+		EDG_TIM_reset_dread_effect = yes
+	}
+}
+
+on_battle_lost_unit = {
+    if = {
+        limit = {
+            unit_owner = {
+                tag = SHY
+            }
+            is_ruler_commanding_unit = yes
+			enemy_unit = {
+				unit_owner = {
+					OR = {
+						tag = TIM
+						is_subject_of = TIM
+					}
+				}
+			}
+			TIM = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+				NOT = {
+					has_country_flag = EDG_TIM_capture_khan_flag
+				}
+			}
+        }
+        random = {
+			chance = 25
+			TIM = {
+				country_event = {
+					id = EDG_TIM_events.10
+				}
+			}
+		}
+    }
+	if = {
+		limit = {
+			enemy_unit = {
+				unit_owner = {
+					ai = no
+					OR = {
+						tag = TIM
+						was_tag = TIM
+					}
+				}
+			}
+			is_ruler_commanding_unit = yes
+			unit_owner = {
+				war_with = event_target:gurkani_target
+                EDG_TIM_can_be_made_skull_vessel_trigger = yes
+            }
+		}
+		random = {
+			chance = 50
+			unit_owner = {
+				save_global_event_target_as = skull_vessel_material_target
+			}
+			EDG_TIM_trigger_skull_vessel_event_effect = {
+				enemy = event_target:skull_vessel_material_target
+				country = event_target:gurkani_target
+			}
+		}
+	}
+}
+
+# root = location, from = losing country
+on_siege_won_province = {
+	if = {
+		limit = {
+			is_capital_of = SHY
+			controller = {
+				OR = {
+					tag = TIM
+					is_subject_of = TIM
+				}
+			}
+			TIM = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+				NOT = {
+					has_country_flag = EDG_TIM_capture_khan_flag
+				}
+			}
+		}
+		random = {
+			chance = 50
+			TIM = {
+				country_event = {
+					id = EDG_TIM_events.10
+				}
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			NOT = {
+				has_province_modifier = EDG_TIM_province_auto_razed_modifier
+			}
+			NOT = {
+				is_core = controller
+			}
+			controller = {
+				has_country_flag = EDG_TIM_raze_on_capture_flag
+				war_with = FROM
+			}
+		}
+		EDG_TIM_simulate_raze_province_effect = {
+			razer = controller
+		}
+	}
+
+	if = {
+		limit = {
+			controller = {
+				ai = no
+				OR = {
+					tag = TIM
+					was_tag = TIM
+				}
+			}
+			is_capital = yes
+			owner = {
+				EDG_TIM_can_be_made_skull_vessel_trigger = yes
+				war_with = event_target:gurkani_target
+            }
+		}
+		random = {
+			chance = 100
+			owner = {
+				save_global_event_target_as = skull_vessel_material_target
+			}
+			EDG_TIM_trigger_skull_vessel_event_effect = {
+				enemy = event_target:skull_vessel_material_target
+				country = event_target:gurkani_target
+			}
+		}
+	}
+}
+
+on_raze = {
+	EDG_TIM_on_raze_effect = { razer = owner }
+}
+
+on_defender_of_faith_claim = {
+	if = {
+		limit = {
+			has_country_flag = EDG_TIM_mission_sword_of_islam_flag
+		}
+		if = {
+			limit = {
+				has_country_flag = EDG_TIM_mission_holy_city_flag
+			}
+			add_country_modifier = {
+				name = EDG_TIM_sword_of_islam_update_modifier
+				duration = -1
+				desc = UNTIL_NO_MORE_DOTF
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = EDG_TIM_sword_of_islam_modifier
+				duration = -1
+				desc = UNTIL_NO_MORE_DOTF
+			}
+		}
+	}
+
+	if = {
+		limit = {
+			has_country_flag = EDG_TIM_mission_mashriq_flag
+		}
+		if = {
+			limit = {
+				has_country_flag = EDG_TIM_protect_caliph_flag
+			}
+			add_country_modifier = {
+				name = EDG_TIM_afterglow_of_arabian_empire_update_modifier
+				duration = -1
+				desc = UNTIL_NO_MORE_DOTF
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = EDG_TIM_afterglow_of_arabian_empire_modifier
+				duration = -1
+				desc = UNTIL_NO_MORE_DOTF
+			}
+		}
+	}
+}
+
+on_defender_of_faith_loss = {
+	remove_country_modifier = EDG_TIM_sword_of_islam_modifier
+	remove_country_modifier = EDG_TIM_sword_of_islam_update_modifier
+	remove_country_modifier = EDG_TIM_afterglow_of_arabian_empire_modifier
+	remove_country_modifier = EDG_TIM_afterglow_of_arabian_empire_update_modifier
+}
+
+on_province_owner_change = {
+	if = {
+		limit = {
+			province_id = 454
+		}
+		if = {
+			limit = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 1
+				}
+			}
+			owner = {
+				EDG_good_comet_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 2
+				}
+			}
+			owner = {
+				EDG_comet_add_stability_effect = yes
+			}
+		}
+		if = {
+			limit = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 3
+				}
+			}
+			owner = {
+				EDG_more_comets_effect = yes
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_TIM_update_camp_flag
+			}
+			EDG_has_building_camp_trigger = yes
+		}
+		add_province_modifier = {
+			name = EDG_TIM_tajik_levy_camp_province_modifier
+			duration = -1
+			hidden = yes
+		}
+	}
+	if = {
+		limit = {
+			EDG_TIM_province_can_be_destroyed_trigger = yes
+		}
+		province_event = {
+			id = EDG_TIM_events.1000
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = estate_EDG_TIM_dryland_people
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					region = central_asia_region
+					region = persia_region
+					region = khorasan_region
+				}
+			}
+			if = {
+				limit = {
+					has_terrain = drylands
+				}
+				add_province_modifier = {
+					name = EDG_TIM_dryland_people_for_dryland_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_terrain = desert
+				}
+				add_province_modifier = {
+					name = EDG_TIM_dryland_people_for_desert_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_climate = arid
+				}
+				add_province_modifier = {
+					name = EDG_TIM_dryland_people_for_arid_modifier
+					duration = -1
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { has_province_modifier = EDG_TIM_dryland_people_for_dryland_modifier }
+				remove_province_modifier = EDG_TIM_dryland_people_for_dryland_modifier
+			}
+			if = {
+				limit = { has_province_modifier = EDG_TIM_dryland_people_for_desert_modifier }
+				remove_province_modifier = EDG_TIM_dryland_people_for_desert_modifier
+			}
+			if = {
+				limit = { has_province_modifier = EDG_TIM_dryland_people_for_arid_modifier }
+				remove_province_modifier = EDG_TIM_dryland_people_for_arid_modifier
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = estate_EDG_TIM_hill_people
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					region = central_asia_region
+					region = persia_region
+					region = khorasan_region
+				}
+			}
+			if = {
+				limit = {
+					has_terrain = highlands
+				}
+				add_province_modifier = {
+					name = EDG_TIM_hill_people_for_highland_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_terrain = mountain
+				}
+				add_province_modifier = {
+					name = EDG_TIM_hill_people_for_mountain_modifier
+					duration = -1
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { has_province_modifier = EDG_TIM_hill_people_for_highland_modifier }
+				remove_province_modifier = EDG_TIM_hill_people_for_highland_modifier
+			}
+			if = {
+				limit = { has_province_modifier = EDG_TIM_hill_people_for_mountain_modifier }
+				remove_province_modifier = EDG_TIM_hill_people_for_mountain_modifier
+			}
+		}
+	}
+	EDG_TIM_refresh_province_has_banners_effect = yes
+	if = {
+		limit = {
+			owner = {
+				has_estate_privilege = estate_EDG_TIM_convergence_of_islam_and_confucianism
+			}
+		}
+		if = {
+			limit = {
+				religion = confucianism
+			}
+			add_province_modifier = {
+				name = EDG_TIM_convergence_of_islam_and_confucianism_modifier
+				duration = -1
+			}
+		}
+		else = {
+			if = {
+				limit = { has_province_modifier = EDG_TIM_convergence_of_islam_and_confucianism_modifier }
+				remove_province_modifier = EDG_TIM_convergence_of_islam_and_confucianism_modifier
+			}
+		}
+	}
+}
+
+on_adm_exploited = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_TIM_dread
+			}
+		}
+		owner = {
+			EDG_TIM_add_dread = { amount = 1 }
+		}
+	}
+}
+
+on_dip_exploited = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_TIM_dread
+			}
+		}
+		owner = {
+			EDG_TIM_add_dread = { amount = 1 }
+		}
+	}
+}
+
+on_mil_exploited = {
+	if = {
+		limit = {
+			owner = {
+				has_government_mechanic = EDG_TIM_dread
+			}
+		}
+		owner = {
+			EDG_TIM_add_dread = { amount = 1 }
+		}
+	}
+}
+
+on_war_won = {
+	if = {
+		limit = {
+			has_government_mechanic = EDG_TIM_dread
+		}
+		EDG_TIM_add_dread = { amount = 10 }
+	}
+	if = {
+		limit = {
+			has_country_flag = EDG_TIM_will_be_decomposed_after_treaty_flag
+		}
+		clr_country_flag = EDG_TIM_will_be_decomposed_after_treaty_flag
+	}
+}
+
+on_war_lost = {
+	if = {
+		limit = {
+			has_government_mechanic = EDG_TIM_dread
+		}
+		EDG_TIM_add_dread = { amount = -30 }
+	}
+	if = {
+		limit = {
+			has_country_flag = EDG_TIM_will_be_decomposed_after_treaty_flag
+		}
+		clr_country_flag = EDG_TIM_will_be_decomposed_after_treaty_flag
+		country_event = {
+			id = EDG_flavor_nomad.1
+		}
+	}
+}
+
+on_province_culture_changed = {
+	EDG_TIM_refresh_province_has_banners_effect = yes
+}
+
+on_province_culture_converted = {
+	EDG_TIM_refresh_province_has_banners_effect = yes
+}
+
+on_capital_moved = {
+	if = {
+		limit = { 
+			owner = { has_estate_privilege = estate_EDG_TIM_chaghatai_warriors }
+		}
+		FROM = { remove_province_modifier = EDG_TIM_kheshig_capital_modifier }
+		ROOT = {
+			add_province_modifier = {
+				name = EDG_TIM_kheshig_capital_modifier
+				duration = -1
+				hidden = yes
+			}
+		}
+	}
+}
+
+on_mandate_of_heaven_gained = {
+	if = {
+		limit = {
+			tag = TIM
+		}
+		if = {
+			limit = {
+				has_government_mechanic = EDG_TIM_renaissance
+			}
+			add_government_reform = EDG_TIM_Kurugen_Dynasty_renaissance
+		}
+		else = {
+			add_government_reform = EDG_TIM_Kurugen_Dynasty
+		}
+		set_mandate = 60
+		set_meritocracy = 60
+
+		if = {
+			limit = {
+				has_country_modifier = lost_mandate_of_heaven
+			}
+			remove_country_modifier = lost_mandate_of_heaven
+		}
+		country_event = { #Reforming the Bureaucracy
+			id = china_events.31
+			days = 365
+		}
+		country_event = {
+			id = china_events.32 #Records of the last Empire
+			days = 183
+		}
+		country_event = {
+			id = celestial_empire_events.2
+			days = 1825
+		}
+	}
+}
+
+on_yearly_pulse = {
+	if = {
+		limit = {
+			has_estate_privilege = estate_EDG_TIM_ghulam_elites
+		}
+		EDG_TIM_refresh_ghulam_dynamic_buff_effect = yes
+	}
+}

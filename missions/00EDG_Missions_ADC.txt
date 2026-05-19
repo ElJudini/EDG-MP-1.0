@@ -1,0 +1,681 @@
+EDG_ADC_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = BDH
+		religion = catholic
+	} 
+
+	EDG_ADC_mission_1_2 = {
+		icon = a_center_of_religion
+		position = 2
+		required_missions = { EDG_ADC_mission_3_1 } 
+		provinces_to_highlight = {
+			owned_by = PAP
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = no
+				}
+				PAP = {
+					has_opinion = {
+						who = root
+						value = 125
+					}
+				}
+			}
+			else = {
+				PAP = {
+					has_opinion = {
+						who = root
+						value = 100
+					}
+				}
+			}
+		} 
+
+		effect = {
+			add_manpower = 10
+			add_yearly_manpower = 1
+			custom_tooltip = EDG_SPACE_TT
+			capital_scope = {
+				infantry = root
+				infantry = root
+				infantry = root
+				infantry = root
+				infantry = root
+				cavalry = root
+				cavalry = root
+			}
+		} 
+		ai_weight = {
+			factor = 1000
+		}
+	}
+
+	EDG_ADC_mission_1_4 = {
+		icon = EDG_ICON_forge
+		position = 4
+		required_missions = { EDG_ADC_mission_1_2 } 
+		provinces_to_highlight = {
+			province_id = 206
+		} 
+
+		trigger = {
+			is_at_war = no
+			owns_core_province = 206
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.5
+			}
+		} 
+	}
+
+	EDG_ADC_mission_1_6 = {
+		icon = mission_conquer_kathiawar
+		position = 6
+		required_missions = {
+			EDG_ADC_mission_2_5
+			EDG_ADC_mission_3_5
+		}
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			is_subject = no
+			all_owned_province = {
+				is_core = root
+			}
+			all_country = {
+				OR = {
+					capital_scope = {
+						NOT = {
+							region = iberia_region
+						}
+					}
+					AND = {
+						capital_scope = {
+							region = iberia_region
+						}
+						NOT = {
+							tag = root
+						}
+						NOT = {
+							total_development = root
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = FOIMissionEvents.8
+			}
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { 
+					has_country_modifier = EDG_ADC_candidate
+				}
+				custom_tooltip = EDG_ADC_mission_1_6.effect_1.tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_ADC_chosen
+						duration = 3650
+					}
+				}
+				hidden_effect = {
+					add_country_modifier = {
+						name = EDG_ADC_chosen
+						duration = -1
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				remove_country_modifier = EDG_ADC_candidate
+			}
+			else = {
+				custom_tooltip = EDG_ADC_mission_1_6.effect_2.tt
+				add_country_modifier = {
+					name = EDG_ADC_chosen
+					duration = 3650
+				}
+			}
+		} 
+	}
+}
+EDG_ADC_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = BDH
+		religion = catholic
+	} 
+
+	EDG_ADC_mission_2_2 = {
+		icon = mission_asian_trader
+		position = 2
+		required_missions = { EDG_ADC_mission_3_1 } 
+		provinces_to_highlight = {
+			province_id = 4787
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = no	
+				}
+				4787 = {
+					owned_by = root
+					development = 15
+				}
+			}
+		} 
+
+		effect = {
+			add_treasury = 100
+			add_years_of_income = 1
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_ADC_well_fed
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_ADC_mission_2_5 = {
+		icon = mission_crusade_for_varna
+		position = 5
+		required_missions = {
+			EDG_ADC_mission_1_4
+			EDG_ADC_mission_3_4
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				is_core = root
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			all_owned_province = {
+				is_core = root
+			}
+		} 
+
+		effect = {
+			random_neighbor_country = {
+				limit = {
+					capital_scope = {
+						region = iberia_region
+					}
+				}
+				root = {
+					declare_war_with_cb = {
+						casus_belli = cb_EDG_WG_superiority_IBR_unification
+						who = prev
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			country_event = {
+				id = EDG_ADCEvents.10
+			}
+		} 
+	}
+}
+EDG_ADC_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = BDH
+		religion = catholic
+	} 
+
+	EDG_ADC_mission_3_1 = {
+		icon = catholic_volunteers
+		position = 1
+		provinces_to_highlight = {
+			owned_by = root
+		} 
+
+		trigger = {
+			is_year = 1445
+			religion = catholic
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.1
+			}
+		} 
+	}
+
+	EDG_ADC_mission_3_3 = {
+		icon = mission_hands_praying
+		position = 3
+		required_missions = {
+			EDG_ADC_mission_2_2
+			EDG_ADC_mission_5_2
+		}
+		provinces_to_highlight = {
+			religion = EDG_Mozarabic
+			owned_by = root
+		} 
+
+		trigger = {
+			advisor = inquisitor
+			stability = 1
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.3
+			}
+		} 
+	}
+
+	EDG_ADC_mission_3_4 = {
+		icon = mission_steppe_warriors
+		position = 4
+		required_missions = {
+			EDG_ADC_mission_3_3
+			EDG_ADC_mission_4_3
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				is_core = root
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			all_owned_province = {
+				is_core = root
+			}
+		} 
+
+		effect = {
+			random_neighbor_country = {
+				limit = {
+					capital_scope = {
+						region = iberia_region
+					}
+				}
+				root = {
+					declare_war_with_cb = {
+						casus_belli = cb_EDG_WG_superiority_IBR_unification
+						who = prev
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			country_event = {
+				id = EDG_ADCEvents.9
+			}
+		} 
+	}
+
+	EDG_ADC_mission_3_5 = {
+		icon = mission_teutonic_knights
+		position = 5
+		required_missions = { EDG_ADC_mission_3_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				is_at_war = yes
+				custom_trigger_tooltip = {
+					tooltip = FOI_FOI_unify_iberia_country
+					has_country_flag = FOI_unify_iberia_country_flag
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.11
+			}
+		} 
+	}
+
+	EDG_ADC_mission_3_7 = {
+		icon = mission_monarch_in_throne_room
+		position = 7
+		required_missions = {
+			EDG_ADC_mission_4_6
+			EDG_ADC_mission_5_6
+		}
+		provinces_to_highlight = {
+			region = iberia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			mission_completed = EDG_ADC_mission_1_6
+			baleares_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				value = 55
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.4
+			}
+		} 
+	}
+}
+EDG_ADC_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = BDH
+		religion = catholic
+	} 
+
+	EDG_ADC_mission_4_3 = {
+		icon = mission_religious
+		position = 3
+		required_missions = { EDG_ADC_mission_5_2 } 
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				is_core = root
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			all_owned_province = {
+				is_core = root
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					any_neighbor_country = {
+						capital_scope = {
+							region = iberia_region
+						}
+						religion_group = muslim
+					}
+				}
+				random_neighbor_country = {
+					limit = {
+						capital_scope = {
+							region = iberia_region
+						}
+						religion_group = muslim
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_EDG_WG_superiority_IBR_unification
+							who = prev
+						}
+					}
+				}
+			}
+			else = {
+				random_neighbor_country = {
+					limit = {
+						capital_scope = {
+							region = iberia_region
+						}
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_EDG_WG_superiority_IBR_unification
+							who = prev
+						}
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			country_event = {
+				id = EDG_ADCEvents.8
+			}
+		} 
+	}
+
+	EDG_ADC_mission_4_6 = {
+		icon = mission_build_up_to_force_limit
+		position = 6
+		required_missions = { EDG_ADC_mission_3_5 } 
+		provinces_to_highlight = {
+			region = iberia_region
+			OR = {
+				trade_goods = grain
+				trade_goods = livestock
+			}
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				region = iberia_region
+				OR = {
+					trade_goods = grain
+					trade_goods = livestock
+				}
+				value = 75
+			}
+		} 
+
+		effect = {
+			add_manpower = 10
+			add_yearly_manpower = 1
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_ADC_full_of_troops
+				duration = 3650
+			}
+		} 
+	}
+}
+EDG_ADC_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = BDH
+		religion = catholic
+	} 
+
+	EDG_ADC_mission_5_2 = {
+		icon = mission_reclaim_andalucia
+		position = 2
+		provinces_to_highlight = { 
+			OR = {
+				province_id = 224
+				province_id = 225
+			}
+		} 
+
+		trigger = {
+			owns = 225
+			owns = 224
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					any_neighbor_country = {
+						capital_scope = {
+							region = iberia_region
+						}
+						religion_group = muslim
+					}
+				}
+				random_neighbor_country = {
+					limit = {
+						capital_scope = {
+							region = iberia_region
+						}
+						religion_group = muslim
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_EDG_WG_superiority_IBR_unification
+							who = prev
+						}
+					}
+				}
+			}
+			else = {
+				random_neighbor_country = {
+					limit = {
+						capital_scope = {
+							region = iberia_region
+						}
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_EDG_WG_superiority_IBR_unification
+							who = prev
+						}
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_ADC_candidate
+				duration = 3650
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_prestige_or_monarch_power = { amount = 10 }
+		} 
+	}
+
+	EDG_ADC_mission_5_4 = {
+		icon = per_sword_of_our_faith
+		position = 4
+		required_missions = {
+			EDG_ADC_mission_4_3
+		}
+		provinces_to_highlight = {
+			region = iberia_region
+			religion_group = muslim
+		} 
+
+		trigger = {
+			iberia_region = {
+				type = all
+				religion_group = christian
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.6
+			}
+		} 
+	}
+
+	EDG_ADC_mission_5_6 = {
+		icon = mission_bedouins
+		position = 6
+		required_missions = { EDG_ADC_mission_5_4 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 227
+				province_id = 1851
+				province_id = 4556
+				province_id = 231
+				province_id = 4555
+				province_id = 209
+				province_id = 1745
+				province_id = 207
+				province_id = 4554
+			}
+			OR = {
+				NOT = {
+					development = 15
+				}
+				NOT = {
+					owned_by = root
+				}
+			}
+		} 
+
+		trigger = {
+			mission_completed = EDG_ADC_mission_1_4
+			if = {
+				limit = { 
+					ai = no
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_ADC_mission_5_6.trigger.tt
+					227 = {
+						owned_by = root
+						development = 15
+					}
+					1851 = {
+						owned_by = root
+						development = 15
+					}
+					4556 = {
+						owned_by = root
+						development = 15
+					}
+					231 = {
+						owned_by = root
+						development = 15
+					}
+					4555 = {
+						owned_by = root
+						development = 15
+					}
+					209 = {
+						owned_by = root
+						development = 15
+					}
+					1745 = {
+						owned_by = root
+						development = 15
+					}
+					207 = {
+						owned_by = root
+						development = 15
+					}
+					4554 = {
+						owned_by = root
+						development = 15
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_ADCEvents.7
+			}
+
+		} 
+	}
+}

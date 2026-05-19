@@ -1,0 +1,828 @@
+country_decisions = {
+
+	EDG_BUL_mil_staff_decision = {#建立总参谋部
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			has_country_flag = EDG_flavor_BUL_Mission_7_a_flag
+			NOT = { has_country_flag = EDG_BUL_mil_staff_decision_flag }
+		}
+		provinces_to_highlight = { 
+		} 
+		allow = {
+			check_variable = {
+				which = EDG_BUL_mil_staff_value
+				value = 5
+			}
+		}
+		effect = {
+			set_country_flag = EDG_BUL_mil_staff_decision_flag
+			add_country_modifier = {
+				name = EDG_flavor_BUL_Mission_7_a_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	EDG_BUL_decision_Restore_the_Pentarchy = {#重建五大牧首区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			has_country_flag = EDG_BUL_empire_roma_flag
+			NOT = { has_country_flag = EDG_BUL_decision_Restore_the_Pentarchy_flag }
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 379
+				province_id = 358
+				province_id = 118
+				province_id = 151
+				province_id = 2313
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+		allow = {
+			religion = orthodox
+			379 = { country_or_non_sovereign_subject_holds = ROOT religion = orthodox }
+			358 = { country_or_non_sovereign_subject_holds = ROOT religion = orthodox }
+			118 = { country_or_non_sovereign_subject_holds = ROOT religion = orthodox }
+			151 = { country_or_non_sovereign_subject_holds = ROOT religion = orthodox }
+			2313 = { country_or_non_sovereign_subject_holds = ROOT religion = orthodox }
+		}
+		effect = {
+			set_country_flag = EDG_BUL_decision_Restore_the_Pentarchy_flag
+			country_event = { id = catholic_flavor.3 }
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	EDG_BUL_decision_form_BU1 = {#成立大保加利亚
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			has_country_flag = EDG_BUL_decision_form_BU1_enable_flag
+			NOT = {
+				has_country_flag = had_EDG_BUL_decision_form_BU1_flag
+			}
+			NOT = { exists = BU1 }
+		}
+		allow = {
+			is_at_war = no
+			NOT = { exists = BU1 }
+			primary_culture = bulgarian
+
+		}
+		effect = {
+			change_tag = BU1
+			set_country_flag = had_EDG_BUL_decision_form_BU1_flag
+			set_ruler_flag = EDG_flavor_BUL_Mission_9_ruler_flag
+			country_event = { id = EDG_flavor_BUL_Mission.5 }
+
+			if = {
+				limit = {
+					NOT = { has_country_flag = enable_unite_balkans_cb_flag }
+				}
+				custom_tooltip = EDG_SPACE_TT
+				set_country_flag = enable_unite_balkans_cb_flag
+				custom_tooltip = enable_unite_balkans_cb_tt
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BUL_decision_form_BU1_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_reform = EDG_GREAT_Bulgaria_tsardom_government
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+  EDG_BUL_make_constantinople_capital = {
+	major = yes
+    potential = {
+		OR = {
+			has_country_flag = EDG_BUL_make_constantinople_capital_enable_flag
+			ai = yes
+		}
+		OR = {
+			tag = BUL
+		}
+		NOT = {
+			capital = 151
+		}
+		NOT = {
+			has_country_flag = EDG_BUL_relocated_capital_constantinople
+		}
+		normal_or_historical_nations = yes
+		OR = {
+			ai = no
+			is_playing_custom_nation = no
+		}
+    }
+    allow = {
+		is_at_war = no
+		tag = BUL
+		owns = 151
+		151 = {
+			is_state = yes
+		}
+    }
+    effect = {
+		add_core = 151
+		set_country_flag = EDG_BUL_relocated_capital_constantinople
+		country_event = { id = EDG_flavorBUL.1 }
+    }
+    ai_will_do = {
+      	factor = 100
+    }
+  }
+  EDG_BUL_mil_tech_15_decision = {
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+		  OR = {
+			primary_culture = bulgarian
+			accepted_culture = bulgarian
+		  }
+		  NOT = {
+			has_country_flag = had_EDG_BUL_mil_tech_15_decision_flag
+		  }
+		  normal_or_historical_nations = yes
+		}
+		allow = {
+		  OR = {
+			primary_culture = bulgarian
+			accepted_culture = bulgarian
+		  }
+		  mil_tech = 15
+		  mil_power = 100
+		}
+		effect = {
+		  add_mil_power = -100
+				add_country_modifier = {
+					name = "EDG_BUL_mil_tech_15_decision_modifier"
+					duration = -1
+				}
+		  set_country_flag = had_EDG_BUL_mil_tech_15_decision_flag
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+  EDG_BUL_adm_tech_6_decision = {
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+		  religion = orthodox
+		  has_country_flag = EDG_BUL_empire_roma_flag
+		  NOT = {
+			has_country_flag = had_EDG_BUL_adm_tech_6_decision_flag
+		  }
+		}
+		allow = {
+			has_country_flag = EDG_BUL_empire_roma_flag
+		  adm_tech = 6
+		  adm_power = 100
+			thrace_area = {
+				type = all
+				owned_by = ROOT
+			}
+			macedonia_area = {
+				type = all
+				owned_by = ROOT
+			}
+			morea_area = {
+				type = all
+				owned_by = ROOT
+			}
+		}
+		effect = {
+		  add_adm_power = -100
+		  set_country_flag = had_EDG_BUL_adm_tech_6_decision_flag
+			country_event = { id = EDG_flavorBUL.7 }
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	
+	EDG_BUL_decision_declare_war_to_MHM = {#向鲁米利亚宣战
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			has_country_flag = EDG_BUL_decision_declare_war_to_MHM_enable_flag
+		  NOT = {
+			has_country_flag = had_EDG_BUL_decision_declare_war_to_MHM_flag
+		  }
+		  exists = MHM
+		  tag = BUL
+		}
+		allow = {
+			exists = MHM
+			tag = BUL
+			is_at_war = no
+		}
+		effect = {
+			add_army_tradition = 20
+			add_cash = 500
+			add_manpower = 20
+
+			set_country_flag = had_EDG_BUL_decision_declare_war_to_MHM_flag
+			country_event = { id = EDG_flavorBUL.2 }
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	EDG_MISSION_BUL_3_3_a_decision = {#解放塞萨洛尼基王国
+		major = yes
+		color = { 116 107 140 }
+		provinces_to_highlight = {
+			is_core = GK1
+		}
+		potential = {
+			has_country_flag = EDG_MISSION_BUL_3_3_a_decision_enable_flag
+			NOT = {
+				has_country_flag = had_EDG_MISSION_BUL_3_3_a_decision_flag
+			}
+		}
+		allow = {
+			calc_true_if = {
+				all_province = {
+					is_core = GK1
+					OR = {
+						controlled_by = ROOT
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				amount = 3
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_MISSION_BUL_3_3_a_decision_flag
+			country_event = { id = EDG_flavor_BUL_Mission.2 }
+			tooltip = {
+				every_province = {
+				  limit = {
+					  is_core = GK1
+					  OR = {
+						  controlled_by = ROOT
+						  country_or_non_sovereign_subject_holds = ROOT
+					  }
+				  }
+				  cede_province = GK1
+				}
+				create_subject = {
+					subject_type = vassal
+					subject = GK1
+				}
+			}
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	EDG_MISSION_BUL_3_3_b_decision = {#解放尼西亚王国
+		major = yes
+		color = { 116 107 140 }
+		provinces_to_highlight = {
+			is_core = GK2
+		}
+		potential = {
+			has_country_flag = EDG_MISSION_BUL_3_3_b_decision_enable_flag
+			NOT = {
+				has_country_flag = had_EDG_MISSION_BUL_3_3_b_decision_flag
+			}
+		}
+		allow = {
+			calc_true_if = {
+				all_province = {
+					is_core = GK2
+					OR = {
+						controlled_by = ROOT
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+				}
+				amount = 3
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_MISSION_BUL_3_3_b_decision_flag
+			country_event = { id = EDG_flavor_BUL_Mission.3 }
+			tooltip = {
+				every_province = {
+				  limit = {
+					  is_core = GK2
+					  OR = {
+						  controlled_by = ROOT
+						  country_or_non_sovereign_subject_holds = ROOT
+					  }
+				  }
+				  cede_province = GK2
+				}
+				create_subject = {
+					subject_type = vassal
+					subject = GK2
+				}
+			}
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	EDG_MISSION_BUL_4_2_decision = {#索要托尔朱
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			has_country_flag = EDG_MISSION_BUL_4_2_decision_enable_flag
+			NOT = {
+				has_country_flag = had_EDG_MISSION_BUL_4_2_decision_flag
+			}
+			4706 = { NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+		}
+		allow = {
+			4706 = { NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+			4706 = {
+				owner = {
+					NOT = {
+						army_strength = {
+							who = ROOT
+							value = 0.25
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_MISSION_BUL_4_2_decision_flag
+			4706 = {
+				owner = {
+					country_event = { id = EDG_flavor_BUL_Mission.4 }
+				}
+			}
+			
+		}
+		ai_will_do = {
+		  factor = 1
+		}
+	}
+	
+	EDG_BUL_form_carpathia_province_decision = {#建立卡帕提亚总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = RMN }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_carpathia_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = RMN }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = carpathia_region
+			}
+		}
+		effect = {
+			tooltip = {
+				RMN = {
+					carpathia_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = carpathia_region
+					}
+					add_core = RMN
+				} 
+				release = RMN
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = RMN } 
+			add_historical_friend = RMN
+			RMN = {
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_RMN_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_Ruthenian_province_decision = {#建立鲁塞尼亚总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = L05 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_Ruthenian_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = L05 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = ruthenia_region
+			}
+		}
+		effect = {
+			tooltip = {
+				L05 = {
+					ruthenia_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = ruthenia_region
+					}
+					add_core = L05
+				} 
+				release = L05
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = L05 } 
+			add_historical_friend = L05
+			L05 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_ruthenia_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_poland_province_decision = {#建立波兰总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = L04 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_poland_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = L04 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = poland_region
+			}
+		}
+		effect = {
+			tooltip = {
+				L04 = {
+					poland_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = poland_region
+					}
+					add_core = L04
+				} 
+				release = L04
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = L04 } 
+			add_historical_friend = L04
+			L04 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_poland_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_persia_province_decision = {#建立波斯总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = BU2 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_persia_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = BU2 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = persia_region
+			}
+		}
+		effect = {
+			tooltip = {
+				PER = {
+					persia_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = { is_core = BU2 }
+					remove_core = BU2
+				}
+				every_owned_province = {
+					limit = {
+						region = persia_region
+					}
+					add_core = BU2
+				} 
+				release = BU2
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = BU2 } 
+			tooltip = {
+				add_historical_friend = PER
+				PER = {
+					add_liberty_desire = -100 add_historical_friend = ROOT
+					add_trust = {
+						who = ROOT
+						value = 50
+						mutual = yes
+					} 
+				}
+			}
+			hidden_effect = {
+				add_historical_friend = BU2
+				BU2 = {
+					EDG_BUL_form_province_effect = yes
+					override_country_name = EDG_BUL_PER_province_name
+					set_country_flag = change_country_color_EDG_flag
+					change_country_color = { country = ROOT }
+				} 
+			}
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_italy_province_decision = {#建立意大利亚总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = IT1 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_italy_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = IT1 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = italy_region
+			}
+		}
+		effect = {
+			tooltip = {
+				IT1 = {
+					italy_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+					}
+					add_core = IT1
+				} 
+				release = IT1
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = IT1 } 
+			add_historical_friend = IT1
+			IT1 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_ITY_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_maghreb_province_decision = {#建立阿非利加总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = LT3 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_maghreb_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = LT3 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = maghreb_region
+			}
+		}
+		effect = {
+			tooltip = {
+				LT3 = {
+					maghreb_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = maghreb_region
+					}
+					add_core = LT3
+				} 
+				release = LT3
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = LT3 } 
+			add_historical_friend = LT3
+			LT3 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_maghreb_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_iberia_province_decision = {#建立希斯帕尼亚总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = LT2 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_iberia_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = LT2 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = iberia_region
+			}
+		}
+		effect = {
+			tooltip = {
+				LT2 = {
+					iberia_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+					}
+					add_core = LT2
+				} 
+				release = LT2
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = LT2 } 
+			add_historical_friend = LT2
+			LT2 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_iberia_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_france_province_decision = {#建立高卢总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = LT1 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_france_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = LT1 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = france_region
+			}
+		}
+		effect = {
+			tooltip = {
+				LT1 = {
+					france_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = france_region
+					}
+					add_core = LT1
+				} 
+				release = LT1
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = LT1 } 
+			add_historical_friend = LT1
+			LT1 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_france_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_british_province_decision = {#建立不列颠尼亚总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = LT0 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_british_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = LT0 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = british_isles_region
+			}
+		}
+		effect = {
+			tooltip = {
+				LT0 = {
+					british_isles_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = british_isles_region
+					}
+					add_core = LT0
+				} 
+				release = LT0
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = LT0 } 
+			add_historical_friend = LT0
+			LT0 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_british_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+	EDG_BUL_form_egypt_province_decision = {#建立阿伊普多斯总督区
+		major = yes
+		color = { 116 107 140 }
+		potential = {
+			NOT = { exists = LT8 }
+			#NOT = { has_country_flag = has_EDG_Scania_province_decision_flag }
+			OR = {
+				has_country_flag = EDG_BUL_form_egypt_province_decision_enable_flag
+			}
+		}
+		allow = {
+			NOT = { exists = LT8 }
+			num_of_owned_provinces_with = {
+				value = 25
+				region = egypt_region
+			}
+		}
+		effect = {
+			tooltip = {
+				LT8 = {
+					egypt_region = { add_core = PREV }
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = egypt_region
+					}
+					add_core = LT8
+				} 
+				release = LT8
+			}
+			create_subject = { subject_type = EDG_Bulgaria_viceroyalty_vassal subject = LT8 } 
+			add_historical_friend = LT8
+			LT8 = {
+				#override_country_name = EDG_german_LT_province
+				EDG_BUL_form_province_effect = yes
+				override_country_name = EDG_BUL_egypt_province_name
+				set_country_flag = change_country_color_EDG_flag
+				change_country_color = { country = ROOT }
+			} 
+		}
+		ai_will_do = { factor = 1 }
+	}
+}

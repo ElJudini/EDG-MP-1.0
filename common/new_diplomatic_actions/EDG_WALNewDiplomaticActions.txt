@@ -1,0 +1,139 @@
+EDG_WAL_assassination_monarch = {
+	category = covert
+	require_acceptance = no
+	is_visible = {
+		has_government_mechanic = EDG_WAL_atrocity_mechanic
+	}
+	is_allowed = {
+		check_variable = {
+			which = EDG_WAL_assassinate_count
+			value = 1
+		}
+		from = {
+			has_regency = no
+		}
+		has_spy_network_in = {
+			who = from
+			value = 90
+		}
+	}
+	on_accept = {
+		change_variable = {
+			which = EDG_WAL_assassination_monarch_count
+			value = 1
+		}
+		subtract_variable = {
+			which = EDG_WAL_assassinate_count
+			value = 1
+		}
+		add_spy_network_in = {
+			who = from
+			value = -90
+		}
+		from = {
+			kill_ruler = yes
+		}
+		if = {
+			limit = { 
+				has_country_flag = EDG_WAL_mission_2_12_flag
+			}
+			from = {
+				add_stability = -3
+				add_war_exhaustion = 4
+				add_mil_power = -100
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+EDG_WAL_spread_fear = {
+	category = covert
+	require_acceptance = no
+	is_visible = {
+		has_government_mechanic = EDG_WAL_atrocity_mechanic
+	}
+	is_allowed = {
+		check_variable = {
+			which = EDG_WAL_spread_fear_count
+			value = 1
+		}
+		from = {
+			NOT = {
+				has_country_modifier = EDG_WAL_spread_fear_modifier
+			}
+		}
+		has_spy_network_in = {
+			who = from
+			value = 50
+		}
+	}
+	on_accept = {
+		add_spy_network_in = {
+			who = from
+			value = -50
+		}
+		change_variable = {
+			which = EDG_WAL_spread_fear_var
+			value = 1
+		}
+		subtract_variable = {
+			which = EDG_WAL_spread_fear_count
+			value = 1
+		}
+		from = {
+			add_country_modifier = {
+				name = EDG_WAL_spread_fear_modifier
+				duration = 1825
+			}
+			
+		}
+		if = {
+			limit = { 
+				has_country_flag = EDG_WAL_mission_1_12_flag
+			}
+			from = {
+				add_country_modifier = {
+					name = EDG_WAL_spread_fear_modifier_1
+					duration = 1825
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+EDG_WAL_threaten_country = {
+	category = covert
+	require_acceptance = no
+	is_visible = {
+		has_government_mechanic = EDG_WAL_atrocity_mechanic
+		from = {
+			coalition_target = root
+		}
+	}
+	is_allowed = {
+		NOT = {
+			war_with = from
+		}
+		NOT = {
+			truce_with = from
+		}
+		has_spy_network_in = {
+			who = from
+			value = 25
+		}
+	}
+	on_accept = {
+		add_spy_network_in = {
+			who = from
+			value = -50
+		}
+		add_truce_with = from
+	}
+	ai_will_do = {
+		always = no
+	}
+}

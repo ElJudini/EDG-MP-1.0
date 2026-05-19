@@ -1,0 +1,4015 @@
+EDG_FOI_UCI_1_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_expand_1_3 = { #火然泉达
+		icon = "EDG_ICON_revolutionary"
+		position = 1
+		provinces_to_highlight = {
+			owned_by = USP
+		}
+		trigger = {
+			is_at_war = yes
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_expand_1_3.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+					}
+					province_event = {
+						id = FOI_UCIEvents.800
+					}
+				}
+			}
+			country_event = {
+				id = FOI_UCIEvents.23
+			}
+		}
+	}
+	FOI_UCI_expand_2_3 = { #人民之声
+		icon = "EDG_ICON_achievement_vox_populi"
+		position = 2
+		required_missions = {
+			"FOI_UCI_expand_1_3"
+		}
+		trigger = {
+			is_at_war = no
+			NOT = {
+				exists = USP
+			}
+		}
+		effect = {
+			hidden_effect = {
+				country_event = {
+					id = FOI_UCIEvents.7
+					days = 7
+				}
+				every_owned_province = {
+					limit = {
+						region = iberia_region
+					}
+					set_seat_in_parliament = yes
+				}
+			}
+			every_subject_country = {
+				limit = {
+					any_owned_province = {
+						region = iberia_region
+					}
+				}
+				root = {
+					inherit = prev
+				}
+			}
+			iberia_region = {
+                limit = {
+                    country_or_non_sovereign_subject_holds = root
+                }
+                add_province_modifier = {
+                    name = EDG_FOI_reconstruction_work
+                    duration = 1825
+                }
+            }
+            add_government_power = {
+                mechanic_type = FOI_iberia_reconstruction_work_mechanic
+                power_type = FOI_iberia_reconstruction_work
+                value = 5
+            }
+			if = {
+				limit = { 
+					capital_scope = {
+						area = baleares_area
+					}
+				}
+				random_owned_province = {
+					limit = {
+						NOT = {
+							area = baleares_area
+						}
+					}
+					root = {
+						set_capital = prev
+					}
+					add_province_modifier = {
+						name = EDG_FOI_iberia_infrastructure_capital
+						duration = -1
+					}
+					hidden_effect = {
+						every_neighbor_province = {
+							set_province_flag = EDG_FOI_iberia_infrastructure_building_flag
+						}
+					}
+				}
+			}
+			else = {
+				capital_scope = {
+					add_province_modifier = {
+						name = EDG_FOI_iberia_infrastructure_capital
+						duration = -1
+					}
+					hidden_effect = {
+						every_neighbor_province = {
+							set_province_flag = EDG_FOI_iberia_infrastructure_building_flag
+						}
+					}
+				}
+			}
+			every_neighbor_country = {
+				add_truce_with = root
+			}
+		}
+	}
+	FOI_UCI_expand_3_3 = { #[213.GetName]公社
+		icon ="mission_early_game_buildings"
+		position = 3
+		provinces_to_highlight = {
+			area = catalonia_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_2_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = catalonia_area
+				value = 100
+			}
+			213 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = catalonia_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = catalonia_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+			
+		}
+	}
+	FOI_UCI_expand_4_3 = { #[220.GetName]公社
+		icon ="mission_early_modern_university"
+		position = 4
+		provinces_to_highlight = {
+			area = valencia_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_3_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = valencia_area
+				value = 80
+			}
+			220 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = valencia_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = catalonia_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_5_3 = { #[333.GetName]公社
+		icon ="mission_steer_trade_to_bengal"
+		position = 5
+		provinces_to_highlight = {
+			area = baleares_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_4_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = baleares_area
+				value = 40
+			}
+			333 = {
+				owned_by = root
+				# custom_trigger_tooltip = {
+				# 	tooltip = EDG_FOI_has_iberian_infrastructure
+				# 	OR = {
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+				# 		has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+				# 	}
+				# }
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = baleares_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = baleares_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_6_3 = { #伊比利亚之春
+		icon = "mission_rb_conquer_wales"
+		position = 6
+		required_missions = {
+			"FOI_UCI_expand_5_1"
+			"FOI_UCI_expand_5_2"
+			"FOI_UCI_expand_5_3"
+			"FOI_UCI_expand_5_4"
+			"FOI_UCI_expand_5_5"
+		}
+		trigger = {
+			development_in_provinces = {
+				region = iberia_region
+				value = 2000
+			}
+			has_any_disaster = no
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_expand_6_3.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_expand_6_3_flag
+			}
+		}
+	}
+}
+EDG_FOI_UCI_1_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_expand_1_1 = { #星火微光
+		icon = "peace_in_europe"
+		position = 1
+		provinces_to_highlight = {
+			owner = {
+				OR = {
+					has_reform = peasants_republic
+					is_revolutionary_republic_trigger = yes
+				}
+			}
+		}
+		trigger = {
+			has_any_disaster = no
+			is_at_war = no
+			any_country = {
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+						superregion = eastern_europe_superregion
+					}
+				}
+				OR = {
+					has_reform = peasants_republic
+					is_revolutionary_republic_trigger = yes
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = FOI_UCIEvents.3
+			}
+		}
+	}
+	FOI_UCI_expand_3_1 = { #[206.GetName]公社
+		icon = "mission_eastern_european_city"
+		position = 3
+		provinces_to_highlight = {
+			area = galicia_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_2_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = galicia_area
+				value = 80
+			}
+			206 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = galicia_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = galicia_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_4_1 = { #[231.GetName]公社
+		icon ="mission_hanseatic_city"
+		position = 4
+		provinces_to_highlight = {
+			area = beieras_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_3_1"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = beieras_area
+				value = 90
+			}
+			231 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = beieras_area
+					}
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = beieras_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_5_1 = { #[227.GetName]公社
+		icon ="mission_demand_garjat_fealty"
+		position = 5
+		provinces_to_highlight = {
+			area = alentejo_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_4_1"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = alentejo_area
+				value = 100
+			}
+			227 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = alentejo_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = alentejo_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+}
+EDG_FOI_UCI_1_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_expand_3_2 = { #[207.GetName]公社
+		icon ="mission_coromandel_trade"
+		position = 3
+		provinces_to_highlight = {
+			area = asturias_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_2_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = asturias_area
+				value = 80
+			}
+			207 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = asturias_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = asturias_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_4_2 = { #[217.GetName]公社
+		icon ="mission_son_expand_djenne_mosque"
+		position = 4
+		provinces_to_highlight = {
+			area = castille_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_3_2"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = castille_area
+				value = 100
+			}
+			217 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = castille_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = castille_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_5_2 = { #[208.GetName]公社
+		icon ="mission_seize_the_bengal_coast"
+		position = 5
+		provinces_to_highlight = {
+			area = leon_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_4_2"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = leon_area
+				value = 60
+			}
+			208 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = leon_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = leon_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+}
+EDG_FOI_UCI_1_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_expand_3_4 = { #[218.GetName]公社
+		icon ="promote_urbanization"
+		position = 3
+		provinces_to_highlight = {
+			area = extremadura_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_2_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = extremadura_area
+				value = 60
+			}
+			218 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = extremadura_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = extremadura_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_4_4 = { #[225.GetName]公社
+		icon ="mission_expand_inland"
+		position = 4
+		provinces_to_highlight = {
+			area = lower_andalucia_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_3_4"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = lower_andalucia_area
+				value = 100
+			}
+			225 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = lower_andalucia_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = lower_andalucia_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_5_4 = { #[223.GetName]公社
+		icon ="mission_conquer_lower_burma_ori"
+		position = 5
+		provinces_to_highlight = {
+			area = upper_andalucia_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_4_4"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = upper_andalucia_area
+				value = 80
+			}
+			223 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = upper_andalucia_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = upper_andalucia_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+}
+EDG_FOI_UCI_1_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_expand_1_5 = { #携手并进
+		icon = "mission_alliances"
+		position = 1
+		provinces_to_highlight = {
+			owner = {
+				alliance_with = root
+				NOT = {
+					has_opinion = {
+						who = root
+						value = 150
+					}
+				}
+			}
+		}
+		trigger = {
+			calc_true_if = {
+				all_ally = {
+					has_opinion = {
+						who = root
+						value = 150
+					}
+				}
+				amount = 2
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_expand_1_5.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_expand_1_5_flag
+				every_ally = {
+					add_trust = {
+						who = root
+						value = 50
+					}
+					root = {
+						add_trust = {
+							who = prev
+							value = 50
+						}
+					}
+				}
+			}
+		}
+	}
+	FOI_UCI_expand_3_5 = { #[210.GetName]公社
+		icon ="mission_divert_trade_from_bengal"
+		position = 3
+		provinces_to_highlight = {
+			area = basque_country
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_2_3"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = basque_country
+				value = 60
+			}
+			210 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = basque_country
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = basque_country
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_4_5 = { #[214.Getname]公社
+		icon ="ansbach_succession"
+		position = 4
+		provinces_to_highlight = {
+			area = aragon_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_3_5"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = aragon_area
+				value = 80
+			}
+			214 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = aragon_area
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = aragon_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+	FOI_UCI_expand_5_5 = { #[219.GetName]公社
+		icon ="a_question_of_spain"
+		position = 5
+		provinces_to_highlight = {
+			area = toledo_area
+			owned_by = root
+		}
+		required_missions = {
+			"FOI_UCI_expand_4_5"
+		}
+		trigger = {
+			development_in_provinces = {
+				area = toledo_area
+				value = 100
+			}
+			219 = {
+				owned_by = root
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_has_iberian_infrastructure
+					OR = {
+						has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+						has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+						has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+						has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+						has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+					}
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_update_or_build_building_tooltip
+			custom_tooltip = FOI_UCI_harbour_development_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = toledo_area
+					}
+					if = {
+						limit = { 
+							has_port = yes
+						}
+						add_province_triggered_modifier = EDG_FOI_UCI_develop_seaports
+					}
+					add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+					if = {
+						limit = { 
+							NOT = {
+								has_building = temple
+							}
+						}
+						add_building = temple
+					}
+					else = {
+						upgrade_building = { tax = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = workshop
+							}
+						}
+						add_building = workshop
+					}
+					else = {
+						upgrade_building = { production = yes }
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_building = barracks
+							}
+						}
+						add_building = barracks
+					}
+					else = {
+						upgrade_building = { manpower = yes }
+					}
+				}
+			}
+			for = {
+				amount = 15
+				custom_tooltip = EDG_FOI_UCI_add_random_development_tooltip
+				effect = "
+					random_owned_province = {
+						limit = {
+							area = toledo_area
+						}
+						add_random_development = 1
+					}
+				"
+			}
+		}
+	}
+}
+
+
+EDG_FOI_UCI_2_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+		#has_country_flag = FOI_UCI_expand_6_3_flag
+	}
+	FOI_UCI_expand_7_3 = { #明炬如光
+		icon = "EDG_ICON_Ncaretaker"
+		position = 7
+		trigger = {
+			NOT = {
+				has_reform = FOI_UCI_infocus
+			}
+		}
+		effect = {
+			country_event = {
+				id = FOI_UCIEvents.9
+			}
+			# hidden_effect = {
+			# 	set_country_flag = FOI_UCI_expand_7_3_flag
+			# }
+		}
+	}
+	FOI_UCI_expand_8_3 = { #狂风暴雨
+		icon = "byz_greek_fire"
+		position = 8
+		required_missions = {
+			"FOI_UCI_expand_7_3"
+		}
+		provinces_to_highlight = {
+			area = corsica_sardinia_area
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			corsica_sardinia_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						area = corsica_sardinia_area
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					corsica_sardinia_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_country_modifier = {
+					name = FOI_UCI_expand_8_3_modifier
+					duration = 3650
+				}
+			}
+			western_sicily_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 1825
+				}
+			}
+			sicily_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 1825
+				}
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 0.5
+			}
+		}
+	}
+	FOI_UCI_expand_9_3 = { #赤红之地
+		icon = "take_the_littoral"
+		position = 9
+		required_missions = {
+			"FOI_UCI_expand_8_3"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = western_sicily_area
+				area = sicily_area
+				area = calabria_area
+				area = apulia_area
+				area = naples_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			western_sicily_area = {
+				type = all
+				is_core = root
+			}
+			sicily_area = {
+				type = all
+				is_core = root
+			}
+			calabria_area = {
+				type = all
+				is_core = root
+			}
+			apulia_area = {
+				type = all
+				is_core = root
+			}
+			naples_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = western_sicily_area
+							area = sicily_area
+							area = calabria_area
+							area = apulia_area
+							area = naples_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					western_sicily_area = {
+						type = all
+						owned_by = root
+					}
+					sicily_area = {
+						type = all
+						owned_by = root
+					}
+					calabria_area = {
+						type = all
+						owned_by = root
+					}
+					apulia_area = {
+						type = all
+						owned_by = root
+					}
+					naples_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_country_modifier = {
+					name = FOI_UCI_expand_9_3_modifier
+					duration = 3650
+				}
+				if = {
+					limit = { 
+						118 = {
+							owner = {
+								NOT = {
+									OR = {
+										tag = root
+										alliance_with = root
+										is_revolutionary_republic_trigger = yes
+										has_reform = peasants_republic
+										war_with = root
+									}
+								}
+							}
+						}
+					}
+					country_event = {
+						id = FOI_UCIEvents.10
+					}
+				}
+			}
+			add_country_modifier = {
+				name = FOI_UCI_march_on_rome
+				duration = 1825
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 0.5
+			}
+		}
+	}
+	FOI_UCI_expand_10_3 = { #抹除教宗国
+		icon = "mission_rb_control_state_religion"
+		position = 10
+		required_missions = {
+			"FOI_UCI_expand_9_3"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = lazio_area
+				area = central_italy_area
+				province_id = 118
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			lazio_area = {
+				type = all
+				is_core = root
+			}
+			central_italy_area = {
+				type = all
+				is_core = root
+			}
+			OR = {
+				NOT = {
+					exists = PAP
+				}
+				PAP = {
+					capital_scope = {
+						NOT = {
+							region = italy_region
+						}
+					}
+				}
+			}
+			118 = {
+				owned_by = root
+			}
+		}
+		effect = {
+			country_event = {
+				id = FOI_UCIEvents.12
+			}
+		}
+	}
+	FOI_UCI_expand_11_3 = { #波光粼粼
+		icon = "africa_proconsulare"
+		position = 11
+		required_missions = {
+			"FOI_UCI_expand_10_3"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = tuscany_area
+				area = emilia_romagna_area
+				area = lombardy_area
+				area = po_valley_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			tuscany_area = {
+				type = all
+				is_core = root
+			}
+			emilia_romagna_area = {
+				type = all
+				is_core = root
+			}
+			lombardy_area = {
+				type = all
+				is_core = root
+			}
+			po_valley_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = tuscany_area
+							area = emilia_romagna_area
+							area = lombardy_area
+							area = po_valley_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					tuscany_area = {
+						type = all
+						owned_by = root
+					}
+					emilia_romagna_area = {
+						type = all
+						owned_by = root
+					}
+					lombardy_area = {
+						type = all
+						owned_by = root
+					}
+					po_valley_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_country_modifier = {
+					name = FOI_UCI_expand_11_3_modifier
+					duration = 3650
+				}
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 0.5
+			}
+		}
+	}
+	FOI_UCI_expand_12_3 = { #解放亚平宁
+		icon = "mission_rule_italy"
+		position = 12
+		required_missions = {
+			"FOI_UCI_expand_11_3"
+		}
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			italy_region = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			italy_region = {
+				limit = {
+					is_core = root
+					owned_by = root
+				}
+				add_nationalism = -10
+				add_unrest = -5
+				add_local_autonomy = 20
+				add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+			}
+			if = {
+				limit = { 
+					has_country_modifier = FOI_UCI_hold_the_torch_high
+				}
+				extend_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 3650
+				}
+			}
+		}
+	}
+	FOI_UCI_expand_13_3 = { #人民之春
+		icon = "dom_ara_remensa_war"
+		position = 13
+		required_missions = {
+			"FOI_UCI_expand_12_2"
+			"FOI_UCI_expand_12_3"
+			"FOI_UCI_expand_12_4"
+		}
+		trigger = {
+			tag = FWF
+		}
+		effect = {
+			add_country_modifier = {
+				name = FOI_UCI_expand_13_3_modifier
+				duration = -1
+			}
+		}
+	}
+	FOI_UCI_expand_14_3 = { #冷焰锻铁
+		icon = "EDG_ICON_forge"
+		position = 14
+		required_missions = {
+		}
+		trigger = {
+			army_size_percentage = 0.8
+			num_of_revolutionary_guard = 20
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_expand_14_3.tt
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 5
+			}
+			add_country_modifier = {
+				name = FOI_UCI_expand_14_3_modifier
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = FOI_UCI_expand_14_3_flag
+			}
+		}
+	}
+	FOI_UCI_expand_15_3 = { #正火
+		icon = "army_reforms"
+		position = 15
+		required_missions = {
+			"FOI_UCI_expand_14_3"
+		}
+		trigger = {
+			army_professionalism = 0.25
+			num_of_regiments_at_full_drill = 50
+			army_tradition = 25
+			ruler_has_personality = EDG_FOI_personality_justice
+			ruler_has_personality = EDG_FOI_personality_stern
+		}
+		effect = {
+			add_country_modifier = {
+				name = FOI_UCI_expand_15_3_modifier
+				duration = -1
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 3
+			}
+		}
+	}
+	FOI_UCI_expand_16_3 = { #淬勇成钢
+		icon = "FOI_ICON_quenching"
+		position = 16
+		required_missions = {
+			"FOI_UCI_expand_15_3"
+			"FOI_UCI_expand_15_4"
+			"FOI_UCI_expand_15_2"
+		}
+		trigger = {
+			army_professionalism = 0.5
+			num_of_regiments_at_full_drill = 80
+			army_tradition = 50
+			check_variable = {
+				which = FOI_UCI_battle_win_count
+				value = 100
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_expand_16_3.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_expand_16_3_flag
+			}
+			add_country_modifier = {
+				name = FOI_UCI_expand_16_3_modifier
+				duration = -1
+			}
+		}
+	}
+}
+EDG_FOI_UCI_2_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+		#has_country_flag = FOI_UCI_expand_6_3_flag
+	}
+	FOI_UCI_expand_8_1 = { #跨过直布罗陀
+		icon = "mission_colonize_the_west"
+		position = 8
+		required_missions = {
+			"FOI_UCI_expand_7_3"
+		}
+		provinces_to_highlight = {
+			area = northern_morocco_area
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			northern_morocco_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						area = northern_morocco_area
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					northern_morocco_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				country_event = {
+					id = FOI_UCIEvents.13
+				}
+			}
+			western_morocco_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			marrekesh_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			southern_morocco_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+		}
+	}
+	FOI_UCI_expand_9_1 = { #鲜红之路
+		icon = "mission_hundred_years_war"
+		position = 9
+		required_missions = {
+			"FOI_UCI_expand_8_1"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = western_morocco_area
+				area = marrekesh_area
+				area = southern_morocco_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			western_morocco_area = {
+				type = all
+				is_core = root
+			}
+			marrekesh_area = {
+				type = all
+				is_core = root
+			}
+			southern_morocco_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						area = northern_morocco_area
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					northern_morocco_area = {
+						type = all
+						owned_by = root
+					}
+					western_morocco_area = {
+						type = all
+						owned_by = root
+					}
+					marrekesh_area = {
+						type = all
+						owned_by = root
+					}
+					southern_morocco_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_government_power = {
+					mechanic_type = FOI_UCI_liberation_mania_mechanic
+					power_type = adur_burzhen_mihr
+					value = 5
+				}
+			}
+			add_country_modifier = {
+				name = FOI_UCI_expand_9_1_modifier
+				duration = 7300
+			}
+		}
+	}
+	FOI_UCI_expand_10_1 = { #扼制狂信徒
+		icon = "mission_spoils_of_war"
+		position = 10
+		required_missions = {
+			"FOI_UCI_expand_9_1"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = western_morocco_area
+				area = marrekesh_area
+				area = southern_morocco_area
+				area = sus_area
+				area = tafilalt_area
+			}
+			NOT = {
+				owned_by = root
+			}
+		}
+		trigger = {
+			western_morocco_area = {
+				type = all
+				owned_by = root
+			}
+			marrekesh_area = {
+				type = all
+				owned_by = root
+			}
+			southern_morocco_area = {
+				type = all
+				owned_by = root
+			}
+			sus_area = {
+				type = all
+				owned_by = root
+			}
+			tafilalt_area = {
+				type = all
+				owned_by = root
+			}
+		}
+		effect = {
+			country_event = {
+				id = FOI_UCIEvents.14
+			}
+		}
+	}
+	FOI_UCI_expand_11_1 = { #海市蜃楼
+		icon = "mission_control_the_barbary_coast"
+		position = 11
+		required_missions = {
+			"FOI_UCI_expand_10_1"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = algiers_area
+				area = hautes_plaines_area
+				area = barbary_coast_area
+				area = ouled_nail_area
+				area = north_saharan_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			algiers_area = {
+				type = all
+				is_core = root
+			}
+			hautes_plaines_area = {
+				type = all
+				is_core = root
+			}
+			barbary_coast_area = {
+				type = all
+				is_core = root
+			}
+			ouled_nail_area = {
+				type = all
+				is_core = root
+			}
+			north_saharan_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = algiers_area
+							area = hautes_plaines_area
+							area = barbary_coast_area
+							area = ouled_nail_area
+							area = north_saharan_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					algiers_area = {
+						type = all
+						owned_by = root
+					}
+					hautes_plaines_area = {
+						type = all
+						owned_by = root
+					}
+					barbary_coast_area = {
+						type = all
+						owned_by = root
+					}
+					ouled_nail_area = {
+						type = all
+						owned_by = root
+					}
+					north_saharan_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_government_power = {
+					mechanic_type = FOI_UCI_liberation_mania_mechanic
+					power_type = adur_burzhen_mihr
+					value = 5
+				}
+			}
+			add_revolutionary_zeal = 5
+			fezzan_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+		}
+	}
+}
+EDG_FOI_UCI_2_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+		#has_country_flag = FOI_UCI_expand_6_3_flag
+	}
+	FOI_UCI_expand_11_2 = { #汇聚地中海
+		icon = "Burn_Wooden_Wall"
+		position = 11
+		required_missions = {
+			"FOI_UCI_expand_10_1"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = venetia_area
+				area = tunisia_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			venetia_area = {
+				type = all
+				is_core = root
+			}
+			tunisia_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = venetia_area
+							area = tunisia_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					venetia_area = {
+						type = all
+						owned_by = root
+					}
+					tunisia_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				341 = {
+					add_unit_construction = {
+						type = heavy_ship
+						amount = 5
+						cost = 0
+						speed = 0
+					}
+				}
+				112 = {
+					add_unit_construction = {
+						type = galley
+						amount = 20
+						cost = 0
+						speed = 0
+					}
+				}
+			}
+			djerba_area = {
+				limit = {
+					NOT = {
+						OR = {
+							is_core = root
+							owned_by = root
+						}
+					}
+				}
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			tripolitania_area = {
+				limit = {
+					NOT = {
+						OR = {
+							is_core = root
+							owned_by = root
+						}
+					}
+				}
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			kabylia_area = {
+				limit = {
+					NOT = {
+						OR = {
+							is_core = root
+							owned_by = root
+						}
+					}
+				}
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			add_revolutionary_zeal = 5
+			add_country_modifier = {
+				name = FOI_UCI_expand_11_2_modifier
+				duration = 7300
+			}
+		}
+	}
+	FOI_UCI_expand_12_2 = { #审判马赫迪
+		icon = "mission_fire_of_london"
+		position = 12
+		required_missions = {
+			"FOI_UCI_expand_11_1"
+			"FOI_UCI_expand_11_2"
+		}		
+		provinces_to_highlight = {
+			region = maghreb_region
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			NOT = {
+				OR ={
+					exists = MGB
+					exists = MRK
+				}
+			}
+			maghreb_region = {
+				type = all
+				OR = {
+					is_core = root
+					is_empty = yes
+				}
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			maghreb_region = {
+				limit = {
+					is_core = root
+					owned_by = root
+				}
+				add_nationalism = -10
+				add_unrest = -5
+				add_local_autonomy = -10
+			}
+			if = {
+				limit = { 
+					has_country_modifier = FOI_UCI_hold_the_torch_high
+				}
+				extend_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 3650
+				}
+			}
+		}
+	}
+	FOI_UCI_expand_15_2 = { #退火
+		icon = "mission_mansure_army"
+		position = 15
+		required_missions = {
+			"FOI_UCI_expand_14_3"
+		}
+		trigger = {
+			num_of_revolutionary_guard = 50
+			ruler_has_personality = EDG_FOI_personality_ideal
+			ruler_has_personality = EDG_FOI_personality_courage
+			num_of_cavalry = 40
+			army_tradition = 35
+		}
+		effect = {
+			add_country_modifier = {
+				name = FOI_UCI_expand_15_2_modifier
+				duration = -1
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 3
+			}
+		}
+	}
+}
+EDG_FOI_UCI_2_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+		#has_country_flag = FOI_UCI_expand_6_3_flag
+	}
+	FOI_UCI_expand_11_4 = { #连接阿尔卑斯
+		icon = "alpine_defenses"
+		position = 11
+		required_missions = {
+			"FOI_UCI_expand_10_5"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = piedmont_area
+				area = liguria_area
+				area = savoy_dauphine_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			piedmont_area = {
+				type = all
+				is_core = root
+			}
+			liguria_area = {
+				type = all
+				is_core = root
+			}
+			savoy_dauphine_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = piedmont_area
+							area = liguria_area
+							area = savoy_dauphine_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					piedmont_area = {
+						type = all
+						owned_by = root
+					}
+					liguria_area = {
+						type = all
+						owned_by = root
+					}
+					savoy_dauphine_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				101 = {
+					add_unit_construction = {
+						type = light_ship
+						amount = 10
+						cost = 0
+						speed = 0
+					}
+				}
+			}
+			add_revolutionary_zeal = 5
+			add_country_modifier = {
+				name = FOI_UCI_expand_11_4_modifier
+				duration = 3650
+			}
+		}
+	}
+	FOI_UCI_expand_12_4 = { #焚毁鸢尾花
+		icon = "mng_nomadic_frontier"
+		position = 12
+		required_missions = {
+			"FOI_UCI_expand_11_4"
+			"FOI_UCI_expand_11_5"
+		}
+		provinces_to_highlight = {
+			region = france_region
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			NOT = {
+				exists = FRA
+			}
+			france_region = {
+				type = all
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			france_region = {
+				limit = {
+					is_core = root
+					owned_by = root
+				}
+				add_nationalism = -10
+				add_unrest = -5
+				add_local_autonomy = -10
+				add_province_triggered_modifier = FOI_UCI_expand_9_5_modifier
+			}
+			if = {
+				limit = { 
+					has_country_modifier = FOI_UCI_hold_the_torch_high
+				}
+				extend_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 7300
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = FOI_UCI_hold_the_torch_high
+					duration = 3650
+				}
+			}
+		}
+	}
+	FOI_UCI_expand_15_4 = { #回火
+		icon = "mission_mnd_siam_revolution"
+		position = 15
+		required_missions = {
+			"FOI_UCI_expand_14_3"
+		}
+		trigger = {
+			num_of_artillery = 40
+			army_professionalism = 0.25
+			ruler_has_personality = EDG_FOI_personality_diligent
+			ruler_has_personality = EDG_FOI_personality_enthusiasm
+		}
+		effect = {
+			add_country_modifier = {
+				name = FOI_UCI_expand_15_4_modifier
+				duration = -1
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 3
+			}
+		}
+	}
+}
+EDG_FOI_UCI_2_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+		#has_country_flag = FOI_UCI_expand_6_3_flag
+	}
+	FOI_UCI_expand_8_5 = { #越过比利牛斯
+		icon = "mng_tame_china_sorrow"
+		position = 8
+		required_missions = {
+			"FOI_UCI_expand_7_3"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = languedoc_area
+				area = pyrenees_area
+				area = guyenne_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			languedoc_area = {
+				type = all
+				is_core = root
+			}
+			pyrenees_area = {
+				type = all
+				is_core = root
+			}
+			guyenne_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = languedoc_area
+							area = pyrenees_area
+							area = guyenne_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					languedoc_area = {
+						type = all
+						owned_by = root
+					}
+					pyrenees_area = {
+						type = all
+						owned_by = root
+					}
+					guyenne_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				languedoc_area = {
+					add_devastation = -50
+				}
+				pyrenees_area = {
+					add_devastation = -50
+				}
+				guyenne_area = {
+					add_devastation = -50
+				}
+				add_government_power = {
+					mechanic_type = FOI_UCI_liberation_mania_mechanic
+					power_type = FOI_UCI_liberation_mania
+					value = 5
+				}
+			}
+			massif_central_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			poitou_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			loire_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			orleans_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			add_country_modifier = {
+				name = FOI_UCI_expand_8_5_modifier
+				duration = -1
+			}
+		}
+	}
+	FOI_UCI_expand_9_5 = { #火红之心
+		icon = "mission_thirty_years_war"
+		position = 9
+		required_missions = {
+			"FOI_UCI_expand_8_5"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = massif_central_area
+				area = loire_area
+				area = poitou_area
+				area = orleans_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			massif_central_area = {
+				type = all
+				is_core = root
+			}
+			poitou_area = {
+				type = all
+				is_core = root
+			}
+			loire_area = {
+				type = all
+				is_core = root
+			}
+			orleans_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = massif_central_area
+							area = poitou_area
+							area = loire_area
+							area = orleans_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					massif_central_area = {
+						type = all
+						owned_by = root
+					}
+					poitou_area = {
+						type = all
+						owned_by = root
+					}
+					loire_area = {
+						type = all
+						owned_by = root
+					}
+					orleans_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				massif_central_area = {
+					add_devastation = -50
+				}
+				poitou_area = {
+					add_devastation = -50
+				}
+				loire_area = {
+					add_devastation = -50
+				}
+				orleans_area = {
+					add_devastation = -50
+				}
+				add_government_power = {
+					mechanic_type = FOI_UCI_liberation_mania_mechanic
+					power_type = FOI_UCI_liberation_mania
+					value = 5
+				}
+				add_yearly_manpower = 1
+			}
+			france_region = {
+				limit = {
+					is_core = root
+				}
+				add_province_triggered_modifier = FOI_UCI_expand_9_5_modifier
+			}
+		}
+	}
+	FOI_UCI_expand_10_5 = { #肃清压迫者
+		icon = "mission_steppe_warriors"
+		position = 10
+		required_missions = {
+			"FOI_UCI_expand_9_5"
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = AEL
+				AND = {
+					area = provence_area
+					NOT = {
+						owned_by = root
+					}
+				}
+			}
+		}
+		trigger = {
+			NOT = {
+				exists = AEL
+			}
+			provence_area = {
+				type = all
+				owned_by = root
+			}
+		}
+		effect = {
+			country_event = {
+				id = FOI_UCIEvents.15
+			}
+		}
+	}
+	FOI_UCI_expand_11_5 = { #流光溢彩
+		icon = "mission_beyond_the_urals"
+		position = 11
+		required_missions = {
+			"FOI_UCI_expand_10_5"
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = west_burgundy_area
+				area = bourgogne_area
+				area = brittany_area
+			}
+			NOT = {
+				is_core = root
+			}
+		}
+		trigger = {
+			west_burgundy_area = {
+				type = all
+				is_core = root
+			}
+			bourgogne_area = {
+				type = all
+				is_core = root
+			}
+			brittany_area = {
+				type = all
+				is_core = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_FOI_UCI_separatism_war_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+							area = west_burgundy_area
+							area = bourgogne_area
+							area = brittany_area
+						}
+					}
+					EDG_FOI_UCI_separatism_war_effect = yes
+				}
+			}
+			if = {
+				limit = { 
+					west_burgundy_area = {
+						type = all
+						owned_by = root
+					}
+					bourgogne_area = {
+						type = all
+						owned_by = root
+					}
+					brittany_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				add_government_power = {
+					mechanic_type = FOI_UCI_liberation_mania_mechanic
+					power_type = FOI_UCI_liberation_mania
+					value = 5
+				}
+				add_revolutionary_zeal = 10
+				add_army_tradition = 15
+			}
+			normandy_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			ile_de_france_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			champagne_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			picardy_area = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_agitate_the_bottom
+					duration = 3650
+				}
+			}
+			add_country_modifier = {
+				name = FOI_UCI_expand_11_5_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+
+EDG_FOI_UCI_3_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_17_3 = { #公共社会
+		icon = "mission_rice_field"
+		position = 17
+		required_missions = {
+			
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_4_count
+				value = 1
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_17_3.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_17_3_flag
+			}
+			random_owned_province = {
+				limit = {
+					has_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+				}
+				remove_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+			}
+			capital_scope = {
+				add_base_manpower = 3
+				add_base_production = 3
+				add_base_tax = 3
+			}
+			add_republican_tradition = 3
+		}
+	}
+	FOI_UCI_18_3 = { #集体作业
+		icon = "mission_ne_agriculture"
+		position = 18
+		required_missions = {
+			FOI_UCI_17_3
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_1_count
+				value = 10
+			}
+			check_variable = {
+				which = EDG_FOI_UCI_ability_2_count
+				value = 10
+			}
+			check_variable = {
+				which = EDG_FOI_UCI_ability_4_count
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_18_3.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_18_3_flag
+			}
+			random_owned_province = {
+				limit = {
+					has_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+				}
+				remove_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+			}
+			capital_scope = {
+				add_base_manpower = 1
+				add_base_production = 3
+				add_base_tax = 1
+			}
+			add_republican_tradition = 3
+		}
+	}
+	FOI_UCI_19_3 = { #迈向繁盛
+		icon = "mission_high_income"
+		position = 19
+		required_missions = {
+			FOI_UCI_18_3
+		}
+		trigger = {
+			development_in_provinces = {
+				region = iberia_region
+				value = 1000
+			}
+			check_variable = {
+				which = EDG_FOI_UCI_production_incentives_count
+				value = 1
+			}
+		}
+		effect = {
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			add_prestige_or_monarch_power = { amount = 20 }
+			add_republican_tradition = 5
+			add_revolutionary_zeal = 10
+			add_years_of_income = 1
+		}
+	}
+	FOI_UCI_20_3 = { #大会制度 
+		icon = "spa_dominate_sevilla"
+		position = 20
+		required_missions = {
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 250
+			}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		}
+		effect = {
+			hidden_effect = {
+				set_country_flag = FOI_UCI_20_3_flag
+				set_variable = {
+					which = EDG_FOI_UCI_assembly_seat_base_tax
+					value = 1
+				}
+				set_variable = {
+					which = EDG_FOI_UCI_assembly_seat_base_production
+					value = 1
+				}
+				set_variable = {
+					which = EDG_FOI_UCI_assembly_seat_base_manpower
+					value = 1
+				}
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_FOI_UCI_assembly_seat_modifier
+					duration = -1
+				}
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+			}
+			custom_tooltip = FOI_UCI_20_3.tt
+			subtract_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 250
+			}
+			if = {
+				limit = { 
+					NOT = {
+						adm = 6
+					}
+				}
+				change_adm = 1
+			}
+			else = {
+				add_adm_power = 100
+			}
+			if = {
+				limit = { 
+					NOT = {
+						dip = 6
+					}
+				}
+				change_dip = 1
+			}
+			else = {
+				add_dip_power = 100
+			}
+			if = {
+				limit = { 
+					NOT = {
+						adm = 6
+					}
+				}
+				change_mil = 1
+			}
+			else = {
+				add_mil_power = 100
+			}
+			add_republican_tradition = 3
+		}
+	}
+	FOI_UCI_23_3 = { #烈火审讯
+		icon = "mission_abolish_mestnichestvo"
+		position = 23
+		required_missions = {
+			FOI_UCI_22_1
+			FOI_UCI_20_3
+			FOI_UCI_22_5
+		}
+		provinces_to_highlight = {
+
+		}
+		trigger = {
+			
+			has_disaster = EDG_FOI_UCI_fire_forge
+			republican_tradition = 95
+			revolutionary_zeal = 100
+			OR = {
+				has_reform = FOI_UCI_liberator_principle
+				has_reform = FOI_UCI_black_army
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_23_3.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_23_3_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 10
+			}
+			add_revolutionary_zeal = 10
+			add_republican_tradition = 5
+		}
+	}
+}
+EDG_FOI_UCI_3_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_19_1 = { #征募计划
+		icon = "mission_landsknecht_soldier"
+		position = 19
+		required_missions = {
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_3_count
+				value = 50
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_19_1.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_19_1_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 5
+			}
+			add_revolutionary_zeal = 3
+			add_yearly_manpower = 0.5
+		}
+	}
+	FOI_UCI_20_1 = { #动员计划
+		icon = "mission_assemble_an_army"
+		position = 20
+		required_missions = {
+			FOI_UCI_19_1
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_3_count
+				value = 150
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_20_1.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_20_1_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 5
+			}
+			add_revolutionary_zeal = 5
+			add_mil_power = 100
+		}
+	}
+	FOI_UCI_22_1 = { #破水燃冰
+		icon = "mch_bypass_great_wall"
+		position = 22
+		required_missions = {
+		}
+		trigger = {
+			any_province = {
+				has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+			}
+			OR = {
+				has_reform = FOI_UCI_armed_struggle
+				has_reform = FOI_UCI_outwards
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_22_1.tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+					}
+					every_neighbor_province = {
+						limit = {
+							NOT = {
+								OR = {
+									has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+									owned_by = root
+									is_core = root
+								}
+							}
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_agitate_the_bottom
+							duration = 7300
+						}
+					}
+				}
+				set_country_flag = FOI_UCI_22_1_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+		}
+	}
+}
+EDG_FOI_UCI_3_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_18_2 = { #振兴计划
+		icon = "develop_the_po_valley"
+		position = 18
+		required_missions = {
+			FOI_UCI_17_3
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_1_count
+				value = 10
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_18_2.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_18_2_flag
+				every_owned_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_stimulate_the_development
+					}
+					remove_province_modifier = EDG_FOI_UCI_stimulate_the_development
+				}
+			}
+			capital_scope = {
+				add_base_tax = 3
+			}
+			add_republican_tradition = 3
+			add_years_of_income = 0.5
+		}
+	}
+	FOI_UCI_19_2 = { #扶植计划
+		icon = "develop_provence"
+		position = 19
+		required_missions = {
+			FOI_UCI_18_2
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_1_count
+				value = 20
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_19_2.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_19_2_flag
+				every_owned_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_stimulate_the_development
+					}
+					remove_province_modifier = EDG_FOI_UCI_stimulate_the_development
+				}
+			}
+			capital_scope = {
+				add_base_tax = 5
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			add_republican_tradition = 5
+			add_adm_power = 100
+			add_country_modifier = {
+				name = FOI_UCI_19_2_modifier
+				duration = 1825
+			}
+		}
+	}
+	FOI_UCI_21_2 = { #一种方式
+		icon = "mission_parthenon"
+		position = 21
+		required_missions = {
+			FOI_UCI_20_3
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_complete_recombination_count
+				value = 3
+			}
+			OR = {
+				has_reform = FOI_UCI_four_year_rotation
+				has_reform = FOI_UCI_two_year_rotation
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_21_2.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_21_2_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 3
+			}
+			add_republican_tradition = 3
+			change_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 100
+			}
+		}
+	}
+}
+EDG_FOI_UCI_3_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_18_4 = { #生产计划
+		icon = "develop_naples"
+		position = 18
+		required_missions = {
+			FOI_UCI_17_3
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_2_count
+				value = 10
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_18_4.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_18_4_flag
+				every_owned_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_reform_of_production_tools
+					}
+					add_base_production = 1
+					remove_province_modifier = EDG_FOI_UCI_reform_of_production_tools
+				}
+			}
+			capital_scope = {
+				add_base_production = 3
+			}
+			add_republican_tradition = 3
+			add_years_of_income = 1
+		}
+	}
+	FOI_UCI_19_4 = { #建设计划
+		icon = "mission_pol_develop_countryside"
+		position = 19
+		required_missions = {
+			FOI_UCI_18_4
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_2_count
+				value = 20
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_19_4.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_19_4_flag
+				every_owned_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+					}
+					add_base_production = 1
+					remove_province_modifier = EDG_FOI_UCI_collectivization_of_the_commune
+				}
+			}
+			capital_scope = {
+				add_base_production = 5
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+			add_years_of_income = 1
+			add_dip_power = 100
+			add_country_modifier = {
+				name = FOI_UCI_19_4_modifier
+				duration = 7300
+			}
+		}
+	}
+	FOI_UCI_21_4 = { #两个选择
+		icon = "reform_the_state"
+		position = 21
+		required_missions = {
+			FOI_UCI_20_3
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_recombination_count
+				value = 3
+			}
+			OR = {
+				has_reform = FOI_UCI_four_year_rotation
+				has_reform = FOI_UCI_eight_year_rotation
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_21_4.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_21_4_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 3
+			}
+			add_revolutionary_zeal = 3
+			change_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 100
+			}
+		}
+	}
+}
+EDG_FOI_UCI_3_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = UCI
+			AND = {
+				was_tag = UCI
+				tag = FWF
+			}
+		}
+		NOT = {
+			map_setup = map_setup_random
+		}
+	}
+	FOI_UCI_19_5 = { #防卫计划
+		icon = "mission_italian_condottiere"
+		position = 19
+		required_missions = {
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_5_count
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_19_5.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_19_5_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 3
+			}
+			add_revolutionary_zeal = 3
+		}
+	}
+	FOI_UCI_20_5 = { #清剿计划
+		icon = "mission_steppe_warriors"
+		position = 20
+		required_missions = {
+			FOI_UCI_19_5
+		}
+		trigger = {
+			check_variable = {
+				which = EDG_FOI_UCI_ability_5_count
+				value = 25
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_20_5.tt
+			hidden_effect = {
+				set_country_flag = FOI_UCI_20_5_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 5
+			}
+			add_revolutionary_zeal = 5
+			add_mil_power = 100
+		}
+	}
+	FOI_UCI_22_5 = { #无焰成烟
+		icon = "mission_fire_of_london"
+		position = 22
+		required_missions = {
+		}
+		trigger = {
+			any_province = {
+				NOT = {
+					owned_by = root
+				}
+				is_core = root
+			}
+			OR = {
+				has_reform = FOI_UCI_ethnic_cleansing
+				has_reform = FOI_FWF_cultural_fusion
+			}
+		}
+		effect = {
+			custom_tooltip = FOI_UCI_22_5.tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+					}
+					add_core = root
+					remove_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+				}
+				set_country_flag = FOI_UCI_22_5_flag
+			}
+			add_government_power = {
+				mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+				power_type = FOI_UCI_revolutionary_army_training_degree
+				value = 5
+			}
+		}
+	}
+}
+# EDG_FOI_UCI_4_mission_3 = {
+# 	slot = 3
+# 	generic = no
+# 	ai = yes
+# 	has_country_shield = yes
+# 	potential = {
+# 		tag = FWF
+# 		NOT = {
+# 			map_setup = map_setup_random
+# 		}
+# 	}
+# 	FOI_FWF_17_3 = { #烈火烹油
+# 		icon = "byz_city_of_worlds_desire"
+# 		position = 17
+# 		required_missions = {
+# 		}
+# 		trigger = {
+# 			has_disaster = EDG_FWF_battle_of_the_sun
+# 		}
+# 		effect = {
+# 			custom_tooltip = FOI_FWF_17_3_tt
+# 			hidden_effect = {
+# 				set_country_flag = FOI_FWF_17_3_flag
+# 			}
+# 			add_yearly_manpower = 3
+# 			add_revolutionary_zeal = 20
+# 			add_war_exhaustion = -2
+# 			add_country_modifier = {
+# 				name = FOI_FWF_17_3_modifier
+# 				duration = 5475
+# 			}
+# 		}
+# 	}
+# 	FOI_FWF_18_3 = { #怒海横涛
+# 		icon = "mission_corsairs_of_the_north_sea"
+# 		position = 18
+# 		required_missions = {
+# 			"FOI_FWF_17_3"
+# 		}
+# 		trigger = {
+# 			europe_superregion = {
+# 				type = all
+# 				is_core = root
+# 			}
+# 			eastern_europe_superregion = {
+# 				type = all
+# 				is_core = root
+# 			}
+# 		}
+# 		effect = {
+# 			custom_tooltip = FOI_FWF_18_3_effect_tt
+# 			hidden_effect = {
+# 				every_province = {
+# 					limit = {
+# 						OR = {
+# 							superregion = europe_superregion
+# 							superregion = eastern_europe_superregion
+# 						}
+# 					}
+# 					EDG_FOI_UCI_separatism_war_effect = yes
+# 				}
+# 			}
+# 			if = {
+# 				limit = { 
+# 					has_country_modifier = FOI_FWF_17_3_modifier
+# 					europe_superregion = {
+# 						type = all
+# 						owned_by = root
+# 					}
+# 					eastern_europe_superregion = {
+# 						type = all
+# 						owned_by = root
+# 					}
+# 				}
+# 				hidden_effect = {
+# 					remove_country_modifier = FOI_FWF_17_3_modifier
+# 				}
+# 				add_country_modifier = {
+# 					name = FOI_FWF_17_3_modifier
+# 					duration = -1
+# 				}
+# 			}
+# 			# country_event = {
+# 			# 	id = EDG_FWFEvents.2
+# 			# }
+# 			hidden_effect = {
+# 				every_province = {
+# 					limit = {
+# 						NOT = {
+# 							is_core = root
+# 						}
+# 					}
+# 					add_permanent_claim = root
+# 				}
+# 			}
+# 		}
+# 	}
+# }

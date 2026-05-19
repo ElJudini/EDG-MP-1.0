@@ -1,0 +1,3561 @@
+namespace = EDG_TIM_events
+
+#毁灭城市
+province_event = {
+  id = EDG_TIM_events.1000
+  title = EDG_TIM_events.1000.t
+	desc = EDG_TIM_events.1000.d
+  picture = SIEGE_eventPicture
+  mean_time_to_happen = {
+    months = 1
+  }
+
+  trigger = {
+    EDG_TIM_province_can_be_destroyed_trigger = yes
+  }
+
+  option = {
+    name = EDG_TIM_events.1000.a
+    ai_chance = {
+      factor = 100
+      modifier = {
+        factor = 0
+        OR = {
+          province_id = 507
+          province_id = 522
+        }
+      }
+    }
+
+    set_province_flag = EDG_TIM_province_has_been_destroyed_flag
+    EDG_TIM_destroy_city_effect = {
+      destroyer = owner
+    }
+    EDG_TIM_set_city_destroyed_flag_effect = {
+      destroyer = owner
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.1000.b
+    ai_chance = {
+      factor = 0
+      modifier = {
+        factor = 100
+        OR = {
+          province_id = 507
+          province_id = 522
+        }
+      }
+    }
+
+    set_province_flag = EDG_TIM_province_has_been_destroyed_flag
+    owner = {
+      EDG_TIM_add_dread = { amount = -5 }
+    }
+  }
+}
+
+#安萨里圣陵事件
+country_event = {
+  id = EDG_TIM_events.2000
+  title = EDG_TIM_events.2000.t
+	desc = EDG_TIM_events.2000.d
+  picture = muslimgfx_PRAYING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = { 
+		name = EDG_TIM_events.2000.a
+		ai_chance = {
+			factor = 100
+		}
+		
+		if = {
+			limit = {
+				NOT = {
+					religious_school = {
+						group = muslim
+						school = hanbali_school
+					}
+				}
+			}
+			set_religious_school = {
+				group = muslim
+				school = hanbali_school
+			}
+		}
+		else = { add_adm_power = 200 }
+	}
+	
+	option = { 
+		name = EDG_TIM_events.2000.b
+		ai_chance = {
+			factor = 0
+		}
+		add_estate_loyalty = { estate = estate_church loyalty = 20 }
+	}
+}
+
+#亚萨维陵事件
+country_event = {
+  id = EDG_TIM_events.2001
+  title = EDG_TIM_events.2001.t
+	desc = EDG_TIM_events.2001.d
+  picture = muslimgfx_PRAYING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = { 
+		name = EDG_TIM_events.2001.a
+		ai_chance = {
+			factor = 100
+		}
+		
+    change_religion = sunni
+    set_religious_school = {
+      group = muslim
+      school = hanafi_school
+    }
+    add_country_modifier = {
+      name = EDG_follow_yasawi_modifier
+      duration = 10950
+    }
+	}
+	
+	option = { 
+		name = EDG_TIM_events.2001.b
+		ai_chance = {
+			factor = 0
+		}
+		add_estate_loyalty = { estate = estate_nomadic_tribes loyalty = 20 }
+	}
+}
+
+#继承危机：开局事件
+country_event = {
+  id = EDG_TIM_events.0
+  title = EDG_TIM_events.0.t
+	desc = EDG_TIM_events.0.d
+  picture = COURT_INTRIGUE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  trigger = {
+		tag = TIM
+	}
+
+  immediate = {
+    hidden_effect = {
+      set_variable = {
+        which = EDG_TIM_skull_vessel_num_var
+        value = 0
+      }
+      save_global_event_target_as = gurkani_target
+
+      add_country_modifier = {
+        name = EDG_TIM_succession_crisis_modifier
+        duration = 1825
+      }
+      SHY = {
+        add_country_modifier = {
+          name = EDG_TIM_succession_crisis_modifier
+          duration = 1825
+        }
+      }
+      every_subject_country = {
+        add_country_modifier = {
+          name = EDG_TIM_succession_crisis_modifier
+          duration = 1825
+        }
+      }
+      country_event = {
+        id = EDG_TIM_events.6
+        days = 18
+      }
+      SHY = {
+        country_event = {
+          id = EDG_TIM_events.32
+          days = 1
+        }
+      }
+      add_yearly_manpower = 5
+    }
+	}
+  
+  option = {
+    name = EDG_TIM_events.0.a
+    remove_ruler_personality = architectural_visionary_personality
+    add_ruler_personality = EDG_too_old_personality
+    tooltip = {
+      SHY = {
+        support_independence_of = KOK
+      }
+      custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+        name = EDG_TIM_succession_crisis_modifier
+        duration = 1825
+      }
+      SHY = {
+        add_country_modifier = {
+          name = EDG_TIM_succession_crisis_modifier
+          duration = 1825
+        }
+      }
+      every_subject_country = {
+        add_country_modifier = {
+          name = EDG_TIM_succession_crisis_modifier
+          duration = 1825
+        }
+      }
+		}
+  }
+}
+
+#继承危机：沙哈鲁之死
+country_event = {
+  id = EDG_TIM_events.1
+  title = EDG_TIM_events.1.t
+	desc = EDG_TIM_events.1.d
+  picture = indiangfx_DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+
+  immediate = {
+    hidden_effect = {
+      every_country = {
+				limit = {
+          OR = {
+            tag = KOK
+            AND = {
+              OR = {
+                tag = KHI
+                tag = BDX
+              }
+              is_subject_of = TIM
+              OR = {
+                liberty_desire = 50
+                has_country_flag = EDG_BDX_disaster_sucession_crisis_will_backstab_flag
+              }
+            }
+          }
+				}
+        set_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+			}
+
+      hidden_effect = {
+        BDX = {
+          if = {
+            limit = {
+              has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+            }
+            if = {
+              limit = {
+                liberty_desire = 50
+              }
+              country_event = {
+                id = EDG_BDX_events.5
+              }
+            }
+            else = {
+              country_event = {
+                id = EDG_BDX_events.6
+              }
+            }
+          }
+          else = {
+            country_event = {
+              id = EDG_BDX_events.9
+            }
+          }
+        }
+      }
+
+      every_country = {
+				limit = {
+          has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+				}
+				grant_independence = yes
+			}
+      if = {
+        limit = {
+          NOT = {
+            has_global_flag = EDG_TIM_shy_will_not_intervene_in_succession_crisis_global_flag
+          }
+        }
+        SHY = {
+          declare_war_with_cb = {
+            who = TIM
+            casus_belli = cb_EDG_puppet_timurid
+          }
+        }
+        every_country = {
+          limit = {
+            has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+          }
+          join_all_offensive_wars_of = SHY
+        }
+      }
+      else = {
+        KOK = {
+          declare_war_with_cb = {
+            who = TIM
+            casus_belli = cb_independence_war
+          }
+        }
+        every_country = {
+          limit = {
+            has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+          }
+          join_all_offensive_wars_of = KOK
+        }
+      }
+
+      if = {
+        limit = {
+          NOT = {
+            has_country_flag = EDG_TIM_shah_rukh_died_flag
+          }
+        }
+        add_stability = -1
+        set_country_flag = EDG_TIM_shah_rukh_died_flag
+      }
+      EDG_TIM_define_ruler_ulugh_beg_effect = yes
+      set_ruler_flag = EDG_TIM_ulugh_beg_ruler_flag
+      EDG_TIM_define_heir_latif_effect = yes
+      set_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+      clr_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+
+      SHY = {
+        country_event = {
+          id = EDG_TIM_events.35
+        }
+      }
+    }
+	}
+  
+  option = {
+    name = EDG_TIM_events.1.a
+    custom_tooltip = EDG_TIM_events.1.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    EDG_TIM_inherit_without_adding_prestige_effect = {
+      country = HSS
+    }
+    tooltip = {
+      EDG_TIM_define_ruler_ulugh_beg_effect = yes
+      EDG_TIM_define_heir_latif_effect = yes
+    }
+    hidden_effect = {
+      add_ruler_personality = EDG_astronomer_personality
+	    add_ruler_personality = EDG_mathematician_personality
+      add_ruler_personality = patron_of_arts_personality
+      add_heir_personality = malevolent_personality
+      add_piety = -0.5
+    }
+    tooltip = {
+      SHY = {
+        declare_war_with_cb = {
+          who = TIM
+          casus_belli = cb_EDG_puppet_timurid
+        }
+      }
+      every_country = {
+				limit = {
+          has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+				}
+        grant_independence = yes
+				join_all_offensive_wars_of = SHY
+			}
+    }
+  }
+}
+
+#继承危机：帖木儿胜利
+country_event = {
+  id = EDG_TIM_events.2
+  title = EDG_TIM_events.2.t
+  desc = EDG_TIM_events.2.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  fire_only_once = yes
+  major = yes
+
+  trigger = {
+    tag = TIM
+    has_disaster = EDG_TIM_shah_rukh_succession_crisis
+    war_with = SHY
+    OR = {
+      had_country_flag = {
+        flag = EDG_TIM_disaster_sucession_crisis_flag
+        days = 1825
+      }
+      OR = {
+        war_score_against = {
+          who = SHY
+          value = 40
+        }
+        AND = {
+          has_country_flag = EDG_TIM_capture_khan_flag
+          war_score_against = {
+            who = SHY
+            value = 20
+          }
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.2.a
+    hidden_effect = {
+      every_country = {
+        limit = {
+          has_country_modifier = EDG_TIM_succession_crisis_modifier
+        }
+        remove_country_modifier = EDG_TIM_succession_crisis_modifier
+      }
+
+      BDX = {
+        if = {
+          limit = {
+            has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+          }
+          country_event = {
+            id = EDG_BDX_events.8
+          }
+        }
+        else_if = {
+          limit = {
+            is_subject_of = TIM
+          }
+          country_event = {
+            id = EDG_BDX_events.10
+          }
+        }
+      }
+    }
+
+    white_peace = SHY
+    end_disaster = EDG_TIM_shah_rukh_succession_crisis
+    add_prestige_or_monarch_power = { amount = 50 }
+    add_stability = 1
+    tooltip = {
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    }
+    every_country = {
+      limit = {
+        has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+      }
+      if = {
+        limit = {
+          NOT = { tag = BDX }
+        }
+        kill_ruler = yes
+      }
+      TIM = {
+        vassalize = PREV
+      }
+      clr_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+    }
+    EDG_TIM_inherit_without_adding_prestige_effect = {
+      country = KOK
+    }
+    SHY = {
+      country_event = { 
+        id = EDG_TIM_events.3
+      }
+    }
+    clr_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+    set_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+
+    hidden_effect = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_capture_khan_flag
+        }
+        country_event = {
+          id = EDG_TIM_events.60
+          days = 10
+        }
+      }
+    }
+  }
+}
+
+#继承危机：月即别：战败
+country_event = {
+  id = EDG_TIM_events.3
+  title = EDG_TIM_events.3.t
+  desc = EDG_TIM_events.3.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.3.a
+    tooltip = {
+      white_peace = TIM
+    }
+    add_prestige = -50
+    add_stability = -1
+    add_horde_unity = -30
+    tooltip = {
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    }
+  }
+}
+
+#继承危机：月即别：胜利
+country_event = {
+  id = EDG_TIM_events.4
+  title = EDG_TIM_events.4.t
+  desc = EDG_TIM_events.4.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  fire_only_once = yes
+  major = yes
+
+  trigger = {
+    TAG = SHY
+    war_with = TIM
+    TIM = {
+      has_disaster = EDG_TIM_shah_rukh_succession_crisis
+    }
+    war_score_against = {
+      who = TIM
+      value = 60
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.4.a
+    hidden_effect = {
+      every_country = {
+        limit = {
+          has_country_modifier = EDG_TIM_succession_crisis_modifier
+        }
+        remove_country_modifier = EDG_TIM_succession_crisis_modifier
+      }
+
+      if = {
+        limit = {
+          KHI = {
+            NOT = {
+              has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+            }
+          }
+        }
+        country_event = {
+          id = EDG_TIM_events.41
+          days = 2
+        }
+        every_province = {
+          limit = {
+            owned_by = KHI
+            controlled_by = ROOT
+          }
+          set_province_flag = EDG_TIM_controlled_by_shy_province_flag
+        }
+      }
+
+      BDX = {
+        if = {
+          limit = {
+            has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+          }
+          every_province = {
+            limit = {
+              owned_by = TIM
+              controlled_by = BDX
+            }
+            set_province_flag = EDG_BDX_controlled_by_bdx_province_flag
+          }
+          country_event = {
+            id = EDG_BDX_events.7
+          }
+        }
+        else_if = {
+          limit = {
+            is_subject_of = TIM
+          }
+          country_event = {
+            id = EDG_BDX_events.11
+          }
+        }
+      }
+    }
+
+    white_peace = TIM
+    add_prestige_or_monarch_power = { amount = 50 }
+    tooltip = {
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    }
+    every_country = {
+      limit = {
+        has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+      }
+      grant_independence = yes
+      clr_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+    }
+    vassalize = TIM
+    remove_historical_rival = TIM
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          is_core = TIM
+        }
+        remove_core = TIM
+      }
+    }
+    custom_tooltip = EDG_TIM_events.4.a.tt
+    TIM = {
+      EDG_TIM_inherit_without_adding_prestige_effect = {
+        country = KOK
+      }
+      remove_historical_rival = SHY
+      country_event = { 
+        id = EDG_TIM_events.5
+      }
+    }
+  }
+}
+
+#继承危机：帖木儿战败
+country_event = {
+  id = EDG_TIM_events.5
+  title = EDG_TIM_events.5.t
+  desc = EDG_TIM_events.5.d
+  picture = muslimgfx_SIEGE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.5.a
+    end_disaster = EDG_TIM_shah_rukh_succession_crisis
+    add_prestige = -100
+    add_stability = -6
+    tooltip = {
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    }
+    remove_heir = {
+      allow_new_heir = no
+    }
+    EDG_TIM_define_ruler_alaal_dawla_effect = yes
+    hidden_effect = {
+      add_ruler_personality = greedy_personality
+    }
+    tooltip = {
+      white_peace = SHY
+      SHY = {
+        vassalize = TIM
+        remove_historical_rival = TIM
+      }
+      inherit = KOK
+      remove_historical_rival = SHY
+    }
+    custom_tooltip = EDG_TIM_events.4.a.tt
+    clr_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+    set_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+  }
+}
+
+#继承危机：山雨欲来
+country_event = {
+  id = EDG_TIM_events.6
+  title = EDG_TIM_events.6.t
+  desc = EDG_TIM_events.6.d
+  picture = THREE_HEIRS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.6.a
+    custom_tooltip = EDG_TIM_events.6.a.tt1
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.6.a.tt2
+    custom_tooltip = EDG_SPACE_TT
+    every_subject_country = {
+      limit = {
+        NOT = {
+          tag = HSS
+        }
+      }
+      add_liberty_desire = 30
+    }
+    HSS = {
+      add_liberty_desire = -100
+    }
+    set_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+  }
+}
+
+#继承危机：花剌子模要求特权
+country_event = {
+  id = EDG_TIM_events.7
+  title = EDG_TIM_events.7.t
+  desc = EDG_TIM_events.7.d
+  picture = muslimgfx_GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.7.a
+    ai_chance = {
+      factor = 90
+    }
+
+    set_estate_privilege = estate_EDG_TIM_khiva_privilege
+    KHI = {
+      add_liberty_desire = -50
+    }
+    set_country_flag = EDG_TIM_grant_khiva_privilege_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.7.b
+    ai_chance = {
+      factor = 10
+    }
+
+    add_prestige = 1
+  }
+}
+
+#继承危机：花剌子模索要布哈拉
+country_event = {
+  id = EDG_TIM_events.8
+  title = EDG_TIM_events.8.t
+  desc = EDG_TIM_events.8.d
+  picture = muslimgfx_BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 2
+  }
+
+  trigger = {
+    tag = TIM
+    war_with = SHY
+    KHI = {
+      war_with = SHY
+      is_subject_of = ROOT
+    }
+    owns = 442
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.8.a
+    ai_chance = {
+      factor = 90
+    }
+
+    442 = {
+      cede_province = KHI
+      add_core = KHI
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.8.b
+    ai_chance = {
+      factor = 10
+    }
+
+    hidden_effect = {
+      every_province = {
+        limit = {
+          owned_by = KHI
+          controlled_by = SHY
+        }
+        set_province_flag = EDG_TIM_controlled_by_shy_province_flag
+      }
+    }
+    KHI = {
+      white_peace = SHY
+      grant_independence = yes
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+      clr_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+    }
+    SHY = {
+      country_event = {
+        id = EDG_TIM_events.42
+      }
+    }
+  }
+}
+
+#继承危机：花剌子模得寸进尺
+country_event = {
+  id = EDG_TIM_events.9
+  title = EDG_TIM_events.9.t
+  desc = EDG_TIM_events.9.d
+  picture = muslimgfx_BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 18
+  }
+
+  trigger = {
+    tag = TIM
+    is_subject = no
+    has_estate_privilege = estate_EDG_TIM_khiva_privilege
+    KHI = {
+      is_subject_of = TIM
+    }
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.9.a
+    ai_chance = {
+      factor = 10
+    }
+
+    change_estate_land_share = {
+      estate = estate_nobles
+      share = 20
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.9.b
+    ai_chance = {
+      factor = 90
+    }
+
+    KHI = {
+      declare_war_with_cb = {
+        casus_belli = cb_independence_war
+        who = PREV
+      }
+    }
+  }
+}
+
+#继承危机：俘获阿布海儿汗
+country_event = {
+  id = EDG_TIM_events.10
+  title = EDG_TIM_events.10.t
+  desc = EDG_TIM_events.10.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.10.a
+    add_prestige_or_monarch_power = { amount = 20 }
+    tooltip = {
+      SHY = {
+        kill_ruler = yes
+        add_war_exhaustion = 5
+        add_country_modifier = {
+          name = EDG_TIM_khan_captured_modifier
+          duration = 365
+        }
+      }
+    }
+    set_country_flag = EDG_TIM_capture_khan_flag
+    custom_tooltip = EDG_TIM_events.10.a.tt
+
+    hidden_effect = {
+      SHY = {
+        country_event = {
+          id = EDG_TIM_events.34
+        }
+      }
+    }
+  }
+}
+
+#继承危机：回报效忠者
+country_event = {
+  id = EDG_TIM_events.11
+  title = EDG_TIM_events.11.t
+  desc = EDG_TIM_events.11.d
+  picture = GHULAMS_ESTATE_DEMANDS_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 12
+  }
+
+  trigger = {
+    is_subject = no
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+    has_country_flag = EDG_TIM_promise_loyalty_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.11.a
+    ai_chance = {
+      factor = 50
+    }
+
+    add_treasury = -200
+    add_estate_loyalty = {
+      estate = estate_church
+      loyalty = 5
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = 5
+    }
+    add_estate_loyalty = {
+      estate = estate_burghers
+      loyalty = 5
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.11.b
+    ai_chance = {
+      factor = 40
+      modifier = {
+        factor = 0
+        treasury = 200
+      }
+    }
+
+    add_treasury = -100
+    add_legitimacy = -10
+    add_estate_loyalty = {
+      estate = estate_church
+      loyalty = -10
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -10
+    }
+    add_estate_loyalty = {
+      estate = estate_burghers
+      loyalty = -10
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.11.c
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0
+        treasury = 100
+      }
+    }
+
+    add_legitimacy = -25
+    add_estate_loyalty = {
+      estate = estate_church
+      loyalty = -20
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -20
+    }
+    add_estate_loyalty = {
+      estate = estate_burghers
+      loyalty = -20
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        type = noble_rebels
+        size = 3
+      }
+    }
+  }
+}
+
+#继承危机：大帐：帖木儿使节
+country_event = {
+  id = EDG_TIM_events.12
+  title = EDG_TIM_events.12.t
+  desc = EDG_TIM_events.12.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.12.a
+    ai_chance = {
+      factor = 60
+      modifier = {
+        factor = 0
+        NOT = {
+          has_opinion = {
+            who = TIM
+            value = 0
+          }
+        }
+      }
+    }
+
+    tooltip = {
+      custom_tooltip = EDG_TIM_events.12.a.tt
+      custom_tooltip = EDG_SPACE_TT
+      create_alliance = TIM
+      TIM = {
+        add_country_modifier = {
+          name = EDG_TIM_golden_horde_help_modifier
+          duration = 1825
+        }
+      }
+    }
+    TIM = {
+      country_event = {
+        id = EDG_TIM_events.13
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.12.b
+    ai_chance = {
+      factor = 40
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 25
+        }
+      }
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 50
+        }
+      }
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 75
+        }
+      }
+      modifier = {
+        factor = 0
+        has_opinion = {
+          who = TIM
+          value = 100
+        }
+      }
+    }
+
+    tooltip = {
+      remove_historical_friend = TIM
+      TIM = {
+        remove_historical_friend = GOL
+      }
+    }
+    TIM = {
+      country_event = {
+        id = EDG_TIM_events.14
+      }
+    }
+  }
+}
+
+#继承危机：遣使金帐成功
+country_event = {
+  id = EDG_TIM_events.13
+  title = EDG_TIM_events.13.t
+  desc = EDG_TIM_events.13.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.13.a
+
+    create_alliance = GOL
+    add_country_modifier = {
+      name = EDG_TIM_golden_horde_help_modifier
+      duration = 1825
+    }
+  }
+}
+
+#继承危机：遣使金帐失败
+country_event = {
+  id = EDG_TIM_events.14
+  title = EDG_TIM_events.14.t
+  desc = EDG_TIM_events.14.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.14.a
+
+    add_prestige = -5
+    remove_historical_friend = GOL
+    GOL = {
+      remove_historical_friend = TIM
+    }
+  }
+}
+
+#继承危机：察合台：帖木儿使节
+country_event = {
+  id = EDG_TIM_events.15
+  title = EDG_TIM_events.15.t
+  desc = EDG_TIM_events.15.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.15.a
+    ai_chance = {
+      factor = 40
+      modifier = {
+        factor = 0
+        NOT = {
+          has_opinion = {
+            who = TIM
+            value = 0
+          }
+        }
+      }
+    }
+
+    tooltip = {
+      TIM = {
+        add_army_tradition = 10
+        capital_scope = {
+          cavalry = PREV
+        }
+      }
+    }
+    TIM = {
+      country_event = {
+        id = EDG_TIM_events.16
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.15.b
+    ai_chance = {
+      factor = 40
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 25
+        }
+      }
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 50
+        }
+      }
+      modifier = {
+        factor = 0.5
+        has_opinion = {
+          who = TIM
+          value = 75
+        }
+      }
+      modifier = {
+        factor = 0
+        has_opinion = {
+          who = TIM
+          value = 100
+        }
+      }
+    }
+
+    TIM = {
+      country_event = {
+        id = EDG_TIM_events.17
+      }
+    }
+  }
+}
+
+#继承危机：遣使察合台成功
+country_event = {
+  id = EDG_TIM_events.16
+  title = EDG_TIM_events.16.t
+  desc = EDG_TIM_events.16.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.16.a
+
+    add_army_tradition = 10
+    capital_scope = {
+      cavalry = PREV
+    }
+  }
+}
+
+#继承危机：遣使察合台失败
+country_event = {
+  id = EDG_TIM_events.17
+  title = EDG_TIM_events.17.t
+  desc = EDG_TIM_events.17.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.17.a
+    add_prestige = -5
+  }
+}
+
+#任务事件：惩罚叛徒
+country_event = {
+  id = EDG_TIM_events.18
+  title = EDG_TIM_events.18.t
+  desc = EDG_TIM_events.18.d
+  picture = REVOLT_HUNGARIAN_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.18.a
+    ai_chance = {
+      factor = 80
+    }
+
+    add_treasury = 250
+    EDG_TIM_add_dread = { amount = 20 }
+    ferghana_area = {
+      EDG_TIM_plunder_province_effect = {
+        development = -1
+        devastation = 30
+        autonomy = -50
+      }
+    }
+    change_estate_land_share = {
+      estate = all
+      share = -5
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -20
+    }
+    add_estate_influence_modifier = {
+      estate = estate_nobles
+      influence = -10
+      duration = 3650
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.18.b
+    ai_chance = {
+      factor = 20
+      modifier = {
+        factor = 5
+        num_of_loans = 5
+      }
+    }
+
+    add_treasury = 500
+    EDG_TIM_add_dread = { amount = 40 }
+    ferghana_area = {
+      EDG_TIM_plunder_province_effect = {
+        development = -2
+        devastation = 60
+        autonomy = -50
+      }
+    }
+    change_estate_land_share = {
+      estate = all
+      share = -10
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -20
+    }
+    add_estate_influence_modifier = {
+      estate = estate_nobles
+      influence = -10
+      duration = 3650
+    }
+    add_estate_loyalty = {
+      estate = estate_burghers
+      loyalty = -20
+    }
+    add_estate_influence_modifier = {
+      estate = estate_burghers
+      influence = -10
+      duration = 3650
+    }
+  }
+}
+
+#任务事件：萨巴达尔：要求归附
+country_event = {
+  id = EDG_TIM_events.19
+  title = EDG_TIM_events.19.t
+  desc = EDG_TIM_events.19.d
+  picture = muslimgfx_BORDER_TENSION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.19.a
+    ai_chance = {
+      factor = 100
+    }
+
+    tooltip = {
+      every_owned_province = {
+        cede_province = FROM
+        add_territorial_core = FROM
+      }
+    }
+    FROM = {
+      country_event = {
+        id = EDG_TIM_events.20
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.19.b
+    ai_chance = {
+      factor = 0
+    }
+
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_reject_submission_opinion
+      }
+      country_event = {
+        id = EDG_TIM_events.21
+      }
+    }
+  }
+}
+
+#任务事件：降伏萨巴达尔人——同意
+country_event = {
+  id = EDG_TIM_events.20
+  title = EDG_TIM_events.20.t
+  desc = EDG_TIM_events.20.d
+  picture = muslimgfx_BORDER_TENSION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.20.a
+    custom_tooltip = EDG_TIM_mission_sarbadars_tooltip_2
+    add_dip_power = 100
+    hidden_effect = {
+      FROM = {
+        every_owned_province = {
+          cede_province = ROOT
+          if = {
+            limit = {
+              NOT = {
+                is_core = ROOT
+              }
+            }
+            add_territorial_core = ROOT
+          }
+        }
+      }
+    }
+    mashhad_area = {
+      limit = {
+        owned_by = ROOT
+      }
+      add_province_modifier = {
+        name = EDG_TIM_recruit_sarbadars_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#任务事件：降伏萨巴达尔人——拒绝
+country_event = {
+  id = EDG_TIM_events.21
+  title = EDG_TIM_events.21.t
+  desc = EDG_TIM_events.21.d
+  picture = muslimgfx_BORDER_TENSION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.21.a
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_reject_submission_opinion
+      }
+    }
+  }
+}
+
+#任务事件：启蒙运动
+country_event = {
+  id = EDG_TIM_events.22
+  title = EDG_TIM_events.22.t
+  desc = EDG_TIM_events.22.d
+  picture = muslimgfx_REFORM_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.22.a
+    ai_chance = {
+      factor = 100
+    }
+
+    add_piety = -0.5
+    EDG_TIM_define_advisor_roshan_effect = yes
+    451 = {
+      change_religion = sunni
+    }
+    add_country_modifier = {
+      name = EDG_TIM_recruit_roshan_modifier
+      duration = 7300
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.22.b
+    ai_chance = {
+      factor = 0
+    }
+
+    add_piety = 0.5
+    add_legitimacy_or_5_mil_power = {
+      amount = 20
+    }
+    add_country_modifier = {
+      name = EDG_TIM_suppress_roshan_modifier
+      duration = 7300
+    }
+    451 = {
+      EDG_TIM_spawn_rebels_roshan_effect = yes
+    }
+  }
+}
+
+#任务事件：宰德派
+country_event = {
+  id = EDG_TIM_events.23
+  title = EDG_TIM_events.23.t
+  desc = EDG_TIM_events.23.d
+  picture = muslimgfx_PRAYING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.23.a
+    ai_chance = {
+      factor = 80
+    }
+
+    set_country_flag = EDG_disable_invite_zaidi_school_flag
+    custom_tooltip = EDG_TIM_events.23.a.tt1
+    EDG_TIM_add_dread = { amount = 20 }
+    custom_tooltip = EDG_TIM_events.23.a.tt2
+    tooltip = {
+      EDG_TIM_plunder_province_effect = {
+        development = -1
+        devastation = 50
+        nationalism = -10
+      }
+      custom_tooltip = EDG_CHANGE_PROVINCE_RELIGION_TO_ROOT_TT
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          area = tabarestan_area
+          religion = shiite
+        }
+        EDG_TIM_plunder_province_effect = {
+          development = -1
+          devastation = 50
+          nationalism = -10
+          change_religion = yes
+        }
+      }
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    FYM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_kill_zaydists_opinion
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.23.b
+    ai_chance = {
+      factor = 20
+    }
+
+    tabarestan_area = {
+      limit = {
+        owned_by = ROOT
+      }
+      add_province_modifier = {
+        name = EDG_TIM_force_conversion_modifier
+        duration = 3650
+      }
+    }
+  }
+}
+
+#任务事件：巴米扬大佛
+country_event = {
+  id = EDG_TIM_events.24
+  title = EDG_TIM_events.24.t
+  desc = EDG_TIM_events.24.d
+  picture = BUDDHA_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.24.a
+    ai_chance = {
+      factor = 80
+    }
+
+    add_piety = 0.3
+    add_prestige_or_monarch_power = { amount = 20 }
+    2225 = {
+      destroy_great_project_and_gain_money_effect = {
+        project = buddha_statues
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.24.b
+    ai_chance = {
+      factor = 20
+    }
+
+    add_piety = -0.3
+    2225 = {
+      add_province_modifier = {
+        name = EDG_TIM_bamiyan_buddha_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#任务事件：伊斯法罕尼
+country_event = {
+  id = EDG_TIM_events.25
+  title = EDG_TIM_events.25.t
+  desc = EDG_TIM_events.25.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.25.a
+    EDG_TIM_define_advisor_isfahani_effect = yes
+  }
+}
+
+#任务事件：拜火教
+country_event = {
+  id = EDG_TIM_events.26
+  title = EDG_TIM_events.26.t
+  desc = EDG_TIM_events.26.d
+  picture = muslimgfx_CONQUEST_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.26.a
+    ai_chance = {
+      factor = 80
+    }
+
+    EDG_TIM_add_dread = { amount = 20 }
+    custom_tooltip = EDG_TIM_events.26.tt
+    tooltip = {
+      EDG_TIM_plunder_province_effect = {
+        development = -1
+        devastation = 50
+        nationalism = -10
+        gain_power = yes
+      }
+      custom_tooltip = EDG_CHANGE_PROVINCE_RELIGION_TO_ROOT_TT
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          region = persia_region
+          religion = zoroastrian
+        }
+        EDG_TIM_plunder_province_effect = {
+          development = -1
+          devastation = 50
+          nationalism = -10
+          gain_power = yes
+          change_religion = yes
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.26.b
+    ai_chance = {
+      factor = 20
+    }
+
+    custom_tooltip = EDG_TIM_events.26.tt
+    tooltip = {
+      add_province_modifier = {
+        name = EDG_TIM_force_conversion_modifier
+        duration = 3650
+      }
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          region = persia_region
+          religion = zoroastrian
+        }
+        add_province_modifier = {
+          name = EDG_TIM_force_conversion_modifier
+          duration = 3650
+        }
+      }
+    }
+  }
+}
+
+#任务事件：波斯化帝国
+country_event = {
+  id = EDG_TIM_events.27
+  title = EDG_TIM_events.27.t
+  desc = EDG_TIM_events.27.d
+  picture = PER_EVENT_PICTURE_1
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.27.a
+    trigger = {
+      is_emperor_of_china = no
+      OR = {
+        culture_group = altaic
+        culture_group = iranian
+      }
+    }
+    ai_chance = {
+      factor = 100
+    }
+    EDG_TIM_form_persian_empire_effect = yes
+  }
+  
+  option = {
+    name = EDG_TIM_events.27.b
+    ai_chance = {
+      factor = 0
+    }
+    set_government_rank = 3
+    add_accepted_culture_or_dip_power = {
+      culture = persian
+      free = yes
+    }
+  }
+}
+
+#任务事件：分封勋贵
+country_event = {
+  id = EDG_TIM_events.28
+  title = EDG_TIM_events.28.t
+  desc = EDG_TIM_events.28.d
+  picture = NOMAD_ESTATE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.28.a
+    ai_chance = {
+      factor = 0
+    }
+    custom_tooltip = EDG_TIM_mission_reward_nobles_tooltip
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_enable_soyurghal_holy_order_flag
+
+    change_estate_land_share = {
+      estate = estate_nobles
+      share = 5
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = 30
+    }
+    change_estate_land_share = {
+      estate = estate_nomadic_tribes
+      share = 5
+    }
+    add_estate_loyalty = {
+      estate = estate_nomadic_tribes
+      loyalty = 30
+    }
+  }
+  
+  option = {
+    name = EDG_TIM_events.28.b
+    ai_chance = {
+      factor = 100
+    }
+    add_country_modifier = {
+      name = EDG_TIM_reward_nobles_modifier
+      duration = 7300
+    }
+  }
+}
+
+#任务事件：重返德里
+country_event = {
+  id = EDG_TIM_events.29
+  title = EDG_TIM_events.29.t
+  desc = EDG_TIM_events.29.d
+  picture = indiangfx_CITY_VIEW_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.29.a
+    ai_chance = {
+      factor = 20
+    }
+    
+    custom_tooltip = EDG_TIM_events.29.a.tt1
+    set_country_flag = EDG_TIM_enable_plunder_india_flag
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.29.a.tt2
+  }
+  
+  option = {
+    name = EDG_TIM_events.29.b
+    ai_chance = {
+      factor = 80
+    }
+    
+    custom_tooltip = EDG_TIM_events.29.b.tt1
+    set_country_flag = EDG_TIM_enable_form_mughal_flag
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.29.b.tt2
+  }
+}
+
+#任务事件：香料之路
+country_event = {
+  id = EDG_TIM_events.30
+  title = EDG_TIM_events.30.t
+  desc = EDG_TIM_events.30.d
+  picture = indiangfx_HARBOUR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  
+  option = {
+    name = EDG_TIM_events.30.a
+    ai_chance = {
+      factor = 100
+    }
+    
+    change_price = {
+      trade_goods = spices
+      key = EDG_TIM_events.30.t
+      value = 1
+      duration = -1
+    }
+    change_price = {
+      trade_goods = cloves
+      key = EDG_TIM_events.30.t
+      value = 0.5
+      duration = -1
+    }
+  }
+  
+  option = {
+    name = EDG_TIM_events.30.b
+    ai_chance = {
+      factor = 0
+    }
+    
+    add_years_of_income = 3
+  }
+}
+
+#伊朗统一战争事件：帖木儿再征服
+country_event = {
+  id = EDG_TIM_events.31
+  title = EDG_TIM_events.31.t
+  desc = EDG_TIM_events.31.d
+  picture = PER_EVENT_PICTURE_1
+  fire_only_once = yes
+  major = yes
+
+  trigger = {
+    OR = {
+      tag = TIM
+      was_tag = TIM
+    }
+		OR = {
+      mission_completed = EDG_TIM_mission_iran
+      AND = {
+        ai = yes
+        num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+          value = 40
+          superregion = persia_superregion
+        }
+      }
+    }
+	}
+  
+  option = {
+    name = EDG_TIM_events.31.a
+    ai_chance = {
+      factor = 100
+    }
+    
+    set_global_flag = EDG_TIM_reconquer_iran_global_flag
+    custom_tooltip = EDG_TIM_mission_iran_tooltip
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_is_iranian_tag_trigger_flag
+    set_country_flag = allow_country_cb_EDG_WG_superiority_PER_unification_flag
+    persia_region = {
+      add_permanent_claim = ROOT
+    }
+    add_country_modifier = {
+      name = EDG_TIM_reconquer_iran_modifier
+      duration = 7300
+    }
+    every_country = {
+      limit = {
+        capital_scope = {
+          region = persia_region
+        }
+        NOT = {
+          is_subject_of = ROOT
+        }
+      }
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_return_to_persia_opinion
+      }
+    }
+  }
+}
+
+#继承危机：月即别：是否干涉
+country_event = {
+  id = EDG_TIM_events.32
+  title = EDG_TIM_events.32.t
+  desc = EDG_TIM_events.32.d
+  picture = THREE_HEIRS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.32.a
+    ai_chance = {
+      factor = 100
+    }
+    
+    support_independence_of = KOK
+    tooltip = {
+      add_country_modifier = {
+        name = EDG_TIM_succession_crisis_modifier
+        duration = 1825
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.32.b
+    ai_chance = {
+      factor = 0
+    }
+    
+    set_global_flag = EDG_TIM_shy_will_not_intervene_in_succession_crisis_global_flag
+    remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    add_truce_with = TIM
+    every_country = {
+      limit = {
+        is_subject_of = TIM
+      }
+      SHY = {
+        add_truce_with = PREV
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.32.b.tt
+  }
+}
+
+#继承危机：在月即别不干涉的情况下结束
+country_event = {
+  id = EDG_TIM_events.33
+  title = EDG_TIM_events.33.t
+  desc = EDG_TIM_events.33.d
+  picture = COURT_INTRIGUE_eventPicture
+  fire_only_once = yes
+  major = yes
+
+  mean_time_to_happen = {
+    months = 1
+  }
+  
+  trigger = {
+    tag = TIM
+    has_global_flag = EDG_TIM_shy_will_not_intervene_in_succession_crisis_global_flag
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+    OR = {
+      KOK = {
+        exists = no
+      }
+      NOT = {
+        war_with = KOK
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.33.a
+    end_disaster = EDG_TIM_shah_rukh_succession_crisis
+    add_stability = 1
+    every_country = {
+      limit = {
+        has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+      }
+      clr_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+    }
+    every_country = {
+      limit = {
+        has_country_modifier = EDG_TIM_succession_crisis_modifier
+      }
+      remove_country_modifier = EDG_TIM_succession_crisis_modifier
+    }
+    clr_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+    set_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+  }
+}
+
+#继承危机：月即别：可汗被俘
+country_event = {
+  id = EDG_TIM_events.34
+  title = EDG_TIM_events.34.t
+  desc = EDG_TIM_events.34.d
+  picture = muslimgfx_LAND_MILITARY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  immediate = {
+    hidden_effect = {
+      kill_ruler = yes
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.34.a
+    add_prestige = -20
+    add_war_exhaustion = 5
+    add_country_modifier = {
+      name = EDG_TIM_khan_captured_modifier
+      duration = 365
+    }
+    custom_tooltip = EDG_TIM_events.34.a.tt
+  }
+}
+
+#继承危机：月即别：沙哈鲁之死
+country_event = {
+  id = EDG_TIM_events.35
+  title = EDG_TIM_events.35.t
+  desc = EDG_TIM_events.35.d
+  picture = indiangfx_DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.35.a
+    tooltip = {
+      declare_war_with_cb = {
+        who = TIM
+        casus_belli = cb_EDG_puppet_timurid
+      }
+      every_country = {
+				limit = {
+          has_country_flag = EDG_TIM_disaster_sucession_crisis_revolt_flag
+				}
+        grant_independence = yes
+				join_all_offensive_wars_of = SHY
+			}
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.35.a.tt
+  }
+}
+
+#继承危机：月即别：继续进攻花剌子模？
+country_event = {
+  id = EDG_TIM_events.41
+  title = EDG_TIM_events.41.t
+  desc = EDG_TIM_events.41.d
+  picture = muslimgfx_BORDER_TENSION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.41.a
+    ai_chance = {
+      factor = 60
+    }
+
+    declare_war_with_cb = {
+      casus_belli = cb_annex
+			who = KHI
+    }
+    custom_tooltip = EDG_TIM_events.41.a.tt
+    every_province = {
+      limit = {
+        has_province_flag = EDG_TIM_controlled_by_shy_province_flag
+      }
+      if = {
+        limit = {
+          owned_by = KHI
+        }
+        change_controller = ROOT
+      }
+      clr_province_flag = EDG_TIM_controlled_by_shy_province_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.41.b
+    ai_chance = {
+      factor = 40
+    }
+
+    add_war_exhaustion = -2
+  }
+}
+
+#继承危机：月即别：花剌子模索要布哈拉失败独立后是否进攻花剌子模？
+country_event = {
+  id = EDG_TIM_events.42
+  title = EDG_TIM_events.42.t
+  desc = EDG_TIM_events.42.d
+  picture = muslimgfx_BORDER_TENSION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.42.a
+    ai_chance = {
+      factor = 80
+    }
+
+    declare_war_with_cb = {
+      casus_belli = cb_annex
+			who = KHI
+    }
+    custom_tooltip = EDG_TIM_events.41.a.tt
+    every_province = {
+      limit = {
+        has_province_flag = EDG_TIM_controlled_by_shy_province_flag
+      }
+      if = {
+        limit = {
+          owned_by = KHI
+        }
+        change_controller = ROOT
+      }
+      clr_province_flag = EDG_TIM_controlled_by_shy_province_flag
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.42.b
+    ai_chance = {
+      factor = 20
+    }
+
+    add_war_exhaustion = -2
+  }
+}
+
+#巴布尔崛起
+country_event = {
+  id = EDG_TIM_events.43
+  title = EDG_TIM_events.43.t
+  desc = EDG_TIM_events.43.d
+  picture = indiangfx_LAND_MILITARY_eventPicture
+  fire_only_once = yes
+  # major = yes
+
+  mean_time_to_happen = {
+    months = 120
+    modifier = {
+      factor = 0.75
+      total_development = 600
+    }
+    modifier = {
+      factor = 0.75
+      total_development = 1000
+    }
+    modifier = {
+      factor = 3
+      ai = yes
+    }
+  }
+
+  trigger = {
+    OR = {
+      tag = TIM
+      was_tag = TIM
+    }
+    is_year = 1490
+    if = {
+      limit = {
+        ai = yes
+      }
+      total_development = 100
+    }
+    else = {
+      has_country_flag = EDG_TIM_disaster_astrology_end_flag
+      total_development = 200
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.43.a
+    ai_chance = {
+      factor = 100
+    }
+
+    set_country_flag = EDG_TIM_rise_of_babur_flag
+    EDG_TIM_define_ruler_babur_effect = yes
+    define_ruler_to_general = {
+      fire = 5
+      shock = 5
+      manuever = 3
+      siege = 2
+    }
+    # if = {
+    #   limit = {
+    #     ai = yes
+    #     has_global_flag = EDG_great_conquer_enable_flag
+    #     NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+    #     NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+    #   }
+    #   add_ruler_personality = EDG_great_conqueror_personality
+    #   hidden_effect = {
+    #     set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+    #     add_ruler_modifier = {
+    #       name = EDG_great_conqueror_modifier
+    #       duration = -1
+    #     }
+    #     set_global_flag = EDG_great_conquer_NOW_flag
+    #     set_country_flag = EDG_great_conquer_NOW_country_flag
+    #   }
+    # }
+    # else = {
+    #   add_ruler_personality = legendary_conqueror_personality
+    # }
+    add_ruler_personality = legendary_conqueror_personality
+    add_ruler_personality = strict_personality
+    add_adm_power = 300
+    add_dip_power = 300
+    add_mil_power = 300
+    EDG_TIM_add_dread = { amount = 50 }
+    hidden_effect = {
+      remove_heir = {
+        allow_new_heir = no
+      }
+      if = {
+        limit = {
+          ai = yes
+        }
+        set_ai_personality = {
+          personality = ai_militarist
+          locked = yes
+        }
+        add_stability = 3
+        add_years_of_income = 10
+        add_yearly_manpower = 10
+        add_ruler_modifier = {
+          name = EDG_TIM_rise_of_babur_ruler_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.43.b
+    ai_chance = {
+      factor = 0
+    }
+
+    add_stability_or_50_adm_power = { amount = 1 }
+    add_legitimacy_or_5_mil_power = { amount = 20 }
+    add_prestige = -1
+  }
+}
+
+#任务事件：马穆鲁克的命运
+country_event = {
+  id = EDG_TIM_events.44
+  title = EDG_TIM_events.44.t
+  desc = EDG_TIM_events.44.d
+  picture = MAMLUK_WARRIORS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.44.a
+    ai_chance = {
+      factor = 100
+    }
+    set_country_flag = EDG_TIM_enable_mamluks_flag
+    custom_tooltip = EDG_TIM_events.44.a.tt
+    custom_tooltip = EDG_ESTATE_PRIVILEGE_PREVIEW_TT
+    tooltip = {
+      set_estate_privilege = estate_EDG_TIM_recruit_mamluks
+    }
+    361 = {
+      mamluks_cavalry = ROOT
+      mamluks_cavalry = ROOT
+      mamluks_cavalry = ROOT
+      mamluks_cavalry = ROOT
+      mamluks_cavalry = ROOT
+      mamluks_infantry = ROOT
+      mamluks_infantry = ROOT
+      mamluks_infantry = ROOT
+      mamluks_infantry = ROOT
+      mamluks_infantry = ROOT
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.44.b
+    ai_chance = {
+      factor = 0
+    }
+    EDG_TIM_add_dread = { amount = 20 }
+    custom_tooltip = EDG_TIM_events.44.b.tt
+    tooltip = {
+      EDG_TIM_plunder_province_effect = {
+        manpower = -2
+        devastation = 30
+        nationalism = -10
+        autonomy = -50
+      }
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          culture = al_misr_arabic
+        }
+        add_base_manpower = -2
+        add_devastation = 30
+        add_nationalism = -10
+        add_local_autonomy = -50
+      }
+    }
+  }
+}
+
+#草原难民
+country_event = {
+  id = EDG_TIM_events.45
+  title = EDG_TIM_events.45.t
+  desc = EDG_TIM_events.45.d
+  picture = REFUGEES_ESCAPING_eventPicture
+  is_triggered_only = yes
+
+  option = {
+    name = EDG_TIM_events.45.a
+    ai_chance = {
+      factor = 70
+    }
+    random_owned_province = {
+      limit = {
+        is_state = yes
+      }
+      add_base_development = { amount = 1 }
+    }
+    add_country_modifier = {
+      name = EDG_TIM_take_in_refugees_modifier
+      duration = 730
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.45.b
+    ai_chance = {
+      factor = 30
+    }
+    add_treasury = 50
+    add_country_modifier = {
+      name = EDG_TIM_extort_refugees_modifier
+      duration = 730
+    }
+  }
+}
+
+#任务事件：大帐：要求归附
+country_event = {
+  id = EDG_TIM_events.46
+  title = EDG_TIM_events.46.t
+  desc = EDG_TIM_events.46.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.46.a
+    ai_chance = {
+      factor = 100
+    }
+    tooltip = {
+      FROM = {
+        vassalize = ROOT
+      }
+    }
+    FROM = {
+      country_event = {
+        id = EDG_TIM_events.47
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.46.b
+    ai_chance = {
+      factor = 0
+    }
+
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_reject_submission_opinion
+      }
+      country_event = {
+        id = EDG_TIM_events.48
+      }
+    }
+  }
+}
+
+#任务事件：大帐同意臣服
+country_event = {
+  id = EDG_TIM_events.47
+  title = EDG_TIM_events.47.t
+  desc = EDG_TIM_events.47.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.47.a
+    add_prestige_or_monarch_power = { amount = 20 }
+    vassalize = FROM
+  }
+}
+
+#任务事件：大帐拒绝臣服
+country_event = {
+  id = EDG_TIM_events.48
+  title = EDG_TIM_events.48.t
+  desc = EDG_TIM_events.48.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.48.a
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_reject_submission_opinion
+      }
+    }
+    add_casus_belli = {
+      target = FROM
+      type = cb_vassalize_mission
+      months = 240
+    }
+  }
+}
+
+#任务事件：卡什吉
+country_event = {
+  id = EDG_TIM_events.49
+  title = EDG_TIM_events.49.t
+  desc = EDG_TIM_events.49.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.49.a
+    change_innovativeness = 5
+    EDG_TIM_define_advisor_qushji_effect = yes
+  }
+}
+
+#兀鲁伯天文台
+country_event = {
+  id = EDG_TIM_events.50
+  title = EDG_TIM_events.50.t
+  desc = EDG_TIM_events.50.d
+  picture = MYSTIC_IN_PRAYER_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 2
+  }
+
+  trigger = {
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+    has_ruler_flag = EDG_TIM_ulugh_beg_ruler_flag
+    owns = 454
+  }
+
+  option = {
+    name = EDG_TIM_events.50.a
+    custom_tooltip = EDG_TIM_events.50.a.tt
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_enable_expand_observatory_flag
+    change_ruler_stat = {
+      type = adm
+      amount = 2
+    }
+    change_innovativeness = 5
+  }
+}
+
+#任务事件：贾姆希德 卡希
+country_event = {
+  id = EDG_TIM_events.51
+  title = EDG_TIM_events.51.t
+  desc = EDG_TIM_events.51.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.51.a
+    change_innovativeness = 5
+    EDG_TIM_define_advisor_kashi_effect = yes
+  }
+}
+
+#任务事件：波斯官僚
+country_event = {
+  id = EDG_TIM_events.52
+  title = EDG_TIM_events.52.t
+  desc = EDG_TIM_events.52.d
+  picture = NOMAD_ESTATE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.52.a
+    ai_chance = {
+      factor = 100
+    }
+    custom_tooltip = EDG_TIM_mission_persian_bureaucracy_tooltip_2
+    custom_tooltip = EDG_SPACE_TT
+    set_country_flag = EDG_TIM_enable_persian_bureaucracy_holy_order_flag
+
+    add_faction_influence = {
+      faction = EDG_Persian_bureaucrat
+      influence = 30
+    }
+  }
+  
+  option = {
+    name = EDG_TIM_events.52.b
+    ai_chance = {
+      factor = 0
+    }
+    add_faction_influence = {
+      faction = EDG_Persian_bureaucrat
+      influence = -100
+    }
+    add_country_modifier = {
+      name = EDG_TIM_restrict_persian_bureaucracy_modifier
+      duration = -1
+    }
+  }
+}
+
+#任务事件：伊比利亚国家：帖木儿代表团
+country_event = {
+  id = EDG_TIM_events.53
+  title = EDG_TIM_events.53.t
+  desc = EDG_TIM_events.53.d
+  picture = muslimgfx_MERCHANTS_TALKING_eventPicture
+  is_triggered_only = yes
+  
+  option = {
+    name = EDG_TIM_events.53.a
+    ai_chance = {
+      factor = 100
+    }
+    add_country_modifier = {
+      name = EDG_TIM_exchange_between_iberia_and_timurid_modifier
+      duration = 7300
+    }
+  }
+}
+
+#任务事件：法国来使
+country_event = {
+  id = EDG_TIM_events.54
+  title = EDG_TIM_events.54.t
+  desc = EDG_TIM_events.54.d
+  picture = DIPLOMACY_SIGNING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_TIM_events.54.a
+    FRA = {
+      set_ai_attitude = {
+        attitude = attitude_friendly
+        who = ROOT
+        locked = no
+      }
+    }
+    add_country_modifier = {
+      name = EDG_TIM_friendly_with_fra_modifier
+      duration = 7300
+    }
+  }
+}
+
+#伊比利亚纷争结束
+country_event = {
+  id = EDG_TIM_events.55
+  title = EDG_TIM_events.55.t
+  desc = EDG_TIM_events.55.d
+  picture = muslimgfx_WESTERNISATION_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 2
+  }
+
+  trigger = {
+    OR = {
+      tag = TIM
+      was_tag = TIM
+    }
+    has_country_flag = EDG_TIM_mission_contact_iberia_flag
+    ADU = {
+      exists = yes
+      is_subject = no
+      NOT = {
+        war_with = ROOT
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_TIM_events.55.a
+    ai_chance = {
+      factor = 100
+    }
+    custom_tooltip = EDG_TIM_events.55.a.tt
+    ADU = {
+      country_event = {
+        id = EDG_TIM_events.56
+        days = 30
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_TIM_events.55.b
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+}
+
+#安达卢西亚：帖木儿使节
+country_event = {
+  id = EDG_TIM_events.56
+  title = EDG_TIM_events.56.t
+  desc = EDG_TIM_events.56.d
+  picture = muslimgfx_ELECTION_REPUBLICAN_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.56.a
+    ai_chance = {
+      factor = 60
+      modifier = {
+        factor = 0
+        NOT = {
+          has_opinion = {
+            who = from
+            value = 0
+          }
+        }
+      }
+    }
+    tooltip = {
+      create_alliance = from
+      add_favors = {
+        who = from
+        amount = 10
+      }
+    }
+    from = {
+      country_event = {
+        id = EDG_TIM_events.57
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.56.b
+    ai_chance = {
+      factor = 40
+      modifier = {
+        factor = 0.3
+        has_opinion = {
+          who = from
+          value = 50
+        }
+      }
+      modifier = {
+        factor = 0
+        has_opinion = {
+          who = from
+          value = 100
+        }
+      }
+    }
+
+    from = {
+      country_event = {
+        id = EDG_TIM_events.58
+      }
+    }
+  }
+}
+
+#安达卢西亚同意结盟
+country_event = {
+  id = EDG_TIM_events.57
+  title = EDG_TIM_events.57.t
+  desc = EDG_TIM_events.57.d
+  picture = muslimgfx_DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.57.a
+    create_alliance = from
+    add_favors = {
+      who = from
+      amount = 10
+    }
+    from = {
+      add_favors = {
+        who = ROOT
+        amount = 10
+      }
+    }
+    EDG_TIM_add_renaissance_progress = { amount = 2 }
+  }
+}
+
+#安达卢西亚拒绝结盟
+country_event = {
+  id = EDG_TIM_events.58
+  title = EDG_TIM_events.58.t
+  desc = EDG_TIM_events.58.d
+  picture = muslimgfx_BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.58.a
+    add_prestige = -5
+  }
+}
+
+#任务事件：奥斯曼古兰经
+country_event = {
+  id = EDG_TIM_events.59
+  title = EDG_TIM_events.59.t
+  desc = EDG_TIM_events.59.d
+  picture = muslimgfx_BIG_BOOK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.59.a
+    capital_scope = {
+      add_province_triggered_modifier = EDG_TIM_uthman_quran_province_triggered_modifier
+    }
+  }
+}
+
+#头骨酒器：月即别
+country_event = {
+  id = EDG_TIM_events.60
+  title = EDG_TIM_events.60.t
+  desc = EDG_TIM_events.60.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.60.a
+    set_country_flag = EDG_TIM_skull_vessel_of_shy_flag
+    custom_tooltip = EDG_TIM_make_shy_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：德里苏丹
+country_event = {
+  id = EDG_TIM_events.61
+  title = EDG_TIM_events.61.t
+  desc = EDG_TIM_events.61.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.61.a
+    set_country_flag = EDG_TIM_skull_vessel_of_dlh_flag
+    custom_tooltip = EDG_TIM_make_dlh_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：沙汗沙阿
+country_event = {
+  id = EDG_TIM_events.62
+  title = EDG_TIM_events.62.t
+  desc = EDG_TIM_events.62.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.62.a
+    hidden_effect = {
+      event_target:skull_vessel_material_target = {
+        if = {
+          limit = {
+            tag = HZB
+          }
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_hzb_flag
+          }
+        }
+        else = {
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_per_flag
+          }
+        }
+      }
+    }
+    custom_tooltip = EDG_TIM_make_per_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：罗姆皇帝
+country_event = {
+  id = EDG_TIM_events.63
+  title = EDG_TIM_events.63.t
+  desc = EDG_TIM_events.63.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.63.a
+    hidden_effect = {
+      event_target:skull_vessel_material_target = {
+        if = {
+          limit = {
+            OR = {
+              tag = BUL
+              tag = BU1
+            }
+          }
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_bul_flag
+          }
+        }
+        else = {
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_tur_flag
+          }
+        }
+      }
+    }
+    custom_tooltip = EDG_TIM_make_rum_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：吸血鬼大公
+country_event = {
+  id = EDG_TIM_events.64
+  title = EDG_TIM_events.64.t
+  desc = EDG_TIM_events.64.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.64.a
+    set_country_flag = EDG_TIM_skull_vessel_of_wal_flag
+    custom_tooltip = EDG_TIM_make_wal_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：罗斯沙皇
+country_event = {
+  id = EDG_TIM_events.65
+  title = EDG_TIM_events.65.t
+  desc = EDG_TIM_events.65.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.65.a
+    hidden_effect = {
+      event_target:skull_vessel_material_target = {
+        if = {
+          limit = {
+            OR = {
+              tag = UKR
+            }
+          }
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_ukr_flag
+          }
+        }
+        else = {
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_rus_flag
+          }
+        }
+      }
+    }
+    custom_tooltip = EDG_TIM_make_rus_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：神罗皇帝
+country_event = {
+  id = EDG_TIM_events.66
+  title = EDG_TIM_events.66.t
+  desc = EDG_TIM_events.66.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.66.a
+    set_country_flag = EDG_TIM_skull_vessel_of_hre_flag
+    custom_tooltip = EDG_TIM_make_rus_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：教宗
+country_event = {
+  id = EDG_TIM_events.67
+  title = EDG_TIM_events.67.t
+  desc = EDG_TIM_events.67.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.67.a
+    set_country_flag = EDG_TIM_skull_vessel_of_pap_flag
+    custom_tooltip = EDG_TIM_make_pap_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#头骨酒器：天子
+country_event = {
+  id = EDG_TIM_events.68
+  title = EDG_TIM_events.68.t
+  desc = EDG_TIM_events.68.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.68.a
+    hidden_effect = {
+      event_target:skull_vessel_material_target = {
+        if = {
+          limit = {
+            tag = YUA
+          }
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_yua_flag
+          }
+        }
+        else = {
+          ROOT = {
+            set_country_flag = EDG_TIM_skull_vessel_of_mng_flag
+          }
+        }
+      }
+    }
+    custom_tooltip = EDG_TIM_make_china_skull_vessel_tt
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_var
+      value = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    event_target:skull_vessel_material_target = {
+      kill_ruler = yes
+    }
+    EDG_TIM_add_dread = { amount = 10 }
+  }
+}
+
+#赞助艺术：哈烈画派
+country_event = {
+  id = EDG_TIM_events.69
+  title = EDG_TIM_events.69.t
+  desc = EDG_TIM_events.69.d
+  picture = muslimgfx_PAINTER_ARTIST_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.69.a
+    add_splendor = 200
+    EDG_TIM_define_advisor_behzad_effect = yes
+  }
+}
+
+#赞助艺术：忽辛·拜哈拉
+country_event = {
+  id = EDG_TIM_events.70
+  title = EDG_TIM_events.70.t
+  desc = EDG_TIM_events.70.d
+  picture = BIG_BOOK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.70.a
+    EDG_TIM_define_advisor_husayn_bayqara_effect = yes
+    EDG_TIM_define_advisor_jami_effect = yes
+    EDG_TIM_define_advisor_mashhadi_effect = yes
+  }
+}
+
+#赞助历史学：哈菲兹-伊·阿布鲁
+country_event = {
+  id = EDG_TIM_events.71
+  title = EDG_TIM_events.71.t
+  desc = EDG_TIM_events.71.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.71.a
+    add_mil_power = 100
+    EDG_TIM_define_advisor_abru_effect = yes
+  }
+}
+
+#赞助历史学：亚兹迪
+country_event = {
+  id = EDG_TIM_events.72
+  title = EDG_TIM_events.72.t
+  desc = EDG_TIM_events.72.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.72.a
+    change_innovativeness = 2
+    EDG_TIM_define_advisor_yazdi_effect = yes
+  }
+}
+
+#赞助历史学：撒马尔罕迪
+country_event = {
+  id = EDG_TIM_events.73
+  title = EDG_TIM_events.73.t
+  desc = EDG_TIM_events.73.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.73.a
+    add_splendor = 200
+    EDG_TIM_define_advisor_samarqandi_effect = yes
+  }
+}
+
+#赞助历史学：米尔赫万德
+country_event = {
+  id = EDG_TIM_events.74
+  title = EDG_TIM_events.74.t
+  desc = EDG_TIM_events.74.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.74.a
+    change_government_reform_progress = 50
+    EDG_TIM_define_advisor_mirkhvand_effect = yes
+  }
+}
+
+#赞助历史学：赫万达米尔
+country_event = {
+  id = EDG_TIM_events.75
+  title = EDG_TIM_events.75.t
+  desc = EDG_TIM_events.75.d
+  picture = muslimgfx_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.75.a
+    add_adm_power = 100
+    EDG_TIM_define_advisor_khvandamir_effect = yes
+  }
+}
+
+#赞助医学：克尔曼尼
+country_event = {
+  id = EDG_TIM_events.76
+  title = EDG_TIM_events.76.t
+  desc = EDG_TIM_events.76.d
+  picture = muslimgfx_MERCHANTS_TALKING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.76.a
+    EDG_TIM_define_advisor_kermani_effect = yes
+    add_country_modifier = {
+      name = EDG_TIM_medicine_development_modifier
+      duration = 18250
+    }
+  }
+}
+
+#赞助医学：伊利亚斯
+country_event = {
+  id = EDG_TIM_events.77
+  title = EDG_TIM_events.77.t
+  desc = EDG_TIM_events.77.d
+  picture = BIG_BOOK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.77.a
+    EDG_TIM_define_advisor_ilyas_effect = yes
+    add_country_modifier = {
+      name = EDG_TIM_anatomy_modifier
+      duration = 18250
+    }
+  }
+}
+
+#赞助艺术：阿里希尔·纳沃伊
+country_event = {
+  id = EDG_TIM_events.78
+  title = EDG_TIM_events.78.t
+  desc = EDG_TIM_events.78.d
+  picture = BIG_BOOK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.78.a
+    EDG_TIM_define_advisor_navai_effect = yes
+    add_country_modifier = {
+      name = EDG_TIM_promote_chaghatai_turkic_modifier
+      duration = 18250
+    }
+  }
+}
+
+#天朝来使
+country_event = {
+  id = EDG_TIM_events.79
+  title = EDG_TIM_events.79.t
+  desc = EDG_TIM_events.79.d
+  picture = east_asian_GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 12
+  }
+
+  trigger = {
+    OR = {
+      tag = TIM
+      was_tag = TIM
+    }
+    has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.79.a
+    set_country_flag = EDG_TIM_pay_tribute_flag
+    add_treasury = -100
+    add_adm_power = -25
+    add_dip_power = -25
+    add_mil_power = -25
+    event_target:EmperorOfChina = {
+      add_treasury = 100
+      add_adm_power = 25
+      add_dip_power = 25
+      add_mil_power = 25
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_pay_tribute_opinion
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.79.b
+    set_country_flag = EDG_TIM_reject_tribute_flag
+    event_target:EmperorOfChina = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_reject_tribute_opinion
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.79.c
+    set_country_flag = EDG_TIM_reject_tribute_flag
+    add_prestige_or_monarch_power = { amount = 10 }
+    add_power_projection = {
+      type = mission_rewards_power_projection
+      amount = 20
+    }
+    event_target:EmperorOfChina = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_insult_envoy_opinion
+      }
+      set_ai_attitude = {
+        attitude = attitude_hostile
+        who = ROOT
+        locked = no
+      }
+    }
+  }
+}
+
+#任务事件：羽奴思归来
+country_event = {
+  id = EDG_TIM_events.80
+  title = EDG_TIM_events.80.t
+  desc = EDG_TIM_events.80.d
+  picture = muslimgfx_EXPLORERS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.80.a
+    set_country_flag = EDG_TIM_support_yunus_flag
+    CHG = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_TIM_interfere_succession_opinion
+      }
+    }
+  }
+}
+
+#东察合台内战
+country_event = {
+  id = EDG_TIM_events.81
+  title = EDG_TIM_events.81.t
+  desc = EDG_TIM_events.81.d
+  picture = muslimgfx_ANGRY_MOB_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.81.a
+    custom_tooltip = EDG_TIM_events.81.a.tt
+  }
+}
+
+#羽奴思胜利
+country_event = {
+  id = EDG_TIM_events.82
+  title = EDG_TIM_events.82.t
+  desc = EDG_TIM_events.82.d
+  picture = muslimgfx_COURT_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_TIM_yunnus_rebel_supported_flag
+    war_with = CHG
+    KAS = {
+      is_subject_of = ROOT
+      NOT = {
+        has_country_flag = EDG_TIM_yunus_win_flag
+      }
+    }
+    CHG = {
+      all_owned_province = {
+        OR = {
+          controlled_by = ROOT
+          controller = {
+            offensive_war_with = CHG
+            is_in_war = {
+              attacker_leader = ROOT
+            }
+          }
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.82.a
+    KAS = {
+      set_country_flag = EDG_TIM_yunus_win_flag
+      EDG_TIM_inherit_without_adding_prestige_effect = {
+        country = CHG
+      }
+      override_country_name = EAST_CHAGHATAI_STRING
+    }
+    hidden_effect = {
+      every_province = {
+        limit = {
+          is_core = CHG
+        }
+        add_core = KAS
+      }
+    }
+  }
+}
+
+#任务事件：汉化
+country_event = {
+  id = EDG_TIM_events.83
+  title = EDG_TIM_events.83.t
+  desc = EDG_TIM_events.83.d
+  picture = muslimgfx_ANGRY_MOB_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.83.a
+    custom_tooltip = EDG_TIM_events.83.a.tt1
+    change_primary_culture = EDG_xiyu_culture
+    EDG_change_monarch_culture_effect = {
+      culture = EDG_xiyu_culture
+    }
+    add_accepted_culture_or_dip_power = {
+      culture = uzbehk
+      free = yes
+    }
+    change_technology_group = chinese
+    change_unit_type = chinese
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_TIM_events.83.a.tt2
+    tooltip = {
+      change_culture = EDG_xiyu_culture
+    }
+    hidden_effect = {
+      every_province = {
+        limit = {
+          country_or_non_sovereign_subject_holds = ROOT
+          OR = {
+            region = central_asia_region
+            AND = {
+              region = mongolia_region
+              NOT = {
+                area = tannu_uriankhai_area
+              }
+            }
+          }
+          OR = {
+            culture = uzbehk
+            culture = kirgiz
+            culture = uyghur
+            province_id = 2123
+            province_id = 444
+          }
+        }
+        change_culture = EDG_xiyu_culture
+      }
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.83.b
+    add_stability_or_50_adm_power = { amount = 1 }
+  }
+}
+
+#任务事件：受命于天
+country_event = {
+  id = EDG_TIM_events.84
+  title = EDG_TIM_events.84.t
+  desc = EDG_TIM_events.84.d
+  picture = east_asian_GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.84.a
+    set_country_flag = EDG_TIM_enable_tim_yua_mission_tree_flag
+    change_tag = YUA
+    EDG_TIM_clear_rename_flags_effect = yes
+    restore_country_name = yes
+    restore_country_color = yes
+    set_country_flag = formed_yuan_flag
+    EDG_TIM_new_chinese_dynasty_effect = yes
+    hidden_effect = {
+      save_global_event_target_as = gurkani_target
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.84.b
+    set_country_flag = EDG_TIM_enable_tim_yua_mission_tree_flag
+    set_country_flag = EDG_TIM_islamic_chinese_dynasty_flag
+    set_country_flag = EDG_TIM_update_ideas_flag
+    country_event = {
+      id = EDG_TIM_events.85
+    }
+    EDG_TIM_new_chinese_dynasty_effect = yes
+  }
+
+  option = {
+    name = EDG_TIM_events.84.c
+    set_country_flag = EDG_TIM_enable_tim_yua_mission_tree_flag
+    set_country_flag = EDG_TIM_update_ideas_flag
+    EDG_TIM_clear_rename_flags_effect = yes
+    override_country_name = GURKANI_STRING
+    set_country_flag = EDG_TIM_name_is_gurkani_flag
+    EDG_TIM_new_chinese_dynasty_effect = yes
+  }
+}
+
+#任务事件：伊斯兰化的国号
+country_event = {
+  id = EDG_TIM_events.85
+  title = EDG_TIM_events.85.t
+  desc = EDG_TIM_events.85.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.85.a
+    EDG_TIM_clear_rename_flags_effect = yes
+    override_country_name = GREAT_YI_STRING
+    set_country_flag = EDG_TIM_name_is_yi_flag
+    set_country_flag = EDG_TIM_can_rename_to_yi_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.85.b
+    EDG_TIM_clear_rename_flags_effect = yes
+    override_country_name = GREAT_HUI_STRING
+    set_country_flag = EDG_TIM_name_is_hui_flag
+    set_country_flag = EDG_TIM_can_rename_to_hui_flag
+  }
+
+  option = {
+    name = EDG_TIM_events.85.c
+    EDG_TIM_clear_rename_flags_effect = yes
+    override_country_name = GREAT_MU_STRING
+    set_country_flag = EDG_TIM_name_is_mu_flag
+    set_country_flag = EDG_TIM_can_rename_to_mu_flag
+  }
+}
+
+#任务事件：门宦与格底目
+country_event = {
+  id = EDG_TIM_events.86
+  title = EDG_TIM_events.86.t
+  desc = EDG_TIM_events.86.d
+  picture = muslimgfx_PRAYING_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.86.a
+    trigger = {
+      full_idea_group = humanist_ideas
+    }
+    highlight = yes
+    set_country_flag = EDG_TIM_enable_convergence_of_islam_and_confucianism_flag
+    set_estate_privilege = estate_EDG_TIM_convergence_of_islam_and_confucianism
+  }
+
+  option = {
+    name = EDG_TIM_events.86.b
+    add_piety = 1
+    add_country_modifier = {
+      name = EDG_TIM_qadim_modifier
+      duration = -1
+    }
+  }
+
+  option = {
+    name = EDG_TIM_events.86.c
+    set_country_flag = EDG_TIM_menhuan_qadiriyya_flag
+    custom_tooltip = EDG_TIM_events.86.c.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_piety = -0.3
+  }
+
+  option = {
+    name = EDG_TIM_events.86.e
+    set_country_flag = EDG_TIM_menhuan_kubrawiya_flag
+    custom_tooltip = EDG_TIM_events.86.e.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_piety = -0.3
+  }
+
+  option = {
+    name = EDG_TIM_events.86.f
+    set_country_flag = EDG_TIM_menhuan_khufiyah_flag
+    custom_tooltip = EDG_TIM_events.86.f.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_piety = -0.3
+  }
+
+  option = {
+    name = EDG_TIM_events.86.g
+    set_country_flag = EDG_TIM_menhuan_jahriyya_flag
+    custom_tooltip = EDG_TIM_events.86.g.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_piety = -0.3
+  }
+
+  option = {
+    name = EDG_TIM_events.86.h
+    add_stability_or_50_adm_power = { amount = 1 }
+    add_legitimacy_or_5_mil_power = { amount = 20 }
+  }
+}
+
+#拉失德史
+country_event = {
+  id = EDG_TIM_events.87
+  title = EDG_TIM_events.87.t
+  desc = EDG_TIM_events.87.d
+  picture = BIG_BOOK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_TIM_events.87.a
+    EDG_TIM_add_renaissance_progress = { amount = 3 }
+    EDG_TIM_define_advisor_haidar_effect = yes
+  }
+}

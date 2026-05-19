@@ -1,0 +1,112 @@
+namespace = EDG_DMR_events
+#文化同化隐藏事件
+country_event = {
+	id = EDG_DMR_events.1
+	title = EDG_DMR_events.1.t
+	desc = EDG_DMR_events.1.d
+	picture = FEAST_eventPicture
+	hidden = yes
+	mean_time_to_happen = {
+		months = 24
+		modifier = {
+			factor = 0.85
+			has_country_flag = EDG_DMR_mission_assimilate_1_flag
+		}
+		modifier = {
+			factor = 0.85
+			has_country_flag = EDG_DMR_mission_assimilate_3_flag
+		}
+		modifier = {
+			factor = 0.7
+			has_government_attribute = EDG_DMR_assimilate_culture_ability
+		}
+	}
+	trigger = {
+		tag = DMR
+		has_government_attribute = EDG_DMR_assimilate_culture_ability
+		any_owned_province = {
+			EDG_DMR_province_can_be_assimilated_trigger = yes
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				has_country_flag = EDG_DMR_hide_cultural_assimilation_events_flag
+			}
+			hidden_effect = {
+				EDG_DMR_cultural_assimilation_effect = {
+					id = 1
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_DMR_mission_assimilate_3_flag
+					}
+					EDG_DMR_cultural_assimilation_effect = {
+						id = 2
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_DMR_mission_assimilate_5_flag
+					}
+					EDG_DMR_cultural_assimilation_effect = {
+						id = 3
+					}
+				}
+			}
+		}
+		else = {
+			country_event = {
+				id = EDG_DMR_events.2
+			}
+		}
+	}
+	option = {
+	}
+}
+
+#文化同化事件
+country_event = {
+	id = EDG_DMR_events.2
+	title = EDG_DMR_events.2.t
+	desc = EDG_DMR_events.2.d
+	picture = FEAST_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			EDG_DMR_cultural_assimilation_effect = {
+				id = 1
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_DMR_mission_assimilate_3_flag
+				}
+				EDG_DMR_cultural_assimilation_effect = {
+					id = 2
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_DMR_mission_assimilate_4_flag
+				}
+				EDG_DMR_cultural_assimilation_effect = {
+					id = 3
+				}
+			}
+		}
+	}
+	option = {
+		name = EDG_DMR_events.2.aa
+		EDG_DMR_cultural_assimilation_tooltip_effect = {
+			id = 1
+		}
+		custom_tooltip = EDG_SPACE_TT
+		EDG_DMR_cultural_assimilation_tooltip_effect = {
+			id = 2
+		}
+		custom_tooltip = EDG_SPACE_TT
+		EDG_DMR_cultural_assimilation_tooltip_effect = {
+			id = 3
+		}
+	}
+}

@@ -1,0 +1,3275 @@
+country_decisions = {
+    EDG_ERS_decision_Iron = {#确立伊朗为国号
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            tag = ERS
+            has_country_flag = change_country_name_ERS
+            NOT = { has_country_flag = change_country_name_Iron_yes }
+            NOT = { has_country_flag = change_country_name_Sassanian_yes }
+        }
+        allow = {
+            is_at_war = no
+            is_free_or_tributary_trigger = yes
+            is_nomad = no
+        }
+        effect = {
+            set_country_flag = change_country_name_Iron_yes
+            override_country_name = EDG_ERS_Iron_name
+            add_country_modifier = {
+                name = EDG_new_ERS_buff_1_A
+                duration = -1
+            }
+            ai_will_do = {
+                factor = 0
+            }
+            ai_importance = 400
+        }
+    }
+    EDG_ERS_decision_Sassanian = {#确立萨珊为国号
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            tag = ERS
+            has_country_flag = change_country_name_ERS
+            NOT = { has_country_flag = change_country_name_Iron_yes }
+            NOT = { has_country_flag = change_country_name_Sassanian_yes }
+        }
+        allow = {
+            is_nomad = no
+            is_at_war = no
+            is_free_or_tributary_trigger = yes
+        }
+        effect = {
+            set_country_flag = change_country_name_Sassanian_yes
+            override_country_name = EDG_ERS_Sassanian_name
+            add_country_modifier = {
+                name = EDG_new_ERS_buff_1_B
+                duration = -1
+            }
+        }
+        ai_will_do = {
+            factor = 0
+        }
+        ai_importance = 400
+    }
+    EDG_ERS_decesion_restore_country_name = {#恢复埃兰沙赫尔国名
+        major = yes
+        potential = {
+            ai = no
+            OR = {
+                has_country_flag = change_country_name_Iron_yes
+                has_country_flag = change_country_name_Sassanian_yes
+            }
+        }
+        allow = {
+            is_at_war = no
+            is_free_or_tributary_trigger = yes
+            is_nomad = no
+        }
+        effect = {
+            restore_country_name = yes
+            clr_country_flag = change_country_name_Sassanian_yes
+            clr_country_flag = change_country_name_Iron_yes
+            hidden_effect = {
+                remove_country_modifier = EDG_new_ERS_buff_1_A
+                remove_country_modifier = EDG_new_ERS_buff_1_B
+            }
+        }
+        ai_will_do = {
+            factor = 0
+        }
+        ai_importance = 400
+    }
+    EDG_ERS_Claiming_to_be_Saochyant = {#允许在每任统治者上位时为他们宣称萨奥希扬特
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_about_Ahura_Mazda_flag
+        }
+        allow = {
+            NOT = {
+                has_ruler_flag = EDG_ERS_Claiming_to_be_Saochyant_flag
+            }
+            religion = zoroastrian
+        }
+        effect = {
+            set_ruler_flag = EDG_ERS_Claiming_to_be_Saochyant_flag
+            change_variable = {
+                which = EDG_PER_Shahanshah_authority_var
+                value = 5
+            }
+            add_stability = 1
+            add_ruler_modifier = {
+                name = EDG_ERS_Claiming_to_be_Saochyant_modifier_1
+                duration = -1
+            }
+
+            custom_tooltip = EDG_SPACE_TT
+            change_adm = 1
+            change_dip = 1
+            change_mil = 1
+
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ERS_Claiming_to_be_Saochyant_1_txt
+            tooltip = {
+                add_country_modifier = {
+                    name = EDG_ERS_Claiming_to_be_Saochyant_modifier_2
+                    duration = 3650
+                }
+            }
+            hidden_effect = {
+                every_known_country = {
+                    limit = {
+                        NOT = {
+                            has_opinion = {
+                                who = FROM
+                                value = 0
+                            }
+                        }
+                    }
+                    add_aggressive_expansion = {
+                        who = FROM
+                        value = 10
+                    }
+                    add_country_modifier = {
+                        name = EDG_ERS_Claiming_to_be_Saochyant_modifier_2
+                        duration = 3650
+                    }
+                    add_stability = -1
+                }
+                every_known_country = {
+                    limit = {
+                        has_opinion = {
+                            who = FROM
+                            value = 0
+                        }
+                    }
+                    add_aggressive_expansion = {
+                        who = FROM
+                        value = -10
+                    }
+                    add_stability = 1
+                }
+            }
+            set_ruler_flag = Ahura_Mazda_gaze_flag
+        }
+        ai_will_do = {
+            factor = 0
+        }
+        ai_importance = 400
+    }
+    EDG_ERS_Establishing_a_missionary_center_in_Taixifeng = {#泰西封的中心
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_already_Repair_Asvita_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Establishing_a_missionary_center_in_Taixifeng_flag
+            }
+        }
+        allow = {
+            410 = {
+                religion = zoroastrian
+                has_tax_building_trigger = yes
+            }
+            religion = zoroastrian
+        }
+        effect = {
+            410 = {
+                add_reform_center = zoroastrian
+            }
+            set_country_flag = EDG_ERS_Establishing_a_missionary_center_in_Taixifeng_flag
+        }
+    }
+    EDG_ERS_Start_military_reform = { #开始军事改革
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_14_1_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Start_military_reform_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_mission_14_1_flag
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Start_military_reform_flag
+        }
+    }
+    EDG_ERS_Infantry_Exercise_1 = { #步兵演习一
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Infantry_Exercise_1_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = infantry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Infantry_Exercise_1_flag
+            custom_tooltip = EDG_ERS_Infantry_Exercise_1_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = infantry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+                }
+                add_manpower = 10
+            }
+            add_country_modifier = {
+                name = EDG_ERS_Infantry_Exercise_1_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Infantry_Exercise_2 = { #步兵演习二
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Infantry_Exercise_2_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Infantry_Exercise_1_modifier
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = infantry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Infantry_Exercise_2_flag
+            custom_tooltip = EDG_ERS_Infantry_Exercise_2_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = infantry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+                }
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Infantry_Exercise_1_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Infantry_Exercise_2_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Infantry_Exercise_3 = { #步兵演习三
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Infantry_Exercise_3_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Infantry_Exercise_2_modifier
+			any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = infantry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Infantry_Exercise_3_flag
+            custom_tooltip = EDG_ERS_Infantry_Exercise_3_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = infantry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+                }
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Infantry_Exercise_2_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Infantry_Exercise_3_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Cavalry_exercise_1 = {#骑兵演习一
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Cavalry_exercise_1_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+			any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = cavalry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Cavalry_exercise_1_flag
+            custom_tooltip = EDG_ERS_Cavalry_exercise_1_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = cavalry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+                }
+                add_manpower = 10
+            }
+            add_country_modifier = {
+                name = EDG_ERS_Cavalry_exercise_1_modifier
+                duration = -1
+            }
+            add_country_modifier = {
+                name = EDG_ERS_Cavalry_exercise_1_modifier_1
+                duration = 10
+            }
+        }
+    }
+    EDG_ERS_Cavalry_exercise_2 = { #骑兵演习二
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Cavalry_exercise_2_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Cavalry_exercise_1_modifier
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = cavalry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Cavalry_exercise_2_flag
+            custom_tooltip = EDG_ERS_Cavalry_exercise_2_1_1_txt
+            hidden_effect = {
+				every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = cavalry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+                }
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Cavalry_exercise_1_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Cavalry_exercise_2_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Cavalry_exercise_3 = { #骑兵演习三
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Cavalry_exercise_3_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Cavalry_exercise_2_modifier
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = cavalry
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Cavalry_exercise_3_flag
+            custom_tooltip = EDG_ERS_Cavalry_exercise_3_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = cavalry
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+				}
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Cavalry_exercise_2_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Cavalry_exercise_3_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Artillery_exercises_1 = { #炮兵演习一
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Artillery_exercises_1_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+			any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = artillery
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Artillery_exercises_1_flag
+            custom_tooltip = EDG_ERS_Artillery_exercises_1_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = artillery
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+				}
+                add_manpower = 10
+            }
+            add_country_modifier = {
+                name = EDG_ERS_Artillery_exercises_1_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Artillery_exercises_2 = { #炮兵演习二
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Artillery_exercises_2_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Artillery_exercises_1_modifier
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = artillery
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Artillery_exercises_2_flag
+            custom_tooltip = EDG_ERS_Artillery_exercises_2_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = artillery
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+				}
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Artillery_exercises_1_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Artillery_exercises_2_modifier
+                duration = -1
+            }
+        }
+    }
+    EDG_ERS_Artillery_exercises_3 = { #炮兵演习三
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Artillery_exercises_3_flag
+            }
+        }
+        allow = {
+            has_country_flag = EDG_ERS_Start_military_reform_flag
+            has_country_modifier = EDG_ERS_Artillery_exercises_2_modifier
+            any_owned_province = {
+				num_of_units_in_province = {
+					who = ROOT
+					type = artillery
+					amount = 1
+				}
+			}
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Artillery_exercises_3_flag
+            custom_tooltip = EDG_ERS_Artillery_exercises_3_1_1_txt
+            hidden_effect = {
+                every_owned_province = {
+                    limit = {
+						num_of_units_in_province = {
+							who = ROOT
+							type = artillery
+							amount = 1
+						}
+                    }
+					spawn_rebels = {
+						type = particularist_rebels
+						size = 12
+					}
+				}
+                add_manpower = 10
+            }
+            remove_country_modifier = EDG_ERS_Artillery_exercises_2_modifier
+            add_country_modifier = {
+                name = EDG_ERS_Artillery_exercises_3_modifier
+                duration = -1
+            }
+            custom_tooltip = EDG_ERS_Artillery_exercises_3_1_2_flag_txt
+            set_country_flag = EDG_ERS_Artillery_exercises_3_1_2_flag
+        }
+    }
+    EDG_ERS_Selling_Persian_carpets = { #卖地毯
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = mission_EDGERSmission_93_opinion_1_1_flag
+        }
+        allow = {
+            NOT = {
+                has_country_modifier = EDG_ERS_Selling_Persian_carpets_modifier
+            }
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.113
+            }
+            hidden_effect = {
+                add_country_modifier = {
+                    name = EDG_ERS_Selling_Persian_carpets_modifier
+                    duration = 3650
+                }
+            }
+        }
+    }
+    EDG_ERS_Carpet_style = { #地毯装饰宫廷
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_9_2_3_flag
+        }
+        allow = {
+            NOT = {
+                has_ruler_flag = EDG_ERS_Carpet_style_ruler_flag
+            }
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.117
+            }
+        }
+    }
+    EDG_ERS_Recruit_the_Aswaran_artillery = { #征召阿斯瓦兰炮兵
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Artillery_exercises_3_1_2_flag
+        }
+        allow = {
+            manpower_percentage = 0.25
+            treasury = 1000
+        }
+        effect = {
+            custom_tooltip = EDG_ERS_Recruit_the_Aswaran_artillery_txt
+            hidden_effect = {
+                create_unit_forcelimit_percentage = {
+                    type = artillery
+                    special_unit_category = qizilbash
+                    force_limit_percentage = 0.1
+                }
+                add_yearly_manpower = -0.10
+                add_treasury = -1000
+            }
+        }
+    }
+    EDG_ERS_Excellent_supply = { #补给系统
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_16_1_2_flag
+        }
+        allow = {
+			treasury = 50
+            any_owned_province = {
+                trade_goods = grain
+				EDG_has_building_manufactories_trigger = yes 
+                base_manpower = 20
+                NOT = {
+                    has_province_modifier = EDG_ERS_Excellent_supply_modifier
+                }
+            }
+        }
+        effect = {
+            custom_tooltip = EDG_ERS_Excellent_supply_modifier_txt
+            tooltip = {
+                add_province_modifier = {
+                    name = EDG_ERS_Excellent_supply_modifier
+                    duration = -1
+                }
+            }
+            hidden_effect = {
+                while = {
+					limit = { 
+						treasury = 50
+						any_owned_province = {
+							trade_goods = grain
+                            EDG_has_building_manufactories_trigger = yes 
+                            base_manpower = 20
+							NOT = {
+                                has_province_modifier = EDG_ERS_Excellent_supply_modifier
+                            }
+						}
+					}
+					add_treasury = -50
+                    random_owned_province = {
+                        limit = {
+                            trade_goods = grain
+                            EDG_has_building_manufactories_trigger = yes 
+                            base_manpower = 20
+                            NOT = {
+                                has_province_modifier = EDG_ERS_Excellent_supply_modifier
+                            }
+                        }
+                        add_province_modifier = {
+                            name = EDG_ERS_Excellent_supply_modifier
+                            duration = -1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    EDG_ERS_Building_a_racecourse = { #马场
+        major = yes
+        color = { 255 0 255 }
+		provinces_to_highlight = {
+			any_owned_province = {
+                trade_goods = livestock
+                has_manufactory_trigger = yes 
+                base_manpower = 20
+                NOT = {
+                    has_province_modifier = EDG_ERS_Building_a_racecourse_modifier
+                }
+            }
+		}
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_16_2_2_flag
+        }
+        allow = {
+			treasury = 50
+            any_owned_province = {
+                trade_goods = livestock
+                EDG_has_building_manufactories_trigger = yes 
+                base_manpower = 20
+                NOT = {
+                    has_province_modifier = EDG_ERS_Building_a_racecourse_modifier
+                }
+            }
+        }
+        effect = {
+            custom_tooltip = EDG_ERS_Building_a_racecourse_modifier_txt
+            tooltip = {
+                add_province_modifier = {
+                    name = EDG_ERS_Building_a_racecourse_modifier
+                    duration = -1
+                }
+            }
+            hidden_effect = {
+                while = {
+					limit = { 
+						treasury = 50
+						any_owned_province = {
+							trade_goods = livestock
+                            EDG_has_building_manufactories_trigger = yes 
+                            base_manpower = 20
+							NOT = {
+								has_province_modifier = EDG_ERS_Building_a_racecourse_modifier
+							}
+						}
+					}
+					add_treasury = -50
+                    random_owned_province = {
+                        limit = {
+                            trade_goods = livestock
+                            EDG_has_building_manufactories_trigger = yes  
+                            base_manpower = 20
+                            NOT = {
+                                has_province_modifier = EDG_ERS_Building_a_racecourse_modifier
+                            }
+                        }
+                        add_province_modifier = {
+                            name = EDG_ERS_Building_a_racecourse_modifier
+                            duration = -1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    EDG_ERS_weapon_factory = { #武器工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_16_3_2_flag
+        }
+        allow = {
+			treasury = 50
+            any_owned_province = {
+                OR = {
+                    trade_goods = copper
+                    trade_goods = iron	
+                }
+				EDG_has_building_manufactories_trigger = yes 
+                base_production = 20
+                NOT = {
+                    has_province_modifier = EDG_ERS_weapon_factory_modifier
+                }
+            }
+        }
+        effect = {
+            custom_tooltip = EDG_ERS_weapon_factory_modifier_txt
+            tooltip = {
+                add_province_modifier = {
+                    name = EDG_ERS_weapon_factory_modifier
+                    duration = -1
+                }
+            }
+            hidden_effect = {
+                while = {
+					limit = { 
+						treasury = 50
+						any_owned_province = {	
+							OR = {
+                                trade_goods = copper
+                                trade_goods = iron	
+                            }
+                            EDG_has_building_manufactories_trigger = yes 
+                            base_production = 20
+							NOT = {
+								has_province_modifier = EDG_ERS_weapon_factory_modifier
+							}
+						}
+					}
+					add_treasury = -50
+                    random_owned_province = {
+                        limit = {
+                            OR = {
+                                trade_goods = copper
+                                trade_goods = iron	
+                            }
+                            EDG_has_building_manufactories_trigger = yes 
+                            base_production = 20 
+                            NOT = {
+                                has_province_modifier = EDG_ERS_weapon_factory_modifier
+                            }
+                        }
+                        add_province_modifier = {
+                            name = EDG_ERS_weapon_factory_modifier
+                            duration = -1
+                        }
+                    }
+                }
+            }
+        }
+    }
+    EDG_ERS_View_Inventory = { #库存清单
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = Allow_strategic_trade_flag
+        }
+        allow = {
+            always = yes
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.132
+            }
+        }
+    }
+    EDG_ERS_Control_prices = { #控制物价
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_12_2_flag
+        }
+        allow = {
+            NOT = {
+                has_country_modifier = EDG_ERS_Control_prices_modifier
+            }
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.411
+            }
+            hidden_effect = {
+                add_country_modifier = {
+                    name = EDG_ERS_Control_prices_modifier
+                    duration = 3650
+                }
+            }
+        }
+    }
+    EDG_ERS_Factory_processing_open = { #打开工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_11_2_1_flag
+            NOT = {
+                has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+            }
+        }
+        allow = {
+            always = yes
+        }
+        effect = {
+            set_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+    }
+    EDG_ERS_Factory_processing_close = { #关闭工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+        allow = {
+            always = yes
+        }
+        effect = {
+            clr_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+    }
+    EDG_ERS_Food_processing_plant = { #食品加工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+        allow = {
+            4337 = {
+                infantry_in_province = 1
+                has_manufactory_trigger = yes 
+            }
+            check_variable = {
+                which = mission_EDGERSmission_82_2_var
+                value = 1
+            }
+            check_variable = {
+                which = mission_EDGERSmission_83_5_var
+                value = 1
+            }
+            check_variable = {
+                which = mission_EDGERSmission_83_6_var
+                value = 1
+            }
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.168
+            }
+        }
+    }
+    EDG_ERS_furniture_factory = { #家具加工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+        allow = {
+            2234 = {
+                infantry_in_province = 1
+                has_manufactory_trigger = yes 
+            }
+            check_variable = {
+                which = mission_EDGERSmission_83_4_var
+                value = 1
+            }
+        }
+        effect = {
+            change_variable = {
+                which = mission_EDGERSmission_83_4_var
+                value = -1
+            }
+            change_variable = {
+                which = mission_EDGERSmission_132_4_var
+                value = 1
+            }
+        }
+    }
+    EDG_ERS_clothing_factory = { #服装厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+        allow = {
+            423 = {
+                infantry_in_province = 1
+                has_manufactory_trigger = yes 
+            }
+            check_variable = {
+                which = EDG_ERS_Purchase_silk
+                value = 1
+            }
+            check_variable = {
+                which = mission_EDGERSmission_83_3_var
+                value = 1
+            }
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.169
+            }
+        }
+    }
+    EDG_ERS_Gemstone_Factory = { #宝石工厂
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_Factory_processing_open_1_1_flag
+        }
+        allow = {
+            2216 = {
+                infantry_in_province = 1
+                has_manufactory_trigger = yes 
+            }
+            check_variable = {
+                which = mission_EDGERSmission_83_2_var
+                value = 1
+            }
+        }
+        effect = {
+            add_years_of_income = -0.3
+            change_variable = {
+                which = mission_EDGERSmission_83_2_var
+                value = -1
+            }
+            change_variable = {
+                which = mission_EDGERSmission_132_2_var
+                value = 1
+            }
+        }
+    }
+    EDG_ERS_Switch_troops = { #切换兵种
+        major = yes
+        color = { 255 0 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ERS_mission_10_2_2_flag
+        }
+        allow = {
+           always = yes
+        }
+        effect = {
+            country_event = {
+                id = mission_EDGERSmission.170
+            }
+        }
+    }
+    EDG_ERS_vassal_decision_hidden = {#隐藏决议
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+		}
+		potential = {
+			ai = no
+			has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+			OR = {
+				tag = ERS
+				was_tag = TAB
+			}
+		}
+		allow = {
+			
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_ERS_vassal_decision_hidden_flag
+				}
+				clr_country_flag = EDG_ERS_vassal_decision_hidden_flag
+				custom_tooltip = EDG_ERS_vassal_decision_hidden_flag_tt_no
+			}
+			else = {
+				set_country_flag = EDG_ERS_vassal_decision_hidden_flag
+				custom_tooltip = EDG_ERS_vassal_decision_hidden_flag_tt_yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+    EDG_ERS_vassal_decision_SPA = {#建立行省 斯帕尼亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = iberia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = {
+                NOT = { 
+                    exists = M04
+                } 
+                M04 = { 
+                    is_subject_of = ROOT 
+                } 
+            }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = iberia_region
+				}
+			}
+			iberia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M04 = { 
+                custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { 
+                    EDG_lose_ERS_region_core_effect = yes 
+                } 
+            }
+			if = {
+				limit = { 
+                    not = { 
+                        exists = M04
+                    } 
+                }
+				hidden_effect = {
+					iberia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = iberia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M04
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M04
+				create_subject = { 
+                    subject_type = EDG_ERS_Marzbanate
+                    subject = M04
+                }
+				M04 = { 
+                    EDG_ERS_vassal_decision_special_effect = yes 
+                    override_country_name = EDG_ERS_bassal_name_1
+					change_religion = zoroastrian
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Spanig
+					}
+                }
+				hidden_effect = {
+					iberia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { 
+                                owned_by = M04
+                            }
+						}
+						if = {
+							limit = { 
+                                is_core = owner 
+                            }
+							add_core = M04
+						}
+						cede_province = M04
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					iberia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { 
+                                owned_by = M04 
+                            }
+						}
+						if = {
+							limit = { 
+                                is_core = owner 
+                            }
+							add_core = M04
+						}
+						cede_province = M04
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+    EDG_ERS_vassal_decision_M05 = {#建立行省 阿鲁玛
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = anatolia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { 
+				NOT = { 
+					exists = M05 
+				} 
+				M05 = { 
+					is_subject_of = ROOT 
+				} 
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = anatolia_region
+				}
+			}
+			anatolia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M05 = { 
+				custom_tooltip = EDG_FYM_vassal_decision_get_core_tt 
+				hidden_effect = { 
+					EDG_lose_ERS_region_core_effect = yes 
+				} 
+			}
+			if = {
+				limit = { 
+					not = { 
+						exists = M05 
+					} 
+				}
+				hidden_effect = {
+					anatolia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = anatolia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M05
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M05
+				create_subject = { 
+					subject_type = EDG_ERS_Marzbanate 
+					subject = M05 
+				}
+				M05 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_2
+					change_religion = zoroastrian
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Kapakuya
+					}
+				}
+				hidden_effect = {
+					anatolia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M05 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M05
+						}
+						cede_province = M05
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					anatolia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M05 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M05
+						}
+						cede_province = M05
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_ERS_vassal_decision_M07 = {#建立行省 阿拉提尼亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = italy_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M07 } M07 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = italy_region
+				}
+			}
+			italy_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M07 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M07 } }
+				hidden_effect = {
+					italy_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = italy_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M07
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M07
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M07 }
+				M07 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_3
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Herom
+					}
+				}
+				hidden_effect = {
+					italy_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M07 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M07
+						}
+						cede_province = M07
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					italy_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M07 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M07
+						}
+						cede_province = M07
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_ERS_vassal_decision_M08 = {#建立行省 北德意志
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = north_german_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M08 } M08 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = north_german_region
+				}
+			}
+			north_german_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M08 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M08 } }
+				hidden_effect = {
+					north_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = north_german_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M08
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M08
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M08 }
+				M08 = { 
+					EDG_ERS_vassal_decision_special_effect = yes
+					override_country_name = EDG_ERS_bassal_name_4 
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Dashiyeg
+					}
+				}
+				hidden_effect = {
+					north_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M08 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M08
+						}
+						cede_province = M08
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					north_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M08 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M08
+						}
+						cede_province = M08
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_ERS_vassal_decision_M09 = {#建立行省 南德意志
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = south_german_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M09 } M09 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = south_german_region
+				}
+			}
+			south_german_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M09 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M09 } }
+				hidden_effect = {
+					south_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = south_german_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M09
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M09
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M09 }
+				M09 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_5
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Abahetarig
+					}
+				}
+				hidden_effect = {
+					south_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M09 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M09
+						}
+						cede_province = M09
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					south_german_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M09 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M09
+						}
+						cede_province = M09
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_ERS_vassal_decision_M10 = {#建立行省 法兰西
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = france_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M10 } M10 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = france_region
+				}
+			}
+			france_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M10 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M10 } }
+				hidden_effect = {
+					france_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = france_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M10
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M10
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M10 }
+				M10 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_6
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Vlahjistan
+					}
+				}
+				hidden_effect = {
+					france_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M10 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M10
+						}
+						cede_province = M10
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					france_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M10 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M10
+						}
+						cede_province = M10
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_ERS_vassal_decision_M11 = {#建立行省 不列颠
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = british_isles_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M11 } M11 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = british_isles_region
+				}
+			}
+			british_isles_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M11 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M11 } }
+				hidden_effect = {
+					british_isles_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = british_isles_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M11
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M11
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M11 }
+				M11 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					change_religion = zoroastrian
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Visad
+					}
+				}
+				hidden_effect = {
+					british_isles_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M11 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M11
+						}
+						cede_province = M11
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					british_isles_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M11 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M11
+						}
+						cede_province = M11
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_ERS_vassal_decision_M12 = {#建立行省 卡帕提亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = carpathia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M12 } M12 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = carpathia_region
+				}
+			}
+			carpathia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M12 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M12 } }
+				hidden_effect = {
+					carpathia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = carpathia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M12
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M12
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M12 }
+				M12 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_7
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Danubu
+					}
+				}
+				hidden_effect = {
+					carpathia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M12 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M12
+						}
+						cede_province = M12
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					carpathia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M12 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M12
+						}
+						cede_province = M12
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M13 = {#建立行省 波兰
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = poland_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M13 } M13 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = poland_region
+				}
+			}
+			poland_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M13 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M13 } }
+				hidden_effect = {
+					poland_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = poland_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M13
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M13
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M13 }
+				M13 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Sakaliba
+					}
+				}
+				hidden_effect = {
+					poland_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M13 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M13
+						}
+						cede_province = M13
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					poland_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M13 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M13
+						}
+						cede_province = M13
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_ERS_vassal_decision_M14 = {#建立行省 克里米亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = crimea_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M14 } M14 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = crimea_region
+				}
+			}
+			crimea_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M14 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M14 } }
+				hidden_effect = {
+					crimea_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = crimea_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M14
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M14
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M14 }
+				M14 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_8
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_khazars
+					}
+				}
+				hidden_effect = {
+					crimea_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M14 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M14
+						}
+						cede_province = M14
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					crimea_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M14 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M14
+						}
+						cede_province = M14
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_ERS_vassal_decision_M15 = {#建立行省 鲁塞尼亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = ruthenia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M15 } M15 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = ruthenia_region
+				}
+			}
+			ruthenia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M15 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M15 } }
+				hidden_effect = {
+					ruthenia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = ruthenia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M15
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M15
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M15 }
+				M15 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_9
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Sakaliba
+					}
+				}
+				hidden_effect = {
+					ruthenia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M15 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M15
+						}
+						cede_province = M15
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					ruthenia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M15 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M15
+						}
+						cede_province = M15
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_ERS_vassal_decision_M16 = {#建立行省 巴尔干
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = balkan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M16 } M16 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = balkan_region
+				}
+			}
+			balkan_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M16 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M16 } }
+				hidden_effect = {
+					balkan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = balkan_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M16
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M16
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M16 }
+				M16 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_10
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_ionian
+					}
+				}
+				hidden_effect = {
+					balkan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M16 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M16
+						}
+						cede_province = M16
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					balkan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M16 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M16
+						}
+						cede_province = M16
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	
+	EDG_ERS_vassal_decision_M17 = {#建立行省 印度斯坦
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = hindusthan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M17 } M17 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = hindusthan_region
+				}
+			}
+			hindusthan_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M17 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M17 } }
+				hidden_effect = {
+					hindusthan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = hindusthan_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M17
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M17
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M17 }
+				M17 = { 
+					EDG_ERS_vassal_decision_special_effect = yes
+					override_country_name = EDG_ERS_bassal_name_11
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Xinduogang
+					}
+				}
+				hidden_effect = {
+					hindusthan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M17 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M17
+						}
+						cede_province = M17
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					hindusthan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M17 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M17
+						}
+						cede_province = M17
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_ERS_vassal_decision_M18 = {#建立行省 西印度
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = west_india_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M18 } M18 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = west_india_region
+				}
+			}
+			west_india_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M18 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M18 } }
+				hidden_effect = {
+					west_india_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = west_india_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M18
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M18
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M18 }
+				M18 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_12
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Baruge
+					}
+				}
+				hidden_effect = {
+					west_india_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M18 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M18
+						}
+						cede_province = M18
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					west_india_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M18 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M18
+						}
+						cede_province = M18
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_ERS_vassal_decision_M19 = {#建立行省 科罗曼德+德干
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+					region = deccan_region
+				region = coromandel_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M19 } M19 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = deccan_region
+					region = coromandel_region
+				}
+			}
+			deccan_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+			coromandel_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M19 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M19 } }
+				hidden_effect = {
+					deccan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = deccan_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = ROOT
+					}
+					coromandel_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = coromandel_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M19
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M19 }
+				M19 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_13
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Paratigon
+					}
+				}
+				hidden_effect = {
+					deccan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M19 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = M19
+					}
+					coromandel_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M19 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = M19
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					deccan_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M19 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = M19
+					}
+					coromandel_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M19 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M19
+						}
+						cede_province = M19
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M20 = {#建立行省 孟加拉
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = bengal_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M20 } M20 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = bengal_region
+				}
+			}
+			bengal_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M20 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M20 } }
+				hidden_effect = {
+					bengal_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = bengal_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M20
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M20
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M20 }
+				M20 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_14
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Vanggagan
+					}
+				}
+				hidden_effect = {
+					bengal_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M20 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M20
+						}
+						cede_province = M20
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					bengal_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M20 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M20
+						}
+						cede_province = M20
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M21 = {#建立行省 河中
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = central_asia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M21 } M21 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = central_asia_region
+				}
+			}
+			central_asia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M21 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M21 } }
+				hidden_effect = {
+					central_asia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = central_asia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M21
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M21
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M21 }
+				M21 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_15
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Saka
+						add_accepted_culture = EDG_ERS_Sogdian
+						add_accepted_culture = EDG_ERS_tocharian
+					}
+				}
+				hidden_effect = {
+					central_asia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M21 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M21
+						}
+						cede_province = M21
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					central_asia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M21 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M21
+						}
+						cede_province = M21
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M22 = {#建立行省 尼德兰
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = low_countries_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M22 } M22 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = low_countries_region
+				}
+			}
+			low_countries_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M22 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M22 } }
+				hidden_effect = {
+					low_countries_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = low_countries_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M22
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M22
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M22 }
+				M22 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_16
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Landig
+					}
+				}
+				hidden_effect = {
+					low_countries_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M22 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M22
+						}
+						cede_province = M22
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					low_countries_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M22 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M22
+						}
+						cede_province = M22
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M23 = {#建立行省 俄罗斯
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = russia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M23 } M23 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = russia_region
+				}
+			}
+			russia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M23 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M23 } }
+				hidden_effect = {
+					russia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = russia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M23
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M23
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M23 }
+				M23 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_17
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Sakaliba
+					}
+				}
+				hidden_effect = {
+					russia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M23 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M23
+						}
+						cede_province = M23
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					russia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M23 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M23
+						}
+						cede_province = M23
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_ERS_vassal_decision_M24 = {#建立行省 斯堪的纳维亚
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = scandinavia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M24 } M24 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = scandinavia_region
+				}
+			}
+			scandinavia_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M24 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M24 } }
+				hidden_effect = {
+					scandinavia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = scandinavia_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M24
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M24
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M24 }
+				M24 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					override_country_name = EDG_ERS_bassal_name_18
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Kahrabai
+					}
+				}
+				hidden_effect = {
+					scandinavia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M24 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M24
+						}
+						cede_province = M24
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					scandinavia_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M24 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M24
+						}
+						cede_province = M24
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_vassal_decision_M25 = {#建立行省 波罗地
+		color = { 255 0 255 }
+		provinces_to_highlight = {
+			OR = {
+				region = baltic_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			OR = {
+				tag = ERS
+                was_tag = TAB
+			}
+			NOT = { 
+                has_country_flag = EDG_ERS_vassal_decision_hidden_flag 
+            }
+            has_reform = EDG_new_ERS_new_Tianze_Monarchy_reforms
+		}
+		allow = {
+			OR = { NOT = { exists = M25 } M25 = { is_subject_of = ROOT } }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				OR = {
+					region = baltic_region
+				}
+			}
+			baltic_region = {
+				country_or_non_sovereign_subject_holds = root
+				is_core = owner
+			}
+		}
+		effect = {
+			M25 = { custom_tooltip = EDG_FYM_vassal_decision_get_core_tt hidden_effect = { EDG_lose_ERS_region_core_effect = yes } }
+			if = {
+				limit = { not = { exists = M25 } }
+				hidden_effect = {
+					baltic_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							OR = {
+								region = baltic_region
+							}
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M25
+						}
+						cede_province = ROOT
+					}
+				}
+				release = M25
+				create_subject = { subject_type = EDG_ERS_Marzbanate subject = M25 }
+				M25 = { 
+					EDG_ERS_vassal_decision_special_effect = yes 
+					change_religion = zoroastrian 
+					hidden_effect = {
+						change_primary_culture = EDG_ERS_Baltai
+					}
+				}
+				hidden_effect = {
+					baltic_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M25 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M25
+						}
+						cede_province = M25
+					}
+				}
+			}
+			else = {
+				hidden_effect = {
+					baltic_region = {
+						limit = {
+							country_or_non_sovereign_subject_holds = root
+							NOT = { owned_by = M25 }
+						}
+						if = {
+							limit = { is_core = owner }
+							add_core = M25
+						}
+						cede_province = M25
+					}
+				}
+			}
+			
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_ERS_silk_decisions = { #查看物品收集与制作经验用
+        major = yes
+        color = { 255 0 255 }
+		potential = {
+			ai = no
+			has_country_flag = mission_EDGERSmission_85_opinion_3_flag
+		}
+		allow = {
+			always = no
+			check_variable = {
+                which = mission_EDGERSmission_86_opinion_1_var
+                value = 5
+            }
+			check_variable = {
+                which = mission_EDGERSmission_88_opinion_1_var
+                value = 1
+            }
+			check_variable = {
+                which = mission_EDGERSmission_92_opinion_1_var
+                value = 7
+            }
+		}
+		effect = {
+			custom_tooltip = EDG_ERS_silk_decisions_1_txt
+		}
+    }
+	EDG_ERS_religion_help = { #如何转变宗教
+        major = yes
+        color = { 255 0 255 }
+		potential = {
+			OR = {
+				tag = TAB
+				AND = {
+					tag = ERS
+					was_tag = TAB
+				}
+			}
+		}
+		allow = {
+			always = no
+		}
+		effect = {
+			custom_tooltip = EDG_ERS_religion_help_tt
+		}
+    }
+    # EDG_ERS_The_Crown_of_the_King_of_Kings = { #万王之王的王冠
+    #     major = yes
+    #     color = { 255 0 255 }
+    # }
+    # potential = {
+    #     ai = no
+    #     has_country_flag = EDG_ERS_mission_10_2_2_flag
+    # }
+    # allow = {
+    #     always = yes
+    # }
+}

@@ -1,0 +1,173 @@
+EDG_FYM_vassal_war = {
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = EDG_FYM_vassal_war_flag }
+		NOT = { has_country_flag = EDG_FYM_vassal_war_end_flag }
+		tag = FYM
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+		ai = no
+	}
+	
+	
+	can_start = {
+		is_year = 1550
+		has_any_disaster = no
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			not = { owned_by = root }
+			value = 200
+		}
+	}
+	
+	can_stop = {
+		has_any_disaster = yes
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 0.25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 400
+			}
+		}
+		modifier = {
+			factor = 0.25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 450
+			}
+		}
+		modifier = {
+			factor = 0.25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 500
+			}
+		}
+		modifier = {
+			factor = 0.25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 550
+			}
+		}
+		modifier = {
+			factor = 0.25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 600
+			}
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { estate_loyalty = { estate = estate_nobles loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { estate_loyalty = { estate = estate_church loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { estate_loyalty = { estate = estate_edg_copt loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { estate_loyalty = { estate = estate_nomadic_tribes loyalty = 50 } }
+		}
+		modifier = {
+			factor = 0.25
+			NOT = { estate_loyalty = { estate = estate_edg_caledonia loyalty = 50 } }
+		}
+		modifier = {
+			factor = 1
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 1
+			war_exhaustion = 5
+		} 
+		modifier = {
+			factor = 0.75
+			num_of_loans = 10
+			NOT = { num_of_loans = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 25
+		}
+		modifier = {
+			factor = 3
+			capital_scope = { controlled_by = REB }
+		}
+		modifier = {
+			factor = 10
+			is_bankrupt = yes
+		}
+	}
+	
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = disaster_active_for_20_years_tooltip
+				had_country_flag = {
+					flag = EDG_FYM_vassal_war_flag
+					days = 7300
+				}
+			}
+			AND = {
+				is_at_war = no
+				custom_trigger_tooltip = {
+					tooltip = disaster_active_for_5_years_tooltip
+					had_country_flag = {
+						flag = EDG_FYM_vassal_war_flag
+						days = 1825
+					}
+				}
+				all_subject_country = {
+					OR = {
+						has_country_modifier = EDG_FYM_vassal_war_3_A_modifier
+						has_country_modifier = EDG_FYM_vassal_war_4_A_modifier
+						has_country_modifier = EDG_FYM_vassal_war_subject_defeated_modifier
+						not = { liberty_desire = 50 }
+					}
+				}
+			}
+		}
+	}
+	
+
+	modifier = {
+		liberty_desire_from_subject_development = 1
+		reduced_liberty_desire = -75
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			100 = EDG_FYM_vassal_war.5
+			100 = EDG_FYM_vassal_war.6
+			100 = EDG_FYM_vassal_war.7
+		}
+		random_events = { 
+			1000 = 0
+			100 = EDG_FYM_vassal_war.3
+			100 = EDG_FYM_vassal_war.4
+			50 = EDG_FYM_eyalet_rebellion_events.3
+			50 = EDG_FYM_eyalet_rebellion_events.4
+			50 = EDG_FYM_eyalet_rebellion_events.5
+			50 = EDG_FYM_eyalet_rebellion_events.6
+			50 = EDG_FYM_eyalet_rebellion_events.7
+			50 = EDG_FYM_eyalet_rebellion_events.8
+			50 = EDG_FYM_eyalet_rebellion_events.9
+			50 = EDG_FYM_eyalet_rebellion_events.10
+			50 = EDG_FYM_eyalet_rebellion_events.11
+			50 = EDG_FYM_eyalet_rebellion_events.12
+			50 = EDG_FYM_eyalet_rebellion_events.13
+			50 = EDG_FYM_eyalet_rebellion_events.14
+		}
+	}
+	
+	
+	on_start = EDG_FYM_vassal_war.1 #General Estates / Storming of the Bastille
+	on_end = EDG_FYM_vassal_war.2 #Long live the Republic/Monarchy
+	
+}

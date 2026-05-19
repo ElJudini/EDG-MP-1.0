@@ -1,0 +1,1320 @@
+EDG_BDX_clear_rename_flags_effect = {
+	clr_country_flag = EDG_BDX_rename_to_argead_flag
+	clr_country_flag = EDG_BDX_rename_to_great_xia_flag
+	clr_country_flag = EDG_BDX_rename_to_nizari_flag
+	clr_country_flag = EDG_BDX_rename_to_kushan_flag
+}
+
+EDG_BDX_add_argead_legitimacy = {
+  add_government_power = {
+    mechanic_type = EDG_BDX_argead_legitimacy
+    power_type = EDG_BDX_argead_legitimacy_power
+    value = $amount$
+  }
+  hidden_effect = {
+    change_variable = {
+      which = EDG_BDX_argead_legitimacy_var
+      value = $amount$
+    }
+  }
+}
+
+EDG_BDX_add_5_argead_legitimacy_effect = {
+  custom_tooltip = EDG_BDX_add_5_argead_legitimacy_effect_tt
+  hidden_effect = {
+    EDG_BDX_add_argead_legitimacy = { amount = 5 }
+  }
+}
+
+EDG_BDX_add_10_argead_legitimacy_effect = {
+  custom_tooltip = EDG_BDX_add_10_argead_legitimacy_effect_tt
+  hidden_effect = {
+    EDG_BDX_add_argead_legitimacy = { amount = 10 }
+  }
+}
+
+EDG_BDX_add_20_argead_legitimacy_effect = {
+  custom_tooltip = EDG_BDX_add_20_argead_legitimacy_effect_tt
+  hidden_effect = {
+    EDG_BDX_add_argead_legitimacy = { amount = 20 }
+  }
+}
+
+EDG_BDX_recruit_one_hetairoi_effect = {
+  mil_power_cost = 10
+  add_treasury = -50
+  add_manpower = -1
+  capital_scope = {
+    hussars_cavalry = ROOT
+  }
+}
+
+EDG_BDX_recruit_hetairoi_to_limit_effect = {
+  custom_tooltip = EDG_BDX_recruit_hetairoi_to_limit_tt
+  hidden_effect = {
+    while = {
+      limit = {
+        EDG_BDX_can_recruit_hetairoi_trigger = yes
+      }
+      EDG_BDX_recruit_one_hetairoi_effect = yes
+    }
+  }
+}
+
+EDG_BDX_commemorate_battles_event_effect = {
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 146
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.19
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 2296
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.20
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 2313
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.21
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 1855
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.22
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 411
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.23
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 2217
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.24
+      }
+    }
+  }
+  if = {
+    limit = {
+      $province$ = {
+        province_id = 4511
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_BDX_events.25
+      }
+    }
+  }
+}
+
+EDG_BDX_cultural_assimilation_effect = {
+  random_owned_province = {
+    limit = {
+      EDG_BDX_province_can_be_assimilated_trigger = yes
+    }
+    save_event_target_as = EDG_BDX_cultural_assimilation_province_target_1_$id$
+    ROOT = {
+      set_country_flag = EDG_BDX_cultural_assimilation_flag_1_$id$
+      export_to_variable = {
+        variable_name = EDG_BDX_assimilated_culture_var
+        value = culture
+        who = PREV
+      }
+    }
+    EDG_BDX_cultural_assimilation_change_culture_effect = yes
+    if = {
+      limit = {
+        ROOT = {
+          has_country_flag = EDG_BDX_mission_pluralism_flag
+          accepted_culture = variable:From:EDG_BDX_assimilated_culture_var
+        }
+      }
+      ROOT = {
+        random_owned_province = {
+          limit = {
+            EDG_BDX_province_can_be_assimilated_trigger = yes
+            culture = variable:From:EDG_BDX_assimilated_culture_var
+          }
+          save_event_target_as = EDG_BDX_cultural_assimilation_province_target_2_$id$
+          ROOT = {
+            set_country_flag = EDG_BDX_cultural_assimilation_flag_2_$id$
+          }
+          EDG_BDX_cultural_assimilation_change_culture_effect = yes
+        }
+      }
+    }
+  }
+}
+
+EDG_BDX_cultural_assimilation_change_culture_effect = {
+  if = {
+    limit = {
+      EDG_BDX_province_can_be_assimilated_to_greek_culture_trigger = yes
+    }
+    change_culture = greek
+  }
+  else = {
+    if = {
+      limit = {
+        ROOT = {
+          culture_group = byzantine
+        }
+      }
+      change_culture = EDG_greco_bactrian_culture
+    }
+    else = {
+      change_culture = EDG_bactrian_culture
+    }
+  }
+}
+
+EDG_BDX_cultural_assimilation_tooltip_effect = {
+  if = {
+    limit = {
+      has_country_flag = EDG_BDX_cultural_assimilation_flag_1_$id$
+    }
+    event_target:EDG_BDX_cultural_assimilation_province_target_1_$id$ = {
+      custom_tooltip = EDG_BDX_events.1000.tt
+    }
+  }
+  if = {
+    limit = {
+      has_country_flag = EDG_BDX_cultural_assimilation_flag_2_$id$
+    }
+    event_target:EDG_BDX_cultural_assimilation_province_target_2_$id$ = {
+      custom_tooltip = EDG_BDX_events.1000.tt
+    }
+  }
+  clr_country_flag = EDG_BDX_cultural_assimilation_flag_1_$id$
+  clr_country_flag = EDG_BDX_cultural_assimilation_flag_2_$id$
+}
+
+EDG_BDX_add_cultural_assimilation_modifier_effect = {
+  tooltip = {
+    add_country_modifier = {
+      name = EDG_BDX_cultural_assimilation_$level$_modifier
+      duration = -1
+    }
+  }
+  add_country_modifier = {
+    name = EDG_BDX_cultural_assimilation_$level$_modifier
+    duration = -1
+    hidden = yes
+  }
+}
+
+EDG_BDX_update_cultural_assimilation_buff_effect = {
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_1_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 10
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 1 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_2_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 20
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 2 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_3_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 50
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 3 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_4_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 100
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 4 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_5_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 150
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 5 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_6_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 200
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 6 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_7_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 300
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 7 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_8_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 500
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 8 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_9_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 700
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 9 }
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        has_country_modifier = EDG_BDX_cultural_assimilation_10_modifier
+      }
+    }
+    if = {
+      limit = {
+        num_of_owned_provinces_with = {
+          value = 1000
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+      }
+      EDG_BDX_add_cultural_assimilation_modifier_effect = { level = 10 }
+    }
+  }
+}
+
+EDG_BDX_rebuild_alexandria_city_effect = {
+  [[cost]
+  ROOT = {
+    add_treasury = -$cost$
+    EDG_BDX_add_argead_legitimacy = { amount = 1 }
+  }
+  ]
+  if = { limit = { province_id = 1967 } EDG_BDX_rename_to_alexandria_eschate_effect = yes }
+  else_if = { limit = { province_id = 4343 } EDG_BDX_rename_to_alexandria_oxiana_effect = yes }
+  else_if = { limit = { province_id = 451 } EDG_BDX_rename_to_alexandria_caucasus_effect = yes }
+  else_if = { limit = { province_id = 446 } EDG_BDX_rename_to_alexandria_ariana_effect = yes }
+  else_if = { limit = { province_id = 447 } EDG_BDX_rename_to_alexandria_arachosia_effect = yes }
+  else_if = { limit = { province_id = 504 } EDG_BDX_rename_to_alexandria_orietai_effect = yes }
+  else_if = { limit = { province_id = 506 } EDG_BDX_rename_to_alexandria_on_indus_effect = yes }
+  else_if = { limit = { province_id = 4511 } EDG_BDX_rename_to_alexandria_nicaea_effect = yes }
+  else_if = { limit = { province_id = 445 } EDG_BDX_rename_to_alexandria_margiana_effect = yes }
+  else_if = { limit = { province_id = 431 } EDG_BDX_rename_to_alexandria_carmania_effect = yes }
+  else_if = { limit = { province_id = 2313 } EDG_BDX_rename_to_alexandria_issum_effect = yes }
+  else_if = { limit = { province_id = 358 } add_permanent_province_modifier = { name = EDG_BDX_expand_alexandria_port_modifier duration = -1 } }
+  else_if = { limit = { province_id = 319 } EDG_BDX_rename_to_alexandria_latmos_effect = yes }
+  else_if = { limit = { province_id = 2296 } EDG_BDX_rename_to_alexandria_troas_effect = yes }
+  else_if = { limit = { province_id = 4703 } EDG_BDX_rename_to_alexandropolis_maedica_effect = yes }
+  if = {
+    limit = {
+      NOT = {
+        province_has_center_of_trade_of_level = 1
+      }
+    }
+    center_of_trade = 1
+  }
+  EDG_BDX_cultural_assimilation_change_culture_effect = yes
+  province_event = {
+    id = EDG_BDX_events.999
+  }
+}
+
+EDG_BDX_great_conquer_cede_province_and_create_core_effect = {
+  export_to_variable = {
+    which = EDG_BDX_great_conquer_dev_var
+    value = development
+  }
+  if = {
+    limit = {
+      check_variable = {
+        which = EDG_BDX_great_conquer_dev_var
+        value = 30
+      }
+    }
+    set_variable = {
+      which = EDG_BDX_great_conquer_dev_var
+      value = 30
+    }
+  }
+  export_to_variable = {
+    which = EDG_BDX_great_conquer_core_creation_var
+    value = modifier:core_creation
+    who = $country$
+  }
+  # log = EDG_BDX_log1
+  export_to_variable = {
+    which = EDG_BDX_great_conquer_all_power_cost_var
+    value = modifier:all_power_cost
+    who = $country$
+  }
+  # log = EDG_BDX_log2
+  set_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_factor_var
+    value = 1
+  }
+  change_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_factor_var
+    which = EDG_BDX_great_conquer_core_creation_var
+  }
+  change_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_factor_var
+    which = EDG_BDX_great_conquer_all_power_cost_var
+  }
+  if = {
+    limit = {
+      is_permanent_claim = $country$
+    }
+    change_variable = {
+      which = EDG_BDX_great_conquer_adm_cost_factor_var
+      value = -0.25
+    }
+  }
+  else_if = {
+    limit = {
+      is_claim = $country$
+    }
+    change_variable = {
+      which = EDG_BDX_great_conquer_adm_cost_factor_var
+      value = -0.1
+    }
+  }
+  if = {
+    limit = {
+      NOT = {
+        check_variable = {
+          which = EDG_BDX_great_conquer_adm_cost_factor_var
+          value = 0.2
+        }
+      }
+    }
+    set_variable = {
+      which = EDG_BDX_great_conquer_adm_cost_factor_var
+      value = 0.2
+    }
+  }
+  set_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_var
+    which = EDG_BDX_great_conquer_dev_var
+  }
+  multiply_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_var
+    value = 5 # 10*0.5 for great conquer bonus
+  }
+  multiply_variable = {
+    which = EDG_BDX_great_conquer_adm_cost_var
+    which = EDG_BDX_great_conquer_adm_cost_factor_var
+  }
+  export_to_variable = {
+    which = EDG_BDX_great_conquer_administrative_efficiency_var
+    value = modifier:administrative_efficiency
+    who = $country$
+  }
+  if = {
+    limit = {
+      check_variable = {
+        which = EDG_BDX_great_conquer_administrative_efficiency_var
+        value = 0.01
+      }
+    }
+    multiply_variable = {
+      which = EDG_BDX_great_conquer_administrative_efficiency_var
+      value = -1
+    }
+    change_variable = {
+      which = EDG_BDX_great_conquer_administrative_efficiency_var
+      value = 1
+    }
+    multiply_variable = {
+      which = EDG_BDX_great_conquer_adm_cost_var
+      which = EDG_BDX_great_conquer_administrative_efficiency_var
+    }
+    log = EDG_BDX_log5
+  }
+  
+  # log = EDG_BDX_log3
+  export_to_variable = {
+    which = EDG_BDX_great_conquer_adm_power_var
+    value = trigger_value:adm_power
+    who = $country$
+  }
+  # log = EDG_BDX_log4
+  if = {
+    limit = {
+      check_variable = {
+        which = EDG_BDX_great_conquer_adm_power_var
+        which = EDG_BDX_great_conquer_adm_cost_var
+      }
+    }
+    while = {
+      limit = {
+        check_variable = {
+          which = EDG_BDX_great_conquer_adm_cost_var
+          value = 1
+        }
+      }
+      $country$ = {
+        add_adm_power = -1
+      }
+      # log = EDG_BDX_log3
+      change_variable = {
+        which = EDG_BDX_great_conquer_adm_cost_var
+        value = -1
+      }
+    }
+    cede_province = $country$
+    add_territorial_core = $country$
+  }
+}
+
+EDG_BDX_great_conquer_on_control_province_effect = {
+  if = {
+    limit = {
+      OR = {
+        AND = {
+          controller = {
+            has_country_flag = EDG_BDX_enable_dynamic_war_flag
+          }
+          owner = {
+            OR = {
+              is_in_war = {
+                casus_belli = cb_EDG_BDX_great_conquer
+                # attacker_leader = controller
+                defender_leader = this
+              }
+              AND = {
+                is_subject = yes
+                overlord = {
+                  is_in_war = {
+                    casus_belli = cb_EDG_BDX_great_conquer
+                    # attacker_leader = controller
+                    defender_leader = this
+                  }
+                }
+              }
+            }
+          }
+        }
+        AND = {
+          owner = {
+            has_country_flag = EDG_BDX_enable_great_conquer_cb_flag
+          }
+          controller = {
+            is_in_war = {
+              casus_belli = cb_EDG_BDX_great_conquer
+              # attacker_leader = controller
+              defender_leader = this
+            }
+          }
+        }
+        AND = {
+          has_global_flag = EDG_BDX_diadochi_war_global_flag
+          OR = {
+            AND = {
+              controller = {
+                OR = {
+                  has_country_flag = EDG_BDX_enable_dynamic_war_flag
+                  has_country_flag = EDG_BDX_is_diadochi_tag_flag
+                }
+                is_in_war = {
+                  casus_belli = cb_EDG_BDX_diadochi_war
+                  defender_leader = this
+                }
+              }
+              owner = {
+                is_in_war = {
+                  casus_belli = cb_EDG_BDX_diadochi_war
+                  attacker_leader = this
+                }
+              }
+            }
+            AND = {
+              controller = {
+                OR = {
+                  has_country_flag = EDG_BDX_enable_dynamic_war_flag
+                  has_country_flag = EDG_BDX_is_diadochi_tag_flag
+                }
+                is_in_war = {
+                  casus_belli = cb_EDG_BDX_diadochi_war
+                  attacker_leader = this
+                }
+              }
+              owner = {
+                is_in_war = {
+                  casus_belli = cb_EDG_BDX_diadochi_war
+                  defender_leader = this
+                }
+              }
+            }
+          }
+        }
+      }
+      OR = {
+        NOT = { owned_by = controller }
+        is_neighbor_of = controller
+        is_core = controller
+      }
+      is_capital = no
+      # EDG_BDX_great_conquer_capital_is_in_scope_trigger = {
+      #   country = controller
+      # }
+    }
+    if = {
+      limit = {
+        is_core = controller
+      }
+      cede_province = controller
+    }
+    else = {
+      if = {
+        limit = {
+          controller = {
+            OR = {
+              tag = BDX
+              was_tag = BDX
+            }
+          }
+        }
+        EDG_BDX_great_conquer_cede_province_and_create_core_effect = {
+          country = controller
+        }
+      }
+      else = {
+        cede_province = controller
+        add_territorial_core = controller
+      }
+    }
+  }
+}
+
+EDG_BDX_great_conquer_on_monthly_effect = {
+  if = {
+    limit = {
+      has_country_flag = EDG_BDX_enable_great_conquer_cb_flag
+      is_in_war = {
+        casus_belli = cb_EDG_BDX_great_conquer
+        attacker_leader = ROOT
+      }
+    }
+    if = {
+      limit = {
+        has_country_flag = EDG_BDX_enable_dynamic_war_flag
+      }
+      every_province = {
+        limit = {
+          NOT = { owned_by = ROOT }
+          is_neighbor_of = ROOT
+          controlled_by = ROOT
+          is_capital = no
+          owner = {
+            OR = {
+              is_in_war = {
+                casus_belli = cb_EDG_BDX_great_conquer
+                defender_leader = this
+              }
+              AND = {
+                is_subject = yes
+                overlord = {
+                  is_in_war = {
+                    casus_belli = cb_EDG_BDX_great_conquer
+                    defender_leader = this
+                  }
+                }
+              }
+            }
+          }
+          # EDG_BDX_great_conquer_capital_is_in_scope_trigger = {
+          #   country = ROOT
+          # }
+        }
+        if = {
+          limit = {
+            is_core = ROOT
+          }
+          cede_province = ROOT
+        }
+        else = {
+          EDG_BDX_great_conquer_cede_province_and_create_core_effect = {
+            country = ROOT
+          }
+        }
+      }
+    }
+    every_country = {
+      limit = {
+        is_in_war = {
+          casus_belli = cb_EDG_BDX_great_conquer
+          attacker_leader = ROOT
+          defender_leader = this
+        }
+      }
+      every_province = {
+        limit = {
+          NOT = { owned_by = prev }
+          is_neighbor_of = prev
+          controlled_by = prev
+          is_capital = no
+          owner = {
+            has_country_flag = EDG_BDX_enable_great_conquer_cb_flag
+          }
+          # EDG_BDX_great_conquer_capital_is_in_scope_trigger = {
+          #   country = ROOT
+          # }
+        }
+        cede_province = prev
+        if = {
+          limit = {
+            NOT = {
+              is_core = prev
+            }
+          }
+          add_territorial_core = prev
+        }
+      }
+    }
+  }
+}
+
+EDG_BDX_great_conquer_on_monthly_for_diadochi_effect = {
+  if = {
+    limit = {
+      has_global_flag = EDG_BDX_diadochi_war_global_flag
+      OR = {
+        has_country_flag = EDG_BDX_enable_dynamic_war_flag
+        has_country_flag = EDG_BDX_is_diadochi_tag_flag
+      }
+      OR = {
+        is_in_war = {
+          casus_belli = cb_EDG_BDX_diadochi_war
+          attacker_leader = this
+        }
+        is_in_war = {
+          casus_belli = cb_EDG_BDX_diadochi_war
+          defender_leader = this
+        }
+      }
+    }
+    every_province = {
+      limit = {
+        NOT = { owned_by = ROOT }
+        is_neighbor_of = ROOT
+        controlled_by = ROOT
+        is_capital = no
+        owner = {
+          OR = {
+            is_in_war = {
+              casus_belli = cb_EDG_BDX_diadochi_war
+              attacker_leader = this
+            }
+            is_in_war = {
+              casus_belli = cb_EDG_BDX_diadochi_war
+              defender_leader = this
+            }
+          }
+        }
+      }
+      cede_province = ROOT
+      if = {
+        limit = {
+          NOT = {
+            is_core = ROOT
+          }
+        }
+        add_territorial_core = ROOT
+      }
+    }
+  }
+}
+
+EDG_BDX_release_diadochi_effect = {
+  every_owned_province = {
+    limit = {
+      EDG_BDX_province_belongs_to_$country$_trigger = yes
+    }
+    if = {
+      limit = {
+        num_of_times_expanded_infrastructure = 3
+      }
+      add_permanent_province_modifier = {
+        name = EDG_BDX_expand_infrastructure_3_modifier
+        duration = -1
+      }
+    }
+    else_if = {
+      limit = {
+        num_of_times_expanded_infrastructure = 2
+      }
+      add_permanent_province_modifier = {
+        name = EDG_BDX_expand_infrastructure_2_modifier
+        duration = -1
+      }
+    }
+    else_if = {
+      limit = {
+        num_of_times_expanded_infrastructure = 1
+      }
+      add_permanent_province_modifier = {
+        name = EDG_BDX_expand_infrastructure_1_modifier
+        duration = -1
+      }
+    }
+    cede_province = $country$
+    if = {
+      limit = {
+        OR = {
+          region = deccan_region
+          region = bengal_region
+          region = coromandel_region
+        }
+      }
+      add_territorial_core = $country$
+    }
+    else = {
+      add_core = $country$
+    }
+  }
+  if = {
+    limit = {
+      exists = $country$
+    }
+    $country$ = {
+      set_country_flag = EDG_BDX_is_diadochi_tag_flag
+      add_government_reform = EDG_BDX_Diadochi
+      EDG_change_religion_effect = {
+        religion = ROOT
+      }
+      if = {
+        limit = {
+          owns = $capital$
+        }
+        set_capital = $capital$
+      }
+      declare_war_with_cb = {
+        casus_belli = cb_EDG_BDX_diadochi_war
+        who = ROOT
+      }
+      every_owned_province = {
+        kill_units = {
+          who = prev
+        }
+      }
+      every_province = {
+        limit = {
+          has_discovered = ROOT
+        }
+        PREV = {
+          discover_province = PREV
+        }
+      }
+
+      if = {
+        limit = {
+          ROOT = {
+            EDG_BDX_has_argead_legitimacy_trigger = { amount = 100 }
+          }
+        }
+        add_manpower = 30
+        set_variable = {
+          which = EDG_BDX_diadochi_infantry_num_var
+          value = 50
+        }
+        set_variable = {
+          which = EDG_BDX_diadochi_artillery_num_var
+          value = 10
+        }
+      }
+      else_if = {
+        limit = {
+          ROOT = {
+            EDG_BDX_has_argead_legitimacy_trigger = { amount = 90 }
+          }
+        }
+        add_manpower = 50
+        set_variable = {
+          which = EDG_BDX_diadochi_infantry_num_var
+          value = 60
+        }
+        set_variable = {
+          which = EDG_BDX_diadochi_artillery_num_var
+          value = 20
+        }
+      }
+      else = {
+        add_manpower = 80
+        set_variable = {
+          which = EDG_BDX_diadochi_infantry_num_var
+          value = 80
+        }
+        set_variable = {
+          which = EDG_BDX_diadochi_artillery_num_var
+          value = 40
+        }
+      }
+      if = {
+        limit = {
+          tag = DI7 #india
+        }
+        divide_variable = {
+          which = EDG_BDX_diadochi_infantry_num_var
+          value = 2
+        }
+        divide_variable = {
+          which = EDG_BDX_diadochi_artillery_num_var
+          value = 2
+        }
+      }
+      while = {
+        limit = {
+          check_variable = {
+            which = EDG_BDX_diadochi_infantry_num_var
+            value = 1
+          }
+        }
+        capital_scope = {
+          infantry = prev
+        }
+        change_variable = {
+          which = EDG_BDX_diadochi_infantry_num_var
+          value = -1
+        }
+      }
+      while = {
+        limit = {
+          check_variable = {
+            which = EDG_BDX_diadochi_artillery_num_var
+            value = 1
+          }
+        }
+        capital_scope = {
+          artillery = prev
+        }
+        change_variable = {
+          which = EDG_BDX_diadochi_artillery_num_var
+          value = -1
+        }
+      }
+    }
+
+    every_country = {
+      limit = {
+        has_country_flag = EDG_BDX_is_diadochi_tag_flag
+      }
+      $country$ = {
+        declare_war_with_cb = {
+          casus_belli = cb_EDG_BDX_diadochi_war
+          who = prev
+        }
+      }
+    }
+  }
+}
+
+EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+  if = {
+    limit = {
+      EDG_BDX_has_argead_legitimacy_trigger = { amount = 100 }
+    }
+    custom_tooltip = EDG_BDX_for_high_argead_legitimacy_tt
+    $country$ = {
+      custom_tooltip = EDG_BDX_diadochi_has_weaker_army_tt
+    }
+  }
+  else_if = {
+    limit = {
+      EDG_BDX_has_argead_legitimacy_trigger = { amount = 90 }
+    }
+    custom_tooltip = EDG_BDX_for_common_argead_legitimacy_tt
+    $country$ = {
+      custom_tooltip = EDG_BDX_diadochi_has_stronger_army_tt
+    }
+  }
+  else_if = {
+    limit = {
+      EDG_BDX_has_argead_legitimacy_trigger = { amount = 80 }
+    }
+    custom_tooltip = EDG_BDX_for_low_argead_legitimacy_tt
+    $country$ = {
+      custom_tooltip = EDG_BDX_diadochi_has_very_stronger_army_tt
+    }
+  }
+  else = {
+    custom_tooltip = EDG_BDX_for_very_low_argead_legitimacy_tt
+    $country$ = {
+      custom_tooltip = EDG_BDX_diadochi_has_very_stronger_army_tt
+    }
+  }
+}
+
+EDG_BDX_add_shahanshah_authority_on_province_culture_changed = {
+  if = {
+    limit = {
+      EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+      owner = {
+        has_country_flag = EDG_BDX_mission_winner_flag
+        has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+      }
+    }
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_BDX_mission_three_great_fires_flag
+        }
+        set_variable = {
+          which = EDG_BDX_shahanshah_authority_increase_num_var
+          value = 1.5
+        }
+      }
+      else = {
+        set_variable = {
+          which = EDG_BDX_shahanshah_authority_increase_num_var
+          value = 1
+        }
+      }
+      set_variable = {
+        which = EDG_BDX_shahanshah_authority_increase_factor_var
+        which = EDG_BDX_argead_legitimacy_var
+      }
+      divide_variable = {
+        which = EDG_BDX_shahanshah_authority_increase_factor_var
+        value = 100
+      }
+      change_variable = {
+        which = EDG_BDX_shahanshah_authority_increase_factor_var
+        value = 1
+      }
+      multiply_variable = {
+        which = EDG_BDX_shahanshah_authority_increase_num_var
+        which = EDG_BDX_shahanshah_authority_increase_factor_var
+      }
+      change_variable = {
+        which = EDG_PER_Shahanshah_authority_var
+        which = EDG_BDX_shahanshah_authority_increase_factor_var
+      }
+    }
+  }
+}
+
+EDG_change_religion_effect = {
+  hidden_effect = {
+    export_to_variable = {
+      which = EDG_BDX_prestige_before_change_religion_var
+      value = prestige
+    }
+  }
+  change_religion = $religion$
+  set_ruler_religion = $religion$
+  if = {
+    limit = {
+      has_heir = yes
+    }
+    set_heir_religion = $religion$
+  }
+  if = {
+    limit = {
+      has_consort = yes
+    }
+    set_consort_religion = $religion$
+  }
+  hidden_effect = {
+    export_to_variable = {
+      which = EDG_BDX_prestige_after_change_religion_var
+      value = prestige
+    }
+    while = {
+      limit = {
+        check_variable = {
+          which = EDG_BDX_prestige_before_change_religion_var
+          which = EDG_BDX_prestige_after_change_religion_var
+        }
+      }
+      change_variable = {
+        which = EDG_BDX_prestige_after_change_religion_var
+        value = 1
+      }
+      add_prestige = 1
+    }
+  }
+}
+
+EDG_save_as_new_shahanshah_or_caliph_on_change_tag_effect = {
+  hidden_effect = {
+    if = {
+      limit = {
+        has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+      }
+      save_global_event_target_as = EDG_PER_Shahanshah_target
+    }
+    EDG_sunni_Caliph_target_update_effect = yes
+    EDG_shiite_Caliph_target_update_effect = yes
+  }
+}
+
+EDG_BDX_move_capital_to_india_effect = {
+  set_country_flag = EDG_BDX_kushan_empire_restored_flag
+  set_capital = $capital$
+  if = {
+    limit = {
+      NOT = {
+        tag = AGD
+      }
+    }
+    override_country_name = KUSHAN_STRING
+    set_country_flag = EDG_BDX_rename_to_kushan_flag
+  }
+  change_technology_group = indian
+  change_unit_type = indian
+  if = {
+    limit = {
+      owns = 450
+      450 = {
+        NOT = {
+          has_province_modifier = EDG_BDX_provisional_capital_modifier
+        }
+      }
+    }
+    450 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_provisional_capital_modifier
+        duration = -1
+      }
+    }
+  }
+  else_if = {
+    limit = {
+      owns = 410
+      410 = {
+        NOT = {
+          has_province_modifier = EDG_BDX_provisional_capital_modifier
+        }
+      }
+    }
+    410 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_provisional_capital_modifier
+        duration = -1
+      }
+    }
+  }
+  else_if = {
+    limit = {
+      owns = 148
+    }
+    148 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_provisional_capital_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+EDG_BDX_replace_mohammed_with_menander_effect = {
+  if = {
+    limit = {
+      has_ruler_flag = EDG_BDX_mir_mohammed_flag
+    }
+
+    if = {
+      limit = {
+        ruler_has_personality = inspiring_leader_personality
+      }
+      set_country_flag = EDG_BDX_ruler_has_inspiring_leader_personality_flag
+    }
+    if = {
+      limit = {
+        ruler_has_personality = EDG_ambitious_personality
+      }
+      set_country_flag = EDG_BDX_ruler_has_ambitious_personality_flag
+    }
+
+    if = {
+      limit = {
+        mil = 5
+      }
+      EDG_BDX_define_ruler_menander_updated_effect = yes
+    }
+    else = {
+      EDG_BDX_define_ruler_menander_effect = yes
+    }
+
+    if = {
+      limit = {
+        has_country_flag = EDG_BDX_ruler_has_inspiring_leader_personality_flag
+      }
+      add_ruler_personality = inspiring_leader_personality
+      clr_country_flag = EDG_BDX_ruler_has_inspiring_leader_personality_flag
+    }
+    else = {
+      add_ruler_personality = careful_personality
+    }
+    add_ruler_personality = tolerant_personality
+    if = {
+      limit = {
+        has_country_flag = EDG_BDX_ruler_has_ambitious_personality_flag
+      }
+      add_ruler_personality = EDG_ambitious_personality
+      clr_country_flag = EDG_BDX_ruler_has_ambitious_personality_flag
+    }
+    else = {
+      add_ruler_personality = craven_personality
+    }
+  }
+}
+
+EDG_BDX_refresh_province_has_phalanx_effect = {
+  if = {
+		limit = {
+			owner = {
+        has_country_flag = EDG_BDX_mission_modern_army_flag
+      }
+      EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+		}
+		add_province_modifier = { name = EDG_BDX_phalanx_modifier duration = -1 hidden = yes }
+	}
+	else_if = {
+		limit = { has_province_modifier = EDG_BDX_phalanx_modifier }
+		remove_province_modifier = EDG_BDX_phalanx_modifier
+	}
+}
+
+EDG_BDX_refresh_all_phalanx_modifiers_on_gain_new_assimilated_culture_effect = {
+  if = {
+    limit = {
+      has_country_flag = EDG_BDX_mission_modern_army_flag
+    }
+    every_owned_province = {
+      if = {
+        limit = {
+          EDG_BDX_province_cultural_assimilation_buff_trigger = yes
+        }
+        add_province_modifier = { name = EDG_BDX_phalanx_modifier duration = -1 hidden = yes }
+      }
+      else = {
+        remove_province_modifier = EDG_BDX_phalanx_modifier
+      }
+    }
+  }
+}
