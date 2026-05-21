@@ -1,0 +1,905 @@
+namespace = EDG_SHYEvents
+
+country_event = {
+	id = EDG_SHYEvents.0
+	is_triggered_only = yes
+	title = EDG_SHYEvents.0.name
+	desc = EDG_SHYEvents.0.desc
+
+	option = {
+		name = EDG_SHYEvents.0.aa
+		add_stability = -2
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.1
+	is_triggered_only = yes
+	title = EDG_SHYEvents.1.name
+	desc = EDG_SHYEvents.1.desc
+
+	option = {
+		name = EDG_SHYEvents.1.aa
+		add_stability = -2
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.2
+	is_triggered_only = yes
+	title = EDG_SHYEvents.2.name
+	desc = EDG_SHYEvents.2.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+
+	option = {
+		name = EDG_SHYEvents.2.aa
+		add_horde_unity = 10
+		add_prestige = 10
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.3
+	is_triggered_only = yes
+	title = EDG_SHYEvents.3.name
+	desc = EDG_SHYEvents.3.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+
+	option = {
+		name = EDG_SHYEvents.3.aa
+		custom_tooltip = EDG_SHYEvents.3.aa.tt
+		hidden_effect = {
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					is_subject = no
+				}
+				root = {
+					declare_war_with_cb = {
+						casus_belli = cb_annex
+						who = prev
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.3.bb
+		add_prestige = -10
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.4
+	is_triggered_only = yes
+	title = EDG_SHYEvents.4.name
+	desc = EDG_SHYEvents.4.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_SHY_begin_disaster_flag
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.4.aa
+		custom_tooltip = EDG_SHYEvents.4.aa.tt
+		add_treasury = 1
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.5
+	is_triggered_only = yes
+	title = EDG_SHYEvents.5.name
+	desc = EDG_SHYEvents.5.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+	trigger = {
+		has_country_flag = EDG_SHY_begin_disaster_flag
+	}
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			clr_country_flag = EDG_SHY_begin_disaster_flag
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.5.aa
+		trigger = {
+			OR = {
+				ai = no
+				has_global_flag = EDG_game_rule_2_5_open_flag
+			}
+		}
+		custom_tooltip = EDG_SHYEvents.5.aa.tt
+		hidden_effect = {
+			every_owned_province = {
+				add_unrest = 10
+			}
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.5.bb
+		trigger = {
+			ai = yes
+			has_global_flag = EDG_game_rule_2_5_close_flag
+		}
+		release_all_possible_countries = yes
+		release_all_subjects = yes
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.6
+	is_triggered_only = yes
+	title = EDG_SHYEvents.6.name
+	desc = EDG_SHYEvents.6.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	major = yes
+
+
+	immediate = {
+		hidden_effect = {
+			add_horde_unity = -30
+			if = {
+				limit = { 
+					is_at_war = yes
+				}
+				every_war_enemy_country = {
+					white_peace = root
+				}
+			}
+			add_stability = -6
+			EDG_SHY_civil_war_effect = yes
+			if = {
+				limit = { 
+					has_country_flag = EDG_SHY_already_dispose_nog_flag
+				}
+				every_province = {
+					limit = {
+						culture = nogaybak
+						is_core = root
+					}
+					cede_province = root
+				}
+				clr_country_flag = EDG_SHY_already_dispose_nog_flag
+			}
+			set_country_flag = EDG_SHY_in_disaster_flag
+			country_event = {
+				id = EDG_SHYEvents.8
+				days = 30
+			}
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.6.aa
+		custom_tooltip = EDG_SHYEvents.6.effect.tt
+		if = {
+			limit = { 
+				has_country_modifier = EDG_SHY_great_expedition
+			}
+			remove_country_modifier = EDG_SHY_great_expedition
+			hidden_effect = {
+				set_country_flag = EDG_SHY_save_great_expedition_flag
+			}
+		}
+		tooltip = {
+			add_stability = -6
+			add_horde_unity = -30
+		}
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.7
+	is_triggered_only = yes
+	title = EDG_SHYEvents.7.name
+	desc = EDG_SHYEvents.7.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { 
+					OR = {
+						is_year = 1460
+						has_global_flag = EDG_game_rule_2_6_epic_flag
+					}
+					ai = yes
+					has_ruler_flag = EDG_SHY_Sibanihan_flag
+				}
+				if = {
+					limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+					clr_global_flag = EDG_great_conquer_NOW_flag
+					clr_country_flag = EDG_great_conquer_NOW_country_flag
+					add_country_modifier = {
+						name = EDG_great_conqueror_modifier_AFTER
+						duration = 18250
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+					clr_global_flag = EDG_great_conquer_NOW_flag
+					clr_country_flag = EDG_great_conquer_NOW_country_flag
+				}
+				if = {
+					limit = { has_country_flag = EDG_mythical_conquer_NOW_country_flag }
+					clr_global_flag = EDG_mythical_conquer_NOW_flag
+					clr_country_flag = EDG_mythical_conquer_NOW_country_flag
+					add_country_modifier = {
+						name = EDG_great_conqueror_modifier_AFTER
+						duration = 18250
+					}
+				}
+				set_ruler_flag = EDG_flavor_great_conquer_choice_flag
+				
+			}
+			set_country_flag = EDG_SHY_end_civil_war_disaster_flag
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.7.aa
+		if = {
+			limit = { 
+				has_ruler_flag = EDG_SHY_Sibanihan_flag
+			}
+			add_ruler_personality = legendary_conqueror_personality
+		}
+		add_stability_or_adm_power = { amount = 1 }
+		add_horde_unity = 50
+		ai_chance = {
+			factor = 1
+		}
+		if = {
+			limit = { 
+				has_country_flag = EDG_SHY_save_great_expedition_flag
+			}
+			add_country_modifier = {
+				name = EDG_SHY_great_expedition
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.7.bb
+		add_stability_or_adm_power = { amount = 1 }
+		trigger = {
+			ai = yes
+			OR = {
+				is_year = 1460
+				has_global_flag = EDG_game_rule_2_6_epic_flag
+			}
+			has_global_flag = EDG_great_conquer_enable_flag
+		}
+		add_stability = 6
+		if = {
+			limit = { 
+				has_country_flag = EDG_SHY_save_great_expedition_flag
+			}
+			add_country_modifier = {
+				name = EDG_SHY_great_expedition
+				duration = 3650
+			}
+		}
+		add_ruler_modifier = {
+			name = EDG_SHY_sabani_conquest
+			duration = -1
+		}
+		add_country_modifier = {
+			name = EDG_SHY_war_preparation
+			duration = 1825
+		}
+		random_neighbor_country = {
+			limit = {
+				NOT = {
+					truce_with = root
+				}
+				is_subject = no
+			}
+			root = {
+				declare_war_with_cb = {
+					casus_belli = cb_annex
+					who = prev
+				}
+				add_manpower = 25
+				add_yearly_manpower = 5
+			}
+		}
+		ai_chance = {
+			factor = 10000
+		}
+		hidden_effect = {
+			if = {
+				limit = { is_emperor = yes }
+				set_ai_personality = {
+					personality = ai_diplomat
+					locked = yes
+				}
+			}
+			else = {
+				set_ai_personality = {
+					personality = ai_militarist
+					locked = yes
+				}
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_personality = EDG_great_conqueror_personality
+			add_ruler_modifier = {
+				name = EDG_great_conqueror_modifier
+				duration = -1
+			}
+			set_global_flag = EDG_great_conquer_NOW_flag
+			set_country_flag = EDG_great_conquer_NOW_country_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.8
+	is_triggered_only = yes
+	title = EDG_SHYEvents.8.name
+	desc = EDG_SHYEvents.8.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SHYEvents.8.aa
+		EDG_SHY_Sibanihan = yes
+		hidden_effect = {
+			set_ruler_flag = EDG_SHY_Sibanihan_flag
+		}
+		every_province = {
+			limit = {
+				owner = {
+					OR = {
+						AND = {
+							is_subject = no
+							ai = yes
+						}
+						AND = {
+							is_subject = yes
+							overlord = {
+								ai = yes
+							}
+						}
+					}
+				}
+				is_core = root
+				culture = uzbehk
+			}
+			cede_province = root
+		}
+		random_country = {
+			limit = {
+				has_country_flag = EDG_SHY_civil_war_country_flag
+			}
+			root = {
+				inherit = prev
+			}
+		}
+		add_stability = 2
+		ai_chance = {
+			factor = 1000
+		}
+		add_horde_unity = 10
+		capital_scope = {
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			cavalry = root
+			cavalry = root
+			cavalry = root
+			cavalry = root
+			cavalry = root
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.8.bb
+		add_prestige = -10
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	after = {
+		clr_country_flag = EDG_SHY_in_disaster_flag
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.9
+	is_triggered_only = yes
+	title = EDG_SHYEvents.9.name
+	desc = EDG_SHYEvents.9.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	trigger = {
+		any_country = {
+			has_country_flag = EDG_SHY_civil_war_country_flag
+			capital_scope = {
+				controlled_by = root
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					has_country_flag = EDG_SHY_civil_war_country_flag
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+				save_event_target_as = EDG_SHY_civil_war_target
+			}
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.9.aa
+		inherit = event_target:EDG_SHY_civil_war_target
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.10
+	is_triggered_only = yes
+	title = EDG_SHYEvents.10.name
+	desc = EDG_SHYEvents.10.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+	major = yes
+
+
+	trigger = {
+		NOT = {
+			has_global_flag = EDG_SHYEvents.10_flag
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			kill_ruler = yes
+			add_stability = -1
+			add_horde_unity = -10
+			set_global_flag = EDG_SHYEvents.10_flag
+			random_country = {
+				limit = {
+					has_ruler_flag = EDG_ARL_Isma_ruler_flag
+				}
+				country_event = {
+					id = EDG_SHYEvents.11
+				}
+			}
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.10.aa
+		custom_tooltip = EDG_SHYEvents.10.effect.tt
+		tooltip = {
+			kill_ruler = yes
+			add_stability = -1
+			add_horde_unity = -25
+		}
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.11
+	is_triggered_only = yes
+	title = EDG_SHYEvents.11.name
+	desc = EDG_SHYEvents.11.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SHYEvents.11.aa
+		custom_tooltip = EDG_SHYEvents.11.effect.tt
+		hidden_effect = {
+			every_province = {
+				limit = {
+					OR = {
+						region = persia_region
+						region = khorasan_region
+					}
+					owned_by = from
+				}
+				cede_province = root
+			}
+			from = {
+				every_subject_country = {
+					limit = {
+						capital_scope = {
+							OR = {
+								region = persia_region
+								region = khorasan_region
+							}
+						}
+					}
+					grant_independence = yes
+					root = {
+						create_subject = {
+							subject_type = vassal
+							subject = prev
+						}
+					}
+				}
+			}
+		}
+		tooltip = {
+			from = {
+				kill_ruler = yes
+				add_stability = -1
+				add_horde_unity = -25
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.12
+	is_triggered_only = yes
+	title = EDG_SHYEvents.12.name
+	desc = EDG_SHYEvents.12.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SHYEvents.12.aa
+		custom_tooltip = EDG_SHYEvents.12.aa.tt
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.13
+	is_triggered_only = yes
+	title = EDG_SHYEvents.13.name
+	desc = EDG_SHYEvents.13.desc
+
+	option = {
+		name = EDG_SHYEvents.13.aa
+		add_stability = -2
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.14
+	is_triggered_only = yes
+	title = EDG_SHYEvents.14.name
+	desc = EDG_SHYEvents.14.desc
+
+	option = {
+		name = EDG_SHYEvents.14.aa
+		add_stability = -2
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.15
+	is_triggered_only = yes
+	picture = WESTERNISATION_eventPicture
+	title = EDG_flavor_nomad.0.title
+	desc = EDG_flavor_nomad.0.desc
+	trigger = {
+		has_reform = EDG_SHY_khanate_of_bukhara
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_6_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_5_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_4_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_3_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_2_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_1_modifier }
+		NOT = { has_country_modifier = EDG_flavor_nomad_0_mil_0_modifier }
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_SHY_change_tag_flag
+		}
+	}
+	option = {
+		name = EDG_flavor_nomad.0.aa
+		if = {
+			limit = {
+				mil = 6
+			}
+			convert_ruler_to_general = 100
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_6_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				mil = 5
+			}
+			convert_ruler_to_general = 90
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_5_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				mil = 4
+			}
+			convert_ruler_to_general = 80
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_4_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				mil = 3
+			}
+			convert_ruler_to_general = 60
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_3_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				mil = 2
+			}
+			convert_ruler_to_general = 40
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_2_modifier
+				duration = -1
+			}
+		}
+		else_if = {
+			limit = {
+				mil = 1
+			}
+			convert_ruler_to_general = 30
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_1_modifier
+				duration = -1
+			}
+		}
+		else = {
+			convert_ruler_to_general = 20
+			add_ruler_modifier = {
+				name = EDG_flavor_nomad_0_mil_0_modifier
+				duration = -1
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.16
+	is_triggered_only = yes
+	picture = WESTERNISATION_eventPicture
+	title = EDG_SHYEvents.16.name
+	desc = EDG_SHYEvents.16.desc
+
+	option = {
+		name = EDG_SHYEvents.16.aa
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+	option = {
+		name = EDG_SHYEvents.16.bb
+		trigger = {
+			NOT = {
+				tag = SHY
+			}
+			NOT = {
+				exists = SHY
+			}
+		}
+		change_tag = SHY
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.cc
+		trigger = {
+			NOT = {
+				tag = BUK
+			}
+			NOT = {
+				exists = BUK
+			}
+		}
+		change_tag = BUK
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.dd
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = YUA
+				}
+				NOT = {
+					exists = YUA
+				}
+			}
+			mission_completed = EDG_SHY_mission_3_33
+		}
+		highlight = yes
+		change_tag = YUA
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.ee
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = TAS
+				}
+				NOT = {
+					exists = TAS
+				}
+			}
+			mission_completed = EDG_SHY_mission_3_7
+		}
+		highlight = yes
+		change_tag = TAS
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.ff
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = MUG
+				}
+				NOT = {
+					exists = MUG
+				}
+			}
+			mission_completed = EDG_SHY_mission_3_25
+		}
+		highlight = yes
+		change_tag = MUG
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.gg
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = MOT
+				}
+				NOT = {
+					exists = MOT
+				}
+			}
+			mission_completed = EDG_SHY_mission_3_31
+		}
+		highlight = yes
+		change_tag = MOT
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.hh
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = GLH
+				}
+				NOT = {
+					exists = GLH
+				}
+			}
+			mission_completed = EDG_SHY_mission_1_8
+		}
+		highlight = yes
+		change_tag = GLH
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.ii
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = ILK
+				}
+				NOT = {
+					exists = ILK
+				}
+			}
+			mission_completed = EDG_SHY_mission_3_19
+		}
+		highlight = yes
+		change_tag = ILK
+		country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			restore_country_name = yes
+		}
+	}
+	option = {
+		name = EDG_SHYEvents.16.jj
+		trigger = {
+			hidden_trigger = {
+				NOT = {
+					tag = BYZ
+				}
+				NOT = {
+					exists = BYZ
+				}
+			}
+			owns_core_province = 151
+		}
+		highlight = yes
+		custom_tooltip = EDG_SHYEvents.16.jj.tt
+		#country_event = { id = ideagroups.1 }
+		hidden_effect = {
+			change_tag = BYZ
+			override_country_name = "EDG_SHY_BYZ_Horde"
+		}
+		
+	}
+}
+country_event = {
+	id = EDG_SHYEvents.17
+	is_triggered_only = yes
+	title = EDG_SHYEvents.17.name
+	desc = EDG_SHYEvents.17.desc
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_SHY_first_great_expedition_flag
+		}
+	}
+
+	option = {
+		name = EDG_SHYEvents.17.aa
+		if = {
+			limit = { 
+				mission_completed = EDG_SHY_mission_3_5
+			}
+			custom_tooltip = EDG_SHY_great_expedition.tt
+		}
+		else_if = {
+			limit = { 
+				mission_completed = EDG_SHY_mission_3_20
+			}
+			custom_tooltip = EDG_SHY_great_expedition_near_east.tt
+		}
+		else_if = {
+			limit = { 
+				mission_completed = EDG_SHY_mission_3_31
+			}
+			custom_tooltip = EDG_SHY_great_expedition_china.tt
+		}
+		else_if = {
+			limit = { 
+				mission_completed = EDG_SHY_mission_1_24
+			}
+			custom_tooltip = EDG_SHY_great_expedition_india.tt
+		}
+		add_country_modifier = {
+			name = EDG_SHY_great_expedition
+			duration = 3650
+		}
+		if = {
+			limit = {
+				ai = yes
+			}
+			custom_tooltip = EDG_SHYEvents.17.aa.tt
+		}
+	}
+}

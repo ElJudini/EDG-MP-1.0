@@ -1,0 +1,881 @@
+namespace = EDG_WALEvents
+
+country_event = {
+	id = EDG_WALEvents.0
+	is_triggered_only = yes
+	title = EDG_WALEvents.0.name
+	desc = EDG_WALEvents.0.desc
+	picture = DIPLOMACY_eventPicture
+	major = yes
+
+	option = {
+		name = EDG_WALEvents.0.aa
+		every_owned_province = {
+			limit = {
+				area = moldavia_area
+			}
+			cede_province = from
+		}
+	}
+	option = {
+		name = EDG_WALEvents.0.bb
+		add_historical_rival = from
+		from = {
+			add_historical_rival = root
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.1
+	is_triggered_only = yes
+	title = EDG_WALEvents.1.name
+	desc = EDG_WALEvents.1.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_WALEvents.1.aa
+		add_country_modifier = {
+			name = EDG_WAL_valour_of_charan
+			duration = -1
+		}
+	}
+	option = {
+		name = EDG_WALEvents.0.bb
+		add_country_modifier = {
+			name = EDG_WAL_charan_indomitability
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.2
+	is_triggered_only = yes
+	title = EDG_WALEvents.2.name
+	desc = EDG_WALEvents.2.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_WALEvents.2.aa
+		custom_tooltip = EDG_WAL_mission_3_6.effect.tt
+		custom_tooltip = EDG_WALEvents.2.aa.tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = silistria_area
+						area = bulgaria_area
+						area = serbia_area
+						area = rascia_area
+					}
+				}
+				add_devastation = 100
+				set_variable = {
+					which = EDG_GEN_province_development
+					value = 0
+				}
+				export_to_variable = {
+					which = EDG_GEN_province_development
+					value = development
+				}
+				while = {
+					limit = {
+						check_variable = {
+							which = EDG_GEN_province_development
+							value = 1
+						}
+					}
+					subtract_variable = {
+						which = EDG_GEN_province_development
+						value = 1
+					}
+					root = {
+						add_treasury = 25
+					}
+				}
+				set_base_tax = 1
+				set_base_production = 1
+				set_base_manpower = 1
+			}
+		}
+		add_prestige_or_monarch_power = {
+			amount = 50
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						culture = bulgarian
+						culture = serbian
+					}
+				}
+				change_culture = romanian
+			}
+		}
+		add_country_modifier = {
+			name = EDG_WAL_purge_policy
+			duration = -1
+		}
+		add_government_power = {
+			mechanic_type = EDG_WAL_atrocity_mechanic
+			power_type = EDG_WAL_atrocity
+			value = 25
+		}
+	}
+	option = {
+		name = EDG_WALEvents.2.bb
+		add_dip_power = 300
+	}
+}
+country_event = {
+	id = EDG_WALEvents.3
+	is_triggered_only = yes
+	title = EDG_WALEvents.3.name
+	desc = EDG_WALEvents.3.desc
+	picture = DIPLOMACY_eventPicture
+
+	major = yes
+
+	option = {
+		name = EDG_WALEvents.3.aa
+		280 = {
+			owner = {
+				root = {
+					declare_war_with_cb = {
+						casus_belli = cb_annex
+						who = prev
+					}
+				}
+			}
+		}
+		capital_scope = {
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			cavalry = root
+			cavalry = root
+		}
+		add_manpower = 10
+		EDG_add_claim = { area = ruthenia_region }
+	}
+	option = {
+		name = EDG_WALEvents.3.bb
+		add_prestige = -20
+		add_treasury = 200
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		EDG_add_claim = { area = ruthenia_region }
+	}
+}
+country_event = {
+	id = EDG_WALEvents.4
+	is_triggered_only = yes
+	title = EDG_WALEvents.4.name
+	desc = EDG_WALEvents.4.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_WALEvents.4.aa
+		280 = {
+			owner = {
+				white_peace = root
+				root = {
+					create_subject = {
+						subject_type = personal_union
+						subject = prev
+					}
+					add_historical_friend = prev
+				}
+				add_historical_friend = root
+				add_liberty_desire = -100
+			}
+		}
+	}
+	option = {
+		name = EDG_WALEvents.4.bb
+		add_country_modifier = {
+			name = EDG_WAL_break_iron_shoe
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = EDG_WALEvents.10
+	is_triggered_only = yes
+	title = EDG_WALEvents.10.name
+	desc = EDG_WALEvents.10.desc
+	picture = ANGRY_MOB_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			add_stability = -6
+			for = {
+				amount = 4
+				effect = "
+					random_owned_province = {
+						limit = {
+							NOT = {
+								has_province_flag = rebel_flag
+							}
+						}
+						set_province_flag = rebel_flag
+					}
+				"
+			}
+		}
+
+	}
+
+	option = {
+		name = EDG_WALEvents.10.aa
+		tooltip = {
+			add_stability = -6
+		}
+		every_owned_province = {
+			set_local_autonomy = 100
+		}
+		capital_scope = {
+			add_base_tax = -2
+			add_base_production = -2
+			add_base_manpower = -2
+		}
+		
+	}
+	option = {
+		name = EDG_WALEvents.10.bb
+		tooltip = {
+			add_stability = -6
+		}
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 10
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			clr_province_flag = rebel_flag
+		}
+		country_event = {
+			id =  EDG_WALEvents.14
+			days = 183
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.11
+	is_triggered_only = yes
+	title = EDG_WALEvents.11.name
+	desc = EDG_WALEvents.11.desc
+	picture = ANGRY_MOB_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			add_stability = -1
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.11.aa
+		tooltip = {
+			add_stability = -1
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 10
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.12
+	is_triggered_only = yes
+	title = EDG_WALEvents.12.name
+	desc = EDG_WALEvents.12.desc
+	picture = ANGRY_MOB_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_estate_privilege = estate_EDG_silver_agreement
+		has_country_flag = EDG_WAL_hostility_nobles_flag
+	}
+
+	immediate = {
+		hidden_effect = {
+			for = {
+				amount = 3
+				effect = "
+					random_owned_province = {
+						limit = {
+							NOT = {
+								has_province_flag = rebel_flag
+							}
+						}
+						set_province_flag = rebel_flag
+					}
+				"
+			}
+			add_stability = -3
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.12.aa
+		remove_estate_privilege = estate_EDG_silver_agreement
+		hidden_effect = {
+			clr_country_flag = EDG_WAL_mission_4_11_flag
+		}
+		tooltip = {
+			add_stability = -3
+		}
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 10
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			clr_province_flag = rebel_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.13
+	is_triggered_only = yes
+	title = EDG_WALEvents.13.name
+	desc = EDG_WALEvents.13.desc
+	picture = COUNTRY_COLLAPSE_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			for = {
+				amount = 2
+				effect = "
+					random_owned_province = {
+						limit = {
+							NOT = {
+								has_province_flag = rebel_flag
+							}
+						}
+						set_province_flag = rebel_flag
+					}
+				"
+			}
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.13.aa
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			add_unrest = 15
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			clr_province_flag = rebel_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.14
+	is_triggered_only = yes
+	title = EDG_WALEvents.14.name
+	desc = EDG_WALEvents.14.desc
+	picture = CONQUEST_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_disaster = EDG_WAL_years_of_terror
+	}
+
+	option = {
+		name = EDG_WALEvents.14.aa
+		add_stability = 2
+		add_ruler_modifier = {
+			name = EDG_WAL_power_of_the_maharajah
+			duration = -1
+		}
+		add_government_power = {
+			mechanic_type = EDG_WAL_atrocity_mechanic
+			power_type = EDG_WAL_atrocity
+			value = 10
+		}
+	}
+	after = {
+		country_event = {
+			id =  EDG_WALEvents.15
+			days = 183
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.15
+	is_triggered_only = yes
+	title = EDG_WALEvents.15.name
+	desc = EDG_WALEvents.15.desc
+	picture = LAND_MILITARY_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_WAL_years_of_terror_can_end_flag
+		}
+	}
+
+	trigger = {
+		has_disaster = EDG_WAL_years_of_terror
+	}
+
+	option = {
+		name = EDG_WALEvents.15.aa
+		add_stability = 1
+		add_ruler_modifier = {
+			name = EDG_WAL_bloodsucking_rumor
+			duration = -1
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 10
+			}
+		}
+		add_government_power = {
+			mechanic_type = EDG_WAL_atrocity_mechanic
+			power_type = EDG_WAL_atrocity
+			value = 15
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.16
+	is_triggered_only = yes
+	title = EDG_WALEvents.16.name
+	desc = EDG_WALEvents.16.desc
+	picture = GREAT_BUILDING_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_WAL_years_of_terror_end_flag
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.16.aa
+		add_prestige_or_monarch_power = {
+			amount = 25
+		}
+		add_country_modifier = {
+			name = EDG_WAL_unbridled_fear
+			duration = -1
+		}
+		add_government_power = {
+			mechanic_type = EDG_WAL_atrocity_mechanic
+			power_type = EDG_WAL_atrocity
+			value = 25
+		}
+		if = {
+			limit = {
+				has_country_flag = EDG_WAL_hostility_nobles_flag
+			}
+			add_treasury = 500
+			add_years_of_income = 5
+			add_stability_or_adm_power = {
+				amount = 2
+			}
+		}
+		if = {
+			limit = {
+				has_estate_privilege = estate_EDG_silver_agreement
+				has_country_flag = EDG_WAL_hostility_nobles_flag
+			}
+			country_event = {
+				id = EDG_WALEvents.12
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.20
+	is_triggered_only = yes
+	title = EDG_WALEvents.20.name
+	desc = EDG_WALEvents.20.desc
+	picture = ACCUSATION_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_WALEvents.20.aa
+		if = {
+			limit = { 
+				exists = PAP
+			}
+			PAP = {
+				add_historical_rival = root
+			}
+			add_historical_rival = PAP
+		}
+		else = {
+			add_prestige = -30
+		}
+	}
+	after = {
+		country_event = {
+			id = EDG_WALEvents.21
+			days = 183
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.21
+	is_triggered_only = yes
+	title = EDG_WALEvents.21.name
+	desc = EDG_WALEvents.21.desc
+	picture = CIVIL_WAR_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_disaster = EDG_WAL_hopelessness_ode
+	}
+
+	option = {
+		name = EDG_WALEvents.21.aa
+		add_disaster_modifier = {
+			name = EDG_WAL_gloomy
+			duration = -1
+			disaster = EDG_WAL_hopelessness_ode
+		}
+	}
+	after = {
+		country_event = {
+			id = EDG_WALEvents.22
+			days = 183
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.22
+	is_triggered_only = yes
+	title = EDG_WALEvents.22.name
+	desc = EDG_WALEvents.22.desc
+	picture = DIPLOMACY_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_disaster = EDG_WAL_hopelessness_ode
+	}
+
+	immediate = {
+		hidden_effect = {
+			for = {
+				amount = 4
+				effect = "
+					random_owned_province = {
+						limit = {
+							NOT = {
+								has_province_flag = rebel_flag
+							}
+						}
+						set_province_flag = rebel_flag
+					}
+				"
+			}
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.22.aa
+		add_stability = -3
+	}
+	option = {
+		name = EDG_WALEvents.22.bb
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 20
+			}
+		}
+	}
+	after = {
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			clr_province_flag = rebel_flag
+		}
+		country_event = {
+			id =  EDG_WALEvents.23
+			days = 183
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.23
+	is_triggered_only = yes
+	title = EDG_WALEvents.23.name
+	desc = EDG_WALEvents.23.desc
+	picture = DIPLOMACY_eventPicture
+	major = yes
+	fire_only_once = yes
+	trigger = {
+		has_disaster = EDG_WAL_hopelessness_ode
+	}
+
+	immediate = {
+		for = {
+			amount = 10
+			effect = "
+				random_owned_province = {
+					limit = {
+						NOT = {
+							has_province_flag = rebel_flag
+						}
+					}
+					set_province_flag = rebel_flag
+				}
+			"
+		}
+	}
+
+
+	option = {
+		name = EDG_WALEvents.23.aa
+		custom_tooltip = EDG_WALEvents.23.aa.tt
+		remove_government_reform = EDG_WAL_walrys_piercing_collar
+		remove_government_reform = EDG_WAL_bloody_tyrant
+		if = {
+			limit = { 
+				has_reform = EDG_WAL_kalmanni_deprivation
+			}
+			remove_government_reform = EDG_WAL_kalmanni_deprivation
+		}
+		kill_ruler = yes
+		add_stability = 1
+		hidden_effect = {
+			set_country_flag = EDG_WAL_kill_dracula_flag
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		name = EDG_WALEvents.23.bb
+		custom_tooltip = EDG_WALEvents.23.bb.tt
+		add_stability = 2
+		every_owned_province = {
+			limit = {
+				has_province_flag = rebel_flag
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 25
+			}
+		}
+		change_adm = 2
+		change_mil = 1
+		define_ruler_to_general = {
+			fire = 2
+			shock = 5
+			manuever = 6
+			siege = 5
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	after = {
+		set_country_flag = EDG_WAL_hopelessness_ode_can_end_flag
+	}
+}
+country_event = {
+	id = EDG_WALEvents.24
+	is_triggered_only = yes
+	title = EDG_WALEvents.24.name
+	desc = {
+		trigger = {
+			has_country_flag = EDG_WAL_kill_dracula_flag
+		}
+		desc = EDG_WALEvents.24.desc.1
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				has_country_flag = EDG_WAL_kill_dracula_flag
+			}
+		}
+		desc = EDG_WALEvents.24.desc.2
+	}
+	picture = MILITARY_CAMP_eventPicture
+	fire_only_once = yes
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_WAL_hopelessness_ode_end_flag
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.24.aa
+		trigger = {
+			has_country_flag = EDG_WAL_kill_dracula_flag
+		}
+		EDG_WAL_van_helsing = yes
+		change_religion = catholic
+		add_prestige = 100
+		remove_historical_rival = PAP
+		add_historical_friend = PAP
+		PAP = {
+			remove_historical_rival = root
+			add_historical_friend = root
+		}
+		add_stability = 3
+	}
+	option = {
+		name = EDG_WALEvents.24.bb
+		trigger = {
+			NOT = {
+				has_country_flag = EDG_WAL_kill_dracula_flag
+			}
+		}
+		add_ruler_modifier = {
+			name = EDG_WAL_dark_fame
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.30
+	is_triggered_only = yes
+	title = EDG_WALEvents.30.name
+	desc = EDG_WALEvents.30.desc
+	picture = CIVIL_WAR_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = EDG_WALEvents.31
+				days = 183
+			}
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.30.aa
+		every_owned_province = {
+			add_unrest = 10
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.31
+	is_triggered_only = yes
+	title = EDG_WALEvents.31.name
+	desc = EDG_WALEvents.31.desc
+	picture = WOUNDED_SOLDIERS_eventPicture
+
+	trigger = {
+		has_disaster = EDG_WAL_endless_whimpering
+	}
+
+	immediate = {
+		hidden_effect = {
+			add_stability = -1
+			country_event = {
+				id = EDG_WALEvents.32
+				days = 183
+			}
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.31.aa
+		tooltip = {
+			add_stability = -1
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.32
+	is_triggered_only = yes
+	title = EDG_WALEvents.32.name
+	desc = EDG_WALEvents.32.desc
+	picture = WOUNDED_SOLDIERS_eventPicture
+
+	trigger = {
+		has_disaster = EDG_WAL_endless_whimpering
+	}
+
+	immediate = {
+		hidden_effect = {
+			remove_government_reform = EDG_WAL_walrys_piercing_collar
+			remove_government_reform = EDG_WAL_bloody_tyrant
+			if = {
+				limit = { 
+					has_reform = EDG_WAL_kalmanni_deprivation
+				}
+				remove_government_reform = EDG_WAL_kalmanni_deprivation
+			}
+			add_stability = -6
+			set_bankruptcy = root
+			kill_ruler = yes
+			release_all_possible_countries = yes
+			release_all_subjects = yes
+			disband_all_units = yes
+		}
+	}
+
+	option = {
+		name = EDG_WALEvents.32.aa
+		custom_tooltip = EDG_WALEvents.32.aa.tt
+		tooltip = {
+			add_stability = -6
+			set_bankruptcy = root
+			kill_ruler = yes
+			release_all_possible_countries = yes
+			release_all_subjects = yes
+		}
+	}
+}
+country_event = {
+	id = EDG_WALEvents.33
+	is_triggered_only = yes
+	title = EDG_WALEvents.33.name
+	desc = EDG_WALEvents.33.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_WALEvents.33.aa
+		add_stability = 2
+	}
+}

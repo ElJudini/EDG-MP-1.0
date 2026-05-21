@@ -1,0 +1,766 @@
+is_EDG_FYM_eyalet_trigger = {
+	OR = {
+	  is_subject_of_type = vassal
+	  is_subject_of_type = EDG_FYM_slave_vassal
+	  is_subject_of_type = EDG_FYM_Agha_adm_vassal
+	  is_subject_of_type = EDG_FYM_Agha_mil_vassal
+	}
+}
+EDG_has_High_yield_crops_province_modifier_trigger = {
+	OR = {
+		has_province_modifier = EDG_flavor_Grand_Exchange_2_a_province_modifier
+		has_province_modifier = EDG_flavor_Grand_Exchange_3_a_province_modifier
+	}
+}
+EDG_LIT_mission_Attracting_immigrants_culture_group_trigger = {#立陶宛宗教移民
+	OR = {
+		culture_group = french
+		culture_group = gaelic
+		culture_group = british
+		culture_group = iberian
+		culture_group = latin
+		culture_group = west_slavic
+		culture_group = germanic
+	}
+}
+EDG_num_of_completed_idea_groups_adm = {
+	calc_true_if = {
+		desc = num_of_completed_idea_groups_adm_tt
+		full_idea_group = innovativeness_ideas
+		full_idea_group = religious_ideas
+		full_idea_group = economic_ideas
+		full_idea_group = expansion_ideas
+		full_idea_group = administrative_ideas
+		full_idea_group = humanist_ideas
+		full_idea_group = infrastructure_ideas
+		amount = $amount$
+	}
+}
+
+EDG_num_of_completed_idea_groups_dip = {
+	calc_true_if = {
+		desc = num_of_completed_idea_groups_dip_tt
+		full_idea_group = spy_ideas
+		full_idea_group = diplomatic_ideas
+		full_idea_group = trade_ideas
+		full_idea_group = exploration_ideas
+		full_idea_group = maritime_ideas
+		full_idea_group = influence_ideas
+		full_idea_group = court_ideas
+		full_idea_group = EDG_Iberian_basic_ideas
+		full_idea_group = EDG_empire_basic_ideas
+		amount = $amount$
+	}
+}
+
+EDG_num_of_completed_idea_groups_mil = {
+	calc_true_if = {
+		desc = num_of_completed_idea_groups_mil_tt
+		full_idea_group = aristocracy_ideas
+		full_idea_group = offensive_ideas
+		full_idea_group = defensive_ideas
+		full_idea_group = quality_ideas
+		full_idea_group = quantity_ideas
+		full_idea_group = naval_ideas
+		full_idea_group = theocracy_gov_ideas
+		full_idea_group = indigenous_ideas
+		full_idea_group = horde_gov_ideas
+		full_idea_group = plutocracy_ideas
+		full_idea_group = mercenary_ideas
+		full_idea_group = EDG_Russia_basic_ideas
+		full_idea_group = EDG_Peasant_basic_ideas
+		full_idea_group = EDG_occupation_ideas
+		amount = $amount$
+	}
+}
+
+EDG_NOT_under_Prohibition_order_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_NOT_under_Prohibition_order_trigger_tt
+		NOT = { EDG_under_Prohibition_order_trigger = yes }
+	}
+}
+EDG_under_Prohibition_order_trigger = {
+	religion = catholic
+	NOT = {
+		tag = PAP
+	}
+	NOT = {
+		is_papal_controller = yes
+	}
+	NOT = {
+		has_country_modifier = EDG_Prohibition_order_invalid_in_20_years_modifier
+	}
+	NOT = {
+		has_country_modifier = the_statue_in_restraint_of_appeals
+	}
+
+	OR = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_HRE_under_Prohibition_order_global_flag_hre_member_trigger_tt
+			is_part_of_hre = yes
+			has_global_flag = EDG_HRE_under_Prohibition_order_global_flag
+		}
+		has_country_modifier = EDG_under_Prohibition_order_modifier
+	}
+}
+EDG_Hostile_to_Pope_controllers_trigger = {
+	OR = {
+	  is_rival = FROM
+	  is_enemy = FROM
+	  is_league_enemy = FROM
+	  any_country = {
+		is_papal_controller = yes
+		OR = {
+		  is_rival = FROM
+		  is_enemy = FROM
+		  is_league_enemy = FROM
+		}
+	  }
+	}
+}
+EDG_Redemption_voucher_enable_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_Redemption_voucher_enable_global_flag_trigger_tt
+		NOT = { has_global_flag = EDG_Redemption_voucher_unable_global_flag }
+		if = {
+			limit = {
+				PAP = exists
+			}
+			PAP = {
+				NOT = { has_country_modifier = EDG_Catholic_decision_unable_redemption_vouchers_ruler_domestic }
+			}
+		}
+	}
+}
+EDG_PER_WAR_END_trigger = {
+	has_global_flag = EDG_PER_WAR_END_global_flag
+}
+EDG_PER_tag_trigger = {
+	OR = {
+		tag = PER
+		# AND = {
+		# 	tag = ARL
+		# 	NOT = { exists = PER }
+		# }
+	}
+}
+EDG_PER_ARL_trigger = {
+	OR = {
+		tag = PER
+		AND = {
+			tag = ARL
+			NOT = { exists = PER }
+		}
+	}
+}
+EDG_FRA_trigger = {
+	OR = {
+		tag = FRA
+		AND = {
+			tag = FRK
+			was_tag = FRA
+		}
+		AND = {
+			tag = HLR
+			was_tag = FRA
+		}
+		AND = {
+			tag = ROM
+			was_tag = FRA
+		}
+	}
+}
+Allow_militarized_government_reform_trigger = {
+	OR = {
+		has_government_attribute = EDG_Allow_militarized_government_reform_ability
+		has_reform = military_dictatorship_reform
+		has_reform = protectorate_parliament_reform
+		has_reform = prussian_republic_reform
+	}
+}
+EDG_not_RUS_tag_trigger = {
+	NOT = { tag = ERS }
+	NOT = { tag = RUS }
+	NOT = { tag = RUF }
+	NOT = { tag = UKR }
+	NOT = { tag = GRS }
+	NOT = { tag = ROS }
+}
+EDG_UKR_mission_P1_trigger = {
+	OR = {
+		tag = VOL
+		tag = CHR
+		tag = ZAZ
+		tag = UKR
+	}
+}
+EDG_UKR_mission_P2_trigger = {
+	tag = UKR
+}
+EDG_Reformed_Islam_trigger = {
+	
+}
+EDG_EDG_CN_Frontier_Command_trigger = {
+	OR = {
+		has_government_attribute = EDG_CN_Frontier_Command_ability
+	}
+}
+EDG_RuXue_religion_trigger = {
+	religion = confucianism
+}
+EDG_Romanian_culture_country_trigger = {
+	OR = {
+		primary_culture = romanian
+		primary_culture = transylvanian
+	}
+}
+EDG_Romanian_culture_province_trigger = {
+	OR = {
+		culture = romanian
+		culture = transylvanian
+	}
+}
+EDG_has_building_trigger = {
+	OR = {
+		has_building = mills
+		has_building = farm_estate
+		has_building = tradecompany
+		has_building = plantations
+		has_building = textile
+		has_building = weapons
+		has_building = wharf
+		has_building = furnace
+	}
+}
+
+EDG_BTA_country_trigger = {
+	OR = {
+		tag = BTA
+		tag = GBR
+	}
+}
+EDG_Chinawarlord_generic_mission_tag_trigger = {
+	NOT = { tag = YIN }
+	OR = {
+		tag = YAN
+		tag = JIN
+		tag = QIN
+		tag = QIC
+		tag = CSH
+		tag = LNG
+		tag = TNG
+		tag = CXI
+		tag = CHC
+		tag = WUU
+		tag = NNG
+		tag = MIN
+		tag = HUA
+		tag = YUE
+		tag = CMI
+		tag = CYI
+		tag = CDL
+		tag = CGS
+		tag = SHU 
+		tag = FRM
+		tag = WUY
+		tag = CHN
+		tag = HEJ
+		tag = JII
+		tag = LAA
+		tag = JUU
+		tag = LUU
+		tag = JEE
+		tag = SNG
+		tag = WEI
+		tag = SHH
+		tag = GGG
+		tag = XUN
+		tag = CUZ
+		tag = QAZ
+		tag = LIU
+		tag = LUZ
+		tag = SZZ
+		tag = HZZ
+		tag = CUH
+		tag = IBR
+		tag = LAG
+		tag = HNG
+		tag = YIN
+		
+	}
+}
+EDG_PER_generic_mission_tag_trigger = {
+	NOT = {
+		OR = {
+			AND = {
+				tag = PER
+				was_tag = HZB
+			}
+			AND = {
+				tag = PER
+				was_tag = ARL
+			}
+			AND = {
+				tag = PER
+				was_tag = AKK
+			}
+			AND = {
+				tag = PER
+				was_tag = TBR
+			}
+			AND = {
+				tag = PER
+				was_tag = ORM
+			}
+			AND = {
+				tag = PER
+				was_tag = TIM
+			}
+		}
+	}
+	OR = {
+		#tag = ARM
+		tag = BSR
+		tag = LRI
+		tag = ARD
+		tag = BHT
+		tag = MGR
+		tag = SRV
+		tag = IME
+		tag = QOM
+		tag = SME
+		tag = PER
+		tag = KRM
+		tag = ISF
+		#tag = AK2
+		tag = ART
+		tag = FRH
+		tag = SEG
+	}
+}
+EDG_CAT_generic_mission_tag_trigger = {
+	OR = {
+		tag = CAT
+		tag = VAL
+		AND = {
+			
+			OR = {
+				tag = SPA
+				tag = IBR
+				tag = USP
+				tag = GSP
+			}
+			OR = {
+				primary_culture = catalan
+			}
+		}
+	}
+}
+EDG_DOM_ARA_generic_mission_tag_trigger = {
+    OR = {
+     	tag = ARA
+		AND = {
+			OR = {
+				tag = SPA
+				tag = IBR
+				tag = USP
+				tag = GSP
+			}
+			OR = {
+				primary_culture = aragonese
+			}
+		}
+
+    }
+}
+EDG_DOM_CAS_generic_mission_tag_trigger = {
+    OR = {
+     	tag = CAS
+		AND = {
+			OR = {
+				tag = SPA
+				tag = IBR
+				tag = USP
+				tag = GSP
+			}
+			OR = {
+				primary_culture = castillian
+			}
+		}
+
+    }
+}
+EDG_SPA_generic_mission_tag_trigger = {
+    OR = {
+      tag = ASU
+      tag = GAL
+      tag = NAV
+      tag = ADC
+      tag = ETM
+	  tag = CAS
+		AND = {
+			OR = {
+				tag = SPA
+				tag = IBR
+				tag = USP
+				tag = GSP
+			}
+			OR = {
+				primary_culture = castillian
+				primary_culture = leonese
+				primary_culture = galician
+				primary_culture = basque
+				primary_culture = andalucian
+			}
+		}
+
+    }
+}
+EDG_SPA_generic_mission_tag_trigger_2 = {
+	OR = {
+		tag = SPA
+		tag = IBR
+		tag = USP
+		tag = GSP
+		tag = ADC
+	}
+	OR = {
+		primary_culture = castillian
+		primary_culture = leonese
+		primary_culture = galician
+		primary_culture = basque
+		primary_culture = andalucian
+	}
+}
+EDG_EGY_reform_NOM_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_EGY_reform_NOM_trigger_tooltip
+		OR = {
+			has_country_flag = EDG_EGY_reform_NOM_influence_3_flag
+			has_country_flag = EDG_EGY_reform_NOM_influence_4_flag
+			has_country_flag = EDG_EGY_reform_NOM_influence_5_flag
+		}
+	}
+}
+EDG_EGY_reform_COP_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_EGY_reform_COP_trigger_tooltip
+		OR = {
+			has_country_flag = EDG_EGY_reform_COP_influence_3_flag
+			has_country_flag = EDG_EGY_reform_COP_influence_4_flag
+			has_country_flag = EDG_EGY_reform_COP_influence_5_flag
+		}
+	}
+}
+
+EDG_great_power_rank_1 = {
+	NOT = { great_power_rank = 2 }
+	is_great_power = yes
+}
+
+
+EDG_IBR_conflict_trigger = {
+	custom_trigger_tooltip = {
+		tooltip = EDG_IBR_conflict_trigger_tooltip
+		OR = {
+			tag = MIB
+			tag = CAS
+			tag = POR
+			tag = GAL
+			tag = ASU
+			tag = NAV
+			tag = ARA
+			tag = CAT
+			tag = VAL
+			tag = MJO
+			tag = BDH
+			tag = GRA
+			tag = SVL
+			tag = CIE
+			tag = AMR
+			tag = ETM
+			tag = LON
+			tag = ADU
+			tag = SPA
+			tag = IBR
+
+			tag = MUC
+			tag = SRA
+			tag = ARC
+			tag = CLT
+			tag = PRT
+			tag = TLD
+			tag = ZRZ
+		}
+	}
+}
+EDG_IBR_conflict_vote_finish_trigger = {
+	OR = {
+		NOT = { exists = MUC }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = SRA }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = ARC }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = CLT }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = PRT }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = ZRZ }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = TLD }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = ADU }
+		ADU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = SPA }
+		SPA = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = IBR }
+		IBR = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = CAS }
+		CAS = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = POR }
+		POR = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = GAL }
+		GAL = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = ASU }
+		ASU = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = NAV }
+		NAV = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = ARA }
+		ARA = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = CAT }
+		CAT = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = VAL }
+		VAL = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = MJO }
+		MJO = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = BDH }
+		BDH = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = GRA }
+		GRA = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = AMR }
+		AMR = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = CIE }
+		CIE = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+	OR = {
+		NOT = { exists = SVL }
+		SVL = { has_country_flag = EDG_IBR_country_vote_finish }
+	}
+}
+
+EDG_IBR_conflict_vote_trigger = {
+	OR = {
+		has_global_flag = EDG_IBR_conflict_vote_agree_25
+		has_global_flag = EDG_IBR_conflict_vote_agree_24
+		has_global_flag = EDG_IBR_conflict_vote_agree_23
+		has_global_flag = EDG_IBR_conflict_vote_agree_22
+		has_global_flag = EDG_IBR_conflict_vote_agree_21
+		has_global_flag = EDG_IBR_conflict_vote_agree_20
+		has_global_flag = EDG_IBR_conflict_vote_agree_19
+		has_global_flag = EDG_IBR_conflict_vote_agree_18
+		has_global_flag = EDG_IBR_conflict_vote_agree_17
+		has_global_flag = EDG_IBR_conflict_vote_agree_16
+		has_global_flag = EDG_IBR_conflict_vote_agree_15
+		has_global_flag = EDG_IBR_conflict_vote_agree_14
+		has_global_flag = EDG_IBR_conflict_vote_agree_13
+	}
+}
+
+
+EDG_ALL_estate_loyalty_above_50_trigger = {
+	
+	if = {
+		limit = { has_estate = estate_nobles }
+		estate_loyalty = { estate = estate_nobles loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_burghers }
+		estate_loyalty = { estate = estate_burghers loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_church }
+		estate_loyalty = { estate = estate_church loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_brahmins }
+		estate_loyalty = { estate = estate_brahmins loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_maratha }
+		estate_loyalty = { estate = estate_maratha loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_vaisyas }
+		estate_loyalty = { estate = estate_vaisyas loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_cossacks }
+		estate_loyalty = { estate = estate_cossacks loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_nomadic_tribes }
+		estate_loyalty = { estate = estate_nomadic_tribes loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_dhimmi }
+		estate_loyalty = { estate = estate_dhimmi loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_jains }
+		estate_loyalty = { estate = estate_jains loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_janissaries }
+		estate_loyalty = { estate = estate_janissaries loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_eunuchs }
+		estate_loyalty = { estate = estate_eunuchs loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_rajput }
+		estate_loyalty = { estate = estate_rajput loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_edg_caledonia }
+		estate_loyalty = { estate = estate_edg_caledonia loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_edg_mafia }
+		estate_loyalty = { estate = estate_edg_mafia loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDGMercenaryLord }
+		estate_loyalty = { estate = estate_EDGMercenaryLord loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDG_peasants }
+		estate_loyalty = { estate = estate_EDG_peasants loyalty = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDG_officials }
+		estate_loyalty = { estate = estate_EDG_officials loyalty = 50 }
+	}
+}
+
+EDG_ALL_estate_influence_under_50_trigger = {
+	
+	if = {
+		limit = { has_estate = estate_nobles }
+		estate_influence = { estate = estate_nobles influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_burghers }
+		estate_influence = { estate = estate_burghers influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_church }
+		estate_influence = { estate = estate_church influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_brahmins }
+		estate_influence = { estate = estate_brahmins influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_maratha }
+		estate_influence = { estate = estate_maratha influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_vaisyas }
+		estate_influence = { estate = estate_vaisyas influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_cossacks }
+		estate_influence = { estate = estate_cossacks influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_nomadic_tribes }
+		estate_influence = { estate = estate_nomadic_tribes influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_dhimmi }
+		estate_influence = { estate = estate_dhimmi influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_jains }
+		estate_influence = { estate = estate_jains influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_janissaries }
+		estate_influence = { estate = estate_janissaries influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_eunuchs }
+		estate_influence = { estate = estate_eunuchs influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_rajput }
+		estate_influence = { estate = estate_rajput influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_edg_caledonia }
+		estate_influence = { estate = estate_edg_caledonia influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_edg_mafia }
+		estate_influence = { estate = estate_edg_mafia influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDGMercenaryLord }
+		estate_influence = { estate = estate_EDGMercenaryLord influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDG_peasants }
+		estate_influence = { estate = estate_EDG_peasants influence = 50 }
+	}
+	if = {
+		limit = { has_estate = estate_EDG_officials }
+		estate_influence = { estate = estate_EDG_officials influence = 50 }
+	}
+}

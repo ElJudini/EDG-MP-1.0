@@ -1,0 +1,607 @@
+namespace = EDG_FYM_disaster_CivilWar
+
+# Civil war
+
+
+# A cry for help
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.2
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME3092"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC3092"
+	picture = DIPLOMACY_eventPicture
+	
+	trigger = {
+		revolt_percentage = 0.05
+		num_of_allies = 1
+	}
+
+	is_triggered_only = yes
+	
+	
+	
+	immediate = {
+		hidden_effect = {
+			random_ally = {
+				save_event_target_as = ally_country #just for localisations
+			}
+		}
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA3092"			# Request aid from your allies
+		add_dip_power = -100
+		ai_chance = { factor = 40 }
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB3092"			# Rely on your own strength
+		ai_chance = { factor = 60 }
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		
+		random_owned_province = {
+			limit = { is_core = ROOT }
+			spawn_rebels = {
+				type = 	pretender_rebels
+				religion = ROOT
+				size = 1
+				win = yes
+			}
+		}	
+	}
+}
+
+# Unscrupulous in-laws
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.3
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME3093"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC3093"
+	picture = CIVIL_WAR_eventPicture
+	goto = inlaws_province
+	
+	trigger = {
+		if = {
+			limit = {
+				has_dlc = "Rights of Man"
+			}
+			has_consort = yes
+		}
+		else = {
+			num_of_royal_marriages = 1
+		}
+		any_owned_province = {
+			is_capital = no
+			is_core = ROOT
+			NOT = { local_autonomy = 90 }
+		}
+	}
+
+	is_triggered_only = yes
+	
+	
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					is_core = ROOT
+					NOT = { local_autonomy = 90 }
+				}
+				save_event_target_as = inlaws_province
+			}	
+		}
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA3093"			# Take appropriate measures
+		ai_chance = { factor = 40 }
+		add_adm_power = -25		
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+		event_target:inlaws_province = {
+			pretender_rebels = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB3093"			# Ignore their pathetic attempts
+		ai_chance = { factor = 60 }
+		add_prestige = -10
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+		event_target:inlaws_province = {
+			add_local_autonomy = 20
+		}		
+	}
+}
+
+# Rebel forces take over
+province_event = {
+	id = EDG_FYM_disaster_CivilWar.4
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME3094"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC3094"
+	picture = ANGRY_MOB_eventPicture
+	goto = root
+	
+	trigger = {
+		fort_level = 1
+		has_siege = yes
+		sieged_by = REB
+		owner = {
+			is_at_war = no
+			has_disaster = civil_war
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 120
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB3094"			# We'll have to accept defeat, for now
+		change_siege = 3
+	}
+}
+
+# Army deserters
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.5
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME3095"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC3095"
+	picture = LAND_MILITARY_eventPicture
+	
+	trigger = {
+		NOT = { has_country_modifier = deserters }
+		NOT = { has_country_modifier = morale_boost }
+		manpower_percentage = 0.01
+	}
+	
+	is_triggered_only = yes
+	
+	
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA3095"			# Try to strengthen their morale
+		add_years_of_income = -0.50
+		add_legitimacy = 5		
+		add_horde_unity = 5	
+		add_mandate_effect = yes
+		add_country_modifier = {
+			name = "morale_boost"
+			duration = 1825
+		}		
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB3095"			# We have no resources for that
+		ai_chance = { factor = 0 }
+		add_country_modifier = {
+			name = "deserters"
+			duration = 1825
+		}		
+		add_yearly_manpower = -0.15
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+	}
+}
+
+#Support in capital
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.6
+	title = EDG_FYM_disaster_CivilWar.6.title
+	desc = EDG_FYM_disaster_CivilWar.6.desc
+	picture = LAND_MILITARY_eventPicture
+	goto = capital
+	
+	trigger = {
+		NOT = { 
+			has_country_flag = civilwar_on_capital
+		}
+		capital_scope = {
+			controlled_by = owner
+			has_siege = no		
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	
+	
+	immediate = {
+		set_country_flag = civilwar_on_capital
+		hidden_effect = {
+			capital_scope = {
+				save_event_target_as = capital
+			}
+		}
+	}
+	option = {
+		name = EDG_FYM_disaster_CivilWar.6.aa
+		capital_scope = {
+			pretender_rebels = 2
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}	
+}
+
+
+
+# Civil war brings our nation to its knees
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.7
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6018"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6018"
+	picture = CIVIL_WAR_eventPicture
+	
+	is_triggered_only = yes
+
+	trigger = {
+		had_country_flag = {
+			flag = had_civil_war
+			days = 365
+		}
+		NOT = { has_country_flag = civil_war_knees_event }
+		any_owned_province = {
+			controlled_by = REB
+		}
+	}
+	
+	
+
+	immediate = {
+		set_country_flag = civil_war_knees_event
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6018"				# There is nothing we can do.
+		every_owned_province = {
+			limit = {
+				is_capital = no
+				is_core = ROOT
+			}
+			add_local_autonomy = 15
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6018"				# Support one of the factions
+		add_adm_power = -50
+		
+		add_legitimacy = 10
+		add_horde_unity = 10
+		add_mandate_large_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_3
+			power_type = EDG_FYM_Monarchy_power_3
+			value = -5
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTC6018"				# Start negotiations to minimize the damage
+		add_years_of_income = -0.25
+		add_prestige = -15
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+	}
+}
+
+# Civil Disorder about to Devolve into Chaos
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.8
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6019"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6019"
+	picture = CIVIL_WAR_eventPicture
+
+	is_triggered_only = yes
+	
+	
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6019"			# There is nothing we can do
+		ai_chance = { factor = 20 }
+		add_years_of_income = -0.25
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -2
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6019"			# We will stop this at any cost
+		ai_chance = { factor = 80 }		
+		add_stability = -1
+		random_owned_province = {
+			limit = { is_core = ROOT }
+			pretender_rebels = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+	}
+}
+
+# Factional powers emerge from the chaos
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.9
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6020"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6020"
+	picture = DIPLOMACY_eventPicture
+	
+	is_triggered_only = yes
+	
+	
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6020"			# Support one side
+		add_adm_power = -75
+		add_dip_power = -75
+		set_country_flag = favoured_faction
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6020"			# Don't support any faction
+		add_stability = -1
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+	}
+}
+
+# Faction requests financial aid
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.10
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6021"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6021"
+	picture = CONQUEST_eventPicture
+	
+	trigger = {
+		has_country_flag = favoured_faction
+	}
+	
+	is_triggered_only = yes
+	
+	
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6021"			# Lend support
+		add_years_of_income = -0.5
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6021"			# Ignore their pleas
+		add_prestige = -10
+		add_legitimacy = -5
+		add_horde_unity = -5
+		reduce_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+		ai_chance = { factor = 0 }
+	}
+}
+
+# Favoured faction threatens to splinter
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.11
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6022"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6022"
+	picture = DEBATE_REPUBLICAN_eventPicture
+
+	goto = rebel_province
+	
+	trigger = {
+		has_country_flag = favoured_faction
+		any_owned_province = {
+			has_owner_culture = no
+			has_owner_accepted_culture = no
+			is_capital = no
+			NOT = { local_autonomy = 75 }
+		}
+	}
+	
+	is_triggered_only = yes
+	
+	
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					has_owner_culture = no
+					has_owner_accepted_culture = no
+					is_capital = no
+					NOT = { local_autonomy = 75 }
+				}
+				save_event_target_as = rebel_province
+			}
+		}
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6022"		# Let them splinter
+		event_target:rebel_province = {
+			pretender_rebels = 1
+		}
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6022"		# Summon the faction leaders to begin negotiations
+		add_prestige = -10
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTC6022"		# Summon the faction leaders to begin negotiations
+		event_target:rebel_province = {
+			add_local_autonomy = 50
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+	}
+}
+
+# Total war emerges internally
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.12
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6023"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6023"
+	picture = BATTLE_eventPicture
+		
+	trigger = {
+		NOT = { has_country_flag = total_war_peak }
+		revolt_percentage = 0.20
+	}
+	
+	immediate = {
+		set_country_flag = total_war_peak
+
+	}
+	is_triggered_only = yes
+	
+	
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6023"			# We can't do anything about it
+		add_legitimacy = -5
+		add_horde_unity = -5
+		reduce_mandate_effect = yes
+		every_core_province = {
+			limit = {
+				is_capital = no
+				is_core = ROOT
+			}
+			add_local_autonomy = 15
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6023"			# Try to suppress the worst spots
+		add_adm_power = -100
+		add_dip_power = -100
+		add_mil_power = -100
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -2
+		}
+	}
+}
+
+# A Dominant factions emerge
+country_event = {
+	id = EDG_FYM_disaster_CivilWar.13
+	title = "EDG_FYM_disaster_CivilWar_EVTNAME6026"
+	desc = "EDG_FYM_disaster_CivilWar_EVTDESC6026"
+	picture = DEBATE_REPUBLICAN_eventPicture
+	
+	trigger = {
+		has_country_flag = total_war_peak
+		has_country_flag = favoured_faction
+		NOT = { has_country_flag = dominant_faction }
+		
+	}
+	
+	is_triggered_only = yes
+	
+	
+	
+	immediate = {
+		set_country_flag = dominant_faction
+	}
+	
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTA6026"			# Fight it out
+		random_owned_province = {
+			limit = { is_core = ROOT }
+			pretender_rebels = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+	}
+	option = {
+		name = "EDG_FYM_disaster_CivilWar_EVTOPTB6026"			# Negotiate a settlement between all major factions
+		add_years_of_income = -0.50
+		add_legitimacy = 5
+		add_horde_unity = 5
+		add_mandate_effect = yes
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+	}
+}
+

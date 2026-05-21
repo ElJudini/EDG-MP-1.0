@@ -1,0 +1,82 @@
+EDG_SMO_foreign_forces_rebel = {
+	color = { 230 175 175 }
+	area = nation
+	government = any
+	defection = none	
+	defect_delay = 120
+	independence = none
+	unit_transfer = yes
+	will_relocate = yes
+	gfx_type = culture_province
+
+	resilient = yes
+	reinforcing = yes
+	general = yes
+	smart = yes
+
+	infantry = 0.7
+	cavalry = 0.1
+	artillery = 0.2
+	morale = 2
+
+	handle_action_build_core = no
+	handle_action_change_culture = no
+	handle_action_send_missionary = no
+	handle_action_negotiate = no
+	handle_action_stability = no
+
+	spawn_chance = {
+		factor = 0
+	}
+
+	movement_evaluation = {
+		factor = 1
+		modifier = {
+			factor = 100
+			controlled_by = owner
+		}
+	}
+
+	can_enforce_trigger = {
+		always = yes
+	}
+	can_negotiate_trigger = {
+		always = yes
+	}
+	siege_won_trigger = {
+		always = yes
+	}
+	siege_won_effect = {
+		if = {
+			limit = { 
+				exists = ROS
+			}
+			add_core = ROS
+		}
+		else_if = {
+			limit = { 
+				exists = FWF
+			}
+			add_core = FWF
+		}
+	}
+	demands_description = "EDG_SMO_foreign_forces_rebel_demands_description"
+	demands_enforced_effect = {
+		if = {
+			limit = { 
+				exists = ROS
+			}
+			ROS = {
+				inherit = root
+			}
+		}
+		else_if = {
+			limit = { 
+				exists = FWF
+			}
+			FWF = {
+				inherit = root
+			}
+		}
+	}
+}

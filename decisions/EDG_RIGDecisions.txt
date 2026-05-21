@@ -1,0 +1,3512 @@
+country_decisions = {
+	rig_deal_with_prussian_confederation = {
+		major = yes
+		potential = {
+			tag = RIG
+			exists = TEU
+			TEU = {
+				is_subject_of = root
+				NOT = {
+					has_country_flag = pru_confederation_curtailed
+				}
+			}
+			mission_completed = rig_furor_teutonicus
+		}
+		color = { 135  206  235 }
+		allow = {
+			
+		}
+		effect = {
+			country_event = {
+				id = rigaExpand.4
+			}
+		}
+	}
+	rig_integration_scandinavia = {
+		major = yes
+		potential = {
+			# any_subject_country = {
+			# 	capital_scope = {
+			# 		region = scandinavia_region
+			# 	}
+			# }
+			NOT = {
+				has_country_flag = rig_build_swe_military_region
+			}
+			tag = RIG
+			RIG = {
+				mission_completed = rig_concerning_civil_government
+			}
+			NOT = {
+				exists = SCA
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = scandinavia_region
+				value = 20
+			}
+			OR = {
+				NOT = {
+					exists = SWE
+				}
+				SWE = {
+					is_subject_of = root
+				}
+			}
+			1 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			if = {
+				limit = { 
+					exists = FSD
+				}
+				FSD = {
+					is_subject_of = root
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = FSD
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							exists = SWE
+						}
+					}
+					1 = {
+						owner = {
+							release = SWE
+						}
+					}
+					SWE = {
+						change_tag = FSD
+						add_country_modifier = {
+							name = "centralization_modifier"
+							duration = 7300
+						}
+						if = {
+							limit = {
+								has_custom_ideas = no
+							}
+							country_event = { id = ideagroups.1 } #Swap Ideas
+						}
+					}
+					FSD = {
+						inherit = SWE
+					}
+					riga_set_up_special_vassal_effect = {
+						type = rig_episcopal_military_district
+						subject = FSD
+						reform = yes
+					}
+					if = {
+						limit = { 
+							exists = NOR
+							NOR = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = NOR
+						}
+					}
+					if = {
+						limit = { 
+							exists = SKN
+							SKN = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = SKN
+						}
+					}
+					if = {
+						limit = { 
+							exists = SMI
+							SMI = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = SMI
+						}
+					}
+					every_province = {
+						limit = {
+							region = scandinavia_region
+							owner = {
+								NOT = {
+									OR = {
+										is_subject_of_type = rig_trade_city
+										is_subject_of_type = rig_knightage_vissal
+										tag = FSD
+									}
+								}
+							}
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = FSD
+							cede_province = FSD
+						}
+						else = {
+							cede_province = FSD
+						}
+					}
+				}
+				else = {
+					SWE = {
+						change_tag = FSD
+						add_country_modifier = {
+							name = "centralization_modifier"
+							duration = 7300
+						}
+						if = {
+							limit = {
+								has_custom_ideas = no
+							}
+							country_event = { id = ideagroups.1 } #Swap Ideas
+						}
+					}
+					FSD = {
+						inherit = SWE
+					}
+					if = {
+						limit = { 
+							exists = NOR
+							NOR = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = NOR
+						}
+					}
+					if = {
+						limit = { 
+							exists = SKN
+							SKN = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = SKN
+						}
+					}
+					if = {
+						limit = { 
+							exists = SMI
+							SMI = {
+								is_subject_of = root
+							}
+						}
+						FSD = {
+							inherit = SMI
+						}
+					}
+					every_province = {
+						limit = {
+							region = scandinavia_region
+							owner = {
+								NOT = {
+									OR = {
+										is_subject_of_type = rig_trade_city
+										is_subject_of_type = rig_knightage_vissal
+										tag = FSD
+									}
+								}
+							}
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = FSD
+							cede_province = FSD
+						}
+						else = {
+							cede_province = FSD
+						}
+					}
+					riga_set_up_special_vassal_effect = {
+						type = rig_episcopal_military_district
+						subject = FSD
+						reform = yes
+					}
+				}
+			}
+			else = {
+				every_province = {
+					limit = {
+						region = scandinavia_region
+						owner = {
+							NOT = {
+								OR = {
+									is_subject_of_type = rig_trade_city
+									is_subject_of_type = rig_knightage_vissal
+									tag = FSD
+								}
+							}
+						}
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = FSD
+						cede_province = FSD
+					}
+					else = {
+						cede_province = FSD
+					}
+				}
+			}
+			hidden_effect = {
+				set_country_flag = rig_build_swe_military_region
+				set_country_flag = formed_scandinavia_flag
+				FSD = {
+					change_country_color = {
+						country = root
+					}
+				}
+			}
+		}
+	}
+	rig_integration_russia = {
+		major = yes
+		potential = {
+			# any_subject_country = {
+			# 	OR = {
+			# 		capital_scope = {
+			# 			region = russia_region
+			# 		}
+			# 		tag = NOV
+			# 	}
+			# }
+			NOT = {
+				has_country_flag = rig_build_rus_administrative_region
+			}
+			tag = RIG
+			RIG = {
+				mission_completed = rig_concerning_civil_government
+			}
+			if = {
+				limit = { 
+					exists = RUS
+				}
+				RUS = {
+					is_subject_of = root
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = russia_region
+				value = 20
+			}
+			OR = {
+				NOT = {
+					exists = NOV
+				}
+				NOV = {
+					is_subject_of = root
+				}
+			}
+			310 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			294 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			301 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = NOV
+					}
+				}
+				310 = {
+					owner = {
+						release = NOV
+					}
+				}
+				NOV = {
+					change_tag = RUS
+					add_country_modifier = {
+						name = "centralization_modifier"
+						duration = 7300
+					}
+					if = {
+						limit = {
+							has_custom_ideas = no
+						}
+						country_event = { id = ideagroups.1 } #Swap Ideas
+					}
+				}
+				if = {
+					limit = { 
+						exists = TVE
+						TVE = {
+							is_subject_of = root
+						}
+					}
+					RUS = {
+						inherit = TVE
+					}
+				}
+				if = {
+					limit = { 
+						exists = PSK
+						PSK = {
+							is_subject_of = root
+						}
+					}
+					RUS = {
+						inherit = PSK
+					}
+				}
+				RUS = {
+					inherit = NOV
+				}
+				every_province = {
+					limit = {
+						region = russia_region
+						owner = {
+							NOT = {
+								OR = {
+									is_subject_of_type = rig_trade_city
+									is_subject_of_type = rig_knightage_vissal
+									tag = RUS
+								}
+							}
+						}
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = RUS
+						cede_province = RUS
+					}
+					else = {
+						cede_province = RUS
+					}
+				}
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_administrative_district
+					subject = RUS
+					reform = yes
+				}
+			}
+			else = {
+				NOV = {
+					change_tag = RUS
+					add_country_modifier = {
+						name = "centralization_modifier"
+						duration = 7300
+					}
+					if = {
+						limit = {
+							has_custom_ideas = no
+						}
+						country_event = { id = ideagroups.1 } #Swap Ideas
+					}
+				}
+				RUS = {
+					inherit = NOV
+				}
+				if = {
+					limit = { 
+						exists = TVE
+						TVE = {
+							is_subject_of = root
+						}
+					}
+					RUS = {
+						inherit = TVE
+					}
+				}
+				if = {
+					limit = { 
+						exists = PSK
+						PSK = {
+							is_subject_of = root
+						}
+					}
+					RUS = {
+						inherit = PSK
+					}
+				}
+				every_province = {
+					limit = {
+						region = russia_region
+						owner = {
+							NOT = {
+								OR = {
+									is_subject_of_type = rig_trade_city
+									is_subject_of_type = rig_knightage_vissal
+									tag = RUS
+								}
+							}
+						}
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = RUS
+						cede_province = RUS
+					}
+					else = {
+						cede_province = RUS
+					}
+				}
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_administrative_district
+					subject = RUS
+					reform = yes
+				}
+			}
+			hidden_effect = {
+				set_country_flag = rig_build_rus_administrative_region
+				RUS = {
+					change_country_color = {
+						country = root
+					}
+				}
+			}
+		}
+	}
+	rig_integration_ruthenia = {
+		major = yes
+		potential = {
+			# any_subject_country = {
+			# 	capital_scope = {
+			# 		region = ruthenia_region
+			# 	}
+			# }
+			NOT = {
+				has_country_flag = rig_build_ukr_administrative_region
+			}
+			NOT = {
+				exists = UKR
+			}
+			tag = RIG
+			RIG = {
+				mission_completed = rig_concerning_civil_government
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = ruthenia_region
+				value = 20
+			}
+			OR = {
+				NOT = {
+					exists = KIE
+				}
+				KIE = {
+					is_subject_of = root
+				}
+			}
+			280 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			279 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			281 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						exists = KIE
+					}
+				}
+				280 = {
+					owner = {
+						release = KIE
+					}
+				}
+				KIE = {
+					change_tag = UKR
+					add_country_modifier = {
+						name = "centralization_modifier"
+						duration = 7300
+					}
+					if = {
+						limit = {
+							has_custom_ideas = no
+						}
+						country_event = { id = ideagroups.1 } #Swap Ideas
+					}
+				}
+				UKR = {
+					inherit = KIE
+				}
+				every_province = {
+					limit = {
+						region = ruthenia_region
+						owner = {
+							NOT = {
+								OR = {
+									is_subject_of_type = rig_trade_city
+									is_subject_of_type = rig_knightage_vissal
+									tag = UKR
+								}
+							}
+						}
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = UKR
+						cede_province = UKR
+					}
+					else = {
+						cede_province = UKR
+					}
+				}
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_administrative_district
+					subject = UKR
+					reform = yes
+				}
+			}
+			else = {
+				KIE = {
+					change_tag = UKR
+					add_country_modifier = {
+						name = "centralization_modifier"
+						duration = 7300
+					}
+					if = {
+						limit = {
+							has_custom_ideas = no
+						}
+						country_event = { id = ideagroups.1 } #Swap Ideas
+					}
+				}
+				UKR = {
+					inherit = KIE
+				}
+				every_province = {
+					limit = {
+						region = ruthenia_region
+						owner = {
+							NOT = {
+								OR = {
+									is_subject_of_type = rig_trade_city
+									is_subject_of_type = rig_knightage_vissal
+									tag = UKR
+								}
+							}
+						}
+						riga_subject_of_subject_owned_land = { who = root }
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = UKR
+						cede_province = UKR
+					}
+					else = {
+						cede_province = UKR
+					}
+				}
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_administrative_district
+					subject = UKR
+					reform = yes
+				}
+			}
+			hidden_effect = {
+				set_country_flag = rig_build_ukr_administrative_region
+				UKR = {
+					change_country_color = {
+						country = root
+					}
+				}
+			}
+		}
+	}
+	rig_integration_iberia = { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = IBR
+					IBR = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = IBR
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				value = 25
+			}
+			NOT = {
+				exists = IBR
+			}
+		}
+		effect = {
+			iberia_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = IBR
+					cede_province = IBR
+				}
+				else = {
+					cede_province = IBR
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_military_district
+				subject = IBR
+				reform = yes
+			}
+		}
+	}
+	rig_integration_italy = { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = ITA
+					ITA = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = ITA
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				value = 25
+			}
+			118 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			NOT = {
+				exists = ITA
+			}
+		}
+		effect = {
+			italy_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = ITA
+					cede_province = ITA
+				}
+				else = {
+					cede_province = ITA
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_military_district
+				subject = ITA
+				reform = yes
+			}
+			118 = {
+				add_core = PAP
+				cede_province = PAP
+			}
+			ITA = {
+				create_subject = {
+					subject_type = rig_vassal
+					subject = PAP
+				}
+			}
+		}
+	}
+	rig_integration_Netherlands = { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = NED
+					ITA = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = NED
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = low_countries_region
+				value = 10
+			}
+			NOT = {
+				exists = NED
+			}
+		}
+		effect = {
+			low_countries_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = NED
+					cede_province = NED
+				}
+				else = {
+					cede_province = NED
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_economic_district
+				subject = NED
+				reform = yes
+			}
+		}
+	}
+	rig_integration_german = { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = GER
+					GER = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = GER
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = north_german_region
+				value = 25
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = south_german_region
+				value = 25
+			}
+			NOT = {
+				exists = GER
+			}
+		}
+		effect = {
+			north_german_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = GER
+					cede_province = GER
+				}
+				else = {
+					cede_province = GER
+				}
+			}
+			south_german_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = GER
+					cede_province = GER
+				}
+				else = {
+					cede_province = GER
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_administrative_district
+				subject = GER
+				reform = yes
+			}
+		}
+	}
+	rig_integration_france = { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = FRA
+					FRA = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = FRA
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = france_region
+				value = 25
+			}
+			NOT = {
+				exists = FRA
+			}
+			183 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			france_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = FRA
+					cede_province = FRA
+				}
+				else = {
+					cede_province = FRA
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_military_district
+				subject = FRA
+				reform = yes
+			}
+		}
+	}
+	rig_integration_britain	= { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = GBR
+					FRA = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = GBR
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = british_isles_region
+				value = 30
+			}
+			NOT = {
+				exists = GBR
+			}
+			276 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			373 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			248 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			british_isles_region = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = GBR
+					cede_province = GBR
+				}
+				else = {
+					cede_province = GBR
+				}
+			}
+			
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_economic_district
+				subject = GBR
+				reform = yes
+			}
+			every_province = {
+				limit = {
+					OR = {
+						area = ulster_area
+						area = leinster_area
+						area = connacht_area
+						area = munster_area
+					}
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = IRE
+					cede_province = IRE
+				}
+				else = {
+					cede_province = IRE
+				}
+			}
+			GBR = {
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_economic_district
+					subject = IRE
+					reform = yes
+				}
+			}
+		}
+	}
+	rig_integration_malaya	= { 
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = MSA
+					FRA = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = MSA
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = malaya_region
+				value = 15
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = indonesia_region
+				value = 15
+			}
+			NOT = {
+				exists = MSA
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					OR = {
+						region = moluccas_region
+						region = malaya_region
+						region = indonesia_region
+					}
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = MSA
+					cede_province = MSA
+				}
+				else = {
+					cede_province = MSA
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_administrative_district
+				subject = MSA
+				reform = yes
+			}
+		}
+	}
+	rig_integration_rajput = {
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = RJP
+					RJP = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = RJP
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = india_superregion
+				value = 25
+			}
+			522 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			4464 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			4465 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			NOT = {
+				exists = RJP
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					superregion = india_superregion
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = RJP
+					cede_province = RJP
+				}
+				else = {
+					cede_province = RJP
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_administrative_district
+				subject = RJP
+				reform = yes
+			}
+		}
+	}
+	rig_integration_myanmar = {
+		major = yes
+		potential = {
+			mission_completed = rig_universal_declaration
+			tag = RIG
+			OR = {
+				AND = {
+					exists = SST
+					SST = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = SST
+				}
+			}
+			OR = {
+				AND = {
+					exists = SIA
+					SST = {
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				NOT = {
+					exists = SIA
+				}
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region =  burma_region
+				value = 10
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region =  indo_china_region
+				value = 15
+			}
+			584 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			600 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+			NOT = {
+				exists = SST
+			}
+			NOT = {
+				exists = SIA
+			}
+		}
+		effect = {
+			every_province = {
+				limit = {
+					region = indo_china_region
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = SIA
+					cede_province = SIA
+				}
+				else = {
+					cede_province = SST
+				}
+			}
+			riga_set_up_special_vassal_effect = {
+				type = rig_episcopal_military_district
+				subject = SIA
+				reform = yes
+			}
+			every_province = {
+				limit = {
+					region =  burma_region
+					riga_subject_of_subject_owned_land = { who = root }
+				}
+				if = {
+					limit = { 
+						is_core = owner
+					}
+					add_core = SST
+					cede_province = SST
+				}
+				else = {
+					cede_province = SST
+				}
+			}
+			SIA = {
+				riga_set_up_special_vassal_effect = {
+					type = rig_episcopal_economic_district
+					subject = SST
+					reform = yes
+				}
+			}
+		}
+	}
+	# rig_demarcation_of_administrative_districts = {
+	# }
+	rig_papal_influence_to_improvement = {
+		major = yes
+		potential = {
+			tag = RIG
+			has_government_attribute = can_use_pap_influence_for_development
+		}
+		allow = {
+			religion = catholic
+			if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_1
+					}
+				}
+				papal_influence = 6
+				38 = {
+					NOT = {
+						development = 100
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_2
+					}
+				}
+				papal_influence = 9
+				38 = {
+					NOT = {
+						development = 200
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_3
+					}
+				}
+				papal_influence = 12
+				38 = {
+					NOT = {
+						development = 300
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_4
+					}
+				}
+				papal_influence = 15
+				38 = {
+					NOT = {
+						development = 400
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_5
+					}
+				}
+				papal_influence = 18
+				38 = {
+					NOT = {
+						development = 500
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_6
+					}
+				}
+				papal_influence = 21
+				38 = {
+					NOT = {
+						development = 600
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_7
+					}
+				}
+				papal_influence = 24
+				38 = {
+					NOT = {
+						development = 700
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_8
+					}
+				}
+				papal_influence = 27
+				38 = {
+					NOT = {
+						development = 800
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_9
+					}
+				}
+				papal_influence = 30
+				38 = {
+					NOT = {
+						development = 900
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_10
+					}
+				}
+				papal_influence = 30
+				38 = {
+					NOT = {
+						development = 1000
+					}
+				}
+			}
+			NOT = {
+				num_of_cities = 2
+			}
+			capital = 38
+		}
+		color = { 135  206  235 }
+		effect = {
+			custom_tooltip = rig_papal_influence_to_improvement_tt
+			hidden_effect = {
+				while = {
+					limit = { 
+						if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_1
+								}
+							}
+							papal_influence = 6
+							38 = {
+								NOT = {
+									development = 100
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_2
+								}
+							}
+							papal_influence = 9
+							38 = {
+								NOT = {
+									development = 200
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_3
+								}
+							}
+							papal_influence = 12
+							38 = {
+								NOT = {
+									development = 300
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_4
+								}
+							}
+							papal_influence = 15
+							38 = {
+								NOT = {
+									development = 400
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_5
+								}
+							}
+							papal_influence = 18
+							38 = {
+								NOT = {
+									development = 500
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_6
+								}
+							}
+							papal_influence = 21
+							38 = {
+								NOT = {
+									development = 600
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_7
+								}
+							}
+							papal_influence = 24
+							38 = {
+								NOT = {
+									development = 700
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_8
+								}
+							}
+							papal_influence = 27
+							38 = {
+								NOT = {
+									development = 800
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_9
+								}
+							}
+							papal_influence = 30
+							38 = {
+								NOT = {
+									development = 900
+								}
+							}
+						}
+						else_if = {
+							limit = { 
+								38 = {
+									has_province_modifier = rig_riga_city_size_10
+								}
+							}
+							papal_influence = 30
+							38 = {
+								NOT = {
+									development = 1000
+								}
+							}
+						}
+					}
+					if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_1
+							}
+						}
+						add_papal_influence = -6
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_2
+							}
+						}
+						add_papal_influence = -9
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_3
+							}
+						}
+						add_papal_influence = -12
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_4
+							}
+						}
+						add_papal_influence = -15
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_5
+							}
+						}
+						add_papal_influence = -18
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_6
+							}
+						}
+						add_papal_influence = -21
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_7
+							}
+						}
+						add_papal_influence = -24
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_8
+							}
+						}
+						add_papal_influence = -25
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_9
+							}
+						}
+						add_papal_influence = -30
+					}
+					else_if = {
+						limit = { 
+							38 = {
+								has_province_modifier = rig_riga_city_size_10
+							}
+						}
+						add_papal_influence = -30
+					}
+					capital_scope = {
+						add_base_tax = 1
+						add_base_production = 1
+						add_base_manpower = 1
+					}
+				}
+			}
+		}
+	}
+	rig_expand_riga_city = {
+		potential  = { 
+			tag = RIG
+			has_government_attribute = can_use_pap_influence_for_development
+			NOT = {
+				has_country_flag = rig_riga_begin_expand_city
+			}
+		}
+		
+		color = { 135  206  235 }
+
+		allow = {
+			if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_1
+					}
+				}
+				treasury = 500
+				38 = {
+					development = 100
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_2
+					}
+				}
+				treasury = 1000
+				38 = {
+					development = 200
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_3
+					}
+				}
+				treasury = 2000
+				38 = {
+					development = 300
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_4
+					}
+				}
+				treasury = 3000
+				38 = {
+					development = 400
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_5
+					}
+				}
+				treasury = 4500
+				38 = {
+					development = 500
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_6
+					}
+				}
+				treasury = 6000
+				38 = {
+					development = 600
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_7
+					}
+				}
+				treasury = 8000
+				38 = {
+					development = 700
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_8
+					}
+				}
+				treasury = 10000
+				38 = {
+					development = 800
+				}
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_9
+					}
+				}
+				treasury = 12500
+				38 = {
+					development = 900
+				}
+			}
+			NOT = {
+				num_of_cities = 2
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_1
+					}
+				}
+				add_treasury = -500
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_2
+					}
+				}
+				add_treasury = -1000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_3
+					}
+				}
+				add_treasury = -2000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_4
+					}
+				}
+				add_treasury = -3000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_5
+					}
+				}
+				add_treasury = -4500
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_6
+					}
+				}
+				add_treasury = -6000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_7
+					}
+				}
+				add_treasury = -8000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_8
+					}
+				}
+				add_treasury = -10000
+			}
+			else_if = {
+				limit = { 
+					38 = {
+						has_province_modifier = rig_riga_city_size_9
+					}
+				}
+				add_treasury = -12500
+			}
+			hidden_effect = {
+				country_event = {
+					id = rigExpandAction.200
+				}
+			}
+		}
+	}
+	rig_expand_riga_city_progress = {
+		potential  = { 
+			tag = RIG
+			has_government_attribute = can_use_pap_influence_for_development
+			has_country_flag = rig_riga_begin_expand_city
+		}
+		
+		color = { 135  206  235 }
+		allow = {
+			always = yes
+		}
+		effect = {
+			custom_tooltip = rig_expand_riga_city_progress.tt
+		}
+	}
+	rig_riga_change_religion = {
+		major = yes
+		potential = {
+			tag = RIG
+			religion = catholic
+			38 = {
+				NOT = {
+					religion = root
+				}
+				owned_by = root
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			
+		}
+		effect = {
+			38 = {
+				change_religion = catholic
+			}
+		}
+	}
+	rig_dye_for_subject = {
+		potential = {
+			ai = no
+			num_of_subjects = 1
+		}
+		allow = {
+			
+		}
+		effect = {
+			custom_tooltip = rig_dye_for_subject.tt
+			hidden_effect = {
+				every_subject_country = {
+					if = {
+						limit = { 
+							num_of_subjects = 1
+						}
+						every_subject_country = {
+							change_country_color = {
+								country = root
+							}
+						}
+					}
+					change_country_color = {
+						country = root
+					}
+				}
+			}
+		}
+	}
+	rig_reset_color_for_subject = {
+		potential = {
+			num_of_subjects = 1
+			ai = no
+		}
+		allow = {
+			
+		}
+		effect = {
+			custom_tooltip = rig_reset_color_for_subject.tt
+			hidden_effect = {
+				every_subject_country = {
+					if = {
+						limit = { 
+							num_of_subjects = 1
+						}
+						every_subject_country = {
+							restore_country_color = yes
+						}
+					}
+					restore_country_color = yes
+				}
+				
+			}
+		}
+	}
+	rig_riga_world_city_project = {
+		major = yes
+		potential = {
+			tag = RIG
+			NOT = {
+				has_country_flag = riga_begin_world_city_project
+			}
+			has_country_flag = rig_already_pre_for_world_city_project
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			
+		}
+		effect = {
+			set_country_flag = riga_begin_world_city_project
+			clr_country_flag = riga_stop_world_city_project
+			hidden_effect = {
+				if = {
+					limit = { 
+						NOT = {
+							has_country_flag = first_action_world_city_project
+						}
+					}
+					country_event = {
+						id = rigExpandAction.0
+					}
+					set_country_flag = first_action_world_city_project
+				}
+				else = {
+					random_province = {
+						limit = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+						}
+						province_event = {
+							id = rigExpandAction.1
+							days = 60
+						}
+					}
+					random_province = {
+						limit = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+						}
+						province_event = {
+							id = rigExpandAction.2
+							days = 60
+						}
+					}
+					random_province = {
+						limit = {
+							has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+						}
+						province_event = {
+							id = rigExpandAction.3
+							days = 60
+						}
+					}
+				}
+			}
+		}
+	}
+	rig_riga_stop_world_city_project = {
+		major = yes
+		potential = {
+			tag = RIG
+			has_country_flag = riga_begin_world_city_project
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			
+		}
+		effect = {
+			set_country_flag = riga_stop_world_city_project
+			clr_country_flag = riga_begin_world_city_project
+		}
+	}
+	rig_riga_check_world_city_projcet = {
+		major = yes
+		potential = {
+			has_country_flag = riga_begin_world_city_project
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			always = no
+		}
+		provinces_to_highlight = {
+			OR = {
+				if = {
+					limit = { 
+						exists = event_target:rig_world_city_project_fulcrum_province_work_target_1
+					}
+					province_id = event_target:rig_world_city_project_fulcrum_province_work_target_1
+				}
+				if = {
+					limit = { 
+						exists = event_target:rig_world_city_project_fulcrum_province_work_target_1
+					}
+					province_id = event_target:rig_world_city_project_fulcrum_province_work_target_2
+				}
+				if = {
+					limit = { 
+						exists = event_target:rig_world_city_project_fulcrum_province_work_target_1
+					}
+					province_id = event_target:rig_world_city_project_fulcrum_province_work_target_3
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = rig_riga_check_world_city_projcet.tt
+			# hidden_effect = {
+			# 	set_variable = {
+			# 		which = world_city_project_base_develpment_cost_1
+			# 		value = 0
+			# 	}
+			# 	set_variable = {
+			# 		which = world_city_project_base_develpment_cost_2
+			# 		value = 0
+			# 	}
+			# 	set_variable = {
+			# 		which = world_city_project_base_develpment_cost_3
+			# 		value = 0
+			# 	}
+			# 	set_variable = {
+			# 		which = world_city_project_base_develpment_total_cost
+			# 		value = 0
+			# 	}
+			# 	random_province = {
+			# 		limit = {
+			# 			has_province_flag = rig_world_city_project_fulcrum_province_work_flag_1
+			# 		}
+			# 		root = {
+			# 			set_variable = {
+			# 				which = world_city_project_base_develpment_cost_1
+			# 				whic = prev
+			# 			}
+			# 		}
+			# 	}
+			# 	random_province = {
+			# 		limit = {
+			# 			has_province_flag = rig_world_city_project_fulcrum_province_work_flag_2
+			# 		}
+			# 		root = {
+			# 			set_variable = {
+			# 				which = world_city_project_base_develpment_cost_2
+			# 				whic = prev
+			# 			}
+			# 		}
+			# 	}
+			# 	random_province = {
+			# 		limit = {
+			# 			has_province_flag = rig_world_city_project_fulcrum_province_work_flag_3
+			# 		}
+			# 		root = {
+			# 			set_variable = {
+			# 				which = world_city_project_base_develpment_cost_3
+			# 				whic = prev
+			# 			}
+			# 		}
+			# 	}
+			# 	change_variable = {
+			# 		which = world_city_project_base_develpment_total_cost
+			# 		which = world_city_project_base_develpment_cost_1
+			# 	}
+			# 	change_variable = {
+			# 		which = world_city_project_base_develpment_total_cost
+			# 		which = world_city_project_base_develpment_cost_2
+			# 	}
+			# 	change_variable = {
+			# 		which = world_city_project_base_develpment_total_cost
+			# 		which = world_city_project_base_develpment_cost_3
+			# 	}
+			# }
+		}
+	}
+	# rig_add_word_city_project_investment_pool_power = {
+	# 	major = yes
+	# 	potential = {
+	# 		has_country_flag = rig_already_pre_for_world_city_project
+	# 	}
+	# 	allow = {
+	# 		adm_power = 33
+	# 		dip_power = 33
+	# 		mil_power = 33
+	# 	}
+	# 	effect = {
+	# 		custom_tooltip = rig_add_word_city_project_investment_pool_power.tt
+	# 		add_adm_power = -33
+	# 		add_dip_power = -33
+	# 		add_mil_power = -33
+	# 		hidden_effect = {
+	# 			change_variable = {
+	# 				which = world_city_project_investment_pool
+	# 				value = 100
+	# 			}
+	# 		}
+	# 	}
+	# }
+	# rig_add_word_city_project_investment_pool_pap_influence = {
+	# 	major = yes
+	# 	potential = {
+	# 		has_country_flag = rig_already_pre_for_world_city_project
+	# 	}
+	# 	allow = {
+	# 		papal_influence = 6
+	# 	}
+	# 	effect = {
+	# 		custom_tooltip = rig_add_word_city_project_investment_pool_pap_influence.tt
+	# 		add_papal_influence = -6
+	# 		hidden_effect = {
+	# 			change_variable = {
+	# 				which = world_city_project_investment_pool
+	# 				value = 50
+	# 			}
+	# 		}
+	# 	}
+	# }
+	rig_add_word_city_project_investment_pool_all_pap_influence = {
+		major = yes
+		potential = {
+			has_country_flag = rig_already_pre_for_world_city_project
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			papal_influence = 6
+		}
+		effect = {
+			custom_tooltip = rig_add_word_city_project_investment_pool_all_pap_influence.tt
+			hidden_effect = {
+				while = {
+					limit = { 
+						papal_influence = 6
+					}
+					add_papal_influence = -6
+					change_variable = {
+						which = world_city_project_investment_pool
+						value = 50
+					}
+				}
+			}
+		}
+	}
+	rig_add_word_city_project_investment_pool_all_power = {
+		major = yes
+		potential = {
+			has_country_flag = rig_already_pre_for_world_city_project
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			adm_power = 33
+			dip_power = 33
+			mil_power = 33
+		}
+		effect = {
+			custom_tooltip = rig_add_word_city_project_investment_pool_all_power.tt
+			hidden_effect = {
+				hidden_effect = {
+					while = {
+						limit = { 
+							adm_power = 33
+							dip_power = 33
+							mil_power = 33
+						}
+						add_adm_power = -33
+						add_dip_power = -33
+						add_mil_power = -33
+						change_variable = {
+							which = world_city_project_investment_pool
+							value = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	rig_enable_automatic_investment = {
+		major = yes
+		potential = {
+			has_country_flag = rig_already_pre_for_world_city_project
+			NOT = {
+				has_country_flag = rig_enable_automatic_investment_flag
+			}
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			monthly_adm = 3
+			monthly_dip = 3
+			monthly_mil = 3
+			papal_influence = 10
+		}
+		effect = {
+			custom_tooltip = rig_enable_automatic_investment.tt
+			hidden_effect = {
+				set_country_flag = rig_enable_automatic_investment_flag
+				country_event = {
+					id = rigExpandAction.100
+					days = 30
+				}
+			}
+		}
+	}
+	rig_disenable_automatic_investment = {
+		major = yes
+		potential = {
+			has_country_flag = rig_enable_automatic_investment_flag
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+
+		}
+		effect = {
+			hidden_effect = {
+				clr_country_flag = rig_enable_automatic_investment_flag
+			}
+		}
+	}
+	rig_make_war_plans = {
+		major = yes
+		potential = {
+			has_government_attribute = greate_battle_of_riga
+			NOT = {
+				has_country_flag = begin_rig_make_war_plans
+			}
+			is_subject = no
+		}
+		color = { 135  206  235 }
+		allow = {
+			if = {
+				limit = { 
+					has_country_modifier = rig_country_rehabilitate
+				}
+				NOT = {
+					has_country_modifier = rig_country_rehabilitate
+				}
+			}
+			is_at_war = no
+			custom_trigger_tooltip = {
+				tooltip = rig_make_war_plans_cd.tt
+				NOT = {
+					has_country_flag = rig_make_war_plans_cd
+				}
+			}
+		}
+		effect = {
+			hidden_effect = {
+				set_country_flag = begin_rig_make_war_plans
+			}
+			country_event = {
+				id = rigExpandAction.5
+			}
+		}
+	}
+	rig_start_grate_campaign = {
+		major = yes
+		potential = {
+			has_government_attribute = greate_battle_of_riga
+			is_subject = no
+			NOT = {
+				has_country_flag = rig_start_grate_campaign_flag
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			if = {
+				limit = { 
+					NOT = {
+						has_country_flag = rig_universal_declaration_flag
+					}
+				}
+				is_at_war = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = rig_grate_campaign_cd_flag.tt
+				NOT = {
+					has_country_flag = rig_grate_campaign_cd_flag
+				}
+			}
+			mil_power = 200
+			adm_power = 200
+			dip_power = 200
+			if = {
+				limit = { 
+					has_country_modifier = rig_country_rehabilitate
+				}
+				NOT = {
+					has_country_modifier = rig_country_rehabilitate
+				}
+			}
+		}
+		effect = {
+			add_mil_power = -200
+			add_adm_power = -200
+			add_dip_power = -200
+			country_event = {
+				id = RigaExpandSupplement.13
+			}
+			hidden_effect = {
+				set_country_flag = rig_start_grate_campaign_flag
+			}
+		}
+	}
+	rig_stop_all_war_project = {
+		major = yes
+		potential = {
+			OR = {
+				has_country_flag = rig_start_grate_campaign_flag
+				has_country_flag = begin_rig_make_war_plans
+			}
+		}
+		color = { 135  206  235 }
+		allow = {
+			
+		}
+		effect = {
+			custom_tooltip = rig_stop_all_war_project.tt
+			hidden_effect = {
+				clr_country_flag = rig_start_grate_campaign_flag
+				clr_country_flag = begin_rig_make_war_plans
+			}
+		}
+	}
+	rig_relocate_KNI = {
+		major = yes
+		potential = {
+			tag = RIG
+			RIG = {
+				has_government_attribute = enables_estate_rig_knightage
+			}
+			NOT = {
+				exists = KNI
+			}
+			has_country_flag = enable_relocate_KNI
+		}
+		color = { 135  206  235 }
+		allow = {
+			papal_influence = 25
+			is_at_war = no
+			is_subject = no
+			25 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			add_papal_influence = -25
+			25 = {
+				add_core = KNI
+				cede_province = KNI
+				add_province_triggered_modifier = KNI_stronghold_modifier
+			}
+			create_subject = {
+				subject_type = rig_knightage_vissal
+				subject = KNI
+			}
+			KNI = {
+				change_country_color = {
+					country = root
+				}
+				change_government = rig_theocracy
+				if = {
+					limit = { 
+						RIG = {
+							mission_completed = rig_second_allegiance_act
+						}
+					}
+					add_government_reform = rig_knights_of_apologetics_reform
+				}
+				else = {
+					add_government_reform = rig_knightage_order_reform
+				}
+				add_country_modifier = {
+					name = rig_order_of_riga
+					duration = -1
+				}
+				change_religion = catholic
+			}
+		}
+	}
+	rig_relocate_KTP = {
+		major = yes
+		potential = {
+			tag = RIG
+			RIG = {
+				has_government_attribute = enables_estate_rig_knightage
+			}
+			NOT = {
+				exists = KTP
+			}
+			has_country_flag = enable_relocate_KTP
+		}
+		color = { 135  206  235 }
+		allow = {
+			papal_influence = 25
+			is_at_war = no
+			is_subject = no
+			2410 = {
+				riga_subject_of_subject_owned_land = { who = root }
+			}
+		}
+		effect = {
+			add_papal_influence = -25
+			2410 = {
+				add_core = KTP
+				cede_province = KTP
+			}
+			create_subject = {
+				subject_type = rig_knightage_vissal
+				subject = KTP
+			}
+			KTP = {
+				change_country_color = {
+					country = root
+				}
+				change_government = rig_theocracy
+				if = {
+					limit = { 
+						RIG = {
+							mission_completed = rig_second_allegiance_act
+						}
+					}
+					add_government_reform = rig_knights_of_apologetics_reform
+				}
+				else = {
+					add_government_reform = rig_knightage_order_reform
+				}
+				add_country_modifier = {
+					name = rig_order_of_riga
+					duration = -1
+				}
+				change_religion = catholic
+			}
+			every_province = {
+				limit = {
+					riga_subject_of_subject_owned_land = { who = root }
+					OR = {
+						area = crimea_area
+						area = zaporizhia_area
+						area = yedisan_area
+						area = azov_area
+					}
+				}
+				add_core = KTP
+				cede_province = KTP
+			}
+		}
+	}
+	# rig_riga_add_investment_pool = {
+	# 	major = yes
+	# 	potential = {
+	# 		tag = RIG
+	# 		has_country_flag = riga_begin_world_city_project
+	# 	}
+	# 	allow = {
+			
+	# 	}
+	# 	effect = {
+	# 		change_variable = {
+	# 			which = world_city_project_investment_pool
+	# 			value = 5000
+	# 		}
+	# 	}
+	# }
+	rig_check_riga_authority_of_the_diocese = {
+		major = yes
+		potential = {
+			has_country_flag = begin_battle_of_heaven_flag
+			tag = RIG
+		}
+		allow = {
+			always = yes
+		}
+		color = { 135  206  235 }
+		effect = {
+			custom_tooltip = rig_check_riga_authority_of_the_diocese.tt
+		}
+	}
+	rig_support_rigalia = {
+		major = yes
+		potential = {
+			tag = RIG
+			has_country_flag = begin_battle_of_heaven_flag
+			NOT = {
+				has_country_flag = already_support_rigalia_flag
+			}
+			mission_completed = rig_external_affairs
+			exists = RGL
+		}
+		allow = {
+			manpower = 20
+			RGL = {
+				has_disaster = rig_battle_of_hell
+				is_at_war = yes
+			}
+			treasury = 1000
+		}
+		color = { 135  206  235 }
+		effect = {
+			add_treasury = -1000
+			change_variable = {
+				which = riga_authority_of_the_diocese
+				value = 5
+			}
+			hidden_effect = {
+				set_country_flag = already_support_rigalia_flag
+			}
+			RGL = {
+				add_manpower = 20
+				add_country_modifier = {
+					name = rig_support_rigalia_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+	rig_dividing_the_administrative_system_of_the_new_world = {
+		major = yes
+		potential = {
+			tag = RIG
+			has_country_flag = rig_new_world_administration
+			exists = RGL
+			RGL = {
+				is_subject_of = root
+			}
+		}
+		allow = {
+			RGL = {
+				is_at_war = no
+			}
+		}
+		color = { 135  206  235 }
+		effect = {
+			hidden_effect = {
+				every_province = {
+					limit = {
+						riga_subject_of_subject_owned_land = { who = root }
+						OR = {
+							region = northeast_america_region
+							region = southeast_america_region
+							region = great_lakes_region
+							region = great_plains_region
+							region = mississippi_region
+							area = red_river_area
+							area = coastal_prarie_area
+							area = texas_area
+							area = texas_plains_area
+							area = llano_estacado_area
+							area = new_mexico_area
+							area = colorado_plateau_area
+							area = apacheria_area
+							area = snake_river_area
+						}
+						NOT = {
+							owned_by = RGL
+						}
+					}
+					if = {
+						limit = { 
+							is_core = owner
+						}
+						add_core = RGL
+						cede_province = RGL
+					}
+					else = {
+						cede_province = RGL
+					}
+				}
+				if = { #加拿大
+					limit = {
+						NOT = {
+							exists = CAN
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							OR = {
+								region = canada_region
+								region = hudson_bay_region
+							}
+							NOT = {
+								area = red_river_area
+							}
+							NOT = {
+								owned_by = CAN
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAN
+							cede_province = CAN
+						}
+						else = {
+							cede_province = CAN
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_economic_district
+							subject = CAN
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						CAN = {
+							is_subject_of = RGL
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							OR = {
+								region = canada_region
+								region = hudson_bay_region
+							}
+							NOT = {
+								area = red_river_area
+							}
+							NOT = {
+								owned_by = CAN
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAN
+							cede_province = CAN
+						}
+						else = {
+							cede_province = CAN
+						}
+					}
+				}
+				if = { #阿拉斯加
+					limit = { 
+						NOT = {
+							exists = ALA
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							region = cascadia_region
+							NOT = {
+								area = snake_river_area
+							}
+							NOT = {
+								owned_by = ALA
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = ALA
+							cede_province = ALA
+						}
+						else = {
+							cede_province = ALA
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_military_district
+							subject = ALA
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						ALA = {
+							is_subject_of = RGL
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							region = cascadia_region
+							NOT = {
+								area = snake_river_area
+							}
+							NOT = {
+								owned_by = ALA
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = ALA
+							cede_province = ALA
+						}
+						else = {
+							cede_province = ALA
+						}
+					}
+				}
+				if = { #加利福尼亚
+					limit = { 
+						NOT = {
+							exists = CAL
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							region = california_region
+							NOT = {
+								OR = {
+									area = new_mexico_area
+									area = colorado_plateau_area
+									area = apacheria_area
+									area = sonora_area
+								}
+							}
+							NOT = {
+								owned_by = CAL
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAL
+							cede_province = CAL
+						}
+						else = {
+							cede_province = CAL
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_economic_district
+							subject = CAL
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						CAL = {
+							is_subject_of = RGL
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							region = california_region
+							NOT = {
+								OR = {
+									area = new_mexico_area
+									area = colorado_plateau_area
+									area = apacheria_area
+									area = sonora_area
+								}
+							}
+							NOT = {
+								owned_by = CAL
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAL
+							cede_province = CAL
+						}
+						else = {
+							cede_province = CAL
+						}
+					}
+				}
+				if = { #中美洲联邦
+					limit = { 
+						NOT = {
+							exists = CAM
+						}
+					}
+					central_america_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAM
+							cede_province = CAM
+						}
+						else = {
+							cede_province = CAM
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_economic_district
+							subject = CAM
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						CAM = {
+							is_subject_of = RGL
+						}
+					}
+					central_america_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CAM
+							cede_province = CAM
+						}
+						else = {
+							cede_province = CAM
+						}
+					}
+				}
+				if = { #墨西哥
+					limit = { 
+						NOT = {
+							exists = MEX
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							OR = {
+								region = mexico_region
+								region = rio_grande_region
+							}
+							NOT = {
+								OR = {
+									area = coastal_prarie_area
+									area = texas_area
+									area = texas_plains_area
+									area = llano_estacado_area
+								}
+							}
+							NOT = {
+								owned_by = MEX
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = MEX
+							cede_province = MEX
+						}
+						else = {
+							cede_province = MEX
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_military_district
+							subject = MEX
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						MEX = {
+							is_subject_of = RGL
+						}
+					}
+					every_province = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+							OR = {
+								region = mexico_region
+								region = rio_grande_region
+							}
+							NOT = {
+								OR = {
+									area = coastal_prarie_area
+									area = texas_area
+									area = texas_plains_area
+									area = llano_estacado_area
+								}
+							}
+							NOT = {
+								owned_by = MEX
+							}
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = MEX
+							cede_province = MEX
+						}
+						else = {
+							cede_province = MEX
+						}
+					}
+				}
+				if = { #古巴
+					limit = { 
+						NOT = {
+							exists = CUB
+						}
+					}
+					carribeans_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CUB
+							cede_province = CUB
+						}
+						else = {
+							cede_province = CUB
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_economic_district
+							subject = CUB
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						CUB = {
+							is_subject_of = RGL
+						}
+					}
+					carribeans_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = CUB
+							cede_province = CUB
+						}
+						else = {
+							cede_province = CUB
+						}
+					}
+				}
+				if = { #哥伦比亚
+					limit = { 
+						NOT = {
+							exists = COL
+						}
+					}
+					colombia_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = COL
+							cede_province = COL
+						}
+						else = {
+							cede_province = COL
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_administrative_district
+							subject = COL
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						COL = {
+							is_subject_of = RGL
+						}
+					}
+					colombia_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = COL
+							cede_province = COL
+						}
+						else = {
+							cede_province = COL
+						}
+					}
+				}
+				if = { #秘鲁
+					limit = { 
+						NOT = {
+							exists = PEU
+						}
+					}
+					peru_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = PEU
+							cede_province = PEU
+						}
+						else = {
+							cede_province = PEU
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_military_district
+							subject = PEU
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						PEU = {
+							is_subject_of = RGL
+						}
+					}
+					peru_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = PEU
+							cede_province = COL
+						}
+						else = {
+							cede_province = PEU
+						}
+					}
+				}
+				if = { #拉普拉塔
+					limit = { 
+						NOT = {
+							exists = LAP
+						}
+					}
+					la_plata_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = LAP
+							cede_province = LAP
+						}
+						else = {
+							cede_province = LAP
+						}
+					}
+					upper_peru_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = LAP
+							cede_province = LAP
+						}
+						else = {
+							cede_province = LAP
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_administrative_district
+							subject = LAP
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						LAP = {
+							is_subject_of = RGL
+						}
+					}
+					la_plata_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = LAP
+							cede_province = LAP
+						}
+						else = {
+							cede_province = LAP
+						}
+					}
+					upper_peru_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = LAP
+							cede_province = LAP
+						}
+						else = {
+							cede_province = LAP
+						}
+					}
+				}
+				if = { #巴西
+					limit = { 
+						NOT = {
+							exists = BRZ
+						}
+					}
+					brazil_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = BRZ
+							cede_province = BRZ
+						}
+						else = {
+							cede_province = BRZ
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_administrative_district
+							subject = BRZ
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						BRZ = {
+							is_subject_of = RGL
+						}
+					}
+					brazil_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = BRZ
+							cede_province = BRZ
+						}
+						else = {
+							cede_province = BRZ
+						}
+					}
+				}
+				if = { #澳大利亚
+					limit = { 
+						NOT = {
+							exists = AUS
+						}
+					}
+					australia_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = AUS
+							cede_province = AUS
+						}
+						else = {
+							cede_province = AUS
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_administrative_district
+							subject = AUS
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						AUS = {
+							is_subject_of = RGL
+						}
+					}
+					australia_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = AUS
+							cede_province = AUS
+						}
+						else = {
+							cede_province = AUS
+						}
+					}
+				}
+				if = { #西兰蒂亚
+					limit = { 
+						NOT = {
+							exists = NZL
+						}
+					}
+					oceanea_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = NZL
+							cede_province = NZL
+						}
+						else = {
+							cede_province = NZL
+						}
+					}
+					RGL = {
+						riga_set_up_special_vassal_effect = {
+							type = rig_episcopal_economic_district
+							subject = NZL
+							reform = yes
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						NZL = {
+							is_subject_of = RGL
+						}
+					}
+					oceanea_region = {
+						limit = {
+							riga_subject_of_subject_owned_land = { who = root }
+						}
+						if = {
+							limit = { 
+								is_core = owner
+							}
+							add_core = NZL
+							cede_province = NZL
+						}
+						else = {
+							cede_province = NZL
+						}
+					}
+				}
+			}
+		}
+	}
+	rig_check_vassal_property = {
+		major = yes
+		potential = {
+			tag = RIG
+			any_subject_country = {
+				OR = {
+					is_subject_of_type = rig_knightage_vissal
+					is_subject_of_type = rig_episcopal_administrative_district
+					is_subject_of_type = rig_episcopal_economic_district
+					is_subject_of_type = rig_episcopal_military_district
+					is_subject_of_type = rig_trade_city
+				}
+			}
+		}
+		allow = {
+			always = yes
+		}
+		color = { 135  206  235 }
+		effect = {
+			custom_tooltip = rig_check_vassal_property.tt
+			hidden_effect = {
+				country_event = {
+					id = RigaExpandFlavour.100
+				}
+			}
+		}
+	}
+	rig_declar_war_with_all_word = {
+		major = yes
+		color = { 135  206  235 }
+		potential = {
+			tag = RIG
+			has_country_flag = enable_unconditional_conversion_of_dioceses
+		}
+		allow = {
+			is_at_war = no
+		}
+		effect = {
+			custom_tooltip = rig_declar_war_with_all_word_tooltip
+			hidden_effect = {
+				every_country = {
+					limit = {
+						NOT = {
+							is_subject_of = root
+						}
+						if = {
+							limit = { 
+								is_subject = yes
+								NOT = {
+									is_subject_of = root
+								}
+							}
+							overlord = {
+								NOT = {
+									is_subject_of = root
+								}
+							}
+						}
+						NOT = {
+							alliance_with = root 
+						}
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_greate_war_of_riga_conquer_provice
+							who = prev
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	rig_construction_EDG_Ruins_Gate = {
+		major = yes
+		color = { 135  206  235 }
+		potential = {
+			tag = RIG
+			has_country_modifier = EDG_flavorDEBUG_MODE_0_e_modifier
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		allow = {
+			is_at_war = no
+			38 = {
+				NOT = {
+					has_great_project = {
+						type = EDG_Ruins_Gate
+						tier = 3
+					}
+				}
+				if = {
+					limit = { 
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 1
+							}
+						}
+					}
+					root = {
+						treasury = 1
+					}
+				}
+				else_if = {
+					limit = {
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 2
+							}
+						}
+					}
+					root = {
+						treasury = 10000
+					}
+				}
+				else_if = {
+					limit = { 
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 3
+							}
+						}
+					}
+					root = {
+						treasury = 100000
+					}
+				}
+			}
+		}
+		effect = {
+			38 = {
+				if = {
+					limit = { 
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 1
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = EDG_Ruins_Gate
+						tier = 1
+					}
+				}
+				else_if = {
+					limit = { 
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 2
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = EDG_Ruins_Gate
+						tier = 2
+					}
+				}
+				else_if = {
+					limit = { 
+						NOT = {
+							has_great_project = {
+								type = EDG_Ruins_Gate
+								tier = 3
+							}
+						}
+					}
+					add_great_project_tier = {
+						type = EDG_Ruins_Gate
+						tier = 3
+					}
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,374 @@
+country_decisions = {
+	EDG_LEB_SUEZ = {
+		#运河要塞的建立
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			4316 = {
+				has_great_project = {
+					type = suez_canal
+					tier = 3
+				}
+			}
+			NOT = {
+				has_country_flag = EDG_LEB_suez_castle_flag
+			}
+			OR = {
+				tag = LEB
+				was_tag = LEB
+			}
+		}
+		allow = {
+			treasury = 2000
+		}
+		effect = {
+			add_treasury = -2000
+			set_country_flag = EDG_LEB_suez_castle_flag
+			# add_great_project_tier = {
+			# 	type = EDG_Suez_Castle
+			# 	tier = 0
+			# }
+		}
+	}
+	EDG_LEB_SUEZ_OFF = {
+		#关闭运河
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			4316 = {
+				owned_by = root
+				has_great_project = {
+					type = suez_canal
+					tier = 3
+				}
+				has_great_project = {
+					type = EDG_Suez_Castle
+					tier = 1
+				}
+			}
+			NOT = {
+				has_country_flag = EDG_LEB_suez_off_flag
+			}
+			OR = {
+				tag = LEB
+				was_tag = LEB
+			}
+		}
+		allow = {
+			is_at_war = yes
+		}
+		effect = {
+			4316 = {
+				add_great_project_tier = {
+					type = suez_canal
+					tier = -3
+				}
+			}
+			set_country_flag = EDG_LEB_suez_off_flag
+		}
+	}
+	EDG_LEB_SUEZ_ON = {
+		#开启运河
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			4316 = {
+				owned_by = root
+				has_great_project = {
+					type = suez_canal
+					tier = 0
+				}
+			}
+			has_country_flag = EDG_LEB_suez_off_flag
+			OR = {
+				tag = LEB
+				was_tag = LEB
+			}
+		}
+		allow = {
+			is_at_war = no
+		}
+		effect = {
+			4316 = {
+				add_great_project_tier = {
+					type = suez_canal
+					tier = 3
+				}
+			}
+			clr_country_flag = EDG_LEB_suez_off_flag
+		}
+	}
+	EDG_LEB_HRR_H = {
+		#修建塞特拉山道（汉志段）
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			mecca_area = {
+				owned_by = root
+			}
+			medina_area = {
+				owned_by = root
+			}
+			tabuk_area = {
+				owned_by = root
+			}
+			has_country_flag = EDG_LEB_4_22_flag
+			NOT = {
+				has_country_flag = EDG_LEB_fe_21_flag
+			}			
+		}
+		allow = {
+			is_at_war = no
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			set_country_flag = EDG_LEB_fe_21_flag
+			country_event = {
+				id = EDG_LEB_flavor_event.21				#塞拉特山道汉志段开工
+			}
+		}
+	}
+	EDG_LEB_HRR_A = {
+		#修建塞特拉山道（阿西尔段）
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			yemen_area = {
+				owned_by = root
+			}
+			asir_area = {
+				owned_by = root
+			}
+			tihama_al_yemen_area = {
+				owned_by = root
+			}
+			upper_yemen_area = {
+				owned_by = root
+			}
+			hadramut_area = {
+				owned_by = root
+			}
+			has_country_flag = EDG_LEB_4_22_flag
+			NOT = {
+				has_country_flag = EDG_LEB_fe_22_flag
+			}
+		}
+		allow = {
+			is_at_war = no
+			treasury = 1000
+		}
+		effect = {
+			add_treasury = -1000
+			country_event = {
+				id = EDG_LEB_flavor_event.22				#塞拉特山道阿西尔段开工
+			}
+			set_country_flag = EDG_LEB_fe_22_flag
+		}
+	}
+	EDG_LEB_back_ibadi = {
+		#回归伊巴德派
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			NOT = {
+				religion = ibadi
+			}
+			tag = LEB
+		}
+		allow = {
+			is_subject = no
+		}
+		effect = {
+			change_religion = ibadi
+		}
+	}
+	EDG_LEB_grass_block = {
+		#制作沙障
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		potential = {
+			OR = {
+				was_tag = LEB
+				tag = LEB
+			}
+			has_government_mechanic = EDG_LEB_river_order_ability
+		}
+		allow = {	
+			num_of_owned_provinces_with = {
+				value = 1
+				NOT = {
+					has_province_modifier = EDG_LEB_grass_block_modifier
+				}
+				OR = {
+					has_terrain = desert
+					has_terrain = coastal_desert
+				}
+			}			
+			custom_trigger_tooltip = {
+				tooltip = EDG_LEB_grass_block_TT
+				check_variable = {
+					which = EDG_LEB_G_6_var
+					value = 1
+				}
+			}
+			treasury = 20
+		}
+		effect = {
+			add_treasury = -20
+			random_province = {
+				limit = {
+					owned_by = root
+					NOT = {
+						has_province_modifier = EDG_LEB_grass_block_modifier
+					}
+					OR = {
+						has_terrain = desert
+						has_terrain = coastal_desert
+					}
+				}
+				add_province_modifier = {
+					name = EDG_LEB_grass_block_modifier					#沙障
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				change_variable = {
+					which = EDG_LEB_G_6_var
+					value = -1
+				}
+			}
+		}
+	}
+	EDG_LEB_B_horse = {
+		#新建贝都因牧马场
+		major = yes
+		color = {
+			102
+			178
+			255
+		}
+		provinces_to_highlight = {
+			culture = bedouin_arabic
+			owned_by = root
+			NOT = {
+				trade_goods = livestock
+			}
+		}
+		potential = {
+			OR = {
+				was_tag = LEB
+				tag = LEB
+			}
+			has_country_flag = EDG_LEB_2_18_flag
+			# num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			# 	NOT = {
+			# 		trade_goods = livestock
+			# 	}
+			# 	culture = bedouin_arabic
+			# 	value = 1
+			# }
+			num_of_owned_provinces_with = {
+				NOT = {
+					trade_goods = livestock
+				}
+				culture = bedouin_arabic				
+				value = 1
+			}
+		}
+		allow = {
+			treasury = 50
+		}
+		effect = {
+			add_treasury = -50
+			random_province = {
+				limit = {
+					owned_by = root
+					culture = bedouin_arabic
+					NOT = {
+						trade_goods = livestock
+					}
+				}
+				change_trade_goods = livestock
+				province_event = {
+					id = EDG_LEB_flavor_event.9
+				}
+			}
+		}
+	}
+	EDG_LEB_abolish_slavery_act = {
+		major = yes
+		color = {
+			102
+			178
+			255
+		}		
+		potential = {
+			NOT = { has_country_modifier = the_abolish_slavery_act }
+			slaves = 1
+			OR = {
+				was_tag = LEB
+				tag = LEB
+			}
+		}
+		allow = {
+            
+		}
+		effect = {
+			add_prestige = 5
+			add_country_modifier = {
+				name = innovative_modifier
+				duration = 3650
+			}
+			add_country_modifier = {
+				name = "the_abolish_slavery_act"
+				duration = -1
+			}
+			custom_tooltip = abolished_slavery_act_tooltip
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = slaves
+					}
+					change_trade_goods = unknown
+					remove_building = tradecompany
+					if = {
+						limit = { has_province_modifier = slave_entrepot }
+						remove_province_modifier = slave_entrepot
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

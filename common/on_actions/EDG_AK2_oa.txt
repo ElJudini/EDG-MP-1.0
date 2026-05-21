@@ -1,0 +1,106 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = AK2
+			not = {
+				has_country_flag = EDG_AK2_event_1_oa_flag
+			}
+		}
+		country_event = {
+			id = EDG_AK2_event.1 
+		}
+	}
+}
+
+on_new_monarch = {
+	if = {
+		limit = {
+			or = {
+				tag = AK2
+				was_tag = AK2
+			}
+			not = {
+				has_heir_flag = EDG_AK2_event_54_flag
+			}
+			not = {
+				has_country_flag = EDG_AK2_event_54_oa_flag
+			}
+			ruler_has_personality = legendary_conqueror_personality
+			is_year = 1455
+		}
+		country_event = {
+			id = EDG_AK2_event.55
+		}
+	}
+}
+
+on_main_war_won = {
+	if = {#赢得战争获得兴衰值
+		limit = {
+			root = {
+				has_reform = EDG_AK2_reform_1
+				has_country_flag = EDG_IR1_reform_select_1_flag_1
+			}
+		}
+		root = {
+			add_government_power = {
+				mechanic_type = EDG_AK2_government_mechanics_1
+				power_type = EDG_AK2_mechanics_power_A
+				value = 10
+			}
+		}
+		
+	}
+}
+
+on_main_war_lost = {
+	if = {#打输战争失去兴衰值
+		limit = {
+			root = {
+				has_reform = EDG_AK2_reform_1
+			}
+		}
+		root = {
+			add_government_power = {
+				mechanic_type = EDG_AK2_government_mechanics_1
+				power_type = EDG_AK2_mechanics_power_A
+				value = -10
+			}
+		}
+	}
+}
+
+on_province_religion_converted = {
+	on_province_religion_changed_effect = yes
+	on_province_religion_converted_effect = yes
+	if = {#传教加教会力量
+		limit = {
+			owner = {
+				has_country_flag = EDG_IR1_reform_select_2_flag_1
+			}
+		}
+		owner = {
+			add_church_power = 2
+		}
+	}
+	if = {#传教加兴衰值
+		limit = {
+			owner = {
+				has_country_flag = EDG_IR1_reform_select_2_flag_2
+				has_reform = EDG_AK2_reform_1
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_AK2_government_mechanics_1
+				power_type = EDG_AK2_mechanics_power_A
+				value = 1
+			}
+		}
+	}
+}
+
+
+
+
+

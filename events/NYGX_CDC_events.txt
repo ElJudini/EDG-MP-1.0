@@ -1,0 +1,1899 @@
+namespace = NYGX_CDC
+#的黎波里叛乱
+country_event = {
+	id = NYGX_CDC.1
+	title = NYGX_CDC_1_t
+	desc = NYGX_CDC_1_d
+	picture = BATTLE_VISTULA_LAGOON_eventPicture
+
+	fire_only_once = yes
+	#major = yes
+	trigger = {
+		tag = KTP
+		NOT = {
+			exists = TRP
+		}
+		NOT = {
+			has_global_flag = NYGX_TRP_rebel_stop_flag
+		}
+		tripolitania_area = {
+			owned_by = ROOT
+			is_core = ROOT
+		}
+	}
+	mean_time_to_happen = {
+		days = 365
+
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_global_flag = NYGX_TRP_rebel_happened_flag
+			tripolitania_area = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				cede_province = TRP
+				add_core = TRP
+				change_religion = sunni
+			}
+			TRP = {
+				change_religion = sunni
+				change_government = monarchy
+				add_government_reform = iqta
+				define_ruler = {
+					change_adm = 1
+					change_dip = 1
+					change_mil = 3
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_independence_war
+					who = ROOT
+				}
+				set_capital = 354
+				capital_scope = {
+					build_to_forcelimit = {
+						infantry = 0.9
+						cavalry = 0.2
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = NYGX_CDC_1a
+		ai_chance = {
+			factor = 100
+		}
+		tooltip = {
+			TRP = {
+				grant_independence = yes
+				declare_war_with_cb = {
+					casus_belli = cb_independence_war
+					who = ROOT
+				}
+			}
+		}
+		CDC = {
+			country_event = {
+				id = NYGX_CDC.2
+				days = 3
+				random = 3
+			}
+		}
+	}
+}
+#↑突尼西亚的援助
+country_event = {
+	id = NYGX_CDC.2
+	title = NYGX_CDC_2_t
+	desc = NYGX_CDC_2_d
+	picture = RELIGION_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = NYGX_CDC_2a
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0.1
+				OR = {
+					is_rival = KTP
+					KTP = {
+						is_rival = ROOT
+					}
+				}
+			}
+		}
+		add_treasury = -100
+		add_manpower = -2
+		FROM = {
+			add_treasury = 100
+			capital_scope = {
+				infantry = FROM
+				infantry = FROM
+			}
+		}
+		join_all_defensive_wars_of = FROM
+	}
+	option = {
+		name = NYGX_CDC_2b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 2
+				is_at_war = yes #no time for this
+			}
+			modifier = {
+				factor = 2
+				num_of_loans = 5 #poor
+			}
+		}
+		add_prestige = -10
+	}
+}
+#3 兄弟阋墙
+country_event = {
+	id = NYGX_CDC.3
+	title = NYGX_CDC_3_t
+	desc = NYGX_CDC_3_d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = NYGX_CDC_3a
+		trigger = {
+			exists = KTP
+			OR = {
+				NOT = {
+					is_rival = KTP
+				}
+				NOT = {
+					KTP = {
+						is_rival = ROOT
+					}
+				}
+			}
+		}
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0.1
+				OR = {
+					is_rival = KTP
+					KTP = {
+						is_rival = ROOT
+					}
+				}
+			}
+		}
+		#custom_tooltip = NYGX_CDC_3a_tt
+		add_opinion = {
+			who = KTP
+			modifier = sent_gift
+		}
+		KTP = {
+			add_opinion = {
+				who = ROOT
+				modifier = sent_gift
+			}
+		}
+		custom_tooltip = NYGX_CDC_3b_tt2
+		tooltip = {
+			country_event = {
+				id = NYGX_CDC.4
+			}
+			custom_tooltip = NYGX_CDC_brother_in_hold_tt
+		}
+		set_country_flag = NYGX_CDC_3a_flag
+	}
+	option = {
+		name = NYGX_CDC_3b
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.5
+				NOT = {
+					alliance_with = KTP
+				}
+			}
+		}
+		
+		add_opinion = {
+			who = KTP
+			modifier = insulted
+		}
+		KTP = {
+			add_opinion = {
+				who = ROOT
+				modifier = insulted
+			}
+		}
+		djerba_area = {
+			add_permanent_claim = ROOT
+		}
+		tripolitania_area = {
+			add_permanent_claim = ROOT
+		}
+		set_country_flag = NYGX_CDC_3b_flag
+		custom_tooltip = NYGX_CDC_3b_tt2
+		tooltip = {
+			djerba_area = {
+				add_nationalism = -20
+			}
+			add_country_modifier = {
+				name = NYGX_CDC_brother_in_hold_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {
+		name = NYGX_CDC_3c
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 1.5
+				NOT = {
+					alliance_with = KTP
+				}
+			}
+		}
+		#custom_tooltip = NYGX_CDC_3b_tt
+		add_opinion = {
+			who = KTP
+			modifier = scornfully_insulted
+		}
+		KTP = {
+			add_opinion = {
+				who = ROOT
+				modifier = scornfully_insulted
+			}
+		}
+		djerba_area = {
+			add_permanent_claim = ROOT
+		}
+		tripolitania_area = {
+			add_permanent_claim = ROOT
+		}
+		add_casus_belli = {
+			type = cb_vassalize_mission
+			target = KTP
+			months = 240
+		}
+		set_country_flag = NYGX_CDC_3c_flag
+		custom_tooltip = NYGX_CDC_3b_tt2
+		tooltip = {
+			inherit = KTP
+			add_country_modifier = {
+				name = NYGX_CDC_brother_in_hold_modifier
+				duration = 9125
+			}
+		}
+	}
+}
+#4 更深入的合作
+country_event = {
+	id = NYGX_CDC.4
+	title = NYGX_CDC_4_t
+	desc = NYGX_CDC_4_d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+	
+	option = {
+		name = NYGX_CDC_4a
+		ai_chance = {
+			factor = 1
+		}
+		KTP = {
+			country_event = {
+				id = NYGX_CDC.5
+				days = 10
+				random = 5
+			}
+		}
+		custom_tooltip = NYGX_CDC_4a_tt
+		tooltip = {
+			add_historical_friend = KTP
+			create_subject = {
+				subject_type = vassal
+				subject = KTP
+			}
+			add_country_modifier = {
+				name = NYGX_CDC_5a_modifier
+				duration = -1
+				desc = until_not_KTP_a_subject_desc
+			}
+			KTP = {
+				add_historical_friend = ROOT
+				add_country_modifier = {
+					name = NYGX_CDC_5a_modifier
+					duration = -1
+					desc = until_not_KTP_a_subject_desc
+				}
+			}
+		}
+	}
+	option = {
+		name = NYGX_CDC_4b
+		ai_chance = {
+			factor = 0
+		}
+		trigger = {
+			KTP = {
+				ai = yes
+			}
+			ai = no
+		}
+		random_list = {
+			3 = {
+				create_subject = {
+					subject_type = vassal
+					subject = KTP
+				}
+			}
+			1 = {
+				add_prestige = -10
+			}
+		}
+	}
+}
+#5 信仰的伙伴
+country_event = {
+	id = NYGX_CDC.5
+	title = NYGX_CDC_5_t
+	desc = NYGX_CDC_5_d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	option = {
+		name = NYGX_CDC_5a
+		ai_chance = {
+			factor = 1
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_5a_modifier
+			duration = -1
+			desc = until_not_KTP_a_subject_desc
+		}
+		FROM = {
+			create_subject = {
+				subject_type = vassal
+				subject = ROOT
+			}
+			add_country_modifier = {
+				name = NYGX_CDC_5a_modifier
+				duration = -1
+				desc = until_not_KTP_a_subject_desc
+			}
+		}
+		add_historical_friend = FROM
+		FROM = {
+			add_historical_friend = ROOT
+		}
+	}
+}
+#6 沙漠深处
+country_event = {
+	id = NYGX_CDC.6
+	title = NYGX_CDC_6_t
+	desc = NYGX_CDC_6_d
+	picture = DIPLOMACY_SIGNING_eventPicture
+
+	is_triggered_only = yes
+
+	#我们只需要他们名义上的臣服。
+	option = {
+		name = NYGX_CDC_6a
+		ai_chance = {
+			factor = 1
+		}
+		trigger = {
+			OR = {
+				exists = MZB
+				exists = TGT
+				exists = GHD
+			}
+		}
+		add_casus_belli = {
+			type = cb_force_tributary_mission
+			target = MZB
+			months = 240
+		}
+		add_casus_belli = {
+			type = cb_force_tributary_mission
+			target = TGT
+			months = 240
+		}
+		add_casus_belli = {
+			type = cb_force_tributary_mission
+			target = GHD
+			months = 240
+		}
+		custom_tooltip = NYGX_CDC_6a_tt
+		tooltip = {
+			add_country_modifier = {
+				name = NYGX_CDC_into_the_desert_modifier
+				duration = -1
+				desc = until_not_have_desert_subject_tt
+			}
+		}
+		set_country_flag = NYGX_CDC_6a_flag
+		clr_country_flag = NYGX_CDC_6b_flag
+		
+	}
+	#我们应当自己掌控这片沙漠！
+	option = {
+		name = NYGX_CDC_6b
+		ai_chance = {
+			factor = 1
+		}
+		north_saharan_area = {
+			add_permanent_claim = ROOT
+		}
+		ouled_nail_area = {
+			add_permanent_claim = ROOT
+		}
+		custom_tooltip = NYGX_CDC_6b_tt
+		tooltip = {
+			ouled_nail_area = {
+				add_nationalism = -10
+			}
+			north_saharan_area = {
+				add_nationalism = -10
+			}
+		}
+		set_country_flag = NYGX_CDC_6b_flag
+		clr_country_flag = NYGX_CDC_6a_flag
+		
+	}
+}
+#7 撒哈拉远征
+country_event = {
+	id = NYGX_CDC.7
+	title = NYGX_CDC_7_t
+	desc = NYGX_CDC_7_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#据当地的异教徒所述，南方一定还有更多国家等待着我们征服！
+	option = {
+		name = NYGX_CDC_7a
+		ai_chance = {
+			factor = 1
+		}
+		#custom_tooltip = NYGX_CDC_7a_tt
+		add_country_modifier = {
+			name = NYGX_CDC_7a_modifier
+			duration = 9125
+		}
+		# set_country_flag = NYGX_CDC_march_desert_flag
+		# clr_country_flag = NYGX_CDC_focus_on_ourselves_flag
+		# swap_non_generic_missions = yes
+	}
+	#没有必要再向那一望无际的沙漠进军了，我们应当注重我们治下的领土。
+	option = {
+		name = NYGX_CDC_7b
+		ai_chance = {
+			factor = 1
+		}
+		#custom_tooltip = NYGX_CDC_7b_tt
+		add_country_modifier = {
+			name = NYGX_CDC_7b_modifier
+			duration = 9125
+		}
+		fezzan_area = {
+			add_nationalism = -10
+		}
+		# set_country_flag = NYGX_CDC_focus_on_ourselves_flag
+		# clr_country_flag = NYGX_CDC_march_desert_flag
+		# swap_non_generic_missions = yes
+	}
+}
+#8 诺曼同盟
+country_event = {
+	id = NYGX_CDC.8
+	title = NYGX_CDC_8_t
+	desc = NYGX_CDC_8_d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	#让我们接触诺曼人，我们需要这些勇猛的战士
+	option = {
+		name = NYGX_CDC_8a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_8a_tt
+		tooltip = {
+			add_dip_power = 50
+		}
+		every_country = {
+			limit = {
+				exists = yes
+				OR = {
+					tag = NAP
+					tag = PUA
+					tag = BEV
+					tag = APU
+					tag = CBI
+				}
+			}
+			country_event = {
+				id = NYGX_CDC.9
+				days = 12
+				random = 8
+			}
+		}
+	}
+
+	#我是懂诺曼人的，他们向来只服从强者
+	option = {
+		name = NYGX_CDC_8b
+		ai_chance = {
+			factor = 1
+		}
+		
+		every_country = {
+			limit = {
+				exists = yes
+				OR = {
+					tag = NAP
+					tag = PUA
+					tag = BEV
+					tag = APU
+					tag = CBI
+				}
+			}
+			reverse_add_casus_belli = {
+				type = cb_vassalize_mission
+				target = ROOT
+				months = 240
+			}
+		}
+		
+	}
+}
+#9 诺曼-突尼西亚同盟
+country_event = {
+	id = NYGX_CDC.9
+	title = NYGX_CDC_9_t
+	desc = NYGX_CDC_9_d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	
+	#如果这真的有好处的话。。
+	option = {
+		name = NYGX_CDC_9a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					is_rival = FROM
+					FROM = {
+						is_rival = ROOT
+					}
+				}
+			}
+			modifier = {
+				factor = 10
+				OR = {
+					has_opinion = {
+						who = FROM
+						value = 100
+					}
+					alliance_with = FROM
+				}
+			}
+			modifier = {
+				factor = 2
+				NOT = {
+					army_size = FROM
+				}
+			}
+		}
+		custom_tooltip = NYGX_CDC_9a_tt
+		FROM = {
+			add_dip_power = 50
+			set_country_flag = NYGX_CDC_norman_ally_flag_CDC
+		}
+		set_country_flag = NYGX_CDC_norman_ally_flag
+	}
+	
+	#拒绝为这种无聊的事情付出。
+	option = {
+		name = NYGX_CDC_9b
+		ai_chance = {
+			factor = 1
+		}
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
+		custom_tooltip = " "
+		FROM = {
+			add_casus_belli = {
+				type = cb_vassalize_mission
+				target = ROOT
+				months = 240
+			}
+		}
+	}
+}
+#10 穆瓦希德的末路
+country_event = {
+	id = NYGX_CDC.10
+	title = NYGX_CDC_10_t
+	desc = NYGX_CDC_10_d
+	picture = SIEGE_eventPicture
+
+	is_triggered_only = yes
+
+	#将他们赶尽杀绝。
+	option = {
+		name = NYGX_CDC_10a
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 1
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_10a_modifier
+			duration = 9125
+		}
+		344 = {
+			change_religion = ROOT
+			add_base_manpower = -4
+			add_base_production = -4
+			add_base_tax = -4
+		}
+		if = {
+			limit = {
+				exists = MRK
+			}
+			MRK = {
+				add_stability = -2
+				add_prestige = -50
+			}
+		}
+		
+	}
+	
+	#穷寇莫追。
+	option = {
+		name = NYGX_CDC_10b
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -1
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_10b_modifier
+			duration = 9125
+		}
+		344 = {
+			change_religion = ROOT
+			add_base_manpower = -2
+			add_base_production = -2
+			add_base_tax = -2
+		}
+		if = {
+			limit = {
+				exists = MRK
+			}
+			MRK = {
+				add_stability = -1
+				add_prestige = -25
+			}
+		}
+	}
+}
+#11 非斯大捷
+country_event = {
+	id = NYGX_CDC.11
+	title = NYGX_CDC_11_t
+	desc = NYGX_CDC_11_d
+	picture = SIEGE_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_11a
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 1
+		}
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		add_prestige_or_monarch_power = {
+			amount = 25
+		}
+		custom_tooltip = " "
+		add_country_modifier = {
+			name = NYGX_CDC_11a_modifier
+			duration = 9125
+		}
+		343 = {
+			change_religion = ROOT
+			add_base_production = -3
+			add_base_manpower = -3
+			add_base_tax = -3
+		}
+		
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_11b
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -1
+		}
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+		add_prestige_or_monarch_power = {
+			amount = 50
+		}
+		custom_tooltip = " "
+		add_country_modifier = {
+			name = NYGX_CDC_11b_modifier
+			duration = 9125
+		}
+		343 = {
+			change_religion = ROOT
+			add_base_production = -1
+			add_base_manpower = -1
+			add_base_tax = -1
+		}
+	}
+}
+#12 治下的穆斯林
+country_event = {
+	id = NYGX_CDC.12
+	title = NYGX_CDC_12_t
+	desc = NYGX_CDC_12_d
+	picture = RELIGIOUS_WARS_eventPicture
+
+	is_triggered_only = yes
+
+	#我们真的需要在乎他们的感受吗？
+	option = {
+		name = NYGX_CDC_12a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_12a_tt
+		set_country_flag = NYGX_CDC_not_care_about_muslim_flag
+	}
+	
+	#他们也是我们国家的一部分，他们应当享有同等的地位。
+	option = {
+		name = NYGX_CDC_12b
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_12b_tt
+		set_country_flag = NYGX_CDC_do_care_about_muslim_flag
+		add_country_modifier = {
+			name = NYGX_CDC_12b_modifier
+			duration = -1
+		}
+	}
+}
+#13 杰内清真寺
+country_event = {
+	id = NYGX_CDC.13
+	title = NYGX_CDC_13_t
+	desc = NYGX_CDC_13_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#洗劫这座清真寺！
+	option = {
+		name = NYGX_CDC_13a
+		ai_chance = {
+			factor = 1
+		}
+		add_treasury = 500
+		add_government_power = {
+			mechanic_type = NYGX_CDC_crusader_mechanic
+			power_type = NYGX_CDC_crusader_power
+			value = 10
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 1
+		}
+		1134 = {
+			destroy_great_project = {
+				type = great_mosque_djenne 
+			}
+			add_base_manpower = -2
+			add_base_production = -2
+			add_base_tax = -2
+		}
+		custom_tooltip = " "
+		add_country_modifier = {
+			name = NYGX_CDC_13a_modifier
+			duration = -1
+		}
+	}
+	
+	#强制要求十字军不犯秋毫
+	option = {
+		name = NYGX_CDC_13b
+		ai_chance = {
+			factor = 1
+		}
+		add_mil_power = -100
+		add_government_power = {
+			mechanic_type = NYGX_CDC_crusader_mechanic
+			power_type = NYGX_CDC_crusader_power
+			value = -10
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -1
+		}
+		custom_tooltip = " "
+		add_country_modifier = {
+			name = NYGX_CDC_13b_modifier
+			duration = -1
+		}
+	}
+}
+#14 尼日尔的命运
+country_event = {
+	id = NYGX_CDC.14
+	title = NYGX_CDC_14_t
+	desc = NYGX_CDC_14_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#狠狠地奴役他们！
+	option = {
+		name = NYGX_CDC_14a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_14a_tt
+		set_country_flag = NYGX_CDC_14a_flag
+		sahel_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+					religion_group = christian
+				}
+			}
+			add_province_modifier = {
+				name = NYGX_CDC_golden_empire_prov_modifier1
+				duration = -1
+			}
+		}
+		niger_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+					religion_group = christian
+				}
+			}
+			add_province_modifier = {
+				name = NYGX_CDC_golden_empire_prov_modifier1
+				duration = -1
+			}
+		}
+		custom_tooltip = NYGX_CDC_14a_tt2
+	}
+	
+	#我们的职责是传播正信，仅此而已
+	option = {
+		name = NYGX_CDC_14b
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_14b_tt
+		set_country_flag = NYGX_CDC_14b_flag
+		sahel_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+					religion = ROOT
+				}
+			}
+			add_province_modifier = {
+				name = NYGX_CDC_golden_empire_prov_modifier2
+				duration = -1
+			}
+		}
+		niger_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+					religion = ROOT
+				}
+			}
+			add_province_modifier = {
+				name = NYGX_CDC_golden_empire_prov_modifier2
+				duration = -1
+			}
+		}
+		custom_tooltip = NYGX_CDC_14a_tt2
+	}
+}
+#15 最后的十字军
+country_event = {
+	id = NYGX_CDC.15
+	title = NYGX_CDC_15_t
+	desc = NYGX_CDC_15_d
+	picture = RELIGIOUS_WARS_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+
+	#如神所愿！
+	option = {
+		name = NYGX_CDC_15a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_15a_tt
+		add_country_modifier = {
+			name = NYGX_CDC_perpare_for_next_holy_war_modifier
+			duration = -1
+		}
+		hidden_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = NYGX_CDC_norman_ally_flag
+				}
+				country_event = {
+					id = NYGX_CDC.16
+					days = 5
+					random = 10
+				}
+			}
+		}
+	}
+	
+	
+}
+#16 为突尼西亚十字军送去船只支援
+country_event = {
+	id = NYGX_CDC.16
+	title = NYGX_CDC_16_t
+	desc = NYGX_CDC_16_d
+	picture = SHIP_SAILING_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			tag = CDC
+			tag = PAP
+		}
+	}
+
+	#
+	option = {
+		name = NYGX_CDC_16a
+		ai_chance = {
+			factor = 1
+		}
+		add_treasury = -50
+		add_sailors = -500
+		FROM = {
+			random_owned_province = {
+				limit = {
+					has_port = yes
+				}
+				galley = FROM
+				galley = FROM
+				galley = FROM
+			}
+			add_navy_tradition = 5
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_16b
+		ai_chance = {
+			factor = 0
+		}
+		add_stability = -1
+	}
+}
+#17 突尼西亚请求主持十字军
+country_event = {
+	id = NYGX_CDC.17
+	title = NYGX_CDC_17_t
+	desc = NYGX_CDC_17_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			tag = CDC
+			tag = PAP
+		}
+	}
+
+	#允诺十字军
+	option = {
+		name = NYGX_CDC_17a
+		ai_chance = {
+			factor = 100
+		}
+		#十字军触发修正。
+		custom_tooltip = NYGX_CDC_17a_tt
+		CDC = {
+			set_country_flag = NYGX_CDC_allow_crusader_tm_flag
+			add_treasury = 500
+			add_manpower = 10
+			add_country_modifier = {
+				name = EDG_Religious_piety_4_modifier
+				duration = 7300
+			}
+		}
+		add_reform_desire = -0.05
+	}
+	
+	#告诉他们不可能，我们啊……
+	option = {
+		name = NYGX_CDC_17b
+		ai_chance = {
+			factor = 0
+		}
+		add_prestige = -10
+	}
+}
+#18 与威尼斯总督的交易
+country_event = {
+	id = NYGX_CDC.18
+	title = NYGX_CDC_18_t
+	desc = NYGX_CDC_18_d
+	picture = DIPLOMACY_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_18a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYGX_CDC_18a_tt
+		tooltip = {
+			create_admiral = {
+				tradition = 100
+			}
+			add_country_modifier = {
+				name = NYGX_CDC_19a_modifier
+				duration = -1
+			}
+		}
+		VEN = {
+			country_event = {
+				id = NYGX_CDC.19
+				days = 10
+				random = 5
+			}
+		}
+		
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_18b
+		ai_chance = {
+			factor = 1
+		}
+		create_admiral = {
+			tradition = 60
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_doge_trade_modifier
+			duration = 9125
+		}
+	}
+}
+#19 十字军的生意
+country_event = {
+	id = NYGX_CDC.19
+	title = NYGX_CDC_19_t
+	desc = NYGX_CDC_19_d
+	picture = JERUSALEM_eventPicture
+
+	is_triggered_only = yes
+	major = yes
+	major_trigger = {
+		OR = {
+			tag = CDC
+			tag = PAP
+			tag = VEN
+		}
+	}
+
+	#一单有利可图的生意，成交！
+	#编不出来了，不管了
+	option = {
+		name = NYGX_CDC_19a
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = NYGX_CDC_VEN_join_crusader_flag
+		add_years_of_income = 2
+		CDC = {
+			create_admiral = {
+				tradition = 100
+			}
+			add_country_modifier = {
+				name = NYGX_CDC_19a_modifier
+				duration = -1
+			}
+		}
+	}
+	
+	#我们实在是抽不出精力呀
+	option = {
+		name = NYGX_CDC_19b
+		ai_chance = {
+			factor = 0
+		}
+		add_prestige = -10
+	}
+}
+#20 亚历山大梦魇
+country_event = {
+	id = NYGX_CDC.20
+	title = NYGX_CDC_20_t
+	desc = NYGX_CDC_20_d
+	picture = BATTLE_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_20a
+		ai_chance = {
+			factor = 1
+		}
+		add_ruler_modifier = {
+			name = NYGX_CDC_20a_modifier
+			duration = 730
+		}
+		#custom_tooltip = NYGX_CDC_20a_tt
+	}
+	
+}
+#21 在圣城的天光里
+country_event = {
+	id = NYGX_CDC.21
+	title = NYGX_CDC_21_t
+	desc = NYGX_CDC_21_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#请原谅我，被您的天光所照拂，竟迷失了思绪。
+	option = {
+		name = NYGX_CDC_21a
+		ai_chance = {
+			factor = 1
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_21a_modifier
+			duration = -1
+		}
+		379 = {
+			change_religion = ROOT
+			add_core = ROOT
+			custom_tooltip = " "
+			add_great_project_tier = {
+				type = holy_city_jerusalem
+				tier = 1
+			}
+		}
+	}
+	
+	
+}
+#22 在麦加的废墟中
+country_event = {
+	id = NYGX_CDC.22
+	title = NYGX_CDC_22_t
+	desc = NYGX_CDC_22_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_22a
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 2
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_22a_modifier
+			duration = -1
+		}
+		385 = {
+			change_religion = ROOT
+			add_devastation = 100
+			add_base_manpower = -2
+			add_base_production = -2
+			add_base_tax = -3
+			destroy_great_project = {
+				type = kaaba
+			}
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_22b
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -2
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_22b_modifier
+			duration = -1
+		}
+		385 = {
+			add_devastation = 25
+			add_province_modifier = {
+				name = NYGX_CDC_22b_modifier_prov
+				duration = -1
+			}
+		}
+	}
+}
+#23 在开罗的游行上
+country_event = {
+	id = NYGX_CDC.23
+	title = NYGX_CDC_23_t
+	desc = NYGX_CDC_23_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_23a
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 2
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_23a_modifier
+			duration = 18250
+		}
+		361 = {
+			change_religion = ROOT
+			add_devastation = 100
+			add_base_manpower = -2
+			add_base_production = -2
+			add_base_tax = -3
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_23b
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -1
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_23b_modifier
+			duration = 18250
+		}
+		361 = {
+			add_base_manpower = -1
+			add_base_production = -1
+			add_base_tax = -1
+			add_province_modifier = {
+				name = NYGX_CDC_23b_modifier_prov
+				duration = -1
+			}
+		}
+	}
+}
+#24 在智慧的闪耀中
+country_event = {
+	id = NYGX_CDC.24
+	title = NYGX_CDC_24_t
+	desc = NYGX_CDC_24_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_24a
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = 2
+		}
+		410 = {
+			add_devastation = 100
+			add_base_tax = -2
+			add_base_manpower = -2
+			add_base_production = -2
+		}
+		capital_scope = {
+			add_province_modifier = {
+				name = NYGX_CDC_24a_modifier
+				duration = -1
+			}
+		}
+		add_country_modifier = {
+			name = NYGX_CDC_24a_modifier2
+			duration = 9125
+		}
+	}
+	#
+	option = {
+		name = NYGX_CDC_24b
+		ai_chance = {
+			factor = 1
+		}
+		change_variable = {
+			which = cdc_muslim_tolerance_var
+			value = -1
+		}
+		410 = {
+			add_province_modifier = {
+				name = NYGX_CDC_24a_modifier
+				duration = -1
+			}
+		}
+	}
+	
+}
+#帝国头衔
+country_event = {
+	id = NYGX_CDC.25
+	title = NYGX_CDC_25_t
+	desc = NYGX_CDC_25_d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {#保持现状。
+		name = NYGX_CDC_25h
+		ai_chance = {
+			factor = 1
+		}
+	}
+
+	#
+	option = {#恢复我们原本的国名。
+		name = NYGX_CDC_25a
+		ai_chance = {
+			factor = 1
+		}
+		restore_country_name = yes
+	}
+	
+	#
+	option = {#天主之国
+		name = NYGX_CDC_25b
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25b_name
+	}
+	
+	#
+	option = {#海外帝国
+		name = NYGX_CDC_25c
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25c_name
+	}
+	
+	#
+	option = {#耶路撒冷王国
+		name = NYGX_CDC_25e
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25e_name
+	}
+	
+	#
+	option = {#十字军之国
+		name = NYGX_CDC_25f
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25f_name
+	}
+	
+	#
+	option = {#阿非利加
+		name = NYGX_CDC_25g
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25g_name
+	}
+	
+	#
+	option = {#罗马帝国
+		name = NYGX_CDC_25i
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25i_name
+	}
+	
+	#
+	option = {#神圣罗马帝国
+		name = NYGX_CDC_25j
+		ai_chance = {
+			factor = 1
+		}
+		override_country_name = NYGX_CDC_25j_name
+	}
+}
+#26
+country_event = {
+	id = NYGX_CDC.26
+	title = NYGX_CDC_26_t
+	desc = NYGX_CDC_26_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_26a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_26b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#27
+country_event = {
+	id = NYGX_CDC.27
+	title = NYGX_CDC_27_t
+	desc = NYGX_CDC_27_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_27a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_27b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#28
+country_event = {
+	id = NYGX_CDC.28
+	title = NYGX_CDC_28_t
+	desc = NYGX_CDC_28_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_28a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_28b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#29
+country_event = {
+	id = NYGX_CDC.29
+	title = NYGX_CDC_29_t
+	desc = NYGX_CDC_29_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_29a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_29b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_30
+country_event = {
+	id = NYGX_CDC.30
+	title = NYGX_CDC_30_t
+	desc = NYGX_CDC_30_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_30a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_30b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_31
+country_event = {
+	id = NYGX_CDC.31
+	title = NYGX_CDC_31_t
+	desc = NYGX_CDC_31_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_31a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_31b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_32
+country_event = {
+	id = NYGX_CDC.32
+	title = NYGX_CDC_32_t
+	desc = NYGX_CDC_32_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_32a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_32b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_33
+country_event = {
+	id = NYGX_CDC.33
+	title = NYGX_CDC_33_t
+	desc = NYGX_CDC_33_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_33a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_33b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_34
+country_event = {
+	id = NYGX_CDC.34
+	title = NYGX_CDC_34_t
+	desc = NYGX_CDC_34_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_34a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_34b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_35
+country_event = {
+	id = NYGX_CDC.35
+	title = NYGX_CDC_35_t
+	desc = NYGX_CDC_35_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_35a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_35b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_36
+country_event = {
+	id = NYGX_CDC.36
+	title = NYGX_CDC_36_t
+	desc = NYGX_CDC_36_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_36a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_36b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_37
+country_event = {
+	id = NYGX_CDC.37
+	title = NYGX_CDC_37_t
+	desc = NYGX_CDC_37_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_37a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_37b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_38
+country_event = {
+	id = NYGX_CDC.38
+	title = NYGX_CDC_38_t
+	desc = NYGX_CDC_38_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_38a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_38b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#_39
+country_event = {
+	id = NYGX_CDC.39
+	title = NYGX_CDC_39_t
+	desc = NYGX_CDC_39_d
+	picture = CITY_VIEW_eventPicture
+
+	is_triggered_only = yes
+
+	#
+	option = {
+		name = NYGX_CDC_39a
+		ai_chance = {
+			factor = 1
+		}
+	}
+	
+	#
+	option = {
+		name = NYGX_CDC_39b
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+#移除buff用，懒得写在OA和DA里了
+country_event = {
+	id = NYGX_CDC.100
+	hidden = yes
+
+	trigger = {
+		has_country_modifier = NYGX_CDC_5a_modifier
+		NOT = {
+			OR = {
+				overlord_of = KTP
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		remove_country_modifier = NYGX_CDC_5a_modifier
+		KTP = {
+			remove_country_modifier = NYGX_CDC_5a_modifier
+		}
+	}
+	option = {
+	}
+}
+country_event = {
+	id = NYGX_CDC.101
+	hidden = yes
+
+	trigger = {
+		has_country_modifier = NYGX_CDC_into_the_desert_modifier
+		NOT = {
+			OR = {
+				overlord_of = MZB
+				overlord_of = TGT
+				overlord_of = GHD
+			}
+		}
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		remove_country_modifier = NYGX_CDC_into_the_desert_modifier
+	}
+	option = {
+	}
+}
+province_event = {
+	id = NYGX_CDC.199
+	hidden = yes
+
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_province_flag = NYGX_CDC_forever_reform_center_flag
+		}
+	}
+	immediate = {
+		remove_reform_center = catholic
+	}
+	option = {
+	}
+}

@@ -1,0 +1,77 @@
+venice_lions_war = { #红蓝狮子战争
+    potential = {
+        ai = no
+        OR = {
+            tag = VEN
+            was_tag = VEN
+        }
+		government = monarchy
+		is_free_or_tributary_trigger = yes
+    }
+    can_start = {
+        ai = no
+        OR = {
+            has_country_flag = EDG_VEN_disaster_lions_flag_1
+            has_ruler_modifier = EDG_VEN_disaster_lions_modifier_1
+            has_heir = no
+            has_regency = yes
+        }
+    }
+    can_stop = {
+        NOT = { has_country_flag = EDG_VEN_disaster_lions_flag_1 }
+    }
+    ended_by_country_breaking_to_rebels = no
+    progress = {
+        modifier = {
+			factor = 1
+            AND = {
+			    has_country_flag = EDG_VEN_disaster_lions_flag_1
+                has_ruler_modifier = EDG_VEN_disaster_lions_modifier_1
+            }
+		}
+        modifier = {
+			factor = 0.5
+			NOT = { stability = 0 }
+		}
+        modifier = {
+            factor = 1
+            has_heir = no
+        }
+        modifier = {
+            factor = 1
+            has_regency = yes
+        }
+        modifier = {
+            factor = 100
+            AND = {
+                has_country_flag = EDG_VEN_disaster_lions_flag_1
+                NOT = { has_ruler_modifier = EDG_VEN_disaster_lions_modifier_1 }
+            }
+        }
+    }
+    can_end = {
+        OR = {
+            AND = {
+                NOT = { num_of_rebel_controlled_provinces = 1 }
+		        NOT = { has_spawned_rebels = pretender_rebels }
+                stability = 2
+            }
+            NOT = { is_free_or_tributary_trigger = yes }
+        }
+    }
+    modifier = {
+		global_unrest = 5
+		legitimacy = -1
+        stability_cost_modifier = 0.5
+        land_forcelimit_modifier = -0.5
+        land_maintenance_modifier = 0.5
+	}
+    on_start = EDG_flavorVEN_disaster_lions.1
+    on_end = EDG_flavorVEN_disaster_lions.2
+    on_monthly = {
+        events = {
+            EDG_flavorVEN_disaster_lions.3
+            EDG_flavorVEN_disaster_lions.4
+        }
+    }
+}

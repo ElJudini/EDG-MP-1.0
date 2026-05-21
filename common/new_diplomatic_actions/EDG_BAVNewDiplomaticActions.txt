@@ -1,0 +1,1046 @@
+EDG_BAV_request_aid = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 100
+	alert_tooltip = EDG_BAV_request_aid_tooltip
+	is_visible = {
+		has_country_flag = EDG_BAV_2_2_1_flag
+		OR = {
+			has_country_flag = EDG_BAV_2_3_4_flag
+			has_disaster = EDG_BAV_religion_disaster
+		}
+		OR = {
+			FROM = {
+				is_great_power = yes
+			}
+			has_country_flag = EDG_BAV_6_1_3_flag
+		}
+		alliance_with = FROM
+	}
+	is_allowed = {
+		manpower = 10
+		OR = {
+			has_any_disaster = yes
+			is_at_war = yes
+		}
+		NOT = {
+			has_country_modifier = EDG_BAV_request_aid_cooldown_modifier
+		}
+	}
+	on_accept = {
+		add_dip_power = -100
+		add_manpower = -10
+		FROM = {
+			add_dip_power = 100
+		}
+		capital_scope = {
+			create_units_of_type_in_province = {
+				amount = 10
+				unit_type = hussars_cavalry
+				who = ROOT
+			}
+		}
+		add_country_modifier = {
+			name = EDG_BAV_request_aid_cooldown_modifier
+			duration = 3650
+			hidden = yes
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 25
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = 10
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_friendly
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_allied
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_loyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1000
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_hostile
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_outraged
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_rivalry
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_disloyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.125
+			}
+		}
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = BORDER_DISTANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.1
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+EDG_BAV_request_monarch_power = {
+	category = influence
+	require_acceptance = no
+	alert_index = 101
+	alert_tooltip = EDG_BAV_request_monarch_power_tooltip
+	is_visible = {
+		has_country_flag = EDG_BAV_3_2_8_flag
+		FROM = {
+			is_subject_of = ROOT
+			is_subject_of_type = EDG_BAV_Wittelsbach_Territories
+		}
+	}
+	is_allowed = {
+		if = {
+			limit = {
+				has_country_flag = EDG_BAV_8_4_34_flag
+			}
+			FROM = {
+				NOT = {
+					has_country_modifier = EDG_BAV_request_monarch_power_cooldown_modifier
+				}
+			}
+		}
+		else = {
+			NOT = {
+				has_country_modifier = EDG_BAV_request_monarch_power_cooldown_modifier
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			add_liberty_desire = 25
+			add_adm_power = -100
+			add_dip_power = -100
+			add_mil_power = -100
+		}
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		if = {
+			limit = {
+				has_country_flag = EDG_BAV_8_4_34_flag
+			}
+			FROM = {
+				add_country_modifier = {
+					name = EDG_BAV_request_monarch_power_cooldown_modifier
+					duration = 3650
+					hidden = yes
+				}
+			}
+		}
+		else = {
+			add_country_modifier = {
+				name = EDG_BAV_request_monarch_power_cooldown_modifier
+				duration = 3650
+				hidden = yes
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+EDG_BAV_enhance_grain_trade = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 100
+	alert_tooltip = EDG_BAV_enhance_grain_trade_tooltip
+	is_visible = {
+		has_unlocked_diplomatic_action = {
+			type = EDG_BAV_enhance_grain_trade
+		}
+		FROM = {
+			any_owned_province = {
+				trade_goods = grain
+			}
+		}
+	}
+	is_allowed = {
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_10
+						NOT = {
+							has_country_flag = EDG_BAV_8_5_33_flag
+						}
+					}
+					AND = {
+						has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_20
+						has_country_flag = EDG_BAV_8_5_33_flag
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAV_enhance_grain_trade_tt_cant_have_more
+				always = no
+			}
+		}
+		FROM = {
+			NOT = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_1
+			}
+		}
+	}
+	on_accept = {
+		add_adm_power = -100
+		if = {
+			limit = {
+				FROM = {
+					is_or_was_tag = {
+						tag = MAM
+					}
+				}
+			}
+			country_event = {
+				id = EDG_BAV_event.162
+			}
+		}
+		FROM = {
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_1
+			}
+		}
+		if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_19
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_19
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_20
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_18
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_18
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_19
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_17
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_17
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_18
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_16
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_16
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_17
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_15
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_15
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_16
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_14
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_14
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_15
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_13
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_13
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_14
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_12
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_12
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_13
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_11
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_11
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_12
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_10
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_10
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_11
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_9
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_9
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_10
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_8
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_8
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_9
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_7
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_7
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_8
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_6
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_6
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_7
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_5
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_5
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_6
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_4
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_4
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_5
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_3
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_3
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_4
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_2
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_2
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_3
+			}
+		}
+		else_if = {
+			limit = {
+				has_ruler_modifier = EDG_BAV_enhance_grain_trade_modifier_1
+			}
+			remove_country_modifier = EDG_BAV_enhance_grain_trade_modifier_1
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_2
+			}
+		}
+		else = {
+			add_ruler_modifier = {
+				name = EDG_BAV_enhance_grain_trade_modifier_1
+			}
+		}
+		if = {
+			limit = {
+				has_country_flag = EDG_BAV_4_2_14_flag
+			}
+			if = {
+				limit = {
+					NOT = {
+						check_variable = {
+							which = EDG_BAV_enhance_grain_trade_variable
+							value = 1
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_BAV_enhance_grain_trade_variable
+					value = 1
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_BAV_enhance_grain_trade_variable
+						value = 10
+					}
+				}
+				add_years_of_income = 1
+				set_variable = {
+					which = EDG_BAV_enhance_grain_trade_variable
+					value = 1
+				}
+			}
+			else = {
+				change_variable = {
+					which = EDG_BAV_enhance_grain_trade_variable
+					value = 1
+				}
+			}
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 25
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = 10
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_friendly
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_allied
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_loyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1000
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_hostile
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_outraged
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_rivalry
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_disloyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.125
+			}
+		}
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = BORDER_DISTANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.1
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+EDG_BAV_sell_beer = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 100
+	alert_tooltip = EDG_BAV_sell_beer_tooltip
+	is_visible = {
+		has_unlocked_diplomatic_action = {
+			type = EDG_BAV_sell_beer
+		}
+	}
+	is_allowed = {
+		NOT = {
+			has_country_modifier = EDG_BAV_sell_beer_cooldown_modifier
+		}
+	}
+	on_accept = {
+		if = {
+			limit = {
+				NOT = {
+					has_country_flag = EDG_BAV_8_1_37_flag
+				}
+			}
+			add_prestige = -25
+		}
+		add_years_of_income = 1
+		add_country_modifier = {
+			name = EDG_BAV_sell_beer_cooldown_modifier
+			duration = 3650
+			hidden = yes
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 25
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = 10
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_friendly
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_allied
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_loyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1000
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_hostile
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_outraged
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_rivalry
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_disloyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.125
+			}
+		}
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = BORDER_DISTANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.1
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+EDG_BAV_annex_subject = {
+	category = influence
+	require_acceptance = yes
+	alert_index = 100
+	alert_tooltip = EDG_BAV_annex_subject_tooltip
+	is_visible = {
+		has_unlocked_diplomatic_action = {
+			type = EDG_BAV_annex_subject
+		}
+		FROM = {
+			is_subject_of_type_with_overlord = {
+				who = ROOT
+				type = EDG_BAV_Wittelsbach_Territories
+			}
+		}
+	}
+	is_allowed = {
+		always = yes
+	}
+	on_accept = {
+		EDG_BAV_annex_subject_effect = {
+			who = FROM
+		}
+	}
+	on_decline = {
+		FROM = {
+			declare_war_with_cb = {
+				casus_belli = EDG_BAV_independence_cb
+				who = ROOT
+			}
+		}
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_REJECTION
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = -25
+			}
+		}
+		add_entry = {
+			name = EDG_BAV_8_2_39_title
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = 25
+			}
+			limit = {
+				has_country_flag = EDG_BAV_8_2_39_flag
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			change_variable = {
+				which = ai_value
+				value = 10
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_friendly
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_allied
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_loyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_ATTITUDE
+			export_to_variable = {
+				variable_name = ai_value
+				value = 0
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 1000
+			}
+			limit = {
+				OR = {
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_hostile
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_outraged
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_rivalry
+						}
+					}
+					FROM = {
+						ai_attitude = {
+							who = ROOT
+							attitude = attitude_disloyal
+						}
+					}
+				}
+			}
+		}
+		add_entry = {
+			name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.125
+			}
+		}
+		add_entry = {
+			name = TRUST
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+		}
+		add_entry = {
+			name = BORDER_DISTANCE
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -0.1
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+
+EDG_BAV_raise_compliance = {
+	category = influence
+	require_acceptance = no
+	alert_index = 100
+	alert_tooltip = EDG_BAV_raise_compliance_tooltip
+	is_visible = {
+		has_unlocked_diplomatic_action = {
+			type = EDG_BAV_raise_compliance
+		}
+		FROM = {
+			is_subject_of_type_with_overlord = {
+				who = ROOT
+				type = EDG_BAV_Wittelsbach_Territories
+			}
+		}
+	}
+	is_allowed = {
+		FROM = {
+			NOT = {
+				liberty_desire = 50
+			}
+			NOT = {
+				check_variable = {
+					which = EDG_BAV_compliance_variable
+					value = 5
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = {
+			add_liberty_desire = 50
+			change_variable = {
+				which = EDG_BAV_compliance_variable
+				value = 1
+			}
+			if = {
+				limit = {
+					ROOT = {
+						has_country_flag = EDG_BAV_6_1_5_flag
+					}
+				}
+				change_variable = {
+					which = EDG_BAV_compliance_variable
+					value = 1
+				}
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = EDG_BAV_compliance_variable
+						value = 5
+					}
+				}
+				set_variable = {
+					which = EDG_BAV_compliance_variable
+					value = 5
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+}

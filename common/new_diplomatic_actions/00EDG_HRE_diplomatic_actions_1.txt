@@ -1,0 +1,1580 @@
+
+
+
+EDG_HRE_Request_to_become_Holy_Roman_imperial_territory_action = {#要求成为帝国直辖领地
+	category = emperor
+	require_acceptance = yes
+
+	alert_index = 4
+	alert_tooltip = EDG_HRE_Request_to_become_Holy_Roman_imperial_territory_action_tooltip
+
+	is_visible = {
+		#always = no
+		is_emperor = yes
+		is_subject = no
+		is_part_of_hre = yes
+		FROM = { is_subject = no is_part_of_hre = yes }
+	}
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = ROOT_IS_AT_WAR_TT
+				is_at_war = no
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						has_reform = steppe_horde
+						has_reform = great_mongol_state_reform
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_A_HORDE_TT
+				FROM = {
+					NOT = { has_reform = steppe_horde }
+					NOT = { has_reform = great_mongol_state_reform }
+				}
+			}
+		}
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = EDG_HRE_march
+			subject = FROM
+		}
+	}
+	on_decline = {
+	}
+
+	ai_will_do = { # this is a trigger
+		OR = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_friendly
+			}
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_protective
+			}
+			FROM = {
+				any_neighbor_country = {
+					NOT = { tag = ROOT }
+					FROM = {
+						ai_attitude = {
+							who = PREV
+							attitude = attitude_threatened
+						}
+					}
+				}
+			}
+			FROM = {
+				ai_attitude = {
+					who = ROOT
+					attitude = attitude_threatened
+				}
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_domineering
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_hostile
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_outraged
+			}
+		}
+		has_opinion = {
+			who = FROM
+			value = 50
+		}
+	}
+
+	ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -5
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT_HRE_more_than_25
+			limit = {
+				FROM = {
+					total_development = 25
+					NOT = { total_development = 50 }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2.5
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_1_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_march
+					}
+					amount = 1
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_2_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_march
+					}
+					amount = 3
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_3_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_march
+					}
+					amount = 3
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -30
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_4_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_march
+					}
+					amount = 4
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -40
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_5_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_march
+					}
+					amount = 5
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -50
+			}
+		}
+		add_entry = {
+			name = DIPLO_HAS_AI_HAS_OWN_SUBJECTS_TT
+			limit = {
+				FROM = { num_of_subjects = 1 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_DIG_HRE_COUNTRY
+			limit = {
+				FROM = { total_development = 50 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_DIG_HRE_COUNTRY_elector
+			limit = {
+				FROM = { is_elector = yes }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_PAP
+			limit = {
+				FROM = { tag = PAP }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_free_city
+			limit = {
+				FROM = {
+					OR = {
+						has_reform = free_city
+						has_reform = EDG_HSA_hanseatic_league
+					}
+				}
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -0.85
+			}
+		}
+	}
+}
+
+
+
+
+EDG_EMP_Appoint_Marquis_Imperial_Circle_action = {#委任帝国圈侯爵
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 93            # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = EDG_flavorHRE.10.d           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			is_part_of_hre = yes 
+			NOT = { has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier }
+		}
+		has_global_flag = EDG_HRE_extra_reform_3_3
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_global_flag = EDG_HRE_extra_reform_3_3
+		imperial_influence = 5
+		FROM = {
+			NOT = { has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier }
+			#government = monarchy
+			is_part_of_hre = yes
+		}
+		custom_trigger_tooltip = {
+			tooltip = Appoint_Marquis_Imperial_Circle_tt_yes
+			all_country = {
+				NOT = {
+					AND = {
+						is_part_of_hre = yes
+						culture = FROM
+						has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier
+					}
+				}
+			}
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.12 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = {
+			all_country = {
+				OR = {
+					is_part_of_hre = no
+					AND = {
+						culture = FROM
+						is_part_of_hre = yes
+						NOT = { total_development = FROM }
+						NOT = { has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier }
+					}
+				}
+			}
+		}
+    }
+}
+
+EDG_EMP_Revoke_Marquis_Imperial_Circle_action = {#撤职帝国圈侯爵
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier
+			is_part_of_hre = yes
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			has_country_modifier = EDG_EMP_Appoint_Marquis_Imperial_Circle_action_modifier
+			is_part_of_hre = yes
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.11 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+
+EDG_EMP_Appoint_Generalissimo_action = {#委任帝国大元帅
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			is_part_of_hre = yes 
+			NOT = { has_ruler_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier }
+		}
+		has_global_flag = EDG_HRE_extra_reform_4_3
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_global_flag = EDG_HRE_extra_reform_4_3
+		imperial_influence = 5
+		FROM = {
+			NOT = { has_ruler_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier }
+			government = monarchy
+			is_part_of_hre = yes
+		}
+		FROM = {
+			all_country = {
+				NOT = { has_ruler_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier }
+			}
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.10 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		imperial_influence = 5
+		trust = { who = FROM value = 75 }
+		FROM = {
+			NOT = { total_development = 50 }
+			NOT = { army_size = 15 }
+		}
+		OR = {
+			AND = {
+				alliance_with = FROM
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				alliance_with = FROM
+				trust = { who = FROM value = 90 }
+			}
+		}
+    }
+}
+
+EDG_EMP_Revoke_Generalissimo_action = {#撤职帝国大元帅
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			has_ruler_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier
+			is_part_of_hre = yes
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			has_ruler_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier
+			is_part_of_hre = yes
+			NOT = { has_country_modifier = EDG_hereditary_Generalissimo_modifier }
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.11 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+EDG_EMP_Revoke_Mint_Privilege_action = {#撤销铸币特权
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			has_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier
+			is_part_of_hre = yes
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		FROM = {
+			has_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier
+			is_part_of_hre = yes
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.9 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		always = no
+    }
+}
+
+EDG_EMP_Grant_Mint_Privilege_action = {#授予铸币特权
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			NOT = { has_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier }
+			is_part_of_hre = yes
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		imperial_influence = 2
+		FROM = {
+			NOT = { has_country_modifier = EDG_EMP_Grant_Mint_Privilege_modifier }
+			is_part_of_hre = yes
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.6 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		imperial_influence = 10
+		trust = { who = FROM value = 60 }
+		FROM = {
+			NOT = { total_development = 50 }
+			NOT = { army_size = 15 }
+		}
+		OR = {
+			AND = {
+				alliance_with = FROM
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 170
+				}
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 170
+				}
+				alliance_with = FROM
+				trust = { who = FROM value = 85 }
+			}
+		}
+    }
+}
+
+EDG_EMP_Confer_title_Markgraf_action = {#授予藩候特权
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = { is_part_of_hre = yes }
+		has_global_flag = EDG_HRE_extra_reform_2_1
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_global_flag = EDG_HRE_extra_reform_2_1
+		imperial_influence = 2
+		FROM = {
+			NOT = { has_reform = EDG_Markgraf_state }
+			NOT = { has_reform = EDG_Landgraf_state }
+			NOT = { has_country_modifier = EDG_Refused_title_Markgraf_within_10_years }
+			government = monarchy
+			is_part_of_hre = yes
+		}
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.5 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		imperial_influence = 2
+		trust = { who = FROM value = 60 }
+		FROM = {
+			NOT = { total_development = 50 }
+			NOT = { army_size = 15 }
+		}
+		OR = {
+			AND = {
+				alliance_with = FROM
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				alliance_with = FROM
+				trust = { who = FROM value = 85 }
+			}
+		}
+    }
+}
+
+EDG_EMP_Confer_title_Marquis_action = {#授予侯爵头衔
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    #alert_index = <int>             # 用于该行动的警告。索引号参考 static_actions。可选的。
+    #alert_tooltip = <key>           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = { is_part_of_hre = yes }
+		has_global_flag = EDG_HRE_extra_reform_1_1
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_global_flag = EDG_HRE_extra_reform_1_1
+		imperial_influence = 5
+		FROM = { is_part_of_hre = yes }
+		NOT = { has_country_modifier = EDG_EMP_Confer_title_Marquis_modifier }
+	}
+	on_accept = {
+		FROM = { country_event = { id = EDG_flavorHRE.4 } }
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		always = yes
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		imperial_influence = 5
+		trust = { who = FROM value = 60 }
+		OR = {
+			AND = {
+				alliance_with = FROM
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				imperial_influence = 55
+			}
+			AND = {
+				has_opinion = {
+					who = FROM
+					value = 180
+				}
+				alliance_with = FROM
+				trust = { who = FROM value = 85 }
+			}
+		}
+    }
+}
+
+
+
+EDG_EMP_Appoint_order_officer_action = {#委任帝国秩序长官
+	category = emperor           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 4            # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_EMP_Appoint_order_officer_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = yes	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		is_emperor = yes
+		FROM = {
+			is_part_of_hre = yes
+		}
+		has_global_flag = EDG_HRE_extra_reform_2_3
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		has_global_flag = EDG_HRE_extra_reform_2_3
+		imperial_influence = 5
+		FROM = {
+			NOT = { has_country_modifier = EDG_EMP_Appoint_order_officer_action_modifier }
+			#government = monarchy
+			is_part_of_hre = yes
+		}
+	}
+	on_accept = {
+		FROM = {
+			add_imperial_influence = 1
+			add_country_modifier = {
+				name = "EDG_EMP_Appoint_order_officer_action_modifier"
+				duration = 7300
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT_HRE_more_than_25
+			limit = {
+				FROM = {
+					total_development = 25
+					NOT = { total_development = 50 }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2
+			}
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2.5
+			}
+		}
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		OR = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_friendly
+			}
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_protective
+			}
+			FROM = {
+				any_neighbor_country = {
+					NOT = { tag = ROOT }
+					FROM = {
+						ai_attitude = {
+							who = PREV
+							attitude = attitude_threatened
+						}
+					}
+				}
+			}
+			FROM = {
+				ai_attitude = {
+					who = ROOT
+					attitude = attitude_threatened
+				}
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_domineering
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_hostile
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_outraged
+			}
+		}
+		has_opinion = {
+			who = FROM
+			value = 50
+		}
+    }
+}
+
+
+
+
+
+
+
+EDG_HRE_Request_to_become_Holy_Roman_vassal_State = {#要求成为神圣罗马陪臣国
+	category = influence
+	require_acceptance = yes
+
+	alert_index = 4
+	alert_tooltip = EDG_HRE_Request_to_become_Holy_Roman_vassal_State_tooltip
+
+	is_visible = {
+		has_government_attribute = EDG_HRE_vassal_ability
+		is_subject = no
+		is_part_of_hre = yes
+		FROM = { is_subject = no is_part_of_hre = yes }
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { total_development = 100 } }
+			custom_trigger_tooltip = {
+				tooltip = FROM_HAS_NOT_100_TOTAL_DEV
+				from = { not = { total_development = 100 } }
+			}
+		}
+		if = {
+			limit = { FROM = { total_development = root } }
+			custom_trigger_tooltip = {
+				tooltip = FROM_MORE_DEV_THAN_ROOT_TT
+				FROM = { NOT = { total_development = root } }
+			}
+		}
+		if = {
+			limit = {
+				FROM = { is_at_war = yes }
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = { is_at_war = no }
+			}
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = ROOT_IS_AT_WAR_TT
+				is_at_war = no
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					OR = {
+						has_reform = steppe_horde
+						has_reform = great_mongol_state_reform
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_A_HORDE_TT
+				FROM = {
+					NOT = { has_reform = steppe_horde }
+					NOT = { has_reform = great_mongol_state_reform }
+				}
+			}
+		}
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = EDG_HRE_vassal
+			subject = FROM
+		}
+	}
+	on_decline = {
+	}
+
+	ai_will_do = { # this is a trigger
+		OR = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_friendly
+			}
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_protective
+			}
+			FROM = {
+				any_neighbor_country = {
+					NOT = { tag = ROOT }
+					FROM = {
+						ai_attitude = {
+							who = PREV
+							attitude = attitude_threatened
+						}
+					}
+				}
+			}
+			FROM = {
+				ai_attitude = {
+					who = ROOT
+					attitude = attitude_threatened
+				}
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_domineering
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_hostile
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_outraged
+			}
+		}
+		has_opinion = {
+			who = FROM
+			value = 50
+		}
+	}
+
+	ai_acceptance = {
+        add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.125
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -5
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT_HRE_more_than_25
+			limit = {
+				FROM = {
+					total_development = 25
+					NOT = { total_development = 50 }
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_1_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_vassal
+					}
+					amount = 1
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -10
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_2_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_vassal
+					}
+					amount = 2
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -20
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_3_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_vassal
+					}
+					amount = 3
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -30
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_4_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_vassal
+					}
+					amount = 4
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -40
+			}
+		}
+		add_entry = {
+			name = EDG_already_has_HRE_vassal_5_entry
+			limit = {
+				calc_true_if = {
+					all_country = {
+						is_subject_of = ROOT
+						is_subject_of_type = EDG_HRE_vassal
+					}
+					amount = 5
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -100
+			}
+		}
+		add_entry = {
+			name = DIPLO_HAS_AI_HAS_OWN_SUBJECTS_TT
+			limit = {
+				FROM = { num_of_subjects = 1 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_DIG_HRE_COUNTRY
+			limit = {
+				FROM = { total_development = 50 }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_DIG_HRE_COUNTRY_elector
+			limit = {
+				FROM = { is_elector = yes }
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = 1
+			}
+			multiply_variable = {
+				which = ai_value
+				value = -1000
+			}
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_PAP
+			limit = {
+				FROM = { tag = PAP }
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = EDG_entry_DIPLO_free_city
+			limit = {
+				FROM = {
+					OR = {
+						has_reform = free_city
+						has_reform = EDG_HSA_hanseatic_league
+					}
+				}
+			}
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_neutral_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_neutral } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -20 }
+		}
+		add_entry = {
+			name = attitude_rivalry_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_rivalry } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_hostile_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_hostile } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_friendly_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_friendly } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_threatened_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_threatened } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = 10 }
+		}
+		add_entry = {
+			name = attitude_outraged_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_outraged } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = attitude_domineering_DIPLO_ATTITUDE_TT
+			limit = { FROM = { ai_attitude = { who = ROOT attitude = attitude_domineering } } }
+			export_to_variable = { variable_name = ai_value value = 1 }
+			multiply_variable = { which = ai_value value = -1000 }
+		}
+		add_entry = {
+			name = DIPLO_BORDER_DISTANCE_TT
+			export_to_variable = {
+				variable_name = ai_value
+				value = border_distance
+				who = FROM
+				with = ROOT
+			}
+			#2 units = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2.5
+			}
+		}
+	}
+}
+

@@ -1,0 +1,2071 @@
+namespace = EDG_FYM_civil_war
+country_event = {
+  id = EDG_FYM_civil_war.1
+  title = "EDG_FYM_civil_war.1.t"
+  desc = "EDG_FYM_civil_war.1.d"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+		log = "[Root.GetName] has EDG_FYM_civil_war Disaster."
+		set_country_flag = EDG_FYM_civil_war_flag
+		set_global_flag = EDG_FYM_civil_war_global_flag
+	}
+    hidden_effect = {
+		add_stability = -6
+		play_sound = EDGFYMsound1
+    }
+  }
+  option = {
+    name = "EDG_FYM_civil_war.1.a"
+	add_prestige = -10
+	
+    if = {
+      limit = {
+        any_owned_province = {
+          development = 5
+          highest_supply_limit_in_area = yes
+          is_in_capital_area = yes
+          fort_level = 1
+          is_capital = no
+        }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 2
+			win = yes
+			unrest = 20
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 2
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+    else = {
+      random_owned_province = {
+        limit = {
+          highest_supply_limit_in_area = yes
+          is_capital = no
+        }
+		
+		spawn_rebels = {
+			size = 2
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+    if = {
+      limit = {
+        NOT = {
+          has_dlc = "Emperor"
+        }
+      }
+      random_owned_province = {
+        limit = {
+          is_capital = yes
+        }
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+    tooltip = { add_stability = -6 }
+	hidden_effect = {
+		country_event = { id = EDG_FYM_civil_war.8 days = 360 }
+		country_event = { id = EDG_FYM_civil_war.30 days = 360 }
+	}
+  }
+  
+}
+
+country_event = {
+  id = EDG_FYM_civil_war.2
+  title = "EDG_FYM_civil_war.2.t"
+  desc = "EDG_FYM_civil_war.2.d"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  option = {
+    name = "EDG_FYM_civil_war.2.a"
+    add_stability = 2
+	add_army_tradition = 15
+	add_mil_power = 50
+	set_country_flag = EDG_FYM_civil_war_end_flag
+	if = {
+		limit = { has_country_modifier = EDG_FYM_1444_decline_modifier }
+		remove_country_modifier = EDG_FYM_1444_decline_modifier
+		swap_non_generic_missions = yes
+	}
+
+  }
+}
+
+
+
+country_event = {#穆哈的烈火（也门）
+  id = EDG_FYM_civil_war.3
+  title = "EDG_FYM_civil_war.3.t"
+  desc = "EDG_FYM_civil_war.3.d"
+  picture = ANGRY_MOB_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_4_2_flag }
+  }
+#   option = {
+#     name = "EDG_FYM_civil_war.3.a"
+#   }
+  option = {
+    name = "EDG_FYM_civil_war.3.a"
+    add_stability = -2
+	add_government_power = {
+	  mechanic_type = EDG_FYM_Monarchy_ability_2
+	  power_type = EDG_FYM_Monarchy_power_2
+	  value = 5
+	}
+	if = {
+		limit = { owns = 387 }
+		387 = {
+			spawn_rebels = {
+				size = 3
+				win = yes
+				unrest = 20
+			}
+		}
+	}
+	if = {
+		limit = { owns = 2346 }
+		2346 = {
+			spawn_rebels = {
+				size = 3
+				win = yes
+				unrest = 20
+			}
+		}
+	}
+	if = {
+		limit = { owns = 4279 }
+		4279 = {
+			spawn_rebels = {
+				size = 3
+				win = yes
+				unrest = 20
+			}
+		}
+	}
+  }
+}
+
+
+
+country_event = {#巴赫里的阴谋
+  id = EDG_FYM_civil_war.4
+  title = "EDG_FYM_civil_war.4.t"
+  desc = "EDG_FYM_civil_war.4.desc"
+  picture = DEATH_OF_HEIR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	had_country_flag = {
+		flag = EDG_FYM_civil_war_flag
+		days = 700
+	}
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_1_2_flag }
+    NOT = { has_global_flag = EDG_FYM_disaster_EGY_claim_flag }
+	development_in_provinces = {
+		value = 1
+		region = egypt_region
+	}
+  }
+  
+  immediate = {
+	set_global_flag = EDG_FYM_disaster_EGY_claim_flag
+  }
+  option = {
+    name = "EDG_FYM_civil_war.4.a"
+    ai_chance = {
+      factor = 100
+    }
+    kill_ruler = yes
+	free_vassal = DMA
+	free_vassal = LEB
+	free_vassal = FAD
+    release = CIO
+    release = ALX
+	add_truce_with = CIO
+	add_truce_with = ALX
+	hidden_effect = { effect_EDG_FYM_ALX_vs_CIO = yes }
+	effect_EDG_FYM_lose_core = yes
+	CIO = {
+		declare_war_with_cb = {
+		  who = ALX
+		  casus_belli = cb_annex
+		}
+	}
+  }
+  option = {
+    name = "EDG_FYM_civil_war.4.b"
+    ai_chance = {
+      factor = 0
+    }
+    kill_ruler = yes
+	free_vassal = DMA
+	free_vassal = LEB
+	free_vassal = FAD
+    release = CIO
+    release = ALX
+	hidden_effect = { effect_EDG_FYM_ALX_vs_CIO = yes }
+	CIO = {
+		declare_war_with_cb = {
+		  who = ALX
+		  casus_belli = cb_annex
+		}
+	}
+	Root = {
+		declare_war_with_cb = {
+		  who = CIO
+		  casus_belli = cb_annex
+		}
+		declare_war_with_cb = {
+		  who = ALX
+		  casus_belli = cb_annex
+		}
+	}
+	custom_tooltip = EDG_FYM_80_goal_annex_tt
+  }
+  option = {
+    name = "EDG_FYM_civil_war.4.c"
+    ai_chance = {
+      factor = 0
+    }
+	trigger = { always = no }
+    kill_ruler = yes
+	free_vassal = DMA
+	free_vassal = LEB
+	free_vassal = FAD
+    release = CIO
+    release = ALX
+	add_truce_with = CIO
+	add_truce_with = ALX
+	hidden_effect = { effect_EDG_FYM_ALX_vs_CIO = yes }
+	effect_EDG_FYM_lose_core = yes
+	CIO = {
+		declare_war_with_cb = {
+		  who = ALX
+		  casus_belli = cb_annex
+		}
+	}
+	switch_tag = ALX
+  }
+  option = {
+    name = "EDG_FYM_civil_war.4.d"
+    ai_chance = {
+      factor = 0
+    }
+	trigger = { always = no }
+    kill_ruler = yes
+	free_vassal = DMA
+	free_vassal = LEB
+	free_vassal = FAD
+    release = CIO
+    release = ALX
+	add_truce_with = CIO
+	add_truce_with = ALX
+	hidden_effect = { effect_EDG_FYM_ALX_vs_CIO = yes }
+	effect_EDG_FYM_lose_core = yes
+	CIO = {
+		declare_war_with_cb = {
+		  who = ALX
+		  casus_belli = cb_annex
+		}
+	}
+	switch_tag = CIO
+  }
+  after = {
+	hidden_effect = {
+		CIO = {
+			add_country_modifier = {
+				name = EDG_MAM_mission_1_modifier
+				duration = 3650
+			}
+		}
+		ALX = {
+			add_country_modifier = {
+				name = EDG_MAM_mission_1_modifier
+				duration = 3650
+			}
+		}
+	}
+  }
+}
+
+
+
+country_event = {#虔诚带来灾祸
+  id = EDG_FYM_civil_war.5
+  title = "EDG_FYM_civil_war.5.t"
+  desc = "EDG_FYM_civil_war.5.d"
+  picture = PRAYING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	had_country_flag = {
+		flag = EDG_FYM_civil_war_flag
+		days = 700
+	}
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_4_4_flag }
+  }
+  option = {
+    name = "EDG_FYM_civil_war.5.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_stability = -2
+	add_government_power = {
+	  mechanic_type = EDG_FYM_Monarchy_ability_2
+	  power_type = EDG_FYM_Monarchy_power_2
+	  value = 5
+	}
+    if = {
+		limit = { owns = 1229 }
+		1229 = {
+			spawn_rebels = {
+				size = 3
+				win = yes
+				unrest = 20
+			}
+		}
+	}
+    if = {
+		limit = { owns = 1226 }
+		1226 = {
+			spawn_rebels = {
+				size = 3
+				win = yes
+				unrest = 20
+			}
+		}
+	}
+	
+  }
+}
+
+
+country_event = {#十四位谢赫（贝都因）
+  id = EDG_FYM_civil_war.6
+  title = "EDG_FYM_civil_war.6.t"
+  desc = "EDG_FYM_civil_war.6.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_FYM_civil_war_29_flag }	
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_5_2_flag }
+	development_in_provinces = {
+		value = 1
+		culture = bedouin_arabic
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_FYM_civil_war_6_flag
+  }
+  option = {
+    name = "EDG_FYM_civil_war.6.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_stability = -2
+	add_government_power = {
+	  mechanic_type = EDG_FYM_Monarchy_ability_2
+	  power_type = EDG_FYM_Monarchy_power_2
+	  value = 5
+	}
+	if = {
+		limit = { not = { exists = NAJ } }
+		release = NAJ
+		hidden_effect = {
+			NAJ = {
+				add_mil_power = 300
+				add_dip_power = 300
+				add_adm_power = 300
+				add_treasury = 500
+				add_manpower = 10
+				capital_scope = {
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+					infantry = NAJ
+				}
+			}
+		}
+		declare_war_with_cb = {
+			who = NAJ
+			casus_belli = cb_annex
+		}
+	}
+	if = {
+		limit = { not = { exists = SHM } }
+		release = SHM
+		hidden_effect = {
+			SHM = {
+				add_mil_power = 300
+				add_dip_power = 300
+				add_adm_power = 300
+				add_treasury = 500
+				add_manpower = 10
+				capital_scope = {
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+					infantry = SHM
+				}
+			}
+		}
+		declare_war_with_cb = {
+			who = SHM
+			casus_belli = cb_annex
+		}
+	}
+	if = {
+		limit = { not = { exists = DAW } }
+		release = DAW
+		hidden_effect = {
+			DAW = {
+				add_mil_power = 300
+				add_dip_power = 300
+				add_adm_power = 300
+				add_treasury = 500
+				add_manpower = 10
+				capital_scope = {
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+					infantry = DAW
+				}
+			}
+		}
+		declare_war_with_cb = {
+			who = DAW
+			casus_belli = cb_annex
+		}
+	}
+	random_owned_province = {
+		limit = {
+			culture = bedouin_arabic
+		}
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		}
+	}
+	random_owned_province = {
+		limit = {
+			culture = bedouin_arabic
+		}
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		}
+	}
+	random_owned_province = {
+		limit = {
+			culture = bedouin_arabic
+		}
+		spawn_rebels = {
+			type = nationalist_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		}
+	}
+	
+  }
+}
+
+
+country_event = {#罗塞塔王朝
+  id = EDG_FYM_civil_war.7
+  title = "EDG_FYM_civil_war.7.t"
+  desc = "EDG_FYM_civil_war.7.d"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	had_country_flag = {
+		flag = EDG_FYM_civil_war_flag
+		days = 700
+	}
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_3_2_flag }
+    NOT = { has_global_flag = EDG_FYM_disaster_EGY_claim_flag }
+	development_in_provinces = {
+		value = 1
+		region = egypt_region
+	}
+	is_year = 1455
+  }
+  
+  immediate = {
+	set_global_flag = EDG_FYM_disaster_EGY_claim_flag
+  }
+  option = {
+    name = "EDG_FYM_civil_war.7.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_stability = -1
+	hidden_effect = {
+		egypt_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		maghreb_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		mashriq_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		horn_of_africa_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+	}
+	release = RSD
+    effect_EDG_FYM_RSD_raise = yes
+	if = {
+		limit = { overlord_of = LEB }
+		RSD = { vassalize = LEB }
+	}
+	if = {
+		limit = { overlord_of = DMA }
+		RSD = { vassalize = DMA }
+	}
+	if = {
+		limit = { overlord_of = FAD }
+		RSD = { vassalize = FAD }
+	}
+	add_truce_with = RSD
+	effect_EDG_FYM_lose_core = yes
+  }
+  option = {
+    name = "EDG_FYM_civil_war.7.c"
+    ai_chance = {
+      factor = 100
+    }
+    add_stability = -1
+	hidden_effect = {
+		egypt_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		maghreb_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		mashriq_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		horn_of_africa_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+	}
+	release = RSD
+    effect_EDG_FYM_RSD_raise = yes
+	if = {
+		limit = { overlord_of = LEB }
+		RSD = { vassalize = LEB }
+	}
+	if = {
+		limit = { overlord_of = DMA }
+		RSD = { vassalize = DMA }
+	}
+	if = {
+		limit = { overlord_of = FAD }
+		RSD = { vassalize = FAD }
+	}
+	declare_war_with_cb = {
+	  who = RSD
+	  casus_belli = cb_annex
+	}
+	custom_tooltip = EDG_FYM_80_goal_annex_tt
+  }
+  option = {
+    name = "EDG_FYM_civil_war.7.c"
+    ai_chance = {
+      factor = 100
+    }
+	trigger = { ai = no }
+    add_stability = -1
+	hidden_effect = {
+		egypt_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		maghreb_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		mashriq_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+		horn_of_africa_region = {
+			limit = { owned_by = Root }
+			add_core = RSD
+		}
+	}
+	release = RSD
+    effect_EDG_FYM_RSD_raise = yes
+	if = {
+		limit = { overlord_of = LEB }
+		RSD = { vassalize = LEB }
+	}
+	if = {
+		limit = { overlord_of = DMA }
+		RSD = { vassalize = DMA }
+	}
+	if = {
+		limit = { overlord_of = FAD }
+		RSD = { vassalize = FAD }
+	}
+	add_truce_with = RSD
+	egypt_region = {
+		remove_core = Root
+	}
+	maghreb_region = {
+		remove_core = Root
+	}
+	mashriq_region = {
+		remove_core = Root
+	}
+	horn_of_africa_region = {
+		remove_core = Root
+	}
+	switch_tag = RSD
+	effect_EDG_FYM_lose_core = yes
+  }
+}
+
+
+
+
+country_event = {#覆水可收？
+  id = EDG_FYM_civil_war.8
+  title = "EDG_FYM_civil_war.8.title"
+  desc = "EDG_FYM_civil_war.8.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	ai = no
+	had_country_flag = {
+		flag = EDG_FYM_civil_war_flag
+		days = 360
+	}
+    NOT = { has_global_flag = EDG_FYM_civil_war_8_flag }
+    NOT = { has_global_flag = EDG_FYM_civil_war_30_flag }
+	has_ruler_flag = EDG_FYM_ruler_1_flag
+  }
+  
+  immediate = {
+	set_global_flag = EDG_FYM_civil_war_8_flag
+  }
+  
+  option = {#他是谁？
+    name = "EDG_FYM_civil_war.8.a"
+    ai_chance = {
+      factor = 100
+    }
+	country_event = { id = EDG_FYM_civil_war.9 }
+  }
+  
+}
+
+country_event = {#久别重逢？
+  id = EDG_FYM_civil_war.9
+  title = "EDG_FYM_civil_war.9.title"
+  desc = "EDG_FYM_civil_war.9.desc"
+  picture = ASSASSINATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  
+  immediate = {
+	
+  }
+  
+  option = {#我做梦都想再见到你，我的儿子。
+    name = "EDG_FYM_civil_war.9.a"
+    ai_chance = {
+      factor = 100
+    }
+	country_event = { id = EDG_FYM_civil_war.10 }
+  }
+  
+  option = {#你是回来杀我的吗？
+    name = "EDG_FYM_civil_war.9.b"
+    ai_chance = {
+      factor = 0
+    }
+	country_event = { id = EDG_FYM_civil_war.11 }
+  }
+  
+}
+
+
+
+country_event = {#破镜重圆？
+  id = EDG_FYM_civil_war.10
+  title = "EDG_FYM_civil_war.10.title"
+  desc = "EDG_FYM_civil_war.10.desc"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  
+  immediate = {
+	
+  }
+  
+  option = {#……
+    name = "EDG_FYM_civil_war.10.a"
+    ai_chance = {
+      factor = 100
+    }
+	country_event = { id = EDG_FYM_civil_war.12 }
+  }
+  
+}
+
+country_event = {#恩断义绝？
+  id = EDG_FYM_civil_war.11
+  title = "EDG_FYM_civil_war.11.title"
+  desc = "EDG_FYM_civil_war.11.desc"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  
+  immediate = {
+	
+  }
+  
+  option = {#……
+    name = "EDG_FYM_civil_war.11.a"
+    ai_chance = {
+      factor = 100
+    }
+	country_event = { id = EDG_FYM_civil_war.12 }
+  }
+  
+}
+
+country_event = {#扎伊德之剑
+  id = EDG_FYM_civil_war.12
+  title = "EDG_FYM_civil_war.12.title"
+  desc = "EDG_FYM_civil_war.12.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  
+  immediate = {
+  }
+  
+  option = {#你重认我做你的纳西尔，我必视你为我的穆罕默德。
+    name = "EDG_FYM_civil_war.12.a"
+    ai_chance = {
+      factor = 100
+    }
+	add_stability_or_adm_power = yes
+	EDG_FYM_civil_war_9_a_effect = yes
+	custom_tooltip = merc__EDG_FYM_prince_army_enable_flag_tt
+	set_country_flag = merc__EDG_FYM_prince_army_enable_flag
+	add_country_modifier = {
+		name = merc__EDG_FYM_prince_army_modifier
+		duration = 9125
+	}
+	hidden_effect = {
+		country_event = { id = EDG_FYM_civil_war.21 days = 700 }
+	}
+  }
+  option = {#但破镜不可能重圆。
+    name = "EDG_FYM_civil_war.12.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_prestige = -5
+  }
+  after = {
+	set_country_flag = EDG_FYM_zhayide_back_flag
+  }
+}
+
+country_event = {#扎伊德的威望
+  id = EDG_FYM_civil_war.13
+  title = "EDG_FYM_civil_war.13.title"
+  desc = "EDG_FYM_civil_war.13.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	has_heir_flag = EDG_FYM_ruler_2_flag_heir
+	set_country_flag = merc__EDG_FYM_prince_army_enable_flag
+	stability = 1
+	NOT = { num_of_rebel_controlled_provinces = 1 }
+	NOT = { num_of_rebel_armies = 1 }
+  }
+  
+  immediate = {
+	
+  }
+  
+  option = {#他有资格成为我们的大维齐尔。
+    name = "EDG_FYM_civil_war.13.a"
+    ai_chance = {
+      factor = 100
+    }
+	add_stability_or_adm_power = yes
+	add_country_modifier = {
+		name = EDG_FYM_civil_war_13_a_modifier
+		duration = 3650
+	}
+  }
+  option = {#扎伊德的力量应该被更多地投入到战场上。
+    name = "EDG_FYM_civil_war.13.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_mil_power = 50
+	add_country_modifier = {
+		name = EDG_FYM_civil_war_13_b_modifier
+		duration = 3650
+	}
+  }
+  
+}
+
+
+
+country_event = {#[EDG_FYM_civil_war_14_province.GetName]的叛离
+  id = EDG_FYM_civil_war.14
+  title = "EDG_FYM_civil_war.14.title"
+  desc = "EDG_FYM_civil_war.14.desc"
+  picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  goto = EDG_FYM_civil_war_14_province
+  trigger = {
+	NOT = { has_country_flag = EDG_FYM_disaster_mission_2_3_flag }
+  }
+  
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+				}
+				save_event_target_as = EDG_FYM_civil_war_14_province
+			}
+		}
+	}
+  
+  option = {#我们别无他法。
+    name = "EDG_FYM_civil_war.14.a"
+    ai_chance = {
+      factor = 100
+    }
+	event_target:EDG_FYM_civil_war_14_province = {
+		add_province_modifier = {
+			name = "EDG_FYM_civil_war_14_province_modifier"
+			duration = 3650
+		}
+	}
+  }
+  
+}
+
+
+country_event = {#[EDG_FYM_civil_war_15_province.GetName]的叛军
+  id = EDG_FYM_civil_war.15
+  title = "EDG_FYM_civil_war.15.title"
+  desc = "EDG_FYM_civil_war.15.desc"
+  picture = BATTLE_eventPicture
+  is_triggered_only = yes
+  goto = EDG_FYM_civil_war_15_province
+  trigger = {
+	
+  }
+  
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+				}
+				save_event_target_as = EDG_FYM_civil_war_15_province
+			}
+		}
+	}
+  
+	option = {#他们想要什么，都给他们吧。
+		name = "EDG_FYM_civil_war.15.c"
+		ai_chance = {
+			factor = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+		add_adm_power = -25
+	}
+	option = {#这些该死的叛徒！
+		name = "EDG_FYM_civil_war.15.a"
+		ai_chance = {
+			factor = 0
+		}
+		event_target:EDG_FYM_civil_war_15_province = {
+			spawn_rebels = {
+				size = 2
+			}
+		}
+	}
+	option = {#将他们斩尽杀绝！
+		name = "EDG_FYM_civil_war.15.b"
+		ai_chance = {
+			factor = 15
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+		event_target:EDG_FYM_civil_war_15_province = {
+			spawn_rebels = {
+				size = 3
+			}
+		}
+	}
+  
+}
+
+
+country_event = {#在[EDG_FYM_civil_war_16_province.GetName]的贝都因暴动
+  id = EDG_FYM_civil_war.16
+  title = "EDG_FYM_civil_war.16.title"
+  desc = "EDG_FYM_civil_war.16.desc"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  goto = EDG_FYM_civil_war_16_province
+  trigger = {
+	
+  }
+  
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+				}
+				save_event_target_as = EDG_FYM_civil_war_16_province
+			}
+		}
+	}
+  
+	option = {#我们需要贝都因部落的支持。
+		name = "EDG_FYM_civil_war.16.a"
+		ai_chance = {
+			factor = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 1
+		}
+		add_estate_loyalty = {
+			estate = estate_nomadic_tribes
+			loyalty = 5
+		}
+		add_mil_power = -25
+	}
+	option = {#他们不再是我们的兄弟。
+		name = "EDG_FYM_civil_war.16.b"
+		ai_chance = {
+			factor = 100
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+		add_estate_loyalty = {
+			estate = estate_nomadic_tribes
+			loyalty = -5
+		}
+		event_target:EDG_FYM_civil_war_16_province = {
+			spawn_rebels = {
+				size = 3
+				type = nationalist_rebels
+			}
+		}
+	}
+  
+}
+
+
+country_event = {#叙利亚的孤立主义
+	id = EDG_FYM_civil_war.17
+	title = "EDG_FYM_civil_war.17.title"
+	desc = "EDG_FYM_civil_war.17.desc"
+	picture = ANGRY_MOB_eventPicture
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_country_modifier = EDG_FYM_civil_war_17_a_modifier }
+		NOT = { has_country_flag = EDG_FYM_disaster_mission_4_3_flag }
+	}
+  
+	immediate = {
+		
+	}
+  
+	option = {#他们怎敢？
+		name = "EDG_FYM_civil_war.17.a"
+		ai_chance = {
+			factor = 100
+		}
+		every_country = {
+			limit = { is_subject_of = root }
+			add_liberty_desire = 20
+		}
+		add_country_modifier = {
+			name = EDG_FYM_civil_war_17_a_modifier
+			duration = 365
+		}
+	}
+	option = {#我们愿意倾听他们的声音。
+		name = "EDG_FYM_civil_war.17.b"
+		ai_chance = {
+			factor = 1
+		}
+		add_dip_power = -50
+	}
+  
+}
+
+
+
+country_event = {#科普特人的挑拨
+	id = EDG_FYM_civil_war.18
+	title = "EDG_FYM_civil_war.18.title"
+	desc = "EDG_FYM_civil_war.18.desc"
+	picture = ANGRY_MOB_eventPicture
+	is_triggered_only = yes
+	goto = EDG_FYM_civil_war_18_province
+	trigger = {
+	  any_owned_province = {
+		is_city = yes
+		religion = coptic
+	  }
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					religion = coptic
+				}
+				save_event_target_as = EDG_FYM_civil_war_18_province
+			}
+		}
+	}
+	
+  
+	option = {#给他们所要的。
+		name = "EDG_FYM_civil_war.18.a"
+		ai_chance = {
+			factor = 1
+		}
+		add_treasury = -100
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = 1
+		}
+		add_estate_loyalty = {
+			estate = estate_edg_copt
+			loyalty = 5
+		}
+	}
+	option = {#科普特人都该死！
+		name = "EDG_FYM_civil_war.18.b"
+		ai_chance = {
+			factor = 100
+		}
+		add_estate_loyalty = {
+			estate = estate_edg_copt
+			loyalty = -5
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = -1
+		}
+		custom_tooltip = EDG_FYM_civil_war_18_b_tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {  is_city = yes religion = coptic NOT = { is_core = COP }  }
+				add_core = COP
+			}
+		}
+		event_target:EDG_FYM_civil_war_18_province = {
+			spawn_rebels = {
+				size = 2
+			}
+		}
+	}
+  
+}
+
+
+country_event = {#尼罗河沿岸的饥荒
+	id = EDG_FYM_civil_war.19
+	title = "EDG_FYM_civil_war.19.title"
+	desc = "EDG_FYM_civil_war.19.desc"
+	picture = FAMINE_eventPicture
+	is_triggered_only = yes
+	goto = EDG_FYM_civil_war_19_province
+	trigger = {
+	  any_owned_province = {
+		is_city = yes
+		OR = {
+			area = bahari_area
+			area = delta_area
+		}
+		NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_a_modifier }
+		NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_b_modifier }
+		NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_c_modifier }
+	  }
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					OR = {
+						area = bahari_area
+						area = delta_area
+					}
+					NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_a_modifier }
+					NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_b_modifier }
+					NOT = { has_province_modifier = EDG_FYM_civil_war_19_province_c_modifier }
+				}
+				save_event_target_as = EDG_FYM_civil_war_19_province
+			}
+		}
+	}
+	
+  
+	option = {#什么样的人能坐视自己的人民饿死？
+		name = "EDG_FYM_civil_war.19.c"
+		ai_chance = {
+			factor = 1
+		}
+		add_treasury = -50
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = -1
+		}
+		event_target:EDG_FYM_civil_war_19_province = {
+			add_province_modifier = {
+				name = EDG_FYM_civil_war_19_province_c_modifier
+				duration = 365
+			}
+		}
+	}
+	option = {#真是令人触目惊心，但交税是他们神圣不可推卸的义务。
+		name = "EDG_FYM_civil_war.19.a"
+		ai_chance = {
+			factor = 1
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = 1
+		}
+		event_target:EDG_FYM_civil_war_19_province = {
+			add_province_modifier = {
+				name = EDG_FYM_civil_war_19_province_a_modifier
+				duration = 730
+			}
+			spawn_rebels = {
+				size = 2
+				type = anti_tax_rebels
+			}
+		}
+	}
+	option = {#他们为何不作安安饿殍效，尤奋臂螳螂？
+		name = "EDG_FYM_civil_war.19.b"
+		ai_chance = {
+			factor = 100
+		}
+		add_treasury = 25
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = 2
+		}
+		event_target:EDG_FYM_civil_war_19_province = {
+			add_province_modifier = {
+				name = EDG_FYM_civil_war_19_province_b_modifier
+				duration = 3650
+			}
+			spawn_rebels = {
+				size = 3
+				type = anti_tax_rebels
+			}
+		}
+	}
+  
+}
+
+
+country_event = {#横征暴敛
+	id = EDG_FYM_civil_war.20
+	title = "EDG_FYM_civil_war.20.title"
+	desc = "EDG_FYM_civil_war.20.desc"
+	picture = OVEREXTENSION_eventPicture
+	is_triggered_only = yes
+	goto = EDG_FYM_civil_war_20_province
+	trigger = {
+	  any_owned_province = {
+		is_city = yes
+		NOT = { religion = root }
+		NOT = { culture = root }
+		NOT = { has_province_modifier = EDG_FYM_civil_war_20_province_a_modifier }
+		NOT = { has_province_modifier = EDG_FYM_civil_war_20_province_b_modifier }
+	  }
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					NOT = { religion = root }
+					NOT = { culture = root }
+					NOT = { has_province_modifier = EDG_FYM_civil_war_20_province_a_modifier }
+					NOT = { has_province_modifier = EDG_FYM_civil_war_20_province_b_modifier }
+				}
+				save_event_target_as = EDG_FYM_civil_war_20_province
+			}
+		}
+	}
+	
+  
+	option = {#农民只需要交税就够了，但包税人要考虑的可就多了。
+		name = "EDG_FYM_civil_war.20.a"
+		ai_chance = {
+			factor = 100
+		}
+		add_treasury = 50
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = 2
+		}
+		event_target:EDG_FYM_civil_war_20_province = {
+			spawn_rebels = {
+				size = 2
+				type = anti_tax_rebels
+			}
+			add_province_modifier = {
+				name = EDG_FYM_civil_war_20_province_a_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#我们必须禁止这种行为。
+		name = "EDG_FYM_civil_war.20.b"
+		ai_chance = {
+			factor = 1
+		}
+		add_government_power = {
+			mechanic_type = EDG_FYM_Monarchy_ability_2
+			power_type = EDG_FYM_Monarchy_power_2
+			value = -1
+		}
+		event_target:EDG_FYM_civil_war_20_province = {
+			add_province_modifier = {
+				name = EDG_FYM_civil_war_20_province_b_modifier
+				duration = 3650
+			}
+		}
+		
+	}
+	
+  
+}
+
+
+country_event = {#地狱之火
+	id = EDG_FYM_civil_war.21
+	title = "EDG_FYM_civil_war.21.title"
+	desc = "EDG_FYM_civil_war.21.desc"
+	picture = OVEREXTENSION_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		EDG_sunni_Caliph_ability_trigger = yes
+		heir_has_personality = EDG_personality_zhayide
+		had_country_flag = {
+			flag = merc__EDG_FYM_prince_army_enable_flag
+			days = 900
+		}
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#那是什么？
+		name = "EDG_FYM_civil_war.21.a"
+		ai_chance = {
+			factor = 100
+		}
+		custom_tooltip = EDG_FYM_civil_war_21_A_tt
+		hidden_effect = {
+			country_event = { id = EDG_FYM_civil_war.22 }
+		}
+	}
+	
+}
+
+country_event = {#一个婴儿
+	id = EDG_FYM_civil_war.22
+	title = "EDG_FYM_civil_war.22.title"
+	desc = "EDG_FYM_civil_war.22.desc"
+	picture = NEW_HEIR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#这是他的命定之死。
+		name = "EDG_FYM_civil_war.22.a"
+		ai_chance = {
+			factor = 100
+		}
+		country_event = { id = EDG_FYM_civil_war.23 }
+		set_country_flag = EDG_FYM_civil_war_abs_son_flag
+		add_country_modifier = {
+			name = EDG_FYM_civil_war_22_a_modifier
+			duration = 9125
+		}
+	}
+	option = {#我会把他当做人质！
+		name = "EDG_FYM_civil_war.22.c"
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = EDG_FYM_civil_war_abs_son_flag
+		set_country_flag = EDG_FYM_civil_war_22_b_flag
+		country_event = { id = EDG_FYM_civil_war.24 }
+	}
+	option = {#我的双手已经沾满了鲜血。
+		name = "EDG_FYM_civil_war.22.b"
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = EDG_FYM_civil_war_abs_son_flag
+		set_country_flag = EDG_FYM_civil_war_22_b_flag
+		custom_tooltip = EDG_FYM_civil_war_22_b_flag_tt
+	}
+	
+}
+
+country_event = {#命定之死
+	id = EDG_FYM_civil_war.23
+	title = "EDG_FYM_civil_war.23.title"
+	desc = "EDG_FYM_civil_war.23.desc"
+	picture = DEATH_OF_HEIR_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#原谅我。
+		name = "EDG_FYM_civil_war.23.a"
+		ai_chance = {
+			factor = 100
+		}
+		set_global_flag = EDG_FYM_civil_war_abs_son_died_global_flag
+		custom_tooltip = EDG_FYM_civil_war_abs_son_die_flag_tt
+
+	}
+	
+}
+
+country_event = {#突出重围
+	id = EDG_FYM_civil_war.24
+	title = "EDG_FYM_civil_war.24.title"
+	desc = "EDG_FYM_civil_war.24.desc"
+	picture = BATTLE_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#不！
+		name = "EDG_FYM_civil_war.24.aa"
+		ai_chance = {
+			factor = 100
+		}
+		change_heir_mil = -1
+		custom_tooltip = EDG_FYM_civil_war_22_b_flag_tt
+	}
+	
+}
+
+
+country_event = {#阿法美大案
+	id = EDG_FYM_civil_war.25
+	title = "EDG_FYM_civil_war.25.title"
+	desc = "EDG_FYM_civil_war.25.desc"
+	picture = ACCUSATION_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		had_country_flag = {
+			flag = EDG_FYM_civil_war_flag
+			days = 900
+		}
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#黔首女人到处都是，没有必要大动干戈。
+		name = "EDG_FYM_civil_war.25.aa"
+		ai_chance = {
+			factor = 1
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Favoritism_estate_loyalty_modifier
+		  loyalty = 10
+		  duration = 3650
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = 15
+		}
+	}
+	option = {#把所有涉案官员全部凌迟处死。
+		name = "EDG_FYM_civil_war.25.bb"
+		ai_chance = {
+			factor = 100
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = -5
+		}
+	}
+	option = {#将这些贪官污吏当众腰斩。
+		name = "EDG_FYM_civil_war.25.cc"
+		ai_chance = {
+			factor = 100
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = -5
+		}
+	}
+	option = {#劈开他们的头骨，把水银灌进去。
+		name = "EDG_FYM_civil_war.25.dd"
+		ai_chance = {
+			factor = 100
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		add_government_power = {
+		  mechanic_type = EDG_FYM_Monarchy_ability_2
+		  power_type = EDG_FYM_Monarchy_power_2
+		  value = -5
+		}
+	}
+	after = {
+		set_country_flag = EDG_FYM_civil_war_25_flag
+	}
+}
+
+country_event = {#军事重组
+	id = EDG_FYM_civil_war.26
+	title = "EDG_FYM_civil_war.26.title"
+	desc = "EDG_FYM_civil_war.26.desc"
+	picture = BATTLE_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		had_country_flag = {
+			flag = EDG_FYM_civil_war_flag
+			days = 1000
+		}
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#萨哈达的军队依旧战无不胜！
+		name = "EDG_FYM_civil_war.26.aa"
+		ai_chance = {
+			factor = 1
+		}
+		add_army_tradition = 10
+		add_mil_power = 50
+		add_country_modifier = {
+			name = EDG_FYM_civil_war_26_a_modifier
+			duration = 1825
+		}
+	}
+	
+}
+
+country_event = {#贝伊之祸
+	id = EDG_FYM_civil_war.27
+	title = "EDG_FYM_civil_war.27.title"
+	desc = "EDG_FYM_civil_war.27.desc"
+	picture = BATTLE_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		had_country_flag = {
+			flag = EDG_FYM_civil_war_flag
+			days = 1600
+		}
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#我发誓要将他们也剥皮示众！
+		name = "EDG_FYM_civil_war.27.aa"
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = EDG_FYM_civil_war_27_flag
+		random_owned_province = {
+			spawn_rebels = {
+				size = 3
+				type = nationalist_rebels
+			}
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				size = 2
+				type = nationalist_rebels
+			}
+		}
+		random_owned_province = {
+			spawn_rebels = {
+				size = 2
+				type = nationalist_rebels
+			}
+		}
+	}
+	
+}
+
+country_event = {#穆斯塔克菲二世
+	id = EDG_FYM_civil_war.28
+	title = "EDG_FYM_civil_war.28.title"
+	desc = "EDG_FYM_civil_war.28.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+  
+	option = {#他似乎很安全。
+		name = "EDG_FYM_civil_war.28.aa"
+		ai_chance = {
+			factor = 1
+		}
+		add_adm_power = 25
+	}
+	
+}
+
+country_event = {#贝都因联盟
+	id = EDG_FYM_civil_war.29
+	title = "EDG_FYM_civil_war.29.title"
+	desc = "EDG_FYM_civil_war.29.desc"
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		had_country_flag = {
+			flag = EDG_FYM_civil_war_flag
+			days = 2100
+		}
+		NOT = { has_country_flag = EDG_FYM_civil_war_6_flag }	
+		development_in_provinces = {
+			value = 1
+			culture = bedouin_arabic
+		}
+	}
+	immediate = {
+		set_country_flag = EDG_FYM_civil_war_29_flag
+	}
+
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = { not = { exists = NAJ } }
+				release = NAJ
+				create_march = NAJ
+				NAJ = {
+					add_mil_power = 300
+					add_dip_power = 300
+					add_adm_power = 300
+					add_treasury = 500
+					add_manpower = 10
+					capital_scope = {
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+						infantry = NAJ
+					}
+				}
+			}
+			if = {
+				limit = { not = { exists = SHM } }
+				release = SHM
+				create_march = SHM
+				SHM = {
+					add_mil_power = 300
+					add_dip_power = 300
+					add_adm_power = 300
+					add_treasury = 500
+					add_manpower = 10
+					capital_scope = {
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+						infantry = SHM
+					}
+				}
+			}
+			if = {
+				limit = { not = { exists = DAW } }
+				release = DAW
+				create_march = DAW
+				DAW = {
+					add_mil_power = 300
+					add_dip_power = 300
+					add_adm_power = 300
+					add_treasury = 500
+					add_manpower = 10
+					capital_scope = {
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+						infantry = DAW
+					}
+				}
+			}
+		}
+	}
+  
+	option = {#他们这是自取灭亡！
+		name = "EDG_FYM_civil_war.29.aa"
+		ai_chance = {
+			factor = 1
+		}
+		tooltip = {
+			declare_war_with_cb = {
+				who = NAJ
+				casus_belli = cb_annex
+			}
+			declare_war_with_cb = {
+				who = SHM
+				casus_belli = cb_annex
+			}
+			declare_war_with_cb = {
+				who = DAW
+				casus_belli = cb_annex
+			}
+		}
+		hidden_effect = {
+			NAJ = {
+				if = {
+					limit = { is_subject_of = root }
+					grant_independence = yes
+					set_country_flag = EDG_FYM_civil_war_29_a_flag
+				}
+			}
+			SHM = {
+				if = {
+					limit = { is_subject_of = root }
+					grant_independence = yes
+					set_country_flag = EDG_FYM_civil_war_29_a_flag
+				}
+			}
+			DAW = {
+				if = {
+					limit = { is_subject_of = root }
+					grant_independence = yes
+					set_country_flag = EDG_FYM_civil_war_29_a_flag
+				}
+			}
+		}
+		if = {
+			limit = { NAJ = { has_country_flag = EDG_FYM_civil_war_29_a_flag } }
+			declare_war_with_cb = {
+				who = NAJ
+				casus_belli = cb_annex
+			}
+			SHM = {
+				if = {
+					limit = { has_country_flag = EDG_FYM_civil_war_29_a_flag }
+					grant_independence = yes
+					join_all_defensive_wars_of = NAJ
+				}
+			}
+			DAW = {
+				if = {
+					limit = { has_country_flag = EDG_FYM_civil_war_29_a_flag }
+					grant_independence = yes
+					join_all_defensive_wars_of = NAJ
+				}
+			}
+		}
+		else_if = {
+			limit = { SHM = { has_country_flag = EDG_FYM_civil_war_29_a_flag } }
+			declare_war_with_cb = {
+				who = SHM
+				casus_belli = cb_annex
+			}
+			DAW = {
+				if = {
+					limit = { has_country_flag = EDG_FYM_civil_war_29_a_flag }
+					grant_independence = yes
+					join_all_defensive_wars_of = SHM
+				}
+			}
+		}
+		else_if = {
+			limit = { DAW = { has_country_flag = EDG_FYM_civil_war_29_a_flag } }
+			declare_war_with_cb = {
+				who = DAW
+				casus_belli = cb_annex
+			}
+		}
+		
+	}
+	option = {#我们留不住他们的。
+		name = "EDG_FYM_civil_war.29.bb"
+		ai_chance = {
+			factor = 1
+		}
+		add_prestige = -25
+		add_stability = -1
+		NAJ = {
+			grant_independence = yes
+			add_truce_with = ROOT
+		}
+		SHM = {
+			grant_independence = yes
+			add_truce_with = ROOT
+		}
+		DAW = {
+			grant_independence = yes
+			add_truce_with = ROOT
+		}
+	}
+	
+}
+
+country_event = {#扎伊德的归来
+  id = EDG_FYM_civil_war.30
+  title = "EDG_FYM_civil_war.30.title"
+  desc = "EDG_FYM_civil_war.30.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_civil_war_8_flag }
+    NOT = { has_global_flag = EDG_FYM_civil_war_30_flag }
+	NOT = { has_ruler_flag = EDG_FYM_ruler_1_flag }
+  }
+  
+  immediate = {
+	set_global_flag = EDG_FYM_civil_war_30_flag
+  }
+  
+  option = {#
+    name = "EDG_FYM_civil_war.30.aa"
+    ai_chance = {
+      factor = 100
+    }
+	add_stability_or_adm_power = yes
+	EDG_FYM_civil_war_30_a_effect = yes
+	custom_tooltip = merc__EDG_FYM_prince_army_enable_flag_tt
+	set_country_flag = merc__EDG_FYM_prince_army_enable_flag
+	add_country_modifier = {
+		name = merc__EDG_FYM_prince_army_modifier
+		duration = 9125
+	}
+	
+  }
+  option = {#口说无凭，没人知道你到底是谁。
+    name = "EDG_FYM_civil_war.30.bb"
+    ai_chance = {
+      factor = 0
+    }
+	add_stability = -1
+	capital_scope = {
+        pretender_rebels = 3
+	}
+  }
+  
+  after = {
+	set_country_flag = EDG_FYM_zhayide_back_flag
+  }
+}
+
+
+country_event = {#击败亚历山大马穆鲁克
+  id = EDG_FYM_civil_war.31
+  title = "EDG_FYM_civil_war.31.title"
+  desc = "EDG_FYM_civil_war.31.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_civil_war_31_flag }
+	war_score_against = {
+		who = ALX
+		value = 80
+	}
+  }
+  
+  immediate = {
+	hidden_effect = {
+		set_global_flag = EDG_FYM_civil_war_31_flag
+		inherit = ALX
+		#inherit = CIO
+	}
+  }
+  
+  option = {#
+    name = "EDG_FYM_civil_war.31.aa"
+    ai_chance = {
+      factor = 100
+    }
+	tooltip = {
+		inherit = ALX
+		#inherit = CIO
+	}
+	add_prestige_or_monarch_power = { amount = 20 }
+  }
+}
+
+country_event = {#击败开罗马穆鲁克
+  id = EDG_FYM_civil_war.32
+  title = "EDG_FYM_civil_war.32.title"
+  desc = "EDG_FYM_civil_war.32.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_civil_war_32_flag }
+	war_score_against = {
+		who = CIO
+		value = 80
+	}
+  }
+  
+  immediate = {
+	hidden_effect = {
+		set_global_flag = EDG_FYM_civil_war_32_flag
+		#inherit = ALX
+		inherit = CIO
+	}
+  }
+  
+  option = {#
+    name = "EDG_FYM_civil_war.32.aa"
+    ai_chance = {
+      factor = 100
+    }
+	tooltip = {
+		#inherit = ALX
+		inherit = CIO
+	}
+    add_country_modifier = {
+      name = EDG_FYM_disaster_mission_2_2_modifier
+      duration = 7300
+    }
+  }
+}
+
+country_event = {#击败罗塞塔
+  id = EDG_FYM_civil_war.33
+  title = "EDG_FYM_civil_war.33.title"
+  desc = "EDG_FYM_civil_war.33.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_civil_war_33_flag }
+	war_score_against = {
+		who = RSD
+		value = 80
+	}
+  }
+  
+  immediate = {
+	hidden_effect = {
+		set_global_flag = EDG_FYM_civil_war_33_flag
+		#inherit = ALX
+		inherit = RSD
+	}
+  }
+  
+  option = {#
+    name = "EDG_FYM_civil_war.33.aa"
+    ai_chance = {
+      factor = 100
+    }
+	tooltip = {
+		#inherit = ALX
+		inherit = RSD
+	}
+	add_prestige_or_monarch_power = { amount = 20 }
+  }
+}

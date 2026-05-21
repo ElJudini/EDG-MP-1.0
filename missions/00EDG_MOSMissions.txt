@@ -1,0 +1,440 @@
+EDG_MOS_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = MOS } 
+
+	EDG_MOS_mission_1_1 = {
+		icon = mission_assemble_an_army
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_generals = 1
+			is_at_war = yes
+			capital_scope = {
+				controlled_by = root
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MOS_pre_for_war
+				duration = 1825
+			}
+			capital_scope = {
+				infantry = root
+				infantry = root
+				infantry = root
+			}
+			EDG_add_claim = { area = tver_area }
+			EDG_add_claim = { area = suzdal_area }
+			EDG_add_claim = { area = galich_area }
+			EDG_add_claim = { area = yaroslavl_area }
+			EDG_add_claim = { area = novgorod_area }
+		}
+	}
+
+	EDG_MOS_mission_1_3 = {
+		icon = FOI_ICON_quenching
+		position = 3
+		required_missions = { EDG_MOS_mission_1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_subject = no
+			is_at_war = no
+			OR = {
+				army_size = 35
+				army_size_percentage = 0.9
+			}
+			mil_power_cost = 100
+		} 
+
+		effect = {
+			mil_power_cost = 100
+			add_country_modifier = {
+				name = EDG_MOS_preparation_for_military_expansion
+				duration = 3650
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = streltsy
+				type = cavalry
+				force_limit_percentage = 0.05
+			}
+		} 
+	}
+}
+EDG_MOS_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = MOS } 
+
+	EDG_MOS_mission_2_2 = {
+		icon = mission_polynesian_grand_navy
+		position = 2
+		required_missions = { EDG_MOS_mission_1_1 } 
+		provinces_to_highlight = {
+			OR = {
+				area = yaroslavl_area
+				area = tver_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			yaroslavl_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			tver_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_casus_belli = {
+				type = cb_annex
+				target = NOV
+				months = 120
+			}
+			add_prestige_or_monarch_power = { amount = 10 }
+			EDG_add_claim = { area = pskov_area }
+			EDG_add_claim = { area = karelia_area }
+			EDG_add_claim = { area = north_karelia }
+			EDG_add_claim = { area = pomor_area }
+		} 
+	}
+}
+EDG_MOS_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = MOS } 
+
+	EDG_MOS_mission_3_1 = {
+		icon = mission_alliances
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 60
+			}
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+		} 
+
+		effect = {
+			add_treasury = 100
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+			add_prestige_or_monarch_power = { amount = 5 }
+		} 
+	}
+
+	EDG_MOS_mission_3_3 = {
+		icon = mission_conquer_5_states
+		position = 3
+		required_missions = {
+			EDG_MOS_mission_3_1
+			EDG_MOS_mission_2_2
+			EDG_MOS_mission_4_2
+		}
+		provinces_to_highlight = {
+			region = russia_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = russia_region
+				value = 45
+			}
+			OR = {
+				overlord_of = NOV
+				NOT = {
+					exists = NOV
+				}
+			}
+			OR = {
+				overlord_of = TVE
+				NOT = {
+					exists = TVE
+				}
+			}
+		} 
+
+		effect = {
+			change_mil = 1
+			add_country_modifier = {
+				name = EDG_MOS_rule_russia
+				duration = -1
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+		} 
+	}
+
+	EDG_MOS_mission_3_4 = {
+		icon = mission_monarch_in_throne_room
+		position = 4
+		required_missions = {
+			EDG_MOS_mission_1_3
+			EDG_MOS_mission_5_3
+			EDG_MOS_mission_3_3
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			OR = {
+				controlled_by = REB
+				NOT = {
+					is_core = root
+				}
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			legitimacy = 95
+			stability = 3
+			all_owned_province = {
+				is_core = root
+			}
+			NOT = {
+				num_of_rebel_armies = 1
+			}
+			NOT = {
+				num_of_rebel_controlled_provinces = 1
+			}
+		} 
+
+		effect = {
+			change_tag = RUS
+			on_change_tag_effect = yes
+			restore_country_name = yes
+			swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			country_event = { id = ideagroups.1 }
+		} 
+	}
+}
+EDG_MOS_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = MOS } 
+
+	EDG_MOS_mission_4_1 = {
+		icon = mission_unite_home_region
+		position = 1
+		provinces_to_highlight = {
+			province_id = 294
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			is_at_war = no
+			is_subject = no
+			owns = 294
+			all_core_province = {
+				OR = {
+					owned_by = root
+					owner = {
+						is_subject_of = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MOS_tve_throne
+				duration = 3650
+			}
+			add_stability_or_adm_power = yes
+			define_advisor = {
+				type = administrative_experts
+				skill = 2
+				cost_multiplier = 0.25
+			}
+			every_subject_country = {
+				add_liberty_desire = -25
+			}
+		} 
+	}
+
+	EDG_MOS_mission_4_2 = {
+		icon = mission_the_grand_trunk_road_dlh
+		position = 2
+		required_missions = {
+			EDG_MOS_mission_4_1
+			EDG_MOS_mission_5_1
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = galich_area
+				area = suzdal_area
+				area = vladimir_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			galich_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			suzdal_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			vladimir_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_treasury = 100
+			add_years_of_income = 1
+			add_prestige_or_monarch_power = { amount = 10 }
+			every_province = {
+				limit = {
+					country_or_non_sovereign_subject_holds = root
+					OR = {
+						has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+						has_province_modifier = EDG_RUS_landowners_church_province_modifier
+						has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+					}
+					OR = {
+						area = galich_area
+						area = suzdal_area
+						area = vladimir_area
+					}
+				}
+				if = {
+					limit = { 
+						has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+					}
+					remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+					add_unrest = 10
+				}
+				else_if = {
+					limit = { 
+						has_province_modifier = EDG_RUS_landowners_church_province_modifier
+					}
+					remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+					add_unrest = 10
+				}
+				else_if = {
+					limit = { 
+						has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+					}
+					remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+					add_unrest = 10
+				}
+			}
+			EDG_add_claim = { area = beloozero_area }
+			EDG_add_claim = { area = vologda_area }
+			EDG_add_claim = { area = perm_area }
+			EDG_add_claim = { area = arkhangelsk_area }
+		} 
+	}
+}
+EDG_MOS_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = MOS } 
+
+	EDG_MOS_mission_5_1 = {
+		icon = mission_early_game_buildings
+		position = 1
+		provinces_to_highlight = {
+			province_id = 295
+		} 
+
+		trigger = {
+			295 = {
+				owned_by = root
+				controlled_by = root
+				development = 20
+			}
+		} 
+
+		effect = {
+			add_manpower = 5
+			add_yearly_manpower = 1
+			moscow_area = {
+				limit = {
+					owned_by = root
+				}
+				add_province_modifier = {
+					name = EDG_MOS_sprawl_mos
+					duration = -1
+				}
+			}
+			EDG_add_claim = { area = oka_area }
+			EDG_add_claim = { area = ryazan_area }
+		} 
+	}
+
+	EDG_MOS_mission_5_3 = {
+		icon = mission_crusade_for_varna
+		position = 3
+		required_missions = { EDG_MOS_mission_5_1 } 
+		provinces_to_highlight = {
+			OR = {
+				area = oka_area
+				area = ryazan_area
+			}
+		} 
+
+		trigger = {
+			oka_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			ryazan_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MOS_ryazan_cavalry
+				duration = 7300
+			}
+			add_prestige_or_monarch_power = { amount = 10 }
+		} 
+	}
+}

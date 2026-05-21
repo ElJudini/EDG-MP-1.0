@@ -1,0 +1,1733 @@
+namespace = FOI_UCIEvents
+
+country_event = {
+	id = FOI_UCIEvents.0
+	is_triggered_only = yes
+	title = FOI_UCIEvents.0.name
+	desc = FOI_UCIEvents.0.desc
+	picture = ANGRY_MOB_eventPicture
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			set_capital = 219
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.0.aa
+		trigger = {
+			ai = no
+		}
+		override_country_name = UCI_NAME
+		custom_tooltip = FOI_UCIEvents.0.aa.tt
+		hidden_effect = {
+			define_ruler = {
+				name = " "
+				adm = 0
+				dip = 0
+				mil = 0
+				age = 18
+			}
+			add_ruler_personality = EDG_FOI_personality_justice
+			add_ruler_personality = EDG_FOI_personality_fairness
+			add_ruler_personality = EDG_FOI_personality_courage
+			add_country_modifier = {
+				name = FOI_UCI_religion_religious_dilemma
+				duration = -1
+			}
+		}
+		add_stability_or_adm_power_per_stab = {
+			amount = 3
+		}
+		change_tag = UCI
+		change_government = UCI_commune
+		add_government_reform = FOI_UCI_union_commune_of_iberian
+		# change_government = IFR_anarchism
+		# add_government_reform = FOI_IFR_association_of_autonomous_communes
+		ai_chance = {
+			factor = 0
+		}
+		every_subject_country = {
+			limit = {
+				capital_scope = {
+					region = iberia_region
+				}
+			}
+			UCI = {
+				inherit = prev
+			}
+		}
+		hidden_effect = {
+			save_global_event_target_as = EDG_FOI_UCI_empirical_target
+			set_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 25
+			}
+			UCI = {
+				country_event = {
+					id = FOI_UCIEvents.1
+					days = 30
+				}
+				add_government_reform = FOI_UCI_commune_representative
+				add_government_reform = FOI_UCI_four_year_rotation
+				add_government_reform = FOI_UCI_commune_autonomy
+				add_government_reform = FOI_UCI_commune_resistance_order
+				add_government_reform = FOI_UCI_infocus
+				add_government_reform = FOI_UCI_nation_above_all
+				add_government_reform = FOI_UCI_state_religion
+				add_government_reform = FOI_UCI_spring_of_the_people
+			}
+			
+		}
+		add_revolutionary_zeal = 20
+		country_event = {
+			id = FOI_UCIEvents.22
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.0.bb
+		custom_tooltip = FOI_UCIEvents.0.bb.tt
+		every_owned_province = {
+			limit = {
+				area = catalonia_area
+			}
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 10
+				win = yes
+			}
+		}
+		change_tag = USP
+		add_government_reform = noble_elite_reform
+		# if = {
+		# 	limit = { 
+		# 		check_variable = {
+		# 			which = ask_arles_for_help_value
+		# 			value = 3
+		# 		}
+		# 		exists = AEL
+		# 	}
+		# 	AEL = {
+		# 		create_subject = {
+		# 			subject_type = EDG_USP_crown_territory
+		# 			subject = USP
+		# 		}
+		# 		USP = {
+		# 			add_liberty_desire = -100
+		# 		}
+		# 	}
+		# }
+		AEL = {
+			create_subject = {
+				subject_type = EDG_USP_crown_territory
+				subject = USP
+			}
+			USP = {
+				add_liberty_desire = -100
+			}
+		}
+		every_subject_country = {
+			limit = {
+				capital_scope = {
+					region = iberia_region
+				}
+			}
+			USP = {
+				inherit = prev
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { 
+					ai = no
+				}
+				USP = {
+					country_event = {
+						id = FOI_UCIEvents.1
+						days = 30
+					}
+				}
+			}
+			else = {
+				set_global_flag = FOI_begin_iberian_civil_war
+				set_global_flag = FOI_begin_iberian_civil_war_ai
+			}
+		}
+		ai_chance = {
+			factor = 100
+		}
+	}
+	after = {
+		swap_free_idea_group = yes
+		swap_non_generic_missions = yes
+		remove_government_reform = EDG_FOI_national_reconstruction_bureau
+		set_global_flag = EDG_FOI_CAT_great_rebellion_already_begin
+		enable_estate_effect = {
+			estate = estate_EDG_voyager
+		}
+		country_event = {
+			id = FOICommonEvents.4
+			days = 3
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.1
+	is_triggered_only = yes
+	title = FOI_UCIEvents.1.name
+	picture = BATTLE_eventPicture
+
+	desc = {
+		trigger = {
+			tag = UCI
+		}
+		desc = FOI_UCIEvents.1.aa.desc
+	}
+	desc = {
+		trigger = {
+			tag = USP
+		}
+		desc = FOI_UCIEvents.1.bb.desc
+	}
+	desc = {
+		trigger = {
+			NOT = {
+				OR = {
+					tag = USP
+					tag = UCI
+				}
+			}
+		}
+		desc = FOI_UCIEvents.1.cc.desc
+	}
+
+	trigger = {
+		#has_disaster = EDG_FOI_CAT_great_rebellion
+		OR = {
+			tag = USP
+			tag = UCI
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			for = {
+				amount = 25
+				effect = "
+					random_province = {
+						limit = {
+							owned_by = root
+							region = iberia_region
+							NOT = {
+								province_id = 219
+							}
+						}
+						set_province_flag = FOI_cede_province_flag
+					}
+				"
+			}
+			log = "Already complete select province"
+			if = {
+				limit = { 
+					tag = UCI
+				}
+				every_ally = {
+					break_alliance = root
+				}
+				every_province = {
+					limit = {
+						has_province_flag = FOI_cede_province_flag
+					}
+					add_core = USP
+				}
+				release = USP
+				log = "Already complete initialize USP"
+			}
+			else_if = {
+				limit = { 
+					tag = USP
+				}
+				every_province = {
+					limit = {
+						has_province_flag = FOI_cede_province_flag
+					}
+					add_core = UCI
+				}
+				release = UCI
+				log = "Already complete initialize UCI"
+			}
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.1.aa
+		tooltip = {
+			every_ally = {
+				break_alliance = root
+			}
+		}
+		hidden_effect = {
+			set_global_flag = FOI_begin_iberian_civil_war
+			every_province = {
+				clr_province_flag = FOI_cede_province_flag
+			}
+			hidden_effect = {
+				country_event = {
+					id = FOI_UCIEvents.2
+					days = 60
+				}
+			}
+		}
+		if = {
+			limit = { 
+				tag = UCI
+			}
+			if = {
+				limit = { 
+					check_variable = {
+						which = ask_arles_for_help_value
+						value = 3
+					}
+					exists = AEL
+				}
+				AEL = {
+					create_subject = {
+						subject_type = EDG_USP_crown_territory
+						subject = USP
+					}
+					USP = {
+						add_liberty_desire = -100
+					}
+				}
+			}
+			USP = {
+				add_government_reform = noble_elite_reform
+				declare_war_with_cb = {
+					casus_belli = cb_annex
+					who = root
+				}
+			}
+		}
+		if = {
+			limit = { 
+				tag = USP
+			}
+			UCI = {
+				hidden_effect = {
+					change_government = UCI_commune
+					add_government_reform = FOI_UCI_union_commune_of_iberian
+					capital_scope = {
+						build_to_forcelimit = {
+							infantry = 0.5
+							cavalry = 0.2
+							artillery = 0.3
+						}
+					}
+				}
+				declare_war_with_cb = {
+					casus_belli = cb_annex
+					who = root
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = FOI_UCIEvents.2
+	is_triggered_only = yes
+	title = FOI_UCIEvents.2.name
+	desc = FOI_UCIEvents.2.desc
+	picture = ANGRY_MOB_eventPicture
+	major = yes
+
+	immediate = {
+		hidden_effect = {
+			catalonia_area = {
+				add_core = IFR
+			}
+			release = IFR
+			IFR = {
+				change_government = IFR_anarchism
+				add_government_reform = FOI_IFR_association_of_autonomous_communes
+				add_treasury = 1000
+				add_manpower = 10
+			}
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.2.aa
+		ai_chance = {
+			factor = 10
+		}
+		create_subject = {
+			subject_type = vassal
+			subject = IFR
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.2.bb
+		ai_chance = {
+			factor = 0
+		}
+		declare_war_with_cb = {
+			casus_belli = cb_annex
+			who = IFR
+		}
+	}
+}
+
+country_event = {
+	id = FOI_UCIEvents.3
+	is_triggered_only = yes
+	title = FOI_UCIEvents.3.name
+	desc = FOI_UCIEvents.3.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.3.aa
+		every_country = {
+			limit = {
+				is_subject = no
+				NOT = {
+					alliance_with = root
+				}
+				OR = {
+					has_reform = peasants_republic
+					is_revolutionary_republic_trigger = yes
+				}
+			}
+			country_event = {
+				id = FOI_UCIEvents.4
+				days = 3
+			}
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.4
+	is_triggered_only = yes
+	title = FOI_UCIEvents.4.name
+	desc = FOI_UCIEvents.4.desc
+	picture = DIPLOMACY_eventPicture
+	major = yes
+
+	immediate = {
+		
+	}
+	option = {
+		name = FOI_UCIEvents.4.aa
+		add_country_modifier = {
+			name = FOI_UCI_support_friend
+			duration = 7300
+		}
+		add_treasury = 100
+		add_manpower = 1
+		create_alliance = from
+		from = {
+			add_historical_friend = root
+			add_dip_power = 100
+		}
+		add_historical_friend = from
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.4.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.5
+	is_triggered_only = yes
+	title = FOI_UCIEvents.5.name
+	desc = FOI_UCIEvents.5.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.5.aa
+		if = {
+			limit = { 
+				exists = SMO
+			}
+			SMO = {
+				country_event = {
+					id = FOI_UCIEvents.6
+					days = 7
+				}
+			}
+		}
+		if = {
+			limit = { 
+				exists = ROS
+			}
+			ROS = {
+				country_event = {
+					id = FOI_UCIEvents.6
+					days = 7
+				}
+			}
+			
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.6
+	is_triggered_only = yes
+	title = FOI_UCIEvents.6.name
+	desc = FOI_UCIEvents.6.desc
+	picture = DIPLOMACY_eventPicture
+	major = yes
+
+	option = {
+		name = FOI_UCIEvents.6.aa
+		add_country_modifier = {
+			name = FOI_UCI_support_friend
+			duration = 18250
+		}
+		add_treasury = 250
+		add_manpower = 5
+		create_alliance = from
+		from = {
+			add_historical_friend = root
+		}
+		add_historical_friend = from
+		ai_chance = {
+			factor = 10
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.6.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.7
+	is_triggered_only = yes
+	title = FOI_UCIEvents.7.name
+	desc = FOI_UCIEvents.7.desc
+	picture = LAND_MILITARY_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.7.aa
+		custom_tooltip = FOI_UCIEvents.7.aa.tt
+		add_country_modifier = {
+			name = FOI_UCI_cavalry_low_power
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = FOI_enable_rev_revolutionary_army
+		}
+		add_country_modifier = {
+			name = FOI_UCI_revolutionary_guard
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.8
+	is_triggered_only = yes
+	title = FOI_UCIEvents.8.name
+	desc = FOI_UCIEvents.8.desc
+	fire_only_once = yes
+	picture = LAND_MILITARY_eventPicture
+	trigger = {
+		mil_tech = 7
+		220 = {
+			owned_by = root
+		}
+		OR = {
+			tag = FWF
+			tag = UCI
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.8.aa
+		custom_tooltip = FOI_UCIEvents.8.aa.tt
+		hidden_effect = {
+			set_country_flag = FOI_enable_merc_FOI_UCI_valencia_artillery_regiment
+		}
+		220 = {
+			change_trade_goods = iron
+			add_building = weapons
+			add_province_triggered_modifier = FOI_UCI_valencia_cannon_factory
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.9
+	is_triggered_only = yes
+	title = FOI_UCIEvents.9.name
+	desc = FOI_UCIEvents.9.desc
+	picture = REFORM_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.9.aa
+		custom_tooltip = FOI_UCIEvents.9.aa.tt
+		hidden_effect = {
+			every_ally = {
+				limit = {
+					is_subject = no
+					OR = {
+						is_revolutionary_republic_trigger = yes
+						has_reform = peasants_republic
+					}
+					NOT = {
+						total_development = 200
+					}
+				}
+				root = {
+					inherit = prev
+				}
+			}
+		}
+		france_region = {
+			limit = {
+				NOT = {
+					is_core = ROOT
+				}
+				NOT = {
+					is_permanent_claim = ROOT
+				}
+			}
+			add_permanent_claim = ROOT
+		}
+		italy_region = {
+			limit = {
+				NOT = {
+					is_core = ROOT
+				}
+				NOT = {
+					is_permanent_claim = ROOT
+				}
+			}
+			add_permanent_claim = ROOT
+		}
+		maghreb_region = {
+			limit = {
+				NOT = {
+					is_core = ROOT
+				}
+				NOT = {
+					is_permanent_claim = ROOT
+				}
+			}
+			add_permanent_claim = ROOT
+		}
+		if = {
+			limit = { 
+				NOT = {
+					mil = 6
+				}
+			}
+			change_mil = 1
+		}
+		else = {
+			add_mil_power = 100
+		}
+		add_revolutionary_zeal = 10
+		set_revolution_target = root
+		add_country_modifier = {
+			name = FOI_UCI_hold_the_torch_high
+			duration = 7300
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.10
+	is_triggered_only = yes
+	title = FOI_UCIEvents.10.name
+	desc = FOI_UCIEvents.10.desc
+	picture = RELIGIOUS_WARS_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.10.aa
+		custom_tooltip = FOI_UCIEvents.10.aa.tt
+		add_revolutionary_zeal = 20
+		hidden_effect = {
+			118 = {
+				owner = {
+					save_global_event_target_as = EDG_FOI_UCIEvents_10_target
+				}
+			}
+			if = {
+				limit = { 
+					118 = {
+						owner = {
+							tag = PAP
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						religion = catholic
+					}
+					country_event = {
+						id = FOI_UCIEvents.11
+						days = 1
+						random = 6
+					}
+				}
+			}
+		}
+		declare_war_with_cb = {
+			casus_belli = cb_annex
+			who = event_target:EDG_FOI_UCIEvents_10_target
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.10.bb
+		add_revolutionary_zeal = -15
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.11
+	is_triggered_only = yes
+	title = FOI_UCIEvents.11.name
+	desc = FOI_UCIEvents.11.desc
+	picture = RELIGIOUS_WARS_eventPicture
+	major = yes
+
+	option = {
+		name = FOI_UCIEvents.11.aa
+		join_all_defensive_wars_of = event_target:EDG_FOI_UCIEvents_10_target
+		ai_chance = {
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					alliance_with = UCI
+					is_revolutionary_republic_trigger = yes
+					has_reform = peasants_republic
+				}
+			}
+		}
+		add_treasury = -100
+		add_manpower = -5
+		PAP = {
+			add_treasury = 100
+			add_manpower = 5
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.11.bb
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.12
+	is_triggered_only = yes
+	title = FOI_UCIEvents.12.name
+	desc = FOI_UCIEvents.12.desc
+	picture = ANGRY_MOB_eventPicture
+	major = yes
+
+	option = {
+		name = FOI_UCIEvents.12.aa
+		set_papacy_active = no
+		for = {
+			custom_tooltip = FOI_UCIEvents.12.aa.tt
+			amount = 50
+			effect = "
+				random_owned_province = {
+					limit = {
+						is_core = root
+						owned_by = root
+					}
+					add_random_development = 1
+				}
+			"
+		}
+		add_revolutionary_zeal = 5
+		add_prestige_or_monarch_power = { amount = 25}
+		add_government_power = {
+			mechanic_type = FOI_UCI_liberation_mania_mechanic
+			power_type = FOI_UCI_liberation_mania
+			value = 1
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.13
+	is_triggered_only = yes
+	title = FOI_UCIEvents.13.name
+	desc = FOI_UCIEvents.13.desc
+	picture = RELIGIOUS_TURMOIL_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.13.aa
+		add_country_modifier = {
+			name = FOI_UCI_expand_8_1_mission_modifier
+			duration = 7300
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.13.bb
+		custom_tooltip = FOI_UCIEvents.13.bb.tt
+		hidden_effect = {
+			set_country_flag = EDG_FOI_UCI_religion_muslim_tolerance
+			every_owned_province = {
+				limit = {
+					religion_group = muslim
+				}
+				add_province_modifier = {
+					name = FOI_UCI_expand_8_1_tolerance_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.14
+	is_triggered_only = yes
+	title = FOI_UCIEvents.14.name
+	desc = FOI_UCIEvents.14.desc
+	picture = REFORM_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.14.aa
+		western_morocco_area = {
+			add_province_triggered_modifier = FOI_UCI_expand_10_1_modifier
+		}
+		marrekesh_area = {
+			add_province_triggered_modifier = FOI_UCI_expand_10_1_modifier
+		}
+		southern_morocco_area = {
+			add_province_triggered_modifier = FOI_UCI_expand_10_1_modifier
+		}
+		sus_area = {
+			add_province_triggered_modifier = FOI_UCI_expand_10_1_modifier
+		}
+		tafilalt_area = {
+			add_province_triggered_modifier = FOI_UCI_expand_10_1_modifier
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.14.bb
+		western_morocco_area = {
+			add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+		}
+		marrekesh_area = {
+			add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+		}
+		southern_morocco_area = {
+			add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+		}
+		sus_area = {
+			add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+		}
+		tafilalt_area = {
+			add_province_triggered_modifier = EDG_FOI_UCI_promote_development_of_communes
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.15
+	is_triggered_only = yes
+	title = FOI_UCIEvents.15.name
+	desc = FOI_UCIEvents.15.desc
+	picture = REFORM_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.15.aa
+		add_republican_tradition = 20
+		for = {
+			custom_tooltip = FOI_UCIEvents.15.aa.tt
+			amount = 15
+			effect = "
+				random_owned_province = {
+					limit = {
+						is_core = root
+						owned_by = root
+					}
+					add_random_development = 1
+				}
+			"
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.15.bb
+		add_revolutionary_zeal = 20
+		for = {
+			custom_tooltip = FOI_UCIEvents.15.aa.tt
+			amount = 15
+			effect = "
+				random_owned_province = {
+					limit = {
+						is_core = root
+						owned_by = root
+					}
+					add_random_development = 1
+				}
+			"
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.16
+	title = FOI_UCIEvents.16.name
+	desc = FOI_UCIEvents.16.desc
+	fire_only_once = yes
+	picture = LAND_MILITARY_eventPicture
+	mean_time_to_happen = {
+		months = 20
+	}
+	trigger = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		land_forcelimit = 100
+	}
+
+	option = {
+		name = FOI_UCIEvents.16.aa
+		add_country_modifier = {
+			name = FOI_UCI_military_commission
+			duration = -1
+		}
+		hidden_effect = {
+			set_country_flag = FOI_UCI_military_commission_flag
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.16.bb
+		add_country_modifier = {
+			name = FOI_UCI_disorganized_army
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.17
+	title = FOI_UCIEvents.17.name
+	desc = FOI_UCIEvents.17.desc
+	picture = LAND_MILITARY_eventPicture
+	mean_time_to_happen = {
+		months = 24
+	}
+	trigger = {
+		has_country_flag = FOI_UCI_military_commission_flag
+		any_owned_province = {
+			is_core = root
+			is_capital = no
+			NOT = {
+				has_province_modifier = FOI_UCI_local_military_organization
+			}
+		}
+	}
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_core = root
+				NOT = {
+					has_province_modifier = FOI_UCI_local_military_organization
+				}
+				is_capital = no
+			}
+			save_event_target_as = event_target
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.17.aa
+		event_target:event_target = {
+			add_province_modifier = {
+				name = FOI_UCI_local_military_organization
+				duration = -1
+			}
+		}
+		add_republican_tradition = -3
+	}
+	option = {
+		name = FOI_UCIEvents.17.bb
+		add_republican_tradition = 3
+		add_government_power = {
+			mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+			power_type = FOI_UCI_revolutionary_army_training_degree
+			value = -3
+		}
+	}
+}
+
+country_event = {
+	id = FOI_UCIEvents.18
+	title = FOI_UCIEvents.18.name
+	desc = FOI_UCIEvents.18.desc
+	picture = LAND_MILITARY_eventPicture
+	mean_time_to_happen = {
+		months = 24
+	}
+	trigger = {
+		has_country_flag = FOI_UCI_military_commission_flag
+		any_owned_province = {
+			is_core = root
+			is_capital = no
+			has_fort_building_trigger = yes
+			NOT = {
+				has_province_modifier = FOI_UCI_expansion_of_military_facilities
+			}
+		}
+	}
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_core = root
+				NOT = {
+					has_province_modifier = FOI_UCI_expansion_of_military_facilities
+				}
+				has_fort_building_trigger = yes
+				is_capital = no
+			}
+			save_event_target_as = event_target
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.18.aa
+		event_target:event_target = {
+			add_province_modifier = {
+				name = FOI_UCI_expansion_of_military_facilities
+				duration = -1
+			}
+		}
+		add_republican_tradition = -3
+	}
+	option = {
+		name = FOI_UCIEvents.18.bb
+		add_republican_tradition = 3
+		add_government_power = {
+			mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+			power_type = FOI_UCI_revolutionary_army_training_degree
+			value = -3
+		}
+	}
+}
+
+country_event = {
+	id = FOI_UCIEvents.19
+	title = FOI_UCIEvents.19.name
+	desc = FOI_UCIEvents.19.desc
+	picture = LAND_MILITARY_eventPicture
+	mean_time_to_happen = {
+		months = 24
+	}
+	trigger = {
+		has_country_flag = FOI_UCI_military_commission_flag
+		NOT  = {
+			army_size_percentage = 0.85
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.19.aa
+		if = {
+			limit = { 
+				mil = 7
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = revolutionary_guard
+				type = infantry
+				force_limit_percentage = 0.1
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = revolutionary_guard
+				type = cavalry
+				force_limit_percentage = 0.02
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = revolutionary_guard
+				type = artillery
+				force_limit_percentage = 0.03
+			}
+		}
+		else = {
+			create_unit_forcelimit_percentage = {
+				special_unit_category = revolutionary_guard
+				type = infantry
+				force_limit_percentage = 0.1
+			}
+			create_unit_forcelimit_percentage = {
+				special_unit_category = revolutionary_guard
+				type = cavalry
+				force_limit_percentage = 0.05
+			}
+		}
+		add_yearly_manpower = -1
+		add_republican_tradition = -10
+	}
+	option = {
+		name = FOI_UCIEvents.19.bb
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.20
+	title = FOI_UCIEvents.20.name
+	desc = FOI_UCIEvents.20.desc
+	picture = LAND_MILITARY_eventPicture
+	mean_time_to_happen = {
+		months = 24
+	}
+	trigger = {
+		has_country_flag = FOI_UCI_military_commission_flag
+	}
+	option = {
+		name = FOI_UCIEvents.20.aa
+		add_republican_tradition = -20
+		add_revolutionary_zeal = 5
+		add_years_of_income = 3
+	}
+	option = {
+		name = FOI_UCIEvents.20.bb
+		add_republican_tradition = 5
+		add_government_power = {
+			mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+			power_type = FOI_UCI_revolutionary_army_training_degree
+			value = -5
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.20.cc
+		add_mil_power = 200
+		add_republican_tradition = -10
+		add_government_power = {
+			mechanic_type = FOI_UCI_revolutionary_army_training_degree_mechanic
+			power_type = FOI_UCI_revolutionary_army_training_degree
+			value = -5
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.21
+	title = FOI_UCIEvents.21.name
+	desc = FOI_UCIEvents.21.desc
+	fire_only_once = yes
+	picture = BIG_BOOK_eventPicture
+	mean_time_to_happen = {
+		months = 24
+	}
+	trigger = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		has_reform = FOI_UCI_complete_separation
+		NOT = {
+			has_estate = estate_church
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.21.aa
+		add_country_modifier = {
+			name = cult_of_reason
+			duration = -1
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.21.bb
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.22
+	is_triggered_only = yes
+	title = FOI_UCIEvents.22.name
+	desc = FOI_UCIEvents.22.desc
+	picture = BIG_BOOK_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.22.aa
+		add_treasury = 1
+		custom_tooltip = FOI_UCIEvents.22.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		change_technology_group = EDG_Peasant_groups
+		change_unit_type = EDG_Peasant_groups
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.23
+	is_triggered_only = yes
+	title = FOI_UCIEvents.23.name
+	desc = FOI_UCIEvents.23.desc
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.23.aa
+		add_treasury = 500
+		add_years_of_income = 5
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -50
+		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -50
+		}
+		add_estate_influence_modifier = {
+			estate = estate_church
+			influence = -30
+			duration = 1460
+		}
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			influence = -30
+			duration = 1460
+		}
+		change_estate_land_share = {
+			estate = estate_burghers
+			share = -25
+		}
+		change_estate_land_share = {
+			estate = estate_church
+			share = -25
+		}
+		add_estate_loyalty = {
+			estate = estate_EDG_peasants
+			loyalty = 25
+		}
+		change_estate_land_share = {
+			estate = estate_EDG_peasants
+			share = 25
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.23.bb
+		add_treasury = 500
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 25
+		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 25
+		}
+		add_estate_loyalty = {
+			estate = estate_EDG_peasants
+			loyalty = 25
+		}
+		add_estate_influence_modifier = {
+			estate = estate_church
+			influence = 15
+			duration = 1460
+		}
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			influence = 15
+			duration = 1460
+		}
+		add_estate_influence_modifier = {
+			estate = estate_EDG_peasants
+			influence = 15
+			duration = 1460
+		}
+	}
+}
+
+
+country_event = {
+	id = FOI_UCIEvents.500
+	is_triggered_only = yes
+	title = FOI_UCIEvents.500.name
+	desc = FOI_UCIEvents.500.desc
+	picture = ELECTION_REPUBLICAN_eventPicture
+
+	trigger = {
+		has_government_attribute = use_congress_of_the_commune
+		NOT = {
+			has_country_modifier = EDG_FOI_UCI_war_decree_modifier
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			capital_scope = {
+				save_global_event_target_as = EDG_FOI_UCI_capital_scope
+			}
+			if = {
+				limit = { 
+					any_owned_province = {
+						is_part_of_hre = no
+						is_state_core = root
+						NOT = {
+							province_id = event_target:EDG_FOI_UCI_capital_scope
+						}
+						development = 9
+					}
+				}
+				random_owned_province = {
+					limit = {
+						is_part_of_hre = no
+						is_state_core = root
+						NOT = {
+							province_id = event_target:EDG_FOI_UCI_capital_scope
+						}
+						development = 9
+					}
+					save_global_event_target_as = EDG_FOI_UCI_next_capital_scope
+				}
+			}
+			else = {
+				random_owned_province = {
+					limit = {
+						is_part_of_hre = no
+						is_state_core = root
+						NOT = {
+							province_id = event_target:EDG_FOI_UCI_capital_scope
+						}
+					}
+					save_global_event_target_as = EDG_FOI_UCI_next_capital_scope
+				}
+			}
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.500.aa
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_recombination_count
+				value = 1
+			}
+		}
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = EDG_FOI_UCI_determine_permanent_capital_flag
+				}
+			}
+			set_capital = event_target:EDG_FOI_UCI_next_capital_scope
+			if = {
+				limit = { 
+					has_country_flag = FOI_UCI_20_3_flag
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							has_province_modifier = EDG_FOI_UCI_assembly_seat_modifier
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_assembly_seat_modifier
+							duration = -1
+						}
+					}
+				}
+				event_target:EDG_FOI_UCI_next_capital_scope = {
+					add_province_modifier = {
+						name = EDG_FOI_UCI_assembly_seat_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		add_republican_tradition = -5
+		add_revolutionary_zeal = -15
+		if = {
+			limit = { 
+				has_country_flag = FOI_UCI_21_4_flag
+			}
+			change_variable = {
+				which = EDG_FOI_UCI_empirical_value
+				value = 50
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.500.bb
+		hidden_effect = {
+			define_ruler = {
+				name = " "
+				adm = 0
+				dip = 0
+				mil = 0
+				age = 18
+			}
+			EDG_FOI_UCI_add_trait_effect = yes
+			change_variable = {
+				which = EDG_FOI_UCI_complete_recombination_count
+				value = 1
+			}
+		}
+		add_republican_tradition = 3
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = EDG_FOI_UCI_determine_permanent_capital_flag
+				}
+			}
+			set_capital = event_target:EDG_FOI_UCI_next_capital_scope
+			if = {
+				limit = { 
+					has_country_flag = FOI_UCI_20_3_flag
+				}
+				hidden_effect = {
+					every_owned_province = {
+						limit = {
+							has_province_modifier = EDG_FOI_UCI_assembly_seat_modifier
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_assembly_seat_modifier
+							duration = -1
+						}
+					}
+				}
+				event_target:EDG_FOI_UCI_next_capital_scope = {
+					add_province_modifier = {
+						name = EDG_FOI_UCI_assembly_seat_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		if = {
+			limit = { 
+				has_country_flag = FOI_UCI_21_2_flag
+			}
+			random_list = {
+				1 = {
+					change_adm = 1
+				}
+				1 = {
+					change_dip = 1
+				}
+				1 = {
+					change_mil = 1
+				}
+			}
+		}
+	}
+
+	after = {
+		if = {
+			limit = { 
+				has_country_flag = FOI_UCI_20_3_flag
+			}
+			set_variable = {
+				which = _EDG_FOI_UCI_assembly_seat_base_tax
+				which = EDG_FOI_UCI_assembly_seat_base_tax
+			}
+			set_variable = {
+				which = _EDG_FOI_UCI_assembly_seat_base_production
+				which = EDG_FOI_UCI_assembly_seat_base_production
+			}
+			set_variable = {
+				which = _EDG_FOI_UCI_assembly_seat_base_manpower
+				which = EDG_FOI_UCI_assembly_seat_base_manpower
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = _EDG_FOI_UCI_assembly_seat_base_tax
+						value = 0
+					}
+				}
+				event_target:EDG_FOI_UCI_next_capital_scope = {
+					add_base_tax = 1
+				}
+				event_target:EDG_FOI_UCI_capital_scope = {
+					add_base_tax = -1
+				}
+				subtract_variable = {
+					which = _EDG_FOI_UCI_assembly_seat_base_tax
+					value = 1
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = _EDG_FOI_UCI_assembly_seat_base_production
+						value = 0
+					}
+				}
+				event_target:EDG_FOI_UCI_next_capital_scope = {
+					add_base_production = 1
+				}
+				event_target:EDG_FOI_UCI_capital_scope = {
+					add_base_production = -1
+				}
+				subtract_variable = {
+					which = _EDG_FOI_UCI_assembly_seat_base_production
+					value = 1
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = _EDG_FOI_UCI_assembly_seat_base_manpower
+						value = 0
+					}
+				}
+				event_target:EDG_FOI_UCI_next_capital_scope = {
+					add_base_manpower = 1
+				}
+				event_target:EDG_FOI_UCI_capital_scope = {
+					add_base_manpower = -1
+				}
+				subtract_variable = {
+					which = _EDG_FOI_UCI_assembly_seat_base_manpower
+					value = 1
+				}
+			}
+		}
+		
+		clear_global_event_target = EDG_FOI_UCI_capital_scope
+		clear_global_event_target = EDG_FOI_UCI_next_capital_scope
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.600
+	is_triggered_only = yes
+	title = FOI_UCIEvents.600.name
+	desc = FOI_UCIEvents.600.desc
+	picture = ELECTION_REPUBLICAN_eventPicture
+
+	immediate = {
+
+	}
+
+	option = {
+		name = FOI_UCIEvents.600.aa
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = FOI_UCIEvents.601
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.600.bb
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = FOI_UCIEvents.602
+				days = 7
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.600.cc
+		ai_chance = {
+			factor = 1
+		}
+		hidden_effect = {
+			country_event = {
+				id = FOI_UCIEvents.603
+				days = 7
+			}
+		}
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.601
+	is_triggered_only = yes
+	title = FOI_UCIEvents.601.name
+	desc = FOI_UCIEvents.601.desc
+	picture = DEATH_OF_HEIR_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.601.aa
+		trigger = {
+			num_of_generals = 1
+		}
+		kill_leader = {
+			type = general
+		}
+		add_republican_tradition = -5
+		add_revolutionary_zeal = 2
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_military
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.601.bb
+		trigger = {
+			has_mil_advisor = yes
+		}
+		remove_advisor_by_category = MIL
+		add_revolutionary_zeal = 2
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_military
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.601.cc
+		add_revolutionary_zeal = -3
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.602
+	is_triggered_only = yes
+	title = FOI_UCIEvents.602.name
+	desc = FOI_UCIEvents.602.desc
+	picture = ACCUSATION_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.602.aa
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -20
+		}
+		add_years_of_income = 0.5
+		add_revolutionary_zeal = 2
+		add_republican_tradition = -5
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_economics
+				value = 1
+			}	
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.602.bb
+		trigger = {
+			has_dip_advisor = yes
+		}
+		remove_advisor_by_category = DIP
+		add_revolutionary_zeal = 2
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_economics
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.602.cc
+		add_revolutionary_zeal = -3
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.603
+	is_triggered_only = yes
+	title = FOI_UCIEvents.603.name
+	desc = FOI_UCIEvents.603.desc
+	picture = COURT_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.603.aa
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -20
+		}
+		add_republican_tradition = -5
+		add_years_of_income = 0.5
+		add_revolutionary_zeal = 2
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_politics
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.603.bb
+		trigger = {
+			has_adm_advisor = yes
+		}
+		remove_advisor_by_category = ADM
+		add_revolutionary_zeal = 2
+		hidden_effect = {
+			change_variable = {
+				which = EDG_FOI_UCI_great_purge_politics
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = FOI_UCIEvents.603.cc
+		add_revolutionary_zeal = -3
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.700
+	is_triggered_only = yes
+	title = FOI_UCIEvents.700.name
+	desc = FOI_UCIEvents.700.desc
+	picture = ELECTION_REPUBLICAN_eventPicture
+
+	option = {
+		name = FOI_UCIEvents.700.aa
+		add_stability_or_adm_power_per_stab = {
+			amount = 1
+		}
+		if = {
+			limit = { 
+				tag = UCI
+				exists = USP
+			}
+			inherit = USP
+			if = {
+				limit = { 
+					war_with = AEL
+				}
+				white_peace = AEL
+			}
+		}
+		if = {
+			limit = { 
+				tag = USP
+				exists = UCI
+			}
+			inherit = UCI
+		}
+		add_revolutionary_zeal = 10
+		hidden_effect = {
+			set_global_flag = EDG_FOI_CAT_great_rebellion_end
+		}
+	}
+}
+province_event = {
+	id = FOI_UCIEvents.800
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		EDG_FOI_UCI_conscription_of_militia_effect = yes
+	}
+
+	option = {
+		
+	}
+}
+country_event = {
+	id = FOI_UCIEvents.900
+	is_triggered_only = yes
+	title = ""
+	desc = ""
+
+	immediate = {
+		save_global_event_target_as = EDG_FOI_UCI_empirical_target
+		set_variable = {
+			which = EDG_FOI_UCI_empirical_value
+			value = 500
+		}
+	}
+
+	option = {
+		name = FOI_UCIEvents.900.aa
+	}
+}

@@ -1,0 +1,1576 @@
+namespace = EDG_flavor_PER_war
+normal_or_historical_nations = yes
+
+country_event = {#波斯再统一战争
+  id = EDG_flavor_PER_war.1
+  title = "EDG_flavor_PER_war.1.t"
+  desc = "EDG_flavor_PER_war.1.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = { is_year = 1600 }
+	OR = {
+		is_year = 1468
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 20
+			OR = {
+				region = persia_region
+				region = khorasan_region
+				culture_group = iranian
+			}
+		}
+		EDG_PER_tag_trigger = yes
+	}
+	NOT = { has_country_flag = EDG_PER_WAR_END_global_flag }
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#「让他永远为王，让他永主社稷，让他把王冠伸入乌云带到地狱。」
+    name = "EDG_flavor_PER_war.1.a"
+	trigger = {
+		NOT = {
+			tag = TAB
+		}
+	}
+    ai_chance = {
+      factor = 2
+    }
+
+	add_prestige_or_monarch_power = { amount = 20 }
+
+	custom_tooltip = EDG_SPACE_TT
+    set_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	custom_tooltip = cb_EDG_WG_superiority_PER_war_enable_global_flag_tt
+
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_PER_war_begin_global_flag_tt
+	set_global_flag = EDG_PER_war_begin_global_flag
+  }
+  option = {#「欲求欢乐，先须经受折磨，竭力推翻阿赫里曼的宝座。」
+    name = "EDG_flavor_PER_war.1.b" #马赞德兰
+	trigger = {
+		tag = TAB
+	}
+    ai_chance = {
+      factor = 2
+    }
+
+	add_prestige_or_monarch_power = { amount = 25 }
+
+	custom_tooltip = EDG_SPACE_TT
+    set_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	custom_tooltip = cb_EDG_WG_superiority_PER_war_enable_global_flag_tt
+
+	custom_tooltip = EDG_SPACE_TT
+	custom_tooltip = EDG_PER_war_begin_global_flag_tt
+	set_global_flag = EDG_PER_war_begin_global_flag
+	custom_tooltip = EDG_PER_war_TAB_ERS_flag_txt
+	set_country_flag = EDG_PER_war_TAB_ERS_flag
+  }
+}
+
+country_event = {#波斯的宗教统一
+  id = EDG_flavor_PER_war.2
+  title = "EDG_flavor_PER_war.2.t"
+  desc = "EDG_flavor_PER_war.2.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	
+  }
+  immediate = {
+	set_global_flag = EDG_flavor_PER_war_2_global_flag
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#「我不为财富所扰，不为权力所困。」
+    name = "EDG_flavor_PER_war.2.a"
+    ai_chance = {
+      factor = 2
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_7_flag_tt
+	set_global_flag = EDG_PER_WAR_END_global_flag
+	custom_tooltip = EDG_PER_WAR_END_global_flag_tt
+	remove_country_modifier = EDG_PER_war_decision_jion_modifier
+	remove_country_modifier = EDG_flavor_PER_war_3_a_modifier
+	hidden_effect = {
+		every_country = {
+			remove_country_modifier = EDG_PER_war_decision_jion_modifier
+			remove_country_modifier = EDG_flavor_PER_war_3_a_modifier
+		}
+	}
+
+	custom_tooltip = EDG_SPACE_TT
+	add_adm_power = 100
+	add_dip_power = 100
+	add_mil_power = 100
+	add_prestige_or_monarch_power = { amount = 50 }
+
+	custom_tooltip = EDG_SPACE_TT
+	if = {
+		limit = { religion = sunni }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_sunni_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { religion = shiite }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_shiite_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { religion = coptic }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_coptic_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { religion = EDG_Nestorianism }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_Nestorianism_modifier
+			duration = -1
+		}
+	}
+	else_if = {
+		limit = { religion = zoroastrian }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_zoroastrian_modifier
+			duration = -1
+		}
+	}
+	else = {
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_2_other_modifier
+			duration = -1
+		}
+	}
+  }
+}
+
+country_event = {#吞并波斯诸侯
+  id = EDG_flavor_PER_war.3
+  title = "EDG_flavor_PER_war.3.t"
+  desc = "EDG_flavor_PER_war.3.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  #major = yes
+  trigger = {
+	OR = {
+		EDG_is_iranian_tag_trigger = yes
+		has_country_flag = EDG_flavor_PER_war_3_enable_flag
+	}
+	FROM = {
+		EDG_is_iranian_tag_trigger = yes
+		NOT_EDG_PER_Shahanshah_trigger = yes
+	}
+	has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	NOT = { has_country_flag = EDG_PER_WAR_END_global_flag }
+	NOT = { EDG_PER_WAR_END_trigger = yes }
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#我们将会是最终的沙汗沙阿！
+    name = "EDG_flavor_PER_war.3.a"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		NOT_EDG_PER_Shahanshah_trigger = yes
+		NOT = {
+			tag = TAB
+		}
+	}
+	if = {
+		limit = {
+			EDG_PER_Shahanshah_trigger = yes
+		}
+		change_variable = {
+			which = EDG_PER_Shahanshah_authority_var
+			value = 10
+		}
+	}
+	if = {
+		limit = { has_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		hidden_effect = { remove_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		custom_tooltip = EDG_flavor_PER_war_3_a_modifier_keep_tt
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_3_a_modifier
+		duration = 7300
+	}
+  }
+  option = {#这是属于我们的胜利。
+    name = "EDG_flavor_PER_war.3.b"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		EDG_PER_Shahanshah_trigger = yes
+	}
+	if = {
+		limit = {
+			EDG_PER_Shahanshah_trigger = yes
+		}
+		change_variable = {
+			which = EDG_PER_Shahanshah_authority_var
+			value = 10
+		}
+	}
+	if = {
+		limit = { has_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		hidden_effect = { remove_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		custom_tooltip = EDG_flavor_PER_war_3_a_modifier_keep_tt
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_3_a_modifier
+		duration = 7300
+	}
+  }
+  option = {#踏出复兴的又一脚步
+    name = "EDG_flavor_PER_war_3_c" #马赞德兰
+	trigger = {
+		NOT_EDG_PER_Shahanshah_trigger = yes
+		tag = TAB
+	}
+    ai_chance = {
+      factor = 2
+    }
+	if = {
+		limit = {
+			EDG_PER_Shahanshah_trigger = yes
+		}
+		change_variable = {
+			which = EDG_PER_Shahanshah_authority_var
+			value = 10
+		}
+	}
+	if = {
+		limit = { 
+			has_country_modifier = EDG_flavor_PER_TAB_ERS_war_3_a_modifier 
+		}
+		hidden_effect = { 
+			remove_country_modifier = EDG_flavor_PER_TAB_ERS_war_3_a_modifier 
+		}
+		custom_tooltip = EDG_flavor_PER_TAB_ERS_war_3_a_modifier_keep_txt
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_TAB_ERS_war_3_a_modifier 
+		duration = 7300
+	}
+  }
+}
+country_event = {#穆斯林重建统治
+  id = EDG_flavor_PER_war.4
+  title = "EDG_flavor_PER_war.4.t"
+  desc = "EDG_flavor_PER_war.4.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_flavor_PER_war_4_flag }
+	EDG_is_iranian_tag_trigger = yes
+	has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	NOT = { has_global_flag = EDG_PER_WAR_END_global_flag }
+	num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+		value = 40
+		OR = {
+			region = persia_region
+			region = khorasan_region
+			culture_group = iranian
+		}
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_4_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+	modifier = {
+		factor = 0.5
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 40
+			is_core = ROOT
+			culture_group = iranian
+		}
+	}
+	modifier = {
+		factor = 0.5
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 50
+			is_core = ROOT
+			culture_group = iranian
+		}
+	}
+	modifier = {
+		factor = 0.5
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 30
+			religion = ROOT
+			culture_group = iranian
+		}
+	}
+	modifier = {
+		factor = 0.5
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 40
+			religion = ROOT
+			culture_group = iranian
+		}
+	}
+	modifier = {
+		factor = 0.5
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 50
+			religion = ROOT
+			culture_group = iranian
+		}
+	}
+  }
+  
+  option = {#真主之剑重归伊朗。
+    name = "EDG_flavor_PER_war.4.a"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		religion_group = muslim
+	}
+	every_known_country = {
+		limit = { religion = ROOT }
+		add_opinion = {  who = ROOT modifier = opinion_EDG_flavor_PER_war_4_opinion }
+	}
+	if = {
+		limit = { religion = shiite }
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_4_a_modifier_shiit
+			duration = 7300
+		}
+	}
+	else = {
+		
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_4_a_modifier
+			duration = 7300
+		}
+	}
+  }
+  option = {#伊朗十字军的胜利！
+    name = "EDG_flavor_PER_war.4.b"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		religion_group = christian
+	}
+	every_known_country = {
+		limit = { religion = ROOT }
+		add_opinion = {  who = ROOT modifier = opinion_EDG_flavor_PER_war_4_opinion }
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_4_b_modifier
+		duration = 7300
+	}
+  }
+  option = {#马兹达的真理之火再次照耀波斯。
+    name = "EDG_flavor_PER_war.4.c"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		religion_group = zoroastrian_group
+	}
+	every_known_country = {
+		limit = { religion = ROOT }
+		add_opinion = {  who = ROOT modifier = opinion_EDG_flavor_PER_war_4_opinion }
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_4_c_modifier
+		duration = 7300
+	}
+  }
+  option = {#属于我们的胜利。
+    name = "EDG_flavor_PER_war.4.other"
+    ai_chance = {
+      factor = 2
+    }
+	trigger = {
+		NOT = { religion_group = muslim }
+		NOT = { religion_group = christian }
+		NOT = { religion_group = zoroastrian_group }
+	}
+	every_known_country = {
+		limit = { religion = ROOT }
+		add_opinion = {  who = ROOT modifier = opinion_EDG_flavor_PER_war_4_opinion }
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_4_other_modifier
+		duration = 7300
+	}
+  }
+}
+
+country_event = {#波斯战争的扩大
+  id = EDG_flavor_PER_war.5
+  title = "EDG_flavor_PER_war.5.t"
+  desc = "EDG_flavor_PER_war.5.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	#culture_group = iranian
+	NOT = { is_year = 1600 }
+	NOT = { EDG_PER_WAR_END_trigger = yes }
+	num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+		value = 20
+		OR = {
+			region = persia_region
+			region = khorasan_region
+			culture_group = iranian
+		}
+	}
+	has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	NOT = { has_country_flag = EDG_PER_WAR_END_global_flag }
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	months = 120
+  }
+  
+  option = {#更多的机遇。
+    name = "EDG_flavor_PER_war.5.a"
+    ai_chance = {
+      factor = 2
+    }
+	set_global_flag = EDG_PER_merc_part_2_flag
+	custom_tooltip = EDG_PER_merc_part_2_flag_tt
+  }
+}
+# country_event = {#帖木儿帝国的衰退
+#   id = EDG_flavor_PER_war.6
+#   title = "EDG_flavor_PER_war.6.t"
+#   desc = "EDG_flavor_PER_war.6.d"
+#   picture = HORDE_ON_HORSEBACK_eventPicture
+#   fire_only_once = yes
+#   #is_triggered_only = yes
+#   major = yes
+#   trigger = {
+# 	tag = TIM
+# 	exists = SHY
+# 	NOT = { is_great_power = yes  }
+# 	NOT = { is_year = 1550 }
+# 	is_year = 1445
+#   }
+#   immediate = {
+
+#   }
+#   mean_time_to_happen = {
+# 	months = 36
+#   }
+  
+#   option = {#是时候放弃在呼罗珊的利益了。
+#     name = "EDG_flavor_PER_war.6.a"
+#     ai_chance = {
+#       factor = 200
+#     }
+# 	add_stability = 2
+# 	custom_tooltip = EDG_flavor_PER_war_6_a_tt
+# 	every_known_country = {
+# 		limit = {
+# 			any_owned_province = {
+# 				is_core = ROOT
+# 			}
+# 		}
+		
+# 		add_opinion = {
+# 			who = ROOT
+# 			modifier = EDG_flavor_PER_war_6_a_opinion
+# 		}
+# 	}
+# 	hidden_effect = {
+# 		every_province = {
+# 			limit = {
+# 				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+# 				is_core = ROOT
+# 			}
+# 			remove_core = ROOT
+# 		}
+# 	}
+#   }
+#   option = {#我们怎能抛弃这份遗产？
+#     name = "EDG_flavor_PER_war.6.a"
+#     ai_chance = {
+#       factor = 1
+#     }
+# 	add_stability = -1
+# 	every_known_country = {
+# 		limit = {
+# 			any_owned_province = {
+# 				is_core = ROOT
+# 			}
+# 		}
+		
+# 		add_opinion = {
+# 			who = ROOT
+# 			modifier = EDG_flavor_PER_war_6_b_opinion
+# 		}
+# 	}
+#   }
+# }
+country_event = {#强大的[Root.GetName]军团
+  id = EDG_flavor_PER_war.7
+  title = "EDG_flavor_PER_war.7.t"
+  desc = "EDG_flavor_PER_war.7.d"
+  picture = ENCOMIENDA_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = { is_year = 1600 }
+	army_size = 50
+	has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+	NOT = { has_country_flag = EDG_PER_WAR_END_global_flag }
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	months = 120
+  }
+  
+  option = {#我们是伊朗的雄狮！
+    name = "EDG_flavor_PER_war.7.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_army_tradition = 15
+	add_mil_power = 50
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_7_a_modifier
+		duration = 7300
+	}
+  }
+}
+country_event = {#圣火熄灭
+  id = EDG_flavor_PER_war.8
+  title = "EDG_flavor_PER_war.8.t"
+  desc = "EDG_flavor_PER_war.8.d"
+  picture = ENCOMIENDA_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = {
+		any_province = {
+			religion_group = zoroastrian_group
+		}
+	}
+	NOT = {
+		any_country = {
+			religion_group = zoroastrian_group
+		}
+	}
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#他们为什么宁愿流走他乡？
+    name = "EDG_flavor_PER_war.8.a"
+    ai_chance = {
+      factor = 2
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_3_flag_tt
+	set_global_flag = EDG_flavor_PER_war_8_a_global_flag
+	custom_tooltip = EDG_flavor_PER_war_8_a_global_flag_tt
+  }
+}
+country_event = {#流浪的祆教徒
+  id = EDG_flavor_PER_war.9
+  title = "EDG_flavor_PER_war.9.t"
+  desc = "EDG_flavor_PER_war.9.d"
+  picture = ENCOMIENDA_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_flavor_PER_war_9_a_flag }
+	has_global_flag = EDG_flavor_PER_war_8_a_global_flag
+	any_neighbor_country = {
+		EDG_is_iranian_tag_trigger = yes
+	}
+	any_province = {
+		religion = ROOT
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_run
+		}
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+		}
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+		}
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_9_a_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+  }
+  
+  option = {#我们欢迎他们！
+    name = "EDG_flavor_PER_war.9.a"
+    ai_chance = {
+      factor = 2
+    }
+	random_owned_province = {
+		limit = {
+			religion = ROOT
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_run
+			}
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+			}
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+			}
+		}
+		add_base_manpower = 1
+		add_base_tax = 1
+		add_permanent_province_modifier = {
+			name = EDG_PER_Minority_Zoroastrianism_province_modifier_run
+			duration = -1
+		}
+	}
+  }
+  option = {#让他们去别的地方。
+    name = "EDG_flavor_PER_war.9.b"
+    ai_chance = {
+      factor = 2
+    }
+	add_prestige = -5
+  }
+}
+country_event = {#聂斯托利派的迷失
+  id = EDG_flavor_PER_war.10
+  title = "EDG_flavor_PER_war.10.t"
+  desc = "EDG_flavor_PER_war.10.d"
+  picture = ENCOMIENDA_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = {
+		any_province = {
+			religion = EDG_Nestorianism
+		}
+	}
+	NOT = {
+		any_country = {
+			religion = EDG_Nestorianism
+		}
+	}
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#我们不在乎！
+    name = "EDG_flavor_PER_war.8.a"
+    ai_chance = {
+      factor = 2
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_2_flag_tt
+	set_global_flag = EDG_flavor_PER_war_10_a_global_flag
+	custom_tooltip = EDG_flavor_PER_war_10_a_global_flag_tt
+  }
+}
+country_event = {#流浪的景教徒
+  id = EDG_flavor_PER_war.11
+  title = "EDG_flavor_PER_war.11.t"
+  desc = "EDG_flavor_PER_war.11.d"
+  picture = ENCOMIENDA_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_flavor_PER_war_11_a_flag }
+	has_global_flag = EDG_flavor_PER_war_8_a_global_flag
+	any_neighbor_country = {
+		EDG_is_iranian_tag_trigger = yes
+	}
+	any_province = {
+		religion = ROOT
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Christian_province_modifier_run
+		}
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+		}
+		NOT = {
+			has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+		}
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_11_a_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+  }
+  
+  option = {#我们欢迎他们！
+    name = "EDG_flavor_PER_war.9.a"
+    ai_chance = {
+      factor = 2
+    }
+	random_owned_province = {
+		limit = {
+			religion = ROOT
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier_run
+			}
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+			}
+			NOT = {
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+			}
+		}
+		add_base_manpower = 1
+		add_base_production = 1
+		add_permanent_province_modifier = {
+			name = EDG_PER_Minority_Christian_province_modifier_run
+			duration = -1
+		}
+	}
+  }
+  option = {#让他们去别的地方。
+    name = "EDG_flavor_PER_war.9.b"
+    ai_chance = {
+      factor = 2
+    }
+	add_prestige = -5
+  }
+}
+country_event = {#伊朗战争与火器
+  id = EDG_flavor_PER_war.12
+  title = "EDG_flavor_PER_war.12.t"
+  desc = "EDG_flavor_PER_war.12.d"
+  picture = BATTLE_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = { has_country_flag = EDG_flavor_PER_war_12_a_flag }
+	NOT = { has_country_flag = EDG_flavor_PER_war_15_flag }
+	has_global_flag = EDG_flavor_PER_war_8_a_global_flag
+	any_neighbor_country = {
+		EDG_is_iranian_tag_trigger = yes
+		war_with = ROOT
+	}
+	mil_tech = 4
+	NOT = { is_year = 1550 }
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_12_a_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+	modifier = {
+		factor = 0.75
+		mil = 6
+	}
+	modifier = {
+		factor = 0.75
+		mil = 5
+	}
+	modifier = {
+		factor = 0.75
+		army_size = 30
+	}
+	modifier = {
+		factor = 0.75
+		army_size = 40
+	}
+  }
+  
+  option = {#这是一种新的技术。
+    name = "EDG_flavor_PER_war.12.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_12_a_modifier
+		duration = 3650
+	}
+  }
+  option = {#骑兵和弓箭的地位不可能改变。
+    name = "EDG_flavor_PER_war.12.b"
+    ai_chance = {
+      factor = 2
+    }
+	add_army_tradition = 15
+  }
+}
+country_event = {#库尔德佣兵团
+  id = EDG_flavor_PER_war.13
+  title = "EDG_flavor_PER_war.13.t"
+  desc = "EDG_flavor_PER_war.13.d"
+  picture = BATTLE_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = { has_country_flag = EDG_flavor_PER_war_13_a_flag }
+	has_global_flag = EDG_flavor_PER_war_8_a_global_flag
+	any_owned_province = {
+		culture = kurdish
+	}
+	NOT = { is_year = 1550 }
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_13_a_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+	modifier = {
+		factor = 0.75
+		mil = 6
+	}
+	modifier = {
+		factor = 0.75
+		mil = 5
+	}
+	modifier = {
+		factor = 0.75
+		army_size = 30
+	}
+	modifier = {
+		factor = 0.75
+		army_size = 40
+	}
+  }
+  
+  option = {#我们会需要他们的帮助的。
+    name = "EDG_flavor_PER_war.13.a"
+    ai_chance = {
+      factor = 2
+    }
+	set_country_flag = EDG_flavor_PER_war_13_a_flag
+	custom_tooltip = EDG_flavor_PER_war_13_a_flag_tt
+  }
+}
+country_event = {#土库曼部族的支持
+  id = EDG_flavor_PER_war.14
+  title = "EDG_flavor_PER_war.14.t"
+  desc = "EDG_flavor_PER_war.14.d"
+  picture = BATTLE_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	OR = {
+		AND = {
+			EDG_is_iranian_tag_trigger = yes
+			NOT = { has_country_flag = EDG_flavor_PER_war_14_a_flag }
+			has_global_flag = EDG_flavor_PER_war_8_a_global_flag
+			
+			OR = {
+				prestige = 50
+				total_development = 200
+			}
+			NOT = { is_year = 1550 }
+		}
+		has_country_flag = EDG_flavor_PER_war_14_enable_flag
+	}
+	NOT = { has_country_flag = EDG_flavor_PER_war_14_a_flag }
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_14_a_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+	modifier = {
+		factor = 0.5
+		army_size = 30
+	}
+	modifier = {
+		factor = 0.5
+		army_size = 40
+	}
+	modifier = {
+		factor = 0.25
+		OR = {
+			tag = ARL
+			tag = PER
+		}
+	}
+  }
+  
+  option = {#我们是天选的沙阿。
+    name = "EDG_flavor_PER_war.14.a"
+    ai_chance = {
+      factor = 2
+    }
+	set_country_flag = merc__EDG_Qizilbash_enable_flag
+	custom_tooltip = EDG_flavor_PER_war_14_a_flag_tt
+  }
+}
+country_event = {#土耳其火绳枪
+  id = EDG_flavor_PER_war.15
+  title = "EDG_flavor_PER_war.15.t"
+  desc = "EDG_flavor_PER_war.15.d"
+  picture = BATTLE_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	NOT = { has_country_flag = EDG_flavor_PER_war_15_flag }
+	OR = {
+		is_neighbor_of = MHM
+		is_neighbor_of = TUR
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_15_flag
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#快推广这种武器。
+    name = "EDG_flavor_PER_war.15.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_15_a_modifier
+		duration = 7300
+	}
+  }
+  option = {#我们瞧不上凯伊宗族的小聪明。
+    name = "EDG_flavor_PER_war.15.b"
+    ai_chance = {
+      factor = 2
+    }
+	add_army_tradition = 10
+  }
+}
+country_event = {#伊尔汗国的灭亡
+  id = EDG_flavor_PER_war.16
+  title = "EDG_flavor_PER_war.16.t"
+  desc = "EDG_flavor_PER_war.16.d"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	FROM = {
+		tag = HZB
+	}
+	EDG_is_iranian_tag_trigger = yes
+  }
+  immediate = {
+	
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#你们无论在什么地方，死亡总要追及你们，即使你们在高大的堡垒里。——《古兰经卷四》
+    name = "EDG_flavor_PER_war.16.a"
+	trigger = {
+		NOT = {
+			tag = TAB
+		}
+	}
+    ai_chance = {
+      factor = 2
+    }
+	add_prestige_or_monarch_power = { amount = 25 }
+	tooltip = {
+		clear_global_event_target = EDG_PER_Shahanshah_target
+	}
+	if = {
+		limit = { has_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		hidden_effect = { remove_country_modifier = EDG_flavor_PER_war_3_a_modifier }
+		custom_tooltip = EDG_flavor_PER_war_3_a_modifier_keep_tt
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_3_a_modifier
+		duration = 7300
+	}
+  }
+  option = {#尔后，他们将做什么，马兹达对此了如指掌。——《亚斯纳》第二十九章
+  	name = "EDG_flavor_PER_war_16_b"  #马赞德兰
+	trigger = {
+		tag = TAB
+	}
+	add_prestige_or_monarch_power = { amount = 25 }
+	tooltip = {
+		clear_global_event_target = EDG_PER_Shahanshah_target
+	}
+	if = {
+		limit = { 
+			has_country_modifier = EDG_flavor_PER_TAB_ERS_war_3_a_modifier 
+		}
+		hidden_effect = { 
+			remove_country_modifier = EDG_flavor_PER_TAB_ERS_war_3_a_modifier 
+		}
+		custom_tooltip = EDG_flavor_PER_TAB_ERS_war_3_a_modifier_keep_txt
+	}
+	add_country_modifier = {
+		name = EDG_flavor_PER_TAB_ERS_war_3_a_modifier
+		duration = 7300
+	}
+	ai_chance = {
+		factor = 2
+	}
+  }
+}
+country_event = {#伊朗-游牧入侵
+  id = EDG_flavor_PER_war.17
+  title = "EDG_flavor_PER_war.17.t"
+  desc = "EDG_flavor_PER_war.17.d"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	is_nomad = yes
+	is_revolutionary = no
+	NOT = { has_global_flag = EDG_flavor_PER_war_17_global_flag }
+	num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+		value = 15
+		culture_group = iranian
+	}
+  }
+  immediate = {
+	set_global_flag = EDG_flavor_PER_war_17_global_flag
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#伊朗的财富属于最伟大的征服者。
+    name = "EDG_flavor_PER_war.17.a"
+    ai_chance = {
+      factor = 2
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_5_flag_tt
+	set_global_flag = EDG_flavor_PER_war_17_global_flag
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_17_modifier
+		duration = 7300
+	}
+  }
+}
+country_event = {#突厥冲突
+  id = EDG_flavor_PER_war.18
+  title = "EDG_flavor_PER_war.18.t"
+  desc = "EDG_flavor_PER_war.18.d"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  #is_triggered_only = yes
+  major = yes
+  trigger = {
+	tag = event_target:EDG_PER_Shahanshah_target
+	any_country = {
+		owns = 151
+		primary_culture = turkish
+		war_with = ROOT
+	}
+  }
+  immediate = {
+	set_global_flag = EDG_flavor_PER_war_18_global_flag
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#这是属于罗马与波斯的战争。
+    name = "EDG_flavor_PER_war.18.a"
+    ai_chance = {
+      factor = 2
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_4_flag_tt
+	set_global_flag = EDG_flavor_PER_war_18_global_flag
+	add_country_modifier = {
+		name = EDG_flavor_PER_war_18_modifier_1
+		duration = 7300
+	}
+	every_country = {
+		limit = {
+			primary_culture = turkish
+			war_with = ROOT
+		}
+		add_country_modifier = {
+			name = EDG_flavor_PER_war_18_modifier_2
+			duration = 3650
+		}
+	}
+  }
+}
+country_event = {#突厥战争的影响
+  id = EDG_flavor_PER_war.19
+  title = "EDG_flavor_PER_war.19.t"
+  desc = "EDG_flavor_PER_war.19.d"
+  picture = BATTLE_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	EDG_is_iranian_tag_trigger = yes
+	has_global_flag = EDG_flavor_PER_war_18_global_flag
+	NOT = { has_country_flag = EDG_flavor_PER_war_18_flag }
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_18_flag
+  }
+  mean_time_to_happen = {
+	months = 360
+  }
+  
+  option = {#我们坚持传统。
+    name = "EDG_flavor_PER_war.19.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_mil_power = 50
+	add_army_tradition = 10
+  }
+  option = {#引进一些耶尼切里或许是不错的选择。
+    name = "EDG_flavor_PER_war.19.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+		NOT = { army_size = 30 }
+      }
+    }
+	
+	if = {
+		limit = {
+			OR = {
+				has_dlc = "Cradle of Civilization"
+				has_dlc = "Domination"
+			}
+		}
+		if = {
+			limit = { total_development = 500 }
+			capital_scope = {
+				create_units_of_type_in_province = {
+					custom_tooltip = per_end_the_turkish_threat_at
+					amount = 10
+					unit_type = janissary_infantry
+					who = root
+				}
+			}
+		}
+		else = {
+			capital_scope = {
+				create_units_of_type_in_province = {
+					custom_tooltip = per_end_the_turkish_threat_at
+					amount = 3
+					unit_type = janissary_infantry
+					who = root
+				}
+			}
+		}
+	}
+	else = {
+		add_manpower = 10
+	}
+  }
+}
+
+country_event = {#与欧洲人的联系
+  id = EDG_flavor_PER_war.20
+  title = "EDG_flavor_PER_war.20.t"
+  desc = "EDG_flavor_PER_war.20.d"
+  picture = DIPLOMACY_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+	any_known_country = {
+		capital_scope = { superregion = europe_superregion }
+		religion_group = christian
+		is_great_power = yes
+		is_subject = no
+		has_opinion = {
+			who = ROOT
+			value = 10
+		}
+		NOT = { 
+			OR = {
+			  is_rival = emperor
+			  is_enemy = emperor
+			  is_league_enemy = emperor
+			}
+		}
+	}
+  }
+  immediate = {
+	
+  }
+  mean_time_to_happen = {
+	months = 400
+  }
+  
+  option = {#让我们进行更多联系。
+    name = "EDG_flavor_PER_war.20.a"
+    ai_chance = {
+      factor = 2
+    }
+	random_known_country = {
+		limit = {
+			capital_scope = { superregion = europe_superregion }
+			is_great_power = yes
+			is_subject = no
+			religion_group = christian
+			NOT = { 
+				OR = {
+				  is_rival = emperor
+				  is_enemy = emperor
+				  is_league_enemy = emperor
+				}
+			}
+		}
+		
+        add_opinion = {
+			who = ROOT
+			modifier = opinion_EDG_PAP_GOOD_view
+		}
+	}
+  }
+  option = {#我们有很多机会。
+    name = "EDG_flavor_PER_war.20.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_dip_power = 50
+  }
+  option = {#让我们恢复下过去的贸易往来吧...
+  name = "EDG_flavor_PER_TAB_ERS_war_20_c"
+  trigger = {
+	  tag = TAB
+  }
+  ai_chance = {
+	factor = 0
+  }
+  add_dip_power = 75
+  add_years_of_income = 2
+  random_known_country = {
+	  limit = {
+		  capital_scope = { superregion = europe_superregion }
+		  is_great_power = yes
+		  is_subject = no
+		  religion_group = christian
+		  NOT = { 
+			  OR = {
+				is_rival = emperor
+				is_enemy = emperor
+				is_league_enemy = emperor
+			  }
+		  }
+	  }
+	  add_years_of_income = 2
+  }
+}
+}
+
+country_event = {#伊朗文艺复兴
+  id = EDG_flavor_PER_war.21
+  title = "EDG_flavor_PER_war.21.t"
+  desc = "EDG_flavor_PER_war.21.d"
+  picture = DIPLOMACY_eventPicture
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+	NOT = { has_country_flag = EDG_flavor_PER_war_21_flag }
+	has_global_flag = EDG_Mission_PER_1_11_global_flag
+	EDG_is_iranian_tag_trigger = yes
+	any_owned_province = {
+		culture_group = iranian
+		NOT = { development = 20 }
+	}
+  }
+  immediate = {
+	set_country_flag = EDG_flavor_PER_war_21_flag
+  }
+  mean_time_to_happen = {
+	months = 400
+  }
+  
+  option = {#促进我们的发展！
+    name = "EDG_flavor_PER_war.21.a"
+    ai_chance = {
+      factor = 2
+    }
+	random_owned_province = {
+		limit = {
+			culture_group = iranian
+			NOT = { development = 20 }
+		}
+		random_list = {
+			33 = { add_base_manpower = 1 }
+			34 = { add_base_production = 1 }
+			33 = { add_base_tax = 1 }
+		}
+	}
+  }
+  option = {#把资源投入到别的地方。
+    name = "EDG_flavor_PER_war.21.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_adm_power = 50
+  }
+}
+
+
+
+
+province_event = {#伊朗的宗教少数族裔
+  id = EDG_flavor_PER_war.101
+  title = "EDG_flavor_PER_war.101.t"
+  desc = "EDG_flavor_PER_war.101.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#允许他们保留自治。
+    name = "EDG_flavor_PER_war.101.a"
+	trigger = {
+		OR = {
+			has_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+			AND = {
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+				NOT = {
+					owner = {
+						has_country_flag = EDG_TIM_disable_christian_autonomy_flag
+					}
+				}
+			}
+			AND = {
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+				NOT = {
+					owner = {
+						has_country_flag = EDG_TIM_disable_zoroastrian_autonomy_flag
+					}
+				}
+			}
+		}
+	}
+
+    ai_chance = {
+      factor = 1
+	  modifier = {
+		  factor = 5
+		  development = 10
+	  }
+	  modifier = {
+		  factor = 2
+		  development = 12
+	  }
+	  modifier = {
+		  factor = 2
+		  development = 15
+	  }
+	  modifier = {
+		  factor = 2
+		  development = 18
+	  }
+	  modifier = {
+		  factor = 2
+		  development = 20
+	  }
+	  modifier = {
+		  factor = 10
+		  development = 23
+	  }
+	  modifier = {
+		  factor = 20
+		  development = 25
+	  }
+    }
+	tooltip = {
+		remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+		remove_province_modifier = EDG_PER_Minority_Christian_province_modifier
+		remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+	}
+	if = {
+		limit = {
+			has_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+			NOT = { religion_group = muslim }
+		}
+		add_permanent_province_modifier = {
+			name = EDG_PER_Minority_Muslims_province_modifier_new
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+			NOT = { religion_group = christian }
+			NOT = {
+				owner = {
+					has_country_flag = EDG_TIM_disable_christian_autonomy_flag
+				}
+			}
+		}
+		add_permanent_province_modifier = {
+			name = EDG_PER_Minority_Christian_province_modifier_new
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+			NOT = { religion_group = zoroastrian_group }
+			NOT = {
+				owner = {
+					has_country_flag = EDG_TIM_disable_zoroastrian_autonomy_flag
+				}
+			}
+		}
+		add_permanent_province_modifier = {
+			name = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+			duration = -1
+		}
+	}
+	hidden_effect = {
+		remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+		remove_province_modifier = EDG_PER_Minority_Christian_province_modifier
+		remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+	}
+  }
+  option = {#没有这个必要。
+    name = "EDG_flavor_PER_war.101.b"
+    ai_chance = {
+      factor = 3
+	  modifier = {
+		  factor = 5
+		  owner = {
+			full_idea_group = religious_ideas
+		  }
+	  }
+    }
+	remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+	remove_province_modifier = EDG_PER_Minority_Christian_province_modifier
+	remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+	remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier_new
+	remove_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+	remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+
+	hidden_effect = {
+		owner = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_disable_christian_autonomy_flag
+				}
+				EDG_TIM_remove_iranian_christian_minority_effect = yes
+			}
+		}
+		owner = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_disable_zoroastrian_autonomy_flag
+				}
+				EDG_TIM_remove_iranian_zoroastrian_minority_effect = yes
+			}
+		}
+	}
+  }
+}
+
+country_event = {#接纳宗教难民？
+  id = EDG_flavor_PER_war.102
+  title = "EDG_flavor_PER_war.102.t"
+  desc = "EDG_flavor_PER_war.102.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  immediate = {
+
+  }
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {#我们欢迎他们！
+    name = "EDG_flavor_PER_war.102.a"
+    ai_chance = {
+      factor = 2
+    }
+	add_adm_power = -25
+	random_owned_province = {
+		random_list = {
+			33 = { add_base_tax = 1 }
+			34 = { add_base_production = 1 }
+			33 = { add_base_manpower = 1 }
+		}
+	}
+  }
+  option = {#这里没有他们的位置了。
+    name = "EDG_flavor_PER_war.102.b"
+    ai_chance = {
+      factor = 1
+    }
+	
+  }
+}

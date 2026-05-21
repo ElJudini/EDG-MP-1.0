@@ -1,0 +1,504 @@
+namespace = EDG_flavorAKK
+normal_or_historical_nations = yes
+country_event = {#改为罗姆军制
+  id = EDG_flavorAKK.1
+  title = "EDG_flavorAKK.1.t"
+  desc = "EDG_flavorAKK.1.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+  }
+  mean_time_to_happen = {
+    days = 1
+  }
+  
+  option = {
+    name = "EDG_flavorAKK.1.a"
+    ai_chance = {
+      factor = 1
+    }
+    change_technology_group = ottoman
+    change_unit_type = ottoman
+  }
+  
+  option = {
+    name = "EDG_flavorAKK.1.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_army_tradition = 15
+    add_prestige_or_monarch_power = { amount = 15}
+  }
+}
+country_event = {#入主大不里士
+  id = EDG_flavorAKK.3
+  title = "EDG_flavorAKK.3.t"
+  desc = "EDG_flavorAKK.3.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+   
+  major = yes
+  trigger = {
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+  }
+  mean_time_to_happen = {
+    days = 1
+  }
+  option = {
+    name = "EDG_flavorAKK.3.a"
+    ai_chance = {
+      factor = 4
+    }
+    416 = {
+        move_capital_effect = yes
+        change_culture = ROOT
+        change_religion = ROOT
+				EDG_create_or_add_center_of_trade_level_effect = yes
+				add_devastation = -100
+				set_local_autonomy = 0
+    }
+    416 = {
+      limit = { owned_by = ROOT NOT = { has_global_flag = EDG_416_restore_flag }}
+      set_global_flag = EDG_416_restore_flag
+      add_base_tax = 2
+      add_base_production = 1
+      add_base_manpower = 1
+      add_province_modifier = {
+        name = EDG_City_Tax_place
+        duration = -1
+      }
+      add_province_modifier = {
+        name = EDG_AKK_province_modifier_416
+        duration = -1
+      }
+    }
+  }
+  option = {
+    name = "EDG_flavorAKK.3.b"
+    ai_chance = {
+      factor = 1
+    }
+	 add_stability_or_adm_power = yes
+	416 = {
+		limit = { owned_by = ROOT NOT = { has_global_flag = EDG_416_restore_flag }}
+		set_global_flag = EDG_416_restore_flag
+		add_base_tax = 2
+		add_base_production = 1
+		add_base_manpower = 1
+		add_province_modifier = {
+			name = EDG_City_Tax_place
+			duration = -1
+		}
+		add_province_modifier = {
+			name = EDG_AKK_province_modifier_416
+			duration = -1
+		}
+	}
+  }
+}
+
+country_event = {#解散教团
+  id = EDG_flavorAKK.4
+  title = "EDG_flavorAKK.4.t"
+  desc = "EDG_flavorAKK.4.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    OR = {
+      tag = AKK
+      was_tag = AKK
+    }
+    NOT = { exists = ARL }
+    owns = 424
+  }
+  option = {
+    name = "EDG_flavorAKK.4.a"
+    ai_chance = {
+      factor = 40
+    }
+	  add_stability_or_adm_power = yes
+    add_country_modifier = {
+      name = EDG_akk_special_missions_2_4_event_modifier
+      duration = -1
+    }
+  }
+  option = {
+    name = "EDG_flavorAKK.4.b"
+    ai_chance = {
+      factor = 1
+    }
+	custom_tooltip = EDG_EDG_flavorARL_die_tooltip
+	set_global_flag = EDG_EDG_flavorARL_die_flag
+	add_stability = -1
+	add_prestige_or_monarch_power = { amount = 25}
+  }
+}
+country_event = {#万王之王
+  id = EDG_flavorAKK.2
+  title = "EDG_flavorAKK.2.t"
+  desc = "EDG_flavorAKK.2.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    OR = {
+      tag = PER
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_AKK_ruler_choice_flag
+  }
+  mean_time_to_happen = {
+    months = 6
+  }
+  # option = {
+  #   name = "EDG_flavorAKK.2.a"
+  #   ai_chance = {
+  #     factor = 50
+  #   }
+  #     if = {
+  #       limit = { is_revolutionary = no }
+        
+  #         if = {
+  #           limit = { NOT = { government = monarchy } }
+  #           change_government_to_monarchy = yes
+  #         }
+  #         add_government_reform = EDG_Persian_empire_reform
+        
+  #     }
+	# 		country_event = {
+	# 			id = EDG_flavor_PER.101
+	# 		}
+  # }
+  option = {
+    name = "EDG_flavorAKK.2.b"
+    ai_chance = {
+      factor = 50
+    }
+      if = {
+        limit = { is_revolutionary = no }
+        
+          if = {
+            limit = { NOT = { government = monarchy } }
+            change_government_to_monarchy = yes
+          }
+          add_government_reform = EDG_Persian_theocracy_empire_reform
+      }
+			country_event = {
+				id = EDG_flavor_PER.101
+			}
+  }
+}
+
+
+country_event = {#吊死阿尤布后裔
+  id = EDG_flavorAKK.5
+  title = "EDG_flavorAKK.5.t"
+  desc = "EDG_flavorAKK.5.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+   
+  major = yes
+  trigger = {
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+  }
+  option = {
+    name = "EDG_flavorAKK.5.a"
+    ai_chance = {
+      factor = 4
+    }
+	add_army_tradition = 15
+	add_prestige_or_monarch_power = { amount = 15}
+  }
+  option = {
+    name = "EDG_flavorAKK.5.b"
+    ai_chance = {
+      factor = 1
+    }
+     add_stability_or_adm_power = yes
+	add_country_modifier = {
+		name = EDG_akk_EDG_flavorAKK_5_modifier
+		duration = 9125
+	}
+  }
+}
+country_event = {#入主巴格达
+  id = EDG_flavorAKK.6
+  title = "EDG_flavorAKK.6.t"
+  desc = "EDG_flavorAKK.6.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+   
+  major = yes
+  trigger = {
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+  }
+  option = {
+    name = "EDG_flavorAKK.6.a"
+    ai_chance = {
+      factor = 40
+    }
+    
+    add_country_modifier = {
+      name = "turkoman_house_of_wisdom"
+      duration = 3650
+    }
+    410 = {
+          move_capital_effect = yes
+          change_culture = ROOT
+          change_religion = ROOT
+          EDG_create_or_add_center_of_trade_level_effect = yes
+          add_devastation = -100
+          set_local_autonomy = 0
+      }
+    410 = {
+      limit = { owned_by = ROOT NOT = { has_global_flag = EDG_410_restore_flag }}
+      set_global_flag = EDG_410_restore_flag
+      add_base_tax = 3
+      add_base_production = 3
+      add_base_manpower = 2
+      add_province_modifier = {
+        name = EDG_AKK_province_modifier_410
+        duration = -1
+      }
+    }
+    add_adm_power = 50
+  }
+  option = {
+    name = "EDG_flavorAKK.6.b"
+    ai_chance = {
+      factor = 1
+    }
+	 add_stability_or_adm_power = yes
+	add_prestige_or_monarch_power = { amount = 15}
+  }
+}
+country_event = {#文化认同
+  id = EDG_flavorAKK.7
+  title = "EDG_flavorAKK.7.t"
+  desc = "EDG_flavorAKK.7.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  option = {
+    name = "EDG_flavorAKK.7.a"
+    ai_chance = {
+      factor = 4
+    }
+    add_country_modifier = {
+      name = EDG_akk_EDG_flavorAKK_7_modifier
+      duration = 7300
+    }
+    add_government_reform = EDG_Persian_2_reform
+  }
+  option = {
+    name = "EDG_flavorAKK.7.b"
+    ai_chance = {
+      factor = 100
+    }
+    add_country_modifier = {
+      name = EDG_akk_EDG_flavorAKK_7_b_modifier
+      duration = 7300
+    }
+	  add_stability_or_adm_power = yes
+  }
+}
+country_event = {#吊死塞浦路斯君主
+  id = EDG_flavorAKK.8
+  title = "EDG_flavorAKK.8.t"
+  desc = "EDG_flavorAKK.8.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+   
+  trigger = {
+    OR = {
+      tag = AKK
+      was_tag = AKK
+    }
+    owns = 321
+    NOT = { exists = CYP }
+  }
+  option = {
+    name = "EDG_flavorAKK.8.a"
+    ai_chance = {
+      factor = 4
+    }
+	add_army_tradition = 15
+	add_prestige_or_monarch_power = { amount = 15}
+	add_country_modifier = {
+		name = EDG_Religious_piety_1_modifier
+		duration = 9125
+	}
+  }
+  option = {
+    name = "EDG_flavorAKK.8.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_dip_power = 50
+	add_country_modifier = {
+		name = EDG_akk_EDG_flavorAKK_8_modifier
+		duration = 7300
+	}
+	
+  }
+}
+country_event = {#吊死塞浦路斯君主
+  id = EDG_flavorAKK.9
+  title = "EDG_flavorAKK.9.t"
+  desc = "EDG_flavorAKK.9.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+   
+  trigger = {
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+  }
+  option = {
+    name = "EDG_flavorAKK.9.a"
+    ai_chance = {
+      factor = 400
+    }
+    add_army_tradition = 15
+  }
+  option = {
+    name = "EDG_flavorAKK.9.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_army_tradition = 15
+	
+  }
+}
+country_event = {#最伟大的汗
+  id = EDG_flavorAKK.10
+  title = "EDG_flavorAKK.10.t"
+  desc = "EDG_flavorAKK.10.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+   
+  major = yes
+  trigger = {
+    
+  }
+  option = {
+    name = "EDG_flavorAKK.10.a"
+    ai_chance = {
+      factor = 400
+    }
+    add_army_tradition = 25
+    add_prestige_or_monarch_power = { amount = 25}
+    add_adm_power = 100
+    add_dip_power = 100
+    add_mil_power = 100
+    add_country_modifier = {
+      name = EDG_akk_EDG_flavorAKK_10_modifier
+      duration = -1
+    }
+  }
+  option = {
+    name = "EDG_flavorAKK.10.b"
+    ai_chance = {
+      factor = 400
+    }
+    add_government_reform = EDG_akk_horde_reform
+  }
+}
+country_event = {#乌尊哈桑对抗奥斯曼帝国
+  id = EDG_flavorAKK.11
+  title = "EDG_flavorAKK.11.t"
+  desc = "EDG_flavorAKK.11.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+	NOT = { is_year = 1500 }
+	OR = {
+		tag = AKK
+		was_tag = AKK
+	}
+	OR = {
+		war_with = TUR
+		war_with = RUM
+	}
+	mil = 6
+  }
+  option = {
+    name = "EDG_flavorAKK.11.a"
+    ai_chance = {
+      factor = 400
+    }
+    add_army_tradition = 25
+	add_mil_power = 100
+	capital_scope = {
+	  infantry = Root
+	  infantry = Root
+	  infantry = Root
+	  infantry = Root
+	  cavalry = Root
+	  cavalry = Root
+	  cavalry = Root
+	  cavalry = Root
+	}
+	add_country_modifier = {
+		name = EDG_akk_EDG_flavorAKK_11_modifier
+		duration = 1825
+	}
+  }
+}
+country_event = {#土库曼化
+  id = EDG_flavorAKK.12
+  title = "EDG_flavorAKK.12.t"
+  desc = "EDG_flavorAKK.12.d"
+  picture = COURT_eventPicture
+  trigger = {
+    has_country_flag = EDG_mission_AKK_4_5_flag
+    NOT = { has_country_flag = EDG_mission_AKK_4_5__stop_flag }
+    any_owned_province = {
+      culture_group = iranian
+      NOT = { culture = EDG_Iranian_turkmeni_culture }
+    }
+  }
+  mean_time_to_happen = {
+    months = 12
+  }
+  option = {
+    name = "EDG_flavorAKK.12.a"
+    ai_chance = {
+      factor = 400
+    }
+    random_owned_province = {
+      limit = { culture_group = iranian NOT = { culture = EDG_Iranian_turkmeni_culture } }
+      change_culture = EDG_Iranian_turkmeni_culture
+    }
+    every_owned_province = {
+      limit = { culture = ROOT NOT = { culture = EDG_Iranian_turkmeni_culture } }
+      change_culture = EDG_Iranian_turkmeni_culture
+    }
+  }
+  option = {
+    name = "EDG_flavorAKK.12.b"
+    ai_chance = {
+      factor = 0
+    }
+    set_country_flag = EDG_mission_AKK_4_5__stop_flag
+    custom_tooltip = EDG_mission_AKK_4_5__stop_flag_tt
+  }
+}

@@ -1,0 +1,1745 @@
+namespace = EDG_flavorHAB
+normal_or_historical_nations = yes
+country_event = {#施瓦本的哈布斯堡家族
+  id = EDG_flavorHAB.0
+  title = "EDG_flavorHAB.0.t"
+  desc = "EDG_flavorHAB.0.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#哈布斯堡家族注定伟大。
+    name = "EDG_flavorHAB.0.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_0_tt
+    #grant_independence = yes
+    #create_alliance = FKN
+    add_prestige_or_monarch_power = { amount = 10 }
+  }
+}
+country_event = {#马克西米安
+  id = EDG_flavorHAB.1
+  title = "EDG_flavorHAB.1.t"
+  desc = "EDG_flavorHAB.1.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    is_year = 1459
+    has_regency = no
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#让他成为帝国的继承人！
+    name = "EDG_flavorHAB.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    EDG_EDG_flavorHAB_1_effect = yes
+    add_prestige_or_monarch_power = { amount = 10 }
+	  add_heir_personality = last_knight_personality
+  }
+  option = {#我们有更合适的人选。
+    name = "EDG_flavorHAB.1.b"
+    ai_chance = {
+      factor = 0
+    }
+	  add_prestige = -5
+  }
+}
+country_event = {#奥地利的归属
+  id = EDG_flavorHAB.2
+  title = "EDG_flavorHAB.2.t"
+  desc = "EDG_flavorHAB.2.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    tag = H02
+    any_country = {
+      has_country_flag = EDG_HAB_flag
+    }
+    NOT = { has_global_flag = EDG_flavorHAB_2_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorHAB_2_flag
+  }
+  mean_time_to_happen = { 
+  }
+  
+  option = {#奥地利理应归属哈布斯堡家族。
+    name = "EDG_flavorHAB.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    random_country = {
+      limit = { has_country_flag = EDG_HAB_flag }
+      country_event = { id = EDG_flavorHAB.3 }
+    }
+  }
+  option = {#我们有更合适的人选。
+    name = "EDG_flavorHAB.1.b"
+    trigger = {
+      or = {
+        ai = no
+        has_global_flag = EDG_HAB_mission_4_10_global_flag
+      }
+    }
+    ai_chance = {
+      factor = 0
+      modifier = {
+        factor = 0
+        has_global_flag = EDG_HAB_mission_4_10_global_flag
+      }
+    }
+	  add_prestige = -5
+    set_global_flag = EDG_flavorHAB_1_b_global_flag
+    every_country = {
+      limit = {
+        or = {
+          has_country_flag = EDG_HAB_flag
+          marriage_with = root
+        }
+      }
+      add_casus_belli = {
+        type = cb_restore_personal_union
+        months = 300
+        target = ROOT
+      }
+    }
+  }
+}
+country_event = {#巴本堡的遗产
+  id = EDG_flavorHAB.3
+  title = "EDG_flavorHAB.3.t"
+  desc = "EDG_flavorHAB.3.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+  }
+  mean_time_to_happen = { 
+  }
+  
+  option = {#奥地利理应归属哈布斯堡家族。
+    name = "EDG_flavorHAB.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    inherit = FROM
+    if = {
+      limit = { NOT = { exists = HAB } }
+      set_country_flag = have_EDG_HAB_idea_2_flag
+      change_primary_culture = austrian
+      
+    }
+
+    austria_proper_area = {
+      limit = {
+        NOT = { owned_by = ROOT }
+      }
+      add_permanent_claim = HAB
+    }
+    inner_austria_area = {
+      limit = {
+        NOT = { owned_by = ROOT }
+      }
+      add_permanent_claim = HAB
+    }
+    73 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+    4758 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+    1768 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+  }
+  option = {#但是，我拒绝！
+    name = "EDG_flavorHAB.3.b"
+    ai_chance = {
+      factor = 0
+    }
+	  add_prestige = -5
+  }
+}
+country_event = {#文艺的赞助人
+  id = EDG_flavorHAB.4
+  title = "EDG_flavorHAB.4.t"
+  desc = "EDG_flavorHAB.4.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    is_year = 1495
+    is_female = no
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#这是一个很好的倾向。
+    name = "EDG_flavorHAB.4.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_adm_power = 50
+    add_dip_power = 50
+    add_innovativeness_big_effect = yes
+    add_prestige_or_monarch_power = { amount = 10 }
+  }
+  option = {#我们可以将资源投入到别处。
+    name = "EDG_flavorHAB.4.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_mil_power = 100
+    add_years_of_income = 0.15
+  }
+}
+country_event = {#阿尔布雷特·丢勒
+  id = EDG_flavorHAB.5
+  title = "EDG_flavorHAB.5.t"
+  desc = "EDG_flavorHAB.5.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    is_year = 1495
+    owns = 67
+    NOT = { is_year = 1528 }
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {#快将这位大师请来！
+    name = "EDG_flavorHAB.5.a"
+    ai_chance = {
+      factor = 10
+    }
+    EDG_EDG_flavorHAB_5_effect = yes
+    add_prestige_or_monarch_power = { amount = 10 }
+  }
+  option = {#我们没有钱雇他。
+    name = "EDG_flavorHAB.5.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige = -5
+  }
+}
+country_event = {#神学家茹茹
+  id = EDG_flavorHAB.6
+  title = "EDG_flavorHAB.6.t"
+  desc = "EDG_flavorHAB.6.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  trigger = {
+    is_year = 1477
+    ai = no
+    is_great_power = yes
+    #has_country_flag = EDG_HAB_flag
+  }
+  mean_time_to_happen = {
+    months = 360
+  }
+  
+  option = {#若至。
+    name = "EDG_flavorHAB.6.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige_or_monarch_power = { amount = 5 }
+  }
+}
+country_event = {#卢布尔雅那主教辖区
+  id = EDG_flavorHAB.7
+  title = "EDG_flavorHAB.7.t"
+  desc = "EDG_flavorHAB.7.d"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#一切为了王朝。
+    name = "EDG_flavorHAB.7.a"
+    ai_chance = {
+      factor = 10
+    }
+    EDG_HAB_Monarchy_government_power_small_add_effect= yes
+    add_prestige_or_monarch_power = { amount = 10 }
+    carinthia_area = {
+      limit = { owned_by = ROOT }
+      add_prosperity = 50
+      add_local_autonomy = -25
+      add_province_modifier = {
+        name = EDG_flavorHAB_7_a_modifier
+        duration = 9125
+      }
+    }
+    if = {
+      limit = { 129 = { owned_by = ROOT } }
+      if = {
+        limit = {
+          has_cardinal = no
+        }
+        add_cardinal = yes
+      }
+      else = {
+        add_adm_power = 50
+      }
+    }
+  }
+  option = {#这是主的意愿。
+    name = "EDG_flavorHAB.7.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_papal_influence = 20
+    if = {
+      limit = {
+        exists = PAP
+      }
+      PAP = {
+        add_opinion = {
+          who = ROOT
+          modifier = opinion_EDG_PAP_GOOD_view
+        }
+      }
+    }
+		add_country_modifier = {
+			name = "EDG_flavorHAB_7_b_modifier"
+			duration = 7300
+		}
+  }
+}
+country_event = {#圣徒利奥波德
+  id = EDG_flavorHAB.8
+  title = "EDG_flavorHAB.8.t"
+  desc = "EDG_flavorHAB.8.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    is_year = 1488
+    is_great_power = yes
+    tag = HAB
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#他是我们伟大的先祖。
+    name = "EDG_flavorHAB.8.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_8_tt
+    EDG_HAB_Monarchy_government_power_small_add_effect= yes
+    add_stability_or_adm_power = yes
+    add_prestige_or_monarch_power = { amount = 10 }
+
+  }
+}
+country_event = {#圣徒利奥波德？
+  id = EDG_flavorHAB.9
+  title = "EDG_flavorHAB.9.t"
+  desc = "EDG_flavorHAB.9.d"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#他应当封圣。
+    name = "EDG_flavorHAB.9.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_9_tt
+    add_dip_power = -50
+    if = {
+      limit = { exists = PAP }
+      PAP = {
+        country_event = {
+          id = EDG_flavorHAB.10
+          days = 31
+        }
+      }
+    }
+    else = {
+      hidden_effect = {
+        country_event = {
+          id = EDG_flavorHAB.8
+          days = 31
+        }
+      }
+    }
+  }
+  option = {#算了吧。
+    name = "EDG_flavorHAB.9.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+}
+country_event = {#请求册封利奥波德为圣徒
+  id = EDG_flavorHAB.10
+  title = "EDG_flavorHAB.10.t"
+  desc = "EDG_flavorHAB.10.d"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#他确实应当封圣。
+    name = "EDG_flavorHAB.10.a"
+    ai_chance = {
+      factor = 10
+    }
+    FROM = {
+      country_event = {
+        id = EDG_flavorHAB.8
+        days = 31
+      }
+      add_opinion = {
+        who = ROOT
+        modifier = opinion_EDG_PAP_give_me_benefit_view
+      }
+    }
+  }
+  option = {#他还不够格。
+    name = "EDG_flavorHAB.10.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_adm_power = 25
+  }
+}
+country_event = {#申请成为哈布斯堡联统国？
+  id = EDG_flavorHAB.11
+  title = "EDG_flavorHAB.11.t"
+  desc = "EDG_flavorHAB.11.d"
+  picture = EDG_EVENT_PICTURE_HAB_1
+  is_triggered_only = yes
+  trigger = {
+    is_subject = yes
+    is_subject_of_type = personal_union
+    NOT = { has_country_flag = EDG_flavorHAB_11_flag }
+    overlord = {
+      has_government_attribute = EDG_HAB_monarchy_ability_2
+    }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_11_flag
+  }
+  
+  option = {#我们可以争取一下。
+    name = "EDG_flavorHAB.11.a"
+    ai_chance = {
+      factor = 10
+    }
+    overlord = {
+      country_event = {
+        id = EDG_flavorHAB.12
+      }
+    }
+    tooltip = {
+      if = {
+        limit = {
+          has_reform = bohemian_elective_kingdom_reform
+        }
+        add_government_reform = EDG_BOH_crwon
+      }
+      if = {
+        limit = {
+          has_reform = EDG_Sigismund_congres
+        }
+        add_government_reform = EDG_HAB_HUN_crwon_land
+      }
+    }
+  }
+  option = {#我们更希望维持现状。
+    name = "EDG_flavorHAB.11.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_adm_power = 25
+  }
+}
+country_event = {#申请成为哈布斯堡联统国？
+  id = EDG_flavorHAB.12
+  title = "EDG_flavorHAB.12.t"
+  desc = "EDG_flavorHAB.12.d"
+  picture = EDG_EVENT_PICTURE_HAB_1
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#他们将会是我们的哈布斯堡联统国。
+    name = "EDG_flavorHAB.12.a"
+    ai_chance = {
+      factor = 10
+    }
+		FROM = {
+      if = {
+        limit = {
+          has_reform = bohemian_elective_kingdom_reform
+        }
+        add_government_reform = EDG_BOH_crwon
+      }
+      if = {
+        limit = {
+          has_reform = EDG_Sigismund_congres
+        }
+        add_government_reform = EDG_HAB_HUN_crwon_land
+      }
+			change_country_color = {
+				color = { 230  230  230 }
+			}
+      set_country_flag = change_country_color_EDG_flag
+      clr_country_flag = EDG_flavorHAB_11_flag
+      if = {
+        limit = {
+          OR = {
+            tag = NSF
+            tag = WSF
+          }
+          set_government_rank = 3
+        }
+      }
+		}
+    hidden_effect = {
+      create_subject = { subject_type = EDG_HAB_personal_union subject = FROM }
+    }
+    create_subject = { subject_type = EDG_HAB_personal_union subject = FROM }
+  }
+  option = {#我们可以维持现状。
+    name = "EDG_flavorHAB.12.b"
+    ai_chance = {
+      factor = 0
+    }
+    
+  }
+}
+country_event = {#哈布斯堡君主国
+  id = EDG_flavorHAB.13
+  title = "EDG_flavorHAB.13.t"
+  desc = "EDG_flavorHAB.13.d"
+  picture = EDG_EVENT_PICTURE_HAB_1
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    any_country = {
+			is_subject_of = ROOT
+			is_subject_of_type = personal_union
+    }
+    has_reform = EDG_HAB_monarchy_1
+    NOT = { has_reform = EDG_HAB_monarchy_2 }
+    NOT = { has_reform = EDG_HAB_monarchy_3 }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#属于哈布斯堡王朝的时代。
+    name = "EDG_flavorHAB.13.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    add_government_reform = EDG_HAB_monarchy_2
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorHAB_13_tt
+    set_variable = {
+      which = EDG_HAB_union_Increase_upper_limit
+      value = 4
+    }
+  }
+}
+country_event = {#哈布斯堡帝国
+  id = EDG_flavorHAB.14
+  title = "EDG_flavorHAB.14.t"
+  desc = "EDG_flavorHAB.14.d"
+  picture = EDG_EVENT_PICTURE_HAB_1
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#我们是欧罗巴的主人。
+    name = "EDG_flavorHAB.14.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    add_government_reform = EDG_HAB_monarchy_3
+  }
+  option = {#我们没有过大的野心。
+    name = "EDG_flavorHAB.14.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_prestige = -5
+  }
+  
+}
+country_event = {#恢复自由
+  id = EDG_flavorHAB.15
+  title = "EDG_flavorHAB.15.t"
+  desc = "EDG_flavorHAB.15.d"
+  picture = WESTERNISATION_eventPicture
+  trigger = {
+    has_country_flag = change_country_color_EDG_flag
+    is_subject = no
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#我们已经恢复自由。
+    name = "EDG_flavorHAB.15.a"
+    ai_chance = {
+      factor = 10
+    }
+    restore_country_name = yes
+    restore_country_color = yes
+    clr_country_flag = change_country_color_EDG_flag
+  }
+}
+country_event = {#宗主国的影响
+  id = EDG_flavorHAB.115
+  title = "EDG_flavorHAB.115.t"
+  desc = "EDG_flavorHAB.115.d"
+  picture = WESTERNISATION_eventPicture
+  trigger = {
+    any_country = {
+      is_subject_of = root
+      OR = {
+        is_subject_of_type = EDG_French_vassal
+        is_subject_of_type = EDG_catharism_vassal
+        is_subject_of_type = EDG_Bulgaria_viceroyalty_vassal
+        is_subject_of_type = EDG_FRA_Continental_Alliance_vassal
+        is_subject_of_type = EDG_Latin_Province_vassal
+        is_subject_of_type = EDG_HAB_personal_union
+      }
+      NOT = { has_country_flag = change_country_color_EDG_flag }
+    }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#好的。
+    name = "EDG_flavorHAB.115.a"
+    ai_chance = {
+      factor = 10
+    }
+    every_country = {
+      limit = {
+        is_subject_of = ROOT
+        OR = {
+          is_subject_of_type = EDG_French_vassal
+          is_subject_of_type = EDG_catharism_vassal
+          is_subject_of_type = EDG_Bulgaria_viceroyalty_vassal
+          is_subject_of_type = EDG_FRA_Continental_Alliance_vassal
+          is_subject_of_type = EDG_Latin_Province_vassal
+          is_subject_of_type = EDG_HAB_personal_union
+        }
+      }
+      set_country_flag = change_country_color_EDG_flag
+      change_country_color = {
+				country = ROOT
+			}
+    }
+  }
+}
+country_event = {#《特蕾莎法典》
+  id = EDG_flavorHAB.16
+  title = "EDG_flavorHAB.16.t"
+  desc = "EDG_flavorHAB.15.d"
+  picture = CONQUEST_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    OR = {
+      is_year = 1700
+      has_country_flag = enable_EDG_flavorHAB_16_flag 
+    }
+    NOT = { has_country_flag = EDG_flavorHAB_16_flag }
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_16_flag
+  }
+  
+  option = {#陛下万岁！
+    name = "EDG_flavorHAB.16.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_adm_power = 100
+    add_prestige_or_monarch_power = { amount = 20 }
+  }
+}
+country_event = {#哈布斯堡君主国的一部分
+  id = EDG_flavorHAB.17
+  title = "EDG_flavorHAB.17.t"
+  desc = "EDG_flavorHAB.17.d"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#我们的宗主对我们还有安排。
+    name = "EDG_flavorHAB.17.a"
+    ai_chance = {
+      factor = 10
+    }
+    overlord = { country_event = { id = EDG_flavorHAB.18 } }
+  }
+}
+country_event = {#[From.GetAdjective]在君主国内的角色
+  id = EDG_flavorHAB.18
+  title = "EDG_flavorHAB.18.t"
+  desc = "EDG_flavorHAB.18.d"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#他们会是我们的联统国。
+    name = "EDG_flavorHAB.18.a"
+    ai_chance = {
+      factor = 10
+    }
+    create_subject = { subject_type = personal_union subject = FROM } 
+  }
+  option = {#他们会是我们的神圣罗马陪臣国。
+    name = "EDG_flavorHAB.18.b"
+    ai_chance = {
+      factor = 10
+    }
+    trigger= {
+      is_part_of_hre = yes
+    }
+    create_subject = { subject_type = EDG_HRE_vassal subject = FROM } 
+  }
+  option = {#他们由我们的王朝成员独立统治。
+    name = "EDG_flavorHAB.18.c"
+    ai_chance = {
+      factor = 0
+    }
+    FROM = { grant_independence = yes add_historical_friend = Root }
+    add_historical_friend = FROM
+    
+    has_government_power = {
+      mechanic_type = EDG_HAB_Monarchy_government_ability
+      power_type = EDG_HAB_Monarchy_government_power
+      value = 5
+    }
+  }
+  option = {#维持现状就好。
+    name = "EDG_flavorHAB.18.e"
+    ai_chance = {
+      factor = 10
+    }
+    tooltip = { create_subject = { subject_type = vassal subject = FROM }  }
+  }
+}
+country_event = {#布拉格耶稣会
+  id = EDG_flavorHAB.19
+  title = "EDG_flavorHAB.19.t"
+  desc = "EDG_flavorHAB.19.d"
+  picture = POPE_PREACHING_eventPicture
+  #fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    religion = catholic
+    owns = 266
+    266 = {
+      religion = catholic
+    }
+    NOT = { has_country_flag = EDG_flavorHAB_19_flag }
+    NOT = { is_year = 1600 }
+  }
+  mean_time_to_happen = {
+    months = 24
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_19_flag
+  }
+  
+  option = {#天主教是我们唯一的信仰。
+    name = "EDG_flavorHAB.19.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_19_a_tt
+    set_country_flag = EDG_flavorHAB_19_a_flag
+    
+  }
+  option = {#查理大学的圣杯派应当被尊重。
+    name = "EDG_flavorHAB.19.b"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_19_b_tt
+    set_country_flag = EDG_flavorHAB_19_b_flag
+
+  }
+}
+country_event = {#奥地利哈布斯堡王朝
+  id = EDG_flavorHAB.20
+  title = "EDG_flavorHAB.20.t"
+  desc = "EDG_flavorHAB.20.d"
+  picture = DIPLOMACY_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    NOT = { tag = HAB }
+    NOT = { was_tag = HAB }
+    OR = {
+      H02 = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union }
+      H02 = { is_subject_of = ROOT is_subject_of_type = personal_union }
+      STY = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union }
+      STY = { is_subject_of = ROOT is_subject_of_type = personal_union }
+    }
+    NOT = { has_country_flag = EDG_flavorHAB_20_flag }
+    #has_global_flag = EDG_flavorHAB_1_b_global_flag
+    is_at_war = no
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_20_flag
+  }
+  
+  option = {#奥地利笑到最后。
+    name = "EDG_flavorHAB.20.a"
+    ai_chance = {
+      factor = 10
+    }
+    if = {
+      limit = {
+        OR = {
+          H02 = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union }
+          H02 = { is_subject_of = ROOT is_subject_of_type = personal_union }
+        }
+      }
+      inherit = H02
+    }
+    if = {
+      limit = {
+        OR = {
+          STY = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union }
+          STY = { is_subject_of = ROOT is_subject_of_type = personal_union }
+        }
+      }
+      inherit = STY
+    }
+    if = {
+      limit = { NOT = { exists = HAB } }
+      set_country_flag = have_EDG_HAB_idea_2_flag
+      change_primary_culture = austrian
+      
+    }
+
+    austria_proper_area = {
+      limit = {
+        NOT = { owned_by = ROOT }
+      }
+      add_permanent_claim = HAB
+    }
+    inner_austria_area = {
+      limit = {
+        NOT = { owned_by = ROOT }
+      }
+      add_permanent_claim = HAB
+    }
+    73 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+    4758 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+    1768 = {
+      if = {
+        limit = {
+          NOT = { owned_by = ROOT }
+        }
+        add_permanent_claim = HAB
+      }
+    }
+    
+  }
+}
+country_event = {#迎回犹太人
+  id = EDG_flavorHAB.21
+  title = "EDG_flavorHAB.21.t"
+  desc = "EDG_flavorHAB.21.d"
+  picture = DEBATE_REPUBLICAN_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    is_year = 1450
+    NOT = { has_country_flag = EDG_flavorHAB_21_flag }
+    NOT = { is_year = 1600 }
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_21_flag
+  }
+  
+  option = {#错误必须得到终结。
+    name = "EDG_flavorHAB.21.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_20_a_tt
+    set_country_flag = EDG_flavorHAB_20_a_flag
+    add_dip_power = 50
+    add_treasury = -107.8
+  }
+  option = {#我们决不允许这些贪婪的恶犬回到我们的土地。
+    name = "EDG_flavorHAB.21.b"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_flavorHAB_20_b_tt
+    set_country_flag = EDG_flavorHAB_20_b_flag
+    capital_scope = { add_unrest = 10 }
+  }
+}
+country_event = {#$YEAR$年捷克叛乱
+  id = EDG_flavorHAB.22
+  title = "EDG_flavorHAB.22.t"
+  desc = "EDG_flavorHAB.22.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    has_country_flag = EDG_flavorHAB_mission_11_a_tt_flag
+    any_owned_province = {
+      culture = czech
+    }
+  }
+  mean_time_to_happen = {
+    months = 180
+  }
+  immediate = {
+  }
+  
+  option = {#他们是在以卵击石。
+    name = "EDG_flavorHAB.22.a"
+    ai_chance = {
+      factor = 10
+    }
+    bohemia_area = {
+      limit = { owned_by = ROOT }
+      add_unrest = 20 add_nationalism = 30
+    }
+    spawn_rebels = {
+        type = nationalist_rebels
+        size = 4
+        win = yes
+    }
+  }
+}
+country_event = {#哈布斯堡联统国的特权
+  id = EDG_flavorHAB.23
+  title = "EDG_flavorHAB.23.t"
+  desc = "EDG_flavorHAB.23.d"
+  picture = DIPLOMACY_eventPicture
+  trigger = {
+    NOT = { has_country_flag = EDG_flavorHAB_23_flag }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_aa_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_a_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_b_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_c_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_e_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_f_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_g_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_h_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_i_modifier_sub }
+    NOT = { has_country_modifier = EDG_flavorHAB_24_j_modifier_sub }
+    is_subject_of_type = EDG_HAB_personal_union
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+    set_country_flag = EDG_flavorHAB_23_flag
+  }
+  
+  option = {#我们的宗主会给予我们新的特权。
+    name = "EDG_flavorHAB.23.a"
+    ai_chance = {
+      factor = 10
+    }
+    overlord = { country_event = { id = EDG_flavorHAB.24 } }
+    clr_country_flag = EDG_flavorHAB_23_flag
+  }
+}
+country_event = {#哈布斯堡联统国的特权
+  id = EDG_flavorHAB.24
+  title = "EDG_flavorHAB.24.t"
+  desc = "EDG_flavorHAB.24.d"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#为他们提供行政特权。
+    name = "EDG_flavorHAB.24.e"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_e_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_e_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_e_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#为他们提供外交特权。
+    name = "EDG_flavorHAB.24.f"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_f_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_f_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_f_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#为他们提供军事特权。
+    name = "EDG_flavorHAB.24.g"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_g_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_g_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_g_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#他们将获得税收方面的特权。
+    name = "EDG_flavorHAB.24.a"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_a_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_a_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_a_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#为他们的城市提供特权。
+    name = "EDG_flavorHAB.24.b"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_b_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_b_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_b_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#给予他们商业特权。
+    name = "EDG_flavorHAB.24.c"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_c_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_c_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_c_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#为他们的教会提供资源。
+    name = "EDG_flavorHAB.24.h"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_h_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_h_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_h_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#资助他们的大学。
+    name = "EDG_flavorHAB.24.i"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_i_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_i_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_i_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#向他们的领地委派军队。
+    name = "EDG_flavorHAB.24.j"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      NOT = { has_country_modifier = EDG_flavorHAB_24_j_modifier }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorHAB_24_j_modifier
+      duration = 7300
+    }
+    FROM = {
+      add_ruler_modifier = {
+        name = EDG_flavorHAB_24_j_modifier_sub
+        duration = -1
+      }
+    }
+  }
+  
+  option = {#我们没有特权可以给予他们。
+    name = "EDG_flavorHAB.24.aa"
+    ai_chance = {
+      factor = 0
+    }
+    add_stability = -1
+    FROM = {
+      add_liberty_desire = 25
+      hidden_effect = {
+        add_ruler_modifier = {
+          name = EDG_flavorHAB_24_aa_modifier_sub
+          duration = -1
+          hidden = yes
+        }
+      }
+    }
+  }
+}
+country_event = {#匈牙利大贵族会议
+  id = EDG_flavorHAB.25
+  title = "EDG_flavorHAB.25.t"
+  desc = "EDG_flavorHAB.25.d"
+  picture = DEBATE_REPUBLICAN_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = HUN
+    is_subject = no
+    has_global_flag = EDG_death_of_Sigismund
+    NOT = { is_year = 1470 }
+    any_country = {
+      has_country_flag = EDG_HAB_flag
+      is_subject = no
+      government = monarchy
+    }
+    has_government_attribute = heir
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  immediate = {
+    set_global_flag = EDG_flavorHAB_25_global_flag
+  }
+  
+  option = {#他们理应继承西吉斯蒙德的遗产。
+    name = "EDG_flavorHAB.25.a"
+    ai_chance = {
+      factor = 3
+      modifier = {
+        factor = 5
+        OR = {
+          HAB = { ai = yes }
+          WUR = { ai = yes }
+        }
+      }
+    }
+    add_stability_or_adm_power = yes
+    if = {
+      limit = {
+        senior_union_with = CRO
+      }
+      inherit = CRO
+    }
+    random_country = {
+      limit = { has_country_flag = EDG_HAB_flag }
+      create_union = HUN
+      hidden_effect = {
+        country_event = {
+          id = flavor_hun.3
+          days = 1
+        }
+      }
+    }
+  }
+  option = {#大贵族议会还没准备接受哈布斯堡王朝。
+    name = "EDG_flavorHAB.25.b"
+    trigger = {
+      OR = {
+        ai = no
+        NOT = {
+          OR = {
+            any_country = {
+              mission_completed = EDG_HAB_mission_4_15
+            }
+            not = {
+              has_global_flag = EDG_HAB_mission_4_15_a_flag_tt_flag
+            }
+          }
+        }
+      }
+    }
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0
+        OR = {
+          has_global_flag = EDG_HAB_mission_4_15_a_flag_tt_flag
+          any_country = {
+            mission_completed = EDG_HAB_mission_4_15
+          }
+        }
+      }
+    }
+    random_country = {
+      limit = { has_country_flag = EDG_HAB_flag }
+      add_casus_belli = {
+        target = HUN
+        type = cb_restore_personal_union
+        months = 360
+      }
+    }
+  }
+}
+country_event = {#公教会的权威  （1）
+  id = EDG_flavorHAB.26
+  title = "EDG_flavorHAB.26.t"
+  desc = "EDG_flavorHAB.26.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    religion = catholic
+    check_variable = {
+      which = EDG_HAB_Catholic_power
+      value = 1
+    }
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#帝国与教廷的权威不容置疑。
+    name = "EDG_flavorHAB.26.a"
+    ai_chance = {
+      factor = 3
+    }
+    set_global_flag = EDG_HAB_Catholic_power_1_global_flag
+    custom_tooltip = EDG_HAB_Catholic_power_change_global_flag_tt
+    tooltip = {
+      add_country_modifier = {
+        name = EDG_HAB_Catholic_power_1_global_modifier
+        duration = -1
+      }
+    }
+  }
+}
+country_event = {#维也纳大公会议  （2）
+  id = EDG_flavorHAB.27
+  title = "EDG_flavorHAB.27.t"
+  desc = "EDG_flavorHAB.27.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    is_emperor = yes
+    has_country_flag = EDG_HAB_flag
+    religion = catholic
+    check_variable = {
+      which = EDG_HAB_Catholic_power
+      value = 2
+    }
+    has_global_flag = EDG_HAB_Catholic_power_1_global_flag
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#帝国的权威凌驾于一切思想之上。
+    name = "EDG_flavorHAB.27.a"
+    ai_chance = {
+      factor = 3
+    }
+    clr_global_flag = EDG_HAB_Catholic_power_1_global_flag
+    set_global_flag = EDG_HAB_Catholic_power_2_global_flag
+    custom_tooltip = EDG_HAB_Catholic_power_change_global_flag_tt
+    tooltip = {
+      add_country_modifier = {
+        name = EDG_HAB_Catholic_power_2_global_modifier
+        duration = -1
+      }
+    }
+  }
+}
+country_event = {#永远的普世教会  （3）
+  id = EDG_flavorHAB.28
+  title = "EDG_flavorHAB.28.t"
+  desc = "EDG_flavorHAB.28.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    is_emperor = yes
+    has_country_flag = EDG_HAB_flag
+    religion = catholic
+    check_variable = {
+      which = EDG_HAB_Catholic_power
+      value = 3
+    }
+    has_global_flag = EDG_HAB_Catholic_power_2_global_flag
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#既神圣，又罗马，更帝国。
+    name = "EDG_flavorHAB.28.a"
+    ai_chance = {
+      factor = 3
+    }
+    clr_global_flag = EDG_HAB_Catholic_power_1_global_flag
+    clr_global_flag = EDG_HAB_Catholic_power_2_global_flag
+    set_global_flag = EDG_HAB_Catholic_power_3_global_flag
+    custom_tooltip = EDG_HAB_Catholic_power_change_global_flag_tt
+    tooltip = {
+      add_country_modifier = {
+        name = EDG_HAB_Catholic_power_3_global_modifier
+        duration = -1
+      }
+    }
+  }
+}
+country_event = {#神圣罗马入侵
+  id = EDG_flavorHAB.29
+  title = "EDG_flavorHAB.29.t"
+  desc = "EDG_flavorHAB.29.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    always = no
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#既神圣，又罗马，更帝国。
+    name = "EDG_flavorHAB.28.a"
+    ai_chance = {
+      factor = 3
+    }
+    custom_tooltip = EDG_WG_superiority_Holy_Roman_Invasion_france_flag_tt
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_france_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_iberia_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_poland_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Balkan_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Ruthenian_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Baltica_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Britain_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Scandinavia_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Russia_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Italy_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Netherlands_flag
+    set_country_flag = EDG_WG_superiority_Holy_Roman_Invasion_Anatolia_flag
+    custom_tooltip = EDG_HAB_mission_1_8_event_tt
+    set_country_flag = EDG_HAB_mission_1_8_event_flag
+  }
+}
+country_event = {#清洁派王庭的崩溃
+  id = EDG_flavorHAB.30
+  title = "EDG_flavorHAB.30.t"
+  desc = "EDG_flavorHAB.30.d"
+  picture = POPE_PREACHING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#他们终将为主所惩罚。
+    name = "EDG_flavorHAB.30.a"
+    ai_chance = {
+      factor = 3
+    }
+    add_prestige_or_monarch_power = { amount = 25 }
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorHAB_30_tt
+    every_country = {
+      limit = { religion = EDG_catharism is_part_of_hre = yes }
+      country_event = { id = EDG_flavorHAB.31 }
+    }
+  }
+}
+country_event = {#皈依天主教
+  id = EDG_flavorHAB.31
+  title = "EDG_flavorHAB.31.t"
+  desc = "EDG_flavorHAB.31.d"
+  picture = POPE_PREACHING_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+  }
+  
+  option = {#这是主的意愿。
+    name = "EDG_flavorHAB.31.a"
+    ai_chance = {
+      factor = 3
+    }
+    change_religion = catholic
+    every_owned_province = {
+      limit = { religion = EDG_catharism }
+      change_religion = catholic
+    }
+  }
+  option = {#我们坚定地信仰清洁派！
+    name = "EDG_flavorHAB.31.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -25
+  }
+}
+country_event = {#天选之鹰
+  id = EDG_flavorHAB.32
+  title = "EDG_flavorHAB.32.t"
+  desc = "EDG_flavorHAB.32.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    has_country_flag = EDG_HAB_flag
+    ai = no
+    NOT = { is_year = 1446 }
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们是天选之鹰！
+    name = "EDG_flavorHAB.32.a"
+    ai_chance = {
+      factor = 0
+    }
+    custom_tooltip = EDG_flavorHAB_32_tt
+    add_prestige_or_monarch_power = { amount = 10 }
+    set_global_flag = EDG_flavorHAB_32_flag
+  }
+  option = {#我希望进行轻松的游戏。
+    name = "EDG_flavorHAB.32.b"
+    ai_chance = {
+      factor = 10
+    }
+    
+  }
+}
+country_event = {#奥地利的归属
+  id = EDG_flavorHAB.33
+  title = "EDG_flavorHAB.2.t"
+  desc = "EDG_flavorHAB.2.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    NOT = { has_ruler_modifier = EDG_Infertile_ruler_modifier }
+    tag = H02
+    any_country = {
+      has_country_flag = EDG_HAB_flag
+    }
+    NOT = { has_global_flag = EDG_flavorHAB_2_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorHAB_2_flag
+  }
+  mean_time_to_happen = { 
+  }
+  
+  option = {#奥地利理应归属哈布斯堡家族。
+    name = "EDG_flavorHAB.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    random_country = {
+      limit = { has_country_flag = EDG_HAB_flag }
+      country_event = { id = EDG_flavorHAB.3 }
+    }
+  }
+  option = {#我们有更合适的人选。
+    name = "EDG_flavorHAB.1.b"
+    ai_chance = {
+      factor = 0
+      modifier = {
+        factor = 0
+        has_global_flag = EDG_HAB_mission_4_10_global_flag
+      }
+    }
+	  add_prestige = -5
+    set_global_flag = EDG_flavorHAB_1_b_global_flag
+  }
+}
+country_event = {#ai征服卡林西亚
+  id = EDG_flavorHAB.34
+  title = "EDG_flavorHAB.34.t"
+  desc = "EDG_flavorHAB.34.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  #major = yes
+  hidden = yes
+  trigger = {
+    is_year = 1456
+    ai = yes
+    tag = HAB
+    exists = H01
+    is_subject = no
+    is_at_war = no
+    army_size = 30
+    H01 = {
+      NOT = { truce_with = ROOT }
+      NOT = { alliance_with = ROOT }
+      NOT = { guaranteed_by = ROOT }
+      is_subject = no
+      is_neighbor_of = ROOT
+    }
+    army_strength = {
+      who = H01
+      value = 1
+    }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = { 
+    months = 36
+  }
+  
+  option = {#宣战
+    name = "EDG_flavorHAB.2.a"
+    ai_chance = {
+      factor = 400
+      modifier = {
+        factor = 0
+        any_country = {
+          alliance_with = H01
+          army_strength = {
+            who = HAB
+            value = 1
+          }
+        }
+      }
+    }
+    declare_war_with_cb = {
+      who = H01
+      casus_belli = cb_annex
+    }
+  
+  }
+  option = {#无事发生
+    name = "EDG_flavorHAB.1.b"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0.1
+        army_size = 70
+      }
+    }
+  }
+}
+country_event = {#ai要求所有哈堡联统国进战
+  id = EDG_flavorHAB.35
+  title = "EDG_flavorHAB.35.t"
+  desc = "EDG_flavorHAB.35.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  #major = yes
+  hidden = yes
+  trigger = {
+    ai = yes
+    is_at_war = yes
+    any_subject_country = {
+      is_subject_of_type = EDG_HAB_personal_union
+      NOT = { liberty_desire = 50 }
+    }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = { 
+
+  }
+  
+  option = {#宣战
+    name = "EDG_flavorHAB.2.a"
+    every_subject_country = {
+      limit = {
+        NOT = { liberty_desire = 50 }
+      }
+      join_all_offensive_wars_of = ROOT
+			join_all_defensive_wars_of = ROOT
+    }
+  }
+}

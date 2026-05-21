@@ -1,0 +1,976 @@
+EDG_FYM_disaster_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = FYM 
+		has_country_modifier = EDG_FYM_1444_decline_modifier
+	} 
+
+	EDG_FYM_disaster_mission_1_2 = {
+		icon = spa_spanish_road
+		position = 2
+		required_missions = { EDG_FYM_disaster_mission_2_1 } 
+		provinces_to_highlight = {
+			province_id = 358
+		} 
+
+		trigger = {
+			has_estate_privilege = EDG_estate_Caledonia_enlist_the_mamluks
+			EDG_FYM_decline_in_egy_trigger_not = yes
+			358 = { num_of_units_in_province = { who = ROOT amount = 30 } }
+			has_mil_advisor_2 = yes
+			OR = {
+				estate_loyalty = {
+					estate = estate_edg_caledonia
+					loyalty = 50
+				}
+				NOT = {
+					estate_influence = {
+						estate = estate_edg_caledonia
+						influence = 30
+					}
+				}
+				mission_completed = EDG_FYM_disaster_mission_2_2
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { not = { has_global_flag = EDG_FYM_civil_war_31_flag } }
+				country_event = { id = EDG_flavor_FYM_mission.3 }
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_FYM_disaster_mission_1_2_flag
+			custom_tooltip = EDG_FYM_disaster_mission_1_2_flag_tt
+			remove_estate_privilege = EDG_estate_Caledonia_FYM_mamluks_privilege_1
+
+		} 
+	}
+
+	EDG_FYM_disaster_mission_1_4 = {
+		icon = mission_non-western_soldiers
+		position = 4
+		required_missions = { EDG_FYM_disaster_mission_2_3 } 
+		provinces_to_highlight = {
+			province_id = 358
+		} 
+
+		trigger = {
+			358 = {
+				owned_by = root
+				NOT = { devastation = 1 }
+			}
+			NOT = { num_of_rebel_armies = 1 }
+			OR = {
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 40
+				}
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 40
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FYM_civil_war_27_flag_trigger_tt
+				has_country_flag = EDG_FYM_civil_war_27_flag
+			}
+		} 
+
+		effect = {
+			add_treasury = 200
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_1_4_modifier
+				duration = 3650
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 40
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 40
+						}
+					}
+				}
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_a_tt_yes
+				358 = {
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_1_4_a_province_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_a_tt_no
+				tooltip = {
+					358 = {
+						add_province_modifier = {
+							name = EDG_FYM_disaster_mission_1_4_a_province_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 40
+						}
+					}
+				}
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_b_tt_yes
+				358 = {
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_1_4_b_province_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_b_tt_no
+				tooltip = {
+					358 = {
+						add_province_modifier = {
+							name = EDG_FYM_disaster_mission_1_4_b_province_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					estate_loyalty = {
+						estate = estate_nobles
+						loyalty = 40
+					}
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 40
+					}
+				}
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_c_tt_yes
+				358 = {
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_1_4_c_province_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_FYM_disaster_mission_1_4_c_tt_no
+				tooltip = {
+					358 = {
+						add_province_modifier = {
+							name = EDG_FYM_disaster_mission_1_4_c_province_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		} 
+	}
+}
+EDG_FYM_disaster_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = FYM 
+		has_country_modifier = EDG_FYM_1444_decline_modifier
+	} 
+
+	EDG_FYM_disaster_mission_2_1 = {
+		icon = mission_crush_delhi
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			#always = no
+			OR = {
+				EDG_FYM_civil_war_happening_trigger = yes
+				AND = {
+					num_of_generals = 2
+					OR = {
+						army_size = 75
+						army_size_percentage = 1
+					}
+				}
+			}
+		} 
+
+		effect = {
+			add_yearly_manpower = 1
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_2_1_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_2_2 = {
+		icon = mission_dharma_mission_the_riches_of_india
+		position = 2
+		required_missions = { EDG_FYM_disaster_mission_2_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_estate_privilege = EDG_estate_Caledonia_enlist_the_mamluks
+			EDG_FYM_decline_in_egy_trigger_not = yes
+			has_dip_advisor_2 = yes
+			num_of_generals = 4
+			361 = { num_of_units_in_province = { who = ROOT amount = 30 } }
+			OR = {
+				estate_loyalty = {
+					estate = estate_edg_caledonia
+					loyalty = 50
+				}
+				NOT = {
+					estate_influence = {
+						estate = estate_edg_caledonia
+						influence = 30
+					}
+				}
+				mission_completed = EDG_FYM_disaster_mission_1_2
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { not = { has_global_flag = EDG_FYM_civil_war_32_flag } }
+				country_event = { id = EDG_flavor_FYM_mission.4 }
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_FYM_disaster_mission_2_2_flag
+			custom_tooltip = EDG_FYM_disaster_mission_2_2_flag_tt
+			remove_estate_privilege = EDG_estate_Caledonia_FYM_mamluks_privilege_2
+
+		} 
+	}
+
+	EDG_FYM_disaster_mission_2_3 = {
+		icon = mission_build_up_to_force_limit
+		position = 3
+		required_missions = {
+			EDG_FYM_disaster_mission_3_2
+			EDG_FYM_disaster_mission_2_2
+			EDG_FYM_disaster_mission_1_2
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			EDG_FYM_decline_in_egy_trigger_not = yes
+			if = {
+				limit = {
+					has_government_mechanic = EDG_FRA_government_ability
+				}
+				has_government_power = { 
+					mechanic_type = EDG_FYM_Monarchy_ability
+					power_type = EDG_FYM_Monarchy_power
+					value = 20
+				}
+			}
+			else = {
+				OR = {
+					has_reform = EDG_Fayoum_system_reform
+					has_reform = EDG_Sahada_Empire_reform
+				}
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_FYM_disaster_mission_2_3_flag
+			custom_tooltip = EDG_FYM_disaster_mission_2_3_flag_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { has_province_modifier = EDG_FYM_civil_war_14_province_modifier }
+					remove_province_modifier = EDG_FYM_civil_war_14_province_modifier
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_2_3_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_2_4 = {
+		icon = per_the_persian_influence
+		position = 4
+		required_missions = { EDG_FYM_disaster_mission_2_3 } 
+		provinces_to_highlight = {
+			province_id = 362
+		} 
+
+		trigger = {
+			EDG_FYM_decline_in_egy_trigger_not = yes
+			EDG_FYM_civil_war_happening_trigger = yes
+			362 = {
+				owned_by = root
+				num_of_times_improved = 3
+			}
+			has_government_power = { 
+				mechanic_type = EDG_FYM_Monarchy_ability
+				power_type = EDG_FYM_Monarchy_power
+				value = 20
+			}
+		} 
+
+		effect = {
+			remove_estate_privilege = EDG_estate_noble_FYM_mamluks_privilege_1
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability
+				power_type = EDG_FYM_Monarchy_power
+				value = -20
+			}
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_2_4_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_2_5 = {
+		icon = mission_have_two_subjects
+		position = 5
+		required_missions = {
+			EDG_FYM_disaster_mission_1_4
+			EDG_FYM_disaster_mission_2_4
+			
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = { num_of_rebel_armies = 1 }
+			#stability = 0
+			has_heir = yes
+			custom_trigger_tooltip = {
+				tooltip = EDG_FYM_ruler_2_heir_back_trigger_tt
+				OR = {
+    				ruler_has_personality = EDG_personality_zhayide
+    				heir_has_personality = EDG_personality_zhayide
+					has_country_flag = EDG_FYM_zhayide_back_flag
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FYM_civil_war_27_flag_trigger_tt
+				has_country_flag = EDG_FYM_civil_war_27_flag
+			}
+		} 
+
+		effect = {
+			change_heir_mil = 1
+			add_stability_or_adm_power = yes
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability
+				power_type = EDG_FYM_Monarchy_power
+				value = 5
+			}
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_2_5_modifier
+				duration = 3650
+			}
+		} 
+	}
+}
+EDG_FYM_disaster_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = FYM 
+		has_country_modifier = EDG_FYM_1444_decline_modifier
+	} 
+
+	EDG_FYM_disaster_mission_3_2 = {
+		icon = mission_alliances
+		position = 2
+		required_missions = { EDG_FYM_disaster_mission_2_1 } 
+		provinces_to_highlight = {
+			province_id = 362
+		} 
+
+		trigger = {
+			EDG_FYM_decline_in_egy_trigger_not = yes
+			has_adm_advisor_2 = yes
+			362 = {
+				OR = {
+					local_autonomy = 55
+					num_of_times_improved = 4
+				}
+				province_has_center_of_trade_of_level = 2
+			}
+			OR = {
+				AND = {
+					mission_completed = EDG_FYM_disaster_mission_1_2
+					mission_completed = EDG_FYM_disaster_mission_2_2
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FYM_ruler_2_heir_back_trigger_tt
+					OR = {
+						ruler_has_personality = EDG_personality_zhayide
+						heir_has_personality = EDG_personality_zhayide
+						has_country_flag = EDG_FYM_zhayide_back_flag
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { not = { has_global_flag = EDG_FYM_civil_war_33_flag } }
+				country_event = { id = EDG_flavor_FYM_mission.5 }
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_FYM_disaster_mission_3_2_flag
+			custom_tooltip = EDG_FYM_disaster_mission_3_2_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_3_2_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_3_4 = {
+		icon = mission_market_place_with_asian_traders
+		position = 4
+		required_missions = { EDG_FYM_disaster_mission_2_3 } 
+		provinces_to_highlight = {
+			province_id = 361
+		} 
+
+		trigger = {
+			religion = shiite
+			361 = {
+				religion = shiite
+				NOT = { local_autonomy = 10 }
+			}
+			EDG_sunni_Caliph_ability_trigger = yes
+			if = {
+				limit = { heir_has_personality = EDG_personality_zhayide }
+				custom_trigger_tooltip = {
+					tooltip = EDG_FYM_civil_war_abs_son_flag_trigger_tooltip
+					has_country_flag = EDG_FYM_civil_war_abs_son_flag
+				}
+			}
+		} 
+
+		effect = {
+			remove_country_modifier = EDG_FYM_religion_problem_modifier
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = 20
+			}
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_3_4_modifier
+				duration = 3650
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FYM_every_sunni_province_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FYM_disaster_mission_3_4_province_modifier
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { religion = sunni }
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_3_4_province_modifier
+						duration = 7300
+					}
+				}
+			}
+
+		} 
+	}
+
+	EDG_FYM_disaster_mission_3_6 = {
+		icon = mission_monarch_in_throne_room
+		position = 6
+		required_missions = {
+			EDG_FYM_disaster_mission_2_5
+			EDG_FYM_disaster_mission_4_5
+			EDG_FYM_disaster_mission_3_4
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = { num_of_rebel_armies = 1 }
+			stability = 1
+			has_government_power = { 
+				mechanic_type = EDG_FYM_Monarchy_ability
+				power_type = EDG_FYM_Monarchy_power
+				value = 25
+			}
+			NOT = {
+				has_government_power = { 
+					mechanic_type = EDG_FYM_Monarchy_ability_2
+					power_type = EDG_FYM_Monarchy_power_2
+					value = 5
+				}
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_FYM_mission.50 }
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_FYM_disaster_mission_3_6_flag
+			custom_tooltip = EDG_FYM_disaster_mission_3_6_flag_tt
+			if = {
+				limit = { has_country_modifier = EDG_FYM_1444_decline_modifier }
+				remove_country_modifier = EDG_FYM_1444_decline_modifier
+				swap_non_generic_missions = yes
+			}
+		} 
+	}
+}
+EDG_FYM_disaster_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = FYM 
+		has_country_modifier = EDG_FYM_1444_decline_modifier
+	} 
+
+	EDG_FYM_disaster_mission_4_1 = {
+		icon = mission_conquer_50_development
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			#always = no
+			OR = {
+				EDG_FYM_civil_war_happening_trigger = yes
+				AND = {
+					stability = 1
+					NOT = { num_of_rebel_controlled_provinces = 1 }
+				}
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+			set_country_flag = EDG_FYM_disaster_mission_4_1_flag
+			custom_tooltip = EDG_FYM_disaster_mission_4_1_decision_1_enable_tt
+			custom_tooltip = EDG_FYM_disaster_mission_4_1_decision_2_enable_tt
+			custom_tooltip = EDG_FYM_disaster_mission_4_1_decision_3_enable_tt
+
+			custom_tooltip = EDG_FYM_disaster_mission_4_1_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_FYM_disaster_mission_4_1_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				384 = {
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_4_1_province_modifier
+						duration = -1
+					}
+				}
+				385 = {
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_4_1_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_4_2 = {
+		icon = mission_crusade_for_varna
+		position = 2
+		required_missions = { EDG_FYM_disaster_mission_4_1 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4282
+				province_id = 387
+			}
+		} 
+
+		trigger = {
+			4282 = {
+				NOT = { devastation = 1 }
+				development = 15
+			}
+			387 = {
+				#NOT = {unrest = 1 }
+				EDG_has_building_fort_trigger = yes
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+			set_country_flag = EDG_FYM_disaster_mission_4_2_flag
+			custom_tooltip = EDG_FYM_disaster_mission_4_2_flag_tt
+			remove_estate_privilege = EDG_estate_noble_FYM_mamluks_privilege_2
+
+			custom_tooltip = EDG_FYM_disaster_mission_4_2_tt
+			tooltip = {
+				EDG_building_give_courthouse_or_upgrate_effect = yes
+			}
+
+			hidden_effect = {
+				4282 = {
+					EDG_building_give_courthouse_or_upgrate_effect = yes
+				}
+				387 = {
+					EDG_building_give_courthouse_or_upgrate_effect = yes
+				}
+			}
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_4_2_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_4_3 = {
+		icon = evengelize_the_faith
+		position = 3
+		required_missions = {
+			EDG_FYM_disaster_mission_3_2
+			EDG_FYM_disaster_mission_4_2
+			EDG_FYM_disaster_mission_5_2
+		}
+		provinces_to_highlight = {
+			OR = {
+				tag = LEB
+				tag = DMA
+				tag = FAD
+			}
+			OR = {
+				liberty_desire = 20
+				NOT = { is_subject_of = ROOT }
+			}
+		} 
+
+		trigger = {
+			LEB = {
+				OR = {
+					exists = no
+					NOT = { liberty_desire = 20 }
+				}
+			}
+			DMA = {
+				OR = {
+					exists = no
+					NOT = { liberty_desire = 20 }
+				}
+			}
+			FAD = {
+				OR = {
+					exists = no
+					NOT = { liberty_desire = 20 }
+				}
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_FYM_disaster_mission_4_3_flag
+			custom_tooltip = EDG_FYM_disaster_mission_4_3_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FYM_disaster_mission_4_3_tt
+			hidden_effect = {
+				every_country = {
+					limit = { is_subject_of = root }
+					add_liberty_desire = -50
+					root = {
+						add_dip_power = 50
+						add_prestige = 10
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_4_4 = {
+		icon = state_of_the_presidi
+		position = 4
+		required_missions = { EDG_FYM_disaster_mission_4_3 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_government_power = { 
+				mechanic_type = EDG_FYM_Monarchy_ability_3
+				power_type = EDG_FYM_Monarchy_power_3
+				value = 30
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FYM_YOU_CAN_create_slave_trigger_tt
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				trade_goods = slaves
+				#NOT = { local_unrest = 1 }
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_FYM_disaster_mission_4_4_flag
+			custom_tooltip = EDG_FYM_disaster_mission_4_4_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FYM_disaster_mission_4_4_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_FYM_disaster_mission_4_4_province_modifier
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = { trade_goods = slaves }
+				}
+				add_permanent_province_modifier = {
+					name = EDG_FYM_disaster_mission_4_4_province_modifier
+					duration = 7300
+				}
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_4_5 = {
+		icon = mnd_maj_sunda_relations
+		position = 5
+		required_missions = {
+			EDG_FYM_disaster_mission_4_4
+			EDG_FYM_disaster_mission_5_4
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = { num_of_rebel_armies = 1 }
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+			NOT = {
+				has_government_power = { 
+					mechanic_type = EDG_FYM_Monarchy_ability_2
+					power_type = EDG_FYM_Monarchy_power_2
+					value = 10
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FYM_civil_war_25_flag_trigger_tt
+				has_country_flag = EDG_FYM_civil_war_25_flag
+			}
+		} 
+
+		effect = {
+			change_heir_dip = 1
+			add_stability_or_adm_power = yes
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+			add_country_modifier = {
+				name = EDG_FYM_disaster_mission_4_5_modifier
+				duration = 7300
+			}
+			
+		} 
+	}
+}
+EDG_FYM_disaster_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = FYM 
+		has_country_modifier = EDG_FYM_1444_decline_modifier
+	} 
+
+	EDG_FYM_disaster_mission_5_2 = {
+		icon = mission_abu_saids_dream
+		position = 2
+		required_missions = { EDG_FYM_disaster_mission_4_1 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 384
+				province_id = 385
+			}
+		} 
+
+		trigger = {
+			384 = {
+				NOT = { local_autonomy = 10 }
+				num_of_units_in_province = { who = ROOT amount = 10 }
+			}
+			385 = {
+				NOT = { local_autonomy = 10 }
+				num_of_units_in_province = { who = ROOT amount = 10 }
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+			set_country_flag = EDG_FYM_disaster_mission_5_2_flag
+			custom_tooltip = EDG_FYM_disaster_mission_5_2_flag_tt
+			remove_estate_privilege = estate_EDG_FYM_hereditary_Emir_privilege
+			add_government_power = {
+				mechanic_type = EDG_FYM_Monarchy_ability_2
+				power_type = EDG_FYM_Monarchy_power_2
+				value = -5
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_FYM_disaster_mission_4_1_tt
+			tooltip = {
+				remove_province_modifier = EDG_FYM_disaster_mission_4_1_province_modifier
+				spawn_rebels = {
+					size = 2
+					type = heretic_rebels
+				}
+				add_province_modifier = {
+					name = EDG_FYM_disaster_mission_5_2_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				384 = {
+					remove_province_modifier = EDG_FYM_disaster_mission_4_1_province_modifier
+					spawn_rebels = {
+						size = 2
+						type = heretic_rebels
+					}
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_5_2_province_modifier
+						duration = -1
+					}
+				}
+				385 = {
+					remove_province_modifier = EDG_FYM_disaster_mission_4_1_province_modifier
+					spawn_rebels = {
+						size = 2
+						type = heretic_rebels
+					}
+					add_province_modifier = {
+						name = EDG_FYM_disaster_mission_5_2_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FYM_disaster_mission_5_4 = {
+		icon = arm_holy_sites
+		position = 4
+		required_missions = { EDG_FYM_disaster_mission_4_3 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_adm_advisor_2 = yes
+			OR = {
+				AND = {
+					num_of_estate_privileges = { estate = estate_edg_copt value = 4 }
+					estate_loyalty = {
+						estate = estate_edg_copt
+						loyalty = 50
+					}
+				}
+				egypt_region = {
+					type = all
+					NOT = { devastation = 1 }
+					is_prosperous = yes
+				}
+			}
+		} 
+
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_edg_copt
+				loyalty = 20
+			}
+			remove_estate_privilege = estate_EDG_dhimmi_FYM_privilege
+			add_country_modifier = {
+				name =  EDG_FYM_disaster_mission_5_4_modifier
+				duration = 7300
+			}
+
+		} 
+	}
+}

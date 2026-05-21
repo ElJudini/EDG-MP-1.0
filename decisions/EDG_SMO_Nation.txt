@@ -1,0 +1,273 @@
+country_decisions = {
+
+	EDG_ROS_nation = {
+		major = yes
+		potential = {
+			always = no
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { has_country_flag = formed_EDG_ROS_nation_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			EDG_not_RUS_tag_trigger = yes
+			NOT = { tag = POL }
+			NOT = { tag = RUS }
+			NOT = { tag = RUF }
+			NOT = { tag = GRS }
+			NOT = { tag = ROS }
+			OR = {
+				NOT = { exists = ROS }
+				ai = no
+			}
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			culture_group = east_slavic
+			government = republic
+			has_government_attribute = EDG_Peasant_regime
+			OR = {
+				ai = no
+				AND = {
+					ai = yes
+					num_of_cities = 3
+				}
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 295			# Moskva
+				province_id = 310			# Novgorod
+				province_id = 280			# 
+				province_id = 293			# 
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			check_variable = {
+				which = EDG_SMO_revolution_rank
+				value = 7
+			}
+			NOT = { exists = ROS }
+			culture_group = east_slavic
+			government = republic
+			has_government_attribute = EDG_Peasant_regime
+			NOT = { has_reform = states_general_reform }
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_core_province = 295			# Moskva
+			owns_core_province = 310			# Novgorod
+			owns_core_province = 280			#
+			owns_core_province = 293			#
+		}
+		effect = {
+			change_tag = ROS
+			restore_country_name = yes
+			swap_non_generic_missions = yes
+			country_event = { id = EDG_flavorSMO.13 }
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			remove_non_electors_emperors_from_empire_effect = yes
+			ROOT = { set_government_rank = 3 }
+			set_country_flag = formed_EDG_ROS_nation_flag
+			add_government_reform = EDG_ROS_Citizen_Government
+			add_prestige_or_monarch_power = { amount = 25}
+			russia_region = {
+				limit = {
+					NOT = { is_core = ROOT } 
+					NOT = { is_permanent_claim = ROOT } 
+				}
+				add_permanent_claim = ROOT
+			}
+			ruthenia_region = {
+				limit = {
+					NOT = { is_core = ROOT } 
+					NOT = { is_permanent_claim = ROOT } 
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		ai_importance = 400
+	}
+	
+  EDG_SMO_congress_decision_1 = {#临时举行代表大会
+	major = yes
+    potential = {
+      has_government_attribute = EDG_Peasant_regime
+    }
+    allow = {
+		OR = {
+			has_government_power = {
+				mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+				power_type = EDG_SMO_revolutionary_tendency
+				value = 20
+			}
+			NOT = {
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency
+					value = -20
+				}
+			}
+		}
+	  adm_power = 50
+	  dip_power = 50
+	  mil_power = 50
+	  
+	  NOT = { has_country_modifier = EDG_SMO_congress_decision_1_modifier }
+	  has_government_attribute = EDG_Peasant_regime
+    }
+    effect = {
+	  add_adm_power = -50
+	  add_dip_power = -50
+	  add_mil_power = -50
+	  custom_tooltip = EDG_SPACE_TT
+	  country_event = { id = EDG_flavorSMO_rank.4 }
+    }
+    ai_will_do = {
+      factor = 0
+    }
+  }
+	
+  EDG_SMO_reactionary_decision_1 = {
+	major = yes
+    potential = {
+      has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+	  NOT = { has_country_modifier = EDG_SMO_reactionary_decision_1_modifier }
+    }
+    allow = {
+	  mil_power = 100
+	 
+	  has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+    }
+    effect = {
+	  add_mil_power = -100
+		add_country_modifier = {
+			name = "EDG_SMO_reactionary_decision_1_modifier"
+			duration = -1
+		}
+		custom_tooltip = EDG_SPACE_TT
+		add_country_modifier = {
+			name = "EDG_SMO_reactionary_decision_1_modifier_2"
+			duration = -1
+		}
+		
+    }
+    ai_will_do = {
+      factor = 100
+    }
+  }
+  
+  EDG_SMO_reactionary_decision_2 = {
+	major = yes
+    potential = {
+		NOT = { has_country_modifier = EDG_SMO_reactionary_decision_2_modifier }
+      has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+    }
+    allow = {
+	  adm_power = 100
+	  
+	  has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+    }
+    effect = {
+	  add_adm_power = -100
+		add_country_modifier = {
+			name = "EDG_SMO_reactionary_decision_2_modifier"
+			duration = -1
+		}
+		
+    }
+    ai_will_do = {
+      factor = 100
+    }
+  }
+  
+  EDG_SMO_reactionary_decision_3 = {
+	major = yes
+    potential = {
+		NOT = { has_country_modifier = EDG_SMO_reactionary_decision_3_modifier }
+      has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+    }
+    allow = {
+	  dip_power = 100
+	  
+	  has_government_attribute = EDG_Peasant_regime
+	  NOT = {
+		has_government_power = {
+			mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+			power_type = EDG_SMO_revolutionary_tendency
+			value = 0
+		}
+	  }
+    }
+    effect = {
+	  add_dip_power = -100
+		add_country_modifier = {
+			name = "EDG_SMO_reactionary_decision_3_modifier"
+			duration = -1
+		}
+		
+    }
+    ai_will_do = {
+      factor = 100
+    }
+  }
+}

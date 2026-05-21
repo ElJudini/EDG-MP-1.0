@@ -1,0 +1,1044 @@
+#���e�y�Qb�m�S�N�N
+#Belaslav
+
+namespace = EDG_mos_civilwar
+
+#V�YN�umg
+country_event = { #���e�y�Qbr�S
+    id = EDG_mos_civilwar.101
+    title = EDG_mos_civilwar.101t
+    desc = EDG_mos_civilwar.101d
+    picture = CIVIL_WAR_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        tag = MOS
+    }
+    immediate = {
+        hidden_effect = {
+            add_stability = -2
+            add_prestige = -25
+            random_owned_province = {
+                spawn_rebels = {
+                    size = 3
+                    win = yes
+                    unrest = 20
+                }
+            }
+            random_owned_province = {
+                spawn_rebels = {
+                    type = nationalist_rebels
+                    size = 2
+                    win = yes
+                    unrest = 20
+                }
+            }
+            random_owned_province = {
+                spawn_rebels = {
+                    type = nationalist_rebels
+                    size = 2
+                    win = yes
+                    unrest = 20
+                }
+            }
+        }
+    }
+
+    major = yes
+
+    option = {
+        name = "EDG_mos_civilwar.101A"
+        set_country_flag = EDG_mos_civilwar_flag
+        tooltip = {
+            add_stability = -2
+            add_prestige = -25
+            random_owned_province = {
+                spawn_rebels = {
+                    size = 3
+                    win = yes
+                    unrest = 20
+                }
+            }
+            random_owned_province = {
+                spawn_rebels = {
+                    type = nationalist_rebels
+                    size = 2
+                    win = yes
+                    unrest = 20
+                }
+            }
+            random_owned_province = {
+                spawn_rebels = {
+                    type = nationalist_rebels
+                    size = 2
+                    win = yes
+                    unrest = 20
+                }
+            }
+        }
+        hidden_effect = {
+            country_event = {
+                id = EDG_mos_civilwar.2011 #^S�V�v�y�V
+                days = 30
+            }
+            country_event = {
+                id = EDG_mos_civilwar.201 #��+Y�TW�VkS�V�r�z�R�
+                days = 60
+            }
+            country_event = {
+                id = EDG_mos_civilwar.202 #2S̑�v�SqN
+                days = 10
+            }
+        }
+    }
+}
+
+country_event = { #���e�y�Qb�u�u
+    id = EDG_mos_civilwar.102
+    title = EDG_mos_civilwar.102t
+    desc = EDG_mos_civilwar.102d
+    picture = BATTLE_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        tag = MOS
+    }
+
+    major = yes
+
+    immediate = {
+        hidden_effect = {
+            add_legitimacy = 10
+            stability = 1
+        } 
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.102A"
+        trigger = {
+            NOT = {
+                ruler_total_stats = {
+					amount = 12
+				}
+            }
+        }
+        set_country_flag = EDG_had_mos_civilwar_flag
+        ai_chance = {
+			factor = 0
+            modifier = {
+				factor = 1
+				NOT = {
+                    ruler_total_stats = {
+                        amount = 12
+                    }
+                }
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.102B"
+        trigger = {
+            ruler_total_stats = {
+                amount = 12
+            }
+        }
+        set_country_flag = EDG_had_mos_civilwar_flag
+        add_country_modifier = {
+            name = EDG_end_mos_civilwar
+            duration = -1
+        }
+        ai_chance = {
+			factor = 1
+            modifier = {
+				factor = 0
+                NOT = {
+                    ruler_total_stats = {
+                        amount = 12
+                    }
+                }
+			}
+		}
+    }
+}
+
+#��+Y�TW�V�vsQ
+country_event = { #��+Y�TW�VkS�V�r�z�R�
+    id = EDG_mos_civilwar.201
+    title = EDG_mos_civilwar.201t
+    desc = EDG_mos_civilwar.201d
+    picture = DEATH_OF_HEIR_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    AND = {
+                        has_ruler_flag = EDG_Yuriy_in_power
+                        NOT = { is_monarch_leader = yes } 
+                    }
+                }
+                define_ruler_to_general = {
+                    fire = 1
+                    shock = 6
+                    manuever = 3
+                    siege = 5
+                }
+            }
+            add_casus_belli = {
+                target = NOV
+                type = cb_restore_personal_union
+                months = 300
+            }
+        }
+    }
+    option = { #�Rb
+        name = "EDG_mos_civilwar.201A"
+        add_legitimacy = 25
+        add_prestige = 10
+        declare_war_with_cb = {
+            who = NOV
+            casus_belli = cb_restore_personal_union
+        }
+
+        ai_chance = {
+			factor = 0.40
+            modifier = {
+				factor = 0.80
+				has_ruler_flag = EDG_Yuriy_in_power
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.201B"
+        add_country_modifier = {
+            name = EDG_mos_civilwar_nov_indep
+            duration = 1825
+        }
+        ai_chance = {
+			factor = 0.60
+			modifier = {
+				factor = 0.20
+				NOT = { has_ruler_flag = EDG_Yuriy_in_power }
+			}
+		}
+    }
+    after = {
+        NOV = {
+            country_event = {
+                id = EDG_mos_civilwar.2010
+            }
+        }
+    }
+}
+country_event = { #��+Y�TW�V�v���e�y>m
+    id = EDG_mos_civilwar.208
+    title = EDG_mos_civilwar.208t
+    desc = EDG_mos_civilwar.208d
+    picture = CONQUEST_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once =yes
+
+    option = {
+        name = "EDG_mos_civilwar.208A"
+        add_treasury = 100
+        add_manpower = 2
+        add_legitimacy = 5
+        add_prestige = 5
+        ai_chance = {
+			factor = 1
+		}
+    }
+}
+country_event = { #6e�V��+Y�TW�V
+    id = EDG_mos_civilwar.209
+    title = EDG_mos_civilwar.209t
+    desc = EDG_mos_civilwar.209d
+    picture = REFORM_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_mos_civilwar.209A"
+        NOV = {
+            every_owned_province = {
+                #add_core = MOS
+                cede_province = MOS
+            }
+        }
+        add_mil_power = -50
+        #add_adm_power = -50
+        add_dip_power = -100
+        #add_treasury = 25
+        add_prestige = 25
+        add_legitimacy = 5
+        ai_chance = {
+			factor = 0.3
+            modifier = {
+				factor = 0
+                AND = {
+                    NOT = { mil_power_cost = 50 }
+                    #NOT = { adm_power_cost = 50 }
+                    NOT = { dip_power_cost = 100 }
+                }
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.209B"
+        NOV = {
+            every_owned_province = {
+                add_territorial_core = MOS
+                cede_province = MOS
+                add_local_autonomy = 100
+            }
+        }
+        add_mil_power = -150
+        add_adm_power = -200
+        add_dip_power = -100
+        add_prestige = 20
+        ai_chance = {
+			factor = 0.4
+            modifier = {
+				factor = 0
+                AND = {
+                    NOT = { mil_power_cost = 150 }
+                    NOT = { adm_power_cost = 200 }
+                    NOT = { dip_power_cost = 100 }
+                }
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.209C"
+        create_union = NOV
+        add_prestige = 5
+        set_country_flag = EDG_handle_nov_flag
+        custom_tooltip = EDG_mos_civilwar_209C_tt
+        remove_historical_rival = NOV
+        NOV = { remove_historical_rival = MOS }
+        add_historical_friend = NOV
+        NOV = { add_historical_friend = MOS }
+        ai_chance = {
+			factor = 0.3
+		}
+    }
+}
+country_event = { #��+Y�TW�V�r�z
+    id = EDG_mos_civilwar.2010
+    title = EDG_mos_civilwar.2010t
+    desc = EDG_mos_civilwar.2010d
+    picture = ST_PETERS_CHURCH_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2010A"
+        trigger = {
+            war_with = MOS
+        }
+        add_manpower = 5
+        add_treasury = 25
+        set_country_flag = NOV_war_with_MOS_flag
+        ai_chance = {
+            factor = 1
+        }
+        moscow_area = {
+            add_permanent_claim = NOV
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2010B"
+        trigger = {
+            NOT = { war_with = MOS }
+        }
+        add_manpower = 5
+        add_treasury = 25
+        add_prestige = 25
+        set_country_flag = N_NOV_war_with_MOS_flag
+        ai_chance = {
+            factor = 1
+        }
+        pskov_area = {
+            add_permanent_claim = NOV
+        }
+        estonia_ingria_area = {
+            add_permanent_claim = NOV
+        }
+        livonia_area = {
+            add_permanent_claim = NOV
+        }
+        finland_area = {
+            add_permanent_claim = NOV
+        }
+        bothnia_area = {
+            add_permanent_claim = NOV
+        }
+        laponia_area = {
+            add_permanent_claim = NOV
+        }
+        30 = {
+            add_permanent_claim = NOV
+        }
+    }
+    after = {
+        add_country_modifier = {
+            name = EDG_veliky_novgorod
+            duration = 3650
+        }
+        country_event = {
+            id = EDG_mos_civilwar.2014
+            days = 5
+        }
+    }
+}
+country_event = { #8n���lQ�V
+    id = EDG_mos_civilwar.2014
+    title = EDG_mos_civilwar.2014t
+    desc = EDG_mos_civilwar.2014d
+    picture = ADVISOR_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2014A"
+        ai_chance = {
+            factor = 0.1
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2014B"
+        add_treasury = -30
+        BLO = {
+            country_event = {
+                id = EDG_mos_civilwar.2015
+            }
+        }
+        YAR = {
+            country_event = {
+                id = EDG_mos_civilwar.2015
+            }
+        }
+        RSO = {
+            country_event = {
+                id = EDG_mos_civilwar.2015
+            }
+        }
+        TVE = {
+            country_event = {
+                id = EDG_mos_civilwar.2015
+            }
+        }
+        ai_chance = {
+            factor = 0.9
+        }
+    }
+}
+country_event = { #��+Y�TW�VegO
+    id = EDG_mos_civilwar.2015
+    title = EDG_mos_civilwar.2015t
+    desc = EDG_mos_civilwar.2015d
+    picture = CONQUEST_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2015A"
+        trigger = {
+            ROOT = {
+                vassal_of = MOS
+            }
+        }
+        NOV = {
+            vassalize = ROOT
+        }
+        MOS = {
+            country_event = {
+                id = EDG_mos_civilwar.2016
+            }
+        }
+        ai_chance = {
+            factor = 0.35
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2015B"
+        trigger = {
+            NOT = {
+                ROOT = {
+                    vassal_of = MOS
+                }
+            }
+        }
+        NOV = {
+            vassalize = ROOT
+        }
+        MOS = {
+            country_event = {
+                id = EDG_mos_civilwar.2016
+            }
+        }
+        ai_chance = {
+            factor = 0.35
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2015C"
+        trigger = {
+            ROOT = {
+                vassal_of = MOS
+            }
+        }
+        ai_chance = {
+            factor = 0.60
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2015E"
+        trigger = {
+            NOT = {
+                ROOT = {
+                    vassal_of = MOS
+                }
+            }
+        }
+        ai_chance = {
+            factor = 0.40
+        }
+    }
+}
+
+#�rMO�vsQ
+country_event = { #2S̑�v�SqN
+    id = EDG_mos_civilwar.202
+    title = EDG_mos_civilwar.202t
+    desc = EDG_mos_civilwar.202d
+    picture = CIVIL_WAR_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    immediate = {
+        hidden_effect = {
+            set_heir_flag = EDG_mos_ylsd_heir_flag
+        }
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.202A"
+        exile_heir_as = EDG_mos_ylsd
+        hidden_effect = {
+            define_ruler = {
+                name = "2S̑"
+                dynasty = "Yu̑KQ"
+                mil = 4
+                max_random_adm = 3
+                max_random_dip = 3
+                max_random_mil = 6
+                age = 28
+                claim = 50
+            }
+            set_country_flag = EDG_Yuriy_in_power
+            country_event = {
+                id = EDG_mos_civilwar.203
+                days = 20
+            }
+        }
+        ai_chance = {
+			factor = 0.90
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.202B"
+        #random_neighbor_province = {}
+        add_legitimacy = 10
+        random_owned_province = {
+            spawn_rebels = {
+				type = pretender_rebels
+				size = 20
+                win = yes
+                unrest = 20
+				leader = "2S̑"
+				leader_dynasty = "Yu̑KQ"
+			}
+        }
+        random_owned_province = {
+            spawn_rebels = {
+				type = pretender_rebels
+				size = 24
+                win = yes
+                unrest = 20
+				leader = "2S̑"
+				leader_dynasty = "Yu̑KQ"
+			}
+        }
+        random_owned_province = {
+            spawn_rebels = {
+				type = pretender_rebels
+				size = 22
+                win = yes
+                unrest = 20
+				leader = "2S̑"
+				leader_dynasty = "Yu̑KQ"
+			}
+        }
+        ai_chance = {
+			factor = 0.10
+		}
+    }
+    after = {
+        trigger = {
+            has_country_flag = EDG_Yuriy_in_power_flag
+        }
+        set_ruler_flag = EDG_Yuriy_in_power
+        clr_country_flag = EDG_Yuriy_in_power_flag
+    }
+}
+
+country_event = { #Yt�N�SqS'Y
+    id = EDG_mos_civilwar.203
+    title = EDG_mos_civilwar.203t
+    desc = EDG_mos_civilwar.203d
+    picture = ASSASSINATION_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_mos_civilwar.203A"
+        add_stability = -2
+        add_legitimacy = -10
+        add_country_modifier = {
+            name = EDG_mos_kill_ylsd
+            duration = 1825
+        }
+        ai_chance = {
+			factor = 0.25
+            modifier = {
+				factor = 0.05
+				legitimacy = 60
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.203B"
+        set_country_flag = EDG_mos_ylsd_flag
+        add_stability = -1
+        add_legitimacy = -5
+        ai_chance = {
+			factor = 0.75
+            modifier = {
+				factor = 0.95
+				NOT = { legitimacy = 60 }
+			}
+		}
+    }
+}
+
+country_event = { #�t�̑�y�Rnf�RVasilko_Repnin
+    id = EDG_mos_civilwar.204
+    title = EDG_mos_civilwar.204t
+    desc = EDG_mos_civilwar.204d
+    picture = ADVISOR_eventPicture
+
+    fire_only_once = yes
+
+    mean_time_to_happen = {
+		months = 4
+	}
+    trigger = {
+        has_ruler_flag = EDG_Yuriy_in_power
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.204A"
+        add_country_modifier = {
+            name = EDG_vasilko_repnin
+            duration = 1825
+        }
+        ai_chance = {
+			factor = 0.75
+            modifier = {
+				factor = 0.25
+				legitimacy = 60
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.204B"
+        ai_chance = {
+			factor = 0.25
+            modifier = {
+				factor = 0.75
+				legitimacy = 60
+			}
+		}
+    }
+}
+
+country_event = { #�N�SqS'YCNOgNbRV
+    id = EDG_mos_civilwar.205
+    title = EDG_mos_civilwar.205t
+    desc = EDG_mos_civilwar.205d
+    picture = WESTERNISATION_eventPicture
+
+    fire_only_once = yes
+
+    mean_time_to_happen = {
+        months = 25
+    }
+
+    trigger = {
+        has_country_flag = EDG_mos_ylsd_flag
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.205A"
+        add_legitimacy = -10
+        set_country_flag = EDG_mos_refuse_ylsd
+        ai_chance = {
+			factor = 0.10
+            modifier = {
+				factor = 0.60
+				legitimacy = 60
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.205B"
+        add_legitimacy = 5
+        set_heir = EDG_mos_ylsd
+        set_country_flag = EDG_mos_heir_ylsd
+        ai_chance = {
+			factor = 0.90
+            modifier = {
+				factor = 0.40
+				legitimacy = 60
+			}
+		}
+    }
+}
+
+country_event = { #2S̑KN�k�	gRnf�R	�
+    id = EDG_mos_civilwar.206
+    title = EDG_mos_civilwar.206t
+    desc = EDG_mos_civilwar.206d
+    picture = DEATH_OF_HEIR_eventPicture
+
+    fire_only_once = yes
+
+    mean_time_to_happen = {
+        months = 2
+    }
+
+    trigger = {
+        has_country_flag = EDG_mos_ylsd_flag
+        has_country_modifier = EDG_vasilko_repnin
+        OR = {
+            has_country_flag = EDG_mos_refuse_ylsd
+            has_country_flag = EDG_mos_heir_ylsd
+        }
+    }
+
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    has_country_flag = EDG_mos_refuse_ylsd
+                }
+                set_heir = EDG_mos_ylsd
+            }
+        }
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.206A"
+        kill_ruler = yes
+        add_stability = 1
+    }
+    option = {
+        name = "EDG_mos_civilwar.206B"
+        kill_ruler = yes
+        add_stability = 1
+    }
+}
+country_event = { #2S̑KN�k��eRnf�R	�
+    id = EDG_mos_civilwar.207
+    title = EDG_mos_civilwar.207t
+    desc = EDG_mos_civilwar.207d
+    picture = DEATH_OF_HEIR_eventPicture
+
+    fire_only_once = yes
+
+    mean_time_to_happen = {
+        months = 6
+    }
+
+    trigger = {
+        has_country_flag = EDG_mos_ylsd_flag
+        NOT = { has_country_modifier = EDG_vasilko_repnin }
+        OR = {
+            has_country_flag = EDG_mos_refuse_ylsd
+            has_country_flag = EDG_mos_heir_ylsd
+        }
+    }
+
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    has_country_flag = EDG_mos_refuse_ylsd
+                }
+                set_heir = EDG_mos_ylsd
+            }
+        }
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.207A"
+        kill_ruler = yes
+        add_stability = 1
+    }
+}
+
+#vQ�N
+country_event = { #^S�V�v�y�V
+    id = EDG_mos_civilwar.2011
+    title = EDG_mos_civilwar.2011t
+    desc = EDG_mos_civilwar.2011d
+    picture = CIVIL_WAR_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2011A"
+        every_subject_country = {
+            country_event = {
+                id = EDG_mos_civilwar.2012
+                days = 5
+            }
+        }
+        ai_chance = {
+            factor = 0.5
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2011B"
+        add_treasury = -100
+        every_subject_country = {
+            country_event = {
+                id = EDG_mos_civilwar.2013
+                days = 5
+            }
+        }
+        ai_chance = {
+            factor = 0.5
+        }
+    }
+}
+
+country_event = { #�N���e�y�r�z-1�
+    id = EDG_mos_civilwar.2012
+    title = EDG_mos_civilwar.2012t
+    desc = EDG_mos_civilwar.2012d
+    picture = ST_PETERS_CHURCH_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2012A"
+        grant_independence = yes
+        MOS = {
+            country_event = {
+                id = EDG_mos_civilwar.2016
+            }
+        }
+        ai_chance = {
+            factor = 0.65
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2012B"
+        ai_chance = {
+            factor = 0.35
+        }
+    }
+}
+country_event = { #�N���e�y�r�z-2�
+    id = EDG_mos_civilwar.2013
+    title = EDG_mos_civilwar.2013t
+    desc = EDG_mos_civilwar.2013d
+    picture = ST_PETERS_CHURCH_eventPicture
+
+    is_triggered_only = yes
+    option = {
+        name = "EDG_mos_civilwar.2013A"
+        grant_independence = yes
+        MOS = {
+            country_event = {
+                id = EDG_mos_civilwar.2016
+            }
+        }
+        ai_chance = {
+            factor = 0.40
+        }
+    }
+    option = {
+        name = "EDG_mos_civilwar.2013B"
+        ai_chance = {
+            factor = 0.60
+        }
+    }
+}
+
+country_event = { #^S�V�v�S�y
+    id = EDG_mos_civilwar.2016
+    title = EDG_mos_civilwar.2016t
+    desc = EDG_mos_civilwar.2016d
+    picture = CIVIL_WAR_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_mos_civilwar.2016A"
+        add_legitimacy = -2.5
+        add_prestige = -5
+        ai_chance = {
+            factor = 1
+        }
+    }
+}
+
+country_event = {
+    id = EDG_mos_civilwar.2017
+    title = EDG_mos_civilwar.2017
+    desc = EDG_mos_civilwar.2017
+    picture = REFORM_eventPicture
+    
+    mean_time_to_happen = {
+        months = 1
+    }
+    fire_only_once = yes
+    trigger = {
+        NOV = {
+            AND = {
+                war_with = MOS
+                war_with = SWE
+            }
+        }
+        MOS = {
+            has_disaster = EDG_mos_civilwar
+        }
+    }
+
+    option = {
+        name = "EDG_mos_civilwar.2017A"
+        MOS = {
+            create_union = NOV
+            add_prestige = 5
+            set_country_flag = EDG_handle_nov_flag
+            remove_historical_rival = NOV
+            add_historical_friend = NOV
+        }
+        NOV = {
+            remove_historical_rival = MOS
+            add_historical_friend = MOS
+        }
+        ai_chance = {
+			factor = 1
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.2017B"
+        ai_chance = {
+			factor = 0
+		}
+    }
+}
+
+#��:g�N�N
+country_event = { #�R�^-N�vHe�V>m
+    id = EDG_mos_civilwar.301
+    title = EDG_mos_civilwar.301t
+    desc = EDG_mos_civilwar.301d
+    picture = ADVISOR_eventPicture
+
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_mos_civilwar.301A"
+        add_legitimacy = 2
+        ai_chance = {
+			factor = 0.75
+            modifier = {
+				factor = 0.25
+				legitimacy = 60
+			}
+		}
+    }
+    option = {
+        name = "EDG_mos_civilwar.301B"
+        add_legitimacy = -2
+        add_treasury = 2.5
+        add_manpower = 0.5
+        ai_chance = {
+			factor = 0.25
+            modifier = {
+				factor = 0.75
+				legitimacy = 60
+			}
+		}
+    }
+}
+
+country_event = { #0W�eHe�V>m
+    id = EDG_mos_civilwar.302
+    title = EDG_mos_civilwar.302t
+    desc = EDG_mos_civilwar.302d
+    picture = CONQUEST_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {}
+
+    option = {
+        name = "EDG_mos_civilwar.302A"
+        add_treasury = -2.5
+        add_manpower = 0.10
+        add_legitimacy = 1
+    }
+}
+
+country_event = { #RƖ�V
+    id = EDG_mos_civilwar.303
+    title = EDG_mos_civilwar.303t
+    desc = EDG_mos_civilwar.303d
+    picture = CIVIL_WAR_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {}
+
+    option = {
+        name = "EDG_mos_civilwar.303A"
+        random_owned_province = {
+            spawn_rebels = {
+                type = noble_rebels
+                size = 1
+                win = yes
+                unrest = 2
+            }
+        }
+    }
+}

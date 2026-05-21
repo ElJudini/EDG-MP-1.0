@@ -1,0 +1,2625 @@
+country_decisions = {
+	
+	EDG_LOT_vassal_decision_hidden = {#隐藏决议
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+		}
+		allow = {
+		}
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_LOT_vassal_decision_hidden_flag
+				}
+				clr_country_flag = EDG_LOT_vassal_decision_hidden_flag
+				custom_tooltip = EDG_LOT_vassal_decision_hidden_flag_tt_no
+			}
+			else = {
+				set_country_flag = EDG_LOT_vassal_decision_hidden_flag
+				custom_tooltip = EDG_LOT_vassal_decision_hidden_flag_tt_yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_LOT_vassal_decision_POM = {#建立战区 波美拉尼亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = pommeranian
+				culture = EDG_FRA_pommeranian
+				area = hinter_pommern_area
+				area = vorpommern_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = POM }
+				POM = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = pommeranian
+					culture = EDG_FRA_pommeranian
+					area = hinter_pommern_area
+					area = vorpommern_area
+				}
+			}
+		}
+		effect = {
+			POM = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = hinter_pommern_area
+								area = vorpommern_area
+							}
+						}
+						add_core = POM 
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = pommeranian
+								culture = EDG_FRA_pommeranian
+							}
+						}
+						add_core = POM 
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = POM }
+							OR = {
+								culture = pommeranian
+								culture = EDG_FRA_pommeranian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = POM
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = POM } 
+			add_historical_friend = POM
+			POM = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_LOT_vassal_decision_PRU = {#建立战区 普鲁士
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = prussian
+				culture = EDG_FRA_prussian
+				area = west_prussia_area
+				area = east_prussia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+			
+		}
+		allow = {
+			OR = {
+				NOT = { exists = PRU }
+				PRU = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = prussian
+					culture = EDG_FRA_prussian
+					area = west_prussia_area
+					area = east_prussia_area
+				}
+			}
+		}
+		effect = {
+			PRU = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = west_prussia_area
+								area = east_prussia_area
+							}
+						}
+						add_core = PRU 
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = prussian
+								culture = EDG_FRA_prussian
+							}
+						}
+						add_core = PRU
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = PRU }
+							OR = {
+								culture = prussian
+								culture = EDG_FRA_prussian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = PRU
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = PRU } 
+			add_historical_friend = PRU
+			PRU = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_LOT_vassal_decision_SAX = {#建立战区 萨克森
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = lower_saxon
+				culture = EDG_FRA_lower_saxon
+				area = braunschweig_area
+				area = mecklenburg_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SAX }
+				SAX = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = lower_saxon
+					culture = EDG_FRA_lower_saxon
+					area = braunschweig_area
+					area = mecklenburg_area
+				}
+			}
+		}
+		effect = {
+			SAX = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = braunschweig_area
+								area = mecklenburg_area
+							}
+						}
+						add_core = SAX
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = lower_saxon
+								culture = EDG_FRA_lower_saxon
+							}
+						}
+						add_core = SAX
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SAX }
+							OR = {
+								culture = lower_saxon
+								culture = EDG_FRA_lower_saxon
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SAX
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SAX } 
+			add_historical_friend = SAX
+			SAX = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_WES = {#建立战区 威斯特伐利亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = hannoverian
+				culture = EDG_FRA_hannoverian
+				area = north_westphalia_area
+				area = westphalia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = WES }
+				WES = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = hannoverian
+					culture = EDG_FRA_hannoverian
+					area = north_westphalia_area
+					area = westphalia_area
+				}
+			}
+		}
+		effect = {
+			WES = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = north_westphalia_area
+								area = westphalia_area
+							}
+						}
+						add_core = WES
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = hannoverian
+								culture = EDG_FRA_hannoverian
+							}
+						}
+						add_core = WES
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = WES }
+							OR = {
+								culture = hannoverian
+								culture = EDG_FRA_hannoverian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = WES
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = WES } 
+			add_historical_friend = WES
+			WES = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_H03 = {#建立战区 诺德马克
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = saxon
+				culture = EDG_FRA_saxon
+				area = northern_saxony_area
+				area = south_saxony_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = H03 }
+				H03 = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = saxon
+					culture = EDG_FRA_saxon
+					area = northern_saxony_area
+					area = south_saxony_area
+				}
+			}
+		}
+		effect = {
+			H03 = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = northern_saxony_area
+								area = south_saxony_area
+							}
+						}
+						add_core = H03
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = saxon
+								culture = EDG_FRA_saxon
+							}
+						}
+						add_core = H03
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = H03 }
+							OR = {
+								culture = saxon
+								culture = EDG_FRA_saxon
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = H03
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = H03 } 
+			add_historical_friend = H03
+			H03 = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_FKN = {#建立战区 法兰克尼亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = franconian
+				culture = EDG_FRA_franconian
+				area = franconia_area
+				area = upper_franconia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = FKN }
+				FKN = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = franconian
+					culture = EDG_FRA_franconian
+					area = franconia_area
+					area = upper_franconia_area
+				}
+			}
+		}
+		effect = {
+			FKN = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = franconia_area
+								area = upper_franconia_area
+							}
+						}
+						add_core = FKN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = franconian
+								culture = EDG_FRA_franconian
+							}
+						}
+						add_core = FKN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = FKN }
+							OR = {
+								culture = franconian
+								culture = EDG_FRA_franconian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = FKN
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = FKN } 
+			add_historical_friend = FKN
+			FKN = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_SWA = {#建立战区 施瓦本
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = swabian
+				culture = EDG_FRA_swabian
+				area = lower_swabia_area
+				area = upper_swabia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SWA }
+				SWA = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = swabian
+					culture = EDG_FRA_swabian
+					area = lower_swabia_area
+					area = upper_swabia_area
+				}
+			}
+		}
+		effect = {
+			SWA = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = lower_swabia_area
+								area = upper_swabia_area
+							}
+						}
+						add_core = SWA
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = swabian
+								culture = EDG_FRA_swabian
+							}
+						}
+						add_core = SWA
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SWA }
+							OR = {
+								culture = swabian
+								culture = EDG_FRA_swabian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SWA
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SWA } 
+			add_historical_friend = SWA
+			SWA = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_SWI = {#建立战区 瑞士
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = swiss
+				culture = EDG_FRA_swiss
+				area = switzerland_area
+				area = romandie_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SWI }
+				SWI = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = swiss
+					culture = EDG_FRA_swiss
+					area = switzerland_area
+					area = romandie_area
+				}
+			}
+		}
+		effect = {
+			SWI = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = switzerland_area
+								area = romandie_area
+							}
+						}
+						add_core = SWI
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = swiss
+								culture = EDG_FRA_swiss
+							}
+						}
+						add_core = SWI
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SWI }
+							OR = {
+								culture = swiss
+								culture = EDG_FRA_swiss
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SWI
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SWI } 
+			add_historical_friend = SWI
+			SWI = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_BAV = {#建立战区 巴伐利亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = bavarian
+				culture = EDG_FRA_bavarian
+				area = upper_bavaria_area
+				area = lower_bavaria_area
+				area = east_bavaria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = BAV }
+				BAV = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = bavarian
+					culture = EDG_FRA_bavarian
+					area = upper_bavaria_area
+					area = lower_bavaria_area
+					area = east_bavaria_area
+				}
+			}
+		}
+		effect = {
+			BAV = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = upper_bavaria_area
+								area = lower_bavaria_area
+								area = east_bavaria_area
+							}
+						}
+						add_core = BAV
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = bavarian
+								culture = EDG_FRA_bavarian
+							}
+						}
+						add_core = BAV
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = BAV }
+							OR = {
+								culture = bavarian
+								culture = EDG_FRA_bavarian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = BAV
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = BAV } 
+			add_historical_friend = BAV
+			BAV = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_H02 = {#建立战区 奥地利
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = austrian
+				culture = EDG_FRA_austrian
+				area = tirol_area
+				area = austria_proper_area
+				area = inner_austria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = H02 }
+				H02 = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = austrian
+					culture = EDG_FRA_austrian
+					area = tirol_area
+					area = austria_proper_area
+					area = inner_austria_area
+				}
+			}
+		}
+		effect = {
+			H02 = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = tirol_area
+								area = austria_proper_area
+								area = inner_austria_area
+							}
+						}
+						add_core = H02
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = austrian
+								culture = EDG_FRA_austrian
+							}
+						}
+						add_core = H02
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = H02 }
+							OR = {
+								culture = austrian
+								culture = EDG_FRA_austrian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = H02
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = H02 } 
+			add_historical_friend = H02
+			H02 = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_MLO = {#建立战区 伦巴第
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = lombard
+				culture = EDG_FRA_lombard
+				area = po_valley_area
+				area = lombardy_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = MLO }
+				MLO = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = lombard
+					culture = EDG_FRA_lombard
+					area = po_valley_area
+					area = lombardy_area
+				}
+			}
+		}
+		effect = {
+			MLO = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = po_valley_area
+								area = lombardy_area
+							}
+						}
+						add_core = MLO
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = lombard
+								culture = EDG_FRA_lombard
+							}
+						}
+						add_core = MLO
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = MLO }
+							OR = {
+								culture = lombard
+								culture = EDG_FRA_lombard
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = MLO
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = MLO } 
+			add_historical_friend = MLO
+			MLO = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_TUS = {#建立战区 托斯卡纳
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = tuscan
+				culture = EDG_FRA_tuscan
+				area = tuscany_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = TUS }
+				TUS = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = tuscan
+					culture = EDG_FRA_tuscan
+					area = tuscany_area
+				}
+			}
+		}
+		effect = {
+			TUS = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = tuscany_area
+							}
+						}
+						add_core = TUS
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = tuscan
+								culture = EDG_FRA_tuscan
+							}
+						}
+						add_core = TUS
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = TUS }
+							OR = {
+								culture = tuscan
+								culture = EDG_FRA_tuscan
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = TUS
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = TUS } 
+			add_historical_friend = TUS
+			TUS = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_SAR = {#建立战区 撒丁尼亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = sardinian
+				culture = EDG_FRA_sardinian
+				area = corsica_sardinia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SAR }
+				SAR = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					culture = sardinian
+					culture = EDG_FRA_sardinian
+					area = corsica_sardinia_area
+				}
+			}
+		}
+		effect = {
+			SAR = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = corsica_sardinia_area
+							}
+						}
+						add_core = SAR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = sardinian
+								culture = EDG_FRA_sardinian
+							}
+						}
+						add_core = SAR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SAR }
+							OR = {
+								culture = sardinian
+								culture = EDG_FRA_sardinian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SAR
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SAR } 
+			add_historical_friend = SAR
+			SAR = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_FER = {#建立战区 罗马涅
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = romagnan
+				culture = EDG_FRA_romagnan
+				area = emilia_romagna_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = FER }
+				FER = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = romagnan
+					culture = EDG_FRA_romagnan
+					area = emilia_romagna_area
+				}
+			}
+		}
+		effect = {
+			FER = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = emilia_romagna_area
+							}
+						}
+						add_core = FER
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = romagnan
+								culture = EDG_FRA_romagnan
+							}
+						}
+						add_core = FER
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = FER }
+							OR = {
+								culture = romagnan
+								culture = EDG_FRA_romagnan
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = FER
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = FER } 
+			add_historical_friend = FER
+			FER = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_GEN = {#建立战区 利古里亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = ligurian
+				culture = EDG_FRA_ligurian
+				area = liguria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = GEN }
+				GEN = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 3
+				OR = {
+					culture = ligurian
+					culture = EDG_FRA_ligurian
+					area = liguria_area
+				}
+			}
+		}
+		effect = {
+			GEN = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = liguria_area
+							}
+						}
+						add_core = GEN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = ligurian
+								culture = EDG_FRA_ligurian
+							}
+						}
+						add_core = GEN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = GEN }
+							OR = {
+								culture = ligurian
+								culture = EDG_FRA_ligurian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = GEN
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = GEN } 
+			add_historical_friend = GEN
+			GEN = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_VEN = {#建立战区 威尼托
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = venetian
+				culture = EDG_FRA_venetian
+				area = venetia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = VEN }
+				VEN = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = venetian
+					culture = EDG_FRA_venetian
+					area = venetia_area
+				}
+			}
+		}
+		effect = {
+			VEN = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = venetia_area
+							}
+						}
+						add_core = VEN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = venetian
+								culture = EDG_FRA_venetian
+							}
+						}
+						add_core = VEN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = VEN }
+							OR = {
+								culture = venetian
+								culture = EDG_FRA_venetian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = VEN
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = VEN } 
+			add_historical_friend = VEN
+			VEN = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_NAP = {#建立战区 那不勒斯
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = neapolitan
+				culture = EDG_FRA_neapolitan
+				area = naples_area
+				area = calabria_area
+				area = apulia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = NAP }
+				NAP = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = neapolitan
+					culture = EDG_FRA_neapolitan
+					area = naples_area
+					area = calabria_area
+					area = apulia_area
+				}
+			}
+		}
+		effect = {
+			NAP = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = naples_area
+								area = calabria_area
+								area = apulia_area
+							}
+						}
+						add_core = NAP
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = neapolitan
+								culture = EDG_FRA_neapolitan
+							}
+						}
+						add_core = NAP
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = NAP }
+							OR = {
+								culture = neapolitan
+								culture = EDG_FRA_neapolitan
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = NAP
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = NAP } 
+			add_historical_friend = NAP
+			NAP = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_PIT = {#建立战区 皮埃蒙特
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = piedmontese
+				culture = EDG_FRA_piedmontese
+				area = piedmont_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = PIT }
+				PIT = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					culture = piedmontese
+					culture = EDG_FRA_piedmontese
+					area = piedmont_area
+				}
+			}
+		}
+		effect = {
+			PIT = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = piedmont_area
+							}
+						}
+						add_core = PIT
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = piedmontese
+								culture = EDG_FRA_piedmontese
+							}
+						}
+						add_core = PIT
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = PIT }
+							OR = {
+								culture = piedmontese
+								culture = EDG_FRA_piedmontese
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = PIT
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = PIT } 
+			add_historical_friend = PIT
+			PIT = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_URB = {#建立战区 翁布里亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = umbrian
+				culture = EDG_FRA_umbrian
+				area = central_italy_area
+				area = lazio_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = URB }
+				URB = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				NOT = { province_id = 118 }
+				OR = {
+					culture = umbrian
+					culture = EDG_FRA_umbrian
+					area = central_italy_area
+					area = lazio_area
+				}
+			}
+		}
+		effect = {
+			URB = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { province_id = 118 }
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = central_italy_area
+								area = lazio_area
+							}
+						}
+						add_core = URB
+					}
+					if = {
+						limit = {
+							NOT = { province_id = 118 }
+							NOT = { region = france_region }
+							OR = {
+								culture = umbrian
+								culture = EDG_FRA_umbrian
+							}
+						}
+						add_core = URB
+					}
+					if = {
+						limit = {
+							NOT = { province_id = 118 }
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = URB }
+							OR = {
+								culture = umbrian
+								culture = EDG_FRA_umbrian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = URB
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = URB } 
+			add_historical_friend = URB
+			URB = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_SIC = {#建立战区 西西里
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = sicilian
+				culture = EDG_FRA_sicilian
+				area = sicily_area
+				area = western_sicily_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SIC }
+				SIC = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = sicilian
+					culture = EDG_FRA_sicilian
+					area = sicily_area
+					area = western_sicily_area
+				}
+			}
+		}
+		effect = {
+			SIC = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				SIC = { change_primary_culture = sicilian }
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = sicily_area
+								area = western_sicily_area
+							}
+						}
+						add_core = SIC
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = sicilian
+								culture = EDG_FRA_sicilian
+							}
+						}
+						add_core = SIC
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SIC }
+							OR = {
+								culture = sicilian
+								culture = EDG_FRA_sicilian
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SIC
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SIC } 
+			add_historical_friend = SIC
+			SIC = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+
+
+
+	
+	EDG_LOT_vassal_decision_POL = {#建立战区 华沙大公国
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = polish
+				region = poland_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = POL }
+				POL = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				OR = {
+					culture = polish
+					region = poland_region
+				}
+			}
+		}
+		effect = {
+			POL = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							region = poland_region
+						}
+						add_core = POL
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							culture = polish
+						}
+						add_core = POL
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = POL }
+							culture = polish
+						}
+						cede_province = ROOT
+					}
+				}
+				release = POL
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = POL } 
+			add_historical_friend = POL
+			POL = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_BOH = {#建立战区 波西米亚王国
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = czech
+				culture = EDG_Moravia_culture
+				area = bohemia_area
+				area = moravia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = BOH }
+				BOH = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = czech
+					culture = EDG_Moravia_culture
+					area = bohemia_area
+					area = moravia_area
+				}
+			}
+		}
+		effect = {
+			BOH = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							region = poland_region
+						}
+						add_core = BOH
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								culture = czech
+								culture = EDG_Moravia_culture
+							}
+						}
+						add_core = BOH
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = BOH }
+							OR = {
+								culture = czech
+								culture = EDG_Moravia_culture
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = BOH
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = BOH } 
+			add_historical_friend = BOH
+			BOH = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_LOT_vassal_decision_RMN = {#建立战区 卡帕提亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = carpathia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = RMN }
+				RMN = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				region = carpathia_region
+			}
+		}
+		effect = {
+			RMN = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							region = carpathia_region
+						}
+						add_core = RMN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = RMN }
+							region = carpathia_region
+						}
+						cede_province = ROOT
+					}
+				}
+				release = RMN
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = RMN } 
+			add_historical_friend = RMN
+			RMN = { EDG_LOT_vassal_decision_special_effect = yes override_country_name = EDG_BUL_RMN_province_name }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_LOT_vassal_decision_KOJ = {#建立战区 耶路撒冷
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				area = syria_area
+				area = trans_jordan_area
+				area = syrian_desert_area
+				area = palestine_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = KOJ }
+				KOJ = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					area = syria_area
+					area = trans_jordan_area
+					area = syrian_desert_area
+					area = palestine_area
+				}
+			}
+		}
+		effect = {
+			KOJ = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = syria_area
+								area = trans_jordan_area
+								area = syrian_desert_area
+								area = palestine_area
+							}
+						}
+						add_core = KOJ
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = KOJ }
+							OR = {
+								area = syria_area
+								area = trans_jordan_area
+								area = syrian_desert_area
+								area = palestine_area
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = KOJ
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = KOJ } 
+			add_historical_friend = KOJ
+			KOJ = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_DAN = {#建立战区 丹麦
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = danish
+				area = skaneland_area
+				area = jutland_area
+				area = denmark_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = DAN }
+				DAN = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = danish
+					area = skaneland_area
+					area = jutland_area
+					area = denmark_area
+				}
+			}
+		}
+		effect = {
+			DAN = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = skaneland_area
+								area = jutland_area
+								area = denmark_area
+							}
+						}
+						add_core = DAN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							culture = danish
+						}
+						add_core = DAN
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = DAN }
+							culture = danish
+						}
+						cede_province = ROOT
+					}
+				}
+				release = DAN
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = DAN } 
+			add_historical_friend = DAN
+			DAN = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_LOT_vassal_decision_SWE = {#建立战区 瑞典
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = swedish
+				area = svealand_area
+				area = norrland_area
+				area = gotaland_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = SWE }
+				SWE = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = swedish
+					area = svealand_area
+					area = norrland_area
+					area = gotaland_area
+				}
+			}
+		}
+		effect = {
+			SWE = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = svealand_area
+								area = norrland_area
+								area = gotaland_area
+							}
+						}
+						add_core = SWE
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							culture = swedish
+						}
+						add_core = SWE
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = SWE }
+							culture = swedish
+						}
+						cede_province = ROOT
+					}
+				}
+				release = SWE
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = SWE } 
+			add_historical_friend = SWE
+			SWE = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	EDG_LOT_vassal_decision_NOR = {#建立战区 瑞典
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture = norwegian
+				area = northern_norway
+				area = eastern_norway
+				area = western_norway
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = NOR }
+				NOR = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				OR = {
+					culture = norwegian
+					area = northern_norway
+					area = eastern_norway
+					area = western_norway
+				}
+			}
+		}
+		effect = {
+			NOR = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							OR = {
+								area = northern_norway
+								area = eastern_norway
+								area = western_norway
+							}
+						}
+						add_core = NOR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							culture = norwegian
+						}
+						add_core = NOR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = NOR }
+							culture = norwegian
+						}
+						cede_province = ROOT
+					}
+				}
+				release = NOR
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = NOR } 
+			add_historical_friend = NOR
+			NOR = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_vassal_decision_LVA = {#建立战区 利沃尼亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = baltic_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_EDG_EDG_BRI_march_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = LVA }
+				LVA = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				region = baltic_region
+			}
+		}
+		effect = {
+			LVA = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							region = baltic_region
+						}
+						add_core = LVA
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							region = baltic_region
+						}
+						add_core = LVA
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = LVA }
+							region = baltic_region
+						}
+						cede_province = ROOT
+					}
+				}
+				release = LVA
+			}
+			create_subject = { subject_type = EDG_BRI_march subject = LVA } 
+			add_historical_friend = LVA
+			LVA = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+
+
+	
+	EDG_LOT_crown_territory_state_decision_LAE = {#建立王冠领地 拉丁帝国
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 151
+				region = balkan_region
+				region = anatolia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = LAE }
+				LAE = { is_subject_of = ROOT }
+			}
+			151 = { country_or_non_sovereign_subject_holds = ROOT }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				OR = {
+					region = balkan_region
+					region = anatolia_region
+				}
+			}
+		}
+		effect = {
+			LAE = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							OR = {
+								region = balkan_region
+								region = anatolia_region
+							}
+						}
+						add_core = LAE
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = LAE }
+							OR = {
+								region = balkan_region
+								region = anatolia_region
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = LAE
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = LAE } 
+			add_historical_friend = LAE
+			LAE = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	
+	EDG_LOT_crown_territory_state_decision_NED = {#建立王冠领地 尼德兰联省
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = low_countries_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = NED }
+				NED = { is_subject_of = ROOT }
+			}
+			low_countries_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			NED = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							region = low_countries_region
+						}
+						add_core = NED
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = NED }
+							region = low_countries_region
+						}
+						cede_province = ROOT
+					}
+				}
+				release = NED
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = NED } 
+			add_historical_friend = NED
+			NED = {
+				EDG_LOT_vassal_decision_special_effect = yes
+				if = {
+					limit = {
+						NOT = { government = republic }
+					}
+					change_government = republic
+				}
+				add_government_reform = dutch_republic
+			}
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_LOT_crown_territory_state_decision_IBR = {#建立王冠领地 伊比利亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				culture_group = iberian
+				region = iberia_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			OR = {
+				has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+				has_country_flag = EDG_LOT_crown_territory_state_decision_IBR_enable_flag
+				mission_completed = EDG_mission_FRA_4_7
+			}
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = IBR }
+				IBR = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 45
+				OR = {
+					culture_group = iberian
+					region = iberia_region
+				}
+			}
+		}
+		effect = {
+			IBR = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							owned_by = ROOT
+							region = iberia_region
+						}
+						add_core = IBR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							culture_group = iberian
+						}
+						add_core = IBR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = IBR }
+							culture_group = iberian
+						}
+						cede_province = ROOT
+					}
+				}
+				release = IBR
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = IBR } 
+			add_historical_friend = IBR
+			IBR = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_crown_territory_state_decision_ITA = {#建立王冠领地 意大利王国
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			OR = {
+				province_id = 4738
+				province_id = 130
+				area = venetia_area
+				area = lombardy_area
+				area = piedmont_area
+				area = tuscany_area
+				area = liguria_area
+				area = corsica_sardinia_area
+				area = emilia_romagna_area
+				area = po_valley_area
+				area = central_italy_area
+				area = lazio_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = ITA }
+				ITA = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				NOT = { owned_by = PAP }
+				OR = {
+					province_id = 4738
+					province_id = 130
+					area = venetia_area
+					area = lombardy_area
+					area = piedmont_area
+					area = tuscany_area
+					area = liguria_area
+					area = corsica_sardinia_area
+					area = emilia_romagna_area
+					area = po_valley_area
+					area = central_italy_area
+					area = lazio_area
+				}
+			}
+		}
+		effect = {
+			ITA = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							NOT = { owned_by = PAP }
+							OR = {
+								province_id = 4738
+								province_id = 130
+								area = venetia_area
+								area = lombardy_area
+								area = piedmont_area
+								area = tuscany_area
+								area = liguria_area
+								area = corsica_sardinia_area
+								area = emilia_romagna_area
+								area = po_valley_area
+								area = central_italy_area
+								area = lazio_area
+							}
+						}
+						add_core = ITA
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = PAP }
+							NOT = { owned_by = ITA }
+							OR = {
+								province_id = 4738
+								province_id = 130
+								area = venetia_area
+								area = lombardy_area
+								area = piedmont_area
+								area = tuscany_area
+								area = liguria_area
+								area = corsica_sardinia_area
+								area = emilia_romagna_area
+								area = po_valley_area
+								area = central_italy_area
+								area = lazio_area
+							}
+						}
+						cede_province = ROOT
+					}
+				}
+				release = ITA
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = ITA } 
+			add_historical_friend = ITA
+			ITA = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+	
+	EDG_LOT_crown_territory_state_decision_UKR = {#建立王冠领地 鲁塞尼亚
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = ruthenia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = UKR }
+				UKR = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = ruthenia_region
+			}
+		}
+		effect = {
+			UKR = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							region = ruthenia_region
+						}
+						add_core = UKR
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = UKR }
+							region = ruthenia_region
+						}
+						cede_province = ROOT
+					}
+				}
+				release = UKR
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = UKR } 
+			add_historical_friend = UKR
+			UKR = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+	EDG_LOT_crown_territory_state_decision_RUS = {#建立王冠领地 俄罗斯
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = russia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		potential = {
+			has_country_flag = EDG_LOT_vassal_decision_enable_flag
+			has_country_flag = EDG_Transforming_into_crown_territory_state_action_enable_flag
+			NOT = { has_country_flag = EDG_LOT_vassal_decision_hidden_flag }
+		}
+		allow = {
+			OR = {
+				NOT = { exists = RUS }
+				RUS = { is_subject_of = ROOT }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = russia_region
+			}
+		}
+		effect = {
+			RUS = { custom_tooltip = EDG_LOT_vassal_decision_get_core_tt hidden_effect = { EDG_lose_fra_region_core_effect = yes } }
+			hidden_effect = {
+				every_province = {
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							region = russia_region
+						}
+						add_core = RUS
+					}
+					if = {
+						limit = {
+							NOT = { region = france_region }
+							country_or_non_sovereign_subject_holds = ROOT
+							NOT = { owned_by = ROOT }
+							NOT = { owned_by = RUS }
+							region = russia_region
+						}
+						cede_province = ROOT
+					}
+				}
+				release = RUS
+			}
+			create_subject = { subject_type = EDG_USP_crown_territory subject = RUS } 
+			add_historical_friend = RUS
+			RUS = { EDG_LOT_vassal_decision_special_effect = yes }
+		}
+		ai_will_do = {
+			factor = 1 
+		}
+	}
+
+
+
+	
+}

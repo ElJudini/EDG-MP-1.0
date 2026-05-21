@@ -1,0 +1,1773 @@
+add_legitimacy_or_5_mil_power = {
+	if = {
+		limit = { NOT = { government = native } }
+		if = {
+			limit = { uses_republican_tradition = yes }
+			tooltip = { add_republican_tradition = $republican_tradition$ }
+			custom_tooltip = add_republican_tradition_or_17_mil_power_tt
+			hidden_effect = {
+				for = {
+					amount = $amount$
+					effect = "if = { limit = { NOT = { republican_tradition = 100 } } add_republican_tradition = 0.3 } else = { add_mil_power = 17 }"
+				}
+			}
+		}
+		else = {
+			if = {
+				limit = { uses_horde_unity = yes }
+				tooltip = { add_horde_unity = $amount$ }
+				custom_tooltip = add_horde_unity_or_5_mil_power_tt
+				hidden_effect = {
+					for = {
+						amount = $amount$
+						effect = "if = { limit = { NOT = { horde_unity = 100 } } add_horde_unity = 1 } else = { add_mil_power = 5 }"
+					}
+				}
+			}
+			else_if = {
+				limit = { uses_meritocracy = yes }
+				tooltip = { add_meritocracy = $amount$ }
+				custom_tooltip = add_meritocracy_or_5_mil_power_tt
+				hidden_effect = {
+					for = {
+						amount = $amount$
+						effect = "if = { limit = { NOT = { meritocracy = 100 } } add_meritocracy = 1 } else = { add_mil_power = 5 }"
+					}
+				}
+			}
+			else_if = {
+				limit = { uses_devotion = yes }
+				tooltip = { add_devotion = $amount$ }
+				custom_tooltip = add_devotion_or_5_mil_power_tt
+				hidden_effect = {
+					for = {
+						amount = $amount$
+						effect = "if = { limit = { NOT = { devotion = 100 } } add_devotion = 1 } else = { add_mil_power = 5 }"
+					}
+				}
+			}
+			else = {
+				tooltip = { add_legitimacy = $amount$ }
+				custom_tooltip = add_legitimacy_or_5_mil_power_tt
+				hidden_effect = {
+					for = {
+						amount = $amount$
+						effect = "if = { limit = { NOT = { legitimacy = 100 } } add_legitimacy = 1 } else = { add_mil_power = 5 }"
+					}
+				}
+			}
+		}
+	}
+}
+
+add_stability_or_50_adm_power = {
+  tooltip = { add_stability = $amount$ }
+  custom_tooltip = add_stability_or_50_adm_power_tt
+  hidden_effect = {
+    for = {
+      amount = $amount$
+      effect = "if = { limit = { NOT = { stability = 3 } } add_stability = 1 } else = { add_adm_power = 50 }"
+    }
+  }
+}
+
+add_base_development = {
+  add_base_tax = $amount$
+  add_base_production = $amount$
+  add_base_manpower = $amount$
+}
+
+add_or_upgrade_manpower_building_or_add_2_manpower = {
+	custom_tooltip = add_or_upgrade_manpower_building_or_add_2_manpower_tt
+	hidden_effect = {
+		if = {
+			limit = { has_building = barracks }
+			add_building = training_fields  
+		}
+		else_if = {
+			limit = { has_building = training_fields }
+			add_base_manpower = 2
+		}
+		else = { add_building = barracks }
+	}
+}
+
+# ROOT = city
+destroy_great_project_and_gain_money_effect = {
+  hidden_effect = {
+    if = {
+      limit = {
+        has_great_project = {
+          type = $project$
+          tier = 3
+        }
+      }
+      ROOT = {
+        add_treasury = 1000
+      }
+    }
+    else_if = {
+      limit = {
+        has_great_project = {
+          type = $project$
+          tier = 2
+        }
+      }
+      ROOT = {
+        add_treasury = 500
+      }
+    }
+    else_if = {
+      limit = {
+        has_great_project = {
+          type = $project$
+          tier = 1
+        }
+      }
+      ROOT = {
+        add_treasury = 200
+      }
+    }
+  }
+  destroy_great_project = {
+    type = $project$
+  }
+  custom_tooltip = destroy_great_project_and_gain_money_effect_tt
+}
+
+EDG_change_monarch_culture_effect = {
+  set_ruler_culture = $culture$
+  if = {
+    limit = {
+      has_heir = yes
+    }
+    set_heir_culture = $culture$
+  }
+  if = {
+    limit = {
+      has_consort = yes
+    }
+    set_consort_culture = $culture$
+  }
+}
+
+EDG_good_comet_effect = {
+  custom_tooltip = EDG_good_comet_effect_tt
+  set_country_flag = EDG_good_comet_flag
+}
+
+EDG_comet_add_stability_effect = {
+  custom_tooltip = EDG_comet_add_stability_effect_tt
+  set_country_flag = EDG_comet_add_stability_flag
+}
+
+EDG_more_comets_effect = {
+  custom_tooltip = EDG_more_comets_effect_tt
+  set_country_flag = EDG_more_comets_flag
+}
+
+# # ROOT = province
+# destroy_center_of_trade_and_gain_money_effect = {
+#   hidden_effect = {
+#     if = {
+#       limit = {
+#         province_has_center_of_trade_of_level = 3
+#       }
+#       add_center_of_trade_level = -2
+#       $destroyer$ = {
+#         add_treasury = 300
+#       }
+#     }
+#     else_if = {
+#       limit = {
+#         province_has_center_of_trade_of_level = 2
+#       }
+#       add_center_of_trade_level = -1
+#       $destroyer$ = {
+#         add_treasury = 50
+#       }
+#     }
+#   }
+#   if = {
+#     limit = {
+#       province_has_center_of_trade_of_level = 1
+#     }
+#     custom_tooltip = destroy_center_of_trade_and_gain_money_effect_tt
+#   }
+# }
+
+EDG_TIM_on_raze_effect = {
+  if = {
+		limit = {
+			$razer$ = {
+				has_government_mechanic = EDG_TIM_dread
+			}
+		}
+		$razer$ = {
+			EDG_TIM_add_dread = { amount = 2 }
+		}
+	}
+
+	if = {
+		limit = {
+			$razer$ = {
+				has_country_flag = EDG_TIM_mission_sword_of_islam_flag
+			}
+		}
+		remove_province_modifier = religious_zeal_at_conv
+	}
+
+	if = {
+		limit = {
+			$razer$ = {
+				has_country_flag = EDG_TIM_convert_shiite_on_raze_flag
+				religion = sunni
+			}
+			religion_group = muslim
+			NOT = { religion = sunni }
+		}
+		change_religion = sunni
+	}
+
+  if = {
+    limit = { 
+      $razer$ = {
+        has_country_flag = EDG_TIM_destroy_buildings_on_raze_flag
+      }
+    }
+    EDG_TIM_destroy_buildings_and_gain_money_effect = {
+      destroyer = $razer$
+    }
+  }
+
+	if = {
+		limit = {
+			superregion = india_superregion
+			$razer$ = {
+				has_country_flag = EDG_TIM_enable_plunder_india_flag
+			}
+		}
+		add_devastation = 40
+		set_variable = {
+			which = EDG_TIM_plundered_indian_province_dev_var
+			value = 0
+		}
+		set_variable = {
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+			value = 0
+		}
+		export_to_variable = {
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+			value = trigger_value:base_tax
+		}
+		change_variable = {
+			which = EDG_TIM_plundered_indian_province_dev_var
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+		}
+		export_to_variable = {
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+			value = trigger_value:base_production
+		}
+		change_variable = {
+			which = EDG_TIM_plundered_indian_province_dev_var
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+		}
+		export_to_variable = {
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+			value = trigger_value:base_manpower
+		}
+		change_variable = {
+			which = EDG_TIM_plundered_indian_province_dev_var
+			which = EDG_TIM_plundered_indian_province_base_dev_var
+		}
+		while = {
+			limit = {
+				check_variable = {
+				which = EDG_TIM_plundered_indian_province_dev_var
+				value = 1
+				}
+			}
+			$razer$ = {
+				add_treasury = 10
+			}
+			change_variable = {
+				which = EDG_TIM_plundered_indian_province_dev_var
+				value = -1
+			}
+		}
+	}
+
+  if = {
+    limit = {
+      $razer$ = {
+        has_country_flag = EDG_TIM_kill_la_kill_flag
+      }
+    }
+    decolonize = yes
+  }
+
+  if = {
+    limit = {
+      $razer$ = {
+        is_emperor_of_china = yes
+        has_country_flag = EDG_TIM_mission_north_china_flag
+      }
+    }
+    $razer$ = {
+      add_mandate = 0.2
+    }
+  }
+
+  if = {
+    limit = {
+      $razer$ = {
+        has_government_attribute = EDG_TIM_gain_shahanshah_authority_on_raze_ability
+        has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+      }
+    }
+    $razer$ = {
+      change_variable = {
+        which = EDG_PER_Shahanshah_authority_var
+        value = 0.3
+      }
+    }
+  }
+}
+
+EDG_TIM_simulate_raze_province_effect = {
+  export_to_variable = {
+    which = EDG_TIM_mil_tech_var
+    value = mil_tech
+  }
+  set_variable = {
+    which = EDG_TIM_power_gained_on_raze_var
+    value = 28
+  }
+  if = {
+    limit = {
+      NOT = {
+        check_variable = {
+          which = EDG_TIM_mil_tech_var
+          value = 23
+        }
+      }
+    }
+    subtract_variable = {
+      which = EDG_TIM_power_gained_on_raze_var
+      which = EDG_TIM_mil_tech_var
+    }
+  }
+  else = {
+    set_variable = {
+      which = EDG_TIM_power_gained_on_raze_var
+      value = 5
+    }
+  }
+  export_to_variable = {
+    which = EDG_TIM_razed_base_tax_var
+    value = trigger_value:base_tax
+  }
+  export_to_variable = {
+    which = EDG_TIM_razed_base_production_var
+    value = trigger_value:base_production
+  }
+  export_to_variable = {
+    which = EDG_TIM_razed_base_manpower_var
+    value = trigger_value:base_manpower
+  }
+  if = {
+    limit = {
+      OR = {
+        check_variable = {
+          which = EDG_TIM_razed_base_tax_var
+          value = 2
+        }
+        check_variable = {
+          which = EDG_TIM_razed_base_production_var
+          value = 2
+        }
+        check_variable = {
+          which = EDG_TIM_razed_base_manpower_var
+          value = 2
+        }
+      }
+    }
+    remove_loot = {
+      who = $razer$
+      amount = 1000
+    }
+    EDG_TIM_simulate_raze_base_development_effect = {
+      razer = $razer$
+      type = tax
+      power_type = adm
+    }
+    EDG_TIM_simulate_raze_base_development_effect = {
+      razer = $razer$
+      type = production
+      power_type = dip
+    }
+    EDG_TIM_simulate_raze_base_development_effect = {
+      razer = $razer$
+      type = manpower
+      power_type = mil
+    }
+    EDG_TIM_on_raze_effect = {
+      razer = $razer$
+    }
+    add_permanent_province_modifier = {
+      name = EDG_TIM_province_auto_razed_modifier
+      duration = 7300
+    }
+  }
+}
+
+EDG_TIM_simulate_raze_base_development_effect = {
+  change_variable = {
+    which = EDG_TIM_razed_base_$type$_var
+    value = 1
+  }
+  while = {
+    limit = {
+      check_variable = {
+        which = EDG_TIM_razed_base_$type$_var
+        value = 3
+      }
+    }
+    EDG_TIM_simulate_gain_power_on_raze_effect = {
+      razer = $razer$
+      power_type = $power_type$
+    }
+    add_base_$type$ = -1
+    subtract_variable = {
+      which = EDG_TIM_razed_base_$type$_var
+      value = 3
+    }
+  }
+}
+
+EDG_TIM_simulate_gain_power_on_raze_effect = {
+  set_variable = {
+    which = EDG_TIM_power_gained_on_raze_temp_var
+    which = EDG_TIM_power_gained_on_raze_var
+  }
+  while = {
+    limit = {
+      check_variable = {
+        which = EDG_TIM_power_gained_on_raze_temp_var
+        value = 1
+      }
+    }
+    $razer$ = {
+      add_$power_type$_power = 1
+    }
+    subtract_variable = {
+      which = EDG_TIM_power_gained_on_raze_temp_var
+      value = 1
+    }
+  }
+}
+
+EDG_TIM_enable_skull_pyramid_effect = {
+  if = {
+    limit = {
+      NOT = {
+        has_country_flag = EDG_TIM_enable_skull_pyramid_effect_flag
+      }
+    }
+    custom_tooltip = EDG_TIM_enable_skull_pyramid_effect_tt
+    set_country_flag = EDG_TIM_enable_skull_pyramid_effect_flag
+  }
+}
+
+EDG_TIM_add_dread = {
+  add_government_power = {
+    mechanic_type = EDG_TIM_dread
+    power_type = EDG_TIM_dread_power
+    value = $amount$
+  }
+}
+
+EDG_TIM_add_renaissance_progress = {
+  add_government_power = {
+    mechanic_type = EDG_TIM_renaissance
+    power_type = EDG_TIM_renaissance_power
+    value = $amount$
+  }
+}
+
+EDG_TIM_add_art_progress = {
+  add_government_power = {
+    mechanic_type = EDG_TIM_renaissance
+    power_type = EDG_TIM_renaissance_power_art
+    value = $amount$
+  }
+}
+
+EDG_TIM_add_history_progress = {
+  add_government_power = {
+    mechanic_type = EDG_TIM_renaissance
+    power_type = EDG_TIM_renaissance_power_history
+    value = $amount$
+  }
+}
+
+EDG_TIM_add_medicine_progress = {
+  add_government_power = {
+    mechanic_type = EDG_TIM_renaissance
+    power_type = EDG_TIM_renaissance_power_medicine
+    value = $amount$
+  }
+}
+
+EDG_TIM_add_skull_pyramid_province_modifier_effect = {
+  if = {
+    limit = {
+      owner = {
+        has_country_flag = EDG_TIM_mission_hre_flag
+      }
+    }
+    add_province_modifier = {
+      name = EDG_TIM_skull_pyramid_modifier_3
+      duration = 3650
+    }
+  }
+  else_if = {
+    limit = {
+      owner = {
+        has_country_flag = EDG_TIM_mission_europa_flag
+      }
+    }
+    add_province_modifier = {
+      name = EDG_TIM_skull_pyramid_modifier_2
+      duration = 3650
+    }
+  }
+  else = {
+    add_province_modifier = {
+      name = EDG_TIM_skull_pyramid_modifier_1
+      duration = 3650
+    }
+  }
+}
+
+EDG_TIM_enable_faction_effect = {
+  hidden_effect = {
+    if = {
+      limit = {
+        has_reform = EDG_TIM_Gurkani
+      }
+      add_government_reform = EDG_TIM_Gurkani_faction
+    }
+    else_if = {
+      limit = {
+        has_reform = EDG_TIM_Gurkani_renaissance
+      }
+      add_government_reform = EDG_TIM_Gurkani_renaissance_and_faction
+    }
+    add_faction_influence = {
+      faction = EDG_TIM_turco_mongol_faction
+      influence = 40
+    }
+  }
+}
+
+EDG_TIM_enable_renaissance_effect = {
+  hidden_effect = {
+    if = {
+      limit = {
+        has_reform = EDG_TIM_Gurkani
+      }
+      add_government_reform = EDG_TIM_Gurkani_renaissance
+    }
+    else_if = {
+      limit = {
+        has_reform = EDG_TIM_Gurkani_faction
+      }
+      add_government_reform = EDG_TIM_Gurkani_renaissance_and_faction
+    }
+    else_if = {
+      limit = {
+        has_reform = EDG_TIM_Gurkani_Shahanshah
+      }
+      add_government_reform = EDG_TIM_Gurkani_Shahanshah_renaissance
+    }
+    else_if = {
+      limit = {
+        has_reform = EDG_TIM_Kurugen_Dynasty
+      }
+      add_government_reform = EDG_TIM_Kurugen_Dynasty_renaissance
+    }
+  }
+}
+
+EDG_TIM_remove_iranian_christian_minority_effect = {
+  every_owned_province = {
+    limit = {
+      has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+    }
+    remove_province_modifier = EDG_PER_Minority_Christian_province_modifier
+  }
+  every_owned_province = {
+    limit = {
+      has_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+    }
+    remove_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+  }
+}
+
+EDG_TIM_remove_iranian_zoroastrian_minority_effect = {
+  every_owned_province = {
+    limit = {
+      has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+    }
+    remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+  }
+  every_owned_province = {
+    limit = {
+      has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+    }
+    remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+  }
+}
+
+EDG_TIM_form_persian_empire_effect = {
+  custom_tooltip = EDG_TIM_events.27.a.tt1
+  change_tag = PER
+  hidden_effect = {
+    save_global_event_target_as = gurkani_target
+  }
+  swap_non_generic_missions = yes
+  change_primary_culture = turco_iranian
+  EDG_change_monarch_culture_effect = {
+    culture = turco_iranian
+  }
+  custom_tooltip = EDG_TIM_events.27.a.tt2
+  hidden_effect = {
+    every_province = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+        culture = uzbehk
+      }
+      change_culture = turco_iranian
+    }
+  }
+  add_accepted_culture_or_dip_power = {
+    culture = uzbehk
+    free = yes
+  }
+  change_technology_group = EDG_Iran_groups
+  change_unit_type = EDG_Iran_groups
+  446 = {
+    move_capital_effect = yes
+  }
+  add_faction_influence = {
+    faction = EDG_Persian_bureaucrat
+    influence = 50
+  }
+  remove_non_electors_emperors_from_empire_effect = yes
+  if = {
+    limit = {
+      NOT = { government = monarchy }
+      is_revolutionary = no
+    }
+    change_government_to_monarchy = yes
+  }
+  EDG_NEW_PER_Shahanshah_target_effect = yes
+  if = {
+    limit = {
+      has_government_mechanic = EDG_TIM_renaissance
+    }
+    add_government_reform = EDG_TIM_Gurkani_Shahanshah_renaissance
+  }
+  else = {
+    add_government_reform = EDG_TIM_Gurkani_Shahanshah
+  }
+  set_country_flag = EDG_ignore_ghulams_loyalty_and_influence_penalty_flag
+  set_government_rank = 3
+  set_country_flag = formed_persia_flag
+  add_country_modifier = {
+    name = "centralization_modifier"
+    duration = 7300
+  }
+  if = {
+    limit = { has_custom_ideas = no }
+    country_event = { id = ideagroups.1 } #Swap Ideas
+  }
+}
+
+EDG_TIM_destroy_one_city_base_development_effect = {
+  add_base_$type$ = -1
+  $destroyer$ = {
+    add_treasury = 25
+  }
+}
+
+# ROOT = city
+EDG_TIM_destroy_city_base_development_effect = {
+  hidden_effect = {
+    if = {
+      limit = {
+        base_$type$ = 6
+      }
+      set_variable = {
+        which = EDG_TIM_city_dev_var
+        value = 0
+      }
+      export_to_variable = {
+        which = EDG_TIM_city_dev_var
+        value = trigger_value:base_$type$
+      }
+      while = {
+        limit = {
+          check_variable = {
+            which = EDG_TIM_city_dev_var
+            value = 4
+          }
+        }
+        change_variable = {
+          which = EDG_TIM_city_dev_var
+          value = -1
+        }
+        change_variable = {
+          which = EDG_TIM_dev_destroyed_var
+          value = 1
+        }
+        EDG_TIM_destroy_one_city_base_development_effect = {
+          destroyer = $destroyer$
+          type = $type$
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        OR = {
+          base_$type$ = 5
+          base_$type$ = 4
+        }
+      }
+      EDG_TIM_destroy_one_city_base_development_effect = {
+        destroyer = $destroyer$
+        type = $type$
+      }
+      EDG_TIM_destroy_one_city_base_development_effect = {
+        destroyer = $destroyer$
+        type = $type$
+      }
+      set_variable = {
+        which = EDG_TIM_dev_destroyed_var
+        value = 2
+      }
+    }
+    else_if = {
+      limit = {
+        OR = {
+          base_$type$ = 3
+          base_$type$ = 2
+        }
+      }
+      EDG_TIM_destroy_one_city_base_development_effect = {
+        destroyer = $destroyer$
+        type = $type$
+      }
+      set_variable = {
+        which = EDG_TIM_dev_destroyed_var
+        value = 0
+      }
+    }
+  }
+}
+
+# ROOT = city
+EDG_TIM_destroy_city_effect = {
+  $destroyer$ = {
+    EDG_TIM_add_dread = { amount = 20 }
+    
+    if = {
+      limit = {
+        ROOT = {
+          EDG_TIM_small_city_can_be_destroyed_trigger = yes
+        }
+      }
+      add_adm_power = 25
+      add_dip_power = 25
+      add_mil_power = 25
+    }
+    else_if = {
+      limit = {
+        ROOT = {
+          EDG_TIM_medium_city_can_be_destroyed_trigger = yes
+        }
+      }
+      add_adm_power = 50
+      add_dip_power = 50
+      add_mil_power = 50
+      add_treasury = 50
+    }
+    else = {
+      add_adm_power = 100
+      add_dip_power = 100
+      add_mil_power = 100
+      add_treasury = 200
+    }
+  }
+  custom_tooltip = EDG_SPACE_TT
+
+  EDG_TIM_destroy_city_base_development_effect = {
+    destroyer = $destroyer$
+    type = tax
+  }
+  EDG_TIM_destroy_city_base_development_effect = {
+    destroyer = $destroyer$
+    type = production
+  }
+  EDG_TIM_destroy_city_base_development_effect = {
+    destroyer = $destroyer$
+    type = manpower
+  }
+  custom_tooltip = EDG_TIM_destroy_city_tt
+  custom_tooltip = EDG_SPACE_TT
+
+  EDG_TIM_destroy_buildings_and_gain_money_effect = {
+    destroyer = $destroyer$
+  }
+  custom_tooltip = EDG_SPACE_TT
+
+  if = {
+    limit = {
+      province_has_center_of_trade_of_level = 2
+    }
+    hidden_effect = {
+      add_center_of_trade_level = -2
+      $destroyer$ = {
+        add_treasury = 100
+      }
+    }
+    custom_tooltip = EDG_TIM_destroy_center_of_trade_tt
+    custom_tooltip = EDG_SPACE_TT
+  }
+
+  add_devastation = 100
+  add_nationalism = -10
+  EDG_TIM_add_skull_pyramid_province_modifier_effect = yes
+  add_permanent_province_modifier = {
+    name = EDG_TIM_city_destroyed_modifier
+    duration = -1
+  }
+
+  $destroyer$ = {
+    EDG_TIM_enable_skull_pyramid_effect = yes
+  }
+}
+
+EDG_TIM_destroy_buildings_and_gain_money_effect = {
+  hidden_effect = {
+    if = {
+      limit = { has_building = marketplace }
+      remove_building = marketplace
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = workshop }
+      remove_building = workshop
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = temple }
+      remove_building = temple
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = barracks }
+      remove_building = barracks
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = shipyard }
+      remove_building = shipyard
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = coastal_defence }
+      remove_building = coastal_defence
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = dock }
+      remove_building = dock
+      $destroyer$ = { add_treasury = 10 }
+    }
+    if = {
+      limit = { has_building = regimental_camp }
+      remove_building = regimental_camp
+      $destroyer$ = { add_treasury = 20 }
+    }
+    if = {
+      limit = { has_building = naval_battery }
+      remove_building = naval_battery
+      $destroyer$ = { add_treasury = 20 }
+    }
+    if = {
+      limit = { has_building = cathedral }
+      remove_building = cathedral
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = university }
+      remove_building = university
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = trade_depot }
+      remove_building = trade_depot
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = grand_shipyard }
+      remove_building = grand_shipyard
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = training_fields }
+      remove_building = training_fields
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = stock_exchange }
+      remove_building = stock_exchange
+      $destroyer$ = { add_treasury = 40 }
+    }
+    if = {
+      limit = { has_building = counting_house }
+      remove_building = counting_house
+      $destroyer$ = { add_treasury = 40 }
+    }
+    if = {
+      limit = { has_building = drydock }
+      remove_building = drydock
+      $destroyer$ = { add_treasury = 30 }
+    }
+    if = {
+      limit = { has_building = conscription_center }
+      remove_building = conscription_center
+      $destroyer$ = { add_treasury = 40 }
+    }
+  }
+  custom_tooltip = EDG_TIM_destroy_buildings_and_gain_money_tt
+}
+
+EDG_TIM_set_city_destroyed_flag_effect = {
+  if = {
+    limit = { province_id = 410 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_baghdad_flag }
+  }
+  else_if = {
+    limit = { province_id = 416 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_tabriz_flag }
+  }
+  else_if = {
+    limit = { province_id = 507 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_lahore_flag }
+  }
+  else_if = {
+    limit = { province_id = 522 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_delhi_flag }
+  }
+  else_if = {
+    limit = { province_id = 541 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_victory_city_flag }
+  }
+  else_if = {
+    limit = { province_id = 1948 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_bidar_flag }
+  }
+  else_if = {
+    limit = { province_id = 563 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_bengal_flag }
+  }
+  else_if = {
+    limit = { province_id = 382 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_damascus_flag }
+  }
+  else_if = {
+    limit = { province_id = 361 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_cairo_flag }
+  }
+  else_if = {
+    limit = { province_id = 358 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_alexandria_flag }
+  }
+  else_if = {
+    limit = { province_id = 151 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_constantinople_flag }
+  }
+  else_if = {
+    limit = { province_id = 38 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_riga_flag }
+  }
+  else_if = {
+    limit = { province_id = 45 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_lubeck_flag }
+  }
+  else_if = {
+    limit = { province_id = 134 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_vienna_flag }
+  }
+  else_if = {
+    limit = { province_id = 1876 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_frankfort_flag }
+  }
+  else_if = {
+    limit = { province_id = 85 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_cologne_flag }
+  }
+  else_if = {
+    limit = { province_id = 112 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_vennice_flag }
+  }
+  else_if = {
+    limit = { province_id = 104 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_milan_flag }
+  }
+  else_if = {
+    limit = { province_id = 116 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_florence_flag }
+  }
+  else_if = {
+    limit = { province_id = 101 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_genoa_flag }
+  }
+  else_if = {
+    limit = { province_id = 118 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_roma_flag }
+  }
+  else_if = {
+    limit = { province_id = 183 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_paris_flag }
+  }
+  else_if = {
+    limit = { province_id = 236 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_london_flag }
+  }
+
+  else_if = {
+    limit = { province_id = 294 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_tver_flag }
+  }
+  else_if = {
+    limit = { province_id = 310 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_novgorod_flag }
+  }
+  else_if = {
+    limit = { province_id = 280 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_kyiv_flag }
+  }
+  else_if = {
+    limit = { province_id = 279 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_volhynia_flag }
+  }
+  else_if = {
+    limit = { province_id = 257 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_warsaw_flag }
+  }
+  else_if = {
+    limit = { province_id = 262 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_krakow_flag }
+  }
+  else_if = {
+    limit = { province_id = 225 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_cordoba_flag }
+  }
+  else_if = {
+    limit = { province_id = 219 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_toledo_flag }
+  }
+  else_if = {
+    limit = { province_id = 213 }
+    $destroyer$ = { set_country_flag = EDG_TIM_destroy_barcelona_flag }
+  }
+}
+
+EDG_TIM_plunder_province_effect = {
+  [[tax]
+  add_base_tax = $tax$
+  ]
+  [[production]
+  add_base_production = $production$
+  ]
+  [[manpower]
+  add_base_manpower = $manpower$
+  ]
+  [[development]
+  add_base_tax = $development$
+  add_base_production = $development$
+  add_base_manpower = $development$
+  ]
+  [[devastation]
+  add_devastation = $devastation$
+  ]
+  [[nationalism]
+  add_nationalism = $nationalism$
+  ]
+  [[autonomy]
+  add_local_autonomy = $autonomy$
+  ]
+  [[gain_power]
+  if = {
+    limit = {
+      always = $gain_power$
+    }
+    custom_tooltip = EDG_TIM_gain_25_power_from_province_tt
+    hidden_effect = {
+      ROOT = {
+        add_adm_power = 25
+        add_dip_power = 25
+        add_mil_power = 25
+      }
+    }
+  }
+  ]
+  [[gain_money]
+  if = {
+    limit = {
+      always = $gain_money$
+    }
+    custom_tooltip = EDG_TIM_gain_50_money_from_province_tt
+    hidden_effect = {
+      ROOT = {
+        add_treasury = 50
+      }
+    }
+  }
+  ]
+  [[gain_mandate]
+  if = {
+    limit = {
+      always = $gain_mandate$
+    }
+    custom_tooltip = EDG_TIM_gain_5_mandate_from_province_tt
+    hidden_effect = {
+      ROOT = {
+        add_mandate = 5
+      }
+    }
+  }
+  ]
+  [[change_religion]
+  if = {
+    limit = {
+      always = $change_religion$
+    }
+    change_religion = ROOT
+  }
+  ]
+}
+
+EDG_TIM_inherit_without_adding_prestige_effect = {
+  hidden_effect = {
+    set_variable = {
+      which = EDG_TIM_prestige_before_inherit_var
+      value = 0
+    }
+    export_to_variable = {
+      which = EDG_TIM_prestige_before_inherit_var
+      value = prestige
+    }
+  }
+  inherit = $country$
+  hidden_effect = {
+    set_variable = {
+      which = EDG_TIM_prestige_after_inherit_var
+      value = 0
+    }
+    export_to_variable = {
+      which = EDG_TIM_prestige_after_inherit_var
+      value = prestige
+    }
+    while = {
+      limit = {
+        check_variable = {
+          which = EDG_TIM_prestige_after_inherit_var
+          which = EDG_TIM_prestige_before_inherit_var
+        }
+      }
+      change_variable = {
+        which = EDG_TIM_prestige_after_inherit_var
+        value = -1
+      }
+      add_prestige = -1
+    }
+  }
+}
+
+EDG_TIM_expel_steppe_tribe_in_random_province_effect = {
+  random_owned_province = {
+    limit = {
+      EDG_TIM_expel_steppe_tribe_province_trigger = yes
+    }
+    add_base_development = { amount = -1 }
+    add_devastation = 20
+    add_local_autonomy = -20
+  }
+}
+
+EDG_TIM_use_steppe_slaves_in_random_province_effect = {
+  random_owned_province = {
+    limit = {
+      OR = {
+        culture = uzbehk
+        province_id = 445
+        province_id = 446
+        province_id = 2221
+        province_id = 450
+        province_id = 2227
+        province_id = 451
+        province_id = 447
+      }
+      NOT = {
+        has_province_modifier = EDG_TIM_steppe_slaves_modifier
+      }
+    }
+    add_base_development = { amount = 1 }
+    add_province_modifier = {
+      name = EDG_TIM_steppe_slaves_modifier
+      duration = 1825
+    }
+  }
+}
+
+EDG_TIM_exploit_russia_effect = {
+  EDG_TIM_add_dread = { amount = 10 }
+  custom_tooltip = EDG_TIM_exploit_russia_tooltip_2
+  tooltip = {
+    custom_tooltip = EDG_TIM_gain_10_money_from_province_tt
+    add_province_modifier = {
+      name = EDG_TIM_tatar_shackle_modifier
+      duration = 3650
+    }
+  }
+  hidden_effect = {
+    every_province = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+        OR = {
+          culture = russian
+          culture = novgorodian
+          culture = ryazanian
+        }
+      }
+      add_province_modifier = {
+        name = EDG_TIM_tatar_shackle_modifier
+        duration = 3650
+      }
+      ROOT = {
+        add_treasury = 10
+      }
+    }
+  }
+}
+
+EDG_TIM_exploit_russia_and_ruthenia_effect = {
+  EDG_TIM_add_dread = { amount = 10 }
+  custom_tooltip = EDG_TIM_exploit_russia_and_ruthenia_tooltip
+  tooltip = {
+    custom_tooltip = EDG_TIM_gain_10_money_from_province_tt
+    add_province_modifier = {
+      name = EDG_TIM_tatar_shackle_modifier
+      duration = 3650
+    }
+  }
+  hidden_effect = {
+    every_province = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+        culture_group = east_slavic
+      }
+      add_province_modifier = {
+        name = EDG_TIM_tatar_shackle_modifier
+        duration = 3650
+      }
+      ROOT = {
+        add_treasury = 10
+      }
+    }
+  }
+}
+
+EDG_TIM_reset_dread_effect = {
+  set_variable = {
+    which = EDG_TIM_skull_vessel_num_temp_var
+    which = EDG_TIM_skull_vessel_num_var
+  }
+  while = {
+    limit = {
+      check_variable = {
+        which = EDG_TIM_skull_vessel_num_temp_var
+        value = 1
+      }
+    }
+    change_variable = {
+      which = EDG_TIM_skull_vessel_num_temp_var
+      value = -1
+    }
+    EDG_TIM_add_dread = { amount = 5 }
+  }
+}
+
+EDG_TIM_return_money_on_level_1_great_project_built_effect_1 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_building_flag
+        }
+        add_treasury = 200
+      }
+    }
+  }
+}
+
+EDG_TIM_return_money_on_level_2_great_project_built_effect_1 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_building_flag
+        }
+        add_treasury = 1000
+        EDG_TIM_add_renaissance_progress = { amount = 1 }
+      }
+    }
+  }
+}
+
+EDG_TIM_return_money_on_level_3_great_project_built_effect_1 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_building_flag
+        }
+        add_treasury = 2000
+        EDG_TIM_add_renaissance_progress = { amount = 2 }
+      }
+    }
+  }
+}
+
+EDG_TIM_return_money_on_level_1_great_project_built_effect_2 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_engineer_flag
+        }
+        add_treasury = 200
+      }
+    }
+  }
+}
+
+EDG_TIM_return_money_on_level_2_great_project_built_effect_2 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_engineer_flag
+        }
+        add_treasury = 1000
+        EDG_TIM_add_renaissance_progress = { amount = 1 }
+      }
+    }
+  }
+}
+
+EDG_TIM_return_money_on_level_3_great_project_built_effect_2 = {
+  hidden_effect = {
+    owner = {
+      if = {
+        limit = {
+          has_country_flag = EDG_TIM_mission_engineer_flag
+        }
+        add_treasury = 2000
+        EDG_TIM_add_renaissance_progress = { amount = 2 }
+      }
+    }
+  }
+}
+
+EDG_release_or_return_provice_effect = {
+  if = {
+    limit = {
+      any_owned_province = {
+        is_core = $country$
+        is_capital = no
+      }
+    }
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          is_core = $country$
+          is_capital = no
+        }
+        cede_province = $country$
+      }
+    }
+    if = {
+      limit = {
+        exists = $country$
+      }
+      $country$ = {
+        custom_tooltip = EDG_return_province_tt
+      }
+    }
+    else = {
+      tooltip = {
+        release = $country$
+      }
+    }
+  }
+}
+
+EDG_TIM_trigger_skull_vessel_event_effect = {
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_dlh_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.61
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_per_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.62
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_rum_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.63
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_wal_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.64
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_rus_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.65
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_hre_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.66
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_pap_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.67
+      }
+    }
+  }
+  if = {
+    limit = {
+      $enemy$ = {
+        EDG_TIM_china_can_be_made_skull_vessel_trigger = yes
+      }
+    }
+    $country$ = {
+      country_event = {
+        id = EDG_TIM_events.68
+      }
+    }
+  }
+}
+
+EDG_TIM_refresh_province_has_banners_effect = {
+  if = {
+		limit = {
+			EDG_TIM_province_has_banners_trigger = yes
+		}
+		add_province_modifier = { name = EDG_TIM_kheshig_modifier duration = -1 hidden = yes }
+	}
+	else_if = {
+		limit = { has_province_modifier = EDG_TIM_kheshig_modifier }
+		remove_province_modifier = EDG_TIM_kheshig_modifier
+	}
+}
+
+EDG_TIM_new_chinese_dynasty_effect = {
+  swap_non_generic_missions = yes
+  remove_non_electors_emperors_from_empire_effect = yes
+  custom_tooltip = EDG_TIM_events.84.tt
+  hidden_effect = {
+    every_province = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+        OR = {
+          culture = mongol
+          culture = oirats
+          culture = khalkha
+          culture = chahar
+        }
+      }
+      change_culture = altaic_new
+    }
+  }
+  ROOT = {
+    set_capital = 1816
+    1816 = {
+      EDG_TIM_rename_province_dadu_effect = yes
+      add_base_development = { amount = 3 }
+      area = {
+        add_devastation = -100
+      }
+    }
+  }
+  set_government_rank = 3
+  add_country_modifier = {
+    name = "centralization_modifier"
+    duration = 7300
+  }
+  if = {
+    limit = {
+      has_custom_ideas = no
+    }
+    country_event = {
+      id = ideagroups.1
+    }
+  }
+}
+
+EDG_TIM_clear_rename_flags_effect = {
+  clr_country_flag = EDG_TIM_name_is_gurkani_flag
+  clr_country_flag = EDG_TIM_name_is_iran_and_turan_flag
+  clr_country_flag = EDG_TIM_name_is_yi_flag
+  clr_country_flag = EDG_TIM_name_is_hui_flag
+  clr_country_flag = EDG_TIM_name_is_mu_flag
+}
+
+EDG_TIM_refresh_ghulam_loyalty_buff_effect = {
+  if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 100 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_10 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 90 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_9 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 80 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_8 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 70 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_7 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 60 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_6 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 50 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_5 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 40 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_4 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 30 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_3 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 20 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_2 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_loyalty = { estate = estate_ghulams loyalty = 10 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_loyalty_modifier_1 duration = -1 }
+  }
+}
+
+EDG_TIM_refresh_ghulam_tupchi_buff_effect = {
+  if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 100 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_10 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 90 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_9 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 80 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_8 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 70 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_7 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 60 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_6 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 50 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_5 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 40 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_4 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 30 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_3 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 20 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_2 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 10 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_tupchi_modifier_1 duration = -1 }
+  }
+}
+
+EDG_TIM_refresh_ghulam_qurchi_buff_effect = {
+  if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 100 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_10 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 90 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_9 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 80 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_8 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 70 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_7 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 60 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_6 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 50 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_5 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 40 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_4 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 30 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_3 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 20 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_2 duration = -1 }
+  }
+  else_if = {
+    limit = { estate_influence = { estate = estate_ghulams influence = 10 } }
+    add_country_modifier = { name = EDG_TIM_train_ghulam_qurchi_modifier_1 duration = -1 }
+  }
+}
+
+EDG_TIM_remove_all_ghulam_dynamic_buffs_effect = {
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_1
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_2
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_3
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_4
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_5
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_6
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_7
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_8
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_9
+  remove_country_modifier = EDG_TIM_train_ghulam_loyalty_modifier_10
+
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_1
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_2
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_3
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_4
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_5
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_6
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_7
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_8
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_9
+  remove_country_modifier = EDG_TIM_train_ghulam_tupchi_modifier_10
+
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_1
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_2
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_3
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_4
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_5
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_6
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_7
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_8
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_9
+  remove_country_modifier = EDG_TIM_train_ghulam_qurchi_modifier_10
+}
+
+EDG_TIM_refresh_ghulam_dynamic_buff_effect = {
+  EDG_TIM_remove_all_ghulam_dynamic_buffs_effect = yes
+  EDG_TIM_refresh_ghulam_loyalty_buff_effect = yes
+  if = {
+    limit = {
+      has_country_flag = EDG_TIM_mission_PER_tupchi_flag
+    }
+    EDG_TIM_refresh_ghulam_tupchi_buff_effect = yes
+  }
+  if = {
+    limit = {
+      has_country_flag = EDG_TIM_mission_PER_qurchi_flag
+    }
+    EDG_TIM_refresh_ghulam_qurchi_buff_effect = yes
+  }
+}

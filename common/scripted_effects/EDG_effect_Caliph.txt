@@ -1,0 +1,164 @@
+EDG_shiite_Caliph_authority_var_all_increase_5 = {
+	change_variable = {
+		which = EDG_sunni_Caliph_authority_var
+		value = 5
+	}
+	change_variable = {
+		which = EDG_shiite_Caliph_authority_var
+		value = 5
+	}
+	change_variable = {
+		which = EDG_EDG_Alawite_Caliph_authority_var
+		value = 5
+	}
+}
+EDG_shiite_Caliph_authority_var_all_reduce_5 = {
+	change_variable = {
+		which = EDG_sunni_Caliph_authority_var
+		value = -5
+	}
+	change_variable = {
+		which = EDG_shiite_Caliph_authority_var
+		value = -5
+	}
+	change_variable = {
+		which = EDG_EDG_Alawite_Caliph_authority_var
+		value = -5
+	}
+}
+
+EDG_Caliph_target_update_effect = {
+	random_country = {
+		hidden_effect = {
+			EDG_sunni_Caliph_target_update_effect = yes
+			EDG_shiite_Caliph_target_update_effect = yes
+			event_target:EDG_sunni_Caliph_target = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = EDG_sunni_Caliph_authority_var_started_flag }
+					}
+					set_country_flag = EDG_sunni_Caliph_authority_var_started_flag
+					set_variable = {
+						which = EDG_sunni_Caliph_authority_var
+						value = 50
+					}
+				}
+			}
+			event_target:EDG_shiite_Caliph_target = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = EDG_shiite_Caliph_authority_var_started_flag }
+					}
+					set_country_flag = EDG_shiite_Caliph_authority_var_started_flag
+					set_variable = {
+						which = EDG_shiite_Caliph_authority_var
+						value = 50
+					}
+				}
+			}
+			if = {
+				limit = { exists = ABS }
+				every_owned_province = {
+					remove_province_modifier = EDG_Abbasid_Caliphate_province_modifier
+				}
+			}
+			if = {
+				limit = { exists = FDM }
+				every_owned_province = {
+					remove_province_modifier = EDG_Fatima_Caliphate_province_modifier
+				}
+			}
+		}
+	}
+}
+EDG_sunni_Caliph_target_update_effect = {#逊尼派哈里发
+	if = {
+		limit = {
+			ABS = {
+				exists = yes
+				religion = sunni
+			}
+		}
+		ABS = { save_global_event_target_as = EDG_sunni_Caliph_target }
+	}
+	else_if = {
+		limit = {
+			any_country = {
+				OR = {
+					has_country_modifier = EDG_Usurping_the_sunni_Caliphate_modifier
+					has_country_modifier = unified_islam
+				}
+				religion = sunni
+			}
+		}
+		random_country = {
+			limit = {
+				OR = {
+					has_country_modifier = EDG_Usurping_the_sunni_Caliphate_modifier
+					has_country_modifier = unified_islam
+				}
+				religion = sunni
+			}
+			save_global_event_target_as = EDG_sunni_Caliph_target
+		}
+	}
+	else_if = {
+		limit = {
+			any_country = {
+				any_owned_province = {
+					has_province_modifier = EDG_Abbasid_Caliphate_province_modifier
+				}
+			}
+		}
+		random_country = {
+			limit = { any_owned_province = { has_province_modifier = EDG_Abbasid_Caliphate_province_modifier } }
+			save_global_event_target_as = EDG_sunni_Caliph_target
+		}
+	}
+	else = {
+		clear_global_event_target = EDG_sunni_Caliph_target
+	}
+}
+EDG_shiite_Caliph_target_update_effect = {#什叶派哈里发
+	if = {
+		limit = {
+			FDM = {
+				exists = yes
+				religion = shiite
+			}
+		}
+		FDM = { save_global_event_target_as = EDG_shiite_Caliph_target }
+	}
+	else_if = {
+		limit = {
+			any_country = {
+				has_country_modifier = unified_islam
+				religion = shiite
+			}
+		}
+		random_country = {
+			limit = {
+				has_country_modifier = unified_islam
+				religion = shiite
+			}
+			save_global_event_target_as = EDG_shiite_Caliph_target
+		}
+	}
+	else_if = {
+		limit = {
+			any_country = {
+				any_owned_province = {
+					has_province_modifier = EDG_Fatima_Caliphate_province_modifier
+				}
+			}
+		}
+		random_country = {
+			limit = { any_owned_province = { has_province_modifier = EDG_Fatima_Caliphate_province_modifier } }
+			save_global_event_target_as = EDG_shiite_Caliph_target
+		}
+	}
+	else = {
+		clear_global_event_target = EDG_shiite_Caliph_target
+	}
+}
+

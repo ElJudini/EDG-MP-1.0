@@ -1,0 +1,1157 @@
+EDG_grand_church = { #宏伟教堂
+	cost = 500
+	time = 24
+
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		local_tax_modifier = 1
+	}
+	on_built = {
+		on_built_tax_building_effect = yes
+		on_province_tax_building_built_estate_privileges_effect = yes
+		if = {
+			limit = {
+				FROM = {
+					has_government_attribute = on_church_built_clergy_loyalty
+				}
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 2
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_government_attribute = temples_modifier
+				}
+				owned_by = FROM
+			}
+			add_province_modifier = {
+				name = gov_expanded_temple_rights_mod
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = mosque_local_unrest_flag
+				}
+			}
+			add_province_modifier = {
+				name = turkoman_peaceful_worshipping
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_country_modifier = mam_mosque_great_mosque_generates_crown_land_modifier
+				}
+			}
+			FROM = {
+				change_estate_land_share = {
+					estate = all
+					share = -0.25
+				}
+			}
+		}
+		#医院骑士团
+		if = {
+			limit = {
+				#骑士团救济院
+				owner = {
+					has_estate_privilege = estate_rig_knightage_KNI_savior
+				}
+			}
+			add_province_modifier = {
+				name = estate_EDG_KNI_hospital_modifier
+				duration = -1
+			}
+		}
+		if = {
+			limit = {
+				#骑士团医院经营权
+				owner = {
+					has_estate_privilege = estate_rig_knightage_KNI_grandhospital
+				}
+			}
+			add_province_modifier = {
+				name = estate_EDG_KNI_grandhospital_modifier
+				duration = -1
+			}
+		}
+		if = {
+			limit = { #
+				development = 40
+				religion = owner
+				culture_group = owner
+				NOT = {
+					has_building = university
+				}
+				owner = {
+					has_country_flag = EDG_BYZ_church_to_universty_flag
+				}
+			}
+			add_building = university
+			remove_building = temple
+			
+		}
+		if = {
+			limit = { 
+				owner = {
+					has_government_attribute = EDG_build_church_add_manpower
+				}
+			}
+			add_base_manpower = 1
+		}
+		EDG_FRN_obtain_ca_small = {
+			bounty = 250
+		}
+		if = {
+			limit = { 
+				has_building = cathedral
+			}
+			remove_building = cathedral
+		}
+	}
+	on_destroyed = {
+		on_province_tax_building_destroyed_estate_privileges_effect = yes
+		if = {
+			limit = {
+				FROM = {
+					has_country_flag = mosque_local_unrest_flag
+				}
+			}
+			remove_province_modifier = turkoman_peaceful_worshipping
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_government_attribute = on_church_built_clergy_loyalty
+				}
+			}
+			FROM = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = -2
+				}
+			}
+		}
+		remove_province_modifier = gov_expanded_temple_rights_mod
+		if = {
+			limit = {
+				FROM = {
+					has_country_modifier = mam_mosque_great_mosque_generates_crown_land_modifier
+				}
+			}
+			FROM = {
+				change_estate_land_share = {
+					estate = all
+					share = 0.25
+				}
+			}
+		}
+		if = {
+			#移除
+			limit = {
+			}
+			remove_province_modifier = estate_EDG_KNI_hospital_modifier
+		}
+		if = {
+			#移除
+			limit = {
+			}
+			remove_province_modifier = estate_EDG_KNI_grandhospital_modifier
+		}
+		if = {
+			limit = { 
+				owner = {
+					has_government_attribute = EDG_build_church_add_manpower
+				}
+			}
+			add_base_manpower = -1
+		}
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+EDG_guild = { #行会
+	cost = 750
+	time = 24
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		local_production_efficiency = 1.5
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_small = {
+			bounty = 375
+		}
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_building = counting_house
+				}
+				remove_building = counting_house
+			}
+		}
+	}
+	on_destroyed = {
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 7.5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+	allow_in_gold_provinces = no
+	ai_will_do = {
+		factor = 1
+	}
+}
+EDG_station = { #驻地
+	cost = 500
+	time = 24
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	#	# THIS = Province, FROM = Builder(not nessecairly owner, can be overlord)
+	#	on_built = {
+	#		FROM = {
+	#			add_army_professionalism = 0.01
+	#		}
+	#	}
+	#
+	#	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
+	#	on_destroyed = {
+	#		FROM = {
+	#			add_army_professionalism = -0.02
+	#		}
+	#	}
+	#
+	#	# THIS = Province, FROM = Destroyer, Will not be called on buildings destroyed!
+	#	on_obsolete = {
+	#		hidden_effect = {
+	#			FROM = {
+	#				add_army_professionalism = -0.01
+	#			}
+	#		}
+	#	}
+	modifier = {
+		local_manpower_modifier = 1.5
+	}
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					has_government_attribute = manpower_sailors_on_build
+				}
+			}
+			FROM = {
+				add_manpower = 1
+			}
+		}
+		EDG_FRN_obtain_ca_small = {
+			bounty = 250
+		}
+		if = {
+			limit = { 
+				has_building = training_fields
+			}
+			remove_building = training_fields
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					has_government_attribute = manpower_sailors_on_build
+				}
+			}
+			FROM = {
+				add_manpower = -1
+			}
+		}
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 1
+	}
+}
+EDG_arsenal= { #兵工厂
+	cost = 750
+	time = 24
+
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	#	# THIS = Province, FROM = Builder(not nessecairly owner, can be overlord)
+	#	on_built = {
+	#		FROM = {
+	#			add_army_professionalism = 0.01
+	#		}
+	#	}
+	#
+	#	# THIS = Province, FROM = Destroyer, Will not be called on buildings made obsolete!
+	#	on_destroyed = {
+	#		FROM = {
+	#			add_army_professionalism = -0.02
+	#		}
+	#	}
+	#
+	#	# THIS = Province, FROM = Destroyer, Will not be called on buildings destroyed!
+	#	on_obsolete = {
+	#		hidden_effect = {
+	#			FROM = {
+	#				add_army_professionalism = -0.01
+	#			}
+	#		}
+	#	}
+	modifier = {
+		land_forcelimit = 4
+	}
+	on_built = {
+		if = {
+			limit = {
+				FROM = {
+					mission_completed = jap_tanegashima_teppo
+					has_dlc = "Cradle of Civilization"
+				}
+			}
+			FROM = {
+				add_army_professionalism = 0.001
+			}
+		}
+		EDG_FRN_obtain_ca_small = {
+			bounty = 365
+		}
+		if = {
+			limit = { 
+				has_building = conscription_center
+			}
+			remove_building = conscription_center
+		}
+	}
+	on_destroyed = {
+		if = {
+			limit = {
+				FROM = {
+					mission_completed = jap_tanegashima_teppo
+					has_dlc = "Cradle of Civilization"
+				}
+			}
+			FROM = {
+				add_army_professionalism = -0.001
+			}
+		}
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 7.5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+	ai_will_do = {
+		factor = 1
+		modifier = {
+			factor = 1.5			# more likely if we have an army close to the force limit
+			FROM = {
+				army_size_percentage = 0.95
+			}
+		}
+		modifier = {
+			factor = 1.1
+			local_autonomy = 50
+		}
+	}
+}
+EDG_road_network = { #道路网
+	cost = 250
+	time = 12
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		local_friendly_movement_speed = 0.25
+		local_hostile_movement_speed = 0.25
+		allowed_num_of_buildings = 1
+		local_institution_spread = 0.25
+		local_development_cost = -0.05
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_big = {
+			bounty = 125
+		}
+	}
+	on_destroyed = {
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 2.5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_mini_square = { #小型广场
+	cost = 250
+	time = 12
+
+	build_trigger = {
+		development = 15
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		allowed_num_of_buildings = 1
+		local_development_cost = -0.1
+		local_production_efficiency = 0.1
+		local_prosperity_growth = 0.025
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 125
+		}
+	}
+	on_destroyed = {
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 2.5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_center_square = { #中心广场
+	cost = 500
+	time = 24
+
+	build_trigger = {
+		development = 20
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		allowed_num_of_buildings = 2
+		local_development_cost = -0.15
+		local_production_efficiency = 0.15
+		local_prosperity_growth = 0.033
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_building = EDG_mini_square
+				}
+				remove_building = EDG_mini_square
+			}
+		}
+	}
+	on_destroyed = {
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_big_square = { #大型广场
+	cost = 750
+	time = 36
+
+	build_trigger = {
+		development = 25
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	modifier = {
+		allowed_num_of_buildings = 3
+		local_development_cost = -0.25
+		local_production_efficiency = 0.25
+		local_prosperity_growth = 0.05
+		stability_cost_modifier = -0.01
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 375
+		}
+		hidden_effect = {
+			if = {
+				limit = { 
+					has_building = EDG_center_square
+				}
+				remove_building = EDG_center_square
+			}
+		}
+	}
+	on_destroyed = {
+	}
+	on_obsolete = {
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 7.5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_saw_mill = { #锯木厂
+	cost = 500
+	time = 24
+	build_trigger = {
+		OR = {
+			has_terrain = woods
+			has_terrain = forest
+		}
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		OR = {
+			has_terrain = woods
+			has_terrain = forest
+		}
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.1
+		local_development_cost_modifier = -0.1
+		local_build_cost = -0.1
+		local_build_time = -0.1
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_mine = { #矿山
+	cost = 500
+	time = 24
+	build_trigger = {
+		OR = {
+			trade_goods = iron
+			trade_goods = copper
+			trade_goods = gold
+		}
+		base_production = 6
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		OR = {
+			trade_goods = iron
+			trade_goods = copper
+			trade_goods = gold
+		}
+		base_production = 6
+	}
+	modifier = {
+		allowed_num_of_manufactories = 1
+		local_development_cost = -0.1
+		trade_goods_size_modifier = 0.25
+		trade_value = 5
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_quarry = { #采石场
+	cost = 500
+	time = 24
+	build_trigger = {
+		OR = {
+			has_terrain = mountain
+			has_terrain = hills
+		}
+		base_production = 6
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		OR = {
+			has_terrain = mountain
+			has_terrain = hills
+		}
+		base_production = 6
+	}
+	modifier = {
+		allowed_num_of_manufactories = 1
+		local_development_cost = -0.2
+		local_build_cost = -0.25
+		trade_goods_size_modifier = 0.1
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_brewhouse = { #酿酒厂
+	cost = 500
+	time = 24
+	build_trigger = {
+		trade_goods = wine
+		has_building = farm_estate
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		trade_goods = wine
+		has_building = farm_estate
+	}
+	modifier = {
+		allowed_num_of_manufactories = 1
+		trade_value = 25
+		trade_goods_size = -1
+		local_production_efficiency	 = 1
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_artillery_foundry = { #火炮铸造厂
+	cost = 1000
+	time = 24
+	build_trigger = {
+		OR = {
+			trade_goods = iron
+			trade_goods = copper
+		}
+		base_production = 10
+		has_building = weapons
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		OR = {
+			trade_goods = iron
+			trade_goods = copper
+		}
+		base_production = 10
+		has_building = weapons
+	}
+	modifier = {
+		trade_goods_size = -2
+		trade_goods_size_modifier = -0.5
+		trade_value = 50
+		artillery_fire = 0.1
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 500
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 10
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_printing_house = { #印刷厂
+	cost = 500
+	time = 24
+	build_trigger = {
+		trade_goods = paper
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		trade_goods = paper
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.5
+		local_institution_spread = 1
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_military_base = { #军事基地
+	cost = 1000
+	time = 36
+	build_trigger = {
+		has_manpower_building_trigger = yes
+		has_forcelimit_building_trigger = yes
+		has_building = EDG_fortifications
+		# NOT = {
+		# 	area_for_scope_province = {
+		# 		NOT = {
+		# 			province_id = root
+		# 		}
+		# 		owner = {
+		# 			tag = ROOT
+		# 		}
+		# 		OR = {
+		# 			has_building = EDG_military_base
+		# 			has_construction = EDG_military_base
+		# 		}
+		# 	}
+		# }
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		has_manpower_building_trigger = yes
+		has_forcelimit_building_trigger = yes
+		has_building = EDG_fortifications
+		# NOT = {
+		# 	area_for_scope_province = {
+		# 		NOT = {
+		# 			province_id = root
+		# 		}
+		# 		owner = {
+		# 			tag = ROOT
+		# 		}
+		# 		OR = {
+		# 			has_building = EDG_military_base
+		# 			has_construction = EDG_military_base
+		# 		}
+		# 	}
+		# }
+	}
+	modifier = {
+		trade_goods_size_modifier = -1
+		land_forcelimit_modifier = 0.01
+		land_forcelimit = 5
+		local_manpower = 1000
+		local_state_maintenance_modifier = 3
+		land_maintenance_modifier = -0.01
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 500
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 10
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_fortress = { #堡垒
+	cost = 500
+	time = 24
+
+	build_trigger = {
+		has_fort_building_trigger = yes
+		has_building = ramparts
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		has_fort_building_trigger = yes
+		has_building = ramparts
+	}
+	modifier = {
+		local_state_maintenance_modifier = 1
+		fort_level = 1
+		local_fort_maintenance_modifier = -1
+		local_defensiveness = 0.25
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_fortifications = { #防御工事
+	cost = 500
+	time = 24
+
+	build_trigger = {
+		has_building = EDG_fortress
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		has_building = EDG_fortress
+	}
+	modifier = {
+		local_state_maintenance_modifier = 1
+		supply_limit = -100
+		supply_limit_modifier = -1
+		max_attrition = 3
+		local_hostile_attrition = 3
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+EDG_pasture = { #牧场
+	cost = 500
+	time = 24
+
+	build_trigger = {
+		OR = {
+			trade_goods = livestock
+			trade_goods = wool
+		}
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	keep_trigger = {
+		OR = {
+			trade_goods = livestock
+			trade_goods = wool
+		}
+	}
+	modifier = {
+		trade_goods_size_modifier = 0.1
+		local_development_cost_modifier = -0.25
+	}
+	on_built = {
+		EDG_FRN_obtain_ca_common = {
+			bounty = 250
+		}
+	}
+	on_construction_canceled = {
+		if = {
+			limit = {
+				has_province_flag = EDG_FRN_on_building_flag
+			}
+			FRN = {
+				add_manpower = 5
+			}
+			hidden_effect = {
+				clr_province_flag = EDG_FRN_on_building_flag
+			}
+		}
+	}
+}
+
+EDG_great_project_building_small = {
+	cost = 2500
+	time = 36
+
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+	on_built = {
+		EDG_FRN_add_great_project_tier_use = yes
+		hidden_effect = {
+			FRN = {
+				country_event = {
+					id = EDG_FRNEvents.500
+				}
+			}
+		}
+		remove_building = EDG_great_project_building_small
+	}
+}
+EDG_great_project_building_medium = {
+	cost = 5000
+	time = 60
+
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+
+	on_built = {
+		EDG_FRN_add_great_project_tier_use = yes
+		hidden_effect = {
+			FRN = {
+				country_event = {
+					id = EDG_FRNEvents.500
+				}
+			}
+		}
+		remove_building = EDG_great_project_building_medium
+	}
+}
+EDG_great_project_building_large = {
+	cost = 10000
+	time = 120
+
+	build_trigger = {
+		hidden_trigger = {
+			from = {
+				ai = no
+			}
+		}
+	}
+
+	on_built = {
+		EDG_FRN_add_great_project_tier_use = yes
+		hidden_effect = {
+			FRN = {
+				country_event = {
+					id = EDG_FRNEvents.500
+				}
+			}
+		}
+		remove_building = EDG_great_project_building_large
+	}
+}

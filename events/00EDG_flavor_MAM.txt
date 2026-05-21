@@ -1,0 +1,263 @@
+namespace = EDG_flavorMAM
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavorMAM.0
+  title = "EDG_flavorMAM.0.t"
+  desc = "EDG_flavorMAM.0.d"
+  picture = CIVIL_WAR_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = { 
+  }
+  
+  option = {
+    name = "EDG_flavorMAM.0.a"
+    ai_chance = {
+      factor = 100
+    }
+    change_tag = ABS
+	restore_country_name = yes
+	remove_non_electors_emperors_from_empire_effect = yes
+	swap_non_generic_missions = yes
+	if = {
+		limit = { has_custom_ideas = no }
+		country_event = { id = ideagroups.1 } #Swap Ideas
+	}
+	add_government_reform = caliphate_reform
+    add_stability = 1
+	  set_government_rank = 3
+    define_ruler = {
+      change_dip = 3
+      change_adm = 3
+      change_mil = 3
+      max_random_adm = 6
+      max_random_dip = 6
+      max_random_mil = 6
+	    dynasty = "?–Ôb¯e"
+      claim = 100
+      culture = Root
+    }
+  }
+  option = {
+    name = "EDG_flavorMAM.0.b"
+    ai_chance = {
+      factor = 2
+    }
+	kill_ruler = yes
+    add_stability = -1
+  }
+}
+
+country_event = {
+  id = EDG_flavorMAM.1
+  title = "EDG_flavorMAM.1.t"
+  desc = "EDG_flavorMAM.1.d"
+  picture = CIVIL_WAR_eventPicture
+  major = yes
+  trigger = {
+	tag = MAM
+	NOT = { has_country_flag = EDG_EGY_REFORM_OVER_flag }
+	NOT = { has_country_flag = EDG_EGY_REFORM_BEGIN_flag }
+  }
+  
+  option = {
+    name = "EDG_flavorMAM.1.a"
+    ai_chance = {
+      factor = 100
+    }
+    custom_tooltip = EDG_flavorMAM_1.tooltip
+	set_country_flag = EDG_EGY_REFORM_BEGIN_flag
+  }
+}
+
+
+
+country_event = {
+  id = EDG_flavorMAM.3
+  title = "EDG_flavorMAM.3.t"
+  desc = "EDG_flavorMAM.3.d"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  trigger = {
+	owns = 361
+	ai = yes
+	OR = {
+		tag = CIO
+		tag = ALX
+		tag = MAM
+	}
+	OR = {
+	  TUR = {
+		controls = 361
+		war_score_against = {
+			who = ROOT
+			value = 80
+		}
+	  }
+	  RUM = {
+		controls = 361
+		war_score_against = {
+			who = ROOT
+			value = 80
+		}
+	  }
+	}
+	NOT = { has_global_flag = EDG_MAM_DIE_BY_TUR_flag }
+  }
+  
+  option = {
+    name = "EDG_flavorMAM.3.a"
+    ai_chance = {
+      factor = 100
+    }
+	if = {
+	  limit = { TUR = { controls = 361 } }
+		custom_tooltip = EDG_MAM_DIE_BY_TUR.tooltip
+		TUR = { country_event = { id = EDG_flavorMAM.4 } }
+	}
+	else_if = {
+	  limit = { RUM = { controls = 361 } }
+		custom_tooltip = EDG_MAM_DIE_BY_RUM.tooltip
+		RUM = { country_event = { id = EDG_flavorMAM.4 } }
+	}
+	hidden_effect = {
+		set_global_flag = EDG_MAM_DIE_BY_TUR_flag
+	}
+  }
+}
+
+
+country_event = {
+  id = EDG_flavorMAM.4
+  title = "EDG_flavorMAM.4.t"
+  desc = "EDG_flavorMAM.4.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = { 
+  }
+  
+  option = {
+    name = "EDG_flavorMAM.4.a"
+    ai_chance = {
+      factor = 100
+    }
+	custom_tooltip = EDG_MAM_DIE_BY_US.tooltip
+    hidden_effect = {
+      white_peace = FROM
+      inherit = FROM
+      near_east_superregion = {
+        limit = { previous_owner = FROM owned_by = Root } 
+        set_local_autonomy = 95
+        add_province_modifier = {
+          name = EDG_flavorMAM_4_a_province_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+  option = {
+    name = "EDG_flavorMAM.4.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_adm_power = 100
+  }
+}
+country_event = {#?????
+  id = EDG_flavorMAM.5
+  title = "EDG_flavorMAM.5.title"
+  desc = "EDG_flavorMAM.5.desc"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = { 
+    is_year = 1502
+    tag = MAM
+    is_great_power = yes
+    NOT = { exists = RSD }
+    NOT = { stability = 1 }
+    NOT = { mil = 3 }
+    NOT = { dip = 3 }
+    has_reform = egyptian_government_reform
+    is_at_war = no
+    is_subject = no
+  }
+  
+  option = {#????????
+    name = "EDG_flavorMAM.5.a"
+    ai_chance = {
+      factor = 100
+    }
+    change_tag = RSD
+    capital_scope = {
+      change_religion = EDG_Alawite
+      add_reform_center = EDG_Alawite
+      custom_tooltip = EDG_add_reform_center_EDG_Alawite_tooltip
+    }
+    
+    change_religion = EDG_Alawite
+    EDG_flavorMAM_5_A_name_effect = yes
+    if = {
+      limit = { has_dlc = "King of Kings" }
+      set_country_flag = egyptian_government_reform_flag
+    }
+    on_change_tag_effect = yes
+    if = {
+      limit = {
+        has_reform = mamluk_government
+      }
+      add_stability = 1
+    }
+    remove_non_electors_emperors_from_empire_effect = yes
+    if = {
+      limit = {
+        NOT = { government_rank = 2 }
+      }
+      set_government_rank = 2
+    }
+    change_country_color = { color = { 25 25 2 } }
+    if = {
+      limit = { has_reform = mamluk_government }
+      remove_government_reform = mamluk_government
+      #set_legacy_government = administrative_monarchy
+    }
+    362 = {
+      add_base_tax = 1
+      add_base_production = 1
+      move_capital_effect = yes
+    }
+    egypt_region = {
+      limit = {
+        NOT = { owned_by = ROOT }
+      }
+      add_permanent_claim = EGY
+    }
+    set_country_flag = formed_egypt_flag
+    if = {
+      limit = { has_custom_ideas = no }
+      country_event = { id = ideagroups.1 } #Swap Ideas
+    }
+    
+    if = {
+      limit = {
+        any_owned_province = { has_province_modifier = EDG_Fatima_Caliphate_province_modifier }
+      }
+      EDG_shiite_Caliph_interaction_button_3_effect = yes
+    }
+    if = {
+      limit = {
+        any_owned_province = { has_province_modifier = EDG_Abbasid_Caliphate_province_modifier }
+      }
+      EDG_sunni_Caliph_interaction_button_3_effect = yes
+    }
+  }
+  option = {#???????
+    name = "EDG_flavorMAM.5.b"
+    ai_chance = {
+      factor = 0
+    }
+	  add_adm_power = -100
+  }
+}

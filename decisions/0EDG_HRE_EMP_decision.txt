@@ -1,0 +1,799 @@
+country_decisions = {
+	EDG_HRE_decision_emperor_HRE_extra_reform = {#帝国次要改革
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			ai = no
+		}
+		allow = {
+			is_emperor = yes
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_emperor_HRE_extra_reform_tt
+			hidden_effect = {
+				country_event = { id = EDG_flavor_HRE_reform.0 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  NOT = { imperial_influence = 25 }
+			}
+		}
+	}
+
+	EDG_HRE_decision_emperor_Turkey_tax = {#征收土耳其税
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			has_global_flag = EDG_enable_Imperial_Turkey_tax_global_flag
+			is_emperor = yes
+		}
+		allow = {
+			is_emperor = yes
+			NOT = { has_country_modifier = EDG_HRE_decision_emperor_Turkey_tax_flag_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_emperor_Turkey_tax_tt
+			set_global_flag = EDG_Turkey_tax_taxing_global_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SPACE_TT
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					is_emperor = no
+				}
+				country_event = { id = incident_EDG_Imperial_Turkey_tax_event.2 }
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_Turkey_tax_flag_modifier"
+					duration = 3650
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_country_modifier = EDG_HRE_decision_emperor_Turkey_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier
+			}
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.65
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.65
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.65
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+
+	EDG_HRE_decision_emperor_bulgaria_tax = {#征收保加利亚税
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			has_global_flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+			is_emperor = yes
+		}
+		allow = {
+			is_emperor = yes
+			NOT = { has_country_modifier = EDG_HRE_decision_emperor_bulgaria_tax_flag_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_emperor_bulgaria_tax_tt
+			set_global_flag = EDG_bulgaria_tax_taxing_global_flag
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SPACE_TT
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					is_emperor = no
+				}
+				country_event = { id = incident_EDG_Imperial_bulgaria_tax_event.2 }
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_bulgaria_tax_flag_modifier"
+					duration = 3650
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_country_modifier = EDG_HRE_decision_emperor_bulgaria_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier
+			}
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.5
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.45
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.25
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+	
+	EDG_HRE_decision_EMP_Request_Pope_to_be_crowned = {#请求教宗加冕
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			has_ruler_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+		}
+		allow = {
+			exists = PAP
+			is_emperor = yes
+			has_ruler_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+			NOT = { has_ruler_modifier = EDG_flavorHRE_17_modifier }
+			NOT = { has_ruler_modifier = EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_recently_10_years_flag_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_Emperor_uncrowned_by_the_Pope_tt
+			if = {
+				limit = { exists = PAP }
+				PAP = { country_event = { id = EDG_flavorHRE.14 } }
+			}
+			hidden_effect = {
+				add_ruler_modifier = {
+					name = "EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_recently_10_years_flag_modifier"
+					duration = 3650
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 4
+			modifier = {
+			  factor = 0
+			  has_global_flag = EDG_HRE_Elected_Emperor_flag
+			}
+			modifier = {
+			  factor = 0
+			  has_ruler_modifier = EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_recently_10_years_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 0.5
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.5
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.45
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.25
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+	
+	EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_2 = {#自行采用「当选皇帝」头衔
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			has_ruler_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+		}
+		allow = {
+			exists = PAP
+			is_emperor = yes
+			has_ruler_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+			has_ruler_modifier = EDG_flavorHRE_17_modifier
+			imperial_influence = 25
+			NOT = { has_global_flag = EDG_HRE_Elected_Emperor_flag }
+		}
+		effect = {
+			country_event = { id = EDG_flavorHRE.22 }
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_the_event_will_give_the_modifier_tt
+			add_reform_desire = 0.05
+			add_imperial_influence = -5
+			add_papal_influence = -50
+			custom_tooltip = EDG_HRE_Elected_Emperor_TT
+			set_global_flag = EDG_HRE_Elected_Emperor_flag
+			remove_country_modifier = EDG_Emperor_uncrowned_by_the_Pope_modifier
+			
+			PAP = {
+				add_opinion = {
+					who = ROOT
+					modifier = opinion_EDG_HRE_decision_EMP_Request_Pope_to_be_crowned_2
+				}
+				
+			}
+		}
+		ai_will_do = {
+			factor = 2
+			modifier = {
+			  factor = 0
+			  NOT = { has_ruler_modifier = EDG_flavorHRE_17_modifier }
+			}
+			modifier = {
+			  factor = 0.5
+			  	has_opinion = {
+					who = PAP
+					value = 140
+				}
+			}
+			modifier = {
+			  factor = 0.5
+			  	has_opinion = {
+					who = PAP
+					value = 100
+				}
+			}
+			modifier = {
+			  factor = 1.5
+			  	prestige = 75
+			}
+			modifier = {
+			  factor = 1.5
+			  	prestige = 50
+			}
+			modifier = {
+			  factor = 1.5
+			  	prestige = 30
+			}
+			modifier = {
+			  factor = 0.5
+			  	NOT = { stability = 2 }
+			}
+		}
+	}
+
+	EDG_HRE_decision_EMP_Coronation_of_the_heir_to_King_of_Rome = {#为继承人加冕罗马人民的国王
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			#has_heir = yes
+			NOT = { has_heir_flag = EDG_Coronation_of_the_heir_to_King_of_Rome_flag }
+			has_global_flag = EDG_HRE_extra_reform_1_2
+		}
+		allow = {
+			has_global_flag = EDG_HRE_extra_reform_1_2
+			is_emperor = yes
+			has_heir = yes
+			#NOT = { has_heir_flag = EDG_Coronation_of_the_heir_to_King_of_Rome_flag }
+			calc_true_if = {
+				desc = secure_the_imperial_crown.tooltip
+				all_elector = {
+					preferred_emperor = ROOT
+					has_opinion = { who = ROOT value = 100 }
+				}
+				amount = 5
+			}
+			imperial_influence = 5
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_EMP_Coronation_of_the_heir_to_King_of_Rome_tt
+			set_heir_flag = EDG_Coronation_of_the_heir_to_King_of_Rome_flag
+			add_imperial_influence = -5
+			if = {
+				limit = {
+					has_government_attribute = EDG_Coronation_Rome_provide_prestige_ability
+				}
+				add_prestige_or_monarch_power = { amount = 20 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_heir_flag = EDG_Coronation_of_the_heir_to_King_of_Rome_flag
+			}
+		}
+	}
+	
+	
+	EDG_HRE_decision_emperor_Imperial_tax = {#征收帝国税
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			has_global_flag = EDG_HRE_extra_reform_4_1
+		}
+		allow = {
+			has_global_flag = EDG_HRE_extra_reform_4_1
+			is_emperor = yes
+			NOT = { has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_emperor_Imperial_tax_tt
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SPACE_TT
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					is_emperor = no
+				}
+				country_event = { id = incident_EDG_Imperial_tax_event.2 }
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_tax_flag_modifier"
+					duration = 3650
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier
+			}
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.5
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.45
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.25
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+	
+	EDG_HRE_decision_emperor_Imperial_manpower = {#组建帝国军
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			has_global_flag = EDG_HRE_extra_reform_4_3
+		}
+		allow = {
+			has_global_flag = EDG_HRE_extra_reform_4_3
+			is_emperor = yes
+			NOT = { has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier }
+		}
+		effect = {
+			custom_tooltip = EDG_HRE_decision_emperor_Imperial_manpower_tt
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_SPACE_TT
+			every_country = {
+				limit = {
+					is_part_of_hre = yes
+					is_emperor = no
+				}
+				country_event = { id = incident_EDG_Imperial_tax_event.3 }
+			}
+			hidden_effect = {
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_manpower_flag_modifier"
+					duration = 3650
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.5
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.45
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.25
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+	
+	EDG_HRE_decision_emperor_Build_Imperial_Salt_Road = {#修建帝国盐路
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			NOT = { has_global_flag = EDG_HRE_decision_emperor_Build_Imperial_Salt_Road_flag }
+			has_global_flag = EDG_flavorHRE_21_flag
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 44
+				province_id = 45
+				province_id = 53
+				province_id = 1857
+				province_id = 4772
+				province_id = 2996
+			}
+			OR = {
+				owner = {
+					NOT = {
+						has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier
+					}
+				}
+				NOT = { 
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		}
+		allow = {
+			is_emperor = yes
+			44 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			45 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			53 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			1857 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			4772 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			2996 = { OR = { owner = { has_country_modifier = EDG_EMP_Appoint_salt_Manager_action_modifier } country_or_non_sovereign_subject_holds = ROOT } }
+			
+		}
+		effect = {
+			add_imperial_influence = 10
+			set_global_flag = EDG_HRE_decision_emperor_Build_Imperial_Salt_Road_flag
+			custom_tooltip = give_all_province_the_modifier_tooltip
+			tooltip = {
+				add_base_production = 2
+				add_permanent_province_modifier = {
+					name = "EDG_HRE_decision_emperor_Build_Imperial_Salt_Road_province_modifier"
+					duration = -1
+				}
+			}
+			every_country = {
+				limit = {
+					any_owned_province = {
+						region = north_german_region
+					}
+				}
+				country_event = { id = EDG_flavorHRE.20 }
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+			  factor = 0
+			  has_country_modifier = EDG_HRE_decision_emperor_manpower_flag_modifier
+			}
+			modifier = {
+			  factor = 0.5
+			  has_country_modifier = EDG_HRE_decision_emperor_tax_flag_modifier
+			}
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+			modifier = {
+			  factor = 0.5
+			  NOT = { diplomatic_reputation = 8 }
+			}
+			modifier = {
+			  factor = 0.45
+			  NOT = { diplomatic_reputation = 6 }
+			}
+			modifier = {
+			  factor = 0.25
+			  NOT = { diplomatic_reputation = 4 }
+			}
+		}
+	}
+
+	
+	EDG_HRE_decision_emperor_Eliminate_catharism = {#消灭清洁派
+		#major = yes
+		color = { 255 215 0 }
+		provinces_to_highlight = {
+			owner = {
+				religion = EDG_catharism
+			}
+		}
+		potential = {
+			is_emperor = yes
+			religion = catholic
+			NOT = { is_religion_enabled = protestant }
+			has_global_flag = EDG_incident_EDG_incident_second_arles_crusade_event_event_0_a_global_flag
+			NOT = { has_global_flag = EDG_HRE_decision_emperor_Eliminate_catharism_success_flag }
+			NOT = { has_global_flag = EDG_HRE_decision_emperor_Eliminate_catharism_end_flag }
+		}
+		allow = {
+			is_emperor = yes
+			religion = catholic
+			NOT = { is_religion_enabled = protestant }
+			all_country = {
+				NOT = { religion = EDG_catharism }
+			}
+		}
+		effect = {
+			set_global_flag = EDG_HRE_decision_emperor_Eliminate_catharism_success_flag
+			set_global_flag = EDG_HRE_decision_emperor_Eliminate_catharism_end_flag
+			custom_tooltip = EDG_HRE_decision_emperor_Eliminate_catharism_tt
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_incident_EDG_incident_second_arles_crusade_event_event.2 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_the_event_will_give_the_modifier_tt
+			custom_tooltip = EDG_SPACE_TT
+			tooltip = {
+				EDG_Catholic_splend_power_update_effect = yes
+				add_imperial_influence = 10
+				add_reform_desire = -0.1
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_Eliminate_catharism_modifier"
+					duration = 7300
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	
+	EDG_HRE_decision_emperor_Eliminate_Hussites = {#终结胡斯战争
+		#major = yes
+		color = { 255 215 0 }
+		provinces_to_highlight = {
+			is_part_of_hre = yes
+			religion = hussite
+		}
+		potential = {
+			is_emperor = yes
+			religion = catholic
+			has_global_flag = incident_Eliminate_Hussites_event_0_a_global_flag
+			NOT = { is_religion_enabled = protestant }
+			NOT = { has_global_flag = EDG_HRE_decision_emperor_Eliminate_Hussites_success_flag }
+			NOT = { has_global_flag = EDG_HRE_decision_emperor_Eliminate_Hussites_end_flag }
+		}
+		allow = {
+			is_emperor = yes
+			religion = catholic
+			NOT = { is_religion_enabled = protestant }
+			
+			custom_trigger_tooltip = {
+				tooltip = EDG_HRE_decision_emperor_Eliminate_Hussites_trigger_tt
+				all_province = {
+					OR = {
+						is_part_of_hre = no
+						AND = {
+							is_part_of_hre = yes
+							NOT = { religion = hussite }
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			set_global_flag = EDG_HRE_decision_emperor_Eliminate_Hussites_success_flag
+			set_global_flag = EDG_HRE_decision_emperor_Eliminate_Hussites_end_flag
+			custom_tooltip = EDG_HRE_decision_emperor_Eliminate_Hussites_tt
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = incident_Eliminate_Hussites_event.2 }
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_the_event_will_give_the_modifier_tt
+			custom_tooltip = EDG_SPACE_TT
+			tooltip = {
+				EDG_Catholic_splend_power_update_effect = yes
+				add_imperial_influence = 10
+				add_reform_desire = -0.1
+				add_country_modifier = {
+					name = "EDG_HRE_decision_emperor_Eliminate_Hussites_modifier"
+					duration = 7300
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	#
+	EDG_HRE_decision_emperor_privilege_Freie_Stadt = {#给予自由市特权
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			NOT = { has_global_flag = EDG_EMP_privilege_Freie_Stadt_give_already_global_flag }
+			any_country = {
+				is_part_of_hre = yes
+				has_reform = free_city
+				is_emperor = no
+			}
+		}
+		allow = {
+			is_emperor = yes
+			any_country = {
+				is_part_of_hre = yes
+				has_reform = free_city
+			}
+		}
+		effect = {
+			hidden_effect = {
+				set_global_flag = EDG_EMP_privilege_Freie_Stadt_give_already_global_flag
+			}
+			country_event = { id = EDG_flavorHRE.23 }
+			custom_tooltip = EDG_EMP_privilege_Freie_Stadt_tt
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	EDG_HRE_decision_emperor_privilege_elector_prince = {#给予选帝侯特权
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_emperor = yes
+			NOT = { has_global_flag = EDG_EMP_privilege_elector_prince_give_already_global_flag }
+			any_country = {
+				is_part_of_hre = yes
+				is_elector = yes
+				is_emperor = no
+			}
+		}
+		allow = {
+			is_emperor = yes
+			any_country = {
+				is_part_of_hre = yes
+				is_elector = yes
+			}
+		}
+		effect = {
+			hidden_effect = {
+				set_global_flag = EDG_EMP_privilege_elector_prince_give_already_global_flag
+			}
+			country_event = { id = EDG_flavorHRE.25 }
+			custom_tooltip = EDG_EMP_privilege_elector_prince_tt
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	#
+	
+	EDG_HRE_decision_Imperial_Inquisition = {#要求皇帝解决异端问题
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_part_of_hre = yes
+			has_government_attribute = EDG_HRE_Imperial_Inquisition_ability
+			is_emperor = no
+		}
+		allow = {
+			is_part_of_hre = yes
+			has_government_attribute = EDG_HRE_Imperial_Inquisition_ability
+			is_emperor = no
+			NOT = { has_country_modifier = EDG_EMP_Request_to_eliminate_heresy_action_modifier }
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_EMP_Request_to_eliminate_heresy_action_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+	
+	EDG_HRE_decision_duonaoxuehui = {#要求皇帝解决异端问题
+		#major = yes
+		color = { 255 215 0 }
+		potential = {
+			is_part_of_hre = yes
+			is_emperor = yes
+			has_global_flag = EDG_HRE_extra_reform_5_1 
+		}
+		allow = {
+			is_part_of_hre = yes
+			is_emperor = yes
+			NOT = { has_country_modifier = EDG_HRE_decision_duonaoxuehui_modifier }
+			dip_power = 100
+		}
+		effect = {
+			add_dip_power = -100
+			add_country_modifier = {
+				name = EDG_HRE_decision_duonaoxuehui_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 10
+		}
+	}
+}

@@ -1,0 +1,2757 @@
+country_decisions = {
+
+    EDG_ENG_anglo_against_norman_nobles_effect_show_decision = { #查询盎格鲁系佣兵贵族影响力VS诺曼系王军贵族影响力的最大值效果
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            tag = ENG
+            has_reform = EDG_ENG_anglo_against_norman_nobles
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            custom_tooltip = EDG_ENG_anglo_against_norman_nobles_effect_show_decision_tt
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_anglo_against_norman_nobles_effect_show_decision_tt_1_a
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_anglo_against_norman_nobles_effect_show_decision_tt_1_b
+        }
+        ai_will_do = {
+			factor = 0
+		}
+    }
+
+    EDG_ENG_playing_guide_decision = { #英格兰游玩引导
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            tag = ENG
+            has_country_flag = EDG_ENG_playing_guide
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            custom_tooltip = EDG_ENG_flavorENG.10.d
+        }
+    }
+
+    EDG_ENG_mission_1_2_decision_1 = { #紧急加固加莱要塞
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_1_2_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_2_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 87
+        }
+        allow = {
+            ai = no
+            87 = {
+                owned_by = ROOT
+                controlled_by = ROOT
+                has_influencing_fort = yes
+            }
+            mil_power = 50
+            treasury = 50
+            OR = {
+                advisor = castle_master
+                advisor = fortification_expert
+            }
+            is_in_war = {
+                attacker_leader = ROOT
+                defender_leader = FRA
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_2_decision_1_flag
+            add_mil_power = -50
+            add_treasury = -50
+            87 = {
+                add_permanent_province_modifier = {
+                    name = EDG_ENG_mission_1_2_decision_1_modifier
+                    duration = 7300
+                }
+            }
+            hidden_effect = {
+                if = {
+                    limit = { ai = yes }
+                    add_mil_power = 50
+                    87 = {
+                        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+				        cawa_infantry = ROOT
+                    }
+                }
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_1_2_decision_2 = { #发动王室暗卫控制滩头
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_1_2_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_2_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 168
+        }
+        allow = {
+            ai = no
+            168 = {
+                NOT = { owned_by = ROOT }
+                NOT = { controlled_by = ROOT }
+                has_influencing_fort = yes
+            }
+            1271 = {
+                heavy_ships_in_province = 5
+                transports_in_province = 10
+            }
+            has_spy_network_in = {
+	            who = FRA
+	            value = 30
+            }
+            is_in_war = {
+                attacker_leader = ROOT
+                defender_leader = FRA
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_2_decision_2_flag
+            custom_tooltip = EDG_ENG_mission_1_2_decision_2_tt
+            hidden_effect = {
+                168 = {
+                    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+				    cawa_infantry = ROOT
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+            168 = {
+                change_controller = ENG
+            }
+            custom_tooltip = EDG_SPACE_TT
+            add_country_modifier = {
+                name = EDG_ENG_mission_1_2_decision_2_modifier
+                duration = 1825
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_1_2_decision_3 = { #资助法兰西公益同盟
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_1_2_unlock_decision_3_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_2_decision_3_flag }
+        }
+        provinces_to_highlight = { 
+            AND = {
+				is_capital = yes 
+				owner = {
+					is_subject_of = FRA
+                    OR = {
+						is_subject_of_type = appanage
+						is_subject_of_type = EDG_WEAK_appanage
+					}
+                }
+            }
+        }
+        allow = {
+            ai = no
+            FRA = {
+                OR = {
+				    has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+				    have_had_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+                }
+            }
+            OR = {
+                calc_true_if = {
+                    all_country = {
+                        is_subject_of = FRA
+                        OR = {
+                            is_subject_of_type = appanage
+                            is_subject_of_type = EDG_WEAK_appanage
+                        }
+                        OR = {
+                            has_opinion = {
+                                who = ROOT 
+                                value = 25 
+                            }
+                            has_opinion_modifier = {
+                                who = ROOT
+                                modifier = sent_gift
+                            }
+                        }
+                    }
+                    amount = 6
+                }
+                AND = {
+                    FRA = {
+                        has_spy_network_from = {
+                            who = ROOT
+                            value = 50
+                        }
+                    }        
+                    is_in_war = {
+                        attacker_leader = ROOT
+                        defender_leader = FRA
+                    }
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_2_decision_3_flag
+            custom_tooltip = EDG_ENG_mission_1_2_decision_3_tt
+            every_country = {
+                limit = {
+                    is_subject_of = FRA
+                    OR = {
+					    is_subject_of_type = appanage
+					    is_subject_of_type = EDG_WEAK_appanage
+				    }
+                }
+                add_liberty_desire = 125
+            }
+        }
+        ai_will_do = {
+			factor = 0
+		}
+        ai_importance = 0
+    }
+
+    EDG_ENG_mission_1_2_decision_4 = { #重启四国联盟谈判
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_1_2_unlock_decision_4_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_2_decision_4_flag }
+        }
+        provinces_to_highlight = { 
+            owned_by = LOT
+        }
+        allow = {
+            ai = no
+            LOT = {
+                has_opinion = {
+                    who = ROOT
+                    value = 150
+                }
+                is_at_war = no
+            }
+            is_in_war = {
+                attacker_leader = ROOT
+                defender_leader = FRA
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_2_decision_4_flag
+            if = {
+                limit = { NOT = { alliance_with = LOT } }
+                create_alliance = LOT
+            }
+            if = {
+                limit = { NOT = { marriage_with = LOT } }
+                create_marriage = LOT
+            }
+            LOT = {
+                join_all_offensive_wars_of = ROOT
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_1_2_decision_5 = { #放弃诺曼底
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_1_2_unlock_decision_5_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_2_decision_5_flag }
+        }
+        provinces_to_highlight = { 
+            area = normandy_area
+        }
+        allow = {
+            is_in_war = {
+                attacker_leader = ROOT
+                defender_leader = FRA
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_2_decision_5_flag
+            white_peace = FRA
+            FRA = {
+                create_subject = {
+                    subject_type = appanage
+                    subject = ALE
+                }
+            }
+            add_prestige = -10
+            custom_tooltip = EDG_ENG_mission_1_2_decision_5_tt
+            clr_country_flag = EDG_ENG_mission_1_2_unlock_decision_1_flag
+            clr_country_flag = EDG_ENG_mission_1_2_unlock_decision_2_flag
+            clr_country_flag = EDG_ENG_mission_1_2_unlock_decision_3_flag
+            clr_country_flag = EDG_ENG_mission_1_2_unlock_decision_4_flag
+        }
+        ai_will_do = {
+			factor = 0
+		}
+        ai_importance = 0
+    }
+
+    EDG_ENG_mission_1_3_decision_1 = { #将诺曼底领地治所迁往科唐坦
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_1_3_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_3_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            OR = {
+                province_id = 168
+                province_id = 4385
+            }
+        }
+        allow = {
+            168 = {
+                owned_by = ROOT
+                is_core = ROOT
+                has_building = fort_15th
+            }
+            4385 = {
+                NOT = {
+					has_building = fort_15th
+				}
+            }
+            treasury = 1500
+            adm_power = 50
+            dip_power = 50
+            mil_power = 50
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_3_decision_1_flag
+            add_treasury = -1500
+            add_adm_power = -50
+            add_dip_power = -50
+            add_mil_power = -50
+            168 = {
+                remove_building = fort_15th
+            }
+            4385 = {
+                add_building = fort_15th
+                EDG_create_or_add_center_of_trade_level_effect = yes
+            }
+            4385 = {
+				set_great_project_tier_3 = {
+					type = EDG_Mont_Saint_Michel
+				}
+			}
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_1_3_decision_2 = { #拓宽塞纳河口与新建勒阿弗尔港
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_1_3_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_3_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 167
+        }
+        allow = {
+            167 = {
+                owned_by = ROOT
+                is_core = ROOT
+                OR = {
+                    development = 15
+                    num_of_times_improved = 3
+                }
+            }
+            treasury = 200
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_3_decision_2_flag
+            add_treasury = -200
+            167 = {
+                EDG_create_or_add_center_of_trade_level_effect = yes
+                add_base_production = 2
+                add_permanent_province_modifier = {
+                    name = EDG_mission_FRA_5_3_167_province_modifier
+                    duration = -1
+                }
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_1_3_decision_3 = { #授权建立瑟堡海军基地
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_1_3_unlock_decision_3_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_1_3_decision_3_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 4385
+        }
+        allow = {
+            4385 = {
+                owned_by = ROOT
+                is_core = ROOT
+                has_shipyard_building_trigger = yes
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_1_3_decision_3_flag
+            4385 = {
+                add_base_manpower = 2
+                add_permanent_province_modifier = {
+                    name = EDG_mission_FRA_5_3_4385_province_modifier
+                    duration = -1
+                }
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_8_decision_1 = { #法英和解法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_8_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_8_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            region = france_region
+            NOT = { num_of_times_improved = 1 }
+        }
+        allow = {
+            num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 45
+				region = france_region
+                num_of_times_improved = 1
+			}
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_8_decision_1_flag
+            custom_tooltip = EDG_ENG_mission_2_8_decision_1_tt_1
+            hidden_effect = {
+                every_subject_country = {
+                    limit = {  
+                        capital_scope = {
+                            region = france_region 
+                        }
+                    }
+                    add_opinion = {
+                        who = ROOT
+                        modifier = french_english_reconciliation_act_opinion
+                    }
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+            add_prestige_or_monarch_power = { amount = 75 }
+            tooltip = { add_stability = 1 }
+            custom_tooltip = EDG_flavorENG_mission_6_tt_3
+            hidden_effect = {
+                add_stability_or_adm_power = yes
+            }
+            add_country_modifier = {
+                name = EDG_ENG_mission_2_8_decision_1_modifier
+                duration = 7300
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_8_decision_2 = { #削弱法兰西贵族法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_8_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_8_decision_2_flag }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            stability = 1
+            all_subject_country = {
+                OR = {
+                    AND = {
+                        capital_scope = {
+                            region = france_region 
+                        }
+                        has_opinion = {
+                            who = ROOT 
+                            value = 190
+                        }
+                        trust = { 
+                            who = ROOT 
+                            value = 75 
+                        }
+                        NOT = { liberty_desire = 10 }
+                    }
+                    NOT = { 
+                        capital_scope = {
+                            region = france_region 
+                        }
+                    }
+                }
+            }
+            estate_loyalty = {
+                estate = estate_nobles
+                loyalty = 60
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_8_decision_2_flag
+            add_stability = -1
+            custom_tooltip = EDG_SPACE_TT
+            add_country_modifier = {
+                name = EDG_ENG_mission_2_8_decision_2_modifier
+                duration = 7300
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_mission_2_5_tt_2
+			hidden_effect = {
+				every_subject_country = {
+					limit = {
+						is_subject_of_type = EDG_ENG_weak_appanage
+					}
+					ROOT = {
+						create_subject = {
+    						subject_type = EDG_ENG_crown_appanage
+    						subject = PREV
+						}
+					}
+				}
+            }
+            custom_tooltip = EDG_SPACE_TT
+            change_estate_land_share = {
+                estate = estate_nobles
+                share = -5
+            }
+            custom_tooltip = EDG_SPACE_TT
+            change_ruler_stat = {
+				type = adm
+				amount = 1
+			}
+			change_ruler_stat = {
+				type = dip
+				amount = 1
+			}
+            custom_tooltip = EDG_SPACE_TT
+            random_subject_country = {
+                limit = {
+                    capital_scope = {
+                        region = france_region 
+                    }
+                }
+                random_owned_province = {
+					spawn_rebels = {
+						type = pretender_rebels
+						size = 2
+					}
+				}
+            }
+            random_owned_province = {
+                limit = {
+                    region = france_region 
+                }
+				spawn_rebels = {
+					type = pretender_rebels
+					size = 2
+				}
+			}
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_9_decision_1 = { #成立法兰格拉特尔
+        major = yes
+        color = { 110 0 140 }
+        potential = {
+            NOT = { tag = GBR }
+            has_country_flag = EDG_ENG_mission_2_9_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_9_decision_1_flag }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            NOT = { tag = GBR }
+            is_free_or_tributary_trigger = yes
+		    is_nomad = no
+		    is_at_war = no
+            has_country_flag = has_had_EDG_ENG_mission_2_8_decision_1_flag
+            has_country_flag = has_had_EDG_ENG_mission_2_8_decision_2_flag
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_9_decision_1_flag
+            change_tag = AVE
+            on_change_tag_effect = yes
+			restore_country_name_effect = yes
+            AVE = { set_government_rank = 3 }
+            add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_AVE_flag
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_1_decision_1 = { #筹备组建贵族军事院
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_1_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_1_decision_1_flag }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            government_reform_progress = 50
+            mil_power = 50
+            estate_loyalty = {
+                estate = estate_nobles
+                loyalty = 60
+            }
+            OR = {
+                has_reform = EDG_ENG_royal_centralization_politics
+			    have_had_reform = EDG_ENG_royal_centralization_politics
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_1_decision_1_flag
+            add_government_reform = EDG_ENG_anglo_against_norman_nobles
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_2_decision_1 = { #重建切斯特要塞
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_2_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_2_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 4375
+        }
+        allow = {
+            stability = 1
+            treasury = 1500
+            4375 = {
+                is_state = yes
+                is_state_core = ROOT
+                NOT = { local_autonomy = 10 }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_2_decision_1_flag
+            add_treasury = -1500
+            4375 = {
+                add_building = fort_15th
+            }
+            4375 = {
+                set_great_project_tier_3 = {
+					type = EDG_Chester_Castle
+				}
+            }
+            4375 = {
+                add_permanent_province_modifier = {
+                    name = EDG_ENG_mission_5_2_decision_1_pro_modifier
+                    duration = 7300
+                }
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_3_decision_1 = { #重建约克要塞
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_3_unlock_decesion_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_3_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 245
+        }
+        allow = {
+            stability = 1
+            treasury = 200
+            245 = {
+                is_state = yes
+                is_state_core = ROOT
+            }
+            OR = {
+                245 = {
+					has_fort_building_trigger = yes 
+				}
+				has_mil_advisor_2 = yes
+			}
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_3_decision_1_flag
+            country_event = { id = EDG_flavorENG_mission.22 }
+            custom_tooltip = EDG_ENG_mission_5_3_decision_1_event_preview
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_4_decision_1 = { #最危急的时刻
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_4_4_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_4_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            ai = no
+            OR = {
+                NOT = {
+                    is_in_war = {
+                        attacker_leader = SCO
+                        war_score = 20
+                    }
+                }
+                NOT = {
+                    is_in_war = {
+                        attacker_leader = IRE
+                        war_score = 20
+                    }
+                }
+            }
+            capital_scope = {
+                NOT = {
+                    controlled_by = ROOT
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_4_decision_1_flag
+            add_country_modifier = {
+                name = EDG_ENG_mission_4_4_decision_1_modifier
+                duration = 1825
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_4_decision_2 = { #向贵族授予自由否决权
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_4_4_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_4_decision_2_flag }
+            NOT = { has_country_flag = librium_veto }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            ai = no
+            aristocracy_ideas = 1
+			is_at_war = yes
+			war_exhaustion = 10
+			num_of_cities = 6
+        }
+        effect = {
+            set_country_flag = librium_veto
+            set_country_flag = has_had_EDG_ENG_mission_4_4_decision_2_flag
+			add_war_exhaustion = -10
+			add_army_tradition = 30
+			add_mil_power = 100
+			random_owned_province = {
+				limit = { controlled_by = ROOT  }
+				cavalry = ROOT
+				cavalry = ROOT
+				cavalry = ROOT
+				cavalry = ROOT
+				cavalry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+				infantry = ROOT
+			}
+            custom_tooltip = EDG_ENG_mission_4_4_decision_2_tt
+        }
+        ai_will_do = {
+			factor = 1
+		}
+        ai_importance = 1
+    }
+
+    EDG_ENG_mission_4_5_decision_1 = { #巩固传统边疆
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_5_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_5_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            has_country_flag = has_had_EDG_ENG_mission_5_2_decision_1_flag
+            has_country_flag = has_had_EDG_ENG_mission_5_3_decision_1_flag
+            num_of_owned_provinces_with = {
+                value = 5
+                OR = {
+                    has_building = soldier_households
+					has_manpower_building_trigger = yes
+					has_fort_building_trigger = yes
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_5_decision_1_flag
+			add_army_tradition = 15
+            for = {
+				effect = "
+				random_owned_province = {
+					limit = {
+						NOT = { has_province_flag = gained_manpower_flag }
+						OR = {
+							has_building = soldier_households
+							has_manpower_building_trigger = yes
+							has_fort_building_trigger = yes
+						}
+					}
+					set_province_flag = gained_manpower_flag
+				}"
+				amount = 20
+			}
+			for = {
+				custom_tooltip = ave_perfect_construct_barracks_at
+				effect = "
+				random_owned_province = {
+					limit = {
+						has_province_flag = gained_manpower_flag
+						NOT = { has_province_modifier = ave_local_expanded_barracks }
+						OR = {
+							has_building = soldier_households
+							has_manpower_building_trigger = yes
+							has_fort_building_trigger = yes
+						}
+					}
+					add_province_modifier = {
+						name = ave_local_expanded_barracks
+						duration = -1
+					}
+				}"
+				amount = 5
+			}
+			tooltip = {
+				add_province_modifier = {
+					name = ave_local_expanded_barracks
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_province_flag = gained_manpower_flag
+					}
+					clr_province_flag = gained_manpower_flag
+				}
+			}
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_5_decision_2 = { #建立北方事务部
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_5_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_5_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            has_reform = EDG_Northern_Parliament	
+            government_reform_progress = 50
+            dip_power = 100
+            mil_power = 100
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_5_decision_2_flag
+            change_government_reform_progress = -50
+			add_dip_power = -100
+            add_dip_power = -100
+            yorkshire_area = {
+				add_base_production = 1
+				add_base_manpower = 2
+				add_permanent_province_modifier = {
+					name = EDG_capita_area_bloom_2
+					duration = -1
+				}
+			}
+            scottish_marches_area = {
+				add_base_production = 1
+				add_base_manpower = 2
+				add_permanent_province_modifier = {
+					name = EDG_capita_area_bloom_2
+					duration = -1
+				}
+			}
+            add_country_modifier = { 
+                name = EDG_ENG_mission_4_5_decision_2_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_5_decision_3 = { #控制战略前线
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_5_unlock_decision_3_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_5_decision_3_flag }
+        }
+        provinces_to_highlight = { 
+            province_id = 4362
+        }
+        allow = {
+            4362 = {
+                NOT = { controlled_by = ROOT }
+                NOT = { country_or_non_sovereign_subject_holds = ROOT }
+                has_fort_building_trigger = yes
+            }
+            4362 = {
+                num_of_units_in_province = {
+                    who = ROOT
+                    #type = all
+                    amount = 10
+                }
+            }
+            OR = {
+                advisor = siege_engineer
+                advisor = fortification_expert
+                advisor = castle_master
+            }
+            mil_power = 50
+            is_in_war = {
+                attacker_leader = ROOT
+                defender_leader = SCO
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_5_decision_3_flag
+            add_mil_power = -50
+            4362 = {
+                change_controller = ROOT
+            }
+            add_country_modifier = {
+				name = "EDG_army_enthusiasm_22_modifier"
+				duration = 7300
+			}
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_5_decision_1 = { #爱尔兰王冠法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_5_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_5_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            OR = {
+				area = munster_area
+				area = connacht_area
+				area = leinster_area
+				area = ulster_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+        }
+        allow = {
+            munster_area = { 
+                type = all
+                owned_by = ROOT 
+            }
+		    connacht_area = { 
+                type = all
+                owned_by = ROOT 
+            }
+		    ulster_area = { 
+                type = all
+                owned_by = ROOT 
+            }
+		    leinster_area = { 
+                type = all
+                owned_by = ROOT 
+            }
+		    NOT = { exists = IRE }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_5_decision_1_flag
+            custom_tooltip = crown_of_ireland_act_at
+		    hidden_effect = {
+			    munster_area = {
+				    add_base_production = 1
+			    }
+			    connacht_area = {
+				    add_base_production = 1
+			    }
+			    ulster_area = {
+				    add_base_production = 1
+			    }
+			    leinster_area = {
+				    add_base_production = 1
+			    }
+		    }
+            country_event = {
+			    id = flavor_gbr.6
+		    }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_9_decision_1 = { #成立大不列颠
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            NOT = { tag = AVE }
+            has_country_flag = EDG_ENG_mission_4_9_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_4_9_decision_1_flag }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            NOT = { tag = AVE }
+            is_free_or_tributary_trigger = yes
+		    is_nomad = no
+		    is_at_war = no
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_4_9_decision_1_flag
+            change_tag = GBR
+            on_change_tag_effect = yes
+			restore_country_name_effect = yes
+            GBR = { set_government_rank = 3 }
+            add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 25
+			set_country_flag = formed_GBR_flag
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_5_decision_1 = { #威尔士条例法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_5_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_5_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+            area = wales_area
+            OR = {
+                devastation = 1
+                unrest = 1
+                local_autonomy = 1
+                nationalism = 1
+                NOT = { num_of_times_improved = 3 }
+            }
+        }
+        allow = {
+            wales_area = {
+                type = all
+                NOT = { devastation = 1 }
+                NOT = { unrest = 1 }
+                NOT = { local_autonomy = 1 }
+                num_of_times_improved = 3
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_5_decision_1_flag
+            wales_area = {
+			    add_base_tax = 1
+			    add_base_production = 1
+			    add_base_manpower = 1
+			    add_province_modifier = {
+				    name = wales_act
+				    duration = -1
+			    }
+		    }
+            custom_tooltip = EDG_SPACE_TT
+            add_accepted_culture_or_dip_power = { culture = welsh }
+            custom_tooltip = EDG_flavorENG_mission_6_tt_2
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_5_decision_2 = { #为继承人加冕威尔士亲王
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_5_unlock_decision_2_flag
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            has_heir = yes
+            NOT = { heir_adm = 6 }
+            NOT = { heir_dip = 6 }
+            NOT = { heir_mil = 6 }
+            NOT = { has_heir_flag = has_had_EDG_ENG_mission_5_5_decision_2_flag }
+        }
+        effect = {
+            set_heir_flag = has_had_EDG_ENG_mission_5_5_decision_2_flag
+            add_heir_claim = 50
+            change_heir_adm = 1
+            change_heir_dip = 1
+            change_heir_mil = 1
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_11_decision_1 = { #国有银行法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_11_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_11_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+           stability = 1
+           adm_power = 150
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_11_decision_1_flag
+            add_adm_power = -150
+		    add_stability = -1
+            add_country_modifier = {
+                name = EDG_ENG_mission_2_11_decision_1_modifier
+                duration = 9125
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_14_decision_1 = { #布匹法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_14_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_14_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+           trading_part = {
+		        trade_goods = cloth
+			    value = 0.25
+		    }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_14_decision_1_flag
+            change_price = {
+			    trade_goods = cloth
+			    key = eng_cloth
+			    value = 0.5
+			    duration = -1
+		    }
+		    add_mercantilism = 5
+            add_country_modifier = {
+                name = EDG_ENG_mission_2_14_decision_1_modifier
+                duration = 7300
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_14_decision_2 = { #宣告布匹生产霸权
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_14_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_2_14_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            OR = {
+                trading_part = {
+		            trade_goods = cloth
+			        value = 0.5
+		        }
+                trading_bonus = {
+	                trade_goods = cloth
+	                value = yes
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_2_14_decision_2_flag
+		    add_mercantilism = 10
+            custom_tooltip = EDG_SPACE_TT
+            add_country_modifier = {
+                name = EDG_ENG_mission_2_14_decision_2_modifier
+                duration = -1
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_mission_2_14_decision_2_tt_1
+            tooltip = {
+                add_country_modifier = {
+                    name = EDG_ENG_mission_2_14_decision_2_debuff_modifier
+                    duration = -1
+                }
+            }
+            set_global_flag = EDG_ENG_mission_2_14_decision_2_flag_global
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_mission_2_14_decision_2_unlock_diplo_act_tt
+            set_country_flag = EDG_ENG_mission_2_14_decision_2_unlock_diplo_act_flag
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_12_decision_1 = { #议会行政法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_12_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_12_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            current_size_of_parliament = 20
+            num_of_owned_provinces_with = {
+                value = 10
+                development = 15
+                has_seat_in_parliament = yes
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_12_decision_1_flag
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_12_decision_1_modifier
+                duration = -1
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_mission_3_12_decision_1_tt_1
+            tooltip = {
+                add_province_modifier = {
+					name = gov_buffed_parliament_seat
+					duration = -1
+				}
+            }
+            hidden_effect = {
+                every_owned_province = {
+				    limit = {
+					    has_seat_in_parliament = yes
+				    }
+				    add_province_modifier = {
+					    name = gov_buffed_parliament_seat
+					    duration = -1
+				    }
+			    }
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_12_decision_2 = { #王室直辖法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_12_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_12_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            crown_land_share = 50
+            OR = {
+                crown_land_share = 70
+                AND = {
+                    adm = 5
+                    dip = 5
+                    mil = 5
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_12_decision_2_flag
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_12_decision_2_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_14_decision_1 = { #完善皇家纹章院法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_14_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_14_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            crown_land_share = 50
+            stability = 1
+            adm = 4
+            dip = 4
+            NOT = { corruption = 1 }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_14_decision_1_flag
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_14_decision_1_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_13_decision_1 = { #任命国务大臣
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_13_unlock_decision_1_flag
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_4_13_decision_1_modifier }
+        }
+        effect = {
+            country_event = {
+			    id = flavor_gbr.15
+			    tooltip = appointment_of_state_minister_tt
+		    }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_4_13_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+    
+    EDG_ENG_mission_3_15_decision_1 = { #解除印刷业枷锁法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_15_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_15_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            adm_power = 200
+            stability = 2
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_15_decision_1_flag
+            add_adm_power = -100
+            custom_tooltip = EDG_SPACE_TT
+            add_stability = -1
+            custom_tooltip = EDG_SPACE_TT
+            change_innovativeness = 10
+            custom_tooltip = EDG_SPACE_TT
+            add_estate_loyalty = {
+		    	estate = estate_burghers
+			    loyalty = 20
+		    }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_15_decision_1_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_15_decision_2 = { #通过保释法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_15_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_15_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { average_unrest = 2 }
+            OR = {
+                is_year = 1483
+                AND = {
+                    is_year = 1460
+                    adm = 4
+                    dip = 4
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_15_decision_2_flag
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_15_decision_2_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_16_decision_1 = { #推行教育运动法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_16_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_16_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            OR = {
+                is_year = 1600
+                AND = {
+                    is_year = 1500
+                    adm = 4
+                    dip = 4
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_16_decision_1_flag
+            custom_tooltip = EDG_SPACE_TT
+            change_innovativeness = 10
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_16_decision_1_modifier
+                duration = -1
+            }
+
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_16_decision_2 = { #为皇家科学院拨款
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_16_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_3_16_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            249 = {
+                owned_by = ROOT
+                is_state_core = ROOT
+                development = 30
+            }
+            treasury = 1500
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_3_16_decision_2_flag
+            add_treasury = -1500
+            custom_tooltip = EDG_SPACE_TT
+            249 = {
+                set_great_project_tier_3 = {
+					type = EDG_Aier_Royal_Academy_of_Sciences
+				}
+            }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_16_decision_2_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_12_decision_1 = { #宗教权利法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_12_unlock_decision_1_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_12_decision_1_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { religion = catholic }
+            NOT = {
+                estate_influence = {
+                    estate = estate_church
+                    influence = 50 
+                }
+            }
+            NOT = {
+                PAP = {
+                    has_opinion = {
+                        who = ROOT
+                        value = 0
+                    }
+                }
+            }
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_12_decision_1_flag
+            random_owned_province = {
+                spawn_rebels = {
+                    type = catholic_rebels
+                    size = 2
+                }
+            }
+            capital_scope = {
+                spawn_rebels = {
+                    type = catholic_rebels
+                    size = 2
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_12_decision_1_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_12_decision_2 = { #黑匪法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_12_unlock_decision_2_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_12_decision_2_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { religion = catholic }
+            NOT = { average_unrest = 2 }
+            has_adm_advisor_3 = yes
+            has_mil_advisor_3 = yes
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_12_decision_2_flag
+            random_owned_province = {
+                spawn_rebels = {
+                    type = heretic_rebels
+                    size = 2
+                }
+            }
+            capital_scope = {
+                spawn_rebels = {
+                    type = heretic_rebels
+                    size = 2
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_12_decision_2_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_12_decision_3 = { #巫术法案
+        major = yes
+        color = { 133 62 61 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_12_unlock_decision_3_flag
+            NOT = { has_country_flag = has_had_EDG_ENG_mission_5_12_decision_3_flag }
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { religion = catholic }
+            inquisitor = 3
+            religious_unity = 0.5
+            adm_power = 100
+            num_of_missionaries = 3
+        }
+        effect = {
+            set_country_flag = has_had_EDG_ENG_mission_5_12_decision_3_flag
+            add_adm_power = -100
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_12_decision_3_modifier
+                duration = -1
+            }
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_army_motion_open_button = { #御前军事会议陆军议案开关：开
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_17_unlock_decision_flag
+            NOT = { has_country_flag = has_had_open_army_motion }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            set_country_flag = has_had_open_army_motion
+        }
+        ai_will_do = {
+			factor = 100
+		}
+    }
+
+    EDG_ENG_mission_army_motion_close_button = { #御前军事会议陆军议案开关：关
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_3_17_unlock_decision_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            clr_country_flag = has_had_open_army_motion
+        }
+        ai_will_do = {
+			factor = 0
+		}
+    }
+
+    EDG_ENG_mission_3_19_decision_1 = { #陆军改革法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_19_unlock_decision_1_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_19_decision_1_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_19_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_19_decision_2 = { #陆军主力军法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_19_unlock_decision_2_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_19_decision_2_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_19_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_19_decision_3 = { #陆军纪律法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_19_unlock_decision_3_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_19_decision_3_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_19_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_18_decision_1 = { #陆军军事调动法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_18_unlock_decision_1_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_2_18_decision_1_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_2_18_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_18_decision_2 = { #陆军皇家动员法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_18_unlock_decision_2_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_2_18_decision_2_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_2_18_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_2_18_decision_3 = { #陆军强制征兵法案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_2_18_unlock_decision_3_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_2_18_decision_3_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+            add_yearly_manpower = 1
+		    add_country_modifier = {
+                name = EDG_ENG_mission_2_18_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_20_decision_1 = { #高等陆军部议案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_20_unlock_decision_1_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_20_decision_1_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_20_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_20_decision_2 = { #鼓励陆军长征议案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_20_unlock_decision_2_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_20_decision_2_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_20_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_3_20_decision_3 = { #陆军职业化议案
+        major = yes
+        color = { 255 215 0 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_20_unlock_decision_3_flag
+            has_country_flag = has_had_open_army_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_3_20_decision_3_modifier }
+            mil_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            navy_tradition = 5
+        }
+        effect = {
+            add_mil_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_navy_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_army_tradition = 5
+            add_yearly_manpower = 1
+		    add_country_modifier = {
+                name = EDG_ENG_mission_3_20_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_navy_motion_open_button = { #御前军事会议海军议案开关：开
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_3_17_unlock_decision_flag
+            NOT = { has_country_flag = has_had_open_navy_motion }
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            set_country_flag = has_had_open_navy_motion
+        }
+        ai_will_do = {
+			factor = 100
+		}
+    }
+
+    EDG_ENG_mission_navy_motion_close_button = { #御前军事会议海军议案开关：关
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            ai = no
+            has_country_flag = EDG_ENG_mission_3_17_unlock_decision_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { }
+        allow = {
+            always = yes
+        }
+        effect = {
+            clr_country_flag = has_had_open_navy_motion
+        }
+        ai_will_do = {
+			factor = 0
+		}
+    }
+
+    EDG_ENG_mission_4_18_decision_1 = { #海军军事调动法案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_18_unlock_decision_1_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_4_18_decision_1_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_4_18_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_18_decision_2 = { #海军皇家动员议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_18_unlock_decision_2_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_4_18_decision_2_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_4_18_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_4_18_decision_3 = { #海军强制征兵议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_4_18_unlock_decision_3_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_4_18_decision_3_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            add_yearly_sailors = 2
+		    add_country_modifier = {
+                name = EDG_ENG_mission_4_18_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_19_decision_1 = { #海军火力法案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_19_unlock_decision_1_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_19_decision_1_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_19_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_19_decision_2 = { #海军主力舰法案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_19_unlock_decision_2_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_19_decision_2_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_19_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_19_decision_3 = { #海军纪律法案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_19_unlock_decision_3_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_19_decision_3_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_19_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_20_decision_1 = { #高等海军部议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_20_unlock_decision_1_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_20_decision_1_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_20_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_20_decision_2 = { #鼓励海军远洋议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_20_unlock_decision_2_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_20_decision_2_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_20_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_20_decision_3 = { #海军职业化议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_20_unlock_decision_3_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_20_decision_3_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_20_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_22_decision_1 = { #扩大海军军校议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_22_unlock_decision_1_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_22_decision_1_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            custom_tooltip = EDG_SPACE_TT
+            add_yearly_sailors = 5
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_22_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_22_decision_2 = { #加强海军军官培养议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_22_unlock_decision_2_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_22_decision_2_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            custom_tooltip = EDG_SPACE_TT
+            create_admiral = { tradition = 60 }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_22_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_22_decision_3 = { #改善造船技术议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_22_unlock_decision_3_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_22_decision_3_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            custom_tooltip = EDG_SPACE_TT
+            create_admiral = { tradition = 60 }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_22_decision_3_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_23_decision_1 = { #海军津贴议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_23_unlock_decision_1_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_23_decision_1_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_23_decision_1_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+
+    EDG_ENG_mission_5_23_decision_2 = { #木墙补贴议案
+        major = yes
+        color = { 138 218 255 }
+        potential = {
+            has_country_flag = EDG_ENG_mission_5_23_unlock_decision_2_flag
+            has_country_flag = has_had_open_navy_motion
+        }
+        provinces_to_highlight = { 
+        }
+        allow = {
+            NOT = { has_country_modifier = EDG_ENG_mission_5_23_decision_2_modifier }
+            dip_power = 10
+            government_reform_progress = 5
+            prestige = 5
+            legitimacy_equivalent = 5
+            army_tradition = 5
+        }
+        effect = {
+            add_dip_power = -10
+            add_years_of_income = -0.05
+            change_government_reform_progress = -5
+            add_prestige = -5
+            add_legitimacy = -5
+            add_army_tradition = -5
+            add_corruption = 0.1
+            custom_tooltip = EDG_SPACE_TT
+            add_navy_tradition = 5
+            custom_tooltip = EDG_SPACE_TT
+            create_admiral = { tradition = 60 }
+            custom_tooltip = EDG_SPACE_TT
+		    add_country_modifier = {
+                name = EDG_ENG_mission_5_23_decision_2_modifier
+                duration = 1825
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_ENG_decision_can_be_repeated
+        }
+        ai_will_do = {
+			factor = 100
+		}
+        ai_importance = 400
+    }
+}

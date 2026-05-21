@@ -1,0 +1,2114 @@
+country_decisions = {
+	EDG_TIM_skull_vessel = {
+		color = { 235 38 38 }
+		major = yes
+
+		potential = {
+			or = {
+				tag = TIM
+				was_tag = TIM
+			}
+		}
+
+		allow = {
+			always = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			custom_tooltip = EDG_TIM_skull_vessel_tooltip
+		}
+	}
+
+	EDG_form_timurid = {
+		major = yes
+
+		provinces_to_highlight = {
+			province_id = 454
+		}
+
+		potential = {
+			OR = {
+				tag = QOM
+				tag = KHO
+				tag = FRS
+				tag = YZD
+				tag = AFH
+				tag = TRS
+				tag = HSS
+				tag = KHI
+				tag = KOK
+				tag = YM4
+				tag = YM5
+				tag = YM8
+			}
+		}
+
+		allow = {
+			NOT = { exists = TIM }
+			is_subject = no
+			OR = {
+				culture_group = iranian
+				culture_group = altaic
+			}
+			religion_group = muslim
+			owns_core_province = 454
+			total_development = 100
+			PER = {
+				OR = {
+					exists = no
+					NOT = { was_tag = TIM }
+				}
+			}
+			YUA = {
+				OR = {
+					exists = no
+					NOT = { was_tag = TIM }
+				}
+			}
+			MGE = {
+				OR = {
+					exists = no
+					NOT = { was_tag = TIM }
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		ai_importance = 600
+
+		effect = {
+			set_dynasty = TIM
+			change_tag = TIM
+			hidden_effect = {
+				save_global_event_target_as = gurkani_target
+			}
+			swap_non_generic_missions = yes
+			change_primary_culture = uzbehk
+			EDG_change_monarch_culture_effect = {
+				culture = uzbehk
+			}
+			454 = {
+				move_capital_effect = yes
+			}
+			remove_non_electors_emperors_from_empire_effect = yes
+			change_government = monarchy
+			if = {
+				limit = {
+					NOT = {
+						has_government_mechanic = EDG_TIM_dread
+					}
+				}
+				add_government_reform = EDG_TIM_Gurkani
+			}
+			add_country_modifier = {
+				name = centralization_modifier
+				duration = 3650
+			}
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = {
+					id = ideagroups.1
+				}
+			}
+			set_country_flag = formed_timurids_flag
+		}
+	}
+
+	EDG_TIM_form_mongol_empire = {
+		major = yes
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = mongolia_region
+					is_empty = no
+				}
+				region = central_asia_region
+				region = crimea_region
+				AND = {
+					superregion = china_superregion
+					is_empty = no
+				}
+				region = persia_region
+				region = khorasan_region
+				province_id = 295
+				province_id = 280
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_son_of_heaven_flag
+			NOT = {
+				has_country_flag = EDG_TIM_formed_mongol_empire_flag
+			}
+			NOT = {
+				has_country_flag = mongol_empire_flag
+			}
+		}
+
+		allow = {
+			mongolia_region = {
+				type = all
+				OR = {
+					is_empty = yes
+					owned_by = ROOT
+				}
+			}
+			central_asia_region = {
+				type = all
+				owned_by = ROOT
+			}
+			crimea_region = {
+				type = all
+				owned_by = ROOT
+			}
+			china_superregion = {
+				type = all
+				OR = {
+					is_empty = yes
+					owned_by = ROOT
+				}
+			}
+			persia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			khorasan_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			295 = { country_or_non_sovereign_subject_holds = ROOT }
+			280 = { country_or_non_sovereign_subject_holds = ROOT }
+			is_subject = no
+			is_at_war = no
+			reform_level = 9
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_formed_mongol_empire_flag
+			if = {
+				limit = {
+					OR = {
+						tag = TIM
+						tag = YUA
+					}
+				}
+				set_country_flag = mongol_empire_flag
+				change_tag = MGE
+				override_country_name = GREAT_GURKANI_ULUS_STRING
+				hidden_effect = {
+					save_global_event_target_as = gurkani_target
+				}
+				add_country_modifier = {
+					name = centralization_modifier
+					duration = 3650
+				}
+				if = {
+					limit = {
+						has_custom_ideas = no
+					}
+					country_event = {
+						id = ideagroups.1
+					}
+				}
+			}
+			add_government_reform = EDG_TIM_Great_Mongol_State
+		}
+	}
+
+	EDG_TIM_PER_change_color_to_red = {
+		potential = {
+			OR = {
+				tag = PER
+				tag = MGE
+			}
+			was_tag = TIM
+			NOT = {
+				has_country_flag = EDG_TIM_PER_color_is_red_flag
+			}
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_PER_color_is_red_flag
+			change_country_color = { 
+				color = { 213 0 39 }
+			}
+		}
+	}
+
+	EDG_TIM_MGE_restore_color = {
+		potential = {
+			tag = MGE
+			was_tag = TIM
+			has_country_flag = EDG_TIM_PER_color_is_red_flag
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			clr_country_flag = EDG_TIM_PER_color_is_red_flag
+			restore_country_color = yes
+		}
+	}
+
+	EDG_TIM_PER_restore_color = {
+		potential = {
+			tag = PER
+			was_tag = TIM
+			has_country_flag = EDG_TIM_PER_color_is_red_flag
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			clr_country_flag = EDG_TIM_PER_color_is_red_flag
+			restore_country_color = yes
+		}
+	}
+
+	EDG_TIM_rename_to_gurkani = {
+		potential = {
+			or = {
+				tag = TIM
+				was_tag = TIM
+			}
+			NOT = {
+				OR = {
+					tag = YUA
+					has_country_flag = EDG_TIM_islamic_chinese_dynasty_flag
+					tag = MGE
+				}
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_name_is_gurkani_flag
+			}
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					NOT = {
+						has_country_flag = EDG_TIM_disaster_sucession_crisis_end_flag
+					}
+					is_subject = yes
+					NOT = {
+						total_development = 200
+					}
+				}
+			}
+		}
+
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			override_country_name = GURKANI_STRING
+			set_country_flag = EDG_TIM_name_is_gurkani_flag
+		}
+	}
+
+	EDG_TIM_rename_to_timurid = {
+		potential = {
+			tag = TIM
+			EDG_TIM_has_rename_flag_trigger = yes
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			restore_country_name = yes
+		}
+	}
+
+	EDG_TIM_rename_to_persia = {
+		potential = {
+			tag = PER
+			was_tag = TIM
+			EDG_TIM_has_rename_flag_trigger = yes
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			restore_country_name = yes
+		}
+	}
+
+	EDG_TIM_rename_to_iran_and_turan = {
+		potential = {
+			tag = PER
+			was_tag = TIM
+			has_country_flag = EDG_TIM_can_rename_to_iran_and_turan_flag
+			NOT = {
+				has_country_flag = EDG_TIM_name_is_iran_and_turan_flag
+			}
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			override_country_name = IRAN_AND_TURAN_STRING
+			set_country_flag = EDG_TIM_name_is_iran_and_turan_flag
+		}
+	}
+
+	EDG_TIM_rename_to_yi = {
+		potential = {
+			tag = TIM
+			has_country_flag = EDG_TIM_islamic_chinese_dynasty_flag
+			has_country_flag = EDG_TIM_can_rename_to_yi_flag
+			NOT = {
+				has_country_flag = EDG_TIM_name_is_yi_flag
+			}
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			override_country_name = GREAT_YI_STRING
+			set_country_flag = EDG_TIM_name_is_yi_flag
+		}
+	}
+
+	EDG_TIM_rename_to_hui = {
+		potential = {
+			tag = TIM
+			has_country_flag = EDG_TIM_islamic_chinese_dynasty_flag
+			has_country_flag = EDG_TIM_can_rename_to_hui_flag
+			NOT = {
+				has_country_flag = EDG_TIM_name_is_hui_flag
+			}
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			override_country_name = GREAT_HUI_STRING
+			set_country_flag = EDG_TIM_name_is_hui_flag
+		}
+	}
+
+	EDG_TIM_rename_to_mu = {
+		potential = {
+			tag = TIM
+			has_country_flag = EDG_TIM_islamic_chinese_dynasty_flag
+			has_country_flag = EDG_TIM_can_rename_to_mu_flag
+			NOT = {
+				has_country_flag = EDG_TIM_name_is_mu_flag
+			}
+		}
+
+		allow = {
+			is_at_war = no
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+		
+		effect = {
+			EDG_TIM_clear_rename_flags_effect = yes
+			override_country_name = GREAT_MU_STRING
+			set_country_flag = EDG_TIM_name_is_mu_flag
+		}
+	}
+
+	EDG_TIM_bribe_badaxsan = {
+		major = yes
+		color = { 235 38 38 }
+		provinces_to_highlight = {
+			owned_by = BDX
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_bribe_badaxsan_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+		}
+
+		allow = {
+			OR = {
+				hidden_trigger = {
+					ai = yes
+				}
+				treasury = 100
+			}
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+		ai_importance = 100
+
+		effect = {
+			if = {
+				limit = {
+					ai = no
+				}
+				add_treasury = -100
+			}
+			BDX = {
+				country_event = {
+					id = EDG_BDX_events.2
+					days = 10
+				}
+			}
+			custom_tooltip = EDG_TIM_bribe_badaxsan_tt
+			tooltip = {
+				BDX = {
+					add_treasury = 100
+					add_liberty_desire = -50
+				}
+			}
+			set_country_flag = EDG_TIM_bribe_badaxsan_flag
+		}
+	}
+	
+	EDG_TIM_bribe_khiva = {
+		major = yes
+		color = { 235 38 38 }
+		provinces_to_highlight = {
+			owned_by = KHI
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_bribe_khiva_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 400
+		}
+		ai_importance = 100
+
+		effect = {
+			set_country_flag = EDG_TIM_bribe_khiva_flag
+			country_event = {
+				id = EDG_TIM_events.7
+			}
+		}
+	}
+
+	EDG_TIM_send_envoy_to_golden_horde = {
+		major = yes
+		color = { 235 38 38 }
+		provinces_to_highlight = {
+			owned_by = GOL
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_send_envoy_to_golden_horde_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+			NOT = {
+				has_global_flag = EDG_TIM_shy_will_not_intervene_in_succession_crisis_global_flag
+			}
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				GOL = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+			}
+		}
+		ai_importance = 400
+
+		effect = {
+			if = {
+				limit = {
+					ai = no
+				}
+				dip_power_cost = 100
+			}
+			GOL = {
+				country_event = {
+					id = EDG_TIM_events.12
+					days = 30
+				}
+			}
+			custom_tooltip = EDG_TIM_send_envoy_tooltip
+			set_country_flag = EDG_TIM_send_envoy_to_golden_horde_flag
+		}
+	}
+
+	EDG_TIM_send_envoy_to_chagatai = {
+		major = yes
+		color = { 235 38 38 }
+		provinces_to_highlight = {
+			owned_by = CHG
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_send_envoy_to_chagatai_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+			NOT = {
+				has_global_flag = EDG_TIM_shy_will_not_intervene_in_succession_crisis_global_flag
+			}
+		}
+
+		allow = {
+		}
+
+		ai_will_do = {
+			factor = 400
+			modifier = {
+				factor = 0
+				CHG = {
+					NOT = {
+						has_opinion = {
+							who = PREV
+							value = 0
+						}
+					}
+				}
+			}
+		}
+		ai_importance = 400
+
+		effect = {
+			if = {
+				limit = {
+					ai = no
+				}
+				dip_power_cost = 100
+			}
+			CHG = {
+				country_event = {
+					id = EDG_TIM_events.15
+					days = 15
+				}
+			}
+			custom_tooltip = EDG_TIM_send_envoy_tooltip
+			set_country_flag = EDG_TIM_send_envoy_to_chagatai_flag
+		}
+	}
+	
+	EDG_TIM_promise_loyalty = {
+		major = yes
+		color = { 235 38 38 }
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_promise_loyalty_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+		}
+
+		allow = {
+			mil_power = 50
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+		ai_importance = 100
+
+		effect = {
+			mil_power_cost = 50
+			add_yearly_manpower = 5
+			add_country_modifier = {
+				name = EDG_TIM_promise_loyalty_modifier
+				duration = 1825
+			}
+			custom_tooltip = EDG_TIM_promise_loyalty_tooltip
+			set_country_flag = EDG_TIM_promise_loyalty_flag
+		}
+	}
+
+	EDG_TIM_purge_opposition = {
+		major = yes
+		color = { 235 38 38 }
+
+		potential = {
+			has_country_flag = EDG_TIM_unlock_handle_succession_crisis_flag
+			NOT = {
+				has_country_flag = EDG_TIM_purge_opposition_flag
+			}
+			NOT = {
+				has_country_flag = EDG_TIM_disaster_sucession_crisis_flag
+			}
+		}
+
+		allow = {
+			stability = 0
+		}
+
+		effect = {
+			add_stability = -1
+			KOK = {
+				add_country_modifier = {
+					name = EDG_TIM_purge_oppisition_modifier
+					duration = 1825
+				}
+			}
+			set_country_flag = EDG_TIM_purge_opposition_flag
+		}
+	}
+
+	EDG_TIM_missionary_by_sword = {
+		color = { 235 38 38 }
+		provinces_to_highlight = {
+			superregion = persia_superregion
+			owned_by = ROOT
+			NOT = {
+				religion_group = muslim
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_enable_missionary_by_sword_decision_flag
+		}
+
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					AND = {
+						religious_unity = 0.9
+						NOT = {
+							mil_power = 400
+						}
+					}
+					AND = {
+						NOT = { religious_unity = 0.9 }
+						religious_unity = 0.75
+						NOT = {
+							mil_power = 300
+						}
+					}
+					AND = {
+						NOT = { religious_unity = 0.75 }
+						religious_unity = 0.6
+						NOT = {
+							mil_power = 200
+						}
+					}
+				}
+				
+			}
+		}
+
+		allow = {
+			mil_power = 100
+			persia_superregion = {
+				owned_by = ROOT
+				NOT = {
+					religion_group = muslim
+				}
+			}
+		}
+
+		effect = {
+			mil_power_cost = 100
+			EDG_TIM_add_dread = { amount = 5 }
+			custom_tooltip = EDG_TIM_missionary_by_sword_tooltip
+			tooltip = {
+				custom_tooltip = EDG_CHANGE_PROVINCE_RELIGION_TO_ROOT_TT
+				EDG_TIM_plunder_province_effect = {
+					development = -1
+					gain_money = yes
+				}
+			}
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						superregion = persia_superregion
+						NOT = {
+							religion_group = muslim
+						}
+					}
+					EDG_TIM_plunder_province_effect = {
+						development = -1
+						gain_money = yes
+						change_religion = yes
+					}
+				}
+				random_owned_province = {
+					limit = {
+						superregion = persia_superregion
+						NOT = {
+							religion_group = muslim
+						}
+					}
+					EDG_TIM_plunder_province_effect = {
+						development = -1
+						gain_money = yes
+						change_religion = yes
+					}
+				}
+				random_owned_province = {
+					limit = {
+						superregion = persia_superregion
+						NOT = {
+							religion_group = muslim
+						}
+					}
+					EDG_TIM_plunder_province_effect = {
+						development = -1
+						gain_money = yes
+						change_religion = yes
+					}
+				}
+			}
+		}
+	}
+
+	EDG_TIM_enable_auto_raze = {
+		potential = {
+			has_country_flag = EDG_TIM_EDG_TIM_mission_blood_and_fire_flag
+			NOT = {
+				has_country_flag = EDG_TIM_raze_on_capture_flag
+			}
+		}
+
+		allow = {
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_raze_on_capture_flag
+		}
+	}
+
+	EDG_TIM_disable_auto_raze = {
+		potential = {
+			has_country_flag = EDG_TIM_EDG_TIM_mission_blood_and_fire_flag
+			has_country_flag = EDG_TIM_raze_on_capture_flag
+		}
+
+		allow = {
+		}
+
+		effect = {
+			clr_country_flag = EDG_TIM_raze_on_capture_flag
+		}
+	}
+
+	EDG_TIM_enable_elephant_model = {
+		potential = {
+			mission_completed = EDG_TIM_mission_elephant
+			NOT = {
+				has_country_flag = EDG_TIM_enable_elephant_model_flag
+			}
+		}
+
+		allow = {
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_enable_elephant_model_flag
+		}
+	}
+
+	EDG_TIM_disable_elephant_model = {
+		potential = {
+			mission_completed = EDG_TIM_mission_elephant
+			has_country_flag = EDG_TIM_enable_elephant_model_flag
+		}
+
+		allow = {
+		}
+
+		effect = {
+			clr_country_flag = EDG_TIM_enable_elephant_model_flag
+		}
+	}
+
+	EDG_TIM_rebuild_kaaba = {
+		major = yes
+		provinces_to_highlight = {
+			province_id = 385
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_repair_kaaba_flag
+			NOT = {
+				has_country_flag = EDG_TIM_kaaba_rebuilt_flag
+			}
+		}
+
+		allow = {
+			treasury = 3000
+			owns_core_province = 385
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_kaaba_rebuilt_flag
+			add_treasury = -3000
+			add_piety = 0.3
+			385 = {
+				set_great_project_tier_3 = {
+					type = kaaba
+				}
+			}
+		}
+	}
+
+	EDG_TIM_exploit_great_copper_mine = {
+		major = yes
+		provinces_to_highlight = {
+			province_id = 8
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_north_europe_flag
+			NOT = {
+				has_country_flag = EDG_TIM_great_copper_mine_exploited_flag
+			}
+		}
+
+		allow = {
+			treasury = 3000
+			owns_core_province = 8
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_great_copper_mine_exploited_flag
+			add_treasury = -3000
+			8 = {
+				set_great_project_tier_3 = {
+					type = falun_copper_mine
+				}
+			}
+			change_price = {
+				trade_goods = copper
+				key = EDG_TIM_exploit_great_copper_mine_title
+				value = 0.25
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_TIM_decompose_steppe_empire = {
+		major = yes
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				is_nomad = yes
+				total_development = 150
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_steppe_flag
+		}
+
+		allow = {
+			mil_power = 100
+			any_country = {
+				EDG_TIM_steppe_empire_can_be_decomposed_trigger = yes
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			mil_power_cost = 100
+			if = {
+				limit = {
+					NOT = {
+						any_country = {
+							EDG_TIM_steppe_empire_can_be_decomposed_trigger = yes
+						}
+					}
+				}
+				custom_tooltip = EDG_TIM_decompose_steppe_empire_tooltip_1
+			}
+			else = {
+				every_country = {
+					limit = {
+						EDG_TIM_steppe_empire_can_be_decomposed_trigger = yes
+					}
+					set_country_flag = EDG_TIM_will_be_decomposed_after_treaty_flag
+					custom_tooltip = EDG_TIM_decompose_steppe_empire_tooltip_2
+				}
+			}
+		}
+	}
+
+	EDG_TIM_expel_steppe_tribe = {
+		color = { 235 38 38 }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			EDG_TIM_expel_steppe_tribe_province_trigger = yes
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_end_steppe_threat_flag
+		}
+
+		allow = {
+			mil_power = 50
+			any_owned_province = {
+				EDG_TIM_expel_steppe_tribe_province_trigger = yes
+			}
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		effect = {
+			mil_power_cost = 50
+			EDG_TIM_add_dread = { amount = 10 }
+			add_estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = -5
+			}
+			EDG_TIM_expel_steppe_tribe_in_random_province_effect = yes
+			EDG_TIM_expel_steppe_tribe_in_random_province_effect = yes
+			EDG_TIM_expel_steppe_tribe_in_random_province_effect = yes
+			EDG_TIM_expel_steppe_tribe_in_random_province_effect = yes
+			EDG_TIM_expel_steppe_tribe_in_random_province_effect = yes
+
+			custom_tooltip = EDG_SPACE_TT
+			EDG_TIM_use_steppe_slaves_in_random_province_effect = yes
+			EDG_TIM_use_steppe_slaves_in_random_province_effect = yes
+
+			random_country = {
+				limit = {
+					capital_scope = {
+						OR = {
+							superregion = tartary_superregion
+							superregion = eastern_europe_superregion
+							region = caucasia_region
+						}
+					}
+					OR = {
+						is_nomad = yes
+						religion_group = muslim
+						religion = tengri_pagan_reformed
+						religion = confucianism
+					}
+					NOT = {
+						OR = {
+							has_country_modifier = EDG_TIM_take_in_refugees_modifier
+							has_country_modifier = EDG_TIM_extort_refugees_modifier
+						}
+					}
+				}
+				country_event = {
+					id = EDG_TIM_events.45
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_TIM_expel_steppe_tribe_tooltip
+		}
+	}
+
+	EDG_TIM_exploit_russia = {
+		color = { 235 38 38 }
+
+		provinces_to_highlight = {
+			country_or_non_sovereign_subject_holds = ROOT
+			OR = {
+				culture = russian
+				culture = novgorodian
+				culture = ryazanian
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_tatar_shackle_flag
+			NOT = {
+				has_country_flag = EDG_TIM_mission_ruthenia_flag
+			}
+		}
+
+		allow = {
+			mil_power = 50
+			any_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				OR = {
+					culture = russian
+					culture = novgorodian
+					culture = ryazanian
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_TIM_exploit_russia_tooltip_1
+				OR = {
+					NOT = {
+						has_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+					}
+					had_country_flag = {
+						flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+						days = 10
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				factor = 1
+				mil_power = 700
+			}
+		}
+
+		effect = {
+			mil_power_cost = 50
+			EDG_TIM_exploit_russia_effect = yes
+			clr_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+  			set_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+		}
+	}
+
+	EDG_TIM_exploit_russia_and_ruthenia = {
+		color = { 235 38 38 }
+
+		provinces_to_highlight = {
+			country_or_non_sovereign_subject_holds = ROOT
+			culture_group = east_slavic
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_ruthenia_flag
+		}
+
+		allow = {
+			mil_power = 100
+			any_province = {
+				country_or_non_sovereign_subject_holds = ROOT
+				culture_group = east_slavic
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_TIM_exploit_russia_tooltip_1
+				OR = {
+					NOT = {
+						has_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+					}
+					had_country_flag = {
+						flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+						days = 10
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+			modifier = {
+				factor = 1
+				mil_power = 700
+			}
+		}
+
+		effect = {
+			mil_power_cost = 100
+			EDG_TIM_exploit_russia_and_ruthenia_effect = yes
+			clr_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+  			set_country_flag = EDG_TIM_EDG_TIM_russia_exploited_flag
+		}
+	}
+	
+	EDG_TIM_depose_golden_horde_khan = {
+		major = yes
+
+		provinces_to_highlight = {
+			owned_by = GOL
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_golden_horde_flag
+			exists = GOL
+		}
+
+		allow = {
+			dip_power = 200
+			
+			GOL = {
+				years_in_vassalage_under = {
+					who = ROOT
+					years = 10
+				}
+				NOT = {
+					liberty_desire = 20
+				}
+				NOT = {
+					total_development = 200
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			dip_power_cost = 200
+			EDG_TIM_inherit_without_adding_prestige_effect = {
+				country = GOL
+			}
+		}
+	}
+
+	EDG_TIM_recruit_barbary_galley = {
+		color = { 235 38 38 }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = maghreb_region
+			has_port = yes
+			NOT = {
+				has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_barbary_flag
+		}
+
+		allow = {
+			mil_power = 50
+			treasury = 50
+			calc_true_if = {
+				amount = 10
+				all_owned_province = {
+					region = maghreb_region
+					has_port = yes
+					NOT = {
+						has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			mil_power_cost = 50
+			add_treasury = -50
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								region = maghreb_region
+								has_port = yes
+								NOT = {
+									has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+								}
+							}
+							galley = ROOT
+							add_province_modifier = {
+								name = EDG_TIM_barbary_recruited_recently_modifier
+								duration = 1825
+							}
+						}
+					"
+				}
+			}
+			custom_tooltip = EDG_TIM_recruit_barbary_tooltip
+			tooltip = {
+				galley = ROOT
+				add_province_modifier = {
+					name = EDG_TIM_barbary_recruited_recently_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+
+	EDG_TIM_recruit_barbary_light_ship = {
+		color = { 235 38 38 }
+
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = maghreb_region
+			has_port = yes
+			NOT = {
+				has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+			}
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_mission_barbary_flag
+		}
+
+		allow = {
+			mil_power = 50
+			treasury = 100
+			calc_true_if = {
+				amount = 10
+				all_owned_province = {
+					region = maghreb_region
+					has_port = yes
+					NOT = {
+						has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+					}
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			mil_power_cost = 50
+			add_treasury = -100
+			hidden_effect = {
+				for = {
+					amount = 10
+					effect = "
+						random_owned_province = {
+							limit = {
+								region = maghreb_region
+								has_port = yes
+								NOT = {
+									has_province_modifier = EDG_TIM_barbary_recruited_recently_modifier
+								}
+							}
+							light_ship = ROOT
+							add_province_modifier = {
+								name = EDG_TIM_barbary_recruited_recently_modifier
+								duration = 1825
+							}
+						}
+					"
+				}
+			}
+			custom_tooltip = EDG_TIM_recruit_barbary_tooltip
+			tooltip = {
+				light_ship = ROOT
+				add_province_modifier = {
+					name = EDG_TIM_barbary_recruited_recently_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+
+	EDG_TIM_expand_observatory_1 = {
+		major = yes
+		color = { 250 182 3 }
+
+		provinces_to_highlight = {
+			province_id = 454
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_enable_expand_observatory_flag
+			NOT = {
+				has_country_flag = EDG_TIM_observatory_expanded_1_flag
+			}
+			NOT = {
+				454 = {
+					has_great_project = {
+						type = EDG_Ulugh_Beg_Observatory
+						tier = 2
+					}
+				}
+			}
+		}
+
+		allow = {
+			treasury = 1000
+			adm_power = 200
+			innovativeness = 10
+			owns_core_province = 454
+			454 = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 1
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_observatory_expanded_1_flag
+			add_treasury = -1000
+			adm_power_cost = 200
+			EDG_TIM_add_renaissance_progress = { amount = 2 }
+			change_innovativeness = 5
+			EDG_comet_add_stability_effect = yes
+			454 = {
+				set_great_project_tier_2 = {
+					type = EDG_Ulugh_Beg_Observatory
+				}
+			}
+		}
+	}
+
+	EDG_TIM_expand_observatory_2 = {
+		major = yes
+		color = { 250 182 3 }
+
+		provinces_to_highlight = {
+			province_id = 454
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_enable_expand_observatory_flag
+			NOT = {
+				has_country_flag = EDG_TIM_observatory_expanded_2_flag
+			}
+			454 = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 2
+				}
+			}
+			NOT = {
+				454 = {
+					has_great_project = {
+						type = EDG_Ulugh_Beg_Observatory
+						tier = 3
+					}
+				}
+			}
+		}
+
+		allow = {
+			treasury = 3000
+			adm_power = 200
+			innovativeness = 30
+			owns_core_province = 454
+			454 = {
+				has_great_project = {
+					type = EDG_Ulugh_Beg_Observatory
+					tier = 2
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_observatory_expanded_2_flag
+			add_treasury = -3000
+			adm_power_cost = 200
+			EDG_TIM_add_renaissance_progress = { amount = 3 }
+			change_innovativeness = 5
+			EDG_more_comets_effect = yes
+			454 = {
+				set_great_project_tier_3 = {
+					type = EDG_Ulugh_Beg_Observatory
+				}
+			}
+		}
+	}
+
+	EDG_TIM_sufi_order_naqshbandi = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			OR = {
+				has_government_attribute = EDG_TIM_sufi_order_ability
+				has_country_flag = EDG_BDX_enable_naqshbandi_flag
+			}
+		}
+
+		allow = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_khufiyah_flag
+				}
+				dip_power = 100
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_country_flag = EDG_TIM_menhuan_jahriyya_flag
+					}
+				}
+				dip_power = 50
+			}
+			religion = sunni
+			NOT = {
+				piety = -0.5
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_naqshbandi_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_khufiyah_flag
+				}
+				dip_power_cost = 100
+			}
+			else_if = {
+				limit = {
+					NOT = {
+						has_country_flag = EDG_TIM_menhuan_jahriyya_flag
+					}
+				}
+				dip_power_cost = 50
+			}
+
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_khufiyah_flag
+				}
+				add_yearly_manpower = 2
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_naqshbandi_update_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				add_yearly_manpower = 1
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_naqshbandi_modifier
+					duration = 3650
+				}
+			}
+			
+		}
+	}
+
+	EDG_TIM_sufi_order_yasawi = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			has_government_attribute = EDG_TIM_sufi_order_ability
+		}
+
+		allow = {
+			dip_power = 50
+			religion = sunni
+			NOT = {
+				piety = -0.5
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_yasawi_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			dip_power_cost = 50
+			add_country_modifier = {
+				name = EDG_TIM_sufi_order_yasawi_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	EDG_TIM_sufi_order_kubrawi = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			OR = {
+				has_government_attribute = EDG_TIM_sufi_order_ability
+				has_country_flag = EDG_BDX_enable_kubrawi_flag
+			}
+		}
+
+		allow = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_kubrawiya_flag
+				}
+				dip_power = 100
+			}
+			else = {
+				dip_power = 50
+			}
+			religion = sunni
+			NOT = {
+				piety = -0.5
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_kubrawi_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_kubrawiya_flag
+				}
+				dip_power_cost = 100
+				add_corruption = -4
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_kubrawi_update_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				dip_power_cost = 50
+				add_corruption = -2
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_kubrawi_modifier
+					duration = 3650
+				}
+			}
+			
+		}
+	}
+
+	EDG_TIM_sufi_order_qadiri = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			OR = {
+				AND = {
+					has_government_attribute = EDG_TIM_sufi_order_ability
+					has_country_flag = EDG_TIM_mission_baghdad_flag
+				}
+				has_country_flag = EDG_BDX_enable_qadiri_flag
+			}
+		}
+
+		allow = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_qadiriyya_flag
+				}
+				dip_power = 100
+			}
+			else = {
+				dip_power = 50
+			}
+			religion = sunni
+			NOT = {
+				piety = -0.5
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_qadiri_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_TIM_menhuan_qadiriyya_flag
+				}
+				dip_power_cost = 100
+				add_estate_loyalty = {
+					estate = all
+					loyalty = 100
+				}
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_qadiri_update_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				dip_power_cost = 50
+				add_estate_loyalty = {
+					estate = all
+					loyalty = 5
+				}
+				add_country_modifier = {
+					name = EDG_TIM_sufi_order_qadiri_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+
+	EDG_TIM_sufi_order_mevlevi = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			OR = {
+				AND = {
+					has_government_attribute = EDG_TIM_sufi_order_ability
+					has_country_flag = EDG_TIM_mission_ankara_flag
+				}
+				has_country_flag = EDG_BDX_enable_mevlevi_flag
+			}
+		}
+
+		allow = {
+			dip_power = 50
+			religion = sunni
+			NOT = {
+				piety = -0.5
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_mevlevi_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			dip_power_cost = 50
+			add_stability = 1
+			add_country_modifier = {
+				name = EDG_TIM_sufi_order_mevlevi_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	EDG_TIM_sufi_order_bektashi = {
+		color = { 138 218 255 }
+		major = yes
+
+		potential = {
+			has_government_attribute = EDG_TIM_sufi_order_ability
+			has_country_flag = EDG_TIM_mission_ankara_flag
+		}
+
+		allow = {
+			dip_power = 50
+			religion_group = muslim
+			NOT = {
+				piety = -0.7
+			}
+			NOT = {
+				has_country_modifier = EDG_TIM_sufi_order_bektashi_modifier
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			dip_power_cost = 50
+			capital_scope = {
+				custom_tooltip = EDG_TIM_sufi_order_bektashi_tooltip
+				hidden_effect = {
+					janissary_infantry = ROOT
+					janissary_infantry = ROOT
+					janissary_infantry = ROOT
+					janissary_infantry = ROOT
+					janissary_infantry = ROOT
+				}
+			}
+			add_country_modifier = {
+				name = EDG_TIM_sufi_order_bektashi_modifier
+				duration = 1825
+			}
+		}
+	}
+
+	EDG_TIM_support_yunnus_rebel = {
+		major = yes
+
+		provinces_to_highlight = {
+			area = kashgaria_area
+			owned_by = CHG
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_support_yunus_rebel_flag
+			NOT = {
+				has_country_flag = EDG_TIM_yunnus_rebel_supported_flag
+			}
+			exists = CHG
+		}
+
+		allow = {
+			NOT = {
+				is_year = 1490
+			}
+			NOT = {
+				exists = KAS
+			}
+			CHG = {
+				is_subject = no
+			}
+			any_province = {
+				area = kashgaria_area
+				owned_by = CHG
+			}
+			has_spy_network_in = {
+				who = CHG
+				value = 50
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_yunnus_rebel_supported_flag
+			tooltip = {
+				CHG = {
+					release = KAS
+				}
+			}
+			kashgaria_area = {
+				limit = {
+					owned_by = CHG
+				}
+				cede_province = KAS
+				add_core = KAS
+			}
+			vassalize = KAS
+			KAS = {
+				EDG_TIM_define_ruler_yunus_effect = yes
+				hidden_effect = {
+					set_ruler_flag = EDG_TIM_yunus_ruler_flag
+				}
+			}
+			declare_war_with_cb = {
+				casus_belli = cb_annex
+				who = CHG
+			}
+			country_event = {
+				id = EDG_TIM_events.81
+			}
+		}
+	}
+
+	EDG_TIM_depose_chaghatai_khan = {
+		major = yes
+
+		provinces_to_highlight = {
+			owned_by = KAS
+		}
+
+		potential = {
+			has_country_flag = EDG_TIM_support_yunus_rebel_flag
+			exists = KAS
+		}
+
+		allow = {
+			dip_power = 200
+			KAS = {
+				years_in_vassalage_under = {
+					who = ROOT
+					years = 10
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_TIM_depose_chaghatai_khan_tooltip
+					NOT = {
+						has_ruler_flag = EDG_TIM_yunus_ruler_flag
+					}
+				}
+				NOT = {
+					liberty_desire = 50
+				}
+				NOT = {
+					total_development = 200
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			dip_power_cost = 200
+			EDG_TIM_inherit_without_adding_prestige_effect = {
+				country = KAS
+			}
+		}
+	}
+
+	EDG_TIM_take_mandate = {
+		major = yes
+
+		provinces_to_highlight = {
+			owned_by = event_target:EmperorOfChina
+		}
+
+		potential = {
+			tag = TIM
+			has_country_flag = EDG_TIM_mission_genghisid_flag
+			any_country = {
+				tag = event_target:EmperorOfChina
+			}
+			NOT = {
+				event_target:EmperorOfChina = {
+					tag = ROOT
+				}
+			}
+		}
+
+		allow = {
+			is_neighbor_of = event_target:EmperorOfChina
+			NOT = {
+				war_with = event_target:EmperorOfChina
+			}
+			OR = {
+				owns_core_province = 1816
+				owns_core_province = 700
+				owns_core_province = 699
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			declare_war_with_cb = {
+				casus_belli = cb_take_mandate
+				who = event_target:EmperorOfChina
+			}
+			custom_tooltip = EDG_TIM_take_mandate_tooltip
+		}
+	}
+
+	EDG_TIM_reclaim_mandate = {
+		major = yes
+
+		provinces_to_highlight = {
+			superregion = china_superregion
+		}
+
+		potential = {
+			tag = TIM
+			has_country_flag = EDG_TIM_mission_genghisid_flag
+			all_countries_including_self = {
+				NOT = {
+					tag = event_target:EmperorOfChina
+				}
+			}
+		}
+
+		allow = {
+			owns_core_province = 1816
+			calc_true_if = {
+				amount = 30
+				all_owned_province = {
+					superregion = china_superregion
+					is_core = ROOT
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 0
+		}
+
+		effect = {
+			set_emperor_of_china = ROOT
+			set_mandate = 100
+			add_adm_power = 300
+			add_dip_power = 300
+			add_mil_power = 300
+			add_splendor = 1000
+			custom_tooltip = EDG_TIM_take_mandate_tooltip
+		}
+	}
+
+	EDG_TIM_train_ghulams = {
+		color = { 235 38 38 }
+
+		potential = {
+			has_estate_privilege = estate_EDG_TIM_ghulam_elites
+		}
+
+		allow = {
+			EDG_PER_Shahanshah_trigger = yes
+			NOT = {
+				has_country_modifier = EDG_TIM_expand_ghulam_modifier_5
+			}
+			mil_power = 200
+			check_variable = {
+				which = EDG_PER_Shahanshah_authority_var
+				value = 100
+			}
+		}
+
+		ai_will_do = {
+			factor = 100
+		}
+
+		effect = {
+			change_variable = {
+				which = EDG_PER_Shahanshah_authority_var
+				value = -100
+			}
+			mil_power_cost = 200
+
+			if = {
+				limit = {
+					has_country_modifier = EDG_TIM_expand_ghulam_modifier_1
+				}
+				remove_country_modifier = EDG_TIM_expand_ghulam_modifier_1
+				add_country_modifier = {
+					name = EDG_TIM_expand_ghulam_modifier_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = EDG_TIM_expand_ghulam_modifier_2
+				}
+				remove_country_modifier = EDG_TIM_expand_ghulam_modifier_2
+				add_country_modifier = {
+					name = EDG_TIM_expand_ghulam_modifier_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = EDG_TIM_expand_ghulam_modifier_3
+				}
+				remove_country_modifier = EDG_TIM_expand_ghulam_modifier_3
+				add_country_modifier = {
+					name = EDG_TIM_expand_ghulam_modifier_4
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = {
+					has_country_modifier = EDG_TIM_expand_ghulam_modifier_4
+				}
+				remove_country_modifier = EDG_TIM_expand_ghulam_modifier_4
+				add_country_modifier = {
+					name = EDG_TIM_expand_ghulam_modifier_5
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_TIM_expand_ghulam_modifier_1
+					duration = -1
+				}
+			}			
+		}
+	}
+}

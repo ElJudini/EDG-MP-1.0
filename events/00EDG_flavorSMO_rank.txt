@@ -1,0 +1,247 @@
+namespace = EDG_flavorSMO_rank
+
+country_event = {#动态更新
+  id = EDG_flavorSMO_rank.0
+  title = "EDG_flavorSMO_rank.0.t"
+  desc = "EDG_flavorSMO_rank.0.d"
+  Picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorSMO_rank.0.a"
+	EDG_SMO_revolution_rank_modifier_change_effect = yes
+  }
+}
+country_event = {#升级
+  id = EDG_flavorSMO_rank.1
+  title = "EDG_flavorSMO_rank.1.t"
+  desc = "EDG_flavorSMO_rank.1.d"
+  Picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorSMO_rank.1.a"
+	EDG_SMO_revolution_rank_modifier_increase_effect = yes
+  }
+}
+country_event = {#下降
+  id = EDG_flavorSMO_rank.2
+  title = "EDG_flavorSMO_rank.2.t"
+  desc = "EDG_flavorSMO_rank.2.d"
+  Picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorSMO_rank.2.a"
+	EDG_SMO_revolution_rank_modifier_decrease_effect = yes
+  }
+}
+country_event = {#人民对政府不满
+  id = EDG_flavorSMO_rank.3
+  title = "EDG_flavorSMO_rank.3.t"
+  desc = "EDG_flavorSMO_rank.3.d"
+  Picture = ANGRY_MOB_eventPicture
+  mean_time_to_happen = {
+    months = 50
+  }
+  trigger = {
+	has_government_power = {
+		mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+		power_type = EDG_SMO_revolutionary_tendency
+		value = 0
+	}
+	has_government_attribute = EDG_Peasant_regime
+  }
+  option = {#我们的政府确实本该为人民服务
+    name = "EDG_flavorSMO_rank.3.a"
+	add_estate_loyalty = {
+		estate = estate_church
+		loyalty = -10
+	}
+	add_estate_loyalty = {
+		estate = estate_burghers
+		loyalty = -10
+	}
+	custom_tooltip = EDG_SPACE_TT
+	EDG_SMO_estate_balance_effect = {
+		loyal = 20
+	}
+	custom_tooltip = EDG_SPACE_TT
+	EDG_SMO_revolution_rank_modifier_increase_effect = yes
+	
+  }
+  option = {#给他们迎头痛击！
+    name = "EDG_flavorSMO_rank.3.b"
+	add_stability = -1
+	EDG_Dynamic_rebellion_effect = yes
+	custom_tooltip = EDG_SPACE_TT
+	add_estate_loyalty = {
+		estate = estate_church
+		loyalty = 10
+	}
+	add_estate_loyalty = {
+		estate = estate_burghers
+		loyalty = 10
+	}
+	custom_tooltip = EDG_SPACE_TT
+	EDG_SMO_estate_balance_effect = {
+		loyal = -20
+	}
+	custom_tooltip = EDG_SPACE_TT
+	EDG_SMO_revolution_rank_modifier_decrease_effect = yes
+  }
+}
+country_event = {#代表大会
+  id = EDG_flavorSMO_rank.4
+  title = "EDG_flavorSMO_rank.4.t"
+  desc = "EDG_flavorSMO_rank.4.d"
+  Picture = ELECTION_REPUBLICAN_eventPicture
+  mean_time_to_happen = {
+    months = 120
+  }
+  trigger = {
+	NOT = { has_country_modifier = EDG_SMO_congress_decision_1_modifier }
+	has_government_attribute = EDG_Peasant_regime
+  }
+  
+  immediate = {
+	hidden_effect = {
+		add_country_modifier = {
+			name = "EDG_SMO_congress_decision_1_modifier"
+			duration = 1825
+		}
+	}
+  }
+  
+  option = {#人民派 我们将维护农民和手工业者的利益。
+    name = "EDG_flavorSMO_rank.4.a"
+	EDG_SMO_estate_balance_effect = {
+		loyal = 10
+		influence = 10
+	}
+	custom_tooltip = EDG_SPACE_TT
+	EDG_SMO_revolution_rank_modifier_increase_effect = yes
+	if = {
+		limit = {
+			estate_influence = {
+				estate = estate_EDG_officials
+				influence = 80
+			}
+		}
+		add_stability = -2
+	}
+	else_if = {
+		limit = {
+			estate_influence = {
+				estate = estate_EDG_officials
+				influence = 60
+			}
+		}
+		add_stability = -1
+	}
+  }
+  option = {#中立派 我们如今的政治倾向就很合适。
+    name = "EDG_flavorSMO_rank.4.b"
+	add_adm_power = 50
+  }
+  option = {#特权派 打压那些抨击政府的人。
+    name = "EDG_flavorSMO_rank.4.c"
+	EDG_SMO_estate_balance_effect = {
+		loyal = -10
+		influence = -10
+	}
+	EDG_SMO_revolution_rank_modifier_decrease_effect = yes
+	if = {
+		limit = {
+			estate_influence = {
+				estate = estate_EDG_peasants
+				influence = 80
+			}
+		}
+		add_stability = -2
+	}
+	else_if = {
+		limit = {
+			estate_influence = {
+				estate = estate_EDG_peasants
+				influence = 60
+			}
+		}
+		add_stability = -1
+	}
+  }
+}
+country_event = {#国家美德的发展
+  id = EDG_flavorSMO_rank.5
+  title = "EDG_flavorSMO_rank.5.t"
+  desc = "EDG_flavorSMO_rank.5.d"
+  Picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {#我们希望国家美德进一步发展。
+    name = "EDG_flavorSMO_rank.5.a"
+	if = {
+		limit = {
+			NOT = { has_reform = EDG_Peasant_regime_National_virtue_2 }
+			NOT = { has_reform = EDG_Peasant_regime_National_virtue_3 }
+		}
+		add_government_reform = EDG_Peasant_regime_National_virtue_2
+	}
+	else_if = {
+		limit = { has_reform = EDG_Peasant_regime_National_virtue_2 }
+		add_government_reform = EDG_Peasant_regime_National_virtue_3
+	}
+	else_if = {
+		limit = { has_reform = EDG_Peasant_regime_National_virtue_3 }
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+	}
+  }
+  option = {#如今的美德已然是完美的美德。
+    name = "EDG_flavorSMO_rank.5.b"
+	add_stability_or_adm_power = yes
+  }
+}
+country_event = {#公权力体系的发展
+  id = EDG_flavorSMO_rank.6
+  title = "EDG_flavorSMO_rank.6.t"
+  desc = "EDG_flavorSMO_rank.6.d"
+  Picture = ACCUSATION_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {#我们希望公权力能够得到发展和完善。
+    name = "EDG_flavorSMO_rank.6.a"
+	if = {
+		limit = {
+			NOT = { has_reform = EDG_Peasant_regime_public_rights_2 }
+			NOT = { has_reform = EDG_Peasant_regime_public_rights_3 }
+			NOT = { has_reform = EDG_Peasant_regime_public_rights_4 }
+		}
+		add_government_reform = EDG_Peasant_regime_public_rights_2
+	}
+	else_if = {
+		limit = { has_reform = EDG_Peasant_regime_public_rights_2 }
+		add_government_reform = EDG_Peasant_regime_public_rights_3
+	}
+	else_if = {
+		limit = { has_reform = EDG_Peasant_regime_public_rights_3 }
+		add_government_reform = EDG_Peasant_regime_public_rights_4
+	}
+	else_if = {
+		limit = { has_reform = EDG_Peasant_regime_public_rights_4 }
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+	}
+  }
+  option = {#如今的权力体系就已经很完美了。
+    name = "EDG_flavorSMO_rank.6.b"
+	add_stability_or_adm_power = yes
+  }
+}

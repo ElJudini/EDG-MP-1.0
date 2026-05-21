@@ -1,0 +1,3625 @@
+EDG_MISSION_HZB_SLOT_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_1_flag } 
+
+	EDG_MISSION_HZB_1_1 = {
+		icon = mission_herat
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = {corruption = 1 }
+			OR = {
+				AND = {
+					has_adm_advisor = yes
+					has_dip_advisor = yes
+					has_mil_advisor = yes
+				}
+				crown_land_share = 38
+			}
+		} 
+
+		effect = {
+			capital_scope = {
+				add_base_tax = 1
+				add_base_production = 1
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_1_1_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_3 = {
+		icon = polish_subjects
+		position = 3
+		required_missions = { EDG_MISSION_HZB_3_2 } 
+		provinces_to_highlight = {
+			province_id = 410
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			410 = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			change_estate_land_share = {
+				estate = all
+				share = -10
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			410 = {
+				add_nationalism = -10
+				add_core = root
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_3_modifier
+					duration = 7300
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_4 = {
+		icon = mission_kon_repel_the_missionaries
+		position = 4
+		required_missions = {
+			EDG_MISSION_HZB_2_3
+			EDG_MISSION_HZB_1_3
+		}
+		provinces_to_highlight = {
+			or = {
+				area = persian_gulf_coast
+				area = farsistan_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			persian_gulf_coast = {  type = all country_or_non_sovereign_subject_holds = root }
+			farsistan_area = {  type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_1_4_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_4_province_modifier
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						or = {
+							area = persian_gulf_coast
+							area = iraq_arabi_area
+							area = basra_area
+						}
+					}
+					root = { add_adm_power = 10 }
+					add_province_modifier = {
+						name = EDG_MISSION_HZB_1_4_province_modifier
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_HZB_1_6 = {
+		icon = mam_reincorporate_northern_territories
+		position = 6
+		required_missions = { EDG_MISSION_HZB_3_5 } 
+		provinces_to_highlight = {
+			or = {
+				area = syria_area
+				area = syrian_desert_area
+				area = aleppo_area
+				area = palestine_area
+				area = trans_jordan_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = syria_area
+					area = syrian_desert_area
+					area = aleppo_area
+					area = palestine_area
+					area = trans_jordan_area
+				}
+				value = 15
+			}
+		} 
+
+		effect = {
+			egypt_region = { 
+				limit = { 
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT 
+			}
+
+			377 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 50
+					key = EDG_MISSION_HZB_1_7_STRONG_MERCHANTS
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_1_6_tt
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_MISSION_HZB_1_6_modifier
+					duration = -1
+				}
+			}
+			every_country = {
+				limit ={
+					is_subject_of = root
+					OR = {
+						capital_scope = {
+							or = {
+								area = palestine_area
+								area = trans_jordan_area
+								area = syria_area
+								area = syrian_desert_area
+								area = aleppo_area
+							}
+						}
+						primary_culture = al_suryah_arabic
+					}
+				}
+				hidden_effect = {
+					root = { add_prestige_or_monarch_power = { amount = 10 } }
+					add_country_modifier = {
+						name = EDG_MISSION_HZB_1_6_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_7 = {
+		icon = mission_break_the_mamluks
+		position = 7
+		required_missions = { EDG_MISSION_HZB_1_6 } 
+		provinces_to_highlight = {
+			or = {
+				region = egypt_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = egypt_region
+				value = 25
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_1
+
+			custom_tooltip = EDG_SPACE_TT
+			358 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 50
+					key = EDG_MISSION_HZB_1_7_STRONG_MERCHANTS
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = TATARS_IF_CAIRO_AND_BAGHDAD_HAVE_BEEN_RAZED
+				first_limit = "
+					410 = {
+						has_province_modifier = province_razed
+					}
+					361 = {
+						has_province_modifier = province_razed
+					}
+				"
+				first_effect = "
+					change_innovativeness = 5
+					add_adm_power = 50
+					add_dip_power = 50
+					add_mil_power = 50
+				"
+			}
+			
+		}
+	}
+
+	EDG_MISSION_HZB_1_8 = {
+		icon = mission_tribal_allegiance
+		position = 8
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				crown_land_share = 50
+				has_reform = EDG_HZB_Mongolian_nobility_privileges_reform
+			}
+			has_adm_advisor_3 = yes
+		} 
+
+		effect = {
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_MISSION_HZB_1_8_a_trigger_tt
+				first_limit = "
+					crown_land_share = 50
+				"
+				first_effect = "
+					change_adm = 1
+					add_country_modifier = {
+						name = EDG_MISSION_HZB_1_8_modifier_a
+						duration = 9125
+					}
+				"
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_MISSION_HZB_1_8_b_trigger_tt
+				first_limit = "
+					has_reform = EDG_HZB_Mongolian_nobility_privileges_reform
+				"
+				first_effect = "
+					add_army_tradition = 15
+					add_country_modifier = {
+						name = EDG_MISSION_HZB_1_8_modifier_b
+						duration = -1
+					}
+				"
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_10 = {
+		icon = mission_horde_trade
+		position = 10
+		required_missions = { EDG_MISSION_HZB_1_8 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = { mission_completed = EDG_MISSION_HZB_2_10 }
+			religious_unity = 0.99
+			or = {
+				full_idea_group = humanist_ideas
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					not = { religion_group = root }
+					value = 50
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_1_10_tt
+			complete_mission = EDG_MISSION_HZB_2_10
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_1_10_tt_2
+			hidden_effect = {
+				every_province = {
+					limit = { country_or_non_sovereign_subject_holds = root not = { religion_group = root } }
+					root = {
+						add_adm_power = 5
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_1_10_modifier
+				duration = -1
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_1_2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_2_flag } 
+
+	EDG_MISSION_HZB_1_11 = {
+		icon = per_sword_of_our_faith
+		position = 11
+		required_missions = {
+			EDG_MISSION_HZB_2_10
+			EDG_MISSION_HZB_1_10
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					not = { religion_group = root }
+					religion = root
+				}
+				value = 300
+			}
+			custom_trigger_tooltip = {
+				tooltip = edg_all_caliph_died_trigger_tt
+				or = {
+					EDG_shiite_Caliph_ability_trigger = yes
+					EDG_sunni_Caliph_ability_trigger = yes
+					and = {
+						event_target:EDG_shiite_Caliph_target = {
+							exists = no
+						}
+						event_target:EDG_sunni_Caliph_target = {
+							exists = no
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			tooltip = {
+				change_variable = { which = EDG_sunni_Caliph_authority_var value = 50 }
+			}
+			hidden_effect = {
+				change_variable = { which = EDG_sunni_Caliph_authority_var value = 50 }
+				change_variable = { which = EDG_shiite_Caliph_authority_var value = 50 }
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_ruler_modifier = {
+				name = EDG_MISSION_HZB_1_11_ruler_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_12 = {
+		icon = mission_islamic_golden_age
+		position = 12
+		required_missions = { EDG_MISSION_HZB_1_11 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 504
+				province_id = 225
+				province_id = 151
+				province_id = 410
+				province_id = 385
+				province_id = 384
+				province_id = 124
+				province_id = 125
+				province_id = 425
+				province_id = 382
+				province_id = 454
+				province_id = 347
+				province_id = 388
+				province_id = 400				
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		} 
+
+		trigger = {
+			owns_or_non_sovereign_subject_of = 504
+			owns_or_non_sovereign_subject_of = 225
+			owns_or_non_sovereign_subject_of = 151
+			owns_or_non_sovereign_subject_of = 410
+			owns_or_non_sovereign_subject_of = 385
+			owns_or_non_sovereign_subject_of = 384
+			owns_or_non_sovereign_subject_of = 124
+			owns_or_non_sovereign_subject_of = 125
+			owns_or_non_sovereign_subject_of = 425
+			owns_or_non_sovereign_subject_of = 382
+			owns_or_non_sovereign_subject_of = 454
+			owns_or_non_sovereign_subject_of = 347
+			owns_or_non_sovereign_subject_of = 388
+			owns_or_non_sovereign_subject_of = 400
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = unified_islam
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_14 = {
+		icon = boh_humiliate_austria
+		position = 14
+		required_missions = { EDG_MISSION_HZB_2_13 } 
+		provinces_to_highlight = {
+			region = ruthenia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			ruthenia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			poland_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			baltic_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			ruthenia_region = {
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_14_province_modifier
+					duration = 3650
+				}
+			}
+
+			
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_MISSION_HZB_1_14_a_trigger_tt
+				first_limit = "
+					280 = { has_province_modifier = province_razed }
+				"
+				first_effect = "
+					change_mil = 1
+				"
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_1_17 = {
+		icon = mission_naval_kingdom
+		position = 17
+		required_missions = { EDG_MISSION_HZB_2_16 } 
+		provinces_to_highlight = {
+			region = scandinavia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = scandinavia_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			custom_tooltip = TIM_upgrade_amirs_in_officer_corps_mission
+			set_country_flag = TIM_upgrade_amirs_in_officer_corps_mission_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_1_17_tt
+			hidden_effect = {
+				scandinavia_region = {
+					limit = { country_or_non_sovereign_subject_holds = root }
+					root = {
+						add_mil_power = 3
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_1_17_modifier
+				duration = 7300
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_1_19 = {
+		icon = centralize_france
+		position = 19
+		required_missions = { EDG_MISSION_HZB_3_18 } 
+		provinces_to_highlight = {
+			region = france_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = france_region
+				value = 50
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_1_19_tt
+			hidden_effect = {
+				every_province = {
+					limit = { 
+						region = france_region
+						religion = root
+					}
+					add_government_power = {
+						mechanic_type = persian_influence_mechanic
+						power_type = persian_influence
+						value = 2
+					}
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			france_region = {
+				limit = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_19_province_modifier
+					duration = 7300
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_1_21 = {
+		icon = mission_mosque
+		position = 21
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			416 = {
+				is_capital = root
+				owned_by = root
+				development = 40
+			}
+		} 
+
+		effect = {
+			country_event = { id = flavor_mam.114 }
+			416 = {
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_21_province_modifier
+					duration = -1
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_1_22 = {
+		icon = mission_hands_praying
+		position = 22
+		required_missions = { EDG_MISSION_HZB_1_21 } 
+		provinces_to_highlight = {
+			owned_by = root
+			not = { EDG_has_building_temple_trigger = yes }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				EDG_has_building_temple_trigger = yes
+				value = 30
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			custom_tooltip = EDG_on_tech_taken_add_25_power_flag_tt
+			set_country_flag = EDG_on_tech_taken_add_25_power_flag
+
+			custom_tooltip = EDG_SPACE_TT			
+			set_trade_power_requirement_of_propogate_religion = { value = 35 }
+		}
+	}
+
+	EDG_MISSION_HZB_1_23 = {
+		icon = mission_restore_trade_superiority
+		position = 23
+		required_missions = {
+			EDG_MISSION_HZB_2_22
+			EDG_MISSION_HZB_1_22
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			not = { EDG_has_building_manufactories_trigger = yes }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				EDG_has_building_manufactories_trigger = yes
+				value = 50
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			if = { 
+				limit = { has_had_golden_age = yes } 
+				reset_golden_age = yes 
+			}
+			else_if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				custom_tooltip = fra_reset_ga_tt
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_1_23_modifier
+				duration = 7300
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_1_flag } 
+
+	EDG_MISSION_HZB_2_3 = {
+		icon = per_a_new_eranshahr
+		position = 3
+		required_missions = { EDG_MISSION_HZB_3_2 } 
+		provinces_to_highlight = {
+			if = {
+				limit = { has_country_flag = EDG_AB_MISSION_FLAG }
+				or = {
+					area = isfahan_area
+				}
+				not = { country_or_non_sovereign_subject_holds = root }
+			}
+			else = {
+				or = {
+					area = isfahan_area
+					area = kerman_area
+				}
+				not = { country_or_non_sovereign_subject_holds = root }
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { has_country_flag = EDG_AB_MISSION_FLAG }
+				isfahan_area = { type = all country_or_non_sovereign_subject_holds = root }
+			}
+			else = {
+				isfahan_area = { type = all country_or_non_sovereign_subject_holds = root }
+				kerman_area = { type = all country_or_non_sovereign_subject_holds = root }
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_on_mil_tech_taken_PROVIDE_10_army_tradition_flag
+			custom_tooltip = EDG_on_mil_tech_taken_PROVIDE_10_army_tradition_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_2_3_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { religion = zoroastrian }
+					root = {
+						add_manpower = 0.5
+						add_local_autonomy = -25
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_2_3_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_4 = {
+		icon = per_reborn_in_fire
+		position = 4
+		required_missions = { EDG_MISSION_HZB_2_3 } 
+		provinces_to_highlight = {
+			or = {
+				area = makran_area
+				area = kalat_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			kalat_area = { type = all country_or_non_sovereign_subject_holds = root }
+			makran_area = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = TATARS_RAZING_CHURCHES_NOW_GRANTS_DUCATS
+			set_country_flag = tatars_curch_raze_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_2_4_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_6 = {
+		icon = mam_highway_empire
+		position = 6
+		required_missions = { EDG_MISSION_HZB_3_5 } 
+		provinces_to_highlight = {
+			or = {
+				area = bahrain_area
+				area = persian_gulf_coast
+				area = pirate_coast_area
+				area = mogostan_area
+				province_id = 412
+				province_id = 408
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = bahrain_area
+					area = persian_gulf_coast
+					area = pirate_coast_area
+					area = mogostan_area
+					province_id = 412
+					province_id = 408
+				}
+				value = 15
+			}
+		} 
+
+		effect = {
+			408 = {
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+				add_trade_modifier = {
+					who = ROOT
+					duration = 9125
+					power = 50
+					key = EDG_MISSION_HZB_1_7_STRONG_MERCHANTS
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = on_convert_by_trade_policy_provide_add_piety_flag_tt
+			set_country_flag = on_convert_by_trade_policy_provide_add_piety_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_estate = estate_burghers
+				}
+				custom_tooltip = TIM_above_gulf_toll_privilege
+			}
+			set_country_flag = TIM_gulf_toll_upgrade_flag
+		}
+	}
+
+	EDG_MISSION_HZB_2_7 = {
+		icon = mission_conquer_timbuktu
+		position = 7
+		required_missions = { EDG_MISSION_HZB_2_6 } 
+		provinces_to_highlight = {
+			region = arabia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = arabia_region
+				value = 30
+			}
+			384 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			385 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_2
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = flavor_mam.23 }
+			custom_tooltip = flavor_mam.23_tt
+			custom_tooltip = enable_sponsor_hajj_dip_action_tt
+			set_country_flag = sponsor_hajj_dip_action_flag
+		}
+	}
+
+	EDG_MISSION_HZB_2_8 = {
+		icon = per_arl_expand_the_safavid_order
+		position = 8
+		provinces_to_highlight = {
+			religion = EDG_Alawite
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					has_country_flag = EDG_AB_MISSION_FLAG
+				}
+				mashriq_region = { type = all country_or_non_sovereign_subject_holds = root religion = root }
+			}
+			else = {
+				OR = {
+					religion = EDG_Alawite
+					any_owned_province = { religion = EDG_Alawite }
+					and = {
+						mashriq_region = { type = all country_or_non_sovereign_subject_holds = root religion = root }
+						egypt_region = { type = all country_or_non_sovereign_subject_holds = root religion = root }
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_province_religion_converted_provide_add_prestige_or_monarch_power_flag_tt
+			set_country_flag = EDG_on_province_religion_converted_provide_add_prestige_or_monarch_power_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_estate = estate_church
+					has_dlc = "Rule Britannia"
+				}
+				custom_tooltip = TIM_unlock_privilege_for_innovativeness_gain
+				set_country_flag = TIM_unlock_privilege_for_innovativeness_gain_flag
+				
+				custom_tooltip = " "
+			}
+			else = {
+				add_country_modifier = {
+					name = TIM_ijazah
+					duration = 9125
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_9 = {
+		icon = per_our_religious_direction
+		position = 9
+		provinces_to_highlight = {
+			owned_by = ARL
+		} 
+
+		trigger = {
+			OR = {
+				alliance_with = ARL
+				ARL = { exists = no }
+				ARL = {
+					has_opinion = {
+						who = ROOT 
+						value = 125 
+					}
+				}
+				424 = { country_or_non_sovereign_subject_holds = root religion = root }
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_province_religion_converted_provide_local_autonomy_flag_tt
+			set_country_flag = EDG_on_province_religion_converted_provide_local_autonomy_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			define_advisor = { 
+				type = inquisitor 
+				cost_multiplier = 0.25
+				skill = 3 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_2_9_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_10 = {
+		icon = mission_muslim_administrators
+		position = 10
+		required_missions = { EDG_MISSION_HZB_2_9 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			NOT = { mission_completed = EDG_MISSION_HZB_1_10 }
+			religious_unity = 0.99
+			or = {
+				full_idea_group = religious_ideas
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					religion_group = root
+					value = 150
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_2_10_tt
+			complete_mission = EDG_MISSION_HZB_1_10
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_2_10_modifier
+				duration = -1
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_2_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_2_flag } 
+
+	EDG_MISSION_HZB_2_12 = {
+		icon = per_recruit_the_qizilbash
+		position = 12
+		required_missions = { EDG_MISSION_HZB_3_11 } 
+		provinces_to_highlight = {
+			region = caucasia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			caucasia_region = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			
+			add_years_of_owned_provinces_production_income = {
+				years = 5
+				trigger = {
+					trade_goods = livestock
+					region = caucasia_region
+					region = crimea_region
+				}
+				custom_tooltip = FROM_CAUCASIA_LIVESTOCK
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = FEO_GAIN_MIL_POWER_PER_FORT_MAINTAIN
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = caucasia_region
+						OR = {
+							has_terrain = hills
+							has_terrain = mountain
+						}
+					}
+					owner = {
+						add_mil_power = 5
+						add_dip_power = 5
+						add_mil_power = 5
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = HORDES_GRANT_HORDE_UNITY_PER_MOUNTAIN_PROVINCE_IN_REGION
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = caucasia_region
+						OR = {
+							has_terrain = mountain
+							has_terrain = hills
+						}
+					}
+					owner = {
+						add_legitimacy_equivalent = { amount = 2 republican_tradition = 1 }
+					}
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_13 = {
+		icon = mission_tribe_management
+		position = 13
+		required_missions = { EDG_MISSION_HZB_2_12 } 
+		provinces_to_highlight = {
+			region = crimea_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			crimea_region = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			ruthenia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			russia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = reduce_ae_from_prom_cultures_flag
+			custom_tooltip = reduce_ae_from_prom_cultures_flag_tt
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = hordes_return_of_the_mongols_moghulistan
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_2_14 = {
+		icon = mission_plc_break_the_rus
+		position = 14
+		required_missions = { EDG_MISSION_HZB_2_13 } 
+		provinces_to_highlight = {
+			region = russia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			russia_region = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			
+			custom_tooltip = MOGHULISTAN_MODIFY_RETURN_OF_THE_MONGOLS_1
+			hidden_effect = {
+				remove_country_modifier = hordes_return_of_the_mongols_moghulistan
+				add_country_modifier = {
+					name = hordes_return_of_the_mongols_moghulistan_1
+					duration = -1
+				}
+			}
+
+			
+			custom_tooltip = EDG_SPACE_TT
+			ruthenia_region = {
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_1_14_province_modifier
+					duration = 3650
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_MISSION_HZB_2_14_a_trigger_tt
+				first_limit = "
+					294 = { has_province_modifier = province_razed }
+				"
+				first_effect = "
+					change_mil = 1
+				"
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_2_16 = {
+		icon = mission_guns_of_urban
+		position = 16
+		required_missions = { EDG_MISSION_HZB_3_15 } 
+		provinces_to_highlight = {
+			superregion = europe_superregion
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = europe_superregion
+				value = 50
+			}
+		} 
+
+		effect = {
+			custom_tooltip = HAB_UPGRADE_OFFICERS_PRIVILEGE
+			set_country_flag = hab_military_reform_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_2_16_tt
+			hidden_effect = {
+				every_province = {
+					limit = { country_or_non_sovereign_subject_holds = root }
+					root = {
+						add_government_power = {
+							mechanic_type = persian_influence_mechanic
+							power_type = persian_influence
+							value = 1
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			change_ruler_stat = {
+				type = mil
+				amount = 1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_2_17 = {
+		icon = mission_dismantle_hre
+		position = 17
+		required_missions = { EDG_MISSION_HZB_2_16 } 
+		provinces_to_highlight = {
+			or = {
+				region = north_german_region
+				region = south_german_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					region = north_german_region
+					region = south_german_region
+				}
+				value = 50
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_2_17_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = root
+						is_part_of_hre = yes
+					}
+				}
+				root = {
+					add_government_power = {
+						mechanic_type = persian_influence_mechanic
+						power_type = persian_influence
+						value = 1
+					}
+				}
+			}
+
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_2_19 = {
+		icon = mission_rb_repatriate_burgundy
+		position = 19
+		required_missions = { EDG_MISSION_HZB_3_18 } 
+		provinces_to_highlight = {
+			region = iberia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				value = 50
+			}
+		} 
+
+		effect = {
+			set_country_flag = YEM_upgrade_trade_ships_priv_2
+			custom_tooltip = YEM_upgrade_trade_ships_privilege_to_30_ship_trade_power
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_2_19_modifier
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_2_22 = {
+		icon = mam_tabriz
+		position = 22
+		required_missions = {
+			EDG_MISSION_HZB_1_21
+			EDG_MISSION_HZB_3_21
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			not = { EDG_has_building_workshop_trigger = yes }
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				value = 300
+				EDG_has_building_workshop_trigger = yes
+				culture_group = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				EDG_has_building_workshop_trigger = yes
+				value = 30
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_economist_provide_global_trade_goods_size_modifier_flag
+			custom_tooltip = EDG_economist_provide_global_trade_goods_size_modifier_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			custom_tooltip = EDG_on_loan_repaid_add_dip_power_flag_tt
+			set_country_flag = EDG_on_loan_repaid_add_dip_power_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_2_22_tt
+			tooltip = {
+				add_base_production = 1
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_2_22_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						EDG_has_building_workshop_trigger = yes
+						culture_group = root
+					}
+					add_base_production = 1
+					add_province_modifier = {
+						name = EDG_MISSION_HZB_2_22_province_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_2_24 = {
+		icon = qara_qoyunlu_maragheh_observatory
+		position = 24
+		required_missions = {
+			EDG_MISSION_HZB_2_22
+			EDG_MISSION_HZB_1_23
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				#has_country_modifier = EDG_PER_disaster_Shah_insane_8_modifier
+				innovativeness = 75
+				monthly_adm = 14
+				full_idea_group = innovativeness_ideas
+				full_idea_group = economic_ideas
+			}
+			is_lacking_institutions = no
+			num_of_owned_provinces_with = {
+				OR = {
+					has_building = university
+					base_tax = 12
+				}
+				value = 25
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			change_innovativeness = 5
+
+			custom_tooltip = EDG_SPACE_TT
+			remove_comet_sighted_events = yes
+			remove_plague_events = yes
+			remove_sick_heir_events = yes
+		}
+	}
+}
+
+EDG_MISSION_HZB_SLOT_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_1_flag } 
+
+	EDG_MISSION_HZB_3_1 = {
+		icon = mission_din_i_llahi
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			or = {
+				total_development = 300
+				calc_true_if = {
+					all_country = {
+						is_subject_of = root
+					}
+					amount = 4
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_3_1_tt
+			every_country = {
+				limit = { is_subject_of = root }
+				add_trust = {
+					who = root
+					value = 25
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_incident_fra_encirclement_event_opinion_b
+				}
+				hidden_effect = {
+					root = { add_prestige = 5 }
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_1_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_2 = {
+		icon = mission_control_the_ganges_delta
+		position = 2
+		required_missions = {
+			EDG_MISSION_HZB_1_1
+			EDG_MISSION_HZB_3_1
+			EDG_MISSION_HZB_5_1
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			or = {
+				army_size = 20
+				army_size_percentage = 1
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_HZB_succession_critic_end_flag_trigger_tooltip
+				has_country_flag = EDG_HZB_succession_critic_end_flag
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_Transforming_tributary_state_into_cultural_sphere_of_influence_subject_state_action_enable_flag_tt
+			set_country_flag = EDG_Transforming_tributary_state_into_cultural_sphere_of_influence_subject_state_action_enable_flag
+			custom_tooltip = EDG_Transforming_cultural_sphere_of_influence_subject_state_into_tributary_state_action_enable_flag_tt
+			set_country_flag = EDG_Transforming_cultural_sphere_of_influence_subject_state_into_tributary_state_action_enable_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 30
+			}
+			remove_country_modifier = EDG_flavor_HZB_mission_0_a_modifier
+			
+			khorasan_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			persia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			al_jazira_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			iraq_arabi_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			basra_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_ruler_modifier = {
+				name = EDG_MISSION_HZB_3_2_ruler_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_3 = {
+		icon = mission_horde_caravans
+		position = 3
+		required_missions = { EDG_MISSION_HZB_3_2 } 
+		provinces_to_highlight = {
+			province_id = 416
+			not = { owned_by = root }
+		} 
+
+		trigger = {
+			if = {
+				limit = { has_country_flag = EDG_AB_MISSION_FLAG }
+				416 = { owned_by = root num_of_times_improved = 3 }
+			}
+			else = {
+				416 = { owned_by = root }
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_HZB_make_416_captial_decision_enable_flag_tt
+			set_country_flag = EDG_HZB_make_416_captial_decision_enable_flag
+			if = {
+				limit = {
+					NOT = { army_size_percentage = 1 }
+				}
+				capital_scope = {
+					build_to_forcelimit = {
+						cavalry = 1
+					}
+				}
+				custom_tooltip = HORDES_BUILD_UP_TO_FORCELIMIT
+			}
+			else = {
+				add_yearly_manpower = 0.8
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_estate = estate_nobles
+				}
+				custom_tooltip = " "
+				complex_dynamic_effect = {
+					first_custom_tooltip = TIM_nobles_60_loyalty
+					first_limit = "
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 60
+						}
+					"
+					first_effect = "
+						define_advisor = {
+							type = commandant
+							skill = 2
+							culture = ROOT
+							religion = ROOT
+							cost_multiplier = 0.4
+						}
+					"
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_5 = {#统治者的身份
+		icon = mission_saladins_legacy
+		position = 5
+		required_missions = {
+			EDG_MISSION_HZB_4_4
+			EDG_MISSION_HZB_1_4
+			EDG_MISSION_HZB_2_4
+			EDG_MISSION_HZB_5_4
+		}
+		provinces_to_highlight = {
+			or = {
+				region = persia_region
+				region = khorasan_region
+				region = mashriq_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					region = persia_region
+					region = khorasan_region
+					region = mashriq_region
+				}
+				value = 65
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_HZB_mission.1 }
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			caucasia_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			west_india_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			hindusthan_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			anatolia_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			mashriq_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			arabia_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_6 = {#帝国的旗帜
+		icon = mission_ilkhanate
+		position = 6
+		required_missions = { EDG_MISSION_HZB_3_5 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			is_at_war = no
+			NOT = { num_of_rebel_armies = 1 }
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_HZB_mission.2 }
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_3
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_on_new_age_add_100_power_flag_tt
+			set_country_flag = EDG_on_new_age_add_100_power_flag
+
+			
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = edg_we_have_200_army_trigger_tt
+				first_limit = "
+					army_size = 200
+				"
+				first_effect = "
+					add_army_professionalism = 0.05
+					add_country_modifier = {
+						name = EDG_MISSION_HZB_1_7_modifier
+						duration = 7300
+					}
+				"
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_8 = {
+		icon = mission_oirat
+		position = 8
+		required_missions = {
+			EDG_MISSION_HZB_3_6
+			EDG_MISSION_HZB_5_7
+			EDG_MISSION_HZB_4_7
+			EDG_MISSION_HZB_2_7
+			EDG_MISSION_HZB_1_7
+		}
+		provinces_to_highlight = {
+			or = {
+				superregion = persia_superregion
+				region = anatolia_region
+				region = mashriq_region
+				region = arabia_region
+				region = egypt_region
+				region = west_india_region
+				region = hindusthan_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					superregion = persia_superregion
+					region = anatolia_region
+					region = mashriq_region
+					region = arabia_region
+					region = egypt_region
+					region = west_india_region
+					region = hindusthan_region
+				}
+				value = 300
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_MISSION_HZB_3_8_flag
+			if = {
+				limit = { has_country_flag = EDG_HZB_ILK_future_flag }
+				custom_tooltip = EDG_MISSION_HZB_3_8_flag_tt_yes
+			}
+			else = {
+				custom_tooltip = EDG_MISSION_HZB_3_8_flag_tt_no
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_9 = {
+		icon = mission_beijing
+		position = 9
+		required_missions = {
+			EDG_MISSION_HZB_3_8
+			EDG_MISSION_HZB_2_8
+			EDG_MISSION_HZB_4_8
+			EDG_MISSION_HZB_1_8
+			EDG_MISSION_HZB_5_8
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			if = {
+				limit = { has_country_flag = EDG_AB_MISSION_FLAG }
+				custom_trigger_tooltip = {
+					tooltip = EDG_MISSION_HZB_3_9_trigger_tt_ab
+					OR = {
+						has_country_flag = EDG_HZB_Persian_critic_end_flag
+						has_country_flag = EDG_PER_disaster_Shah_insane_end_modifier
+						has_country_flag = EDG_PER_disaster_throne_war_end_modifier
+					}
+				}
+			}
+			else = {
+				custom_trigger_tooltip = {
+					tooltip = EDG_MISSION_HZB_3_9_trigger_tt
+					OR = {
+						has_country_flag = EDG_HZB_Persian_critic_end_flag
+						has_country_flag = EDG_PER_disaster_Shah_insane_end_modifier
+						has_country_flag = EDG_PER_disaster_throne_war_end_modifier
+					}
+				}
+			}
+		} 
+
+		effect = {
+			tartary_superregion = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_HZB_great_conquer_enable_flag_tt
+			set_country_flag = EDG_HZB_great_conquer_enable_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_9_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_11 = {
+		icon = mission_mongol_peace
+		position = 11
+		required_missions = { EDG_MISSION_HZB_3_9 } 
+		provinces_to_highlight = {
+			region = mongolia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			723 = { country_or_non_sovereign_subject_holds = root }
+			
+		} 
+
+		effect = {
+			china_superregion = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			crimea_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			ruthenia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			russia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			ural_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			carpathia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			maghreb_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			burma_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			indo_china_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			malaya_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_RandomEvents_unable_Decadence_flag
+			custom_tooltip = EDG_RandomEvents_unable_Decadence_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+}
+EDG_MISSION_HZB_SLOT_3_2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_2_flag } 
+
+	EDG_MISSION_HZB_3_12 = {
+		icon = mission_kazakh_tribes
+		position = 12
+		required_missions = { EDG_MISSION_HZB_3_11 } 
+		provinces_to_highlight = {
+			region = central_asia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			central_asia_region = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				enable_trading_policy = { policy = maximize_profit_upgraded }
+				enable_trading_policy = { policy = hostile_trading_upgraded }
+				enable_trading_policy = { policy = improve_inland_routes_upgraded }
+				enable_trading_policy = { policy = establish_communities_upgraded }
+				hidden_effect = {
+					disable_trading_policy = { policy = maximize_profit }
+					disable_trading_policy = { policy = hostile_trading }
+					disable_trading_policy = { policy = improve_inland_routes }
+					disable_trading_policy = { policy = establish_communities }
+				}
+			}
+			else = {
+				add_mercantilism_or_monarch_power = { amount = 5 }
+				define_advisor = {
+					type = trader
+					discount = yes
+					skill = 3
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			improve_elevation_effect = yes
+			improve_elevation_reduction = yes
+
+		}
+	}
+
+	EDG_MISSION_HZB_3_14 = {
+		icon = mission_timurid_banner
+		position = 14
+		required_missions = { EDG_MISSION_HZB_3_12 } 
+		provinces_to_highlight = {
+			OR = {
+				area = shanshan_area
+				area = jetysuu_area
+				area = kashgaria_area
+				area = ferghana_area
+				area = arys_area
+				area = tarim_basin_area
+				area = zungaria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			or = {
+				crown_land_share = 65
+				total_development = 1250
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = shanshan_area
+					area = jetysuu_area
+					area = kashgaria_area
+					area = ferghana_area
+					area = arys_area
+					area = tarim_basin_area
+					area = zungaria_area
+				}
+				value = 20
+			}
+		}
+
+		effect = {
+			set_country_flag = EDG_RandomEvents_unable_Generation_of_Cowards_tarnished_flag
+			custom_tooltip = EDG_RandomEvents_unable_Generation_of_Cowards_tarnished_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			extra_claims_for_nomadic_path = {
+				effect = "
+					give_claims = { region = mongolia_region }
+				"
+			}
+			custom_tooltip = TIM_unlock_privilege_about_chagatai
+			set_country_flag = TIM_unlock_privilege_about_chagatai_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_3_15 = {
+		icon = mission_tribe_management
+		position = 15
+		required_missions = {
+			EDG_MISSION_HZB_3_14
+			EDG_MISSION_HZB_1_14
+			EDG_MISSION_HZB_2_14
+			EDG_MISSION_HZB_4_14
+			EDG_MISSION_HZB_5_14
+		}
+		provinces_to_highlight = {
+			or = {
+				superregion = near_east_superregion
+				superregion = tartary_superregion
+				superregion = persia_region
+				superregion = eastern_europe_superregion
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			near_east_superregion = { type = all country_or_non_sovereign_subject_holds = root }
+			tartary_superregion = { type = all OR = { country_or_non_sovereign_subject_holds = root is_city = no } }
+			persia_region = { type = all country_or_non_sovereign_subject_holds = root }
+			eastern_europe_superregion = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_3_15_tt
+			hidden_effect = {
+				every_province = {
+					limit = { not = { owned_by = root } }
+					add_permanent_claim = root
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_HZB_set_mongol_brother_realm_enable_flag_tt
+			set_country_flag = EDG_HZB_set_mongol_brother_realm_enable_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+	EDG_MISSION_HZB_3_17 = {
+		icon = sway_the_pope
+		position = 17
+		required_missions = { EDG_MISSION_HZB_2_16 } 
+		provinces_to_highlight = {
+			region = italy_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			118 = { country_or_non_sovereign_subject_holds = root }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = italy_region
+				value = 20
+			}
+		} 
+
+		effect = {
+			118 = {
+				change_religion = root
+				change_culture = root
+				add_base_production = -10
+				add_base_manpower = -10
+				add_prosperity = -10
+				if = {
+					limit = { owner = { not = { tag = root } } }
+					owner = {
+						change_culture = root
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_17_modifier
+				duration = 3650
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_3_18 = {
+		icon = per_sword_of_our_faith
+		position = 18
+		required_missions = {
+			EDG_MISSION_HZB_1_17
+			EDG_MISSION_HZB_2_17
+			EDG_MISSION_HZB_3_17
+		}
+		provinces_to_highlight = {
+			superregion = europe_superregion
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = europe_superregion
+				value = 200
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_3_18_flag_tt
+			set_country_flag = EDG_MISSION_HZB_3_18_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_18_modifier
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_3_19 = {
+		icon = fra_great_britain
+		position = 19
+		required_missions = { EDG_MISSION_HZB_3_18 } 
+		provinces_to_highlight = {
+			region = british_isles_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = british_isles_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			set_country_flag = oma_private_trading_fleets_buff_flag
+			custom_tooltip = OMA_BUFF_PRIVATE_TRADING_FLEETS
+
+			custom_tooltip = EDG_SPACE_TT
+			add_navy_tradition = 25
+			create_admiral = { tradition = 100 add_fire = 1 }
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_3_20 = {
+		icon = mission_blood_for_the_gods
+		position = 20
+		required_missions = {
+			EDG_MISSION_HZB_5_19
+			EDG_MISSION_HZB_1_19
+			EDG_MISSION_HZB_2_19
+			EDG_MISSION_HZB_3_19
+			EDG_MISSION_HZB_4_19
+		}
+		provinces_to_highlight = {
+			is_city = yes
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			all_province = {
+				OR = {
+					is_city = NO
+					country_or_non_sovereign_subject_holds = root
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_3_20_modifier_effect_tt
+			remove_country_modifier = EDG_MISSION_HZB_3_9_modifier
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_9_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_3_21 = {
+		icon = mission_restore_faith_in_the_throne
+		position = 21
+		provinces_to_highlight = {
+			owned_by = root
+			not = { EDG_has_building_courthouse_trigger = yes }
+		} 
+
+		trigger = {
+			total_development = 1000
+			army_size = 100
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				EDG_has_building_courthouse_trigger = yes
+				value = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_adm_exploited_add_1_base_development_back_flag_tt
+			set_country_flag = EDG_on_adm_exploited_add_1_base_development_back_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = mam_indebted_privilege_no_merc_loss_tt
+			set_country_flag = no_mercantilism_loss_estate_privilege_flag
+		}
+	}
+
+	EDG_MISSION_HZB_3_23 = {
+		icon = mission_beijing
+		position = 23
+		required_missions = {
+			EDG_MISSION_HZB_3_21
+			EDG_MISSION_HZB_4_22
+			EDG_MISSION_HZB_2_22
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			is_great_power = yes
+			total_development = 2000
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 300
+			}
+		} 
+
+		effect = {
+			set_country_flag = boh_prevent_negative_traits
+			custom_tooltip = boh_prevent_negative_traits
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_3_23_modifier
+				duration = -1
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_1_flag } 
+
+	EDG_MISSION_HZB_4_3 = {
+		icon = mission_tribal_wargames
+		position = 3
+		required_missions = { EDG_MISSION_HZB_3_2 } 
+		provinces_to_highlight = {
+			or = {
+				area = iraq_e_ajam_area
+				area = mashhad_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = iraq_e_ajam_area
+					area = mashhad_area
+				}
+				value = 8
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_4
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			2221 = {
+				add_center_of_trade_level = 1
+				EDG_building_give_marketplace_or_upgrate_effect = yes
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_3_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_4_4 = {
+		icon = mission_hunting
+		position = 4
+		required_missions = {
+			EDG_MISSION_HZB_4_3
+			EDG_MISSION_HZB_3_3
+			EDG_MISSION_HZB_5_3
+		}
+		provinces_to_highlight = {
+			or = {
+				area = tabriz_area
+				area = herat_area
+				area = birjand_area
+				area = sistan_area
+				area = iraq_e_ajam_area
+				area = mashhad_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			tabriz_area = { type = all country_or_non_sovereign_subject_holds = root }
+			herat_area = { type = all country_or_non_sovereign_subject_holds = root }
+			birjand_area = { type = all country_or_non_sovereign_subject_holds = root }
+			sistan_area = { type = all country_or_non_sovereign_subject_holds = root }
+			iraq_e_ajam_area = { type = all country_or_non_sovereign_subject_holds = root }
+			mashhad_area = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_raze_add_20_treasury_flag_tt
+			set_country_flag = EDG_on_raze_add_20_treasury_flag
+			
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_4_modifier
+				duration = 7300
+			}
+			
+		}
+	}
+
+	EDG_MISSION_HZB_4_6 = {
+		icon = mission_afghan_frontier
+		position = 6
+		required_missions = { EDG_MISSION_HZB_3_5 } 
+		provinces_to_highlight = {
+			region = anatolia_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 30
+			}
+		} 
+
+		effect = {
+			balkan_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_4_6_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { culture = turkish }
+					add_nationalism = -10
+					root = {
+						add_manpower = 0.25
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = MOGHULISTAN_ORGANIZER_GRANTS_RAZE_GAIN
+			set_country_flag = moghulistan_organizer_flag
+			
+		}
+	}
+
+	EDG_MISSION_HZB_4_7 = {
+		icon = mission_raid_hosts
+		position = 7
+		required_missions = { EDG_MISSION_HZB_4_6 } 
+		provinces_to_highlight = {
+			or = {
+				region = anatolia_region
+				region = balkan_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					region = anatolia_region
+					region = balkan_region
+				}
+				value = 60
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_4
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_4_7_tt
+			hidden_effect = {
+				every_country = {
+					limit = { is_subject_of = root capital_scope = { superregion = eastern_europe_superregion } }
+					add_liberty_desire = -25
+					root = {
+						add_mil_power = 50
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_7_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_4_8 = {
+		icon = byz_city_of_worlds_desire
+		position = 8
+		provinces_to_highlight = {
+			province_id  = 151
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			151 = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_HZB_mission.3 }
+			set_country_flag = EDG_on_concentrate_development_add_5_nationalism_flag
+			custom_tooltip = EDG_on_concentrate_development_add_5_nationalism_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_ruler_modifier = {
+				name = EDG_MISSION_HZB_4_8_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_4_9 = {
+		icon = mission_strengthen_basqaqs
+		position = 9
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			government_reform_progress = 100
+			OR = {
+				num_of_subjects = 3
+				total_development = 500
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				custom_tooltip = HORDES_UNLOCK_BASQAQ_PRIVILEGE_FOR_TRIBES_AND_NOBILITY
+			}
+			else = {
+				custom_tooltip = HORDES_UNLOCK_BASQAQ_PRIVILEGE_FOR_TRIBES_AND_NOBILITY_NO_MOH
+			}
+			set_country_flag = hordes_basqaqs_unlocked_flag
+		}
+	}
+
+	EDG_MISSION_HZB_4_10 = {
+		icon = mission_tatar_tribes
+		position = 10
+		required_missions = { EDG_MISSION_HZB_4_9 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_nomadic_tribes
+					value = 4
+				}
+			}
+			else = {
+				monthly_mil = 11
+			}
+			
+			has_mil_advisor_3 = yes
+			num_of_cavalry = 35
+			num_of_battles = { amount = 30 }
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = HORDES_BASAQS_NOW_GRANT_TRIPLES_LOYALTY_PER_TRIBUTE_RECEIVED
+				set_country_flag = basaqs_tribes_loyalty_from_tribute_flag
+			}
+			else = {
+				add_estate_loyalty = {
+					estate = all
+					loyalty = 20
+				}
+			}
+			add_country_modifier = {
+				name = hordes_raised_hosts
+				duration = 5475
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_4_2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_2_flag } 
+
+	EDG_MISSION_HZB_4_12 = {
+		icon = qng_ten_grand_campaigns
+		position = 12
+		required_missions = { EDG_MISSION_HZB_3_11 } 
+		provinces_to_highlight = {  
+			OR = {
+				area = ordos_area
+				area = gansu_area
+				area = west_gansu_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = ordos_area
+					area = gansu_area
+					area = west_gansu_area
+				}
+				value = 6
+			}
+			698 = {
+				owned_by = ROOT
+			}
+		}
+
+		effect = {  
+			country_event_with_effect_insight = {
+				id = horde_mission_events.8
+				effect = "
+					add_army_tradition_or_mil_power = { amount = 10 }
+		
+					custom_tooltip = SEPERATOR_TOOLTIP
+		
+					if = {
+						limit = {
+							has_dlc = \"Leviathan\"
+						}
+						custom_tooltip = HORDES_UNLOCK_GREAT_WALL_OF_CHINA
+						set_country_flag = hordes_unlocked_wall_of_china
+					}
+					else = {
+						698 = {
+							add_or_upgrade_fort_building = yes
+						}
+					}
+				"
+			}
+			add_country_modifier = {
+				name = tatars_like_a_dragon
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_4_13 = {
+		icon = jap_conquer_north_china
+		position = 13
+		required_missions = { EDG_MISSION_HZB_4_12 } 
+		provinces_to_highlight = {  
+			region = north_china_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = north_china_region
+				value = 20
+			}
+			688 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1816 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+
+		effect = {
+			custom_tooltip = TATARS_MODIFY_LIKE_A_DRAGON_MODIFIER_1
+			hidden_effect = {
+				remove_country_modifier = tatars_like_a_dragon
+				add_country_modifier = {
+					name = tatars_like_a_dragon_1
+					duration = -1
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			complex_dynamic_effect = {
+				first_custom_tooltip = EDG_MISSION_HZB_4_13_a_trigger_tt
+				first_limit = "
+					688 = { has_province_modifier = province_razed }
+					1816 = { has_province_modifier = province_razed }
+				"
+				first_effect = "
+					change_innovativeness = 5
+					add_adm_power = 50
+					add_dip_power = 50
+					add_mil_power = 50
+				"
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_4_14 = {
+		icon = mission_manchu_warrior
+		position = 14
+		required_missions = { EDG_MISSION_HZB_4_13 } 
+		provinces_to_highlight = {  
+			OR = {
+				region = north_china_region
+				region = south_china_region
+				region = xinan_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			1816 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			1821 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			667 = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = north_china_region
+					region = south_china_region
+					region = xinan_region
+				}
+				value = 100
+			}
+		}
+
+		effect = {
+			add_country_modifier_for_age = {
+				name = hordes_fall_of_china
+				age = age_of_reformation
+			}
+			
+			add_legitimacy_equivalent = { amount = 15 republican_tradition = 10 }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			custom_tooltip = TATARS_MODIFY_LIKE_A_DRAGON_MODIFIER_2
+			hidden_effect = {
+				remove_country_modifier = tatars_like_a_dragon_1
+				add_country_modifier = {
+					name = tatars_like_a_dragon_2
+					duration = -1
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		} 
+	}
+
+	EDG_MISSION_HZB_4_16 = {
+		icon = mission_spoils_of_war
+		position = 16
+		required_missions = { EDG_MISSION_HZB_3_15 } 
+		provinces_to_highlight = {
+			OR = {
+				superregion = india_superregion
+				superregion = east_indies_superregion
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = india_superregion
+				value = 50
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				superregion = east_indies_superregion
+				value = 50
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_4_16_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						has_truce = ROOT
+						is_subject = no
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = persian_influence_mechanic
+							power_type = persian_influence
+							value = 5
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			change_ruler_stat = {
+				type = mil
+				amount = 1
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_4_17 = {
+		icon = per_great_shia_empire
+		position = 17
+		required_missions = { EDG_MISSION_HZB_4_16 } 
+		provinces_to_highlight = {
+			OR = {
+				superregion = india_superregion
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			india_superregion = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_HZB_4_17_tt
+			hidden_effect = {
+				every_province = {
+					limit = { 
+						superregion = india_superregion
+						country_or_non_sovereign_subject_holds = root
+						religion_group = root
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = persian_influence_mechanic
+							power_type = persian_influence
+							value = 1
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_17_modifier
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_4_19 = {
+		icon = seize_sardinia
+		position = 19
+		required_missions = { EDG_MISSION_HZB_3_18 } 
+		provinces_to_highlight = {
+			region = italy_region
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			italy_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			set_country_flag = hun_refund_mana_on_tech
+			custom_tooltip = hun_refund_mana_on_tech_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_4_19_tt
+			hidden_effect = {
+				every_province = {
+					limit = { 
+						region = italy_region
+						country_or_non_sovereign_subject_holds = root
+						religion_group = root
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = persian_influence_mechanic
+							power_type = persian_influence
+							value = 2
+						}
+					}
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_4_22 = {
+		icon = per_the_tofangchi
+		position = 22
+		required_missions = {
+			EDG_MISSION_HZB_3_21
+			EDG_MISSION_HZB_5_21
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			culture_group = root
+			or = {
+				not = { EDG_has_building_barracks_trigger = yes }
+				not = { EDG_has_building_camp_trigger = yes }
+			}
+		} 
+
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.15
+			}
+			num_of_owned_provinces_with = {
+				EDG_has_building_barracks_trigger = yes
+				EDG_has_building_camp_trigger = yes
+				culture_group = root
+				value = 25
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			custom_tooltip = EDG_MISSION_HZB_4_22_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						EDG_has_building_barracks_trigger = yes
+						EDG_has_building_camp_trigger = yes
+						culture_group = root
+					}
+					add_base_manpower = 1
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_22_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_4_24 = {
+		icon = mission_conquer_the_doab
+		position = 24
+		required_missions = {
+			EDG_MISSION_HZB_4_22
+			EDG_MISSION_HZB_5_23
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			army_professionalism = 0.5
+			army_tradition = 95
+			is_hegemon = yes
+			all_country = {
+				not = { army_size = root }
+			}
+		} 
+
+		effect = {
+			set_country_flag = hun_pp_on_heathen_wars
+			custom_tooltip = hun_winning_wars_against_heathens_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_4_24_modifier
+				duration = -1
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_1_flag } 
+
+	EDG_MISSION_HZB_5_1 = {
+		icon = mission_karels_heritage
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			calc_true_if = {
+				NOT = { has_estate_privilege = EDG_estate_HZB_privilege_noble }
+				NOT = { has_estate_privilege = EDG_estate_HZB_privilege_nomadic }
+				NOT = { has_estate_privilege = EDG_estate_HZB_privilege_Caledonia }
+				amount = 2
+			}
+		} 
+
+		effect = {
+			add_manpower = 10
+			add_army_tradition = 10
+			add_estate_loyalty = { 
+				estate = estate_edg_caledonia
+				loyalty = 15
+			}
+			add_estate_loyalty = { 
+				estate = estate_nobles
+				loyalty = 15
+			}
+			add_estate_loyalty = { 
+				estate = estate_nomadic_tribes
+				loyalty = 15
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_1_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_3 = {
+		icon = mam_baghdad
+		position = 3
+		required_missions = { EDG_MISSION_HZB_3_2 } 
+		provinces_to_highlight = {
+			or = {
+				area = birjand_area
+				area = sistan_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			birjand_area = { type = all country_or_non_sovereign_subject_holds = root }
+			sistan_area = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			set_country_flag = EDG_more_strict_personality_flag_2
+			custom_tooltip = EDG_more_strict_personality_flag_1_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_5_3_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						trade_goods = livestock
+					}
+					root = {
+						add_manpower = 1
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			birjand_area = {
+				add_nationalism = -10
+				add_local_autonomy = -25
+			}
+			sistan_area = {
+				add_nationalism = -10
+				add_local_autonomy = -25
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_4 = {
+		icon = mission_end_tamil_insurgency
+		position = 4
+		required_missions = { EDG_MISSION_HZB_5_3 } 
+		provinces_to_highlight = {
+			or = {
+				area = ghor_area
+				area = kabulistan_area
+				culture = afghani
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = ghor_area
+					area = kabulistan_area
+					culture = afghani
+				}
+				value = 6
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_more_strict_personality_flag_1
+			custom_tooltip = EDG_more_strict_personality_flag_1_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_5_4_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_MISSION_HZB_5_4_modifier
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						culture = afghani
+					}
+					add_province_modifier = {
+						name = EDG_MISSION_HZB_5_4_modifier
+						duration = 7300
+					}
+					root = {
+						change_variable = {
+							which = EDG_PER_Shahanshah_authority_var
+							value = 1
+						}
+					}
+				}
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_6 = {
+		icon = mission_lower_burma_campaign
+		position = 6
+		required_missions = { EDG_MISSION_HZB_3_5 } 
+		provinces_to_highlight = {
+			or = {
+				region = hindusthan_region
+				region = west_india_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					region = hindusthan_region
+					region = west_india_region
+				}
+				value = 60
+			}
+		} 
+
+		effect = {
+			bengal_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			deccan_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			coromandel_region = { 
+				limit = {  NOT = { owned_by = ROOT } NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			add_country_modifier = {
+				name = hordes_fall_of_hindustan
+				duration = 5475
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_7 = {
+		icon = mission_the_grand_trunk_road_dlh
+		position = 7
+		required_missions = { EDG_MISSION_HZB_5_6 } 
+		provinces_to_highlight = {
+			or = {
+				region = bengal_region
+				region = deccan_region
+				region = coromandel_region
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					region = bengal_region
+					region = deccan_region
+					region = coromandel_region
+				}
+				value = 60
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_on_main_war_won_provide_add_army_tradition_flag_5
+			custom_tooltip = EDG_on_main_war_won_provide_add_army_tradition_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_HZB_5_7_tt
+			hidden_effect = {
+				every_country = {
+					limit = { is_subject_of = root capital_scope = { superregion = india_superregion } }
+					add_liberty_desire = -25
+					root = {
+						add_adm_power = 50
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_7_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_8 = {
+		icon = mission_cossack_cavalry
+		position = 8
+		provinces_to_highlight = {
+			region = central_asia_region
+			owner = {
+				not = { tag = root }
+				not = { is_subject_of = root }
+				not = { alliance_with = root }
+				not = { overlord = { is_subject_of = root } }
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_province = {
+					region = central_asia_region
+					owner = {
+						OR = {
+							tag = root
+							is_subject_of = root
+							alliance_with = root
+							overlord = { is_subject_of = root }
+						}
+					}
+				}
+				amount = 35
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_more_bold_fighter_personality_flag_2
+			custom_tooltip = EDG_more_bold_fighter_personality_flag_1_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			central_asia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = TIM_repulsing_nomadic_advancement
+				duration = 10950
+			}
+			
+		}
+	}
+
+	EDG_MISSION_HZB_5_10 = {
+		icon = mission_horde_religion
+		position = 10
+		required_missions = { EDG_MISSION_HZB_5_8 } 
+		trigger = {
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				estate_loyalty = {
+					estate = estate_nomadic_tribes
+					loyalty = 60
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				custom_tooltip = TATARS_UNLOCK_TRIBAL_ABSOLUTISM
+				set_country_flag = hordes_tribal_absolutism_flag
+
+			}
+
+			custom_tooltip = SEPERATOR_TOOLTIP
+			add_country_modifier = {
+				name = hordes_curtailing_the_tribes
+				duration = 5475
+			}
+		}
+	}
+}
+EDG_MISSION_HZB_SLOT_5_2 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { has_country_flag = EDG_HZB_mission_2_flag } 
+
+	EDG_MISSION_HZB_5_11 = {
+		icon = mission_genghis_khan
+		position = 11
+		required_missions = {
+			EDG_MISSION_HZB_4_10
+			EDG_MISSION_HZB_5_10
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {  
+			monthly_mil = 11
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				estate_loyalty = {
+					estate = estate_nomadic_tribes
+					loyalty = 80
+				}
+			}
+			num_of_battles = { amount = 200 }
+			all_country = {
+				not = { army_size = root }
+			}
+			OR = {
+				mil = 5
+				has_mil_advisor_3 = yes
+			}
+		} 
+	
+		effect = {  
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = HORDES_IF_RULER_WINS_100_BATTLES_WHILST_CONQUEROR_GAIN_LEGENDARY_CONQUEROR
+				set_country_flag = hordes_legendary_conqueror_battles_flag
+				
+				hidden_effect = {
+					set_variable = {
+						which = NumOfRulerBattles
+						value = 0
+					}
+				}
+			}
+			else = {
+				change_mil = 2
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_country_modifier = {
+				name = hordes_new_great_khan
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_MISSION_HZB_5_12 = {
+		icon = qng_junji_chu
+		position = 12
+		required_missions = { EDG_MISSION_HZB_3_11 } 
+		provinces_to_highlight = {  
+			region = manchuria_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = manchuria_region
+				value = 20
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_cavalry_commander_provide_5_shock_damage_flag
+			custom_tooltip = EDG_cavalry_commander_provide_5_shock_damage_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			capital_scope = {
+				add_base_manpower = 1
+				add_base_tax = 2
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_12_modifier
+				duration = -1
+			}
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			custom_tooltip = TATARS_RAZING_GRANTS_TRIBES_LOYALTY
+			set_country_flag = hordes_unlock_tribes_loyalty_through_razing_flag
+		} 
+	}
+
+	EDG_MISSION_HZB_5_13 = {
+		icon = mjz_into_korea
+		position = 13
+		required_missions = { EDG_MISSION_HZB_5_12 } 
+		provinces_to_highlight = {  
+			region = korea_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = korea_region
+				value = 15
+			}
+		}
+
+		effect = {  
+			custom_tooltip = HORDES_SHARE_SPOILS_GRANTS_TECH_COST_REDUCTION
+			set_country_flag = hordes_share_spoils_buff_flag
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_13_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_14 = {
+		icon = jap_train_samurai
+		position = 14
+		required_missions = { EDG_MISSION_HZB_5_13 } 
+		provinces_to_highlight = {  
+			region = japan_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = japan_region
+				value = 20
+			}
+		} 
+
+		effect = {  
+			define_advisor = {
+				type = army_reformer
+				skill = 3
+				cost_multiplier = 0.25
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			if = {
+				limit = {
+					has_dlc = "Rule Britannia"
+				}
+				set_country_flag = unlocked_japanese_atakebuna_doctrine_flag
+				custom_tooltip = HORDES_UNLOCK_JAPANESE_NAVAL_DOCTRINE
+			}
+			else = {
+				add_navy_tradition = 15
+				add_dip_power = 100
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		} 
+	}
+
+	EDG_MISSION_HZB_5_17 = {
+		icon = mission_pow_the_laughing_king
+		position = 17
+		required_missions = { EDG_MISSION_HZB_4_16 } 
+		provinces_to_highlight = {
+			OR = {
+				region = burma_region
+				region = indo_china_region
+			}
+			is_city = yes
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			burma_region = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+			indo_china_region = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+		} 
+
+		effect = {
+			set_country_flag = EDG_RandomEvents_unable_ruler_embarrasses_the_court_flag
+			custom_tooltip = EDG_RandomEvents_unable_ruler_embarrasses_the_court_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_17_modifier
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_5_18 = {
+		icon = mission_claim_the_canaries
+		position = 18
+		required_missions = { EDG_MISSION_HZB_5_17 } 
+		provinces_to_highlight = {
+			OR = {
+				superregion = east_indies_superregion
+			}
+			is_city = yes
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			east_indies_superregion = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+		} 
+
+		effect = {
+			set_country_flag = ARB_upgrade_trade_ship_privilege_for_trade_steering_flag
+			custom_tooltip = ARB_upgrade_trade_ship_privilege_for_trade_power_propagation
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_18_modifier
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_5_19 = {
+		icon = mission_conquer_norway
+		position = 19
+		required_missions = { EDG_MISSION_HZB_5_18 EDG_MISSION_HZB_3_18 } 
+		provinces_to_highlight = {
+			OR = {
+				superregion = north_america_superregion
+				superregion = central_america_superregion
+				superregion = andes_superregion
+				superregion = south_america_superregion
+			}
+			is_city = yes
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			north_america_superregion = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+			central_america_superregion = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+			andes_superregion = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+			south_america_superregion = { type = all or = { country_or_non_sovereign_subject_holds = root is_city = no } }
+		} 
+
+		effect = {
+			set_country_flag = mam_upgrade_private_trade_fleets_flag
+			custom_tooltip = mam_upgrade_private_trade_fleets_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_19_modifier
+				duration = -1
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			EDG_MISSION_HZB_3_9_modifier_effect = yes
+		}
+	}
+
+	EDG_MISSION_HZB_5_21 = {
+		icon = mission_abu_saids_dream
+		position = 21
+		provinces_to_highlight = {
+			owned_by = root
+			not = { EDG_has_building_barracks_trigger = yes EDG_has_building_camp_trigger = yes }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					EDG_has_building_barracks_trigger = yes
+					EDG_has_building_camp_trigger = yes
+				}
+				value = 30
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_on_general_recruited_provide_1_army_tradition_flag_tt
+			set_country_flag = EDG_on_general_recruited_provide_1_army_tradition_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			disable_rebels_from_seize_land_for_estate = {
+				estate = estate_nobles
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_21_modifier
+				duration = 9125
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_22 = {
+		icon = per_recruit_the_qizilbash
+		position = 22
+		required_missions = { EDG_MISSION_HZB_5_21 } 
+		provinces_to_highlight = {
+			owned_by = root
+			not = { culture_group = root }
+			or = {
+				not = { EDG_has_building_barracks_trigger = yes }
+				not = { EDG_has_building_camp_trigger = yes }
+			}
+		} 
+
+		trigger = {
+			has_global_modifier_value = {
+				which = cavalry_power
+				value = 0.75
+			}
+			num_of_owned_provinces_with = {
+				EDG_has_building_barracks_trigger = yes
+				EDG_has_building_camp_trigger = yes
+				culture_group = altaic
+				value = 25
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			custom_tooltip = EDG_MISSION_HZB_5_22_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						EDG_has_building_barracks_trigger = yes
+						EDG_has_building_camp_trigger = yes
+						culture_group = altaic
+					}
+					root = {
+						add_manpower = 1
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_22_modifier
+				duration = -1
+			}
+		}
+	}
+
+	EDG_MISSION_HZB_5_23 = {
+		icon = per_create_the_ghulams
+		position = 23
+		required_missions = {
+			EDG_MISSION_HZB_5_22
+			EDG_MISSION_HZB_4_22
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_global_modifier_value = {
+				which = discipline
+				value = 0.25
+			}
+			has_global_modifier_value = {
+				which = cavalry_power
+				value = 1.25
+			}
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 20
+			}
+			custom_tooltip = EDG_on_pre_mil_advisor_fired_add_mil_power_flag_tt
+			set_country_flag = EDG_on_pre_mil_advisor_fired_add_mil_power_flag
+			
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_HZB_5_23_modifier
+				duration = -1
+			}
+		}
+	}
+}

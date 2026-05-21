@@ -1,0 +1,1971 @@
+EDG_Mission_TUR_conquest_1_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  has_country_flag = EDG_TUR_mission_flag NOT = { has_country_flag = EDG_Mission_TUR_conquest_1_end_flag } } 
+
+	EDG_Mission_TUR_conquest_1_mission_1_1 = {
+		icon = mission_battle_of_varna
+		ai_weight = { factor = 400 }
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			stability = 1
+			NOT = { war_exhaustion = 2 }
+		} 
+
+		effect = {
+			add_war_exhaustion = -2
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_1_1_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_2 = {
+		icon = expand_the_swiss_guard
+		ai_weight = { factor = 400 }
+		position = 2
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_1_1
+			EDG_Mission_TUR_conquest_1_mission_3_1
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1853
+				area = northern_greece_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					province_id = 1853
+					area = northern_greece_area
+				}
+				value = 4
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_TUR_mission.1 }
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_1_2_modifier
+				duration = 3650
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_1_2_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						is_core = EP0
+					}
+					add_nationalism = -10
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_3 = {
+		icon = mission_parthenon
+		ai_weight = { factor = 400 }
+		position = 3
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_1_2 } 
+		provinces_to_highlight = {
+			area = morea_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			OR = {
+				not = { exists = MOE }
+				MOE = { is_subject_of = root }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = morea_area
+				value = 4
+			}
+		} 
+
+		effect = {
+			morea_area = {
+				add_nationalism = -10
+				add_devastation = -100
+			}
+			if = {
+				limit = {
+					MOE = { is_subject_of = root }
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_1_3_tt_yes
+				MOE = {
+					add_liberty_desire = -50
+					add_country_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_1_3_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_1_3_tt_no
+				tooltip = {
+					MOE = {
+						add_liberty_desire = -50
+						add_country_modifier = {
+							name = EDG_Mission_TUR_conquest_1_mission_1_3_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_4 = {
+		icon = mission_pasha
+		ai_weight = { factor = 400 }
+		position = 4
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_1_3 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { culture_group = ROOT }
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				has_pasha = no
+			}
+			else = {
+				nationalism = 1
+			}
+		}
+		trigger = {
+			#num_of_pashas = 5
+			stability = 1
+			if = {
+				limit = { ai = no }
+				num_of_owned_provinces_with = {
+					NOT = { culture_group = ROOT }
+					if = {
+						limit = {
+							has_dlc = "Cradle of Civilization"
+						}
+						has_pasha = yes
+					}
+					else = {
+						NOT = { nationalism = 1 }
+					}
+					culture = greek
+					value = 15
+				}
+			}
+		}
+
+		effect = {
+			
+			custom_tooltip = tur_establish_the_pashas_ct
+			hidden_effect = {
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				random_owned_province = { limit = { NOT = { has_province_flag = received_reward } NOT = { culture_group = ROOT }  if = { limit = { has_dlc = "Cradle of Civilization" } has_pasha = yes } else = { NOT = { nationalism = 1 } } } add_base_manpower = 1 set_province_flag = received_reward }
+				every_owned_province = {
+					limit = {
+						has_province_flag = received_reward
+					}
+					clr_province_flag = received_reward
+				}
+			}
+
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_1_4_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_1_4_province_modifier
+					duration = 9125
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						has_pasha = yes
+						culture = greek
+					}
+					add_province_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_1_4_province_modifier
+						duration = 9125
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_6 = {
+		icon = mission_impaled_soldies
+		ai_weight = { factor = 400 }
+		position = 6
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_5 } 
+		provinces_to_highlight = {
+			area = wallachia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			wallachia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_1_6_modifier
+				duration = 3650
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+			  limit = {
+				WAL = {
+				  is_subject_of = ROOT
+				}
+			  }
+			  WAL = {
+				add_liberty_desire = -100
+			  }
+			}
+			else = {
+			  custom_tooltip = tur_subjugate_romania_at
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_8 = {
+		icon = mission_unite_home_region
+		ai_weight = { factor = 400 }
+		position = 8
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_1_6
+			EDG_Mission_TUR_conquest_1_mission_2_7
+		}
+		provinces_to_highlight = {
+			or = {
+				area = southern_transylvania_area
+				area = transylvania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			transylvania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			southern_transylvania_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 1
+			}
+			transylvania_area = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_1_8_province_modifier
+					duration = 9125
+				}
+			}
+			southern_transylvania_area = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_1_8_province_modifier
+					duration = 9125
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+				  TRA = {
+					is_subject_of = ROOT
+				  }
+				}
+				TRA = {
+				  add_liberty_desire = -100
+				}
+			}
+			else = {
+				custom_tooltip = tur_subjugate_romania_TRA
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_1_9 = {
+		icon = the_russian_campaign
+		ai_weight = { factor = 400 }
+		position = 9
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_1_8 } 
+		provinces_to_highlight = {
+			area = moldavia_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			moldavia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			
+			add_country_modifier = {
+				name = tur_romanian_tribute
+				duration = 9125
+			}
+			add_yearly_manpower = 0.25
+			add_army_tradition = 10
+
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+			  limit = {
+				MOL = {
+				  is_subject_of = ROOT
+				}
+			  }
+			  MOL = {
+				add_liberty_desire = -100
+			  }
+			}
+			else = {
+			  custom_tooltip = tur_subjugate_romania_bt
+			}
+		} 
+	}
+}
+EDG_Mission_TUR_conquest_1_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  has_country_flag = EDG_TUR_mission_flag NOT = { has_country_flag = EDG_Mission_TUR_conquest_1_end_flag } } 
+
+	EDG_Mission_TUR_conquest_1_mission_2_2 = {
+		icon = mission_guns_of_urban
+		ai_weight = { factor = 400 }
+		position = 2
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_1 } 
+		trigger = {
+			has_mil_advisor_2 = yes
+			custom_trigger_tooltip = {
+				tooltip = EDG_Mission_TUR_conquest_1_mission_2_2_trigger_tooltip
+				always = yes
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_2_tt
+			hidden_effect = {
+				add_country_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_2_2_modifier
+					duration = 18250
+					hidden = yes
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { NOT = { mil_tech = 7 } }
+				capital_scope = {
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+					large_cast_bronze_mortar = ROOT
+				}
+				custom_tooltip = tur_guns_of_urban_ct
+			}
+			else = {
+				capital_scope = {
+					artillery = ROOT
+					artillery = ROOT
+					artillery = ROOT
+					artillery = ROOT
+				}
+			}
+			# if = {
+			# 	limit = {
+			# 		NOT = { mil_tech = 6 }
+			# 		employed_advisor = {
+			# 			name = "Urban"
+			# 			type = army_reformer
+			# 			religion = catholic
+			# 			culture = hungarian
+			# 			category = mil
+			# 		}
+			# 	}
+			# 	custom_tooltip = tur_guns_of_urban_at
+			# 	add_country_modifier = { 
+			# 		name = tur_early_cannons_modifier
+			# 		duration = 3650 
+			# 	}
+			# }
+			# else = {
+			# 	custom_tooltip = tur_guns_of_urban_at
+			# 	tooltip = {
+			# 		add_country_modifier = { 
+			# 			name = tur_early_cannons_modifier
+			# 			duration = 3650 
+			# 		}
+			# 	}
+			# }
+		}
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_2_4 = {
+		icon = mission_norwegian_royal_army
+		ai_weight = { factor = 400 }
+		position = 4
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_2_2 } 
+		provinces_to_highlight = {
+			area = bulgaria_area
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			bulgaria_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_TUR_mission.13 }
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_4_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = { culture = bulgarian }
+					root = {
+						add_mil_power = 5
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					num_of_cavalry = 10
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_4_tt_yes
+				add_country_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_2_4_modifier
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_4_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_2_4_modifier
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_2_6 = {
+		icon = mission_the_renaissance_king
+		ai_weight = { factor = 400 }
+		position = 6
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_5 } 
+		provinces_to_highlight = {
+			or = {
+				area = serbia_area
+				area = rascia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = serbia_area
+					area = rascia_area
+				}
+				value = 6
+			}
+		} 
+
+		effect = {
+			add_army_tradition = 15
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = { army_size = 100 }
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_6_a_tt_yes
+				add_mil_power = 100
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_6_a_tt_no
+				tooltip = {
+					add_mil_power = 100
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_2_7 = {
+		icon = mission_conquer_50_development
+		ai_weight = { factor = 400 }
+		position = 7
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_2_6 } 
+		provinces_to_highlight = {
+			province_id = 4239
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			4239 = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		effect = {
+			set_country_flag = EDG_Mission_TUR_conquest_1_mission_2_7_flag
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_7_flag_tt
+			if = {
+			  limit = {
+				WAL = {
+				  exists = yes
+				  is_subject = no
+				}
+			  }
+			  add_casus_belli = {
+				type = cb_ottoman_subjugation_war
+				target = WAL
+				months = 240
+			  }
+			}
+			if = {
+			  limit = {
+				HUN = {
+				  exists = yes
+				  is_subject = no
+				}
+			  }
+			  add_casus_belli = {
+				type = cb_ottoman_subjugation_war
+				target = HUN
+				months = 240
+			  }
+			}
+			if = {
+			  limit = {
+				MOL = {
+				  exists = yes
+				  is_subject = no
+				}
+			  }
+			  add_casus_belli = {
+				type = cb_ottoman_subjugation_war
+				target = MOL
+				months = 240
+			  }
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					NOT = { 
+						any_country = {
+							capital_scope = { continent = europe } 
+							army_size = ROOT 
+						}
+					}
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_7_a_tt_yes
+				add_country_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_2_7_modifier
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_7_a_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_2_7_modifier
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_2_8 = {
+		icon = mission_destroy_the_hungarians
+		ai_weight = { factor = 400 }
+		position = 8
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_2_7 } 
+		provinces_to_highlight = {
+			or = {
+				area = transdanubia_area
+				area = alfold_area
+				area = slovakia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = transdanubia_area
+					area = alfold_area
+					area = slovakia_area
+				}
+				value = 12
+			}
+		} 
+
+		effect = {
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 1
+			}
+			if = {
+			  limit = {
+				HUN = {
+				  is_subject_of = ROOT
+				}
+			  }
+			  if = {
+				limit = {
+				  HUN = {
+					is_subject_of_type = eyalet
+				  }
+				}
+				HUN = {
+				  hidden_effect = {
+					grant_independence = yes
+				  }
+				}
+				create_subject = {
+				  who = HUN
+				  subject_type = core_eyalet
+				}
+				add_dip_power = 100
+			  }
+			  else = {
+				country_event_with_insight = {
+				  id = flavor_tur.209
+				  insight_tooltip = IS_EYALET_EVENT_TT
+				}
+			  }
+			}
+			else = {
+			  add_mil_power = 100
+			}
+			austria_proper_area = {
+			  limit = {
+				NOT = {
+				  is_core = ROOT
+				}
+				NOT = {
+				  is_permanent_claim = ROOT
+				}
+			  }
+			  add_permanent_claim = ROOT
+			}
+			inner_austria_area = {
+			  limit = {
+				NOT = {
+				  is_core = ROOT
+				}
+				NOT = {
+				  is_permanent_claim = ROOT
+				}
+			  }
+			  add_permanent_claim = ROOT
+			}
+			carinthia_area = {
+			  limit = {
+				NOT = {
+				  is_core = ROOT
+				}
+				NOT = {
+				  is_permanent_claim = ROOT
+				}
+			  }
+			  add_permanent_claim = ROOT
+			}
+			tirol_area = {
+			  limit = {
+				NOT = {
+				  is_core = ROOT
+				}
+				NOT = {
+				  is_permanent_claim = ROOT
+				}
+			  }
+			  add_permanent_claim = ROOT
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_8_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_2_8_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						or = {
+							area = transdanubia_area
+							area = alfold_area
+							area = slovakia_area
+						}
+						country_or_non_sovereign_subject_holds = root
+					}
+					add_province_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_2_8_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_2_9 = {
+		icon = mission_construct_a_corsair_fleet
+		ai_weight = { factor = 400 }
+		position = 9
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_3_8
+			EDG_Mission_TUR_conquest_1_mission_2_8
+			EDG_Mission_TUR_conquest_1_mission_1_8
+		}
+		provinces_to_highlight = {
+			is_capital = yes 
+			owner = {
+				capital_scope = { continent = europe }
+				army_size = ROOT 
+			}
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = fra_strongest_doge_europe_tt
+				NOT = { 
+					any_country = {
+						capital_scope = { continent = europe } 
+						army_size = ROOT 
+					}
+				}
+			}
+			OR = {
+				NOT = { hre_size = 1 }
+				emperor = {
+					not = { army_size = root }
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_9_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						capital_scope = { continent = europe } 
+						not = { tag = ROOT }
+						NOT = { is_subject_of = root }
+					}
+					country_event = { id = EDG_flavor_TUR_mission.3 }
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_ruler_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_2_9_ruler_modifier
+				duration = -1
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					NOT = { 
+						any_country = {
+							capital_scope = { continent = europe } 
+							mil_tech = ROOT 
+						}
+					}
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_9_a_tt_yes
+				add_country_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_2_9_modifier
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_2_9_a_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_2_9_modifier
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+}
+EDG_Mission_TUR_conquest_1_slot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  has_country_flag = EDG_TUR_mission_flag NOT = { has_country_flag = EDG_Mission_TUR_conquest_1_end_flag } } 
+
+	EDG_Mission_TUR_conquest_1_mission_3_1 = {
+		icon = mission_janissaries
+		ai_weight = { factor = 400 }
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			or = {
+				army_size_percentage = 1
+				army_size = 20
+			}
+		} 
+
+		effect = {
+			add_manpower = 10
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_3_1_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_2 = {
+		icon = mission_the_great_conqueror
+		ai_weight = { factor = 400 }
+		position = 2
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				is_year = 1460
+				custom_trigger_tooltip = {
+					tooltip = EDG_TUR_Muhammad_Authority_end_flag_trigger_tt
+					has_country_flag = EDG_TUR_Muhammad_Authority_end_flag
+				}
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorTUR.6 }
+			add_treasury = 500
+			add_manpower = 10
+			
+			anatolia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			bulgaria_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			macedonia_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			northern_greece_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			morea_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			thrace_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			silistria_area = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_3 = {
+		icon = mission_fall_of_constantinople
+		ai_weight = { factor = 400 }
+		position = 3
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_2_2
+			EDG_Mission_TUR_conquest_1_mission_3_2
+			EDG_Mission_TUR_conquest_1_mission_4_2
+		}
+		provinces_to_highlight = {
+			province_id = 151
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			151 = {
+				owned_by = ROOT
+				is_capital_of = ROOT
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_3_3_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event_with_insight = {
+				id = flavor_tur.205
+				insight_tooltip = INSIGHT_JUST_TOOLTIP
+				effect_tooltip = "
+				add_country_modifier = {
+					name = defeated_byzantine_empire
+					duration = 5475
+				}
+				151 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+					add_province_modifier = {
+						name = tur_resettlement_of_constantinople
+						duration = 9125
+					}
+				}"
+			}
+			hidden_effect = {
+				country_event = { id = EDG_flavor_TUR.49 days = 2 }
+				country_event = { id = EDG_flavorTUR.4 days = 40 }
+			}
+		}
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_4 = {
+		icon = mission_janissary_soldier
+		ai_weight = { factor = 400 }
+		position = 4
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_3 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			government_rank = 3
+			stability = 1
+			total_development = 400
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavorTUR.7 }
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_estate_TUR_privilege_Allah_authorizes_the_emperor_enable_flag_tt
+			set_country_flag = EDG_estate_TUR_privilege_Allah_authorizes_the_emperor_enable_flag
+			tooltip = {
+      			set_estate_privilege = EDG_estate_TUR_privilege_Allah_authorizes_the_emperor
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_5 = {
+		icon = mission_pax_ottomana
+		ai_weight = { factor = 400 }
+		position = 5
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_1_4
+			EDG_Mission_TUR_conquest_1_mission_2_4
+			EDG_Mission_TUR_conquest_1_mission_3_4
+			EDG_Mission_TUR_conquest_1_mission_4_4
+			EDG_Mission_TUR_conquest_1_mission_5_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 149			# 埃迪尔内
+				province_id = 326			# 安卡拉
+				province_id = 4309			# 士麦那
+				province_id = 317			# 许达文迪加尔
+				province_id = 1846			# 阿马西亚
+				province_id = 329			# 锡瓦斯
+				province_id = 148			# 赛拉尼克
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			tag = TUR
+		} 
+
+		effect = {
+			balkan_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			mashriq_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_3_5_tt
+			hidden_effect = {
+				every_subject_country = {
+					root = {
+						add_prestige_or_monarch_power = { amount = 5 }
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_ruler_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_3_5_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_6 = {
+		icon = spa_spanish_road
+		ai_weight = { factor = 400 }
+		position = 6
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_5 } 
+		provinces_to_highlight = {
+			or = {
+				area = albania_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				area = albania_area
+				value = 3
+			}
+		} 
+
+		effect = {
+			add_estate_loyalty = {
+			  estate = estate_janissaries
+			  loyalty = 20
+			}
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_3_6_modifier
+				duration = 9125
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_estate_TUR_privilege_Albania_janisary_enable_flag_tt
+			set_country_flag = EDG_estate_TUR_privilege_Albania_janisary_enable_flag
+			tooltip = {
+      		set_estate_privilege = EDG_estate_TUR_privilege_Albania_janisary
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_8 = {
+		icon = mission_balkan_conquest
+		ai_weight = { factor = 400 }
+		position = 8
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_2_7 EDG_Mission_TUR_conquest_1_mission_3_6 } 
+		provinces_to_highlight = {
+		  OR = {
+			area = serbia_area
+			area = rascia_area
+			area = albania_area
+			area = croatia_area
+			area = east_adriatic_coast_area
+			area = bosnia_area
+			area = slavonia_area
+		  }
+		  NOT = {
+			country_or_non_sovereign_subject_holds = ROOT
+		  }
+		}
+		trigger = {
+		  num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			OR = {
+			  area = serbia_area
+			  area = rascia_area
+			  area = albania_area
+			  area = croatia_area
+			  area = east_adriatic_coast_area
+			  area = bosnia_area
+			  area = slavonia_area
+			}
+			value = 20
+		  }
+		}
+		effect = {
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 1
+			}
+			carpathia_region = {
+				limit = {
+				NOT = {
+					is_core = ROOT
+				}
+				NOT = {
+					is_permanent_claim = ROOT
+				}
+				}
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = tur_push_into_the_balkans_ct
+			tooltip = {
+				add_province_modifier = {
+					name = tur_local_millet_rule
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				balkan_region = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_province_modifier = {
+						name = tur_local_millet_rule
+						duration = 7300
+					}
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_3_8_tt_a
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_3_8
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						OR = {
+						  area = serbia_area
+						  area = rascia_area
+						  area = albania_area
+						  area = croatia_area
+						  area = east_adriatic_coast_area
+						  area = bosnia_area
+						  area = slavonia_area
+						}
+						country_or_non_sovereign_subject_holds = root
+					}
+					root = {
+						add_manpower = 2
+					}
+					add_province_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_3_8_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_9 = {
+		icon = EDG_TUR_MISSION_ICON_3
+		ai_weight = { factor = 400 }
+		position = 9
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_TUR_Salim_disaster_end_flag_trigger_tt
+				has_country_flag = EDG_TUR_Salim_disaster_end_flag
+			}
+		} 
+
+		effect = {
+			add_ruler_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_3_9_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_3_10 = {
+		icon = EDG_TUR_MISSION_ICON_1
+		ai_weight = { factor = 400 }
+		position = 10
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_1_9
+			EDG_Mission_TUR_conquest_1_mission_2_9
+			EDG_Mission_TUR_conquest_1_mission_3_9
+			EDG_Mission_TUR_conquest_1_mission_4_9
+			EDG_Mission_TUR_conquest_1_mission_5_9
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = carpathia_region
+				region = balkan_region
+				region = anatolia_region
+				region = egypt_region
+				area = palestine_area
+				area = trans_jordan_area
+				area = syria_area
+				area = syrian_desert_area
+				area = aleppo_area
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			carpathia_region = { type = all country_or_non_sovereign_subject_holds = root }
+			balkan_region = { type = all country_or_non_sovereign_subject_holds = root }
+			anatolia_region = { type = all country_or_non_sovereign_subject_holds = root }
+			egypt_region = { type = all country_or_non_sovereign_subject_holds = root }
+			palestine_area = { type = all country_or_non_sovereign_subject_holds = root }
+			trans_jordan_area = { type = all country_or_non_sovereign_subject_holds = root }
+			syria_area = { type = all country_or_non_sovereign_subject_holds = root }
+			syrian_desert_area = { type = all country_or_non_sovereign_subject_holds = root }
+			aleppo_area = { type = all country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			set_country_flag = EDG_Mission_TUR_conquest_1_end_flag
+			set_country_flag = EDG_Mission_TUR_conquest_2_flag
+			country_event = { id = EDG_flavor_TUR_mission.7 }
+			swap_non_generic_missions = yes
+
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 2
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_TUR_integrate_culture_decision_flag
+			custom_tooltip = EDG_TUR_integrate_culture_decision_flag_tt
+		} 
+	}
+}
+EDG_Mission_TUR_conquest_1_slot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  has_country_flag = EDG_TUR_mission_flag NOT = { has_country_flag = EDG_Mission_TUR_conquest_1_end_flag } } 
+
+	EDG_Mission_TUR_conquest_1_mission_4_2 = {
+		icon = mission_non-western_soldiers
+		ai_weight = { factor = 400 }
+		position = 2
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = no	#Because I don't trust the AI to be competent
+					has_government_attribute = enables_estate_janissaries
+				}
+				num_of_janissaries = 10
+			}
+			else = {
+				army_size = 35
+			}
+			if = {
+				limit = {
+					has_estate = estate_janissaries
+					ai = no	#Again, no trust in the AI
+				}
+				num_of_estate_privileges = {
+					estate = estate_janissaries
+					value = 2
+				}
+			}
+			else_if = {
+				limit = {
+					ai = no
+				}
+				stability = 2
+			}
+			else = {
+				army_size_percentage = 0.8
+			}
+		}
+		effect = {
+			add_manpower = 10
+			add_country_modifier = {
+				name = tur_janissary_example
+				duration = 9125
+			}
+			
+			country_event_with_insight = {
+				id = flavor_tur.208
+				insight_tooltip = INSIGHT_JUST_TOOLTIP
+				effect_tooltip = "
+				add_mil_power = 25
+				add_country_modifier = {
+					name = tur_janissary_loyalty
+					duration = 36500
+				}"
+			}
+		}
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_4_4 = {
+		icon = mission_hands_praying
+		ai_weight = { factor = 400 }
+		position = 4
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_4_2 } 
+		provinces_to_highlight = {
+			area = kastamonu_area
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			OR = {
+				not = { exists = BKT }
+				BKT = { is_subject_of = root }
+			}
+			kastamonu_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_estate_loyalty = {
+			  estate = estate_janissaries
+			  loyalty = 20
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_TUR_bektashi_holy_order_enable_flag_tt
+			set_country_flag = EDG_TUR_bektashi_holy_order_enable_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_4_4_modifier
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_4_6 = {
+		icon = mam_recruit_the_mamluks
+		ai_weight = { factor = 400 }
+		position = 6
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_5 } 
+
+		provinces_to_highlight = {
+			region = anatolia_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			2305 = { country_or_non_sovereign_subject_holds = root }
+			418 = { country_or_non_sovereign_subject_holds = root }
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = anatolia_region
+				value = 40
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_4_6_tt_a
+			hidden_effect = {
+				every_country = {
+					limit = {
+					  culture_group = turko_semitic
+					  not = { total_development = 300 }
+					}
+					root = {
+						add_casus_belli = {
+						  type = cb_ottoman_subjugation_war
+						  target = PREV
+						  months = 240
+						}
+					}
+				}
+			}
+			
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event_with_insight = {
+				id = flavor_tur.231
+				insight_tooltip = INSIGHT_JUST_TOOLTIP
+				effect_tooltip = "
+				anatolia_region = { 
+					limit = { country_or_non_sovereign_subject_holds = ROOT }
+					add_province_modifier = { 
+						name = tur_integration_in_the_ottoman_government_modifier
+						duration = 5475
+					}
+				}"
+			}
+		}
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_4_7 = {
+		icon = mission_egyptian_mamluk_soldier
+		ai_weight = { factor = 400 }
+		position = 7
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_4_6 } 
+		provinces_to_highlight = {
+			OR = {
+				area = aleppo_area
+				area = syria_area
+				area = syrian_desert_area
+				area = palestine_area
+				area = trans_jordan_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = aleppo_area
+					area = syria_area
+					area = syrian_desert_area
+					area = palestine_area
+					area = trans_jordan_area
+				}
+				value = 6
+			}
+			OR = {
+				owns_or_non_sovereign_subject_of = 382
+				owns_or_non_sovereign_subject_of = 379
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavorTUR.8 }
+			egypt_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+			# if = {
+			# 	limit = {
+			# 		exists = MAM
+			# 		NOT = { exists = EGY }
+			# 	}
+			# 	add_casus_belli = {
+			# 		type = cb_ottoman_invasion
+			# 		target = MAM
+			# 		months = 600
+			# 	}
+			# 	custom_tooltip = tur_defeat_the_mamluks_at
+			# }
+			# else_if = {
+			# 	limit = { exists = EGY }
+			# 	add_casus_belli = {
+			# 		type = cb_ottoman_subjugation_war
+			# 		target = EGY
+			# 		months = 600
+			# 	}
+			# }
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_4_7_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_Mission_TUR_conquest_1_mission_4_7_province_modifier
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = { 
+						OR = {
+							area = aleppo_area
+							area = syria_area
+							area = syrian_desert_area
+							area = palestine_area
+							area = trans_jordan_area
+						}
+						country_or_non_sovereign_subject_holds = root
+					}
+					root = {
+						add_mil_power = 25
+					}
+					add_province_modifier = {
+						name = EDG_Mission_TUR_conquest_1_mission_4_7_province_modifier
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_4_8 = {
+		icon = mission_break_the_mamluks
+		ai_weight = { factor = 400 }
+		position = 8
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_4_7 } 
+		provinces_to_highlight = {
+			region = egypt_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = egypt_region
+				value = 25
+			}
+		}
+		effect = {
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 1
+			}
+			custom_tooltip = EDG_TUR_cancel_MAM_egy_reform_enable_flag_tt
+			set_country_flag = EDG_TUR_cancel_MAM_egy_reform_enable_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_4_8_modifier
+				duration = 7300
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					OR = {
+						MAM = { is_subject_of = root }
+						EGY = { is_subject_of = root }
+					}
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_4_8_tt_a_yes
+				if = {
+					limit = {
+						EGY = { is_subject_of = root }
+					}
+					EGY = {
+						add_country_modifier = {
+							name = EDG_Mission_TUR_conquest_1_mission_4_8_modifier
+							duration = 9125
+						}
+					}
+				}
+				else = {
+					MAM = {
+						add_country_modifier = {
+							name = EDG_Mission_TUR_conquest_1_mission_4_8_modifier
+							duration = 9125
+						}
+					}
+				}
+			}
+
+		}
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_4_9 = {
+		icon = mission_eyalet_egypt
+		ai_weight = { factor = 400 }
+		position = 9
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_4_8 } 
+		provinces_to_highlight = {
+			region = egypt_region
+			local_autonomy = 10
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_TUR_disable_MAM_flag_trigger_tooltip
+				has_country_flag = EDG_TUR_disable_MAM_flag
+			}
+			egypt_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = { local_autonomy = 95 }
+				OR = {
+					NOT = { local_autonomy = 10 }
+					is_owned_by_trade_company = yes
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = tur_handle_the_egyptian_eyalet_ct
+			hidden_effect = {
+				#egypt_region = {
+				#	limit = {
+				#		country_or_non_sovereign_subject_holds = ROOT
+				#	}
+				#	add_base_production = 1
+				#  
+				#	type = random
+				#	amount = 10
+				#}
+				bahari_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_base_production = 1
+				}
+				delta_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_base_production = 1
+				}
+				vostani_area = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_base_production = 1
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event_with_insight = {
+				id = flavor_tur.244
+				insight_tooltip = INSIGHT_JUST_TOOLTIP
+				effect_tooltip = "
+				add_adm_power = 100
+				egypt_region = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+					}
+					add_province_modifier = {
+						name = tur_investment_into_infrastructure
+						duration = 9125
+					}
+				}"
+			}
+		} 
+	}
+}
+EDG_Mission_TUR_conquest_1_slot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  has_country_flag = EDG_TUR_mission_flag NOT = { has_country_flag = EDG_Mission_TUR_conquest_1_end_flag }  } 
+
+	EDG_Mission_TUR_conquest_1_mission_5_1 = {
+		icon = mission_portuguese_ceylon
+		ai_weight = { factor = 400 }
+		position = 1
+		provinces_to_highlight = {
+			owned_by = AHE
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					AHE = {
+						not = { num_of_cities = 5 }
+						is_subject_of = root
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+					}
+				}
+				AND = {
+					owns = 326
+					owns = 2299
+					owns = 4312
+				}
+			}
+		} 
+
+		effect = {
+			add_treasury = 200
+			add_prestige = 20
+			if = {
+				limit = {
+					AHE = {
+						not = { num_of_cities = 5 }
+						is_subject_of = root
+						has_opinion = {
+							who = ROOT
+							value = 190
+						}
+					}
+				}
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_5_1_a_tt_yes
+			}
+			else = {
+				custom_tooltip = EDG_Mission_TUR_conquest_1_mission_5_1_a_tt_no
+			}
+			hidden_effect = {
+				if = {
+					limit = {
+						AHE = {
+							is_subject_of = root
+							has_opinion = {
+								who = ROOT
+								value = 190
+							}
+						}
+					}
+					inherit = AHE
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_2 = {
+		icon = mission_unify_anatolia
+		ai_weight = { factor = 400 }
+		position = 2
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_3_1
+			EDG_Mission_TUR_conquest_1_mission_5_1
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = GRM
+				owned_by = AYD
+			}
+		} 
+
+		trigger = {
+			OR = {
+				not = { exists = GRM }
+				GRM = { is_subject_of = root }
+			}
+			OR = {
+				not = { exists = AYD }
+				AYD = { is_subject_of = root }
+			}
+		} 
+
+		effect = {
+			add_legitimacy = 25
+			custom_tooltip = EDG_more_conquer_personality_flag_1_tt
+			set_country_flag = EDG_more_conquer_personality_flag_1
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_5_2_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_3 = {
+		icon = geo_turkoman
+		ai_weight = { factor = 400 }
+		position = 3
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_5_2 } 
+		provinces_to_highlight = {
+			or = {
+				area = karaman_area
+				area = rum_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		} 
+
+		trigger = {
+			OR = {
+				not = { exists = KAR }
+				KAR = { is_subject_of = root }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				or = {
+					area = karaman_area
+					area = rum_area
+				}
+				value = 8
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_more_conquer_personality_flag_1_tt
+			set_country_flag = EDG_more_conquer_personality_flag_2
+			
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_4 = {
+		icon = mission_muslim_administrators
+		ai_weight = { factor = 400 }
+		position = 4
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_5_3 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			region = anatolia_region
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				has_pasha = no
+			}
+			else = {
+				nationalism = 1
+			}
+		}
+		trigger = {
+			if = {
+				limit = { ai = no }
+				num_of_owned_provinces_with = {
+					region = anatolia_region
+					if = {
+						limit = {
+							has_dlc = "Cradle of Civilization"
+						}
+						has_pasha = yes
+					}
+					else = {
+						NOT = { nationalism = 1 }
+					}
+					value = 30
+				}
+			}
+		}
+
+		effect = {
+			country_event = { id = EDG_flavor_TUR_mission.14 }
+			custom_tooltip = EDG_SPACE_TT
+			
+			if = {
+				limit = {
+					has_dlc = "Cradle of Civilization"
+				}
+				custom_tooltip = tur_improved_pashas_ct
+			}
+			else = {
+				add_adm_power = 150
+			}
+			hidden_effect = {
+				set_country_flag = tur_improved_pashas
+				every_owned_province = {
+					limit = { NOT = { culture_group = ROOT } has_pasha = yes }
+					add_province_modifier = { name = tur_competent_pashas duration = -1 hidden = yes }
+				}
+			}
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_6 = {
+		icon = mission_establish_high_seas_navy
+		ai_weight = { factor = 400 }
+		position = 6
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_3_5 } 
+		provinces_to_highlight = {
+			province_id = 321
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			321 = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_TUR_mission.15 }
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_5_6_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			321 = {
+				add_province_modifier = {
+					name = EDG_City_Trade_1_modifier
+					duration = -1
+				}
+			}
+
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_8 = {
+		icon = mission_humiliate_provence
+		ai_weight = { factor = 400 }
+		position = 8
+		required_missions = {
+			EDG_Mission_TUR_conquest_1_mission_5_6
+			EDG_Mission_TUR_conquest_1_mission_4_7
+		}
+		provinces_to_highlight = {
+			province_id = 379
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			379 = { country_or_non_sovereign_subject_holds = root is_core = owner }
+		} 
+
+		effect = {
+			change_variable = {
+				which = EDG_TUR_Kapikulu_land_value
+				value = 1
+			}
+			country_event = { id = EDG_flavor_TUR_mission.5 }
+			custom_tooltip = EDG_Mission_TUR_conquest_1_mission_5_9_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = christian
+					}
+					country_event = { id = EDG_flavor_TUR_mission.6 }
+				}
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			arabia_region = { 
+				limit = { NOT = { is_core = ROOT }  NOT = { country_or_non_sovereign_subject_holds = ROOT } }
+				add_permanent_claim = ROOT 
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_defender_of_faith_claim_provide_100_power_first_flag_tt
+			set_country_flag = EDG_defender_of_faith_claim_provide_100_power_first_flag
+		} 
+	}
+
+	EDG_Mission_TUR_conquest_1_mission_5_9 = {
+		icon = mission_mosque
+		ai_weight = { factor = 400 }
+		position = 9
+		required_missions = { EDG_Mission_TUR_conquest_1_mission_5_8 } 
+		provinces_to_highlight = {
+			or = {
+				province_id = 384
+				province_id = 385
+			}
+			not = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		trigger = {
+			384 = { country_or_non_sovereign_subject_holds = root }
+			385 = { country_or_non_sovereign_subject_holds = root }
+		} 
+
+		effect = {
+
+			custom_tooltip = EDG_faith_protector_provide_governing_10_capacity_modifier_flag_tt
+			set_country_flag = EDG_faith_protector_provide_governing_10_capacity_modifier_flag
+			hidden_effect = {
+				if = {
+					limit = { is_defender_of_faith = yes }
+					EDG_OA_on_defender_of_faith_claim_effect = yes
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_Mission_TUR_conquest_1_mission_5_9_modifier
+				duration = 9125
+			}
+		} 
+	}
+}

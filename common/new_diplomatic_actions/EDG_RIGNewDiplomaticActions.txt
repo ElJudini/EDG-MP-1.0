@@ -1,0 +1,808 @@
+rig_inspection_of_vassal = {
+	category = influence
+	require_acceptance = no
+
+	is_visible = {
+		from = {
+			is_subject_of = root
+		}
+		has_government_attribute = subject_inspection_regulations
+	}
+
+	is_allowed = {
+		is_at_war = no
+	}
+
+	on_accept = {
+		switch_tag = from
+		custom_tooltip = rig_inspection_of_vassal.effect.tt
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+rig_end_inspection_of_vassal = {
+	category = influence
+	require_acceptance = no
+
+	is_visible = {
+		is_subject_of = RIG
+		from = {
+			tag = RIG
+			has_government_attribute = subject_inspection_regulations
+		}
+		ai = no
+	}
+
+	is_allowed = {
+		
+	}
+
+	on_accept = {
+		switch_tag = from
+	}
+	ai_will_do = {
+		always = no
+	}
+}
+rig_change_sbject_trade_city_actions = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			NOT = {
+				num_of_cities = 2
+			}
+			NOT = {
+				is_subject_of_type = rig_trade_city
+			}
+		}
+	}
+
+	is_allowed = {
+		NOT = {
+			liberty_desire = 50
+		}
+		dip_power = 100
+	}
+
+	on_accept = {
+		add_dip_power = -100
+		riga_set_up_rig_trade_city_effect = {
+			subject = from
+		}
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+rig_change_sbject_episcopal_administrative_district_actions = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_episcopal_administrative_district
+					is_subject_of_type = rig_knightage_vissal
+				}
+			}
+		}
+	}
+
+	is_allowed = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+				
+			}
+			from = {
+				OR = {
+					NOT = {
+						OR = {
+							liberty_desire = 30
+							total_development = 50
+						}
+					}
+					is_subject_of_type = rig_episcopal_military_district
+					is_subject_of_type = rig_episcopal_economic_district
+				}
+			}
+			adm_power_cost = 200
+		}
+		else = {
+			from = {
+				is_subject_of = root
+				NOT = {
+					is_subject_of_type = rig_episcopal_administrative_district
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+			}
+			adm_power_cost = 100
+		}
+		riga_set_up_special_vassal_effect = {
+			type = rig_episcopal_administrative_district
+			subject = from
+			reform = yes
+		}
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+rig_change_sbject_episcopal_economic_district_actions = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_episcopal_economic_district
+					is_subject_of_type = rig_knightage_vissal
+				}
+			}
+		}
+	}
+
+	is_allowed = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+			}
+			from = {
+				OR = {
+					NOT = {
+						OR = {
+							liberty_desire = 30
+							total_development = 50
+						}
+					}
+					is_subject_of_type = rig_episcopal_military_district
+					is_subject_of_type = rig_episcopal_administrative_district
+				}
+			}
+			dip_power_cost = -100
+		}
+		else = {
+			from = {
+				is_subject_of = root
+				NOT = {
+					is_subject_of_type = rig_episcopal_economic_district
+				}
+			}
+		}
+	}
+
+	on_accept = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+			}
+			dip_power_cost = -100
+		}
+		riga_set_up_special_vassal_effect = {
+			type = rig_episcopal_economic_district
+			subject = from
+			reform = yes
+		}
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+rig_change_sbject_episcopal_military_district_actions = {
+	category = influence
+
+	require_acceptance = no
+
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			NOT = {
+				OR = {
+					is_subject_of_type = rig_episcopal_military_district
+					is_subject_of_type = rig_knightage_vissal
+				}
+			}
+		}
+	}
+
+	is_allowed = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+			}
+			from = {
+				OR = {
+					NOT = {
+						OR = {
+							liberty_desire = 30
+							total_development = 50
+						}
+					}
+					is_subject_of_type = rig_episcopal_economic_district
+					is_subject_of_type = rig_episcopal_administrative_district
+				}
+			}
+			mil_power_cost = 200
+		}
+		else = {
+			from = {
+				is_subject_of = root
+				NOT = {
+					is_subject_of_type = rig_episcopal_military_district
+				}
+			}
+		}
+		
+	}
+
+	on_accept = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = enable_unconditional_conversion_of_dioceses
+				}
+			}
+			mil_power_cost = 200
+		}
+		riga_set_up_special_vassal_effect = {
+			type = rig_episcopal_military_district
+			subject = from
+			reform = yes
+		}
+	}
+
+	ai_will_do = {
+		always = yes
+	}
+}
+rig_transfer_control_area_to_subject = {
+	category = influence
+	is_visible = {
+		from = {
+			OR = {
+				alliance_with = root
+				is_subject_of = root
+			}
+		}
+	}
+	is_allowed = {
+		is_at_war = yes
+		from = {
+			is_at_war = yes
+		}
+	}
+	on_accept = {
+		every_province = {
+			limit = {
+				controlled_by = root
+			}
+			change_controller = from
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_transfer_control_area_to_overlord = {
+	category = influence
+	is_visible = {
+		from = {
+			is_subject_of = root
+		}
+	}
+	is_allowed = {
+		is_at_war = yes
+		from = {
+			is_at_war = yes
+		}
+	}
+	on_accept = {
+		every_province = {
+			limit = {
+				controlled_by = from
+			}
+			change_controller = root
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_take_back_the_vassal = {
+	category = influence
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject = yes
+			NOT = {
+				is_subject_of = root
+			}
+			overlord = {
+				is_subject_of = root
+				OR = {
+					is_subject_of_type = rig_episcopal_administrative_district
+					is_subject_of_type = rig_episcopal_economic_district
+					is_subject_of_type = rig_episcopal_military_district
+					is_subject_of_type = rig_overseas_episcopate
+				}
+			}
+		}
+	}
+	is_allowed = {
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		if = {
+			limit = { 
+				from = {
+					is_subject_of_type = march
+				}
+			}
+			create_subject = {
+				subject_type = march
+				subject = from
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					is_subject_of_type = rig_vassal
+				}
+			}
+			create_subject = {
+				subject_type = march
+				subject = from
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					is_subject_of_type = rig_episcopal_administrative_district
+				}
+			}
+			create_subject = {
+				subject_type = rig_episcopal_administrative_district
+				subject = from
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					is_subject_of_type = rig_episcopal_economic_district
+				}
+			}
+			create_subject = {
+				subject_type = rig_episcopal_economic_district
+				subject = from
+			}
+		}
+		else_if = {
+			limit = { 
+				from = {
+					is_subject_of_type = rig_episcopal_military_district
+				}
+			}
+			create_subject = {
+				subject_type = rig_episcopal_military_district
+				subject = from
+			}
+		}
+		else = {
+			create_subject = {
+				subject_type = vassal
+				subject = from
+			}
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_select_the_client_to_transfer = {
+	category = influence
+	is_visible = {
+		NOT = {
+			has_country_flag = already_select_vassal_target_flag
+		}
+		tag = RIG
+		from = {
+			is_subject = yes
+			OR = {
+				AND = {
+					is_subject_of = root
+					OR = {
+						is_subject_of_type = vassal
+						is_subject_of_type = rig_vassal
+						is_subject_of_type = march
+						is_subject_of_type = rig_episcopal_administrative_district
+						is_subject_of_type = rig_episcopal_economic_district
+						is_subject_of_type = rig_episcopal_military_district
+						is_subject_of_type = rig_overseas_episcopate
+					}
+				}
+				AND = {
+					NOT = {
+						is_subject_of = root
+					}
+					overlord = {
+						is_subject_of = root
+						OR = {
+							is_subject_of_type = rig_episcopal_administrative_district
+							is_subject_of_type = rig_episcopal_economic_district
+							is_subject_of_type = rig_episcopal_military_district
+							is_subject_of_type = rig_overseas_episcopate
+						}
+					}
+				}
+			}
+		}
+	}
+	is_allowed = {
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		set_country_flag = already_select_vassal_target_flag
+		from = {
+			save_global_event_target_as = rig_transfer_vassal_target
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_transfer_of_client_to_the_country = {
+	category = influence
+	is_visible = {
+		tag = RIG
+		has_country_flag = already_select_vassal_target_flag
+		from = {
+			is_subject_of = root
+			OR = {
+				is_subject_of_type = rig_episcopal_administrative_district
+				is_subject_of_type = rig_episcopal_economic_district
+				is_subject_of_type = rig_episcopal_military_district
+				is_subject_of_type = rig_overseas_episcopate
+			}
+		}
+		# if = {
+		# 	limit = { 
+		# 		event_target:rig_transfer_vassal_target = {
+		# 			is_subject_of_type = rig_episcopal_administrative_district
+		# 		}
+		# 	}
+		# 	OR = {
+		# 		from = {
+		# 			is_subject_of_type = rig_episcopal_economic_district
+		# 			is_subject_of_type = rig_episcopal_military_district
+		# 			is_subject_of_type = rig_overseas_episcopate
+		# 		}
+		# 	}
+		# }
+		# else_if = {
+		# 	limit = { 
+		# 		event_target:rig_transfer_vassal_target = {
+		# 			is_subject_of_type = rig_episcopal_economic_district
+		# 		}
+		# 	}
+		# 	OR = {
+		# 		from = {
+		# 			is_subject_of_type = rig_episcopal_administrative_district
+		# 			is_subject_of_type = rig_episcopal_military_district
+		# 			is_subject_of_type = rig_overseas_episcopate
+		# 		}
+		# 	}
+		# }
+		# else_if = {
+		# 	limit = { 
+		# 		event_target:rig_transfer_vassal_target = {
+		# 			is_subject_of_type = rig_episcopal_military_district
+		# 		}
+		# 	}
+		# 	OR = {
+		# 		from = {
+		# 			is_subject_of_type = rig_episcopal_administrative_district
+		# 			is_subject_of_type = rig_episcopal_economic_district
+		# 			is_subject_of_type = rig_overseas_episcopate
+		# 		}
+		# 	}
+		# }
+	}
+	is_allowed = {
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		from = {
+			if = {
+				limit = { 
+					event_target:rig_transfer_vassal_target = {
+						is_subject_of_type = march
+					}
+				}
+				create_subject = {
+					subject_type = march
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+			else_if = {
+				limit = { 
+					event_target:rig_transfer_vassal_target = {
+						is_subject_of_type = rig_vassal
+					}
+				}
+				create_subject = {
+					subject_type = rig_vassal
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+			else_if = {
+				limit = { 
+					event_target:rig_transfer_vassal_target = {
+						is_subject_of_type = rig_episcopal_administrative_district
+					}
+				}
+				create_subject = {
+					subject_type = rig_episcopal_administrative_district
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+			else_if = {
+				limit = { 
+					event_target:rig_transfer_vassal_target = {
+						is_subject_of_type = rig_episcopal_economic_district
+					}
+				}
+				create_subject = {
+					subject_type = rig_episcopal_economic_district
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+			else_if = {
+				limit = { 
+					event_target:rig_transfer_vassal_target = {
+						is_subject_of_type = rig_episcopal_military_district
+					}
+				}
+				create_subject = {
+					subject_type = rig_episcopal_military_district
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+			else = {
+				create_subject = {
+					subject_type = vassal
+					subject = event_target:rig_transfer_vassal_target
+				}
+			}
+		}
+		clear_global_event_target = rig_transfer_vassal_target
+		clr_country_flag = already_select_vassal_target_flag
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_change_vassal_to_rig_vassal = {
+	category = influence
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			is_subject_of_type = vassal
+		}
+	}
+	is_allowed = {
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		custom_tooltip = rig_change_vassal_to_rig_vassal_tooltip
+		hidden_effect = {
+			create_subject = {
+				subject_type = rig_vassal
+				subject = from
+			}
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_change_rig_vassal_to_vassal = {
+	category = influence
+	is_visible = {
+		tag = RIG
+		from = {
+			is_subject_of = root
+			is_subject_of_type = rig_vassal
+		}
+	}
+	is_allowed = {
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		custom_tooltip = rig_change_rig_vassal_to_vassal_tooltip
+		hidden_effect = {
+			create_subject = {
+				subject_type = vassal
+				subject = from
+			}
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_drag_into_battle = {
+	category = influence
+	is_visible = {
+		from = {
+			is_subject_of_type = rig_overseas_episcopate
+		}
+	}
+	is_allowed = {
+		is_at_war = yes
+	}
+	on_accept = {
+		custom_tooltip = rig_drag_into_battle_tooltip
+		hidden_effect = {
+			from = {
+				join_all_defensive_wars_of = root
+				join_all_offensive_wars_of = root
+			}
+		}
+	}
+	require_acceptance = no
+	ai_will_do = {
+		always = no
+	}
+}
+rig_concession_trade_ordinance = {
+	category = influence
+	require_acceptance = yes
+	is_visible = {
+		tag = RIG
+		RIG = {
+			mission_completed = rig_heart_of_baltic
+		}
+		NOT = {
+			OR = {
+				num_of_cities = 2
+				is_subject_of = root
+			}
+		}
+	}
+	is_allowed = {
+		is_trade_league_leader = yes
+		is_in_trade_league_with = from
+		from = {
+			has_opinion = {
+				who = root
+				value = 190
+			}
+		}
+		is_at_war = no
+		from = {
+			is_at_war = no
+		}
+	}
+	on_accept = {
+		custom_tooltip = rig_concession_trade_ordinance_tooltip
+		hidden_effect = {
+			riga_set_up_rig_trade_city_effect = {
+				subject = from
+				reform = yes	
+			}
+		}
+	}
+	ai_will_do = {
+		always = no
+	}
+	ai_acceptance = {
+		add_entry = {
+			name = BASE_AI_ACCEPTANCE
+			subtract_variable = { 
+				which = ai_value
+				value = 40
+			}
+		}
+		add_entry = {
+            name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value 
+				value = 0.2
+			}
+        }
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}			
+			subtract_variable = { 
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 4
+			multiply_variable = {
+				which = ai_value
+				value = 4
+			}
+		}
+	}
+}

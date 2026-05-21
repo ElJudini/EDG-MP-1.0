@@ -1,0 +1,670 @@
+namespace = EDG_BOHEvents
+
+country_event = {
+	id = EDG_BOHEvents.0
+	is_triggered_only = yes
+	title = EDG_BOHEvents.0.name
+	desc = EDG_BOHEvents.0.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+
+	option = {
+		name = EDG_BOHEvents.0.aa
+		every_country = {
+			limit = {
+				religion = hussite
+			}
+			add_opinion = {
+				who = root
+				modifier = EDG_BOH_tyrant
+			}
+			root = {
+				add_opinion = {
+					who = prev
+					modifier = EDG_BOH_hus_em
+				}
+			}
+		}
+		custom_tooltip = EDG_SPACE_TT
+		add_legitimacy_or_mil_power = {
+			amount = 5
+		}
+		add_prestige_or_monarch_power = {
+			amount = 10
+		}
+		every_subject_country = {
+			add_liberty_desire = -25
+		}
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.1
+	is_triggered_only = yes
+	hidden = yes
+	fire_only_once = yes
+
+	immediate = {
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -20
+		}
+		change_estate_land_share = {
+			estate = all
+			share = 15
+		}
+		add_legitimacy = -25
+		add_manpower = -5
+		every_owned_province = {
+			limit = {
+				religion = hussite
+			}
+			add_province_modifier = {
+				name = EDG_BOH_rootedness_hussite
+				duration = 3650
+			}
+		}
+		country_event = {
+			id = EDG_BOHEvents.101
+			days = 26645
+			random = 365
+		}
+	}
+
+	option = {
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.2
+	is_triggered_only = yes
+	title = EDG_BOHEvents.2.name
+	desc = EDG_BOHEvents.2.desc
+	picture = CIVIL_WAR_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					NOT = {
+						has_province_flag = EDG_BOH_rebel_province_flag
+					}
+				}
+				set_province_flag = EDG_BOH_rebel_province_flag
+			}
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					NOT = {
+						has_province_flag = EDG_BOH_rebel_province_flag
+					}
+				}
+				set_province_flag = EDG_BOH_rebel_province_flag
+			}
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					NOT = {
+						has_province_flag = EDG_BOH_rebel_province_flag
+					}
+				}
+				set_province_flag = EDG_BOH_rebel_province_flag
+			}
+			random_owned_province = {
+				limit = {
+					is_capital = no
+					NOT = {
+						has_province_flag = EDG_BOH_rebel_province_flag
+					}
+				}
+				set_province_flag = EDG_BOH_rebel_province_flag
+			}
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.2.aa
+		custom_tooltip = EDG_BOHEvents.2.effect.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_government_reform = EDG_BOH_prague_clause
+		custom_tooltip = EDG_SPACE_TT
+		capital_scope = {
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			infantry = root
+			cavalry = root
+			cavalry = root
+		}
+		custom_tooltip = EDG_SPACE_TT
+		every_owned_province = {
+			limit = {
+				has_province_modifier = EDG_BOH_rootedness_hussite
+			}
+			remove_province_modifier = EDG_BOH_rootedness_hussite
+		}
+		custom_tooltip = EDG_SPACE_TT
+		every_owned_province = {
+			limit = {
+				has_province_flag = EDG_BOH_rebel_province_flag
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				size = 10
+				win = yes
+			}
+			spawn_rebels = {
+				size = 10
+				type = anti_tax_rebels
+				friend = root
+			}
+		}
+		custom_tooltip = EDG_SPACE_TT
+		if = {
+			limit = { 
+				overlord_of = OPL
+			}
+			OPL = {
+				declare_war_with_cb = {
+					casus_belli = cb_independence_war
+					who = root
+				}
+			}
+		}
+		if = {
+			limit = { 
+				overlord_of = GLG
+			}
+			GLG = {
+				declare_war_with_cb = {
+					casus_belli = cb_independence_war
+					who = root
+				}
+			}
+		}
+		if = {
+			limit = { 
+				exists = MVA
+				MVA = {
+					is_subject = no
+				}
+			}
+			MVA = {
+				
+			}
+		}
+		custom_tooltip = EDG_SPACE_TT
+		add_reform_desire = 0.1
+		hidden_effect = {
+			while = {
+				limit = { 
+					NOT = {
+						manpower_percentage = 1
+					}
+				}
+				add_manpower = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	id = EDG_BOHEvents.4
+	is_triggered_only = yes
+	title = EDG_BOHEvents.4.name
+	desc = EDG_BOHEvents.4.desc
+	picture = LIBERUM_VETO_eventPicture
+	trigger = {
+		religion_group = christian
+	}
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = EDG_BOHEvents.103
+				days = 365
+			}
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.4.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		4744 = {
+			add_unrest = 20
+			if = {
+				limit = { 
+					NOT = {
+						religion = protestant
+					}
+				}
+				change_religion = protestant
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.5
+	is_triggered_only = yes
+	title = EDG_BOHEvents.5.name
+	desc = EDG_BOHEvents.5.desc
+	picture = ANGRY_MOB_eventPicture
+
+	trigger = {
+		religion_group = christian
+	}
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = EDG_BOHEvents.102
+				days = 365
+			}
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.5.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		if = {
+			limit = { 
+				NOT = {
+					has_global_flag = EDG_flavor_religion_protestant_enable_global_flag
+				}
+			}
+			hidden_effect = {
+				set_global_flag = EDG_insurance_protestant_flag
+			}
+			country_event = {
+				id = 2001
+			}
+			custom_tooltip = EDG_SPACE_TT
+		}
+		add_reform_desire = 0.05
+		add_prestige_or_monarch_power = { amount = 25 }
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.6
+	is_triggered_only = yes
+	title = EDG_BOHEvents.6.name
+	desc = EDG_BOHEvents.6.desc
+	picture = CULTURE_eventPicture
+	trigger = {
+		religion_group = christian
+	}
+
+	option = {
+		name = EDG_BOHEvents.6.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		add_reform_desire = 0.05
+		add_prestige_or_monarch_power = { amount = 25 }
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.7
+	is_triggered_only = yes
+	title = EDG_BOHEvents.7.name
+	desc = EDG_BOHEvents.7.desc
+	picture = REFORM_eventPicture
+	major = yes
+	major_trigger = {
+		religion_group = christian
+		capital_scope = {
+			continent = europe
+		}
+	}
+	trigger = {
+		religion_group = christian
+	}
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = EDG_BOHEvents.100
+				days = 365
+			}
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.7.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		add_reform_desire = 0.05
+		custom_tooltip = EDG_SPACE_TT
+		tooltip = {
+			south_saxony_area = {
+				add_unrest = 10
+				add_local_autonomy = 25
+			}
+			thuringia_area = {
+				add_unrest = 10
+				add_local_autonomy = 25
+			}
+			northern_saxony_area = {
+				add_unrest = 10
+				add_local_autonomy = 25
+			}
+		}
+		hidden_effect = {
+			every_province = {
+				limit = {
+					OR = {
+						area = south_saxony_area
+						area = thuringia_area
+						area = northern_saxony_area
+					}
+					owner = {
+						NOT = {
+							OR = {
+								has_reform = EDG_BOH_commune_of_tabor
+								has_reform = EDG_BOH_picart_commune
+								has_reform = peasants_republic
+								tag = H07
+								was_tag = H07
+							}
+						}
+						OR = {
+							government = monarchy
+							government = theocracy
+							government = republic
+						}
+					}
+				}
+				add_unrest = 10
+				add_local_autonomy = 25
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.8
+	is_triggered_only = yes
+	title = EDG_BOHEvents.8.name
+	desc = EDG_BOHEvents.8.desc
+	picture = ELECTION_REPUBLICAN_eventPicture
+	trigger = {
+		religion_group = christian
+	}
+
+	option = {
+		name = EDG_BOHEvents.8.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		add_reform_desire = 0.05
+		custom_tooltip = EDG_SPACE_TT
+		if = {
+			limit = { 
+				NOT = {
+					OR = {
+						has_reform = EDG_BOH_commune_of_tabor
+						has_reform = EDG_BOH_picart_commune
+						has_reform = peasants_republic
+						tag = H07
+						was_tag = H07
+					}
+				}
+				OR = {
+					government = monarchy
+					government = theocracy
+					government = republic
+				}
+			}
+			EDG_define_adv_Martin_Luther = yes
+		}
+		hidden_effect = {
+			country_event = {
+				id = EDG_BOHEvents.9
+				days = 3
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.9
+	is_triggered_only = yes
+	title = EDG_BOHEvents.9.name
+	desc = EDG_BOHEvents.9.desc
+	picture = LIBERUM_VETO_eventPicture
+	trigger = {
+		religion_group = christian
+	}
+
+	immediate = {
+		hidden_effect = {
+			country_event = {
+				id = EDG_BOHEvents.104
+				days = 180
+				random = 30
+			}
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.9.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+		custom_tooltip = EDG_SPACE_TT
+		add_reform_desire = 0.05
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.10
+	is_triggered_only = yes
+	title = EDG_BOHEvents.10.name
+	desc = EDG_BOHEvents.10.desc
+	picture = LIBERUM_VETO_eventPicture
+	major = yes
+	trigger = {
+		religion_group = christian
+	}
+
+	option = {
+		name = EDG_BOHEvents.10.aa
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		if = {
+			limit = { 
+				tag = BOH
+				religion = hussite
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BOHEvents.10.aa.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			266 = {
+				custom_tooltip = EDG_add_reform_center_hussite_tooltip
+				add_reform_center = hussite
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_BOH_spread_of_radicalism
+				duration = -1
+			}
+			custom_tooltip = EDG_BOHEvents.10.aa.modifier.tt
+			add_stability = -1
+			custom_tooltip = EDG_SPACE_TT
+		}
+		if = {
+			limit = { 
+				266 = {
+					NOT = {
+						religion = hussite
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			266 = {
+				change_religion = hussite
+			}
+		}
+		add_reform_desire = 0.05
+		add_prestige_or_monarch_power = { amount = 20 }
+		hidden_effect = {
+			set_global_flag = EDG_BOH_rise_of_tapol_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.11
+	is_triggered_only = yes
+	title = EDG_BOHEvents.11.name
+	desc = EDG_BOHEvents.11.desc
+	major = yes
+
+	option = {
+		name = EDG_BOHEvents.11.aa
+		from = {
+			create_subject = {
+				subject_type = vassal
+				subject = root
+			}
+		}
+	}
+	option = {
+		name = EDG_BOHEvents.11.bb
+		trigger = {
+			ai = no
+		}
+		add_stability = -2
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.100
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		4744 = {
+			owner = {
+				country_event = {
+					id = EDG_BOHEvents.4
+					days = 3
+				}
+			}
+			
+		}
+	}
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.101
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		59 = {
+			owner = {
+				country_event = {
+					id = EDG_BOHEvents.5
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.102
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		59 = {
+			owner = {
+				country_event = {
+					id = EDG_BOHEvents.7
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.103
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		4744 = {
+			owner = {
+				country_event = {
+					id = EDG_BOHEvents.8
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.104
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		266 = {
+			owner = {
+				# country_event = {
+				# 	id = EDG_BOHEvents.10
+				# 	days = 3
+				# }
+			}
+		}
+	}
+	option = {
+		
+	}
+}
+country_event = {
+	id = EDG_BOHEvents.500
+	is_triggered_only = yes
+	title = EDG_BOHEvents.500.name
+	desc = EDG_BOHEvents.500.desc
+	picture = LAND_MILITARY_eventPicture
+
+	trigger = {
+		NOT = {
+			has_country_flag = EDG_already_use_gulay_gorod_flag
+		}
+		mil_tech = 6
+		unit_type = EDG_Peasant_groups
+	}
+
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_already_use_gulay_gorod_flag
+		}
+	}
+
+	option = {
+		name = EDG_BOHEvents.500.aa
+		custom_tooltip = EDG_BOHEvents.500.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_country_modifier = {
+			name = EDG_BOH_use_block_play
+			duration = -1
+		}
+	}
+	option = {
+		name = EDG_BOHEvents.500.bb
+		
+	}
+}

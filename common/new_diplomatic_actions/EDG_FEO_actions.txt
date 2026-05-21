@@ -1,0 +1,512 @@
+
+EDG_FEO_pronoia_subject_create = {#建立军区
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip #doesn't matter. it is forced onto the subject
+	require_acceptance = no
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			vassal_of = root 
+			is_subject_of_type = vassal
+		}
+			has_country_flag = EDG_FEO_pronoia_subject_create_flag_1
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		if = { 
+			limit = {
+				not = { has_country_flag = EDG_FEO_pronoia_subject_type_15 }
+			}
+			not = { EDG_FEO_pronoia_subject_type = 5 }
+		}
+		if = { 
+			limit = {
+				
+				 has_country_flag = EDG_FEO_pronoia_subject_type_15 
+			}
+			not = { EDG_FEO_pronoia_subject_type = 15 }
+		}
+		
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = EDG_FEO_pronoia_subject_type
+			subject = FROM
+			keep_liberty_desire = yes
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					not = { has_country_flag = EDG_FEO_annexationaction_10_flag }
+				    not = { has_country_flag = EDG_FEO_annexationaction_5_flag }
+				}
+				from = {
+					add_country_modifier = {
+						name = EDG_FEO_C4_1_modifier_1
+						duration = 5475
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_FEO_annexationaction_10_flag 
+				    not = { has_country_flag = EDG_FEO_annexationaction_5_flag }
+				}
+				from = {
+					add_country_modifier = {
+						name = EDG_FEO_C4_1_modifier_1
+						duration = 3650
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_FEO_annexationaction_10_flag 
+				    has_country_flag = EDG_FEO_annexationaction_5_flag 
+				}
+				from = {
+					add_country_modifier = {
+						name = EDG_FEO_C4_1_modifier_1
+						duration = 1825
+					}
+				}
+			}
+		}
+	}
+}
+
+EDG_FEO_annexationaction = {#吞并军区
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip #doesn't matter. it is forced onto the subject
+	require_acceptance = no
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		from = {
+			is_subject_of_type = EDG_FEO_pronoia_subject_type
+		}
+		
+	}
+	is_allowed = {
+		stability = 0
+		prestige = 10
+		from = {
+			NOT = {
+				has_country_modifier = EDG_FEO_C4_1_modifier_1
+			}
+				
+		}
+	}
+	on_accept = {
+		add_stability = -3
+		add_prestige = -20
+		inherit = from
+		if = {
+			limit = {
+				has_country_flag = EDG_FEO_annexationaction_stability_flag
+			}
+			add_stability = 1
+		}
+		
+	}
+}
+
+EDG_FEO_annexationaction_plus = {#强制吞并
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip #doesn't matter. it is forced onto the subject
+	require_acceptance = no
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		from = {
+			or = {
+				is_subject_of_type = EDG_FEO_pronoia_subject_type
+			}
+		}
+		
+	}
+	is_allowed = {
+		stability = 2
+		prestige = 20
+		not = {
+			has_country_modifier = EDG_FEO_annexationaction_plus_modifier
+		}
+	}
+	on_accept = {
+		add_stability = -5
+		add_prestige = -30
+		inherit = from
+		if = {
+			limit = {
+				has_country_flag = EDG_FEO_annexationaction_stability_flag
+			}
+			add_stability = 1
+		}
+		add_country_modifier = {
+			name = EDG_FEO_annexationaction_plus_modifier
+			duration = 1825
+		}
+	}
+}
+
+EDG_FEO_vassal = {#剥夺属国地位
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip #doesn't matter. it is forced onto the subject
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		from = {
+			or = {
+				is_subject_of_type = EDG_FEO_pronoia_subject_type
+				is_subject_of_type = EDG_FEO_trade_plus_subject_type
+				is_subject_of_type = EDG_FEO_trade_subject_type 
+			}
+			
+		}
+		
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = vassal
+			subject = FROM
+			keep_liberty_desire = yes
+		}
+		from = {
+			add_liberty_desire = 25 
+		}
+	}
+}
+
+EDG_FEO_trade_subject_type_create = {#建立贸易城邦
+    category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			vassal_of = root 
+			or = {
+				is_subject_of_type = vassal
+				is_subject_of_type = client_vassal
+			}
+			
+		}
+		has_country_flag = EDG_FEO_B2_1_flag
+	}
+	is_allowed = {
+		treasury = 100
+		dip_power = 50
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		from = {
+			not = { num_of_cities = 4 }
+		}
+		
+		if = {
+			limit = {
+				not = { has_country_flag = EDG_FEO_trade_subject_type_create_flag }
+			}
+			not = { EDG_FEO_trade_subject_type = 20 }
+		}
+		
+		custom_trigger_tooltip = {
+			tooltip = EDG_FEO_trade_subject_type_create_1_tooltip
+			NOT = {
+				any_subject_country = {
+					is_subject_of_type = EDG_FEO_trade_subject_type
+					capital_scope = {
+						region_for_scope_province = {
+							FROM = {
+								capital_scope = {
+									province_id = PREV_PREV
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	on_accept = {
+		add_dip_power = -50
+		add_treasury = -100
+		create_subject = {
+			subject_type = EDG_FEO_trade_subject_type 
+			subject = FROM
+		}
+		from = {
+			change_government = republic
+			add_government_reform = trade_company_government
+		}
+	}
+}
+
+EDG_FEO_trade_plus_subject_type_create = {#提拔为贸易公司领
+    category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			is_subject_of_type = EDG_FEO_trade_subject_type
+		}
+		has_country_flag = EDG_FEO_trade_plus_subject_type_create
+	}
+	is_allowed = {
+		treasury = 500
+		dip_power = 100
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		if = {
+			limit = {
+				not = { has_country_flag = EDG_FEO_trade_subject_type_create_flag }
+			}
+			not = { EDG_FEO_trade_subject_type = 20 }
+		}
+		custom_trigger_tooltip = {
+			tooltip = EDG_FEO_trade_subject_type_create_1_tooltip
+			NOT = {
+				any_subject_country = {
+					is_subject_of_type = EDG_FEO_trade_plus_subject_type
+					capital_scope = {
+						region_for_scope_province = {
+							FROM = {
+								capital_scope = {
+									province_id = PREV_PREV
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	on_accept = {
+		add_dip_power = -100
+		add_treasury = -500
+		create_subject = {
+			subject_type = EDG_FEO_trade_plus_subject_type
+			subject = FROM
+		}
+	}
+}
+
+EDG_FEO_all_power = {#上缴贡品
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			or = {
+				is_subject_of_type = EDG_FEO_trade_subject_type
+				is_subject_of_type = EDG_FEO_trade_plus_subject_type
+			}
+			
+		}
+		has_country_flag = EDG_FEO_all_power_flag
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		adm_power = 25
+		from = {
+			not = {
+				has_country_modifier = EDG_FEO_all_power_modifier
+			}
+		}
+	}
+	on_accept = {
+		add_adm_power = -25
+		from = {
+			add_tariff_value = 0.1 
+			add_country_modifier = {
+				name = EDG_FEO_all_power_modifier
+				duration = 365
+			}
+		}
+	}
+}
+
+EDG_FEO_DIP_tariff = {#外交胁迫
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			or = {
+				is_subject_of_type = EDG_FEO_trade_subject_type
+				is_subject_of_type = EDG_FEO_trade_plus_subject_type
+			}
+			
+		}
+		has_country_flag = EDG_FEO_all_power_flag
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		dip_power = 25
+		from = {
+			not = {
+				has_country_modifier = EDG_FEO_all_power_modifier_dip
+			}
+		}
+	}
+	on_accept = {
+		add_dip_power = -25
+		from = {
+			add_tariff_value = 0.1 
+			add_country_modifier = {
+				name = EDG_FEO_all_power_modifier_dip
+				duration = 365
+			}
+		}
+	}
+}
+
+EDG_FEO_MIL_tariff = {#军事保护
+	category = influence
+	alert_index = 17 #doesn't matter. it is forced onto the subject
+	alert_tooltip = sell_indulgence_alert_tooltip
+	is_visible = {
+		or = {
+			tag = FEO
+			was_tag = FEO 
+		}
+		FROM = {
+			or = {
+				is_subject_of_type = EDG_FEO_trade_subject_type
+				is_subject_of_type = EDG_FEO_trade_plus_subject_type
+			}
+			
+		}
+		has_country_flag = EDG_FEO_all_power_flag
+	}
+	is_allowed = {
+		if = {
+			limit = { from = { liberty_desire = 15 } }
+			custom_trigger_tooltip = {
+				tooltip = BYZ_too_much_liberty_desire
+				from = { not = { liberty_desire = 15 } }
+			}
+		}
+		mil_power = 25
+		from = {
+			not = {
+				has_country_modifier = EDG_FEO_all_power_modifier_mil
+			}
+		}
+	}
+	on_accept = {
+		add_mil_power = -25
+		from = {
+			add_tariff_value = 0.1 
+			add_country_modifier = {
+				name = EDG_FEO_all_power_modifier_mil
+				duration = 365
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

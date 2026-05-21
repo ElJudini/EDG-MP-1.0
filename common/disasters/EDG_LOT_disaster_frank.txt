@@ -1,0 +1,143 @@
+EDG_LOT_disaster_frank = {#大殇歌
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = EDG_LOT_disaster_frank_end_flag }
+		or = {
+			tag = LOT
+			was_tag = LOT
+		}
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+	}
+	
+	
+	can_start = {
+		has_any_disaster = no
+		not = { ruler_has_personality = EDG_personality_beiernadaite  }
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 100
+			or = {
+				region = south_german_region
+				region = north_german_region
+			}
+		}
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 30
+			region = italy_region
+		}
+	}
+	
+	can_stop = {
+		has_any_disaster = yes
+		or = {
+			not = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 100
+					or = {
+						region = south_german_region
+						region = north_german_region
+					}
+				}
+			}
+			not = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 30
+					region = italy_region
+				}
+			}
+		}
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { dip = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { mil = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			war_exhaustion = 1
+		} 
+		modifier = {
+			factor = 0.75
+			num_of_loans = 10
+			NOT = { num_of_loans = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 25
+		}
+		modifier = {
+			factor = 1
+			capital_scope = { controlled_by = REB }
+		}
+		modifier = {
+			factor = 1
+			is_bankrupt = yes
+		}
+	}
+	
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = disaster_active_for_20_years_tooltip
+				had_country_flag = {
+					flag = EDG_LOT_disaster_frank_flag
+					days = 7300
+				}
+			}
+			AND = {
+				is_at_war = no
+				GER = {
+					or = {
+						exists = no
+						is_subject_of = root
+					}
+				}
+				ITA = {
+					or = {
+						exists = no
+						is_subject_of = root
+					}
+				}
+			}
+		}
+	}
+	
+
+	modifier = {
+		stability_cost_modifier = 0.25
+		land_forcelimit = 200
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			EDG_LOT_disaster_frank.6
+			EDG_LOT_disaster_frank.7
+		}
+		random_events = { 
+			1000 = 0
+			100 = EDG_LOT_disaster_frank.3
+		}
+	}
+	
+	
+	on_start = EDG_LOT_disaster_frank.1 #General Estates / Storming of the Bastille
+	on_end = EDG_LOT_disaster_frank.2 #Long live the Republic/Monarchy
+	
+}

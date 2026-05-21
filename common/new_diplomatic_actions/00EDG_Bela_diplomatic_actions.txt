@@ -1,0 +1,404 @@
+EDG_rya_request_yasak_actions = {
+	#要求上缴牙萨克
+	category = influence	# 该行动会显示在哪个外交行动列表里。
+	alert_index = 4	# 用于该行动的警告。索引号参考 static_actions。可选的。
+	alert_tooltip = EDG_FRA_Request_to_become_FRA_vassal_State_tooltip	# 要显示在警告工具提示的本地化关键字。可选的。
+	require_acceptance = yes	# 是否该行动需要被目标国家接受，以便执行接受效果
+	# 决定何时该行动是可见的
+	is_visible = {
+		or = {
+			has_country_modifier = EDG_rya_veliech_khan_0_modifier
+			has_country_modifier = EDG_rya_veliech_khan_1_modifier
+		}
+		is_subject = no
+		FROM = {
+			is_subject_of = ROOT
+		}
+	}
+	# 决定何时该行动能被采用
+	is_allowed = {
+		if = {
+			limit = {
+				FROM = {
+					is_at_war = yes
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = FROM_IS_AT_WAR_TT
+				FROM = {
+					is_at_war = no
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					not = {
+						is_neighbor_of = root
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_rya_from_is_not_neighbor_tt
+				FROM = {
+					is_neighbor_of = root
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					total_development = 100
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_rya_from_is_development_over100_tt
+				FROM = {
+					not = {
+						total_development = 100
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				FROM = {
+					has_ruler_flag = EDG_rya_refuse_yasak_flag
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_rya_refuse_yasak_flag_tt
+				FROM = {
+					not = {
+						has_ruler_flag = EDG_rya_refuse_yasak_flag
+					}
+				}
+			}
+		}
+	}
+	on_accept = {
+		create_subject = {
+			subject_type = EDG_rya_yasak_subject
+			subject = FROM
+		}
+	}
+	# 拒绝时（如果可拒绝）执行哪个效果。可选的。
+	on_decline = {
+		from = {
+			set_ruler_flag = EDG_rya_refuse_yasak_flag
+		}
+	}
+	ai_will_do = {
+		# this is a trigger
+		OR = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_friendly
+			}
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_protective
+			}
+			FROM = {
+				any_neighbor_country = {
+					NOT = {
+						tag = ROOT
+					}
+					FROM = {
+						ai_attitude = {
+							who = PREV
+							attitude = attitude_threatened
+						}
+					}
+				}
+			}
+			FROM = {
+				ai_attitude = {
+					who = ROOT
+					attitude = attitude_threatened
+				}
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_domineering
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_hostile
+			}
+		}
+		NOT = {
+			ai_attitude = {
+				who = FROM
+				attitude = attitude_outraged
+			}
+		}
+	}
+	# 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+	ai_acceptance = {
+		add_entry = {
+			name = DIPLO_OPPINION
+			export_to_variable = {
+				variable_name = ai_value
+				value = opinion
+				who = FROM
+				with = ROOT
+			}
+			multiply_variable = {
+				which = ai_value
+				value = 0.125
+			}
+		}
+		add_entry = {
+			name = AI_TRUST_TOWARDS_ROOT
+			export_to_variable = {
+				variable_name = ai_value
+				value = trust
+				who = FROM
+				with = ROOT
+			}
+			subtract_variable = {
+				which = ai_value
+				value = 50
+			}
+			#1 trust = +4 ai points
+			multiply_variable = {
+				which = ai_value
+				value = 0.4
+			}
+		}
+		add_entry = {
+			name = AI_DIPLOMATIC_REPUTATION
+			export_to_variable = {
+				variable_name = ai_value
+				value = trigger_value:diplomatic_reputation
+			}
+			#1 rep = 3
+			multiply_variable = {
+				which = ai_value
+				value = 3
+			}
+		}
+		add_entry = {
+			name = AI_TOTAL_DEVELOPMENT_HRE_more_than_25
+			limit = {
+				FROM = {
+					total_development = 25
+					NOT = {
+						total_development = 50
+					}
+					is_part_of_hre = yes
+				}
+			}
+			export_to_variable = {
+				variable_name = ai_value
+				value = total_development
+				who = FROM
+			}
+			#4 dev = -1
+			multiply_variable = {
+				which = ai_value
+				value = -2
+			}
+		}
+	}
+}
+EDG_orthodox_shuguojiaohuizizhi_actions = {
+	#授权属国教会自治
+	category = influence	# 该行动会显示在哪个外交行动列表里。
+	#alert_index = 4	# 用于该行动的警告。索引号参考 static_actions。可选的。
+	#alert_tooltip = # 要显示在警告工具提示的本地化关键字。可选的。
+	require_acceptance = no	# 是否该行动需要被目标国家接受，以便执行接受效果
+	# 决定何时该行动是可见的
+	is_visible = {
+		is_subject = no
+		religion = orthodox
+		FROM = {
+			is_subject_of = ROOT
+			religion = orthodox
+		}
+	}
+	# 决定何时该行动能被采用
+	is_allowed = {
+		religion = orthodox
+		FROM = {
+			has_country_modifier = EDG_orthodox_xiashujiaohui_modifier
+			is_subject_of = ROOT
+			religion = orthodox
+		}
+	}
+	on_accept = {
+		custom_tooltip = EDG_orthodox_shuguojiaohuizizhi_actions_tt
+		hidden_effect = {
+			from = {
+				clr_country_flag = EDG_orthodox_has_annex_jiaohui_flag
+			}
+		}
+	}
+	# 拒绝时（如果可拒绝）执行哪个效果。可选的。
+	#on_decline = {
+	#}
+	ai_will_do = {
+		# this is a trigger
+		always = yes
+	}
+	# 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+}
+EDG_orthodox_hebingshuguojiaohui_actions = {
+	#强令合并属国教会
+	category = influence	# 该行动会显示在哪个外交行动列表里。
+	#alert_index = 4	# 用于该行动的警告。索引号参考 static_actions。可选的。
+	#alert_tooltip = # 要显示在警告工具提示的本地化关键字。可选的。
+	require_acceptance = no	# 是否该行动需要被目标国家接受，以便执行接受效果
+	# 决定何时该行动是可见的
+	is_visible = {
+		is_subject = no
+		religion = orthodox
+		FROM = {
+			is_subject_of = ROOT
+			religion = orthodox
+		}
+	}
+	# 决定何时该行动能被采用
+	is_allowed = {
+		religion = orthodox
+		FROM = {
+			is_subject_of = ROOT
+			religion = orthodox
+			has_country_modifier = EDG_orthodox_zizhijiaohui_modifier
+		}
+	}
+	on_accept = {
+		custom_tooltip = EDG_orthodox_hebingshuguojiaohui_actions_tt
+		hidden_effect = {
+			from = {
+				set_country_flag = EDG_orthodox_has_annex_jiaohui_flag
+			}
+		}
+	}
+	# 拒绝时（如果可拒绝）执行哪个效果。可选的。
+	#on_decline = {
+	#}
+	ai_will_do = {
+		# this is a trigger
+		always = no
+	}
+	# 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+}
+EDG_BELA_SMI_immigrant_actions = {
+	#开放移民
+	category = influence
+	require_acceptance = no	# 是否该行动需要被目标国家接受，以便执行接受效果
+	alert_index = 4	
+	alert_tooltip = EDG_BELA_SMI_immigrant_actions_alert_tooltip
+	# 决定何时该行动是可见的
+	is_visible = {
+		has_government_mechanic = EDG_LPL_heaven_mechanic
+	}
+	# 决定何时该行动能被采用
+	is_allowed = {
+		if = {
+			limit = {
+				NOT = {
+					has_spy_network_in = {
+						who = FROM
+						value = 30
+					}
+				}
+				NOT = { full_idea_group = spy_ideas }
+			}
+			custom_trigger_tooltip = {
+				tooltip = REQUIRES_30_SPY_NETWORK_TT
+				has_spy_network_in = {
+					who = FROM
+					value = 30
+				}
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					has_spy_network_in = {
+						who = FROM
+						value = 24
+					}
+				}
+				full_idea_group = spy_ideas
+			}
+			custom_trigger_tooltip = {
+				tooltip = REQUIRES_24_SPY_NETWORK_TT
+				has_spy_network_in = {
+					who = FROM
+					value = 24
+				}
+			}
+		}
+		if = { 
+			limit = {
+				from = {
+					all_owned_province = {
+						or = {
+							and = {
+								devastation = 50
+								has_province_modifier = EDG_BELA_LPL_has_immigrant_modifier
+							}
+							not = {
+								devastation = 50
+							}
+						}
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_SMI_fromprovince_not_has_devastation_tt
+				from = {
+					any_owned_province = {
+						devastation = 50
+						not = {
+							has_province_modifier = EDG_BELA_LPL_has_immigrant_modifier
+						}
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				is_at_war = yes
+			}
+			custom_trigger_tooltip = {
+				tooltip = ROOT_IS_AT_WAR_TT
+				is_at_war = no
+			}
+		}
+	}
+	on_accept = {
+		from = {
+			every_owned_province = {
+				limit = {
+					devastation = 50
+					not = {
+						has_province_modifier = EDG_BELA_LPL_has_immigrant_modifier
+					}
+				}
+				province_event = {
+					id = EDG_BELA_SMI_events.26
+				}
+				add_province_modifier = {
+					name = EDG_BELA_LPL_has_immigrant_modifier
+					duration = 1825
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		# this is a trigger
+		has_spy_network_in = {
+			who = FROM
+			value = 30
+		}
+	}	
+}

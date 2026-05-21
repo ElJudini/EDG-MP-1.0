@@ -1,0 +1,124 @@
+EDG_DMR_mechanics_add_modifier = {
+	custom_tooltip = EDG_DMR_mechanics_add_modifier.tt
+	tooltip = {
+		add_country_modifier = {
+			name = $modifier$
+			duration = -1
+		}
+	}
+	custom_tooltip = EDG_DMR_mechanics_modifier_duration.tt
+}
+
+EDG_DMR_infantry_60_effects = {
+	for = {
+		amount = 60
+		effect = "capital_scope = {
+		infantry = PREV
+		}
+		"
+	}
+}
+
+EDG_DMR_cultural_assimilation_effect = {
+	random_owned_province = {
+		limit = {
+			EDG_DMR_province_can_be_assimilated_trigger = yes
+		}
+		save_event_target_as = EDG_DMR_cultural_assimilation_province_target_1_$id$
+		ROOT = {
+			set_country_flag = EDG_DMR_cultural_assimilation_flag_1_$id$
+			export_to_variable = {
+				variable_name = EDG_DMR_assimilated_culture_var
+				value = culture
+				who = PREV
+			}
+		}
+		EDG_DMR_change_culture_effect = yes
+		if = {
+			limit = {
+				ROOT = {
+					has_country_flag = EDG_DMR_mission_assimilate_2_flag
+					accepted_culture = variable:From:EDG_DMR_assimilated_culture_var
+				}
+			}
+			ROOT = {
+				random_owned_province = {
+					limit = {
+						EDG_DMR_province_can_be_assimilated_trigger = yes
+						culture = variable:From:EDG_DMR_assimilated_culture_var
+					}
+					save_event_target_as = EDG_DMR_cultural_assimilation_province_target_2_$id$
+					ROOT = {
+						set_country_flag = EDG_DMR_cultural_assimilation_flag_2_$id$
+					}
+					EDG_DMR_change_culture_effect = yes
+				}
+			}
+		}
+	}
+}
+
+EDG_DMR_change_culture_effect = {
+	if = {
+		limit = {
+			ROOT = {
+				culture_group = east_slavic
+			}
+		}
+		change_culture = EDG_rom_rus_culture
+	}
+	else = {
+		change_culture = EDG_rom_culture
+	}
+}
+
+EDG_DMR_cultural_assimilation_tooltip_effect = {
+	if = {
+		limit = {
+			has_country_flag = EDG_DMR_cultural_assimilation_flag_1_$id$
+		}
+		event_target:EDG_DMR_cultural_assimilation_province_target_1_$id$ = {
+			custom_tooltip = EDG_DMR_events.2.tt
+		}
+	}
+	if = {
+		limit = {
+			has_country_flag = EDG_DMR_cultural_assimilation_flag_2_$id$
+		}
+		event_target:EDG_DMR_cultural_assimilation_province_target_2_$id$ = {
+			custom_tooltip = EDG_DMR_events.2.tt
+		}
+	}
+	clr_country_flag = EDG_DMR_cultural_assimilation_flag_1_$id$
+	clr_country_flag = EDG_DMR_cultural_assimilation_flag_2_$id$
+}
+
+EDG_DMR_auto_interact_province = {
+	random_list = {
+		25 = {
+			add_province_modifier = {
+				name = EDG_DMR_province_divine_1
+				duration = -1
+			}
+		}
+		25 = {
+			add_province_modifier = {
+				name = EDG_DMR_province_divine_2
+				duration = -1
+			}
+		}
+		25 = {
+			add_province_modifier = {
+				name = EDG_DMR_province_divine_3
+				duration = -1
+			}
+		}
+		25 = {
+			add_province_modifier = {
+				name = EDG_DMR_province_divine_4
+				duration = -1
+			}
+		}
+	}
+}
+

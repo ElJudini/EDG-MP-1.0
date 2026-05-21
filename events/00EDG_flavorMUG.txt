@@ -1,0 +1,211 @@
+namespace = EDG_flavorMUG
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavorMUG.1
+  title = "EDG_flavorMUG.1.t"
+  desc = "EDG_flavorMUG.1.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    tag = AFG
+	is_subject = no
+	has_global_flag = EDG_DLH_stupid_flag
+	total_development = 50
+	NOT = { is_year = 1550 }
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorMUG.1.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+	capital_scope = {
+	  infantry = ROOT
+	  infantry = ROOT
+	  infantry = ROOT
+	  infantry = ROOT
+	  infantry = ROOT
+	  infantry = ROOT
+	  cavalry = ROOT
+	  cavalry = ROOT
+	  cavalry = ROOT
+	  cavalry = ROOT
+	}
+	add_country_modifier = {
+		name = "EDG_AFG_RAISE_modifier"
+		duration = 3650
+	}
+	declare_war_with_cb = {
+	  who = FROM
+	  casus_belli = cb_annex
+	}
+  }
+  option = {
+    name = "EDG_flavorMUG.1.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -10
+  }
+}
+
+country_event = {
+  id = EDG_flavorMUG.2
+  title = "EDG_flavorMUG.2.t"
+  desc = "EDG_flavorMUG.2.d"
+  picture = DEBATE_REPUBLICAN_eventPicture
+  fire_only_once = yes
+  trigger = {
+    owns = 507
+	is_subject = no
+	is_year = 1500
+	NOT = { is_year = 1550 }
+	NOT = { tag = AFG }
+	NOT = { tag = MUG }
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorMUG.2.a"
+    ai_chance = {
+      factor = 20
+    }
+	set_global_flag = EDG_DLH_stupid_flag
+    add_prestige_or_monarch_power = { amount = 10 }
+	add_mil_power = 25
+	every_ally = {
+		add_trust = {
+			who = ROOT
+			value = -50
+			mutual = yes
+		}
+		add_opinion = {
+			who = ROOT
+			modifier = EDG_DLH_stupid_opinion
+		}
+	}
+	hidden_effect = {
+		if = {
+			limit = {
+				exists = AFG
+			}
+			AFG = {
+			  country_event = {
+				id = EDG_flavorMUG.1
+				days = 2
+			  }
+			}
+		}
+	}
+  }
+  option = {
+    name = "EDG_flavorMUG.2.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+}
+country_event = {
+  id = EDG_flavorMUG.3
+  title = "EDG_flavorMUG.3.t"
+  desc = "EDG_flavorMUG.3.d"
+  picture = ANGRY_MOB_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    owns = 522
+	is_year = 1460
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorMUG.3.a"
+    ai_chance = {
+      factor = 20
+    }
+    custom_tooltip = EDG_flavorMUG_3_tt
+	set_global_flag = EDG_India_religion_conflict_flag
+  }
+}
+
+
+country_event = {
+  id = EDG_flavorMUG.4
+  title = "EDG_flavorMUG.4.t"
+  desc = "EDG_flavorMUG.4.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+  }
+  
+  option = {
+    name = "EDG_flavorMUG.4.a"
+    ai_chance = {
+      factor = 100
+    }
+	custom_tooltip = EDG_DLH_DIE_BY_US.tooltip
+	hidden_effect = {
+		white_peace = FROM
+		inherit = FROM
+		india_superregion = {
+			limit = { previous_owner = FROM } 
+			set_local_autonomy = 95
+		}
+	}
+  }
+  option = {
+    name = "EDG_flavorMUG.4.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_mil_power = 100
+  }
+}
+
+
+
+country_event = {
+  id = EDG_flavorMUG.5
+  title = "EDG_flavorMUG.5.t"
+  desc = "EDG_flavorMUG.5.d"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  trigger = {
+	owns = 522
+	ai = yes
+	OR = {
+	  AFG = {
+		controls = 522
+		war_score_against = {
+			who = ROOT
+			value = 55
+		}
+	  }
+	}
+	NOT = { has_global_flag = EDG_DLH_DIE_BY_AFG_flag }
+  }
+  
+  option = {
+    name = "EDG_flavorMUG.5.a"
+    ai_chance = {
+      factor = 100
+    }
+	if = {
+	  AFG = { controls = 522 }
+		custom_tooltip = EDG_DLH_DIE_BY_AFG.tooltip
+		AFG = { country_event = { id = EDG_flavorMUG.4 } }
+	}
+	hidden_effect = {
+		set_global_flag = EDG_DLH_DIE_BY_AFG_flag
+	}
+  }
+}

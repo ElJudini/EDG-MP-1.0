@@ -1,0 +1,296 @@
+riga_dawn_of_war = {#破晓之战 里加
+	potential = {
+		tag = RIG
+		has_country_flag = already_begin_riga_dawn_of_war
+		NOT = {
+			has_country_flag = riga_dawn_of_war_end_flag
+		}
+		NOT = {
+			has_country_modifier = mine_event_modifiers
+		}
+	}
+	can_start = {
+		hidden_trigger = {
+			tag = RIG
+			has_country_flag = already_begin_riga_dawn_of_war
+		}
+	}
+	on_start = rigaExpandDisaster.0
+	on_end = rigaExpandDisaster.100
+	on_monthly = {
+		random_events = {
+			10 = rigaExpandDisaster.1
+			10 = rigaExpandDisaster.2
+			10 = rigaExpandDisaster.3
+			10 = rigaExpandDisaster.4
+			10 = rigaExpandDisaster.5
+			10 = rigaExpandDisaster.6
+			10 = rigaExpandDisaster.8
+			1000 = 0
+		}
+	}
+	can_stop = {
+		custom_trigger_tooltip = {
+			tooltip = riga_dawn_of_war_end.tt
+			always = no
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 10
+			RIG = {
+				is_subject = yes
+			}
+		}
+	}
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = riga_dawn_of_war_end.tt
+			NOT = {
+				has_country_flag = already_begin_riga_dawn_of_war
+			}
+		}
+	}
+	modifier = {
+		land_forcelimit_modifier = -1
+		stability_cost_modifier = 5
+	}
+}
+riga_dawn_of_war_subject = { #破晓之战 属国
+	potential = {
+		OR = {
+			is_subject_of = RIG
+			any_subject_country = {
+				tag = RIG
+			}
+		}
+		RIG= {
+			has_country_flag = already_begin_riga_dawn_of_war
+		}
+	}
+	can_start = {
+		RIG = {
+			is_subject = yes
+			has_disaster = riga_dawn_of_war
+		}
+	}
+	can_stop = {
+		custom_trigger_tooltip = {
+			tooltip = riga_dawn_of_war_end.tt
+			always = no
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 50
+			RIG = {
+				is_subject = yes
+			}
+		}
+	}
+	on_monthly = {
+		random_events = {
+			10 = rigaExpandDisaster.1
+			10 = rigaExpandDisaster.2
+			10 = rigaExpandDisaster.3
+			10 = rigaExpandDisaster.4
+			10 = rigaExpandDisaster.5
+			10 = rigaExpandDisaster.6
+			10 = rigaExpandDisaster.7
+			10 = rigaExpandDisaster.8
+			1000 = 0
+		}
+	}
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = riga_dawn_of_war_end.tt
+			RIG = {
+				NOT = {
+					has_country_flag = already_begin_riga_dawn_of_war
+				}
+			}
+		}
+	}
+	modifier = {
+		global_unrest = 10
+		stability_cost_modifier = 5
+	}
+}
+rig_battle_of_heaven = { #天堂之战 里加
+	can_start = {
+		always = no
+	}
+	potential = {
+		tag = RIG
+		always = no
+		# 379 = {
+		# 	riga_subject_of_subject_owned_land = { who = root }
+		# }
+		# NOT = {
+		# 	has_country_flag = finish_battle_of_heaven
+		# }
+		#always = no
+		#num_of_subjects = 8
+	}
+	modifier = {
+		prestige = -12
+		prestige_decay = 0.05
+		stability_cost_modifier = 5
+		diplomatic_reputation = -20
+		reduced_liberty_desire = -100
+	}
+	progress = {
+		modifier = {
+			factor = 0.5
+			always = yes
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 3
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 5
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 7
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 9
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 12
+		}
+		modifier = {
+			factor = 0.5
+			num_of_subjects = 15
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				prestige = 50
+			}
+		}
+	}
+	can_stop = {
+		OR = {
+			NOT = {
+				num_of_subjects = 1
+			}
+			# custom_trigger_tooltip = {
+			# 	tooltip = rig_battle_of_heaven_can_stop.tt
+			# }
+		}
+	}
+	can_end = {
+		always = no
+	}
+	on_monthly = {
+		events = {
+			rigaExpandDisaster.250
+			rigaExpandDisaster.251
+			rigaExpandDisaster.252
+		}
+		random_events = {
+			1000 = 0
+		}
+	}
+	on_progress_effect = {
+		if = {
+			limit = {
+				NOT = { has_country_flag = rig_battle_of_heaven_start_10_flag }
+				check_variable = {
+					which = rig_battle_of_heaven_progress
+					value = 10
+				}
+			}
+			set_country_flag = rig_battle_of_heaven_start_10_flag
+			country_event = {
+				id = rigaExpandDisaster.210
+			}
+		}
+	}
+	on_start = rigaExpandDisaster.200
+	on_end = rigaExpandDisaster.400
+}
+rig_battle_of_heaven_subject = { #天堂之战 属国
+	can_start = {
+		always = no
+	}
+	potential = {
+		is_subject_of = RIG
+		RIG = {
+			has_disaster = rig_battle_of_heaven
+		}
+		always = no
+	}
+	modifier = {
+		global_unrest = 10
+		stability_cost_modifier = 5
+		reduced_liberty_desire = -100
+	}
+	progress = {
+		modifier = {
+			factor = 10
+			always = yes
+		}
+	}
+	can_stop = {
+		always = no
+	}
+	can_end = {
+		always = no
+	}
+	on_monthly = {
+		events = {
+			rigaExpandDisaster.250
+		}
+	}
+	on_start = rigaExpandDisaster.201
+}
+rig_battle_of_hell = { #地狱之战
+	potential = {
+		RIG = {
+			has_disaster = rig_battle_of_heaven
+		}
+		always = no
+	}
+	can_start = {
+		RIG = {
+			has_disaster = rig_battle_of_heaven
+		}
+		tag = RGL
+	}
+	can_stop = {
+		RIG = {
+			NOT = {
+				has_disaster = rig_battle_of_heaven
+			}
+		}
+	}
+	can_end = {
+		OR = {
+			RIG = {
+				NOT = {
+					has_disaster = rig_battle_of_heaven
+				}
+			}
+			is_subject = no
+		}
+	}
+	modifier = {
+		land_maintenance_modifier = 0.5
+		global_unrest = 6
+		stability_cost_modifier = 3
+	}
+	progress = {
+		modifier = {
+			factor = 10
+			always = yes
+		}
+	}
+	on_start = rigaExpandDisaster.300
+}

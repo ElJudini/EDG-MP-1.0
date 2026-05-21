@@ -1,0 +1,132 @@
+namespace = incident_EDG_support_the_reconquista_event
+normal_or_historical_nations = yes
+country_event = {#支持收复失地运动
+  id = incident_EDG_support_the_reconquista_event.0
+  title = "incident_EDG_support_the_reconquista_event.0.t"
+  desc = "incident_EDG_support_the_reconquista_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们必须支持伊比利亚的基督徒。
+    name = "incident_EDG_support_the_reconquista_event.0.a"
+    ai_chance = {
+      factor = 5
+      modifier = {
+        factor = 2
+        has_global_flag = incident_support_the_reconquista_good_global_flag_1
+      }
+      modifier = {
+        factor = 2
+        has_global_flag = incident_support_the_reconquista_good_global_flag_2
+      }
+    }
+    custom_tooltip = EDG_support_the_reconquista_tt_yes
+    set_global_flag = incident_HRE_support_the_reconquista_YES_global_flag
+    add_imperial_influence = 10
+    add_reform_desire = -0.05
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = every_HRE_catholic_country_will_tt
+    tooltip = {
+      add_papal_influence = 10
+      add_years_of_income = -0.15
+      add_yearly_manpower = -0.25
+      #add_mil_power = -50
+    }
+    hidden_effect = {
+      every_country = {
+        limit = { is_part_of_hre = yes religion = catholic }
+        add_papal_influence = 10
+        add_years_of_income = -0.15
+        add_yearly_manpower = -0.25
+        #add_mil_power = -50
+      }
+      every_country = {
+        limit = {
+          culture_group = iberian
+          religion = catholic
+        }
+        country_event = {
+          id = incident_EDG_support_the_reconquista_event.1
+          days = 31
+        }
+      }
+    }
+  }
+  option = {#西班牙人的事情与我们无关。
+    name = "incident_EDG_support_the_reconquista_event.0.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_imperial_influence = -5
+    custom_tooltip = EDG_support_the_reconquista_tt_no
+    
+    
+  }
+}
+country_event = {#来自神圣罗马帝国的支持
+  id = incident_EDG_support_the_reconquista_event.1
+  title = "incident_EDG_support_the_reconquista_event.1.t"
+  desc = "incident_EDG_support_the_reconquista_event.1.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  option = {#我们永远的盟友！
+    name = "incident_EDG_support_the_reconquista_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    add_papal_influence = 25
+    add_years_of_income = 2
+    add_yearly_manpower = 2
+    add_mil_power = 200
+    
+		add_country_modifier = {
+			name = "incident_EDG_support_the_reconquista_event_1_a_modifier"
+			duration = 3650
+		}
+  }
+
+}
+country_event = {#号召伊比利亚十字军
+  id = incident_EDG_support_the_reconquista_event.2
+  title = "incident_EDG_support_the_reconquista_event.2.t"
+  desc = "incident_EDG_support_the_reconquista_event.2.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    NOT = { active_imperial_incident = any }
+    tag = PAP
+    is_year = 1450
+    OR = {
+      has_global_flag = EDG_flavor_IBR_religion_conflict_1_event_happen_flag
+      has_global_flag = EDG_flavor_IBR_religion_conflict_2_event_happen_flag
+      has_global_flag = EDG_flavor_IBR_religion_conflict_3_event_happen_flag
+      has_global_flag = EDG_flavor_IBR_religion_conflict_4_event_happen_flag
+      has_global_flag = EDG_flavor_IBR_religion_conflict_5_event_happen_flag
+    }
+	  NOT = { has_global_flag = IBR_conflict_end_flag }
+  }
+  mean_time_to_happen = {
+  }
+  option = {#公教会必须重新树立权威！
+    name = "incident_EDG_support_the_reconquista_event.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    set_imperial_incident = incident_support_the_reconquista
+  }
+
+}

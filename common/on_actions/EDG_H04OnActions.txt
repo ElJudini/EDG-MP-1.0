@@ -1,0 +1,276 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = H04
+		}
+		country_event = {
+			id = EDG_H04Events.502
+			days = 3
+		}
+	}
+}
+
+on_monthly_pulse = {
+	if = {
+		limit = { 
+			has_country_flag = EDG_H04_base_dip_power_flag
+		}
+		export_to_variable = {
+			which = EDG_H04_num_of_diplomatic_relations_var
+			value = trigger_value:num_of_diplomatic_relations
+		}
+		export_to_variable = {
+			which = EDG_H04_num_of_diplomatic_upkeep_var
+			value = modifier:diplomatic_upkeep
+		}
+		export_to_variable = {
+			which = EDG_H04_monthly_dip_var
+			value = trigger_value:monthly_dip
+		}
+		change_variable = {
+			which = EDG_H04_num_of_diplomatic_upkeep_var
+			which = EDG_H04_monthly_dip_var
+		}
+		subtract_variable = {
+			which = EDG_H04_num_of_diplomatic_upkeep_var
+			which = EDG_H04_num_of_diplomatic_relations_var
+		}
+		if = {
+			limit = { 
+				NOT = {
+					check_variable = {
+						which = EDG_H04_num_of_diplomatic_upkeep_var
+						value = 3
+					}
+				}
+			}
+			while = {
+				limit = { 
+					NOT = {
+						check_variable = {
+							which = EDG_H04_num_of_diplomatic_upkeep_var
+							value = 3
+						}
+					}
+				}
+				add_dip_power = 1
+				change_variable = {
+					which = EDG_H04_num_of_diplomatic_upkeep_var
+					value = 1
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			has_country_flag = EDG_H04_full_dip_power_flag
+		}
+		export_to_variable = {
+			which = EDG_H04_num_of_diplomatic_relations_var
+			value = trigger_value:num_of_diplomatic_relations
+		}
+		export_to_variable = {
+			which = EDG_H04_num_of_diplomatic_upkeep_var
+			value = modifier:diplomatic_upkeep
+		}
+		subtract_variable = {
+			which = EDG_H04_num_of_diplomatic_upkeep_var
+			which = EDG_H04_num_of_diplomatic_relations_var
+		}
+		if = {
+			limit = { 
+				NOT = {
+					check_variable = {
+						which = EDG_H04_num_of_diplomatic_upkeep_var
+						value = 0	
+					}
+				}
+			}
+			while = {
+				limit = { 
+					NOT = {
+						check_variable = {
+							which = EDG_H04_num_of_diplomatic_upkeep_var
+							value = 0	
+						}
+					}
+				}
+				root = {
+					add_dip_power = 1
+				}
+				change_variable = {
+					which = EDG_H04_num_of_diplomatic_upkeep_var
+					value = 1
+				}
+			}
+		}
+	}
+	if = {
+		limit = { 
+			religion = EDG_Euchites
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_active_fervor = EDG_Euchites_carnival_4
+					has_active_fervor = EDG_Euchites_feast_4
+					has_active_fervor = EDG_Euchites_craze_4
+					has_active_fervor = EDG_Euchites_carnal_desire_4
+				}
+				NOT = {
+					OR = {
+						has_active_fervor = EDG_Euchites_carnival_3
+						has_active_fervor = EDG_Euchites_feast_3
+						has_active_fervor = EDG_Euchites_craze_3
+						has_active_fervor = EDG_Euchites_carnal_desire_3
+					}
+				}
+			}
+			remove_active_fervor = EDG_Euchites_carnival_4
+			remove_active_fervor = EDG_Euchites_feast_4
+			remove_active_fervor = EDG_Euchites_craze_4
+			remove_active_fervor = EDG_Euchites_carnal_desire_4
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_active_fervor = EDG_Euchites_carnival_3
+					has_active_fervor = EDG_Euchites_feast_3
+					has_active_fervor = EDG_Euchites_craze_3
+					has_active_fervor = EDG_Euchites_carnal_desire_3
+				}
+				NOT = {
+					OR = {
+						has_active_fervor = EDG_Euchites_carnival_2
+						has_active_fervor = EDG_Euchites_feast_2
+						has_active_fervor = EDG_Euchites_craze_2
+						has_active_fervor = EDG_Euchites_carnal_desire_2
+					}
+				}
+			}
+			remove_active_fervor = EDG_Euchites_carnival_3
+			remove_active_fervor = EDG_Euchites_feast_3
+			remove_active_fervor = EDG_Euchites_craze_3
+			remove_active_fervor = EDG_Euchites_carnal_desire_3
+		}
+		if = {
+			limit = { 
+				OR = {
+					has_active_fervor = EDG_Euchites_carnival_2
+					has_active_fervor = EDG_Euchites_feast_2
+					has_active_fervor = EDG_Euchites_craze_2
+					has_active_fervor = EDG_Euchites_carnal_desire_2
+				}
+				NOT = {
+					OR = {
+						has_active_fervor = EDG_Euchites_carnival_1
+						has_active_fervor = EDG_Euchites_feast_1
+						has_active_fervor = EDG_Euchites_craze_1
+						has_active_fervor = EDG_Euchites_carnal_desire_1
+					}
+				}
+			}
+			remove_active_fervor = EDG_Euchites_carnival_2
+			remove_active_fervor = EDG_Euchites_feast_2
+			remove_active_fervor = EDG_Euchites_craze_2
+			remove_active_fervor = EDG_Euchites_carnal_desire_2
+		}
+	}
+}
+on_main_war_won = {
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_H04_mission_2_10_flag
+			}
+		}
+		add_fervor = 25
+	}
+}
+on_colony_finished = {
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_H04_mission_1_25_flag
+			}
+		}
+		owner = {
+			add_imperial_influence = 0.1
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_H04_mission_1_25_flag
+			}
+		}
+		add_base_manpower = 1
+	}
+	if = {
+		limit = {
+			has_port = yes
+			owner = {
+				has_country_flag = EDG_H04_mission_expand_3_38_flag
+			}
+		}
+		if = {
+			limit = { 
+				NOT = {
+					religion = owner
+				}
+			}
+			change_religion = owner
+		}
+		add_or_upgrade_tax_building = yes
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_H04_enable_flag
+			}
+			has_global_flag = EDG_H04_enable_all_province_into_hre_flag
+		}
+		set_in_empire = yes
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_H04_mission_expand_5_39_flag
+			}
+		}
+		owner = {
+			add_fervor = 1
+		}
+	}
+}
+on_alliance_created = { #ROOT - Alliance sender, FROM - Alliance accepter
+	if = {
+		limit = { 
+			OR = {
+				has_country_flag = EDG_H04_enable_allian_for_history_friend_flag
+				FROM = {
+					has_country_flag = EDG_H04_enable_allian_for_history_friend_flag
+				}
+			}
+		}
+		add_historical_friend = FROM
+		FROM = {
+			add_historical_friend = root
+		}
+	}
+}
+on_colonial_pulse = {
+	if = {
+		limit = { 
+			has_port = yes
+			NOT = {
+				has_province_flag = EDG_H04_already_add_progress
+			}
+			owner = {
+				has_country_flag = EDG_H04_mission_expand_1_41_flag
+			}
+		}
+		set_province_flag = EDG_H04_already_add_progress
+		add_colonysize = 250
+	}
+}

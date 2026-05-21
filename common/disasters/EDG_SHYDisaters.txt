@@ -1,0 +1,83 @@
+EDG_SHY_civil_war = { #狂岚
+	potential = {
+		OR = {
+			tag = SHY
+			was_tag = SHY
+		}
+		NOT = {
+			has_country_flag = EDG_SHY_begin_disaster_flag
+		}
+		NOT = {
+			has_country_flag = EDG_SHY_end_civil_war_disaster_flag
+		}
+		OR = {
+			ai = no
+			has_global_flag = EDG_game_rule_2_5_open_flag
+		}
+	}
+
+	progress = {
+		modifier = {
+			factor = 50
+			always = yes
+		}
+	}
+	can_start = {
+		is_at_war = no
+	}
+	can_stop = {
+		always = no
+	}
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_SHY_civil_war_can_end.tt
+			NOT = {
+				has_country_flag = EDG_SHY_in_disaster_flag
+			}
+		}
+		is_at_war = no
+		if = {
+			limit = { 
+				ai = no
+			}
+			stability = 0
+		}
+		if = {
+			limit = { 
+				ai = no
+			}
+			OR = {
+				mil = 5
+				ruler_total_stats = {
+					amount = 12
+				}
+			}
+		}
+		else = {
+			OR = {
+				has_global_flag = EDG_game_rule_2_6_epic_flag
+				mil = 5
+				ruler_total_stats = {
+					amount = 12
+				}
+			}
+		}
+	}
+	modifier = {
+		province_warscore_cost = -0.5
+		can_not_declare_war = yes
+		land_forcelimit = 50
+		land_forcelimit_modifier = 0.25
+		land_maintenance_modifier = -0.75
+		core_creation = 10
+		raze_power_gain = -10
+		siege_ability = 0.5
+	}
+	on_start = EDG_SHYEvents.6
+	on_end = EDG_SHYEvents.7
+	on_monthly = {
+		events = {
+			EDG_SHYEvents.9
+		}
+	}
+}

@@ -1,0 +1,166 @@
+namespace = EDG_incident_fra_encirclement_event
+normal_or_historical_nations = yes
+country_event = {#制裁法兰西
+  id = EDG_incident_fra_encirclement_event.0
+  title = "EDG_incident_fra_encirclement_event.0.t"
+  desc = "EDG_incident_fra_encirclement_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#法兰西必须付出代价！
+    name = "EDG_incident_fra_encirclement_event.0.a"
+    ai_chance = {
+      factor = 5
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+    }
+    emperor = {
+      add_country_modifier = {
+        name = EDG_incident_fra_encirclement_event_emperor_modifier
+        duration = 18250
+      }
+    }
+    FRA = {
+      add_prestige = -25
+      add_country_modifier = {
+        name = "EDG_incident_fra_encirclement_event_0_a_modifier"
+        duration = 9125
+      }
+    }
+    every_country = {
+      limit = {
+        is_part_of_hre = yes
+        NOT = { is_subject_of = FRA }
+      }
+      FRA = {
+        add_opinion = {
+          who = PREV
+          modifier = EDG_incident_fra_encirclement_event_opinion_a
+        }
+      }
+      PREV = {
+        add_opinion = {
+          who = FRA
+          modifier = EDG_incident_fra_encirclement_event_opinion_a
+        }
+      }
+    }
+  }
+  option = {#皇帝的集权主义比法国人的入侵更危险。
+    name = "EDG_incident_fra_encirclement_event.0.b"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = FRA
+          is_enemy = FRA
+          is_league_enemy = FRA
+        }
+      }
+    }
+    every_country = {
+      limit = {
+        is_part_of_hre = yes
+      }
+      FRA = {
+        add_opinion = {
+          who = PREV
+          modifier = EDG_incident_fra_encirclement_event_opinion_b
+        }
+      }
+    }
+  }
+}
+country_event = {#侵犯帝国的代价
+  id = EDG_incident_fra_encirclement_event.1
+  title = "EDG_incident_fra_encirclement_event.1.t"
+  desc = "EDG_incident_fra_encirclement_event.1.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    NOT = { active_imperial_incident = any }
+    NOT = { is_part_of_hre = yes }
+    is_emperor = no
+    is_year = 1490
+    hre_size = 30
+    tag = FRA
+    num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+      value = 30
+      is_part_of_hre = yes
+    }
+  }
+  mean_time_to_happen = {
+    months = 72
+  }
+  option = {#帝国的权威算什么？
+    name = "EDG_incident_fra_encirclement_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_incident_fra_encirclement_event_1_a_tt
+    set_imperial_incident = incident_fra_encirclement
+  }
+  option = {#他们的诉求是合法且合理的。
+    name = "EDG_incident_fra_encirclement_event.1.b"
+    ai_chance = {
+      factor = 0
+    }
+    every_owned_province = {
+      limit = { is_part_of_hre = yes }
+      
+      if = {
+        limit = {
+          any_core_country = {
+            exists = no
+          }
+        }
+        random_core_country = {
+          limit = {
+            NOT = {
+              tag = ROOT
+            }
+            exists = no
+          }
+          ROOT = {
+            release = PREV
+          }
+          change_government = monarchy
+          change_religion = emperor
+          define_ruler = {
+            #dynasty = emperor
+            claim = 95
+            #religion = emperor
+            #culture = emperor
+          }
+          add_government_reform = feudalism_reform
+        }
+      }
+      else_if = {
+        limit = {
+          owned_by = root
+          NOT = {
+            region = france_region
+          }
+        }
+        cede_province = emperor
+        add_core = emperor
+      }
+    }
+  }
+
+}

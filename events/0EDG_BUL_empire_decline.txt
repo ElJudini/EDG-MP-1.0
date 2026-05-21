@@ -1,0 +1,245 @@
+namespace = EDG_BUL_empire_decline
+country_event = {
+  id = EDG_BUL_empire_decline.1
+  title = "EDG_BUL_empire_decline.1.t"
+  desc = "EDG_BUL_empire_decline.1.d"
+  picture = CIVIL_WAR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+		log = "[Root.GetName] has EDG_BUL_empire_decline Disaster."
+		set_country_flag = had_EDG_BUL_empire_decline_flag
+	}
+    hidden_effect = {
+		add_stability = -6
+    }
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.1.a"
+	add_prestige = -10
+	
+    if = {
+      limit = {
+        any_owned_province = {
+          development = 5
+          highest_supply_limit_in_area = yes
+          is_in_capital_area = yes
+          fort_level = 1
+          is_capital = no
+        }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			type = noble_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+      random_owned_province = {
+		spawn_rebels = {
+			type = noble_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+    else = {
+      random_owned_province = {
+        limit = {
+          highest_supply_limit_in_area = yes
+          is_capital = no
+        }
+		
+		spawn_rebels = {
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+    if = {
+      limit = {
+        NOT = {
+          has_dlc = "Emperor"
+        }
+      }
+      random_owned_province = {
+        limit = {
+          is_capital = yes
+        }
+		spawn_rebels = {
+			type = noble_rebels
+			size = 3
+			win = yes
+			unrest = 20
+		  }
+      }
+    }
+	tooltip = { add_stability = -6 }
+    
+  }
+  
+}
+
+country_event = {
+  id = EDG_BUL_empire_decline.2
+  title = "EDG_BUL_empire_decline.2.t"
+  desc = "EDG_BUL_empire_decline.2.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  option = {
+    name = "EDG_BUL_empire_decline.2.a"
+	add_prestige_or_monarch_power = { amount = 25}
+  set_country_flag = EDG_BUL_empire_decline_end_flag
+	add_country_modifier = {
+		name = "EDG_BUL_empire_decline_end_modifier"
+		duration = -1
+	}
+  }
+}
+
+country_event = {
+  id = EDG_BUL_empire_decline.3
+  title = "EDG_BUL_empire_decline.3.t"
+  desc = "EDG_BUL_empire_decline.3.d"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    NOT = { exists = BU2 }
+    OR = {
+      is_at_war = no
+      NOT = { exists = BU1 }
+    }
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.3.a"
+    ai_chance = {
+      factor = 1
+    }
+	effect_EDG_BU2_raise = yes
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.3.b"
+    ai_chance = {
+      factor = 100
+    }
+	effect_EDG_BU2_raise = yes
+	declare_war_with_cb = {
+	  who = BU2
+	  casus_belli = cb_annex
+	}
+  }
+}
+
+country_event = {
+  id = EDG_BUL_empire_decline.4
+  title = "EDG_BUL_empire_decline.4.t"
+  desc = "EDG_BUL_empire_decline.4.d"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    NOT = { exists = BU1 }
+    OR = {
+      is_at_war = no
+      NOT = { exists = BU2 }
+    }
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.4.a"
+    ai_chance = {
+      factor = 1
+    }
+	effect_EDG_BU3_raise = yes
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.4.b"
+    ai_chance = {
+      factor = 100
+    }
+	effect_EDG_BU3_raise = yes
+	declare_war_with_cb = {
+	  who = BU3
+	  casus_belli = cb_annex
+	}
+  }
+}
+
+country_event = {
+  id = EDG_BUL_empire_decline.5
+  title = "EDG_BUL_empire_decline.5.t"
+  desc = "EDG_BUL_empire_decline.5.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  trigger = {
+	OR = {
+		tag = BU1
+		tag = BU2
+		tag = BU3
+	}
+	OR = {
+		war_score_against = {
+			who = BU1
+			value = 75
+		}
+		war_score_against = {
+			who = BU2
+			value = 75
+		}
+		war_score_against = {
+			who = BU3
+			value = 75
+		}
+	}
+  }
+  option = {
+    name = "EDG_BUL_empire_decline.5.a"
+    ai_chance = {
+      factor = 1
+    }
+	add_prestige_or_monarch_power = { amount = 10 }
+	if = {
+		limit = {
+			war_score_against = {
+				who = BU1
+				value = 75
+			}
+		}
+		inherit = BU1
+	}
+	if = {
+		limit = {
+			war_score_against = {
+				who = BU2
+				value = 75
+			}
+		}
+		inherit = BU2
+	}
+	if = {
+		limit = {
+			war_score_against = {
+				who = BU3
+				value = 75
+			}
+		}
+		inherit = BU3
+	}
+  }
+}
+

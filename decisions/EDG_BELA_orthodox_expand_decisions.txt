@@ -1,0 +1,355 @@
+country_decisions = {
+	EDG_bela_orthodox_caidan_decision = {#启用彩蛋圣象
+		potential = {
+			ai = no
+			religion = orthodox
+			not = {
+				has_country_flag = EDG_orthodox_caidan_icon_flag
+			}
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			set_country_flag = EDG_orthodox_caidan_icon_flag
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		color = {
+			165 0 175
+		}
+	}
+	EDG_bela_orthodox_bachumushou_decision = {#罢黜牧首
+		potential = {
+			religion = orthodox
+			government = monarchy
+		}
+		allow = {
+			not = {
+				has_country_modifier = EDG_bela_orthodox_bachumushou_modifier
+			}
+			if = {
+				limit = {
+					not = {
+						stability = 0
+					}
+				}
+				legitimacy = 60
+				patriarch_authority = 0.10
+			}
+			else_if = {
+				limit = {
+					not = {
+						stability = 1
+					}
+				}
+				legitimacy = 70
+				patriarch_authority = 0.25
+			}
+			else_if = {
+				limit = {
+					not = {
+						stability = 2
+					}
+				}
+				legitimacy = 85
+				patriarch_authority = 0.50
+			}
+			else = {
+				legitimacy = 100
+				patriarch_authority = 1.00
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					not = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 50
+						}
+					}
+				}
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 10
+				}
+			}
+			else = {
+				add_estate_loyalty = {
+					estate = estate_church
+					loyalty = 5
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						stability = 0
+					}
+				}
+				add_patriarch_authority = -0.10
+				add_stability = 1
+			}
+			else_if = {
+				limit = {
+					not = {
+						stability = 1
+					}
+				}
+				add_patriarch_authority = -0.25
+				add_legitimacy = -5
+				add_stability = 1
+			}
+			else_if = {
+				limit = {
+					not = {
+						stability = 2
+					}
+				}
+				add_patriarch_authority = -0.50
+				add_legitimacy = -15
+				add_stability = 1
+			}
+			else = {
+				add_patriarch_authority = -1.00
+				add_legitimacy = -30
+				add_stability = 1
+			}
+			add_country_modifier = {
+				name = EDG_bela_orthodox_bachumushou_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				not = {
+					stability = 1
+				}
+			}
+			modifier = {
+				factor = 3
+				not = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 40
+					}
+				}
+			}
+		}
+		color = {
+			165 0 175
+		}
+	}
+	EDG_bela_orthodox_zhichitongzhi_decision = {#要求信徒支持统治
+		potential = {
+			religion = orthodox
+			government = monarchy
+		}
+		allow = {
+			not = {
+				has_country_modifier = EDG_bela_orthodox_zhichitongzhi_modifier
+			}
+			if = {
+				limit = {
+					legitimacy = 80
+				}
+				patriarch_authority = 0.05
+			}
+			else_if = {
+				limit = {
+					legitimacy = 70
+				}
+				patriarch_authority = 0.10
+			}
+			else_if = {
+				limit = {
+					legitimacy = 60
+				}
+				patriarch_authority = 0.25
+			}
+			else_if = {
+				limit = {
+					legitimacy = 50
+				}
+				patriarch_authority = 0.50
+			}
+			else_if = {
+				limit = {
+					legitimacy = 40
+				}
+				patriarch_authority = 1.00
+			}
+			not = {
+				legitimacy = 95
+			}
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 40
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					legitimacy = 80
+				}
+				add_patriarch_authority = -0.05
+				add_legitimacy = 5
+			}
+			else_if = {
+				limit = {
+					legitimacy = 70
+				}
+				add_patriarch_authority = -0.10
+				add_legitimacy = 10
+			}
+			else_if = {
+				limit = {
+					legitimacy = 60
+				}
+				add_patriarch_authority = -0.25
+				add_legitimacy = 20
+			}
+			else_if = {
+				limit = {
+					legitimacy = 50
+				}
+				add_patriarch_authority = -0.50
+				add_legitimacy = 30
+			}
+			else_if = {
+				limit = {
+					legitimacy = 40
+				}
+				add_patriarch_authority = -1.00
+				add_legitimacy = 100
+			}
+			add_country_modifier = {
+				name = EDG_bela_orthodox_zhichitongzhi_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 3
+				not = {
+					legitimacy = 60
+				}
+			}
+		}
+		color = {
+			165 0 175
+		}
+	}
+	EDG_bela_orthodox_junduizhusheng_decision = {#为军队祝圣
+		potential = {
+			religion = orthodox
+			not = {
+				has_country_modifier = EDG_bela_orthodox_suijunmushi_modifier
+			}
+		}
+		allow = {
+			not = {
+				has_country_modifier = EDG_bela_orthodox_zhushengjundui_modifier
+			}
+			patriarch_authority = 0.1
+			mil_power_cost = 25
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_bela_orthodox_zhushengjundui_modifier
+				duration = 1825
+			}
+			add_patriarch_authority = -0.1
+			mil_power_cost = 25
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				is_at_war = no
+			}
+			modifier = {
+				factor = 3
+				is_in_important_war = yes
+			}
+		}
+		color = {
+			165 0 175
+		}
+	}
+	EDG_bela_orthodox_suijunmushi_decision = {#建立随军牧师体系
+		potential = {
+			religion = orthodox
+			not = {
+				has_country_modifier = EDG_bela_orthodox_suijunmushi_modifier
+			}
+		}
+		allow = {
+			full_idea_group = religious_ideas
+			adm_power_cost = 100
+			mil_power_cost = 100
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_bela_orthodox_suijunmushi_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					has_country_modifier = EDG_bela_orthodox_zhushengjundui_modifier
+				}
+				remove_country_modifier = EDG_bela_orthodox_zhushengjundui_modifier
+			}
+			adm_power_cost = 100
+			mil_power_cost = 100
+		}
+		ai_will_do = {
+			factor = 10
+		}
+		color = {
+			165 0 175
+		}
+	}
+	EDG_bela_orthodox_qingsuanjiaohuitudi_decision = {#清算教会土地
+		potential = {
+			religion = orthodox
+		}
+		allow = {
+			not = {
+				has_country_modifier = EDG_bela_orthodox_qingsuanjiaohuitudi_modifier
+			}
+			estate_territory = {
+				estate = estate_church
+				territory = 20
+			}
+			adm_power_cost = 10
+			mil_power_cost = 10
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_bela_orthodox_qingsuanjiaohuitudi_modifier
+				duration = 3650
+			}
+			adm_power_cost = 10
+			mil_power_cost = 10
+			add_estate_loyalty = {
+				estate = estate_church
+				loyalty = -5
+			}
+			change_estate_land_share = {
+				estate = estate_church
+				share = -3
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+		color = {
+			165 0 175
+		}
+	}
+}

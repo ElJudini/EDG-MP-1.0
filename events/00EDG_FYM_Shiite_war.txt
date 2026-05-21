@@ -1,0 +1,270 @@
+namespace = EDG_FYM_Shiite_war
+country_event = {#阿里之子
+  id = EDG_FYM_Shiite_war.1
+  title = "EDG_FYM_Shiite_war.1.title"
+  desc = "EDG_FYM_Shiite_war.1.desc"
+  picture = LIBERUM_VETO_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+    hidden_effect = {
+      log = "[Root.GetName] has EDG_FYM_Shiite_war Disaster."
+      set_country_flag = EDG_FYM_Shiite_war_flag
+      set_global_flag = EDG_FYM_Shiite_war_global_flag
+    }
+    hidden_effect = {
+      if = {
+        limit = { religion = shiite }
+        add_stability = -6
+      }
+      else = {
+        add_stability = -3
+      }
+		  play_sound = EDGFYMsound1
+    }
+  }
+  option = {#还能有别人可以代表安拉？
+    name = "EDG_FYM_Shiite_war.1.a"
+    tooltip = {
+      if = {
+        limit = { religion = shiite }
+        add_stability = -6
+      }
+      else = {
+        add_stability = -3
+      }
+    }
+    custom_tooltip = EDG_FYM_Shiite_war_1_a_tt
+    if = {
+      limit = { religion = shiite }
+      add_country_modifier = {
+        name = EDG_FYM_Shiite_war_1_modifier_1
+        duration = 7300
+      }
+    }
+    else_if = {
+      limit = { religion_group = muslim }
+      add_country_modifier = {
+        name = EDG_FYM_Shiite_war_1_modifier_2
+        duration = 7300
+      }
+    }
+  }
+  
+}
+
+country_event = {#
+  id = EDG_FYM_Shiite_war.2
+  title = "EDG_FYM_Shiite_war.2.title"
+  desc = "EDG_FYM_Shiite_war.2.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  immediate = {
+	  set_country_flag = EDG_FYM_Shiite_war_end_flag
+  }
+  option = {#
+    name = "EDG_FYM_Shiite_war.2.a"
+    add_stability = 2
+    remove_country_modifier = EDG_FYM_Shiite_war_1_modifier_1
+    remove_country_modifier = EDG_FYM_Shiite_war_1_modifier_2
+    
+  }
+}
+
+country_event = {#宣战法蒂玛
+  id = EDG_FYM_Shiite_war.3
+  title = "EDG_FYM_Shiite_war.3.title"
+  desc = "EDG_FYM_Shiite_war.3.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    OR = {
+      exists = FDM
+			EDG_shiite_Caliph_ability_trigger = yes
+    }
+  }
+  immediate = {
+	  set_country_flag = EDG_FYM_Shiite_war_3_flag
+    hidden_effect = {
+      EDG_FYM_Shiite_war_3_effect = yes
+      FDM = {
+        grant_independence = yes
+        every_country = {
+          limit = {
+            is_subject_of = root
+            religion = shiite
+            OR = {
+              is_subject_of_type = EDG_FYM_Agha_adm_vassal
+              is_subject_of_type = EDG_FYM_Agha_mil_vassal
+            }
+          }
+          if = {
+            limit = { is_subject_of_type = EDG_FYM_Agha_adm_vassal }
+            create_subject = { subject_type = EDG_FYM_Agha_adm_vassal subject = PREV }
+          }
+          if = {
+            limit = { is_subject_of_type = EDG_FYM_Agha_mil_vassal }
+            create_subject = { subject_type = EDG_FYM_Agha_mil_vassal subject = PREV }
+          }
+        }
+      }
+      declare_war_with_cb = {
+        who = FDM
+        casus_belli = cb_annex
+      }
+    }
+  }
+  option = {#唯有[Root.Monarch.GetTitle]与安拉永恒。
+    name = "EDG_FYM_Shiite_war.3.a"
+    custom_tooltip = EDG_FYM_Shiite_war_3_a_tt
+  }
+}
+
+country_event = {#宣战萨法维
+  id = EDG_FYM_Shiite_war.4
+  title = "EDG_FYM_Shiite_war.4.title"
+  desc = "EDG_FYM_Shiite_war.4.desc"
+  picture = REIREUTION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {
+	  set_country_flag = EDG_FYM_Shiite_war_2_flag
+    hidden_effect = {
+      EDG_FYM_Shiite_war_4_effect = yes
+      ARL = {
+        grant_independence = yes
+        declare_war_with_cb = {
+          who = ROOT
+          casus_belli = cb_annex
+        }
+        add_country_modifier = {
+          name = EDG_FYM_Shiite_war_4_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+  option = {#唯有[Root.Monarch.GetTitle]与安拉永恒。
+    name = "EDG_FYM_Shiite_war.4.a"
+    custom_tooltip = EDG_FYM_Shiite_war_4_a_tt
+  }
+}
+
+
+
+
+country_event = {#吞并法蒂玛
+  id = EDG_FYM_Shiite_war.5
+  title = "EDG_FYM_Shiite_war.5.title"
+  desc = "EDG_FYM_Shiite_war.5.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_Shiite_war_5_flag }
+    has_country_flag = EDG_FYM_Shiite_war_3_flag
+    OR = {
+      war_score_against = {
+        who = FDM
+        value = 60
+      }
+      NOT = { exists = FDM }
+    }
+  }
+  
+  immediate = {
+    hidden_effect = {
+      set_global_flag = EDG_FYM_Shiite_war_5_flag
+      if = {
+        limit = { exists = FDM }
+        inherit = FDM
+      }
+    }
+  }
+  
+  option = {#
+    name = "EDG_FYM_Shiite_war.5.aa"
+    ai_chance = {
+      factor = 100
+    }
+    add_treasury = 2000
+    add_manpower = 50
+    if = {
+      limit = { exists = FDM }
+      tooltip = {
+        inherit = FDM
+      }
+    }
+    custom_tooltip = EDG_shiite_Caliph_interaction_button_1_effect_tt
+    hidden_effect = {
+      every_province = {
+        limit = { has_province_modifier = EDG_Fatima_Caliphate_province_modifier }
+        remove_province_modifier = EDG_Fatima_Caliphate_province_modifier
+      }
+      capital_scope = {
+        add_permanent_province_modifier = {
+          name = EDG_Fatima_Caliphate_province_modifier
+          duration = -1
+        }
+      }
+    }
+    add_stability_or_adm_power = yes
+	  add_prestige_or_monarch_power = { amount = 100 }
+    set_country_flag = EDG_FYM_Shiite_war_can_end_flag
+    set_estate_privilege = estate_EDG_FYM_Fatima_caliphate_privilege_2
+  }
+}
+
+country_event = {#吞并萨法维
+  id = EDG_FYM_Shiite_war.6
+  title = "EDG_FYM_Shiite_war.6.title"
+  desc = "EDG_FYM_Shiite_war.6.desc"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_FYM_Shiite_war_6_flag }
+    has_country_flag = EDG_FYM_Shiite_war_2_flag
+    OR = {
+      war_score_against = {
+        who = ARL
+        value = 60
+      }
+      NOT = { exists = ARL }
+    }
+  }
+  
+  immediate = {
+    hidden_effect = {
+      set_global_flag = EDG_FYM_Shiite_war_6_flag
+      if = {
+        limit = { exists = ARL }
+        inherit = ARL
+      }
+    }
+  }
+  
+  option = {#
+    name = "EDG_FYM_Shiite_war.6.aa"
+    ai_chance = {
+      factor = 100
+    }
+    add_treasury = 2000
+    add_manpower = 50
+    if = {
+      limit = { exists = ARL }
+      tooltip = {
+        inherit = ARL
+      }
+    }
+    add_stability_or_adm_power = yes
+	  add_prestige_or_monarch_power = { amount = 100 }
+    set_country_flag = EDG_FYM_Shiite_war_can_end_flag
+  }
+}

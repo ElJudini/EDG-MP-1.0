@@ -1,0 +1,306 @@
+namespace = EDG_flavor_HZB_mission
+normal_or_historical_nations = yes
+
+country_event = {#哈扎拉比家族
+  id = EDG_flavor_HZB_mission.0
+  title = "EDG_flavor_HZB_mission.0.title"
+  desc = "EDG_flavor_HZB_mission.0.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    tag = HZB
+  }
+  immediate = {
+    
+  }
+  
+	mean_time_to_happen = {
+    
+	}
+	option = {#向伊尔汗国的柱国致敬！
+		name = "EDG_flavor_HZB_mission.0.a"
+    add_historical_friend = LRI
+    LRI = {
+      add_historical_friend = ROOT
+      add_liberty_desire = -100
+      add_trust = {
+        who = root
+        value = 25
+      }
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_incident_fra_encirclement_event_opinion_b
+      }
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    add_country_modifier = {
+      name = EDG_flavor_HZB_mission_0_a_modifier
+      duration = 7300
+    }
+  }
+
+
+}
+country_event = {#统治者的身份
+  id = EDG_flavor_HZB_mission.1
+  title = "EDG_flavor_HZB_mission.1.title"
+  desc = "EDG_flavor_HZB_mission.1.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    
+  }
+  immediate = {
+    
+  }
+  
+	mean_time_to_happen = {
+    
+	}
+	option = {#伊尔汗必须重掌大权！
+		name = "EDG_flavor_HZB_mission.1.a"
+    add_stability = -1
+    set_country_flag = EDG_flavor_HZB_mission_1_A_flag
+    EDG_flavor_HZB_mission_1_A_name_effect = yes
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_likely_rebels = {
+				size = 3
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_likely_rebels = {
+				size = 3
+			}
+		}
+  }
+	option = {#[Root.GetName]家族应该继续掌握大权。
+		name = "EDG_flavor_HZB_mission.1.b"
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_likely_rebels = {
+				size = 3
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_likely_rebels = {
+				size = 3
+			}
+		}
+  }
+
+}
+country_event = {#帝国的旗帜
+  id = EDG_flavor_HZB_mission.2
+  title = "EDG_flavor_HZB_mission.2.title"
+  desc = "EDG_flavor_HZB_mission.2.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    
+  }
+  immediate = {
+    
+  }
+  
+	mean_time_to_happen = {
+    
+	}
+	option = {#我们必须重建伊尔汗国！
+		name = "EDG_flavor_HZB_mission.2.a"
+    custom_tooltip = EDG_HZB_ILK_future_flag_tt
+    set_country_flag = EDG_HZB_ILK_future_flag
+    change_tag = ILK
+    if = {
+      limit = { has_custom_ideas = no }
+      country_event = { id = ideagroups.1 } #Swap Ideas
+    }
+    if = {
+      limit = { has_country_flag = EDG_flavor_HZB_mission_1_A_flag }
+      add_government_reform = EDG_Ilkhan_reform
+    }
+    else = {
+      add_government_reform = EDG_Regent_of_Ilkhan_reform_2
+    }
+    EDG_NEW_PER_Shahanshah_target_effect = yes
+  }
+	option = {#我们不需要伊尔汗，是时候废黜他了。
+		name = "EDG_flavor_HZB_mission.2.b"
+    trigger = {
+      NOT = { has_country_flag = EDG_flavor_HZB_mission_1_A_flag }
+    }
+    custom_tooltip = EDG_HZB_ILK_future_flag_tt
+    set_country_flag = EDG_HZB_ILK_future_flag
+    add_government_reform = EDG_HZB_emperor_reform
+  }
+	option = {#我们可以选择一条波斯化的道路……
+		name = "EDG_flavor_HZB_mission.2.c"
+    trigger = {
+      NOT = { has_country_flag = EDG_AB_MISSION_FLAG }
+    }
+
+    custom_tooltip = EDG_HZB_enable_forem_Persian_flag_tt
+    set_country_flag = EDG_HZB_enable_forem_Persian_flag
+    
+    change_tag = PER
+    swap_non_generic_missions = yes
+    remove_non_electors_emperors_from_empire_effect = yes
+    if = {
+      limit = {
+        NOT = { government = monarchy }
+        is_revolutionary = no
+      }
+      change_government_to_monarchy = yes
+    }
+    set_government_rank = 3
+    # country_event = {
+    # 	id = EDG_flavorAKK.2
+    # }
+    country_event = { id = EDG_flavor_PER.9 }
+    if = {
+      limit = {
+        has_reform = states_general_reform
+      }
+      remove_government_reform = states_general_reform
+    }
+    persia_region = {
+      limit = {
+        NOT = { owned_by = ROOT }
+        NOT = { is_core = ROOT }
+      }
+      add_permanent_claim = PER
+    }
+    add_country_modifier = {
+      name = "centralization_modifier"
+      duration = 7300
+    }
+    add_prestige_or_monarch_power = { amount = 25}
+    set_country_flag = formed_persia_flag
+    if = {
+      limit = { has_custom_ideas = no }
+      country_event = { id = ideagroups.1 } #Swap Ideas
+    }
+    EDG_NEW_PER_Shahanshah_target_effect = yes
+  }
+}
+country_event = {#定都君士坦丁堡
+  id = EDG_flavor_HZB_mission.3
+	title = flavor_mam.112.t
+	desc = flavor_mam.112.d
+	picture = CONSTANTINOPLE_eventPicture
+
+	fire_only_once = yes 
+	is_triggered_only = yes 
+
+	option = {
+		name = flavor_mam.112.a 
+
+		trigger = {
+			151 = { owned_by = ROOT is_core = ROOT }
+		}
+		set_capital = 151 
+
+		add_power_projection = {
+			type = mam_defeated_ottomans_pp 
+			amount = 15
+		}
+		custom_tooltip = sca_scandinavian_european_empire_tt
+	}
+
+	option = {
+		name = flavor_mam.112.c
+
+		add_power_projection = {
+			type = mam_defeated_ottomans_pp 
+			amount = 15
+		}
+		custom_tooltip = sca_scandinavian_european_empire_tt
+	}
+}
+
+country_event = {#对[From.GetName]的大入侵
+  id = EDG_flavor_HZB_mission.4
+  title = "EDG_flavor_HZB_mission.4.title"
+  desc = "EDG_flavor_HZB_mission.4.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {
+    
+  }
+  
+	mean_time_to_happen = {
+    
+	}
+	option = {#我们将碾碎他们！
+		name = "EDG_flavor_HZB_mission.4.a"
+    declare_war_with_cb = {
+      who = FROM
+      casus_belli = cb_EDG_HZB_great_conquer
+    }
+  }
+
+
+}
+country_event = {#[From.GetName]对我们发动大入侵
+  id = EDG_flavor_HZB_mission.5
+  title = "EDG_flavor_HZB_mission.5.title"
+  desc = "EDG_flavor_HZB_mission.5.desc"
+	picture = ADVISOR_eventPicture
+	is_triggered_only = yes
+  hidden = yes
+  trigger = {
+    
+  }
+  immediate = {
+    
+  }
+  
+	mean_time_to_happen = {
+    
+	}
+	option = {#我们将碾碎他们！
+		name = "EDG_flavor_HZB_mission.5.a"
+    FROM = {
+      country_event = { id = EDG_flavor_HZB_mission.4 }
+    }
+  }
+
+
+}

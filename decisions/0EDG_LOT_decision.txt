@@ -1,0 +1,260 @@
+country_decisions = {
+
+	EDG_mission_LOT_1_26_flag_decision = { #资助应用科学
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_mission_LOT_1_26_flag
+		}
+		allow = {
+			not = { has_country_modifier = EDG_mission_LOT_1_26_flag_decision_modifier }
+			innovativeness = 5
+		}
+		effect = {
+			change_innovativeness = -5
+			add_country_modifier = {
+				name = EDG_mission_LOT_1_26_flag_decision_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_mission_LOT_1_20_a_flag_decision = { #向贵族摊派赋税
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_mission_LOT_1_20_a_flag
+		}
+		allow = {
+			not = { has_country_modifier = EDG_mission_LOT_1_20_a_flag_decision_modifier }
+			has_estate = estate_nobles
+		}
+		effect = {
+			add_years_of_income = 0.5
+			add_country_modifier = {
+				name = EDG_mission_LOT_1_20_a_flag_decision_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_mission_LOT_1_20_b_flag_decision = { #向贵族分享权力
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_mission_LOT_1_20_b_flag
+		}
+		allow = {
+			not = { has_country_modifier = EDG_mission_LOT_1_20_b_flag_decision_modifier }
+			has_estate = estate_nobles
+		}
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+			add_estate_influence_modifier = {
+				estate = estate_nobles
+				desc = EDG_mission_LOT_1_20_b_flag_decision_influence_modifier
+				influence = 10
+				duration = 7300
+			}
+
+			add_country_modifier = {
+				name = EDG_mission_LOT_1_20_b_flag_decision_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_mission_LOT_2_26_flag_decision = { #举办面具舞会
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			has_country_flag = EDG_mission_LOT_2_26_flag
+		}
+		allow = {
+			not = { has_country_modifier = EDG_mission_LOT_2_26_flag_decision_modifier }
+			treasury = 200
+		}
+		effect = {
+			add_treasury = -200
+			add_country_modifier = {
+				name = EDG_mission_LOT_2_26_flag_decision_modifier
+				duration = 3650
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_mission_LOT_move_captial_to_1878_decision = { #迁都亚琛
+		major = yes
+		provinces_to_highlight = {
+			
+		}
+		potential = {
+			or = {
+				tag = LOT
+				was_tag = LOT
+			}
+			1878 = { country_or_non_sovereign_subject_holds = root not = { is_capital = yes } }
+			not = { has_country_flag = EDG_mission_LOT_move_captial_to_1878_decision_flag }
+		}
+		allow = {
+			owns_core_province = 1878
+			1878 = { is_state = yes not = { is_part_of_hre = yes } not = { is_capital = yes } }
+		}
+		effect = {
+			set_country_flag = EDG_mission_LOT_move_captial_to_1878_decision_flag
+			add_stability_or_adm_power = yes
+			1878 = {
+				move_capital_effect = yes
+				change_culture = ROOT
+				change_religion = ROOT
+				add_base_manpower = 2
+				add_base_production = 1
+				add_base_tax = 1
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	EDG_mission_LOT_core_German_decision = { #在德意志建立核心
+		major = yes
+		provinces_to_highlight = {
+			or = {
+				region = south_german_region
+				region = north_german_region
+			}
+			not = { is_core = root }
+			country_or_non_sovereign_subject_holds = root
+		}
+		potential = {
+			or = {
+				tag = LOT
+				was_tag = LOT
+			}
+			any_province = {
+				or = {
+					region = south_german_region
+					region = north_german_region
+				}
+				not = { is_core = root }
+			}
+		}
+		allow = {
+			any_province = {
+				country_or_non_sovereign_subject_holds = root
+				or = { region = south_german_region region = north_german_region }
+				not = { is_core = root }
+			}
+			adm_power = 100
+		}
+		effect = {
+			custom_tooltip = EDG_mission_LOT_core_German_decision_tt
+			random_province = {
+				limit = { country_or_non_sovereign_subject_holds = root or = { region = south_german_region region = north_german_region } not = { is_core = root } }
+				add_core = root
+				if = {
+					limit = { development = 30 }
+					root = { add_adm_power = -100 }
+				}
+				else_if = {
+					limit = { development = 20 }
+					root = { add_adm_power = -80 }
+				}
+				else_if = {
+					limit = { development = 15 }
+					root = { add_adm_power = -60 }
+				}
+				else_if = {
+					limit = { development = 10 }
+					root = { add_adm_power = -40 }
+				}
+				else = {
+					root = { add_adm_power = -30 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	
+	EDG_mission_LOT_core_Italian_decision = { #在意大利建立核心
+		major = yes
+		provinces_to_highlight = {
+			region = italy_region
+			not = { is_core = root }
+			country_or_non_sovereign_subject_holds = root
+		}
+		potential = {
+			or = {
+				tag = LOT
+				was_tag = LOT
+			}
+			any_province = {
+				region = italy_region
+				not = { is_core = root }
+			}
+		}
+		allow = {
+			any_province = {
+				country_or_non_sovereign_subject_holds = root
+				region = italy_region
+				not = { is_core = root }
+			}
+			adm_power = 100
+		}
+		effect = {
+			custom_tooltip = EDG_mission_LOT_core_Italian_decision_tt
+			random_province = {
+				limit = { country_or_non_sovereign_subject_holds = root region = italy_region not = { is_core = root } }
+				add_core = root
+				if = {
+					limit = { development = 30 }
+					root = { add_adm_power = -100 }
+				}
+				else_if = {
+					limit = { development = 20 }
+					root = { add_adm_power = -80 }
+				}
+				else_if = {
+					limit = { development = 15 }
+					root = { add_adm_power = -60 }
+				}
+				else_if = {
+					limit = { development = 10 }
+					root = { add_adm_power = -40 }
+				}
+				else = {
+					root = { add_adm_power = -30 }
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

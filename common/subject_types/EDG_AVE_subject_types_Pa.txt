@@ -1,0 +1,158 @@
+EDG_AVE_weak_appanage = { #英属前地方贵族封邑
+    copy_from = vassal
+	count = vassal
+
+    # Graphics:
+	sprite = GFX_icon_EDG_ENG_appanage
+	diplomacy_overlord_sprite = GFX_icon_EDG_ENG_appanage_lead
+	diplomacy_subject_sprite = GFX_icon_EDG_ENG_appanage_am
+
+    # Properties: #属国机制
+    has_power_projection = yes #有力量投射
+    takes_diplo_slot = no #不占用外交关系
+    separatists_become_subjects = yes #分离叛军成立的国家依然会变成宗主的附庸
+    allows_taking_land_without_independence = no #附属国对宗主宣战时，允许在没有获得独立的情况下获得土地
+    gets_help_with_rebels = no #不会帮助附庸消灭叛军
+    forms_trade_companies = no
+    can_concentrate_development = no
+    liberty_desire_development_ratio = 0.10 #附属国因为自身发展度而得到的独立倾向加成为10%
+    trust_on_start = 0 #初始独立信任为0
+    base_liberty_desire = 0 #基础独立倾向为0%
+    pays_overlord = 0 #不上交贡赋
+    forcelimit_to_overlord = 0 #不提供陆军上限
+    joins_overlords_wars = no #不加入宗主战争
+    joins_colonial_wars = no #不加入宗主的殖民战争
+    relative_power_class = 2 #共同计算独立倾向
+    should_quit_wars_on_activation = yes
+
+    # Subject Interactions: #属国互动
+    seize_court_resources = yes
+	request_extra_levies = yes
+	grant_administrative_autonomy = yes
+	scutage = yes
+	grant_core_claim = yes
+	grant_province = yes
+	place_relative_on_throne = yes
+	enforce_religion = yes
+	enforce_culture = yes
+	seize_territory = no
+	contribute_to_capital = yes
+	return_land = yes
+	conscript_general = yes
+
+    can_fight = {
+		same_overlord = EDG_ENG_weak_appanage
+	}
+	can_rival = {
+		same_overlord = EDG_ENG_weak_appanage
+	}
+	can_ally = {
+		same_overlord = EDG_ENG_weak_appanage
+	}
+	can_marry = {
+		same_overlord = EDG_ENG_weak_appanage
+	}
+
+    #Modifiers:
+    modifier_overlord = clear #We don't want to duplicate the ones inherited from vassal
+	modifier_subject = clear #Ditto
+
+	modifier_subject = {
+		modifier = appanage_subject
+	}
+	modifier_overlord = {
+		modifier = appanage_overlord
+	}
+	modifier_overlord = {
+		modifier = EDG_appanage_overlord
+	}
+}
+
+EDG_AVE_union = { #英属君合邦联
+    copy_from = personal_union
+	count = personal_union
+
+    # Graphics:
+	sprite = GFX_icon_EDG_AVE_union
+	diplomacy_overlord_sprite = GFX_icon_EDG_AVE_union_lead
+	diplomacy_subject_sprite = GFX_icon_EDG_AVE_union_am
+
+    # Properties: #属国机制
+    has_power_projection = yes #有力量投射
+    takes_diplo_slot = yes #占用外交关系
+    can_concentrate_development = yes
+    liberty_desire_development_ratio = 0 #附属国因为自身发展度而得到的独立倾向加成为0%
+    trust_on_start = 0 #初始独立信任为0
+    base_liberty_desire = -10 #基础独立倾向为-10%
+    pays_overlord = 0 #不上交贡赋
+	forcelimit_bonus = 2 #附属国的陆军上限奖励
+    forcelimit_to_overlord = 2 #提供陆军上限
+	manpower_bonus = 2
+	manpower_to_overlord = 2
+    joins_overlords_wars = yes #加入宗主战争
+    joins_colonial_wars = yes #加入宗主的殖民战争
+    relative_power_class = 1 #单独计算独立倾向
+    should_quit_wars_on_activation = yes
+	seize_territory = yes #可以没收领土
+	transfer_trade_power = yes #向宗主国转移贸易竞争力
+	can_be_integrated = no #不可以被合并
+	uses_tariffs = yes #启用关税机制
+	overlord_can_be_subject = no #不可以再拥有属国
+	military_focus = 1.0 #属国在军队上的投入
+
+
+    # Subject Interactions: #属国互动
+    seize_court_resources = yes
+	request_extra_levies = yes
+	grant_administrative_autonomy = yes
+	scutage = yes
+	grant_core_claim = yes
+	grant_province = yes
+	enforce_religion = yes
+	enforce_culture = yes
+	contribute_to_capital = yes
+	return_land = yes
+	conscript_general = yes
+	embargo_rivals = yes
+	subsidize_armies = yes
+	send_officers = yes
+	divert_trade= yes
+	fortify_march = yes
+	seize_territory = yes
+	increase_tariffs = yes
+	decrease_tariffs = yes
+	send_additional_troops = yes
+
+    #Modifiers:
+    modifier_overlord = clear #We don't want to duplicate the ones inherited from vassal
+	modifier_subject = clear #Ditto
+
+	modifier_overlord = {
+		modifier = EDG_AVE_union_overlord_modifier
+		trigger = {
+			AVE = {
+				has_country_flag = EDG_AVE_mission_3_28_flag_1
+			}
+		}
+	}
+	modifier_subject = {
+		modifier = EDG_AVE_union_strtngth_1_modifier
+		trigger = { total_development = 100 }
+	}
+	modifier_subject = {
+		modifier = EDG_AVE_union_strtngth_2_modifier
+		trigger = { total_development = 200 }
+	}
+	modifier_subject = {
+		modifier = EDG_AVE_union_strtngth_3_modifier
+		trigger = { total_development = 300 }
+	}
+	modifier_subject = {
+		modifier = EDG_AVE_union_strtngth_4_modifier
+		trigger = { total_development = 400 }
+	}
+	modifier_subject = {
+		modifier = EDG_AVE_union_strtngth_5_modifier
+		trigger = { total_development = 500 }
+	}
+}

@@ -1,0 +1,148 @@
+namespace = EDG_flavor_H02_mission
+normal_or_historical_nations = yes
+country_event = {#巴本堡王朝与奥地利
+  id = EDG_flavor_H02_mission.0
+  title = "EDG_flavor_H02_mission.0.title"
+  desc = "EDG_flavor_H02_mission.0.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  option = {#奥地利有自己的命运。
+    name = "EDG_flavor_H02_mission.0.a"
+    ai_chance = { factor = 10 }
+    add_army_tradition = 10
+    custom_tooltip = EDG_flavor_H02_mission_0_a_tt
+    country_event = { id = EDG_flavor_H02_mission.1 }
+  }
+}
+country_event = {#潜在的继承者？
+  id = EDG_flavor_H02_mission.1
+  title = "EDG_flavor_H02_mission.1.title"
+  desc = "EDG_flavor_H02_mission.1.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    tag = H02
+    OR = {
+      has_heir = no
+      heir_has_ruler_dynasty = yes
+    }
+    not = { has_global_flag = EDG_flavorHAB_2_flag }
+  }
+  option = {#策林根家族的施泰尔马克伯爵是最合适的人选。
+    name = "EDG_flavor_H02_mission.1.a"
+    ai_chance = { factor = 10 }
+    if = {
+      limit = {
+        heir_has_ruler_dynasty = yes
+      }
+      custom_tooltip = EDG_flavor_H02_mission_heir_has_ruler_dynasty_tt
+    }
+    clr_country_flag = EDG_flavor_H02_mission_1_b_flag
+    set_country_flag = EDG_flavor_H02_mission_1_a_flag
+    custom_tooltip = EDG_flavor_H02_mission_1_a_flag_tt
+    EDG_flavor_H02_mission_1_a_effect = yes
+  }
+  option = {#我们或许应该回归巴伐利亚的怀抱。
+    name = "EDG_flavor_H02_mission.1.b"
+    ai_chance = { factor = 10 }
+    if = {
+      limit = {
+        heir_has_ruler_dynasty = yes
+      }
+      custom_tooltip = EDG_flavor_H02_mission_heir_has_ruler_dynasty_tt
+    }
+    clr_country_flag = EDG_flavor_H02_mission_1_a_flag
+    set_country_flag = EDG_flavor_H02_mission_1_b_flag
+    custom_tooltip = EDG_flavor_H02_mission_1_b_flag_tt
+    EDG_flavor_H02_mission_1_b_effect = yes
+  }
+}
+country_event = {#施蒂利亚
+  id = EDG_flavor_H02_mission.2
+  title = "EDG_flavor_H02_mission.2.title"
+  desc = "EDG_flavor_H02_mission.2.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    not = { exists = STY }
+    has_global_flag = EDG_flavorHAB_2_flag
+    tag = H02
+    has_country_flag = EDG_flavor_H02_mission_1_a_flag
+    is_at_war = no
+    is_subject = no
+  }
+  immediate = {
+  }
+  option = {#奥地利有自己的命运。
+    name = "EDG_flavor_H02_mission.2.a"
+    ai_chance = { factor = 10 }
+    custom_tooltip = EDG_flavor_H02_mission_2_a_tt
+    change_tag = STY
+    restore_country_name = yes
+    country_event = { id = ideagroups.1 } #Swap Ideas
+  }
+}
+country_event = {#克罗地亚战役
+  id = EDG_flavor_H02_mission.3
+  title = "EDG_flavor_H02_mission.3.title"
+  desc = "EDG_flavor_H02_mission.3.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    
+  }
+  immediate = {
+  }
+  option = {#他们的王冠不再耀眼。
+    name = "EDG_flavor_H02_mission.3.a"
+    ai_chance = { factor = 10 }
+    add_country_modifier = {
+      name = EDG_mission_STY_1_5_modifier
+      duration = 7300
+    }
+  }
+  option = {#让我们尽情掠夺他们的财富！
+    name = "EDG_flavor_H02_mission.3.b"
+    ai_chance = { factor = 10 }
+    add_adm_power = 100
+    add_dip_power = 100
+    add_mil_power = 100
+    slavonia_area = {
+      limit = { country_or_non_sovereign_subject_holds = CRO }
+      add_base_tax = -1
+    }
+    croatia_area = {
+      limit = { country_or_non_sovereign_subject_holds = CRO }
+      add_base_tax = -1
+    }
+  }
+}
+country_event = {#公国体制改革
+  id = EDG_flavor_H02_mission.4
+  title = "EDG_flavor_H02_mission.4.title"
+  desc = "EDG_flavor_H02_mission.4.desc"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    
+  }
+  immediate = {
+  }
+  option = {#改革我们的政府。
+    name = "EDG_flavor_H02_mission.4.a"
+    ai_chance = { factor = 10 }
+    change_government_reform_progress = 100
+  }
+  option = {#但是边境伯国的传统让我们感到荣耀。
+    name = "EDG_flavor_H02_mission.4.b"
+    ai_chance = { factor = 10 }
+    add_army_tradition = 15
+  }
+}

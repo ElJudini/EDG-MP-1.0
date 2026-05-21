@@ -1,0 +1,191 @@
+#放在对应的On_action词条下。
+#on_raze = { NYGX_LER_on_raze_province_effect = yes }
+#on_province_religion_converted = { NYGX_on_province_religion_converted_effect = yes }
+#举个例子
+EDG_CDC_on_war_won_effect = {
+	if = {
+		limit = {
+			FROM = {
+				NOT = {
+					religion = ROOT
+				}
+			}
+		}
+		if = {
+			limit = {
+				has_country_modifier = NYGX_CDC_defend_fadima_modifier
+			}
+			add_government_power = {
+				mechanic_type = NYGX_CDC_crusader_mechanic
+				power_type = NYGX_CDC_crusader_power
+				value = 2.5
+			}
+		}
+		add_government_power = {
+			mechanic_type = NYGX_CDC_crusader_mechanic
+			power_type = NYGX_CDC_crusader_power
+			value = 5
+		}
+	}
+	
+}
+#on_province_owner_change
+EDG_CDC_on_province_owner_change_effect = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_CDC_safe_maghreb
+			}
+			region = maghreb_region
+		}
+		add_province_modifier = {
+			name = NYGX_CDC_safe_maghreb_modifier
+			duration = -1
+		}
+	}
+}
+#on_province_religion_converted
+EDG_CDC_on_province_religion_converted_effect = {
+	
+	owner = {
+		add_government_power = {
+			mechanic_type = NYGX_CDC_crusader_mechanic
+			power_type = NYGX_CDC_crusader_power
+			value = 0.5
+		}
+	}
+	remove_province_modifier = NYGX_CDC_golden_empire_prov_modifier1
+	remove_province_modifier = NYGX_CDC_golden_empire_prov_modifier2
+}
+#这个OA要放在种地的三个OA里
+#on_adm_development
+#on_dip_development
+#on_mil_development
+EDG_CDC_on_development_effect = {
+	if = {
+		limit = {
+			has_terrain = desert
+			owner = {
+				has_mission = NYGX_CDC_mercy_to_desert
+			}
+			NOT = {
+				
+			}
+		}
+		set_province_flag = NYGX_CDC_has_been_develop_desert_prov_flag
+	}
+}
+EDG_CDC_on_adm_development_effect = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_CDC_build_workshop
+			}
+			region = maghreb_region
+		}
+		random = {
+			add_base_tax = 1
+			chance = 20
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_ITA_adm_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_tax = 1
+			chance = 33
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_CN_adm_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_tax = 1
+			chance = 33
+		}
+	}
+}
+EDG_CDC_on_dip_development_effect = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_CDC_build_workshop
+			}
+			region = maghreb_region
+		}
+		random = {
+			add_base_production = 1
+			chance = 20
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_ITA_dip_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_production = 1
+			chance = 33
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_CN_dip_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_production = 1
+			chance = 33
+		}
+	}
+}
+EDG_CDC_on_mil_development_effect = {
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_CDC_build_workshop
+			}
+			region = maghreb_region
+		}
+		random = {
+			add_base_manpower = 1
+			chance = 20
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_ITA_mil_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_manpower = 1
+			chance = 33
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_MISSION_CN_mil_development_flag
+			}
+			region = italy_region
+		}
+		random = {
+			add_base_manpower = 1
+			chance = 33
+		}
+	}
+}

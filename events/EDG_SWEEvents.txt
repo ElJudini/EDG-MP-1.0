@@ -1,0 +1,991 @@
+namespace = EDG_SWEEvents
+
+country_event = {
+	id = EDG_SWEEvents.0
+	is_triggered_only = yes
+	title = EDG_SWEEvents.0.name
+	desc = EDG_SWEEvents.0.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			add_legitimacy = -20
+		}
+	}
+
+	option = {
+		name = EDG_SWEEvents.0.aa
+		tooltip = {
+			add_legitimacy = -20
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.1
+	is_triggered_only = yes
+	title = EDG_SWEEvents.1.name
+	desc = EDG_SWEEvents.1.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = had_election_event
+		}
+	}
+
+	option = {
+		name = EDG_SWEEvents.1.aa
+		add_government_reform = EDG_SWE_electing_council
+		add_prestige = 50
+		
+		if = {
+			limit = { NOT = { owns_core_province = 16 } }
+			add_permanent_claim = 16
+		}
+		if = {
+			limit = { NOT = { owns_core_province = 315 } }
+			add_permanent_claim = 315
+		}
+		if = {
+			limit = { NOT = { owns_core_province = 1777 } }
+			add_permanent_claim = 1777
+		}
+		if = {
+			limit = { NOT = { owns_core_province = 1776 } }
+			add_permanent_claim = 1776
+		}
+		karelia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		north_karelia = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		novgorod_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		estonia_ingria_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		livonia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		curonia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		hinter_pommern_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		vorpommern_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		mecklenburg_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		skaneland_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.2
+	is_triggered_only = yes
+	title = EDG_SWEEvents.2.name
+	desc = EDG_SWEEvents.2.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			random_country = {
+				limit = {
+					capital_scope = {
+						region = poland_region
+					}
+					alliance_with = root
+				}
+				save_event_target_as = EDG_event_target
+			}
+		}
+	}
+
+	option = {
+		name = EDG_SWEEvents.2.aa
+		poland_region = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+			}
+			add_permanent_claim = ROOT
+		}
+		hidden_effect = {
+			set_country_flag = EDG_SWE_conquest_point_flag
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.2.bb
+		trigger = {
+			any_country = {
+				capital_scope = {
+					region = poland_region
+				}
+				OR = {
+					primary_culture = polish
+					primary_culture = polish_new
+				}
+				NOT = {
+					total_development = 50
+				}
+				AND = {
+					religion = root
+					alliance_with = root
+				}
+			}
+		}
+		custom_tooltip = EDG_SWEEvents.2.bb.tt
+		event_target:EDG_event_target = {
+			add_historical_friend = root
+			root = {
+				add_historical_friend = prev
+			}
+			poland_region = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				set_country_flag = EDG_SWE_ally_country_flag
+				save_global_event_target_as = EDG_SWE_ally_country_target
+			}
+		}
+		every_owned_province = {
+			limit = {
+				region = poland_region
+			}
+			cede_province = event_target:EDG_event_target
+		}
+		hidden_effect = {
+			set_country_flag = EDG_SWE_ally_point_flag
+		}
+	}
+}
+
+country_event = {
+	id = EDG_SWEEvents.3
+	title = EDG_SWEEvents.3.name
+	desc = EDG_SWEEvents.3.desc
+	picture = ADVISOR_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		is_year = 1510
+		OR = {
+			tag = SWE
+			AND = {
+				was_tag = SWE
+				OR = {
+					tag = SCA
+					tag = FSD
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 12
+	}
+
+	option = {
+		name = EDG_SWEEvents.3.aa
+		add_prestige = 10
+		EDG_SWE_Gustav_Vasa = yes
+		hidden_effect = {
+			country_event = {
+				id = EDG_SWEEvents.4
+				days = 365
+			}
+			set_country_flag = EDG_SWE_gustaf_I_already_flag
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.3.bb
+		add_prestige = -10
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.4
+	is_triggered_only = yes
+	title = EDG_SWEEvents.4.name
+	desc = EDG_SWEEvents.4.desc
+	picture = BIG_BOOK_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SWEEvents.4.aa
+		change_estate_land_share = {
+			estate = all
+			share = -30
+		}
+		add_country_modifier = {
+			name = EDG_SWE_reform_of_centralization
+			duration = -1
+		}
+	}
+}
+
+country_event = {
+	id = EDG_SWEEvents.5
+	mean_time_to_happen = {
+		days = 30
+	}
+	title = EDG_SWEEvents.5.name
+	desc = EDG_SWEEvents.5.desc
+	picture = STREET_SPEECH_eventPicture
+	fire_only_once = yes
+	major = yes
+
+	trigger = {
+		OR = {
+			tag = SWE
+			AND = {
+				was_tag = SWE
+				NOT = { exists = SWE }
+				OR = {
+					tag = SCA
+					tag = FSD
+				}
+			}		
+		}
+		has_ruler_flag = EDG_SWE_gustaf_I_flag
+		is_religion_enabled = protestant
+	}
+
+	option = {
+		name = EDG_SWEEvents.5.aa
+		custom_tooltip = EDG_SWEEvents.5.aa.tt
+		trigger = {
+			religion = protestant
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_core = root
+					OR = {
+						development = 15
+						has_tax_building_trigger = yes
+					}
+				}
+				change_religion = protestant
+			}
+			every_owned_province = {
+				limit = {
+					religion_group = christian
+					has_province_modifier = religious_zeal_at_conv
+					NOT = {
+						religion = protestant
+					}
+				}
+				remove_province_modifier = religious_zeal_at_conv
+			}
+		}
+		add_prestige = 20
+		add_country_modifier = {
+			name = EDG_SWE_the_gustav_vasa_bible
+			duration = -1
+		}
+		add_country_modifier = {
+			name = "EDG_SWE_spread_a_new_religion"
+			duration = 3650
+		}
+		add_church_power = 200
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.5.bb
+		custom_tooltip = EDG_SWEEvents.5.aa.tt
+		trigger = {
+			NOT = {
+				religion = protestant
+			}
+		}
+		change_religion = protestant
+		1 = {
+			change_religion = protestant
+			add_reform_center = protestant
+		}
+		add_country_modifier = {
+			name = "EDG_SWE_spread_a_new_religion"
+			duration = 3650
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_core = root
+					OR = {
+						development = 15
+						has_tax_building_trigger = yes
+					}
+				}
+				change_religion = protestant
+			}
+			every_owned_province = {
+				limit = {
+					religion_group = christian
+					has_province_modifier = religious_zeal_at_conv
+					NOT = {
+						religion = protestant
+					}
+				}
+				remove_province_modifier = religious_zeal_at_conv
+			}
+			for = {
+				amount = 10
+				effect = "
+					random_owned_province = {
+						limit = {
+							religion_group = christian
+							NOT = {
+								religion = 	protestant
+							}
+						}
+						change_religion = protestant
+					}
+				"
+			}
+		}
+		add_prestige = 50
+		add_country_modifier = {
+			name = EDG_SWE_the_gustav_vasa_bible
+			duration = -1
+		}
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		ai_chance = {
+			factor = 100
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.5.cc
+		custom_tooltip = EDG_SWEEvents.5.aa.tt
+		trigger = {
+			NOT = {
+				religion = protestant
+			}
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_core = root
+					OR = {
+						development = 15
+						has_tax_building_trigger = yes
+					}
+				}
+				change_religion = protestant
+			}
+			every_owned_province = {
+				limit = {
+					religion_group = christian
+					has_province_modifier = religious_zeal_at_conv
+					NOT = {
+						religion = protestant
+					}
+				}
+				remove_province_modifier = religious_zeal_at_conv
+			}
+		}
+		add_prestige = 20
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+
+country_event = {
+	id = EDG_SWEEvents.6
+	title = EDG_SWEEvents.6.name
+	desc = EDG_SWEEvents.6.desc
+	picture = ADVISOR_eventPicture
+	mean_time_to_happen = {
+		months = 2000
+		modifier = {
+			factor = 0.01
+			is_year = 1610
+		}
+		modifier = {
+			factor = 0.9
+			is_year = 1560
+		}
+		modifier = {
+			factor = 0.8
+			is_year = 1570
+		}
+		modifier = {
+			factor = 0.7
+			is_year = 1580
+		}
+		modifier = {
+			factor = 0.6
+			is_year = 1590
+		}
+		modifier = {
+			factor = 0.5
+			is_year = 1600
+		}
+	}
+	fire_only_once = yes
+
+	trigger = {
+		is_year = 1550
+		has_country_modifier = EDG_SWE_time_of_chaos
+	}
+	option = {
+		name = EDG_SWEEvents.6.aa
+		ai_chance = {
+			factor = 100
+		}
+		EDG_SWE_Gustav_Adolf = yes
+		
+		hidden_effect = {
+			country_event = {
+				id = EDG_SWEEvents.7
+				days = 30
+			}
+			country_event = {
+				id = EDG_SWEEvents.8
+				days = 2190
+			}
+		}
+	}
+	option = {
+		name = EDG_SWEEvents.6.bb
+		ai_chance = {
+			factor = 0
+		}
+		define_ruler = {
+			claim = 95
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.7
+	is_triggered_only = yes
+	title = EDG_SWEEvents.7.name
+	desc = EDG_SWEEvents.7.desc
+	picture = ADVISOR_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		OR = {
+			tag = SWE
+			AND = {
+				was_tag = SWE
+				NOT = { exists = SWE }
+				OR = {
+					tag = SCA
+					tag = FSD
+				}
+			}		
+		}
+		has_ruler_flag = EDG_SWE_gustaf_II_flag
+	}
+	
+	option = {
+		name = EDG_SWEEvents.7.aa
+		remove_country_modifier = EDG_SWE_time_of_chaos
+		ai_chance = {
+			factor = 100
+		}
+		add_country_modifier = {
+			name = EDG_SWE_charter_of_nobility
+			duration = -1
+		}
+		add_stability_or_adm_power = yes
+		add_legitimacy = 30
+	}
+	option = {
+		name = EDG_SWEEvents.7.bb
+		ai_chance = {
+			factor = 0
+		}
+		remove_country_modifier = EDG_SWE_time_of_chaos
+		add_country_modifier = {
+			name = EDG_SWE_charter_of_nobility
+			duration = -1
+		}
+		add_stability = -1
+		add_legitimacy = -10
+	}
+	after = {
+		country_event = {
+			id = flavor_swe.3233
+			days = 30
+		}
+	}
+}
+
+country_event = {
+	id = EDG_SWEEvents.8
+	is_triggered_only = yes
+	title = EDG_SWEEvents.8.name
+	desc = EDG_SWEEvents.8.desc
+	picture = HRE_eventPicture
+	fire_only_once = yes
+	major = yes
+
+	trigger = {
+		OR = {
+			tag = SWE
+			AND = {
+				was_tag = SWE
+				NOT = { exists = SWE }
+				OR = {
+					tag = SCA
+					tag = FSD
+				}
+			}		
+		}
+		has_ruler_flag = EDG_SWE_gustaf_II_flag
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_SWE_gustaf_II_already_flag
+			if = {
+				limit = { 
+					ai = yes
+				}
+				if = {
+					limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+					clr_global_flag = EDG_great_conquer_NOW_flag
+					clr_country_flag = EDG_great_conquer_NOW_country_flag
+					add_country_modifier = {
+						name = EDG_great_conqueror_modifier_AFTER
+						duration = 18250
+					}
+				}
+				if = {
+					limit = { has_country_flag = EDG_great_conquer_NOW_country_flag }
+					clr_global_flag = EDG_great_conquer_NOW_flag
+					clr_country_flag = EDG_great_conquer_NOW_country_flag
+				}
+				if = {
+					limit = { has_country_flag = EDG_mythical_conquer_NOW_country_flag }
+					clr_global_flag = EDG_mythical_conquer_NOW_flag
+					clr_country_flag = EDG_mythical_conquer_NOW_country_flag
+					add_country_modifier = {
+						name = EDG_great_conqueror_modifier_AFTER
+						duration = 18250
+					}
+				}
+				set_ruler_flag = EDG_flavor_great_conquer_choice_flag
+			}
+		}
+	}
+	
+	option = {
+		name = EDG_SWEEvents.8.aa
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				has_global_flag = EDG_great_conquer_enable_flag
+			}
+		}
+		add_legitimacy = 20
+		add_ruler_personality = legendary_conqueror_personality
+		define_ruler_to_general = {
+			fire = 6
+			shock = 5
+			manuever = 5
+			siege = 4
+			trait = strict_drillmaster_personality
+		}
+		if = {
+			limit = { 
+				has_country_modifier = EDG_SWE_charter_of_nobility
+			}
+			remove_country_modifier = EDG_SWE_charter_of_nobility
+		}
+		if = {
+			limit = { 
+				has_country_modifier = EDG_SWE_continued_centralization
+			}
+			remove_country_modifier = EDG_SWE_continued_centralization
+		}
+		add_ruler_modifier = {
+			name = EDG_SWE_sweden_rising
+			duration = -1
+		}
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+	}
+	option = {
+		name = EDG_SWEEvents.8.bb
+		trigger = {
+			ai = yes
+			has_global_flag = EDG_game_rule_2_3_open_flag
+		}
+		ai_chance = {
+			factor = 10000
+		}
+		add_legitimacy = 20
+		add_ruler_modifier = {
+			name = EDG_SWE_sweden_rising
+			duration = -1
+		}
+		define_ruler_to_general = {
+			fire = 6
+			shock = 5
+			manuever = 5
+			siege = 4
+			trait = strict_drillmaster_personality
+		}
+		if = {
+			limit = { 
+				has_country_modifier = EDG_SWE_charter_of_nobility
+			}
+			remove_country_modifier = EDG_SWE_charter_of_nobility
+		}
+		if = {
+			limit = { 
+				has_country_modifier = EDG_SWE_continued_centralization
+			}
+			remove_country_modifier = EDG_SWE_continued_centralization
+		}
+		add_adm_power = 100
+		add_dip_power = 100
+		add_mil_power = 100
+		hidden_effect = {
+			if = {
+				limit = { is_emperor = yes }
+				set_ai_personality = {
+					personality = ai_diplomat
+					locked = yes
+				}
+			}
+			else = {
+				set_ai_personality = {
+					personality = ai_militarist
+					locked = yes
+				}
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_personality = EDG_great_conqueror_personality
+			add_ruler_modifier = {
+				name = EDG_great_conqueror_modifier
+				duration = -1
+			}
+			set_global_flag = EDG_great_conquer_NOW_flag
+			set_country_flag = EDG_great_conquer_NOW_country_flag
+		}
+	}
+	after = {
+		country_event = {
+			id = flavor_swe.3235
+			days = 730
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.9
+	title = EDG_SWEEvents.9.name
+	desc = EDG_SWEEvents.9.desc
+	picture = LAND_MILITARY_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_II_already_flag
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = EDG_SWEEvents.9.aa
+		add_mil_power = 50
+		add_army_professionalism = 0.03
+		add_ruler_personality = strict_personality
+		add_government_power = {
+			mechanic_type = EDG_SWE_militarization_mechanic
+			power_type = EDG_SWE_militarized_society
+			value = 5
+		}
+		country_event = {
+			id = EDG_SWEEvents.10
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.10
+	is_triggered_only = yes
+	title = EDG_SWEEvents.10.name
+	desc = EDG_SWEEvents.10.desc
+	picture = LAND_MILITARY_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SWEEvents.10.aa
+		custom_tooltip = EDG_SWEEvents.10.aa.tt
+		add_mil_power = 50
+		add_army_professionalism = 0.03
+		add_government_power = {
+			mechanic_type = EDG_SWE_militarization_mechanic
+			power_type = EDG_SWE_militarized_society
+			value = 5
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					NOT = {
+						has_building = weapons
+					}
+					is_core = root
+					region = scandinavia_region
+					OR = {
+						trade_goods = iron
+						trade_goods = copper
+					}
+				}
+				add_building = weapons
+			}
+		}
+		country_event = {
+			id = EDG_SWEEvents.11
+			days = 365
+			random = 365
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.11
+	is_triggered_only = yes
+	title = EDG_SWEEvents.11.name
+	desc = EDG_SWEEvents.11.desc
+	picture = LAND_MILITARY_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_SWEEvents.11.aa
+		add_mil_power = 100
+		add_country_modifier = {
+			name = EDG_SWE_reform_military_tactics
+			duration = -1
+		}
+		add_army_professionalism = 0.04
+		add_government_power = {
+			mechanic_type = EDG_SWE_militarization_mechanic
+			power_type = EDG_SWE_militarized_society
+			value = 10
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.12
+	title = EDG_SWEEvents.12.name
+	desc = EDG_SWEEvents.12.desc
+	picture = ARTWORK_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_II_already_flag
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = EDG_SWEEvents.13.bb
+		add_stability_or_adm_power = yes
+		add_adm_power = 200
+		add_government_reform = 50
+		add_country_modifier = {
+			name = EDG_SWE_reform_political_system
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.13
+	title = EDG_SWEEvents.13.name
+	desc = EDG_SWEEvents.13.desc
+	picture = ARTWORK_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_II_already_flag
+	}
+
+	mean_time_to_happen = {
+		months = 60
+	}
+
+	option = {
+		name = EDG_SWEEvents.13.aa
+		custom_tooltip = EDG_SWEEvents.13.aa.tt
+		add_dip_power = 200
+		add_years_of_owned_provinces_production_income = {
+			years = 10
+			trigger = {
+				region = scandinavia_region
+				OR = {
+					trade_goods = iron
+					trade_goods = copper
+				}
+			}
+			custom_tooltip = EDG_SWEEvents.13_tt
+		}
+		add_country_modifier = {
+			name = EDG_SWE_economic_reform
+			duration = -1
+		}
+		
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					is_core = root
+					region = scandinavia_region
+					OR = {
+						trade_goods = iron
+						trade_goods = copper
+					}
+				}
+				add_province_modifier = {
+					name = EDG_SWE_prosperity_of_resource_industry
+					duration = -1
+				}
+				add_base_production = 3
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.14
+	title = EDG_SWEEvents.14.name
+	desc = EDG_SWEEvents.14.desc
+	picture = BATTLE_eventPicture
+	fire_only_once = yes
+	major = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_II_already_flag
+		is_at_war = yes
+		OR = {
+			war_with = emperor
+			any_war_enemy_country = {
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+						superregion = eastern_europe_superregion
+					}
+				}
+				is_great_power = yes
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 1
+	}
+
+	option = {
+		name = EDG_SWEEvents.14.aa
+		add_ruler_modifier = {
+			name = EDG_SWE_the_lion_of_the_north
+			duration = -1
+		}
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.15
+	title = EDG_SWEEvents.15.name
+	desc = EDG_SWEEvents.15.desc
+	picture = CITY_DEVELOPMENT_eventPicture
+	fire_only_once = yes
+
+	trigger = {
+		has_country_flag = EDG_SWE_gustaf_I_already_flag
+		28 = {
+			owned_by = root
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 24
+	}
+
+	option = {
+		name = EDG_SWEEvents.15.aa
+		EDG_SWE_helsinki_city = yes
+	}
+}
+country_event = {
+	id = EDG_SWEEvents.500
+	is_triggered_only = yes
+	hidden = yes
+
+	immediate = {
+		add_government_reform = EDG_SWE_swedish_iron_army
+	}
+
+	option = {
+		name = OK
+	}
+}

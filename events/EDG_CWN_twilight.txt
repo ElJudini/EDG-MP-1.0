@@ -1,0 +1,709 @@
+namespace = EDG_CWN_twilight
+country_event = {
+	#事件，余晖
+	id = EDG_CWN_twilight.1
+	title = EDG_CWN_twilight.1.t
+	desc = EDG_CWN_twilight.1.d
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			change_variable = {
+				which = EDG_CWN_twilight_var
+				value = 1
+			}
+		}
+	}
+	option = {
+		name = EDG_CWN_twilight.1.a		#时代的黄昏到来了，愿主保佑我们。
+		add_stability = -1
+		set_country_flag = EDG_CWN_twilight_start_flag
+		custom_tooltip = EDG_CWN_TW_1_TT #介绍灾难
+		hidden_effect = {
+			country_event = {
+				id = EDG_CWN_twilight.3
+				days = 3
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，东山再起
+	id = EDG_CWN_twilight.2
+	title = EDG_CWN_twilight.2.t
+	desc = EDG_CWN_twilight.2.d
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	immediate = {
+		set_country_flag = EDG_CWN_twilight_end_flag
+		hidden_effect = {
+			add_country_modifier = {
+				name = EDG_CWN_twilight_again_modifier				#东山再起
+				duration = 7300
+			}
+		}
+		clr_country_flag = EDG_CWN_twilight_start_flag
+	}
+	option = {
+		name = EDG_CWN_twilight.2.a		#白色的明天在等着我们
+		tooltip = {
+			set_country_flag = EDG_CWN_twilight_end_flag
+			add_country_modifier = {
+				name = EDG_CWN_twilight_again_modifier				#东山再起
+				duration = 7300
+			}
+			clr_country_flag = EDG_CWN_twilight_start_flag
+		}
+	}
+}
+
+country_event = {
+	#选择大事件
+	id = EDG_CWN_twilight.3
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = {
+						which = EDG_CWN_twilight_var
+						value = 1
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_CWN_twilight_var
+							value = 2
+						}
+					}
+				}
+				country_event = {
+					id = EDG_CWN_twilight.100					#圈地运动
+					days = 3
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = {
+						which = EDG_CWN_twilight_var
+						value = 2
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_CWN_twilight_var
+							value = 3
+						}
+					}
+				}
+				country_event = {
+					id = EDG_CWN_twilight.200					#败絮其中
+					days = 3
+				}
+			}
+			else = {
+				country_event = {
+					id = EDG_CWN_twilight.4					#共克时艰
+					days = 3
+				}
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	#事件，共克时艰
+	id = EDG_CWN_twilight.4
+	title = EDG_CWN_twilight.4.t
+	desc = EDG_CWN_twilight.4.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.4.a		#我们能做的只有交给时间
+		add_stability = -1
+		# country_event = {
+		# 	id = EDG_CWN_twilight.2
+		# 	days = 1825
+		# }
+	}
+}
+
+country_event = {
+	#事件，盗匪猖獗
+	id = EDG_CWN_twilight.5
+	title = EDG_CWN_twilight.5.t
+	desc = EDG_CWN_twilight.5.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_MEN_middle_ruin.4.a
+		add_treasury = -250
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = leadered_peasant_rebels
+				religion = ROOT
+				size = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，溃于蚁穴
+	id = EDG_CWN_twilight.6
+	title = EDG_CWN_twilight.6.t
+	desc = EDG_CWN_twilight.6.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_estate = estate_nobles
+	}
+	option = {
+		name = EDG_MEN_middle_ruin.4.a
+		add_stability = -1
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，拥王者
+	id = EDG_CWN_twilight.7
+	title = EDG_CWN_twilight.7.t
+	desc = EDG_CWN_twilight.7.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = EDG_CWN_3_4_flag
+		}
+	}
+	option = {
+		name = EDG_MEN_middle_ruin.4.a
+		add_stability = -1
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = pretender_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，信仰危机
+	id = EDG_CWN_twilight.8
+	title = EDG_CWN_twilight.8.t
+	desc = EDG_CWN_twilight.8.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = EDG_CWN_2_4_flag
+		}
+	}
+	option = {
+		name = EDG_MEN_middle_ruin.4.a
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				religion = catholic
+			}
+			change_religion = EDG_Euchites
+			spawn_rebels = {
+				type = noble_rebels
+				religion = EDG_Euchites
+				size = 1
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，海盗入侵
+	id = EDG_CWN_twilight.9
+	title = EDG_CWN_twilight.9.t
+	desc = EDG_CWN_twilight.9.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_flag = EDG_CWN_3_4_flag
+		}
+	}
+	option = {
+		name = EDG_MEN_middle_ruin.4.a
+		add_treasury = -250
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				has_port = yes
+			}
+			create_pirate = 1
+		}
+	}
+}
+
+country_event = {
+	#事件，圈地运动
+	id = EDG_CWN_twilight.100
+	title = EDG_CWN_twilight.100.t
+	desc = EDG_CWN_twilight.100.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.100.a		#田里的人都去哪了？
+		add_stability = -1
+		hidden_effect = {
+			country_event = {
+				id = EDG_CWN_twilight.101
+				days = 30
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，羊吃人
+	id = EDG_CWN_twilight.101
+	title = EDG_CWN_twilight.101.t
+	desc = EDG_CWN_twilight.101.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.101.a		#把农民赶走了，谁来种庄稼？
+		add_stability = -1
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = leadered_peasant_rebels
+				religion = ROOT
+				size = 1
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = leadered_peasant_rebels
+				religion = ROOT
+				size = 1
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+			}
+			spawn_rebels = {
+				type = leadered_peasant_rebels
+				religion = ROOT
+				size = 1
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = EDG_CWN_twilight.102
+				days = 60
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，贵族不满
+	id = EDG_CWN_twilight.102
+	title = EDG_CWN_twilight.102.t
+	desc = EDG_CWN_twilight.102.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.102.a		#当初对你们还是太仁慈了
+		add_stability = -1
+		# remove_estate_privilege = estate_nobles_xxx		#移除贵族特许领地特权
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -20
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		hidden_effect = {
+			country_event = {
+				id = EDG_CWN_twilight.103
+				days = 57
+			}
+		}
+	}
+}
+
+country_event = {
+	#事件，荒年
+	id = EDG_CWN_twilight.103
+	title = EDG_CWN_twilight.103.t
+	desc = EDG_CWN_twilight.103.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.103.a		#我们必须控制局势
+		add_stability = -1
+		custom_tooltip = EDG_CWN_twilight_103_TT		#我们所有生产§Y谷物§!、§Y鱼类§!、§Y牲畜§!、§Y羊毛§!的省份获得§R50§!荒废度
+		add_country_modifier = {
+			name = EDG_CWN_TW_H_1_modifier
+			duration = -1
+		}
+		add_country_modifier = {
+			name = EDG_CWN_TW_H_2_modifier
+			duration = -1
+		}
+		add_country_modifier = {
+			name = EDG_CWN_TW_H_3_modifier
+			duration = -1
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						trade_goods = grain
+						trade_goods = fish
+						trade_goods = livestock
+						trade_goods = wool
+					}
+				}
+				add_devastation = 50
+			}
+		}
+		custom_tooltip = ""
+		custom_tooltip = EDG_CWN_twilight_103_a_tt		#解锁一系列决议减轻大饥荒的影响,完成所有赈灾决议和任务废除封建庄园制后结束本次灾难
+		set_country_flag = EDG_CWN_twilight_103_flag		#荒年已经发生
+	}
+}
+
+country_event = {
+	#事件，清算
+	id = EDG_CWN_twilight.104
+	title = EDG_CWN_twilight.104.t
+	desc = EDG_CWN_twilight.104.d
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_flag = EDG_CWN_twilight_1031_flag
+		has_country_flag = EDG_CWN_twilight_1032_flag
+		has_country_flag = EDG_CWN_twilight_1033_flag
+		mission_completed = EDG_CWN_3_13
+		mission_completed = EDG_CWN_4_14
+		NOT = {
+			has_reform = EDG_CWN_basic_parliament
+		}
+	}
+	option = {
+		name = EDG_CWN_twilight.104.a		#军队只能属于联邦	
+		custom_tooltip = EDG_CWN_twilight_104_TT		#启用新军
+		set_country_flag = EDG_CWN_twilight_104_flag		#启用新军
+		remove_government_reform = EDG_HER_basic_parliament
+		add_government_reform = EDG_CWN_basic_parliament
+		# country_event = {
+		# 	id = EDG_CWN_twilight.2
+		# 	days = 3
+		# }
+	}
+}
+
+country_event = {
+	#事件，清算
+	id = EDG_CWN_twilight.105
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+	}
+	hidden = yes
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	#事件，清算
+	id = EDG_CWN_twilight.106
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+	}
+	hidden = yes
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	#事件，清算
+	id = EDG_CWN_twilight.107
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+	}
+	hidden = yes
+	immediate = {
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+		random_owned_province = {
+			limit = {
+				is_core = ROOT
+				region = british_isles_region
+			}
+			spawn_rebels = {
+				type = noble_rebels
+				religion = ROOT
+				size = 2
+			}
+		}
+	}
+	option = {
+	}
+}
+
+country_event = {
+	#事件，败絮其中
+	id = EDG_CWN_twilight.200
+	title = EDG_CWN_twilight.200.t
+	desc = EDG_CWN_twilight.200.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	option = {
+		name = EDG_CWN_twilight.200.a		#傻瓜，问题是经济！	
+		add_treasury = -1000
+		add_corruption = 2
+		add_inflation = 2
+		add_country_modifier = {
+			name = EDG_CWN_baixu_modifier
+			duration = -1
+		}
+		custom_tooltip = EDG_CWN_TW_200_TT		#解锁经济改革决议，完成所有经济改革结束灾难
+	}
+}
+
+country_event = {
+	#事件，物价飞涨
+	id = EDG_CWN_twilight.201
+	title = EDG_CWN_twilight.201.t
+	desc = EDG_CWN_twilight.201.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_CWN_baixu_modifier
+	}
+	option = {
+		name = EDG_CWN_twilight.201.a		#别无选择	
+		add_treasury = -500
+		add_inflation = 2
+	}
+	option = {
+		name = EDG_CWN_twilight.201.b		#还有我们有预案
+		trigger = {
+			has_country_flag = EDG_CWN_1_8_flag
+		}
+		add_treasury = -250
+	}
+}
+
+country_event = {
+	#事件，奇货可居
+	id = EDG_CWN_twilight.202
+	title = EDG_CWN_twilight.202.t
+	desc = EDG_CWN_twilight.202.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_CWN_baixu_modifier
+	}
+	option = {
+		name = EDG_CWN_twilight.201.a		#别无选择	
+		add_treasury = -500
+		add_mercantilism = -2
+	}
+	option = {
+		name = EDG_CWN_twilight.202.b		#必须重拳出击！
+		trigger = {
+			has_country_flag = EDG_CWN_1_8_flag
+		}
+		add_treasury = 500
+	}
+}
+
+country_event = {
+	#事件，行会拒绝沟通
+	id = EDG_CWN_twilight.203
+	title = EDG_CWN_twilight.203.t
+	desc = EDG_CWN_twilight.203.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_CWN_baixu_modifier
+	}
+	option = {
+		name = EDG_CWN_twilight.201.a		#别无选择	
+		add_treasury = -500
+		add_mercantilism = -2
+	}
+	option = {
+		name = EDG_CWN_twilight.202.b		#必须重拳出击！
+		trigger = {
+			has_country_flag = EDG_CWN_2_8_flag
+		}
+		add_treasury = -250
+	}
+}
+
+country_event = {
+	#事件，中饱私囊
+	id = EDG_CWN_twilight.204
+	title = EDG_CWN_twilight.204.t
+	desc = EDG_CWN_twilight.204.d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_CWN_baixu_modifier
+	}
+	option = {
+		name = EDG_CWN_twilight.204.a		#睁一只眼闭一只眼	
+		add_treasury = -500
+		add_corruption = 2
+	}
+	option = {
+		name = EDG_CWN_twilight.202.b		#必须重拳出击！
+		trigger = {
+			has_country_flag = EDG_CWN_3_8_flag
+		}
+		add_treasury = -250
+		add_corruption = -2
+	}
+}
+
+country_event = {
+	#事件，重回掌握
+	id = EDG_CWN_twilight.205
+	title = EDG_CWN_twilight.205.t
+	desc = EDG_CWN_twilight.205.d
+	picture = TOURNAMENT_eventPicture
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_CWN_baixu_modifier
+		has_country_flag = EDG_CWN_baixu_1_flag
+		has_country_flag = EDG_CWN_baixu_2_flag
+		has_country_flag = EDG_CWN_baixu_3_flag
+	}
+	option = {
+		name = EDG_CWN_twilight.205.a		#局势已被完全控制
+		add_stability_or_adm_power = yes
+		set_country_flag = EDG_CWN_TW_2_flag
+		remove_country_modifier = EDG_CWN_baixu_modifier
+		# country_event = {
+		# 	id = EDG_CWN_twilight.2
+		# 	days = 3
+		# }
+	}
+}

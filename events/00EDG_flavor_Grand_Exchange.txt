@@ -1,0 +1,478 @@
+namespace = EDG_flavor_Grand_Exchange
+normal_or_historical_nations = yes
+country_event = {#物种大交换
+	id = EDG_flavor_Grand_Exchange.0
+	title = "EDG_flavor_Grand_Exchange.0.title"
+	desc = "EDG_flavor_Grand_Exchange.0.desc"
+	picture = IMPORTANT_STATUE_eventPicture
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { is_year = 1600 }
+		technology_group = western
+		OR = {
+			num_of_colonists = 1
+			capital_scope = { region = iberia_region }
+			capital_scope = { region = british_isles_region }
+			capital_scope = { region = france_region }
+		}
+		OR = {
+			is_year = 1521
+			calc_true_if = {
+				all_province = {
+					OR = {
+						superregion = north_america_superregion
+						superregion = central_america_superregion
+						superregion = andes_superregion
+						superregion = south_america_superregion
+					}
+					OR = {
+						is_colony = yes
+						owner = { technology_group = western }
+						owner = { is_colonial_nation = yes }
+						owner = { capital_scope = { superregion = europe_superregion } }
+					}
+				}
+				amount = 25
+			}
+		}
+	}
+	
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {#这是惩罚还是机遇？
+		name = "EDG_flavor_Grand_Exchange.0.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		set_global_flag = EDG_Grand_Exchange_global_flag
+		custom_tooltip = EDG_Grand_Exchange_global_flag_tt
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		
+	}
+}
+
+
+country_event = {#烟草文化
+	id = EDG_flavor_Grand_Exchange.1
+	title = "EDG_flavor_Grand_Exchange.1.title"
+	desc = "EDG_flavor_Grand_Exchange.1.desc"
+	picture = ENCOMIENDA_eventPicture
+	is_triggered_only = yes
+	
+	trigger = {
+		any_owned_province = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Grand_Exchange_1_flag }
+	}
+	
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Grand_Exchange_1_flag
+	}
+	
+	option = {#我们喜欢烟草。
+		name = "EDG_flavor_Grand_Exchange.1.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_years_of_income = -0.25
+		add_country_modifier = {
+			name = EDG_flavor_Grand_Exchange_1_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#我们不需要这种东西。
+		name = "EDG_flavor_Grand_Exchange.1.bb"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_prestige = -5
+	}
+}
+
+country_event = {#土豆的推广
+	id = EDG_flavor_Grand_Exchange.2
+	title = "EDG_flavor_Grand_Exchange.2.title"
+	desc = "EDG_flavor_Grand_Exchange.2.desc"
+	picture = FEAST_eventPicture
+	goto = EDG_flavor_Grand_Exchange_2_province
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			trade_goods = grain
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_modifier = EDG_flavor_Grand_Exchange_2_a_province_modifier }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					trade_goods = grain
+					NOT = { has_province_modifier = EDG_flavor_Grand_Exchange_2_a_province_modifier }
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Grand_Exchange_2_province
+			}
+		}
+	}
+	
+	option = {#这是一种很新的农作物。
+		name = "EDG_flavor_Grand_Exchange.2.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		event_target:EDG_flavor_Grand_Exchange_2_province = {
+			add_permanent_province_modifier = {
+				name = EDG_flavor_Grand_Exchange_2_a_province_modifier
+				duration = -1
+			}
+		}
+	}
+	option = {#它是魔鬼的诱饵！
+		name = "EDG_flavor_Grand_Exchange.2.bb"
+		ai_chance = {
+		  factor = 0
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_prestige = 5
+	}
+}
+
+
+country_event = {#种植玉米
+	id = EDG_flavor_Grand_Exchange.3
+	title = "EDG_flavor_Grand_Exchange.3.title"
+	desc = "EDG_flavor_Grand_Exchange.3.desc"
+	picture = FEAST_eventPicture
+	goto = EDG_flavor_Grand_Exchange_3_province
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			trade_goods = grain
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_modifier = EDG_flavor_Grand_Exchange_3_a_province_modifier }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					trade_goods = grain
+					NOT = { has_province_modifier = EDG_flavor_Grand_Exchange_3_a_province_modifier }
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Grand_Exchange_3_province
+			}
+		}
+	}
+	
+	option = {#让我们种植更多的玉米！
+		name = "EDG_flavor_Grand_Exchange.3.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		event_target:EDG_flavor_Grand_Exchange_3_province = {
+			add_permanent_province_modifier = {
+				name = EDG_flavor_Grand_Exchange_3_a_province_modifier
+				duration = -1
+			}
+		}
+	}
+	option = {#呃，我们不习惯食用这种东西。
+		name = "EDG_flavor_Grand_Exchange.3.bb"
+		ai_chance = {
+		  factor = 0
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_prestige = 5
+	}
+}
+
+
+country_event = {#忘却饥荒
+	id = EDG_flavor_Grand_Exchange.4
+	title = "EDG_flavor_Grand_Exchange.4.title"
+	desc = "EDG_flavor_Grand_Exchange.4.desc"
+	picture = FEAST_eventPicture
+	goto = EDG_flavor_Grand_Exchange_4_province
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			trade_goods = grain
+			EDG_has_High_yield_crops_province_modifier_trigger = yes
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					trade_goods = grain
+					EDG_has_High_yield_crops_province_modifier_trigger = yes
+				}
+				save_event_target_as = EDG_flavor_Grand_Exchange_4_province
+			}
+		}
+	}
+	
+	option = {#这是属于我们的繁荣。
+		name = "EDG_flavor_Grand_Exchange.4.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		event_target:EDG_flavor_Grand_Exchange_4_province = {
+			add_province_modifier = {
+				name = EDG_flavor_Grand_Exchange_4_a_province_modifier
+				duration = 7300
+			}
+		}
+	}
+}
+
+
+country_event = {#升腾的烟雾
+	id = EDG_flavor_Grand_Exchange.5
+	title = "EDG_flavor_Grand_Exchange.5.title"
+	desc = "EDG_flavor_Grand_Exchange.5.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		is_year = 1500
+		capital_scope = {
+			region = france_region
+		}
+	}
+	
+	fire_only_once = yes
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+
+	}
+	
+	option = {#这太神奇了。
+		name = "EDG_flavor_Grand_Exchange.5.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_country_modifier = {
+			name = EDG_flavor_Grand_Exchange_5_a_modifier
+			duration = 3650
+		}
+	}
+}
+
+country_event = {#香料的魅力
+	id = EDG_flavor_Grand_Exchange.6
+	title = "EDG_flavor_Grand_Exchange.6.title"
+	desc = "EDG_flavor_Grand_Exchange.6.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		capital_scope = {
+			OR = {
+				superregion = europe_superregion
+				superregion = eastern_europe_superregion
+			}
+		}
+		NOT = { has_country_flag = EDG_flavor_Grand_Exchange_6_flag }
+		war_exhaustion = 2
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Grand_Exchange_6_flag
+	}
+	
+	option = {#太好了。
+		name = "EDG_flavor_Grand_Exchange.6.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_adm_power = 25
+		add_war_exhaustion = -2
+	}
+}
+
+
+country_event = {#双倍时间
+	id = EDG_flavor_Grand_Exchange.7
+	title = "EDG_flavor_Grand_Exchange.7.title"
+	desc = "EDG_flavor_Grand_Exchange.7.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		has_global_flag = EDG_Grand_Exchange_global_flag
+		NOT = { is_year = 1600 }
+		capital_scope = {
+			OR = {
+				superregion = europe_superregion
+				superregion = eastern_europe_superregion
+			}
+		}
+		NOT = { has_country_modifier = EDG_flavor_Grand_Exchange_7_a_modifier }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		
+	}
+	
+	option = {#不眠不休！
+		name = "EDG_flavor_Grand_Exchange.7.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Grand_Exchange_global_events_flag_tt
+		add_dip_power = 25
+		add_country_modifier = {
+			name = EDG_flavor_Grand_Exchange_7_a_modifier
+			duration = 3650
+		}
+	}
+}

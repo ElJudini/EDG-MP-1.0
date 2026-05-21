@@ -1,0 +1,797 @@
+EDG_TVE_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = TVE } 
+
+	EDG_TVE_re_1_1 = {#发展特维尔
+		icon = mission_novgorod_the_great
+		position = 1
+		provinces_to_highlight = {
+			area = tver_area
+			#or = {
+				294 = { is_capital = no } 
+				#root = {
+					#NOT = {
+						#development_in_provinces = {
+						#	value = 50
+						#	area = tver_area
+						#}
+					#}
+				#}
+			#}
+		}
+
+		trigger = {
+			is_at_war = no
+			adm_power_cost = 50
+			dip_power_cost = 50
+			mil_power_cost = 50
+			#development_in_provinces = {
+				#value = 50
+				#area = tver_area
+			#}
+			294 = { is_capital = yes } 
+		}
+
+		effect = {
+			adm_power_cost = 50
+			dip_power_cost = 50
+			mil_power_cost = 50
+			random_owned_province = {
+				limit = {
+					area = tver_area
+				}
+				add_base_tax = 1
+			}
+			random_owned_province = {
+				limit = {
+					area = tver_area
+				}
+				add_base_production = 1
+			}
+			random_owned_province = {
+				limit = {
+					area = tver_area
+				}
+				add_base_manpower = 1
+			}
+			tver_area = {
+				add_prosperity = 100
+				add_devastation = -50
+			}
+			add_stability = 1
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_TVE_re_1_3 = {#大特维尔
+		icon = mission_conquer_moscow
+		position = 3
+		required_missions = { EDG_TVE_re_1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				ROOT = { total_development = 150 }
+				AND = {
+					ROOT = { total_development = 125 }
+					num_of_subjects = 2
+				}
+			}
+		} 
+
+		effect = {
+			add_adm_power = 25
+			add_dip_power = 25
+			add_mil_power = 25
+			add_prestige_or_monarch_power = { amount = 10 } 
+			add_legitimacy = 10
+			add_country_modifier = {
+				name = EDG_tve_unite_northeast_rus_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+EDG_TVE_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = TVE } 
+
+	EDG_TVE_re_2_1 = { #莫斯科王座
+		icon = mission_defeat_muscovy
+		position = 1
+		provinces_to_highlight = {
+			province_id = 295
+			NOT = { 295 = { country_or_subject_holds = ROOT }  } 
+		}
+
+		trigger = {
+			OR = {
+				MOS = { junior_union_with = ROOT } 
+				AND = {
+					NOT = { exists = MOS } 
+					295 = { country_or_subject_holds = ROOT } 
+				}
+			}
+		}
+
+		effect = {
+			#custom_tooltip = EDG_tve_conquer_mos_tooltip
+			#set_country_flag = EDG_tve_unite_nzh_flag
+			add_legitimacy = 10
+			add_prestige_or_monarch_power = { amount = 10 } 
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			295 = {
+				add_base_tax = -1
+				add_base_production = -1
+				add_base_manpower = -1
+			}
+			if = {
+				limit = {
+					ai = yes
+				}
+				294 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+			else = {
+				294 = {
+					random = {
+						chance = 50
+						add_base_tax = 1
+					}
+					random = {
+						chance = 50
+						add_base_production = 1
+					}
+					random = {
+						chance = 50
+						add_base_manpower = 1
+					}
+				}
+			}
+			#if = {
+			#	limit = {
+			#		MOS = { junior_union_with = TVE }
+			#	}
+			#	MOS = { add_historical_friend = TVE }
+			#	TVE = { add_historical_friend = MOS }
+			#}
+			if = {
+				limit = {
+					MOS = { junior_union_with = TVE }
+				}
+				#hidden_effect = {
+					if = {
+						limit = {
+							any_country = {
+								is_subject_of = MOS
+							}
+						}
+						every_country = {
+							limit = {
+								is_subject_of = MOS
+							}
+							MOS = {
+								inherit = prev
+							}
+						}
+					}
+				#}
+				country_event = { #触发事件：处置莫斯科波雅尔
+					id = EDG_tve_missions.208
+				}
+			}
+		}
+		ai_weight = {
+			factor = 10
+		}
+	}
+
+	EDG_TVE_re_2_2 = { #下诺夫哥罗德领地
+		icon = polish_diplomacy
+		position = 2
+		required_missions = {
+			EDG_TVE_re_1_1
+			EDG_TVE_re_2_1
+		}
+		provinces_to_highlight = {
+			#province_id = 306
+			#NOT = { owned_by = ROOT } 
+		}
+
+		trigger = {
+			#NOT = { exists = NZH } 
+			#306 = {
+			#	owned_by = ROOT
+			#	is_state = yes
+			#}
+			or = {
+				NZH = {
+					junior_union_with = ROOT
+					NOT = {
+						liberty_desire = 25
+					}				
+					NOT = {
+						num_of_cities = 10
+					}
+					#if = {
+						#limit = {
+						#	ai = no
+						#}
+						has_opinion = {
+							who = ROOT
+							value = 150
+						}
+					#}
+					#else = {
+						#has_opinion = {
+						#	who = ROOT
+						#	value = 125
+						#}
+					#}
+				}
+				and = {
+					not = {
+						exists = NZH
+					}
+					306 = {
+						owned_by = ROOT
+						is_state = yes
+					}
+				}
+			}
+		}
+
+		effect = {
+			#add_treasury = 50
+			#add_manpower = 5
+			#change_estate_land_share = {
+			#	estate = all
+			#	share = -5
+			#}
+			add_prestige_or_monarch_power = { amount = 15 }
+            TVE = {
+                inherit = NZH
+            }
+            #clr_country_flag = EDG_tve_unite_nzh_flag
+            hidden_effect = {
+				every_province = {
+					limit = {
+						is_core = NZH
+					}
+					add_province_modifier = { #下诺夫哥罗德波雅尔
+						name = EDG_BELA_tve_nzh_boyal_province_modifier
+						duration = -1
+					}
+				}
+			}
+			custom_tooltip = EDG_TVE_re_2_2_effect_tt
+			tooltip = {
+				add_province_modifier = { #下诺夫哥罗德波雅尔
+                    name = EDG_BELA_tve_nzh_boyal_province_modifier
+                    duration = -1
+                }
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+}
+EDG_TVE_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = TVE } 
+
+	EDG_TVE_re_3_1 = {
+		icon = mission_have_two_subjects
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				stability = 1
+				prestige = 10
+				legitimacy = 60
+			}
+			else = {
+				AND = {
+					or = {
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 6
+							}
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 30
+							}
+						}
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_nobles
+								value = 3
+							}
+							estate_loyalty = {
+								estate = estate_nobles
+								loyalty = 60
+							}
+						}
+					}
+					or = {
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_church
+								value = 6
+							}
+							estate_loyalty = {
+								estate = estate_church
+								loyalty = 30
+							}
+						}
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_church
+								value = 3
+							}
+							estate_loyalty = {
+								estate = estate_church
+								loyalty = 60
+							}
+						}
+					}
+					or = {
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_burghers
+								value = 6
+							}
+							estate_loyalty = {
+								estate = estate_burghers
+								loyalty = 30
+							}
+						}
+						and = {
+							num_of_estate_privileges = {
+								estate = estate_burghers
+								value = 3
+							}
+							estate_loyalty = {
+								estate = estate_burghers
+								loyalty = 60
+							}
+						}
+					}
+					if = {
+						limit = {
+							has_estate = estate_cossacks
+						}
+						or = {
+							and = {
+								num_of_estate_privileges = {
+									estate = estate_cossacks
+									value = 6
+								}
+								estate_loyalty = {
+									estate = estate_burghers
+									loyalty = 30
+								}
+							}
+							and = {
+								num_of_estate_privileges = {
+									estate = estate_burghers
+									value = 3
+								}
+								estate_loyalty = {
+									estate = estate_burghers
+									loyalty = 60
+								}
+							}
+						}
+					}
+				}
+			}
+			
+		}
+
+		effect = {
+			#set_country_flag = EDG_tve_church_1
+			#set_country_flag = EDG_tve_boyal_1
+			#set_country_flag = EDG_tve_merchant_1
+			#custom_tooltip = EDG_tve_estate_1_tooltip
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_tve_honest_estate_modifier
+				duration = 3650
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_TVE_re_3_3 = {
+		icon = mission_conquer_tver
+		position = 3
+		required_missions = {
+			EDG_TVE_re_2_2
+			EDG_TVE_re_3_1
+			EDG_TVE_re_4_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#if = {
+			#	limit = { ai = no } 
+			#}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+			legitimacy = 95
+			adm_power_cost = 50
+			dip_power_cost = 50
+			mil_power_cost = 50
+		}
+
+		effect = {
+			add_treasury = 100
+			add_prestige_or_monarch_power = { amount = 15 } 
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+			adm_power_cost = 50
+			dip_power_cost = 50
+			mil_power_cost = 50
+			#add_estate_loyalty = {
+			#	estate = all
+			#	loyalty = -25
+			#}
+		}
+	}
+
+	EDG_TVE_re_3_4 = {
+		icon = mission_restore_kiev
+		position = 4
+		required_missions = {
+			EDG_TVE_re_1_3
+			EDG_TVE_re_3_3
+			EDG_TVE_re_5_3
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			or = {
+				NOV = {
+					is_subject_of_type = personal_union
+					is_subject_of = root
+				}
+				not = {
+					exists = NOV
+				}
+			}
+			not = {
+				exists = MOS
+			}
+			if = {
+				limit = {
+					ai = yes
+				}
+				manpower_percentage = 0.5
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 35
+				region = russia_region
+			}
+			russia_region = {
+				or = {
+					and = {
+						owned_by = root
+						is_core = root
+					}
+					not = {
+						owned_by = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_tve_road_to_vladimir_flag
+			custom_tooltip = EDG_tve_road_to_vladimir_tooltip
+			custom_tooltip = EDG_tve_road_to_vladimir_1_tooltip
+		} 
+	}
+}
+EDG_TVE_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = TVE } 
+
+	EDG_TVE_re_4_2 = {
+		icon = mission_war_for_the_crown
+		position = 2
+		required_missions = { EDG_TVE_re_5_1 } 
+		provinces_to_highlight = {
+			province_id = 310
+			NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+		}
+
+		trigger = {
+			is_at_war = no
+			OR = {
+				AND = {
+					NOV = { NOT = { num_of_cities = 5 } }
+					310 = { owned_by = ROOT } 
+				}
+				AND = {
+					NOV = { is_subject_of = ROOT } 
+					or = {
+						NOV = { NOT = { liberty_desire = 50 }  } 
+						NOV = {
+							has_opinion = {
+								who = ROOT
+								value = 50
+							}
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ownner_of_novgorod_modifier"
+				duration = 9125
+			}
+			if = {
+				limit = {
+					NOV = { is_subject_of = root }
+				}
+				country_event = {
+					id = EDG_tve_missions.209
+				}
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+}
+EDG_TVE_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = TVE } 
+
+	EDG_TVE_re_5_1 = {
+		icon = mission_empire
+		position = 1
+		provinces_to_highlight = {
+			province_id = 307
+			NOT = { owned_by = ROOT } 
+		}
+
+		trigger = {
+			307 = { owned_by = ROOT } 
+			legitimacy = 95
+			prestige = 25
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = russia_region
+			}
+			manpower_percentage = 0.25
+			is_at_war = no
+			not = {
+				any_country = {
+					culture_group = east_slavic
+					army_size = TVE
+				}
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_tve_heir_of_vladimir_modifier
+				duration = -1
+			}
+			russia_region = {
+				add_permanent_claim = ROOT
+			}
+			if = {
+				limit = {
+					exists = NOV
+				}
+				add_casus_belli = {
+					target = NOV
+					type = cb_restore_personal_union
+					months = -1
+				}
+			}
+			#if = {
+			#	limit = {
+			#		exists = NOV
+			#	}
+			#	country_event = {
+			#		id = EDG_tve_re.101
+			#	}
+			#}
+		} 
+	}
+
+	EDG_TVE_re_5_3 = {
+		icon = mission_the_russian_tsardom
+		position = 3
+		required_missions = { EDG_TVE_re_5_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = { limit = { ai = yes }  } 
+			else = {
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 70
+				}
+				OR = {
+					AND = {
+						adm = 5
+						dip = 3
+						mil = 3
+					}
+					AND = {
+						adm = 3
+						dip = 5
+						mil = 3
+					}
+					AND = {
+						adm = 3
+						dip = 3
+						mil = 5
+					}
+				}
+				legitimacy = 95
+			}
+		}
+
+		effect = {
+			add_patriarch_authority = 0.25
+			add_country_modifier = {
+				name = "EDG_tve_god_will_modifier"
+				duration = -1
+			}
+			add_country_modifier = {
+				name = EDG_tve_god_will_army_modifier
+				duration = 7300
+			}
+		}
+	}
+}
+EDG_TVE_0 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = TVE
+		has_disaster = EDG_TVE_civil_war
+	}
+
+	EDG_TVE_re_3_5 = {
+		icon = mission_weather_the_troubles
+		position = 5
+		required_missions = {
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_at_war = no
+			#NOT = {
+				check_variable = {
+					which = EDG_tve_boyal_unrest_variable
+					value = 100
+				}
+			#}
+			#OR = {
+				#and = {
+				#	num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				#		value = 40
+				#		region = russia_region
+				#	}
+				#	all_country = {
+				#		or = {
+				#			and = {
+				#				is_subject_of = TVE
+				#				not = { liberty_desire = 10 }
+				#			}
+				#			not = { is_subject_of = TVE }
+				#		}
+				#	}
+				#}
+			#}
+			#OR = {
+				#NOT = {
+				#	estate_influence = {
+				#		estate = estate_nobles
+				#		influence = 60
+				#	}
+				#}
+				#NOT = {
+				#	check_variable = {
+				#		which = EDG_tve_boyal_unrest_variable
+				#		value = -10
+				#	}
+				#}
+			#}
+			num_of_owned_provinces_with = {
+				value = 25
+				region = russia_region
+			}
+			#owns_core_province = 295			# Moskva
+			#owns_core_province = 310			# Novgorod
+			owns_core_province = 294			# Tver	
+			custom_trigger_tooltip = {
+				tooltip = EDG_tve_vladimir_rus_reform_tooltip
+				AND = {
+					OR = {
+						has_country_flag = EDG_tve_bzxg_flag
+						has_country_flag = EDG_tve_zydg_flag
+					}
+					OR = {
+						has_country_flag = EDG_tve_xjld_flag
+						has_country_flag = EDG_tve_gzgz_flag
+					}
+					OR = {
+						has_country_flag = EDG_tve_qxmd_flag
+						has_country_flag = EDG_tve_jqjz_flag
+					}
+					has_country_flag = EDG_tve_tyks_flag
+				}
+			}
+			not = {
+				any_owned_province = {
+					or = {
+						has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+						has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+						has_province_modifier = EDG_RUS_landowners_church_province_modifier
+					}
+				}
+			}
+			not = {
+				num_of_rebel_controlled_provinces = 1
+			}
+			not = {
+				num_of_revolts = 1
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_tve_end_of_civil_war_flag
+			custom_tooltip = EDG_tve_end_of_civil_war_tooltip
+			add_legitimacy = 10
+			add_prestige = 10
+		} 
+	}
+}

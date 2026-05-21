@@ -1,0 +1,1300 @@
+namespace = EDG_GENEvents
+
+country_event = {
+	id = EDG_GENEvents.0
+	is_triggered_only = yes
+	title = EDG_GENEvents.0.name
+	desc = EDG_GENEvents.0.desc
+	picture = GENOA_eventPicture
+	fire_only_once = yes
+
+
+	option = {
+		name = EDG_GENEvents.0.aa
+		add_historical_rival = VEN
+		VEN = {
+			add_historical_rival = root
+		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = -30
+		}
+		add_country_modifier = {
+			name = EDG_GEN_time_of_chaos
+			duration = -1
+		}
+	}
+
+
+}
+country_event = {
+	id = EDG_GENEvents.1
+	is_triggered_only = yes
+	title = EDG_GENEvents.1.name
+	desc = EDG_GENEvents.1.desc
+	picture = GENOA_eventPicture
+	major = yes
+	fire_only_once = yes
+
+	
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_GEN_second_ligurian_uprising_begin_flag
+			set_country_flag = EDG_GEN_mission_common_flag
+			
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.1.aa
+		add_stability = -3
+		kill_ruler = yes
+		change_government = republic
+		add_government_reform = merchants_reform
+		101 = {
+			spawn_rebels = {
+                type = pretender_rebels
+                size = 10
+                win = yes
+                unrest = 20
+            }
+		}
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_b_flag
+		}
+	}
+	option = {
+		name = EDG_GENEvents.1.bb
+		add_stability = -3
+		2992 = {
+			spawn_rebels = {
+                type = noble_rebels
+                size = 8
+                win = yes
+                unrest = 20
+            }
+		}
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_a_flag
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			swap_non_generic_missions = yes
+			clr_country_flag = EDG_GEN_second_ligurian_uprising_begin_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.2
+	is_triggered_only = yes
+	title = EDG_GENEvents.2.name
+	desc = EDG_GENEvents.2.desc
+	picture = ACCUSATION_eventPicture
+
+	trigger = {
+		has_estate = estate_burghers
+	}
+
+	option = {
+		name = EDG_GENEvents.2.aa
+		add_disaster_progress = {
+			value = 3
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = EDG_GENEvents.2.bb
+		
+		add_dip_power = -50
+		add_disaster_progress = {
+			value = -1
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 5
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.3
+	is_triggered_only = yes
+	title = EDG_GENEvents.3.name
+	desc = EDG_GENEvents.3.desc
+	picture = MERCHANTS_TALKING_eventPicture
+
+	trigger = {
+		has_estate = estate_nobles
+	}
+
+	option = {
+		name = EDG_GENEvents.3.aa
+		add_prestige = -10
+		add_mil_power = -10
+		add_disaster_progress = {
+			value = -3
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = EDG_GENEvents.3.bb
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -5
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.4
+	is_triggered_only = yes
+	title = EDG_GENEvents.4.name
+	desc = EDG_GENEvents.4.desc
+	picture = PRAYING_eventPicture
+
+	trigger = {
+		has_advisor = yes
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_list = {
+				1 = {
+					trigger = {
+						employed_advisor = {
+							category = ADM
+						}
+					}
+					set_country_flag = advisor_events_adm
+				}
+				1 = {
+					trigger = {
+						employed_advisor = {
+							category = DIP
+						}
+					}
+					set_country_flag = advisor_events_dip
+				}
+				1 = {
+					trigger = {
+						employed_advisor = {
+							category = MIL
+						}
+					}
+					set_country_flag = advisor_events_mil
+				}
+			}
+		}
+	}
+
+	
+
+	option = {
+		name = EDG_GENEvents.4.aa
+		add_disaster_progress = {
+			value = 3
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = EDG_GENEvents.4.bb
+		add_prestige = -5
+		trigger_switch = {
+			on_trigger = has_country_flag
+			advisor_events_adm = { kill_advisor_by_category_effect = { ADM = yes } }
+			advisor_events_dip = { kill_advisor_by_category_effect = { DIP = yes } }
+			advisor_events_mil = { kill_advisor_by_category_effect = { MIL = yes } }
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+
+	after = {
+		hidden_effect = {
+			trigger_switch = {
+				on_trigger = has_country_flag
+				advisor_events_adm = { clr_country_flag = advisor_events_adm }
+				advisor_events_dip = { clr_country_flag = advisor_events_dip }
+				advisor_events_mil = { clr_country_flag = advisor_events_mil }
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.5
+	is_triggered_only = yes
+	title = EDG_GENEvents.5.name
+	desc = EDG_GENEvents.5.desc
+	picture = MERCHANTS_TALKING_eventPicture
+
+	trigger = {
+		has_estate = estate_church
+		NOT = {
+			has_estate_privilege = estate_church_clerical_oversight
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.5.aa
+		set_estate_privilege = estate_church_clerical_oversight
+		add_disaster_progress = {
+			value = -10
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -10
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = EDG_GENEvents.5.bb
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = -3
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.6
+	is_triggered_only = yes
+	title = EDG_GENEvents.6.name
+	desc = EDG_GENEvents.6.desc
+	picture = CONQUEST_eventPicture
+
+	option = {
+		name = EDG_GENEvents.6.aa
+		trigger = {
+			has_estate = estate_church
+		}
+		add_adm_power = -25
+		add_estate_loyalty = {
+			estate = estate_church
+			loyalty = 10
+		}
+	}
+	option = {
+		name = EDG_GENEvents.6.bb
+		trigger = {
+			has_estate = estate_burghers
+		}
+		add_dip_power = -25
+		add_disaster_progress = {
+			value = -3
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+	}
+	option = {
+		name = EDG_GENEvents.6.cc
+		trigger = {
+			has_estate = estate_nobles
+		}
+		add_mil_power = -25
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = 10
+		}
+	}
+	option = {
+		name = EDG_GENEvents.6.dd
+		add_prestige = -5
+	}
+}
+country_event = {
+	id = EDG_GENEvents.7
+	is_triggered_only = yes
+	title = EDG_GENEvents.7.name
+	desc = EDG_GENEvents.7.desc
+	picture = REFORM_eventPicture
+
+	option = {
+		name = EDG_GENEvents.7.aa
+		trigger = {
+			has_estate = estate_church
+		}
+		add_estate_influence_modifier = {
+			estate = estate_church
+			influence = -5
+			duration = 1825
+		}
+	}
+	option = {
+		name = EDG_GENEvents.7.bb
+		trigger = {
+			has_estate = estate_burghers
+		}
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			influence = -10
+			duration = 1825
+		}
+		add_disaster_progress = {
+			value = -5
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+	}
+	option = {
+		name = EDG_GENEvents.7.cc
+		trigger = {
+			has_estate = estate_nobles
+		}
+		add_estate_influence_modifier = {
+			estate = estate_nobles
+			influence = -10
+			duration = 1825
+		}
+	}
+	option = {
+		name = EDG_GENEvents.7.dd
+		add_adm_power = 25
+		add_dip_power = 25
+		add_mil_power = 25
+	}
+}
+country_event = {
+	id = EDG_GENEvents.8
+	is_triggered_only = yes
+	title = EDG_GENEvents.8.name
+	desc = EDG_GENEvents.8.desc
+	picture = LAND_MILITARY_eventPicture
+
+	trigger = {
+		NOT = {
+			OR = {
+				has_country_modifier = EDG_GEN_mercenaries_returned
+				has_country_modifier = EDG_GEN_reconstituted_mercenary
+			}
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.8.aa
+		add_country_modifier = {
+			name = EDG_GEN_mercenaries_returned
+			duration = 120
+		}
+	}
+	option = {
+		name = EDG_GENEvents.8.bb
+		add_country_modifier = {
+			name = EDG_GEN_reconstituted_mercenary
+			duration = 120
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.9
+	is_triggered_only = yes
+	title = EDG_GENEvents.9.name
+	desc = EDG_GENEvents.9.desc
+	picture = ANGRY_MOB_eventPicture
+
+	trigger = {
+		is_at_war = yes
+	}
+
+	option = {
+		name = EDG_GENEvents.9.aa
+		add_disaster_progress = {
+			value = 3
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+	}
+	option = {
+		name = EDG_GENEvents.9.bb
+		add_mil_power = -25
+	}
+}
+
+country_event = {
+	id = EDG_GENEvents.10
+	is_triggered_only = yes
+	title = EDG_GENEvents.10.name
+	desc = EDG_GENEvents.10.desc
+	picture = GENOA_eventPicture
+	fire_only_once = yes
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_GEN_second_ligurian_uprising_end_flag
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.10.aa
+		add_stability = 1
+		if = {
+			limit = { 
+				has_reform = merchants_reform
+			}
+			add_government_reform = EDG_GEN_republic_of_genoa
+		}
+		if = {
+			limit = { 
+				has_reform = EDG_GEN_monarchy_reform
+			}
+			add_government_reform = EDG_GEN_mercenary_kingdom
+		}
+		remove_country_modifier = EDG_GEN_time_of_chaos
+	}
+}
+country_event = {
+	id = EDG_GENEvents.11
+	is_triggered_only = yes
+	title = EDG_GENEvents.11.name
+	desc = EDG_GENEvents.11.desc
+	picture = MERCHANTS_TALKING_eventPicture
+
+	trigger = {
+		has_estate = estate_nobles
+		NOT = {
+			has_estate_privilege = estate_nobles_nobility_primacy
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.11.aa
+		set_estate_privilege = estate_nobles_nobility_primacy
+		add_disaster_progress = {
+			value = -10
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+		ai_chance = {
+			factor = 0
+		}
+	}
+	option = {
+		name = EDG_GENEvents.1.bb
+		add_estate_loyalty = {
+			estate = estate_nobles
+			loyalty = -3
+		}
+		ai_chance = {
+			factor = 1
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.12
+	is_triggered_only = yes
+	title = EDG_GENEvents.12.name
+	desc = EDG_GENEvents.12.descs
+	picture = LAND_MILITARY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.12.aa
+		custom_tooltip = EDG_GENEvents.12.aa.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_3_1_flag
+		}
+		add_casus_belli = {
+			type = cb_annex
+			target = COR
+		}
+		add_country_modifier = {
+			name = EDG_GEN_landing_operation
+			duration = 7300
+		}
+		corsica_sardinia_area = {
+			limit = {
+				NOT = { is_core = ROOT }
+				NOT = { is_permanent_claim = ROOT }
+				NOT = { owner = { is_subject_of = ROOT } }
+			}
+			add_permanent_claim = ROOT
+		}
+		101 = {
+			transport = root
+			transport = root
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.13
+	is_triggered_only = yes
+	title = EDG_GENEvents.13.name
+	desc = EDG_GENEvents.13.descs
+	picture = DEBATE_REPUBLICAN_eventPicture
+
+	option = {
+		name = EDG_GENEvents.13.aa
+		2992 = {
+			spawn_rebels = {
+				type = particularist_rebels
+				size = 8
+			}
+		}
+		add_stability = -1
+		add_disaster_progress = {
+			value = -10
+			disaster = EDG_GEN_second_ligurian_uprising
+		}
+	}
+	option = {
+		name = EDG_GENEvents.13.bb
+		add_stability = 1
+		add_estate_loyalty = {
+			estate = estate_burghers
+			loyalty = 30
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.14
+	is_triggered_only = yes
+	title = EDG_GENEvents.14.name
+	desc = EDG_GENEvents.14.descs
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.14.aa
+		custom_tooltip = EDG_GENEvents.14.aa.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_2_5_flag
+		}
+		declare_war_with_cb = {
+			who = MOE
+			casus_belli = cb_core
+			war_goal_province = 4700
+		}
+		EP0 = {
+			declare_war_with_cb = {
+				casus_belli = cb_annex
+				who = MOE
+			}
+		}
+	}
+	option = {
+		name = EDG_GENEvents.14.bb
+		custom_tooltip = EDG_GEN_mission_2_5.effect.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_2_5_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.15
+	is_triggered_only = yes
+	title = EDG_GENEvents.15.name
+	desc = EDG_GENEvents.15.descs
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.15.aa
+		custom_tooltip = EDG_GENEvents.15.aa.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_4_5_flag
+		}
+		declare_war_with_cb = {
+			who = AZO
+			casus_belli = cb_core
+			war_goal_province = 286
+		}
+		FEO = {
+			declare_war_with_cb = {
+				casus_belli = cb_annex
+				who = AZO
+			}
+		}
+	}
+	option = {
+		name = EDG_GENEvents.15.bb
+		custom_tooltip = EDG_GEN_mission_4_5.effect.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_4_5_flag
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.16
+	is_triggered_only = yes
+	title = EDG_GENEvents.16.name
+	desc = EDG_GENEvents.16.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	option = {
+		name = EDG_GENEvents.16.aa
+		add_government_reform = EDG_GEN_mercenary_kingdom
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_common_flag
+			set_country_flag = EDG_GEN_mission_a_flag
+		}
+		swap_non_generic_missions = yes
+	}
+}
+
+country_event = {
+	id = EDG_GENEvents.17
+	is_triggered_only = yes
+	title = EDG_GENEvents.17.name
+	desc = EDG_GENEvents.17.desc
+	picture = CITY_VIEW_eventPicture
+
+	option = {
+		name = EDG_GENEvents.17.aa
+		add_government_reform = EDG_GEN_st_george_house
+		adm_power_cost = 250
+		dip_power_cost = 250
+		mil_power_cost = 250
+		change_government_reform_progress = 250
+		country_event = {
+			id = EDG_GENEvents.18
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.18
+	is_triggered_only = yes
+	title = EDG_GENEvents.18.name
+	desc = EDG_GENEvents.18.desc
+	picture = IMPORTANT_STATUE_eventPicture
+
+	immediate = {
+		hidden_effect = {
+			save_global_event_target_as = EDG_St_George_House_Target
+			add_treasury = -2500
+			change_estate_land_share = {
+				estate = estate_burghers
+				share = 30
+			}
+			add_government_power = {
+				mechanic_type = EDG_GEN_george_house_mechanic
+				power_type = EDG_GEN_george_house
+				value = 20000
+			}
+			every_country = {
+				limit = {
+					NOT = {
+						tag = root
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_borrow_to_bank_var
+					value = 0
+				}
+				set_variable = {
+					which = EDG_GEN_deposit_to_bank_var
+					value = 0
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 0
+				}
+			}
+		}
+	}
+
+	option = {
+		name = EDG_GENEvents.18.aa
+		custom_tooltip = EDG_GENEvents.18.aa.tt
+		tooltip = {
+			add_treasury = -2500
+			change_estate_land_share = {
+				estate = estate_burghers
+				share = 30
+			}
+			add_government_power = {
+				mechanic_type = EDG_GEN_george_house_mechanic
+				power_type = EDG_GEN_george_house
+				value = 25000
+			}
+		}
+		
+	}
+}
+country_event = {
+	id = EDG_GENEvents.19
+	is_triggered_only = yes
+	title = EDG_GENEvents.19.name
+	desc = EDG_GENEvents.19.desc
+	major = yes
+	picture = HRE_eventPicture
+
+	option = {
+		name = EDG_GENEvents.19.aa
+		custom_tooltip = EDG_GENEvents.19.aa.tt
+		override_country_name = GEN_liguria
+		if = {
+			limit = { 
+				government = republic
+			}
+			add_government_reform = EDG_GEN_iron_and_steel_contract_republic
+		}
+		else_if = {
+			limit = {
+				government = monarchy
+			}
+			add_government_reform = EDG_GEN_iron_and_steel_contract_monchary
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.20
+	is_triggered_only = yes
+	title = EDG_GENEvents.20.name
+	desc = EDG_GENEvents.20.desc
+	major = yes
+	picture = KING_SICK_IN_BED_eventPicture
+
+	option = {
+		name = EDG_GENEvents.20.aa
+		custom_tooltip = EDG_GENEvents.20.aa.tt
+		hidden_effect = {
+			201 = {
+				remove_reform_center = EDG_catharism
+			}
+		}
+		add_country_modifier = {
+			name = EDG_GEN_pulverized_arles
+			duration = 7300
+		}
+		add_prestige_or_monarch_power = {
+			amount = 20
+		}
+		add_papal_influence = 50
+		if = {
+			limit = { 
+				has_disaster_progress = {
+					disaster = EDG_GEN_second_ligurian_uprising
+					value = 1
+				}
+			}
+			add_disaster_progress = {
+				value = -5
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.21
+	is_triggered_only = yes
+	title = EDG_GENEvents.21.name
+	desc = EDG_GENEvents.21.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	option = {
+		name = EDG_GENEvents.21.aa
+		set_capital = 103
+		103 = {
+			add_province_modifier = {
+				name = EDG_GEN_expand_capital
+				duration = -1
+			}
+			set_great_project_tier_2 = {
+				type = EDG_Duomo_di_Torino
+			}
+			add_building = fort_15th
+			add_base_manpower = 2
+			add_base_production = 2
+			add_base_tax = 2
+		}
+		if = {
+			limit = { 
+				has_disaster_progress = {
+					disaster = EDG_GEN_second_ligurian_uprising
+					value = 1
+				}
+			}
+			add_disaster_progress = {
+				value = 10
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		}
+	}
+	option = {
+		name = EDG_GENEvents.21.bb
+		capital_scope = {
+			add_province_modifier = {
+				name = EDG_GEN_expand_capital
+				duration = -1
+			}
+			upgrade_building = { fort = yes }
+			add_base_manpower = 2
+			add_base_production = 2
+			add_base_tax = 2
+		}
+		if = {
+			limit = { 
+				has_disaster_progress = {
+					disaster = EDG_GEN_second_ligurian_uprising
+					value = 1
+				}
+			}
+			add_disaster_progress = {
+				value = -5
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.22
+	is_triggered_only = yes
+	title = EDG_GENEvents.22.name
+	desc = EDG_GENEvents.22.desc
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	option = {
+		name = EDG_GENEvents.22.aa
+		add_treasury = 500
+		add_years_of_income = 5
+		112 = {
+			if = {
+				limit = { 
+					has_fort_building_trigger = yes
+				}
+				if = {
+					limit = { has_building = fort_15th }
+					remove_building = fort_15th
+				}
+				else_if = {
+					limit = { has_building = fort_16th }
+					add_building = fort_16th
+				}
+				else_if = {
+					limit = { has_building = fort_17th }
+					remove_building = fort_16th
+				}
+				else_if = {
+					limit = { has_building = fort_18th }
+					remove_building = fort_18th
+				}
+			}
+			add_permanent_province_modifier = {
+				name = EDG_GEN_city_was_destroyed
+				duration = 3650
+			}
+			add_devastation = 100
+			add_base_tax = -5
+			add_base_production = -5
+			add_base_manpower = -5
+		}
+		add_country_modifier = {
+			name = EDG_GEN_avenge_kioga
+			duration = 9125
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.23
+	is_triggered_only = yes
+	title = EDG_GENEvents.23.name
+	desc = EDG_GENEvents.23.desc
+	picture = RELIGION_eventPicture
+
+	option = {
+		name = EDG_GENEvents.23.aa
+		201 = {
+			if = {
+				limit = { 
+					NOT = {
+						religion = root
+					}
+				}
+				change_religion = root
+				add_devastation = 90
+			}
+		}
+		add_prestige_or_monarch_power = {
+			amount = 50
+		}
+		add_papal_influence = 50
+	}
+	option = {
+		name = EDG_GENEvents.23.bb
+		201 = {
+			if = {
+				limit = { 
+					NOT = {
+						religion = root
+					}
+				}
+				change_religion = root
+				add_devastation = 90
+			}
+			add_province_modifier = {
+				name = EDG_GEN_religious_autonomy
+				duration = -1
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.24
+	is_triggered_only = yes
+	title = EDG_GENEvents.24.name
+	desc = EDG_GENEvents.24.desc
+	picture = BARBARY_PIRATES_eventPicture
+
+	option = {
+		name = EDG_GENEvents.24.aa
+		custom_tooltip = EDG_GENEvents.24.aa.tt
+		add_papal_influence = -25
+		add_country_modifier = {
+			name = EDG_GEN_faith_first
+			duration = -1
+		}
+		EDG_add_claim = { area = 213 }
+		EDG_add_claim = { area = 220 }
+		EDG_add_claim = { area = 1751 }
+		EDG_add_claim = { area = 339 }
+		EDG_add_claim = { area = 341 }
+		EDG_add_claim = { area = 125 }
+		EDG_add_claim = { area = 358 }
+		EDG_add_claim = { area = 378 }
+		EDG_add_claim = { area = 327 }
+		EDG_add_claim = { area = 318 }
+		EDG_add_claim = { area = 285 }
+		EDG_add_claim = { area = 151 }
+		EDG_add_claim = { area = 4174 }
+	}
+	option = {
+		name = EDG_GENEvents.24.bb
+		custom_tooltip = EDG_GENEvents.24.bb.tt
+		add_papal_influence = -25
+		add_country_modifier = {
+			name = EDG_GEN_profit_first
+			duration = -1
+		}
+		EDG_add_claim = { area = 213 }
+		EDG_add_claim = { area = 220 }
+		EDG_add_claim = { area = 1751 }
+		EDG_add_claim = { area = 339 }
+		EDG_add_claim = { area = 341 }
+		EDG_add_claim = { area = 125 }
+		EDG_add_claim = { area = 358 }
+		EDG_add_claim = { area = 378 }
+		EDG_add_claim = { area = 327 }
+		EDG_add_claim = { area = 318 }
+		EDG_add_claim = { area = 285 }
+		EDG_add_claim = { area = 151 }
+		EDG_add_claim = { area = 4174 }
+	}
+}
+country_event = {
+	id = EDG_GENEvents.25
+	is_triggered_only = yes
+	title = EDG_GENEvents.25.name
+	desc = EDG_GENEvents.25.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.26.aa
+		if = {
+			limit = { 
+				from = {
+					has_country_modifier = EDG_GEN_faith_first
+				}
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_GEN_target_country_flag
+				}
+				from = {
+					add_treasury = 250
+				}
+				add_treasury = -250
+				226 = {
+					cede_province = from
+				}
+			}
+			else = {
+				from = {
+					add_treasury = 500
+				}
+				add_treasury = -500
+				226 = {
+					cede_province = from
+				}
+			}
+		}
+		else = {
+			from = {
+				add_treasury = 1000
+			}
+			add_treasury = -1000
+			226 = {
+				cede_province = from
+			}
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		name = EDG_GENEvents.26.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.26
+	is_triggered_only = yes
+	title = EDG_GENEvents.26.name
+	desc = EDG_GENEvents.26.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.26.aa
+		if = {
+			limit = { 
+				from = {
+					has_country_modifier = EDG_GEN_faith_first
+				}
+			}
+			if = {
+				limit = { 
+					has_country_flag = EDG_GEN_target_country_flag
+				}
+				from = {
+					add_treasury = 250
+				}
+				add_treasury = -250
+				1751 = {
+					cede_province = from
+				}
+			}
+			else = {
+				from = {
+					add_treasury = 500
+				}
+				add_treasury = -500
+				1751 = {
+					cede_province = from
+				}
+			}
+		}
+		else = {
+			from = {
+				add_treasury = 1000
+			}
+			add_treasury = -1000
+			1751 = {
+				cede_province = from
+			}
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		name = EDG_GENEvents.26.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.27
+	is_triggered_only = yes
+	title = EDG_GENEvents.27.name
+	desc = EDG_GENEvents.27.desc
+	picture = BYZ_HARBOUR_eventPicture
+
+	option = {
+		name = EDG_GENEvents.27.aa
+		add_treasury = -5000
+		hidden_effect = {
+			add_treasury = 20000
+		}
+		4316 = {
+			add_great_project_tier = {
+				type = suez_canal
+				tier = 3
+			}
+			add_great_project = {
+				type = suez_canal
+			}
+		}
+		hidden_effect = {
+			add_treasury = -20000
+		}
+	}
+	after = {
+		4316 = {
+			add_construction_progress = 1
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.28
+	is_triggered_only = yes
+	title = EDG_GENEvents.28.name
+	desc = EDG_GENEvents.28.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.26.aa
+		from = {
+			add_treasury = 1000
+		}
+		add_treasury = -1000
+		2315 = {
+			cede_province = from
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		name = EDG_GENEvents.26.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.29
+	is_triggered_only = yes
+	title = EDG_GENEvents.29.name
+	desc = EDG_GENEvents.29.desc
+	picture = DIPLOMACY_eventPicture
+
+	option = {
+		name = EDG_GENEvents.26.aa
+		from = {
+			add_treasury = 1000
+		}
+		add_treasury = -1000
+		4316 = {
+			cede_province = from
+		}
+		ai_chance = {
+			factor = 1000
+		}
+	}
+	option = {
+		name = EDG_GENEvents.26.bb
+		ai_chance = {
+			factor = 0
+		}
+	}
+}
+country_event = {
+	id = EDG_GENEvents.30
+	is_triggered_only = yes
+	title = EDG_GENEvents.30.name
+	desc = EDG_GENEvents.30.desc
+	picture = CITY_VIEW_eventPicture
+
+	option = {
+		name = EDG_GENEvents.30.aa
+		custom_tooltip = EDG_GEN_mission_b_1_7.effect.tt
+		
+		change_innovativeness = -10
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			influence = -10
+			duration = 1825
+		}
+		add_navy_tradition = 10
+		101 = {
+			add_province_modifier = {
+				name = EDG_GEN_shipbuilding_industrial_complex
+				duration = -1
+			}
+		}
+		hidden_effect = {
+			set_country_flag = EDG_GEN_mission_b_1_7_flag
+			set_variable = {
+				which = EDG_GEN_count
+				value = 0
+			}
+			while = {
+				limit = { 
+					101 = {
+						light_ships_in_province = 1
+					}
+				}
+				101 = {
+					kill_units = {
+						who = root
+						type = light_ship
+						amount = 1
+					}
+				}
+				change_variable = {
+					which = EDG_GEN_count
+					value = 1
+				}
+			}
+			
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_GEN_count
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_GEN_count
+					value = 1
+				}
+				101 = {
+					caravel_light = root
+				}
+			}
+			# set_variable = {
+			# 	which = EDG_GEN_count
+			# 	value = 0
+			# }
+			# while = {
+			# 	limit = { 
+			# 		101 = {
+			# 			light_ships_in_province = 1
+			# 		}
+			# 	}
+			# 	101 = {
+			# 		kill_units = {
+			# 			who = root
+			# 			type = light_ship
+			# 		}
+			# 	}
+			# 	change_variable = {
+			# 		which = EDG_GEN_count
+			# 		value = 1
+			# 	}
+			# }
+			
+			# while = {
+			# 	limit = { 
+			# 		check_variable = {
+			# 			which = EDG_GEN_count
+			# 			value = 0
+			# 		}
+			# 	}
+			# 	subtract_variable = {
+			# 		which = EDG_GEN_count
+			# 		value = 1
+			# 	}
+			# 	101 = {
+			# 		caravel_light = root
+			# 	}
+			# }
+		}
+	}
+}

@@ -1,0 +1,140 @@
+namespace = EDG_flavorFKN
+normal_or_historical_nations = yes
+country_event = {#法兰克尼亚的继承
+  id = EDG_flavorFKN.1
+  title = "EDG_flavorFKN.1.t"
+  desc = "EDG_flavorFKN.1.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+    set_country_flag = had_EDG_FKN_disasters_1_flag
+    set_global_flag = had_EDG_FKN_disasters_1_global_flag
+  }
+  
+  option = {#哈布斯堡家族乃天命所归。
+    name = "EDG_flavorFKN.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    trigger = {
+      any_country = {
+        has_country_flag = EDG_HAB_flag
+      }
+    }
+    hidden_effect = {
+      add_government_reform = EDG_Landgraf_state
+    }
+    if = {
+      limit = {
+        MAI = {
+          exists = yes
+        }
+        4718 = {
+          is_core = MAI
+        }
+      }
+      custom_tooltip = EDG_flavorFKN_1_a_tt_MAI
+      hidden_effect = {
+        4718 = {
+          cede_province = MAI
+        } 
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorFKN_1_a_tt
+    hidden_effect = {
+      every_owned_province = {
+        limit = {
+          NOT = { is_capital_of = ROOT }
+        }
+		
+        if = {
+          limit = {
+            any_core_country = {
+              exists = no
+            }
+          }
+          random_core_country = {
+            limit = {
+              NOT = {
+                tag = WUR
+              }
+              exists = no
+            }
+            FKN = {
+              release = PREV
+            }
+
+            if = {
+              limit = {
+                OR = {
+                  tag = ANS
+                  tag = BYT
+                }
+              }
+              random_country = {
+                limit = { has_country_flag = EDG_HAB_flag }
+                create_subject = { subject_type = EDG_HRE_vassal subject = PREV } 
+              }
+              set_country_flag = EDG_flavorFKN_1_vassal_flag
+            }
+            else = {
+              random_country = {
+                limit = { has_country_flag = EDG_HAB_flag government = monarchy }
+                add_casus_belli = {
+                  type = cb_restore_personal_union
+                  months = 300
+                  target = PREV
+                }
+              }
+            }
+
+          }
+        }
+      }
+      random_country = {
+        limit = { has_country_flag = EDG_HAB_flag }
+        inherit = ROOT 
+        tooltip = {
+          elector = yes
+        }
+      }
+      every_country = {
+        limit = { has_country_flag = EDG_flavorFKN_1_vassal_flag is_subject = yes }
+        add_liberty_desire = 50
+        add_opinion = {
+          who = overlord
+          modifier = opinion_EDG_FKN_vassal_to_HAB
+        }
+        add_truce_with = overlord
+      }
+    }
+  }
+  option = {#我们还有别的选择。
+    name = "EDG_flavorFKN.1.b"
+    ai_chance = {
+      factor = 10
+      
+      modifier = {
+        factor = 0
+        has_global_flag = EDG_HAB_mission_3_1_global_flag
+      }
+    }
+	  add_prestige = -5
+    add_government_reform = EDG_Landgraf_state
+    define_ruler = {
+      change_adm = 2
+      change_dip = 2
+      change_mil = 2
+      claim = 100
+      culture = ROOT
+      age = 30
+    }
+  }
+}

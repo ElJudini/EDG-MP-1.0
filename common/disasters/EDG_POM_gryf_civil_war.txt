@@ -1,0 +1,187 @@
+EDG_POM_gryf_civil_war = {#离心的格里芬
+	#ended_by_country_breaking_to_rebels = yes
+	potential = {
+		tag = WOL #是沃尔加斯特
+		#mission_completed = EDG_BELA_POM_WOL_1_1 #已经完成了任务“公国再统一”
+		has_reform = EDG_pomeranian_principality_reform
+		NOT = { has_country_flag = had_EDG_POM_gryf_civil_war_flag } #没有经历过灾难“狮鹫战争”
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+	}
+	
+	
+	can_start = {
+		current_age = age_of_discovery #是地理大发现时代
+		has_any_disaster = no #没有正在进行的灾难
+		has_heir = no #没有继承人
+		#not = { #没有同王朝tag
+		#	any_country = {
+		#		dynasty = root
+		#	}
+		#}
+		not = {
+			exists = STE
+		}
+		has_regency = no #没有摄政议会
+		religion = catholic #是天主教
+		ruler_age = 50 #统治者超过50岁
+	}
+	
+	can_stop = {
+		has_any_disaster = yes #有正在进行的灾难
+		has_heir = yes #有继承人
+		is_subject = yes #是属国
+	}
+	
+	
+	progress = {
+		#+1：正统性低于90
+		modifier = {
+			factor = 2
+			not = {
+				legitimacy = 90
+			}
+		}
+		#+2：正统性低于75
+		modifier = {
+			factor = 4
+			not = {
+				legitimacy = 75
+			}
+		}
+		#+1：统治者超过50岁
+		modifier = {
+			factor = 2
+			ruler_age = 50
+		}
+		#+3：统治者超过55岁
+		modifier = {
+			factor = 5
+			ruler_age = 55
+		}
+		##+1：有摄政议会
+		#modifier = {
+			#	factor = x
+			#}
+		#+1：稳定度低于2
+		modifier = {
+			factor = 2
+			not = {
+				stability = 2
+			}
+		}
+		#+3：稳定度低于1
+		modifier = {
+			factor = 5
+			not = {
+				stability = 1
+			}
+		}
+		#+0.5：统治者行政能力低于2
+		modifier = {
+			factor = 1
+			not = {
+				adm = 2
+			}
+		}
+		#+0.5：统治者外交能力低于2
+		modifier = {
+			factor = 1
+			not = {
+				dip = 2
+			}
+		}
+		#+0.5：统治者军事能力低于2
+		modifier = {
+			factor = 1
+			not = {
+				mil = 2
+			}
+		}
+	}
+	
+	can_end = {
+		#if = {
+			#limit = {
+			#	ai = no
+			#}
+			#legitimacy = 75
+		#}
+		#or = {
+			#	check_variable = {
+			#		which = EDG_BELA_POM_gryf_first_var
+			#		value = 100
+			#	}
+			#	check_variable = {
+			#		which = EDG_BELA_POM_gryf_unite_var
+			#		value = 100
+			#	}
+		#}
+		#灾难已经发生了一年以上
+		custom_trigger_tooltip = {
+			tooltip = has_EDG_POM_gryf_civil_war_flag_a_year_tt
+			had_country_flag = {
+				flag = has_EDG_POM_gryf_civil_war_flag
+				days = 365
+			}
+		}
+		#没有省份支持反对派
+		custom_trigger_tooltip = {
+			tooltip = EDG_POM_gryf_civil_war_any_province_against_tt
+			not = {
+				any_owned_province = {
+					or = {
+						has_province_modifier = EDG_POM_gryf_civil_war_province_support_ste_province_modifier
+						has_province_modifier = EDG_POM_gryf_civil_war_province_support_wol_province_modifier
+					}
+				}
+			}
+		}
+		#没有被叛军控制的省份
+		not = {
+			num_of_rebel_controlled_provinces = 1
+		}
+		#没有活跃的叛军
+		not = {
+			num_of_rebel_armies = 1
+		}
+	}
+	
+
+	modifier = {
+		#提升稳定度花费+100%
+		stability_cost_modifier = 1.0
+		#统治者死亡不再损失稳定度
+		no_stability_loss_on_monarch_death = yes
+		#年度正统性-5
+		legitimacy = -5
+		#所有点数花费+10%
+		all_power_cost = 0.1
+		#月度行政点数-1
+		country_admin_power = -1 
+		#月度外交点数-1
+		country_diplomatic_power = -1 
+		#月度军事点数-1
+		country_military_power = -1 
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			#EDG_BELA_POM_events.22 #月度事件
+			EDG_BELA_POM_events.47
+		}
+		random_events = {
+			800 = 0
+			#1000 = EDG_BELA_POM_events.20 #继承制度变革
+			#500 = EDG_BELA_POM_events.21 #
+			300 = EDG_BELA_POM_events.24
+		}
+	}
+	
+	
+	on_start = EDG_BELA_POM_events.18 #离心的格里芬
+	on_end = EDG_BELA_POM_events.19 #终结内斗
+}

@@ -1,0 +1,1505 @@
+
+#Belaslav
+
+namespace = EDG_tve_re
+
+#诺夫哥罗德问题
+country_event = {
+    id = EDG_tve_re.101
+    title = EDG_tve_re.101t
+    desc = EDG_tve_re.101d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+
+    trigger = {
+        tag = TVE
+    }
+
+    option = {
+        name = "EDG_tve_re.101A"
+        ai_chance = { factor = 0.3 }
+        every_province = {
+            limit = {
+                country_or_non_sovereign_subject_holds = NOV
+            }
+            add_permanent_claim = ROOT
+        }
+    }
+    option = {
+        name = "EDG_tve_re.101B"
+        ai_chance = { factor = 0.1 }
+        add_casus_belli = {
+            target = NOV
+            type = cb_restore_personal_union
+            months = 240
+        }
+    }
+    option = {
+        name = "EDG_tve_re.101C"
+        trigger = {
+            AND = {
+                NOT = { has_country_flag = EDG_tve_nov_no_flag }
+                NOT = { has_country_flag = EDG_tve_nov_yes_flag }
+            }
+		}
+        ai_chance = { factor = 0.6 }
+        hidden_effect = {
+            country_event = {
+                id = EDG_tve_re.102
+                days = 31
+            }
+            add_country_modifier = {
+                name = EDG_tve_pqsz_modifier
+                duration = 1
+            }
+        }
+    }
+}
+country_event = {
+    id = EDG_tve_re.102
+    title = EDG_tve_re.102t
+    desc = EDG_tve_re.102d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        tag = TVE
+    }
+
+    option = {
+        name = "EDG_tve_re.102A"
+        ai_chance = { factor = 0.5 }
+        hidden_effect = {
+            random_list = {
+                20 = {
+                    country_event = {
+                        id = EDG_tve_re.103
+                        days = 31
+                    }
+                }
+                80 = {
+                    country_event = {
+                        id = EDG_tve_re.104
+                        days = 31
+                    }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EDG_tve_re.102B"
+        ai_chance = { factor = 0.5 }
+        hidden_effect = {
+            random_list = {
+                80 = {
+                    country_event = {
+                        id = EDG_tve_re.103
+                        days = 31
+                    }
+                }
+                20 = {
+                    country_event = {
+                        id = EDG_tve_re.104
+                        days = 31
+                    }
+                }
+            }
+        }
+        add_treasury = -100
+    }
+    after = {
+        hidden_effect = {
+            add_country_modifier = {
+                name = EDG_tve_pqsz_modifier
+                duration = 1
+            }
+        }
+    }
+}
+country_event = {
+    id = EDG_tve_re.103
+    title = EDG_tve_re.103t
+    desc = EDG_tve_re.103d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        tag = TVE
+    }
+
+    option = {
+        name = "EDG_tve_re.103A"
+        ai_chance = { factor = 0.5 }
+        add_spy_network_in = {
+            who = NOV
+            value = 50
+        }
+        NOV = { remove_fow = 60 }
+        set_country_flag = EDG_tve_nov_yes_flag
+    }
+    after = {
+        hidden_effect = {
+            country_event = {
+                id = EDG_tve_re.101
+                days = 5
+            }
+        }
+    }
+}
+country_event = {
+    id = EDG_tve_re.104
+    title = EDG_tve_re.104t
+    desc = EDG_tve_re.104d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+    fire_only_once = yes
+
+    trigger = {
+        tag = TVE
+    }
+
+    option = {
+        name = "EDG_tve_re.104A"
+        ai_chance = { factor = 0.5 }
+        add_spy_network_in = {
+            who = NOV
+            value = 15
+        }
+        set_country_flag = EDG_tve_nov_no_flag
+    }
+    after = {
+        hidden_effect = {
+            country_event = {
+                id = EDG_tve_re.101
+                days = 5
+            }
+        }
+    }
+}
+country_event = {#诺夫哥罗德危机
+    id = EDG_tve_re.105
+    title = EDG_tve_re.105t
+    desc = EDG_tve_re.105d
+    picture = SEJM_eventPicture
+    major = yes
+    major_trigger = {
+        capital_scope = {
+            or = {
+                region = russia_region
+                region = ruthenia_region
+            }
+        }
+    }
+    fire_only_once = yes
+
+    trigger = {
+        is_year = 1448
+        not = {
+            is_year = 1455
+        }
+        TAG = NOV
+        NOV = {
+            defensive_war_with = SWE
+            or = {
+                not = {
+                    war_score_against = {
+                        who = SWE
+                        value = -25
+                    }
+                }
+                310 = {
+                    or = {
+                        not = {
+                            owned_by = NOV
+                        }
+                        not = {
+                            controlled_by = NOV
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    option = {#选举特维尔大公！
+        name = "EDG_tve_re.105A"
+        trigger = {
+            exists = TVE
+            TVE = {
+                mission_completed = EDG_TVE_re_5_1
+            }
+        }
+        hidden_effect = {
+            TVE = {
+                country_event = {
+                    id = EDG_tve_re.106
+                }
+            }
+        }
+        ai_chance = {
+            factor = 10
+            modifier = {
+                factor = 0
+                war_with = TVE
+            }
+        }
+    }
+    option = {#我们应该寻求基辅的帮助！
+        name = "EDG_tve_re.105B"
+        trigger = {
+            280 = {
+                owner = {
+                    is_at_war = no
+                }
+            }
+        }
+        hidden_effect = {
+            280 = {
+                owner = {
+                    country_event = {
+                        id = EDG_tve_re.107
+                    }
+                }
+            }
+        }
+        ai_chance = { factor = 5 }
+    }
+    option = {#现在我们唯一能依靠的只有自己！
+        name = "EDG_tve_re.105C"
+        ai_chance = { factor = 15 }
+    }
+}
+country_event = {#诺夫哥罗德卫彻的请求
+    id = EDG_tve_re.106
+    title = EDG_tve_re.106t
+    desc = EDG_tve_re.106d
+    picture = SEJM_eventPicture
+    major = yes
+    major_trigger = {
+        tag = NOV
+    }
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {#大公当然会负起保护诺夫哥罗德的责任。
+        name = "EDG_tve_re.106A"
+        hidden_effect = {
+            every_country = {
+                limit = {
+                    is_subject_of = NOV
+                }
+                NOV = {
+                    inherit = prev
+                }
+            }
+        }
+        root = {
+            vassalize = NOV
+            add_historical_friend = NOV
+        }
+        NOV = {
+            add_historical_friend = root
+            add_liberty_desire = -50
+        }
+        ai_chance = { factor = 10 }
+    }
+    option = {#现在才想起我们来了？早干嘛去了？
+        name = "EDG_tve_re.106B"
+        add_prestige = 5
+        ai_chance = { factor = 1 }
+    }
+}
+country_event = {#诺夫哥罗德卫彻的请求
+    id = EDG_tve_re.107
+    title = EDG_tve_re.107t
+    desc = EDG_tve_re.107d
+    picture = SEJM_eventPicture
+    major = yes
+    major_trigger = {
+        tag = NOV
+    }
+    fire_only_once = yes
+    is_triggered_only = yes
+
+    trigger = {
+    }
+
+    option = {#当然，基辅有义务保护全罗斯。
+        name = "EDG_tve_re.107A"
+        hidden_effect = {
+            every_country = {
+                limit = {
+                    is_subject_of = NOV
+                }
+                NOV = {
+                    inherit = prev
+                }
+            }
+        }
+        root = {
+            vassalize = NOV
+            add_historical_friend = NOV
+        }
+        NOV = {
+            add_historical_friend = root
+        }
+        ai_chance = { factor = 5 }
+    }
+    option = {#我们对此事鞭长莫及。
+        name = "EDG_tve_re.107B"
+        add_prestige = 5
+        ai_chance = { factor = 5 }
+    }
+}
+
+#哈沃夫战争
+country_event = {#哈沃夫战争
+    id = EDG_tve_re.201
+    title = EDG_tve_re.201t
+    desc = EDG_tve_re.201d
+    picture = CIVIL_WAR_eventPicture
+    is_triggered_only = yes
+
+    major = yes
+    immediate = {
+        hidden_effect = {
+            set_country_flag = had_EDG_TVE_civil_war_flag
+            set_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = 0
+            }
+        }
+        hidden_effect = {
+            add_stability = -1
+            add_legitimacy = -25
+            add_adm_power = -100
+            add_dip_power = -100
+            add_mil_power = -100
+        }
+    }
+    option = {
+        name = "EDG_tve_re.201A"
+        ai_chance = {
+            factor = 10
+        }
+        every_country = {
+            limit = {
+                is_subject_of = root
+                not = {
+                    tag = NOV
+                }
+            }
+            root = {
+                inherit = prev
+            }
+        }
+        tooltip = {
+            add_stability = -1
+            add_legitimacy = -25
+            add_adm_power = -100
+            add_dip_power = -100
+            add_mil_power = -100
+        }
+        swap_non_generic_missions = yes
+    }
+}
+country_event = {#弗拉基米尔王权法
+    id = EDG_tve_re.202
+    title = EDG_tve_re.202t
+    desc = EDG_tve_re.202d
+    picture = BAD_WITH_MONARCH_eventPicture
+
+    is_triggered_only = yes
+    
+    major = yes
+
+    trigger = {
+        tag = TVE
+    }
+
+    option = {
+        name = "EDG_tve_re.202A"
+        ai_chance = { factor = 0.3 } 
+        set_country_flag = had_EDG_TVE_civil_war_flag
+        set_country_flag = EDG_enable_form_ERS_flag
+        custom_tooltip = EDG_enable_form_ERS_flag_tt
+
+        custom_tooltip = EDG_SPACE_TT
+        add_prestige_or_monarch_power = { amount = 25 }
+        add_stability = 1
+        
+        custom_tooltip = EDG_SPACE_TT
+        add_country_modifier = {
+            name = "EDG_TVE_re_civil_war_end_modifier"
+            duration = -1
+        }
+        
+        custom_tooltip = EDG_SPACE_TT
+        
+        # country_event = {
+        #     id = EDG_tve_re.203
+        #     days = 30
+        # }
+    }
+}
+country_event = { #月度统治合法性增长
+    id = EDG_tve_re.203
+    title = EDG_tve_re.203t
+    desc = EDG_tve_re.203d
+    picture = SEJM_eventPicture
+
+    is_triggered_only = yes
+    hidden = yes
+
+    trigger = {
+    }
+
+    option = {
+        name = "EDG_tve_re.203A"
+        ai_chance = { factor = 1 }
+        if = {
+            limit = {
+                is_at_war = no
+                not = {
+                    check_variable = {
+                        which = EDG_tve_boyal_unrest_variable
+                        value = 100
+                    }
+                }
+            }
+            change_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = 1
+            }
+        }
+    }
+}
+
+country_event = { #xx王公的图谋→收回牧首领地
+    id = EDG_tve_re.204
+    title = EDG_tve_re.204t
+    desc = EDG_tve_re.204d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+        is_at_war = no
+        has_country_modifier = EDG_tve_xjld_modifier
+        has_dlc = "Third Rome"
+        not = {
+            num_of_rebel_controlled_provinces = 10
+        }
+        any_owned_province = {
+            has_province_modifier = EDG_RUS_landowners_church_province_modifier
+        }
+    }
+    is_triggered_only = yes
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_RUS_landowners_church_province_modifier
+                }
+                save_event_target_as = appanage_province
+                remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+            }
+        }
+    }
+    option = {
+        name = russian_principality_events.1.a
+        goto = appanage_province
+        add_estate_loyalty = {
+            estate = estate_church
+            loyalty = -5
+        }
+        event_target:appanage_province = {
+            spawn_rebels = {
+                type = orthodox_rebels
+                size = 2
+            }
+            tooltip = {
+                remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+            }
+            if = {
+                limit = {
+                    any_neighbor_province = {
+                        has_province_modifier = EDG_RUS_landowners_church_province_modifier
+                    }
+                }
+                every_neighbor_province = {
+                    limit = {
+                        owned_by = root
+                        has_province_modifier = EDG_RUS_landowners_church_province_modifier
+                    }
+                    province_event = {
+                        id = EDG_tve_re.207
+                        days = 5
+                    }
+                }
+            }
+        }
+    }
+}
+country_event = { #xx波雅尔暴动→收回卫彻领地
+    id = EDG_tve_re.205
+    title = EDG_tve_re.205t
+    desc = EDG_tve_re.205d
+    picture = BAD_WITH_MONARCH_eventPicture
+    trigger = {
+        is_at_war = no
+        has_country_modifier = EDG_tve_xjld_modifier
+        has_dlc = "Third Rome"
+        not = {
+            num_of_rebel_controlled_provinces = 10
+        }
+        any_owned_province = {
+            has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+        }
+    }
+    is_triggered_only = yes
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+                }
+                save_event_target_as = appanage_province
+                remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+            }
+        }
+    }
+    option = {
+        name = russian_principality_events.1.a
+        goto = appanage_province
+        add_estate_loyalty = {
+            estate = estate_burghers
+            loyalty = -5
+        }
+        event_target:appanage_province = {
+            spawn_rebels = {
+                type = particularist_rebels
+                size = 2
+            }
+            tooltip = {
+                remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+            }
+            if = {
+                limit = {
+                    any_neighbor_province = {
+                        has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+                    }
+                }
+                every_neighbor_province = {
+                    limit = {
+                        owned_by = root
+                        has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+                    }
+                    province_event = {
+                        id = EDG_tve_re.207
+                        days = 5
+                    }
+                }
+            }
+        }
+    }
+}
+country_event = { #xx王公的叛乱→收回波雅尔领地
+    id = EDG_tve_re.206
+    title = EDG_tve_re.206t
+    desc = EDG_tve_re.206d
+    picture = BAD_WITH_MONARCH_eventPicture
+    trigger = {
+        is_at_war = no
+        has_country_modifier = EDG_tve_xjld_modifier
+        has_dlc = "Third Rome"
+        not = {
+            num_of_rebel_controlled_provinces = 10
+        }
+        any_owned_province = {
+            has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+        }
+    }
+    is_triggered_only = yes
+    immediate = {
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+                }
+                save_event_target_as = appanage_province
+                remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+            }
+        }
+    }
+    option = {
+        name = russian_principality_events.1.a
+        goto = appanage_province
+        add_estate_loyalty = {
+            estate = estate_nobles
+            loyalty = -5
+        }
+        event_target:appanage_province = {
+            spawn_rebels = {
+                type = noble_rebels
+                size = 2
+            }
+            tooltip = {
+                remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+            }
+            if = {
+                limit = {
+                    any_neighbor_province = {
+                        has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+                    }
+                }
+                every_neighbor_province = {
+                    limit = {
+                        owned_by = root
+                        has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+                    }
+                    province_event = {
+                        id = EDG_tve_re.207
+                        days = 5
+                    }
+                }
+            }
+        }
+    }
+}
+province_event = { #叛乱风声→叛乱蔓延
+    id = EDG_tve_re.207
+    title = EDG_tve_re.207t
+    desc = EDG_tve_re.207d
+    picture = CIVIL_WAR_eventPicture
+    is_triggered_only = yes
+
+    option = {
+        name = "EDG_tve_re.207A"
+        ai_chance = {
+            factor = 10
+        }
+        if = {
+            limit = {
+                root = {
+                    has_province_modifier = EDG_RUS_landowners_church_province_modifier
+                }
+            }
+            root = {
+                spawn_rebels = {
+                    type = orthodox_rebels
+                    size = 1
+                }
+                remove_province_modifier = EDG_RUS_landowners_church_province_modifier
+            }
+        }
+        if = {
+            limit = {
+                root = {
+                    has_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+                }
+            }
+            root = {
+                spawn_rebels = {
+                    type = particularist_rebels
+                    size = 1
+                }
+                remove_province_modifier = EDG_RUS_landowners_burghers_province_modifier
+            }
+        }
+        if = {
+            limit = {
+                root = {
+                    has_province_modifier = EDG_RUS_landowners_noble_province_modifier
+                }
+            }
+            root = {
+                spawn_rebels = {
+                    type = noble_rebels
+                    size = 1
+                }
+                remove_province_modifier = EDG_RUS_landowners_noble_province_modifier
+            }
+        }
+    }
+    option = {
+        name = "EDG_tve_re.207B"
+        trigger = {
+            always = no
+        }
+        ai_chance = {
+            factor = 10
+        }
+        trigger = {
+            legitimacy = 50
+            manpower = 0.25
+        }
+        add_treasury = -10
+        add_manpower = -0.1
+        hidden_effect = {
+            random_list = {
+                10 = {
+                    country_event = {
+                        id = EDG_tve_re.204
+                        days = 3
+                    }
+                }
+                5 = {
+                    country_event = {
+                        id = EDG_tve_re.205
+                        days = 3
+                    }
+                }
+                10 = {
+                    country_event = {
+                        id = EDG_tve_re.206
+                        days = 3
+                    }
+                }
+                75 = {
+                    country_event = {
+                        id = EDG_tve_re.209
+                        days = 3
+                    }
+                }
+            }
+        }
+    }
+    option = {
+        name = "EDG_tve_re.207C"
+        trigger = {
+            always = no
+        }
+        ai_chance = {
+            factor = 10
+        }
+        trigger = {
+            stability = -2
+        }
+        add_prestige = 5
+        subtract_variable = {
+            which = EDG_tve_boyal_unrest_variable
+            value = 3
+        }
+        random = {
+            chance = 25
+            add_stability = -1
+        }
+        hidden_effect = {
+            random_list = {
+                30 = {
+                    country_event = {
+                        id = EDG_tve_re.204
+                        days = 3
+                    }
+                }
+                10 = {
+                    country_event = {
+                        id = EDG_tve_re.205
+                        days = 3
+                    }
+                }
+                20 = {
+                    country_event = {
+                        id = EDG_tve_re.206
+                        days = 3
+                    }
+                }
+                40 = {
+                    add_legitimacy = 5
+                }
+            }
+        }
+    }
+}
+
+country_event = { #忠诚的臣民→事件链总触发
+    id = EDG_tve_re.208
+    title = EDG_tve_re.208t
+    desc = EDG_tve_re.208d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+    }
+    hidden = yes
+    is_triggered_only = yes
+    option = {
+        name = EDG_tve_re.208A
+    }
+    option = {
+        name = EDG_tve_re.208B
+    }
+    option = {
+        name = EDG_tve_re.208C
+    }
+    after = {
+    }
+}
+country_event = { #抓捕叛匪→
+    id = EDG_tve_re.209
+    title = EDG_tve_re.209t
+    desc = EDG_tve_re.209d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+    }
+    is_triggered_only = yes
+    option = {
+        name = EDG_tve_re.209A
+        add_treasury = -10
+        add_manpower = -0.25
+        if = {
+            limit = {
+                NOT = { stability = 2 }
+            }
+            random = {
+                chance = 75
+                add_stability = 1
+            }
+        }
+        subtract_variable = {
+            which = EDG_tve_boyal_unrest_variable
+            value = 4
+        }
+    }
+    option = {
+        name = EDG_tve_re.209B
+        if = {
+            limit = {
+                NOT = { stability = 2 }
+            }
+            random = {
+                chance = 25
+                add_stability = 1
+            }
+        }
+        subtract_variable = {
+            which = EDG_tve_boyal_unrest_variable
+            value = 2
+        }
+    }
+}
+#new
+country_event = { #对权力的质疑
+    id = EDG_tve_re.2010
+    title = EDG_tve_re.2010t
+    desc = EDG_tve_re.2010d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+        #or = {
+            #any_owned_province = {
+            #    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+            #}
+            #num_of_owned_provinces_with = {
+            #    value = 5
+            #    and = {
+            #        culture_group = east_slavic
+            #        not = {
+            #            culture = russian
+            #        }
+            #        not = {
+            #            culture = novgorodian
+            #        }
+            #    }
+            #}
+        #}
+    }
+    fire_only_once = yes
+    is_triggered_only = yes
+    option = {#军队就是我统治的资格，怎么，你们不服气吗？
+        name = EDG_tve_re.2010A
+        trigger = {
+            any_owned_province = {
+                has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    or = {
+                        has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                        and = {
+                            culture_group = east_slavic
+                            not = {
+                                culture = russian
+                            }
+                            not = {
+                                culture = novgorodian
+                            }
+                        }
+                    }
+                }
+                set_province_flag = EDG_tve_civil_war_mos_unrest_flag_1
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#没有人能阻挡特维尔统一罗斯的步伐！
+        name = EDG_tve_re.2010B
+        trigger = {
+            not = {
+                any_owned_province = {
+                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                }
+            }
+        }
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    is_core = MOS
+                    area = moscow_area
+                }
+                set_province_flag = EDG_tve_civil_war_mos_unrest_flag_2
+            }
+            random_owned_province = {
+                limit = {
+                    and = {
+                        culture_group = east_slavic
+                        not = {
+                            culture = russian
+                        }
+                        not = {
+                            culture = novgorodian
+                        }
+                    }
+                }
+                set_province_flag = EDG_tve_civil_war_mos_unrest_flag_2
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    after = {
+        hidden_effect = {
+            set_country_flag = has_EDG_tve_re_2010_event_flag
+        }
+        every_owned_province = {
+            limit = {
+                or = {
+                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                    and = {
+                        culture_group = east_slavic
+                        not = {
+                            culture = russian
+                        }
+                        not = {
+                            culture = novgorodian
+                        }
+                    }
+                }
+            }
+            remove_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+        }
+    }
+}
+country_event = { #整合诺夫哥罗德
+    id = EDG_tve_re.2011
+    title = EDG_tve_re.2011t
+    desc = EDG_tve_re.2011d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+    }
+    is_triggered_only = yes
+    fire_only_once = yes
+    option = {#我看这些诺夫哥罗德人真是活腻歪了。
+        name = EDG_tve_re.2011A
+        trigger = {
+            NOV = {
+                junior_union_with = root
+            }
+        }
+        custom_tooltip = EDG_tve_missions_209B_tt
+        tooltip = {
+            cede_province = root
+            add_core = root
+        }
+        hidden_effect = {
+            NOV = {
+                every_owned_province = {
+                    cede_province = root
+                    add_core = root
+                    set_province_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#一个统一的罗斯才能保护诺夫哥罗德。
+        name = EDG_tve_re.2011B
+        trigger = {
+            310 = {
+                owned_by = root
+            }
+        }
+        hidden_effect = {
+            310 = {
+                set_province_flag = EDG_tve_civil_war_nov_unrest_flag_2
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    after = {
+        hidden_effect = {
+            set_country_flag = has_EDG_tve_re_2011_event_flag
+        }
+    }
+}
+country_event = { #下诺夫哥罗德波雅尔的心思
+    id = EDG_tve_re.2012
+    title = EDG_tve_re.2012t
+    desc = EDG_tve_re.2012d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+    }
+    is_triggered_only = yes
+    fire_only_once = yes
+    option = {#剥夺这些不忠者的领地与特权！
+        name = EDG_tve_re.2012A
+        trigger = {
+            or = {
+                any_owned_province = {
+                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                }
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                }
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+                NOV = {
+                    junior_union_with = root
+                }
+            }
+        }
+        change_estate_land_share = {
+            estate = estate_nobles
+            share = -5
+        }
+        add_estate_influence_modifier = {
+            influence = -5
+            duration = 1825
+        }
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                }
+                remove_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                if = {
+                    limit = {
+                        root = {
+                            or = {
+                                any_owned_province = {
+                                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                                }
+                                any_owned_province = {
+                                    has_country_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                                }
+                            }
+                        }
+                    }
+                    set_province_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                }
+                else_if = {
+                    limit = {
+                        root = {
+                            or = {
+                                any_owned_province = {
+                                    has_country_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                                }
+                                NOV = {
+                                    junior_union_with = root
+                                }
+                            }
+                        }
+                    }
+                    set_province_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#他们应该认识到，下诺夫哥罗德的利益与安全仰赖于特维尔。
+        name = EDG_tve_re.2012B
+        trigger = {
+            or = {
+                any_owned_province = {
+                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                }
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                }
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+                NOV = {
+                    junior_union_with = root
+                }
+            }
+        }
+        change_estate_land_share = {
+            estate = estate_nobles
+            share = 5
+        }
+        add_prestige = -10
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                }
+                remove_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                add_province_modifier = {
+                    name = EDG_BELA_tve_nzh_boyal_province_modifier
+                    duration = 3650
+                }
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#哈，难道他们能翻天不成？
+        name = EDG_tve_re.2012C
+        trigger = {
+            not = {
+                any_owned_province = {
+                    has_province_modifier = EDG_BELA_tve_mos_boyal_province_modifier
+                }
+            }
+            not = {
+                NOV = {
+                    junior_union_with = root
+                }
+            }
+            not = {
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                }
+            }
+            not = {
+                any_owned_province = {
+                    has_country_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+            }
+        }
+        hidden_effect = {
+            random_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                }
+                set_province_flag = EDG_tve_civil_war_nzh_unrest_flag_2
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+                }
+                remove_province_modifier = EDG_BELA_tve_nzh_boyal_province_modifier
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    after = {
+        hidden_effect = {
+            set_country_flag = has_EDG_tve_re_2012_event_flag
+        }
+    }
+}
+country_event = { #大叛乱
+    id = EDG_tve_re.2013
+    title = EDG_tve_re.2013t
+    desc = EDG_tve_re.2013d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+        has_country_flag = has_EDG_tve_re_2010_event_flag
+        has_country_flag = has_EDG_tve_re_2011_event_flag
+        has_country_flag = has_EDG_tve_re_2012_event_flag
+    }
+    is_triggered_only = yes
+    fire_only_once = yes
+    immediate = {
+        hidden_effect = {
+            every_owned_province = {
+                limit = {
+                    has_province_flag = EDG_tve_civil_war_mos_unrest_flag_1
+                }
+                cede_province = MOS
+                root = {
+                    add_casus_belli = {
+                        type = cb_annex
+                        target = MOS
+                        months = 120
+                    }
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_core = MOS
+                        }
+                    }
+                    add_core = MOS
+                }
+            }
+            every_owned_province = {
+                limit = {
+                    has_province_flag = EDG_tve_civil_war_nov_unrest_flag_1
+                }
+                cede_province = NOV
+                root = {
+                    add_casus_belli = {
+                        type = cb_annex
+                        target = NOV
+                        months = 120
+                    }
+                }
+                if = {
+                    limit = {
+                        NOT = {
+                            is_core = NOV
+                        }
+                    }
+                    add_core = NOV
+                }
+            }
+        }
+    }
+    option = {#那就让东北罗斯燃烧吧！
+        name = EDG_tve_re.2013A
+        add_stability = 6
+        if = {
+            limit = {
+                exists = MOS
+            }
+            declare_war_with_cb = {
+                casus_belli = cb_annex
+                who = MOS
+            }
+        }
+        if = {
+            limit = {
+                exists = NOV
+            }
+            declare_war_with_cb = {
+                casus_belli = cb_annex
+                who = NOV
+            }
+        }
+        every_owned_province = {
+            limit = {
+                or = {
+                    has_province_flag = EDG_tve_civil_war_mos_unrest_flag_2
+                    has_province_flag = EDG_tve_civil_war_nov_unrest_flag_2
+                    has_province_flag = EDG_tve_civil_war_nzh_unrest_flag_2
+                }
+            }
+            spawn_rebels = {
+                size = 2
+                type = noble_rebels
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    after = {
+        hidden_effect = {
+            add_stability = 6
+        }
+    }
+}
+country_event = { #波雅尔抗议改革
+    id = EDG_tve_re.2014
+    title = EDG_tve_re.2014t
+    desc = EDG_tve_re.2014d
+    picture = OPRICHINA_eventPicture
+    is_triggered_only = yes
+    option = {#向大波雅尔让步。
+        name = EDG_tve_re.2014A
+        #移除先前的改革
+        if = {
+            limit = {
+                has_country_modifier = EDG_tve_bzxg_modifier
+                not = {
+                    has_country_flag = EDG_tve_bzxg_flag
+                }
+            }
+            remove_country_modifier = EDG_tve_bzxg_modifier
+            add_prestige = -10
+            add_legitimacy = -10
+            change_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = -15
+            }
+        }
+        #减少统治的合法性
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#坚定推行改革。
+        name = EDG_tve_re.2014B
+        #将改革修正转为永久
+        if = {
+            limit = {
+                has_country_modifier = EDG_tve_bzxg_modifier
+                not = {
+                    has_country_flag = EDG_tve_bzxg_flag
+                }
+            }
+            set_country_flag = EDG_tve_bzxg_flag
+            hidden_effect = {
+                remove_country_modifier = EDG_tve_bzxg_modifier
+            }
+            add_country_modifier = {
+                name = EDG_tve_bzxg_modifier
+                duration = -1
+            }
+            change_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = 15
+            }
+        }
+        random = {
+            chance = 25
+            add_stability = -1
+        }
+        custom_tooltip = EDG_BELA_owned_province_tt
+        tooltip = {
+            random = {
+                chance = 15
+                spawn_rebels = {
+                    size = 1
+                }
+            }
+        }
+        hidden_effect = {
+            every_owned_province = {
+                random = {
+                    chance = 15
+                    spawn_rebels = {
+                        size = 1
+                    }
+                }
+            }
+        }
+        add_prestige_or_monarch_power = { amount = 10 }
+        add_estate_loyalty = {
+            estate = estate_nobles
+            loyalty = -10
+        }
+        add_estate_influence_modifier = {
+            influence = -10
+            duration = 3650
+            estate = estate_nobles
+        }
+		change_government_reform_progress = 20
+        #将视波雅尔的影响力与领地大小在首都及首都附近激发叛军。
+        ai_chance = {
+            factor = 10
+        }
+    }
+}
+country_event = { #军队中的骚乱
+    id = EDG_tve_re.2015
+    title = EDG_tve_re.2015t
+    desc = EDG_tve_re.2015d
+    picture = OPRICHINA_eventPicture
+    trigger = {
+    }
+    is_triggered_only = yes
+    option = {#恢复旧体系。
+        name = EDG_tve_re.2015A
+        if = {
+            limit = {
+                has_country_modifier = EDG_tve_qxmd_modifier
+                not = {
+                    has_country_flag = EDG_tve_qxmd_modifier
+                }
+            }
+            #clr_country_flag = EDG_tve_qxmd_flag
+            add_prestige = -10
+            add_legitimacy = -10
+            change_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = -15
+            }
+        }
+        ai_chance = {
+            factor = 1
+        }
+    }
+    option = {#继续推进改革
+        name = EDG_tve_re.2015B
+        if = {
+            limit = {
+                has_country_modifier = EDG_tve_qxmd_modifier
+                not = {
+                    has_country_flag = EDG_tve_qxmd_flag
+                }
+            }
+            set_country_flag = EDG_tve_qxmd_flag
+            hidden_effect = {
+                remove_country_modifier = EDG_tve_qxmd_modifier
+            }
+            add_country_modifier = {
+                name = EDG_tve_qxmd_modifier
+                duration = -1
+            }
+            change_variable = {
+                which = EDG_tve_boyal_unrest_variable
+                value = 15
+            }
+            random = {
+                chance = 25
+                add_stability = -1
+            }
+            custom_tooltip = EDG_BELA_owned_province_tt
+            tooltip = {
+                random = {
+                    chance = 15
+                    spawn_rebels = {
+                        size = 1
+                    }
+                }
+            }
+            hidden_effect = {
+                every_owned_province = {
+                    random = {
+                        chance = 15
+                        spawn_rebels = {
+                            size = 1
+                        }
+                    }
+                }
+            }
+            add_prestige_or_monarch_power = { amount = 10 }
+            add_estate_loyalty = {
+                estate = estate_nobles
+                loyalty = -10
+            }
+            add_estate_influence_modifier = {
+                influence = -10
+                duration = 3650
+                estate = estate_nobles
+            }
+			change_government_reform_progress = 20
+        }
+        ai_chance = {
+            factor = 10
+        }
+    }
+}

@@ -1,0 +1,1530 @@
+EDG_FOI_iberia_great_famine = { #伊比利亚大饥荒
+	potential = {
+		capital_scope = {
+			region = iberia_region
+		}
+		has_global_flag = IBR_conflict_end_flag
+		has_government_mechanic = FOI_iberia_reconstruction_work_mechanic
+		NOT = {
+			has_country_flag = EDG_FOI_end_iberia_great_famine_flag
+		}
+		if = {
+			limit = { 
+				tag = CAT
+			}
+			NOT = {
+				check_variable = {
+					which = ask_arles_for_help_value
+					value = 1
+				}
+			}
+		}
+	}
+
+	
+	can_start = {
+		always = yes
+	}
+	
+	
+	can_stop = {
+		always = no
+	}
+		
+	progress = {
+		modifier = {
+			factor = 10
+			NOT = {
+				calc_true_if = {
+					amount = 5
+					all_owned_province = {
+						trade_goods = grain
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = 5
+			NOT = {
+				development_in_provinces = {
+					trade_goods = grain
+					value = 100
+				}
+			}
+		}
+		modifier = {
+			factor = 3
+			has_country_modifier = EDG_FOI_iberia_rehabilitate
+		}
+		modifier = {
+			factor = 1
+			army_size_percentage = 0.25
+		}
+		modifier = {
+			factor = 1
+			navy_size_percentage = 0.5
+		}
+		modifier = {
+			factor = 1
+			NOT = { stability = 0 }
+		}
+	}
+	
+	
+	
+	can_end = {
+
+		if = {
+			limit = { 
+				ai = no
+			}
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_FOI_iberia_great_famine_tooltip
+						OR = {
+							AND = {
+								iberia_region = {
+									type = all
+									OR = {
+										AND = {
+											country_or_non_sovereign_subject_holds = root
+											trade_goods = grain
+											development = 20
+											custom_trigger_tooltip = {
+												tooltip = EDG_FOI_has_iberian_infrastructure
+												OR = {
+													has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+													has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+													has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+													has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+													has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+													has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+													has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+												}
+											}
+										}
+										NOT = {
+											trade_goods = grain
+										}
+									}
+								}
+							}
+							AND = {
+								development_in_provinces = {
+									trade_goods = grain
+									custom_trigger_tooltip = {
+										tooltip = EDG_FOI_has_iberian_infrastructure
+										OR = {
+											has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+											has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+											has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+											has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+											has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+											has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+											has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+										}
+									}
+									value = 150
+								}
+							}
+						}
+					}
+					calc_true_if = {
+						amount = 50
+						all_province = {
+							custom_trigger_tooltip = {
+								tooltip = EDG_FOI_has_iberian_infrastructure
+								OR = {
+									has_province_modifier = EDG_FOI_iberia_infrastructure_capital
+									has_province_modifier = EDG_FOI_iberia_infrastructure_grasslands
+									has_province_modifier = EDG_FOI_iberia_infrastructure_hills
+									has_province_modifier = EDG_FOI_iberia_infrastructure_drylands
+									has_province_modifier = EDG_FOI_iberia_infrastructure_highlands
+									has_province_modifier = EDG_FOI_iberia_infrastructure_mountain
+									has_province_modifier = EDG_FOI_iberia_infrastructure_woods
+								}
+							}
+						}
+					}
+					has_government_power = {
+						mechanic_type = FOI_iberia_reconstruction_work_mechanic
+						power_type = FOI_iberia_reconstruction_work
+						value = 100
+					}
+					stability = 1
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_FOI_iberia_great_famine_trigger.tt
+					had_country_flag = {
+						flag = EDG_FOI_begin_iberia_great_famine_flag
+						days = 3650
+					}
+				}
+			}
+			
+		}
+		else = {
+			had_country_flag = {
+				flag = EDG_FOI_begin_iberia_great_famine_flag
+				days = 1095
+			}
+		}
+	}
+	
+
+	modifier = {
+		manpower_recovery_speed = -0.75
+		global_monthly_devastation = 3
+		global_unrest = 10
+		land_maintenance_modifier = 0.25
+		monthly_FOI_iberia_reconstruction_work = -0.25
+		stability_cost_modifier = 0.25
+	}	
+	
+	
+	on_start = FOIDisasterEvents.0
+	on_end = FOIDisasterEvents.20
+	
+	on_monthly = {
+		random_events = { 
+			1000 = 0
+			100 = FOIDisasterEvents.1
+			100 = FOIDisasterEvents.2
+			100 = FOIDisasterEvents.3
+			1000 = FOIDisasterEvents.10
+			500 = FOIDisasterEvents.11
+			500 = FOIDisasterEvents.12
+		}
+	}
+}
+EDG_FOI_CAT_great_rebellion = { #伊比利亚大起义
+	potential = {
+		NOT = {
+			has_global_flag = EDG_FOI_CAT_great_rebellion_end
+		}
+		has_global_flag = IBR_conflict_end_flag
+		OR = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = iberia_region
+				value = 55
+			}
+			custom_trigger_tooltip = {
+				tooltip = FOI_FOI_unify_iberia_country
+				has_country_flag = FOI_unify_iberia_country_flag
+			}
+		}
+		NOT = {
+			OR = {
+				has_global_flag = FOI_begin_iberian_civil_war
+				has_global_flag = EDG_FOI_CAT_great_rebellion_already_begin
+			}
+		}
+		OR = {
+			tag = CAT
+			tag = USP
+		}
+	}
+
+	on_start = FOI_UCIEvents.0
+	on_end = FOI_UCIEvents.700
+
+	can_start = {
+		if = {
+			limit = {
+				ai = no
+			}
+			custom_trigger_tooltip = {
+				tooltip = FOI_SPA_6_3.cat.tt
+				has_global_flag = FOI_UCI_modifier_enemy_flag
+			}
+		}
+		else = {
+			always = yes
+		}
+	}
+
+	can_stop = {
+		always = no
+	}
+
+
+	modifier = {
+		global_unrest = 10
+		production_efficiency = -0.5
+		trade_efficiency = -0.5
+	}
+
+	progress = {
+		modifier = {
+			factor = 5
+			NOT = {
+				development_in_provinces = {
+					trade_goods = grain
+					value = 100
+				}
+			}
+		}
+		modifier = {
+			factor = 10
+			always = yes
+		}
+	}
+
+	can_end = {
+		hidden_trigger = {
+			has_global_flag = FOI_begin_iberian_civil_war
+		}
+		if = {
+			limit = { 
+				ai = yes
+			}
+			had_country_flag = {
+				flag = FOI_begin_iberian_civil_war_ai
+				days = 1825
+			}
+		}
+		else = {
+			if = {
+				limit = { 
+					tag = USP
+				}
+				OR = {
+					NOT = {
+						exists = UCI
+					}
+					war_score_against = {
+						who = UCI
+						value = 90
+					}
+				}
+				OR = {
+					NOT = {
+						exists = IFR
+					}
+					IFR = {
+						is_subject_of = root
+					}
+					war_score_against = {
+						who = IFR
+						value = 90
+					}
+				}
+			}
+			if = {
+				limit = { 
+					tag = UCI
+				}
+				OR = {
+					NOT = {
+						exists = USP
+					}
+					war_score_against = {
+						who = USP
+						value = 90
+					}
+					AND = {
+						USP = {
+							is_subject_of = AEL
+						}
+						war_score_against = {
+							who = AEL
+							value = 25
+						}
+					}
+				}
+				OR = {
+					NOT = {
+						exists = IFR
+					}
+					IFR = {
+						is_subject_of = root
+					}
+					war_score_against = {
+						who = IFR
+						value = 90
+					}
+				}
+			}
+		}
+	}
+}
+EDG_FOI_ADU_al_andalusia_crusade = { #安达卢西亚宗教战争
+	potential = {
+		tag = ADU
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		NOT = {
+			has_country_flag = EDG_FOI_end_al_andalusia_crusade_flag
+		}
+	}
+
+	can_start = {
+		NOT = {
+			tolerance_to_this = 3
+		}
+	}
+	
+	can_stop = {
+		tolerance_to_this = 5
+	}
+
+	progress = {
+		modifier = {
+			factor = 3
+			capital_scope = {
+				NOT = {
+					religion_group = muslim
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				tolerance_to_this = 3
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				tolerance_to_this = 1
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				tolerance_to_this = -1
+			}
+		}
+		modifier = {
+			factor = 0.2
+			NOT = {
+				tolerance_to_this = -3
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 0
+			}
+		}
+	}
+	
+	can_end = {
+		stability = 1
+		OR = {
+			tolerance_to_this = 3
+			NOT = {
+				exists = CIE
+			}
+			AND = {
+				war_with = CIE
+				war_score_against = {
+					who = CIE
+					value = 90
+				}
+			}
+		}
+	}
+	
+	modifier = {
+		tolerance_own = -3
+		global_unrest = 10
+		stability_cost_modifier = 0.5
+		reduced_liberty_desire = -100
+		tolerance_heathen = 4
+		tolerance_of_heathens_capacity = 4
+		land_morale = -0.15
+		monthly_FOI_ADU_bright_century = -0.25
+	}
+	on_start = FOIDisasterEvents.30
+	on_end = FOIDisasterEvents.40
+	
+	on_monthly = {
+		random_events = { 
+			1000 = 0
+		}
+	}
+}
+EDG_FOI_UCI_great_purge = { #大清洗
+	potential = {
+		has_reform = FOI_UCI_union_commune_of_iberian
+		NOT = {
+			has_country_flag = EDG_FOI_UCI_great_purge_end_flag
+		}
+	}
+
+	can_start = {
+		is_at_war = no
+		iberia_region = {
+			type = all
+			controlled_by = root
+		}
+	}
+
+	can_stop = {
+		#is_at_war = yes
+		iberia_region = {
+			NOT = {
+				owned_by = root
+			}
+		}
+	}
+
+	progress = {
+		modifier = {
+			factor = 0.5
+			always = yes
+		}
+		modifier = {
+			factor = 0.25
+			estate_influence = {
+				estate = estate_church
+				influence = 30
+			}
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = {
+				estate = estate_church
+				influence = 60
+			}
+		}
+		modifier = {
+			factor = 0.25
+			estate_influence = {
+				estate = estate_burghers
+				influence = 30
+			}
+		}
+		modifier = {
+			factor = 0.5
+			estate_influence = {
+				estate = estate_burghers
+				influence = 60
+			}
+		}
+		modifier = {
+			factor = 1
+			current_age = age_of_reformation
+		}
+	}
+
+	can_end = {
+		stability = 0
+		revolutionary_zeal = 25
+		custom_trigger_tooltip = {
+			tooltip = EDG_FOI_UCI_great_purge_end_tooltip
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_catalonia_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_valencia_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_baleares_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_galicia_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_beieras_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_alentejo_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_asturias_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_castille_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_leon_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_extremadura_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_lower_andalucia_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_upper_andalucia_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_basque_country_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_aragon_area_end_flag
+			has_country_flag = EDG_FOI_UCI_start_investigation_for_toledo_area_end_flag
+		}
+	}
+
+	modifier = {
+		stability_cost_modifier = 10
+		global_unrest = -10
+		yearly_revolutionary_zeal = 4
+		max_revolutionary_zeal = 50
+	}
+	on_start = FOIDisasterEvents.50
+	on_end = FOIDisasterEvents.60
+
+	on_monthly = {
+		random_events = {
+			50 = FOIDisasterEvents.51
+			50 = FOIDisasterEvents.52
+			50 = FOIDisasterEvents.53
+			50 = FOIDisasterEvents.54
+			50 = FOIDisasterEvents.55
+			50 = FOIDisasterEvents.56
+			50 = FOIDisasterEvents.57
+			1500 = 0
+		}
+	}
+}
+EDG_FOI_UCI_burning_ice_war = { #燃冰之战
+	potential = {
+		has_reform = FOI_UCI_union_commune_of_iberian
+		has_reform = FOI_UCI_infocus
+	}
+
+	can_start = {
+		has_reform = FOI_UCI_infocus
+		custom_trigger_tooltip = {
+			tooltip = EDG_FOI_has_end_iberia_great_famine
+			has_country_flag = EDG_FOI_end_iberia_great_famine_flag
+		}
+		revolutionary_zeal = 50
+	}
+
+	can_stop = {
+		OR = {
+			NOT = {
+				revolutionary_zeal = 50
+			}
+			NOT = {
+				has_reform = FOI_UCI_infocus
+			}
+		}
+	}
+
+	progress = {
+		modifier = {
+			factor = -0.3
+			OR = {
+				has_reform = EDG_FOI_national_reconstruction_bureau
+				has_reform = FOI_UCI_infocus
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 0
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = -1
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = -2
+			}
+		}
+		modifier = {
+			factor = 0.3
+			revolutionary_zeal = 50
+		}
+		modifier = {
+			factor = 0.5
+			revolutionary_zeal = 75
+		}
+		modifier = {
+			factor = 1
+			revolutionary_zeal = 100
+		}
+	}
+
+	can_end = {
+		OR = {
+			NOT = {
+				OR = {
+					has_reform = EDG_FOI_national_reconstruction_bureau
+					has_reform = FOI_UCI_infocus
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FOI_UCI_burning_ice_war_end_tt
+				had_country_flag = {
+					flag = EDG_FOI_UCI_burning_ice_war_begin_flag
+					days = 1095
+				}
+			}
+		}
+	}
+
+	modifier = {
+		production_efficiency = -0.25
+		min_autonomy = 30
+		global_autonomy = 0.1
+		yearly_revolutionary_zeal = 12
+	}
+	on_start = FOIDisasterEvents.70
+	on_end = FOIDisasterEvents.80
+}
+EDG_FOI_UCI_ember_war = { #余烬战争
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+	}
+
+	can_start = {
+		OR = {
+			NOT = {
+				revolutionary_zeal = 50
+			}
+			NOT = {
+				republican_tradition = 50
+			}
+		}
+	}
+
+	can_stop = {
+		NOT = {
+			OR = {
+				tag = UCI
+			}
+		}
+	}
+
+	progress = {
+		modifier = {
+			factor = 1
+			ai = yes
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 0
+			}
+		}
+		modifier = {
+			factor = 10
+			NOT = {
+				OR = {
+					has_reform = FOI_UCI_union_commune_of_iberian
+					has_reform = FOI_FWF_forward_front
+				}
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 1
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 2
+			}
+		}
+		modifier = {
+			factor = 0.05
+			NOT = {
+				revolutionary_zeal = 50
+			}
+		}
+		modifier = {
+			factor = 0.075
+			NOT = {
+				revolutionary_zeal = 25
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				revolutionary_zeal = 5
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				republican_tradition = 75
+			}
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				republican_tradition = 60
+			}
+		}
+		modifier = {
+			factor = 1
+			NOT = {
+				republican_tradition = 50
+			}
+		}
+		modifier = {
+			factor = 5
+			NOT = {
+				republican_tradition = 25
+			}
+		}
+		modifier = {
+			factor = -0.3
+			revolutionary_zeal = 50
+		}
+		modifier = {
+			factor = -0.5
+			revolutionary_zeal = 75
+		}
+		modifier = {
+			factor = -1
+			revolutionary_zeal = 100
+		}
+	}
+
+	can_end = {
+		OR = {
+			NOT = {
+				tag = UCI
+			}
+			AND = {
+				republican_tradition = 90
+				revolutionary_zeal = 75
+				stability = 1
+			}
+		}
+	}
+	on_monthly = {
+		events = {
+			
+		}
+	}
+
+	modifier = {
+		land_morale = -0.25
+		stability_cost_modifier = 1
+		max_revolutionary_zeal = 50
+	}
+	on_start = FOIDisasterEvents.90
+	on_end = FOIDisasterEvents.100
+}
+EDG_FWF_battle_of_the_sun = { #烈阳之战
+	potential = {
+		tag = FWF
+		NOT = {
+			has_global_flag = EDG_FWF_battle_of_the_sun_end_flag
+		}
+	}
+	can_start = {
+		always = yes
+	}
+	can_stop = {
+		always = no
+	}
+	can_end = {
+		is_at_war = no
+	}
+	progress = {
+		modifier = {
+			factor = 8
+		}
+	}
+	on_progress_effect = {
+		if = {
+			limit = { 
+				check_variable = {
+					which = EDG_FWF_battle_of_the_sun_progress
+					value = 25
+				}
+				NOT = {
+					has_global_flag = FOIDisasterEvents.110_flag
+				}
+			}
+			country_event = {
+				id = FOIDisasterEvents.110
+			}
+		}
+		if = {
+			limit = { 
+				check_variable = {
+					which = EDG_FWF_battle_of_the_sun_progress
+					value = 50
+				}
+				NOT = {
+					has_global_flag = FOIDisasterEvents.111_flag
+				}
+			}
+			country_event = {
+				id = FOIDisasterEvents.111
+			}
+		}
+		if = {
+			limit = { 
+				check_variable = {
+					which = EDG_FWF_battle_of_the_sun_progress
+					value = 75
+				}
+				NOT = {
+					has_global_flag = FOIDisasterEvents.112_flag
+				}
+			}
+			country_event = {
+				id = FOIDisasterEvents.112
+			}
+		}
+	}
+	on_monthly = {
+		random_events = {
+			1000 = 0
+			50 = FOIDisasterEvents.131
+		}
+	}
+	modifier = {
+		land_morale = 0.1
+		global_manpower_modifier = -0.5
+		global_unrest = 10
+		stability_cost_modifier = 5
+		yearly_revolutionary_zeal = 3
+		max_revolutionary_zeal = 50
+	}
+	on_start = FOIDisasterEvents.113
+	on_end = FOIDisasterEvents.120
+
+}
+EDG_FOI_UCI_incineration = { #焚灭战争
+	potential = {
+		has_reform = FOI_UCI_union_commune_of_iberian
+	}
+
+	can_start = {
+		NOT = {
+			has_reform = FOI_UCI_infocus
+		}
+		custom_trigger_tooltip = {
+			tooltip = EDG_FOI_has_end_iberia_great_famine
+			has_country_flag = EDG_FOI_end_iberia_great_famine_flag
+		}
+		NOT = {
+			has_country_modifier = FOI_UCI_crush_the_reactionary_forces
+		}
+	}
+
+	can_stop = {
+		OR = {
+			has_reform = FOI_UCI_infocus
+			has_country_modifier = FOI_UCI_crush_the_reactionary_forces
+		}
+	}
+
+	progress = {
+		modifier = {
+			factor = 0.1
+			has_reform = FOI_UCI_union_commune_of_iberian
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 0
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = -1
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = -2
+			}
+		}
+		modifier = {
+			factor = -0.5
+			has_reform = FOI_UCI_infocus
+		}
+		modifier = {
+			factor = 0.3
+			revolutionary_zeal = 50
+		}
+		modifier = {
+			factor = 0.5
+			revolutionary_zeal = 75
+		}
+		modifier = {
+			factor = 1
+			revolutionary_zeal = 100
+		}
+	}
+
+	can_end = {
+		is_at_war = no
+	}
+	on_monthly = {
+		random_events = {
+			1000 = 0
+			50 = FOIDisasterEvents.131
+		}
+	}
+
+	modifier = {
+		global_unrest = 10
+		land_morale = 0.15
+		global_manpower_modifier = 0.25
+		global_regiment_cost = -0.15
+		max_revolutionary_zeal = 20
+		yearly_revolutionary_zeal = -4
+	}
+	on_start = FOIDisasterEvents.130
+	on_end = FOIDisasterEvents.140
+}
+EDG_FOI_UCI_fire_forge = { #熯焱锤炼
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		mission_completed = FOI_UCI_expand_7_3
+	}
+	can_start = {
+		NOT = {
+			has_reform = FOI_UCI_infocus
+		}
+		NOT = {
+			has_country_modifier = EDG_FOI_UCI_fire_forge_end_modifier
+		}
+		any_neighbor_country = {
+			NOT = {
+				OR = {
+					has_reform = EDG_Citizen_Army_Government
+					has_reform = EDG_ROS_Citizen_Government
+					has_reform = peasants_republic
+					is_revolutionary_republic_trigger = yes
+					AND = {
+						NOT = {
+							tag = root
+						}
+						government = UCI_commune
+					}
+				}
+			}
+		}
+	}
+
+	can_stop = {
+		OR = {
+			is_at_war = yes
+			has_country_modifier = EDG_FOI_UCI_fire_forge_end_modifier
+			has_reform = FOI_UCI_infocus
+			all_neighbor_country = {
+				OR = {
+					has_reform = EDG_Citizen_Army_Government
+					has_reform = EDG_ROS_Citizen_Government
+					has_reform = peasants_republic
+					is_revolutionary_republic_trigger = yes
+					AND = {
+						NOT = {
+							tag = root
+						}
+						government = UCI_commune
+					}
+				}
+			}
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 1
+			has_reform = FOI_UCI_armed_struggle
+		}
+		modifier = {
+			factor = 0.1
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 5
+			}
+		}
+		modifier = {
+			factor = 0.3
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 10
+			}
+		}
+		modifier = {
+			factor = 0.5
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 15
+			}
+		}
+		modifier = {
+			factor = 1
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 20
+			}
+		}
+		modifier = {
+			factor = 0.1
+			revolutionary_zeal = 5
+		}
+		modifier = {
+			factor = 0.3
+			revolutionary_zeal = 15
+		}
+		modifier = {
+			factor = 0.5
+			revolutionary_zeal = 25
+		}
+		modifier = {
+			factor = 1
+			revolutionary_zeal = 50
+		}
+	}
+	modifier = {
+		global_unrest = 5
+		max_revolutionary_zeal = 50
+		monthly_FOI_UCI_liberation_mania = 0.1
+		land_morale = 0.1
+		morale_damage = 0.1
+		global_manpower_modifier = 0.25
+	}
+	on_start = FOIDisasterEvents.150
+	on_end = FOIDisasterEvents.160
+
+	can_end = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = EDG_FOI_UCI_fire_forge_prepare_flag
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_FOI_UCI_fire_forge_end_tt_1
+				NOT = {
+					has_country_flag = EDG_FOI_UCI_fire_forge_prepare_flag
+				}
+			}
+		}
+		OR ={
+			custom_trigger_tooltip = {
+				tooltip = EDG_FOI_UCI_fire_forge_end_tt_2
+				had_country_flag = {
+					flag = EDG_FOI_UCI_fire_forge_begin_flag
+					days = 1825
+				}
+			}
+			is_at_war = no
+		}
+	}
+}
+EDG_FOI_UCI_heat_wave = { #热浪
+	potential = {
+		OR = {
+			current_age = age_of_discovery
+			current_age = age_of_reformation
+		}
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		NOT = {
+			has_global_flag = EDG_FOI_UCI_heat_wave_flag
+		}
+	}
+	can_start = {
+		current_age = age_of_reformation
+		if = {
+			limit = { 
+				has_estate = estate_church
+			}
+			NOT = {
+				has_reform = FOI_UCI_complete_separation
+			}
+		}
+	}
+
+	can_stop = {
+		NOT = {
+			current_age = age_of_reformation
+		}
+		has_reform = FOI_UCI_complete_separation
+	}
+	progress = {
+		modifier = {
+			factor = 0.25
+			has_country_modifier = FOI_UCI_religion_religious_dilemma
+		}
+		modifier = {
+			factor = 1
+			has_reform = FOI_UCI_state_religion
+		}
+		modifier = {
+			factor = 0.5
+			has_reform = FOI_UCI_freedom_of_belief
+		}
+		modifier = {
+			factor = 0.25
+			NOT = {
+				religious_unity = 0.9
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				religious_unity = 0.7
+			}
+		}
+		modifier = {
+			factor = 1
+			NOT = {
+				religious_unity = 0.5
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				religious_unity = 0.25
+			}
+		}
+	}
+	modifier = {
+		
+		global_unrest = 10
+		yearly_revolutionary_zeal = -6
+		religious_unity = -0.5
+		global_missionary_strength = -0.1
+	}
+	on_start = FOIDisasterEvents.170
+	on_end = FOIDisasterEvents.180
+	on_monthly = {
+		random_events = {
+			1200 = 0
+			10 = religious_turmoil.3
+			10 = religious_turmoil.4
+			10 = religious_turmoil.5
+			10 = religious_turmoil.6
+		}
+	}
+
+	can_end = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_FOI_UCI_heat_wave_end_tooltip
+			had_country_flag = {
+				flag = EDG_FOI_UCI_heat_wave_begin_flag
+				days = 1825
+			}
+		}
+		OR = {
+			religious_unity = 0.8
+			all_owned_province = {
+				OR = {
+					religion = root
+					has_province_modifier = religious_zeal_at_conv
+				}
+			}
+		}
+		NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+		stability = 1
+	}
+}
+EDG_FOI_UCI_dead_fire = { #死火
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		has_country_modifier = FOI_UCI_military_commission
+		had_country_flag = {
+			flag = FOI_UCI_military_commission_flag
+			days = 1825
+		}
+		NOT = {
+			has_global_flag = EDG_FOI_UCI_dead_fire_end_flag
+		}
+	}
+	can_start = {
+		if = {
+			limit = { 
+				num_of_owned_provinces_with = {
+					OR = {
+						has_province_modifier = FOI_UCI_expansion_of_military_facilities
+						has_province_modifier = FOI_UCI_local_military_organization
+					}
+					value = 3
+				}
+			}
+			num_of_owned_provinces_with = {
+				OR = {
+					has_province_modifier = FOI_UCI_expansion_of_military_facilities
+					has_province_modifier = FOI_UCI_local_military_organization
+				}
+				value = 3
+			}
+		}
+		else = {
+			OR = {
+				NOT = {
+					republican_tradition = 75
+				}
+				AND = {
+					army_size = 100
+					total_development = 1000
+				}
+			}
+		}
+	}
+
+	can_stop = {
+		OR = {
+			NOT = {
+				OR = {
+					has_reform = FOI_UCI_union_commune_of_iberian
+					has_reform = FOI_FWF_forward_front
+				}
+			}
+			AND = {
+				republican_tradition = 50
+				is_at_war = yes
+				NOT = {
+					num_of_owned_provinces_with = {
+						OR = {
+							has_province_modifier = FOI_UCI_expansion_of_military_facilities
+							has_province_modifier = FOI_UCI_local_military_organization
+						}
+						value = 1
+					}
+				}
+			}
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 1
+			army_size = 100
+			total_development = 1000
+		}
+		modifier = {
+			factor = 1
+			has_country_modifier = FOI_UCI_military_commission
+		}
+		modifier = {
+			factor = 10
+			NOT = {
+				republican_tradition = 25
+			}
+		}
+		modifier = {
+			factor = 5
+			NOT = {
+				republican_tradition = 50
+			}
+		}
+		modifier = {
+			factor = 0.5
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 25
+			}
+		}
+		modifier = {
+			factor = 1
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 50
+			}
+		}
+		modifier = {
+			factor = 2
+			has_government_power = {
+				mechanic_type = FOI_UCI_liberation_mania_mechanic
+				power_type = FOI_UCI_liberation_mania
+				value = 75
+			}
+		}
+		modifier = {
+			factor = 0.1
+			NOT = {
+				stability = 0
+			}
+		}
+		modifier = {
+			factor = 0.3
+			NOT = {
+				stability = -1
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				stability = -2
+			}
+		}
+		modifier = {
+			factor = 0.25
+			revolutionary_zeal = 50
+		}
+		modifier = {
+			factor = 0.5
+			revolutionary_zeal = 75
+		}
+		modifier = {
+			factor = 1
+			revolutionary_zeal = 100
+		}
+	}
+	modifier = {
+		stability_cost_modifier = 2.5
+		land_morale = -0.25
+		discipline = -0.05
+		allowed_rev_guard_fraction = -1
+		production_efficiency = -0.25
+		global_trade_goods_size_modifier = -0.25
+		global_unrest = -10
+		max_revolutionary_zeal = -50
+		yearly_revolutionary_zeal = 6
+		republican_tradition = -6
+		monthly_FOI_UCI_liberation_mania = -1
+	}
+	on_start = FOIDisasterEvents.190
+	on_end = FOIDisasterEvents.200
+
+	on_monthly = {
+		random_events = {
+			1000 = 0
+			100 = FOIDisasterEvents.193
+			100 = FOIDisasterEvents.194
+			100 = FOIDisasterEvents.195
+			50 = FOIDisasterEvents.196
+			50 = FOIDisasterEvents.197
+			150 = FOIDisasterEvents.198
+		}
+	}
+
+	can_end = {
+		OR = {
+			AND = {
+				hidden_trigger = {
+					NOT = {
+						has_country_flag = EDG_FOI_UCI_dead_fire_begin_flag
+					}
+				}
+				NOT = { num_of_rebel_armies = 1 }
+				NOT = { num_of_rebel_controlled_provinces = 1 }
+				stability = 1
+			}
+			NOT = {
+				tag = UCI
+			}
+		}
+	}
+}
+EDG_FOI_UCI_countercurrent = { #逆流
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+		num_of_subjects = 1
+		has_country_flag = EDG_FOI_end_iberia_great_famine_flag
+	}
+	can_start = {
+		num_of_subjects = 1
+	}
+	can_stop = {
+		NOT = {
+			num_of_subjects = 1
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 1
+			num_of_subjects = 1
+		}
+		modifier = {
+			factor = 1.5
+			num_of_subjects = 2
+		}
+		modifier = {
+			factor = 2
+			num_of_subjects = 3
+		}
+		modifier = {
+			factor = 2.5
+			num_of_subjects = 4
+		}
+		modifier = {
+			factor = 5
+			num_of_subjects = 5
+		}
+	}
+	modifier = {
+		reduced_liberty_desire = -1000
+		stability_cost_modifier = 0.25
+	}
+	on_start = FOIDisasterEvents.210
+	on_end = FOIDisasterEvents.220
+	can_end = {
+		NOT = {
+			num_of_subjects = 1
+		}
+		is_at_war = no
+	}
+}
+EDG_FOI_UCI_shackle = { #桎梏
+	potential = {
+		OR = {
+			has_reform = FOI_UCI_union_commune_of_iberian
+			has_reform = FOI_FWF_forward_front
+		}
+	}
+	can_start = {
+		NOT = {
+			republican_tradition = 75
+		}
+	}
+	can_stop = {
+		republican_tradition = 75
+	}
+	progress = {
+		modifier = {
+			factor = 0.5
+			NOT = {
+				republican_tradition = 75
+			}
+		}
+		modifier = {
+			factor = 0.75
+			NOT = {
+				republican_tradition = 65
+			}
+		}
+		modifier = {
+			factor = 1
+			NOT = {
+				republican_tradition = 55
+			}
+		}
+		modifier = {
+			factor = 3
+			NOT = {
+				republican_tradition = 50
+			}
+		}
+		modifier = {
+			factor = 5
+			NOT = {
+				republican_tradition = 25
+			}
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				stability = 0
+			}
+		}
+	}
+	modifier = {
+		republican_tradition = 6
+		max_revolutionary_zeal = -50
+		global_unrest = 20
+		stability_cost_modifier = -0.25
+		yearly_corruption = 3
+	}
+	on_start = FOIDisasterEvents.230
+	on_end = FOIDisasterEvents.240
+	can_end = {
+		stability = 1
+		republican_tradition = 75
+		NOT = { num_of_rebel_armies = 1 }
+		NOT = { num_of_rebel_controlled_provinces = 1 }
+	}
+}

@@ -1,0 +1,630 @@
+namespace = incident_EDG_Imperial_bulgaria_tax_event
+normal_or_historical_nations = yes
+country_event = {#讨论保加利亚税
+  id = incident_EDG_Imperial_bulgaria_tax_event.0
+  title = "incident_EDG_Imperial_bulgaria_tax_event.0.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.0.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#帝国成员生死与共。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.0.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_enable_Imperial_bulgaria_tax_tt
+    set_global_flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+    add_imperial_influence = 10
+  }
+  option = {#抗击保加利亚人是皇帝的任务。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.0.b"
+    ai_chance = {
+      factor = 10
+    }
+    #set_global_flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+    custom_tooltip = EDG_unable_Imperial_bulgaria_tax_tt
+    add_imperial_influence = -10
+    
+  }
+}
+country_event = {#保加利亚人威胁帝国
+  id = incident_EDG_Imperial_bulgaria_tax_event.1
+  title = "incident_EDG_Imperial_bulgaria_tax_event.1.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.1.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    #always = no
+	NOT = { active_imperial_incident = any }
+	is_emperor = yes
+	OR = {
+		#emperor = { ai = no }
+		AND = {
+			BU1 = { is_great_power = yes total_development = 500 }
+			any_country = {
+				is_part_of_hre = yes
+				OR = {
+					is_neighbor_of = BU1
+				}
+			}
+		}
+		AND = {
+			BUL = { is_great_power = yes total_development = 500 }
+			any_country = {
+				is_part_of_hre = yes
+				OR = {
+					is_neighbor_of = BUL
+				}
+			}
+		}
+	}
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#帝国的危机已经迫在眉睫。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+	set_imperial_incident = incident_bulgaria_tax
+	custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_1_tt
+    
+  }
+}
+
+country_event = {#皇帝要求征收保加利亚税
+  id = incident_EDG_Imperial_bulgaria_tax_event.2
+  title = "incident_EDG_Imperial_bulgaria_tax_event.2.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.2.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  immediate = {
+		hidden_effect = {
+			export_to_variable = {
+				which = money_to_transfer
+				value = years_of_income
+				who = ROOT
+			}
+			multiply_variable = {
+				which = money_to_transfer
+				value = 0.1
+			}
+      change_variable = {
+        which = money_to_transfer
+        value = 1
+      }
+			set_variable = {
+				which = money_to_transfer_info
+				which = money_to_transfer
+			}
+		}
+  }
+  option = {#帝国成员必须同生死。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.2.a"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 3
+        has_global_flag = EDG_HAB_mission_1_22_tt_flag
+        capital_scope = { region = italy_region }
+      }
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.2
+        has_opinion = {
+          who = emperor
+          value = 10
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 50
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 100
+        }
+      }
+      modifier = {
+        factor = 3
+        has_opinion = {
+          who = emperor
+          value = 150
+        }
+      }
+      modifier = {
+        factor = 3
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 10
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 50
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 4
+        }
+      }
+      modifier = {
+        factor = 2
+        emperor = {
+          diplomatic_reputation = 6
+        }
+      }
+      modifier = {
+        factor = 2
+        emperor = {
+          diplomatic_reputation = 8
+        }
+      }
+      modifier = {
+        factor = 3
+        emperor = {
+          diplomatic_reputation = 10
+        }
+      }
+      modifier = {
+        factor = 2
+        emperor = {
+          NOT = { army_size = 10 }
+        }
+        NOT = {
+          military_strength = {
+            who = emperor
+            value = 1.0
+          }
+        }
+      }
+    }
+    trigger = {
+      NOT = { has_global_flag = incident_EDG_Imperial_bulgaria_tax_event_3_global_flag }
+    }
+    custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_2_a_tt
+    incident_EDG_Imperial_good_prince_effect = yes
+    emperor = {
+      add_trust = {
+        who = ROOT
+        value = 5
+        #mutual = yes
+      }
+    }
+    transfer_treasury = {
+      custom_tooltip = flavor_rus.295.a.tt
+      giver = ROOT
+      taker = FROM
+      variable = money_to_transfer
+    }
+    set_country_flag = EDG_bulgaria_tax_taxed_country_flag
+
+    hidden_effect = {
+      if = {
+        limit = {
+          NOT = { ruler_has_personality = babbling_buffoon_personality }  
+          NOT = { ruler_has_personality = drunkard_personality }
+          NOT = { ruler_has_personality = cruel_personality }
+          NOT = { ruler_has_personality = greedy_personality }
+        }
+        random_list = {
+          1 = {
+            emperor = {
+              country_event = { id = EDG_flavorHRE.3 }
+            }
+          }
+          
+          99 = {  }
+        }
+      }
+    }
+  }
+
+  option = {#我们不敢违背皇帝。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.2.b"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+      modifier = {
+        factor = 1.2
+        has_opinion = {
+          who = emperor
+          value = 10
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 50
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 100
+        }
+      }
+      modifier = {
+        factor = 1.5
+        has_opinion = {
+          who = emperor
+          value = 150
+        }
+      }
+      modifier = {
+        factor = 3
+        has_opinion = {
+          who = emperor
+          value = 180
+        }
+      }
+      modifier = {
+        factor = 5
+        alliance_with = emperor
+      }
+      modifier = {
+        factor = 5
+        is_league_friend = emperor
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 2
+        }
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 4
+        }
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 6
+        }
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 8
+        }
+      }
+      modifier = {
+        factor = 1.5
+        emperor = {
+          diplomatic_reputation = 10
+        }
+      }
+      modifier = {
+        factor = 2
+        emperor = {
+          NOT = { army_size = 10 }
+        }
+        NOT = {
+          military_strength = {
+            who = emperor
+            value = 1.0
+          }
+        }
+      }
+    }
+    custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_2_a_tt
+    incident_EDG_Imperial_good_prince_effect = yes
+    add_opinion = {
+      who = emperor
+      modifier = opinion_EDG_HRE_Require_to_fulfill_obligations
+    }
+    
+		transfer_treasury = {
+			custom_tooltip = flavor_rus.295.a.tt
+			giver = ROOT
+			taker = FROM
+			variable = money_to_transfer
+		}
+    set_country_flag = EDG_bulgaria_tax_taxed_country_flag
+
+
+  }
+
+  option = {#抗击保加利亚人是皇帝的任务。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.2.c"
+    ai_chance = {
+      factor = 10
+			modifier = {
+			  factor = 2
+			  is_at_war = yes
+			}
+			modifier = {
+			  factor = 2
+			  is_in_deficit = yes
+			}
+			modifier = {
+			  factor = 2
+			  num_of_loans = 5
+			}
+      modifier = {
+        factor = 2
+        NOT = {
+          has_opinion = {
+            who = emperor
+            value = -20
+          }
+        }
+      }
+      modifier = {
+        factor = 15
+        NOT = {
+          has_opinion = {
+            who = emperor
+            value = -50
+          }
+        }
+      }
+      modifier = {
+        factor = 50
+        NOT = {
+          has_opinion = {
+            who = emperor
+            value = -100
+          }
+        }
+      }
+      modifier = {
+        factor = 0
+        is_subject_of = emperor
+      }
+      modifier = {
+        factor = 0.75
+        emperor = {
+          prestige = 50
+        }
+      }
+      modifier = {
+        factor = 1.25
+        emperor = {
+          NOT = { army_size = 10 }
+        }
+        military_strength = {
+          who = emperor
+          value = 5.0
+        }
+      }
+      modifier = {
+        factor = 10
+        is_in_deficit = yes
+      }
+      modifier = {
+        factor = 10
+        is_at_war = yes
+      }
+      modifier = {
+        factor = 1000
+        is_bankrupt = yes
+      }
+    }
+    incident_EDG_Imperial_crap_prince_effect = yes
+    hidden_effect = {
+      if = {
+        limit = {
+          OR = {
+            ruler_has_personality = babbling_buffoon_personality
+            ruler_has_personality = drunkard_personality
+          }
+        }
+        random_list = {
+          1 = {
+            emperor = {
+              country_event = { id = EDG_flavorHRE.2 }
+            }
+          }
+          99 = {  }
+        }
+      }
+    }
+  }
+
+  option = {#我们是免税诸侯。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.2.e"
+    ai_chance = {
+      factor = 1000
+    }
+    trigger = {
+      has_country_flag = EDG_HRE_tax_duty_free_princes_flag
+    }
+    custom_tooltip = EDG_HRE_tax_duty_free_princes_tt
+    add_opinion = {
+      who = emperor
+      modifier = opinion_EDG_HRE_relief_from_obligation
+    }
+
+    
+  }
+  after = {
+    set_country_flag = EDG_bulgaria_tax_taxing_country_flag
+  }
+}
+
+country_event = {#保加利亚税性质的改变
+  id = incident_EDG_Imperial_bulgaria_tax_event.3
+  title = "incident_EDG_Imperial_bulgaria_tax_event.3.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.3.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = { 
+    is_emperor = yes
+    has_global_flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+		had_global_flag = {
+			flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+			days = 18250
+		}
+    BU1 = {
+      OR = {
+        exists = no
+        NOT = { total_development = 300 }
+      }
+    }
+    BUL = {
+      OR = {
+        exists = no
+        NOT = { total_development = 300 }
+      }
+    }
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#任何制度都具有惯性。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_3_a_tt
+    set_global_flag = incident_EDG_Imperial_bulgaria_tax_event_3_global_flag
+
+  }
+
+}
+country_event = {#保加利亚税征收完成
+  id = incident_EDG_Imperial_bulgaria_tax_event.4
+  title = "incident_EDG_Imperial_bulgaria_tax_event.4.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.4.d"
+  picture = HRE_eventPicture
+  #major = yes
+  #fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = {  
+    is_emperor = yes
+    always = no
+    has_global_flag = EDG_bulgaria_tax_taxing_global_flag
+		all_country = {
+			OR = {
+				NOT = { is_part_of_hre = yes }
+				AND = {
+					is_part_of_hre = yes
+					has_country_flag = EDG_bulgaria_tax_taxing_country_flag
+				}
+			}
+		}
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#太好了！
+    name = "incident_EDG_Imperial_bulgaria_tax_event.4.a"
+    ai_chance = {
+      factor = 10
+    }
+    every_country = {
+       limit = {
+        has_country_flag = EDG_bulgaria_tax_taxed_country_flag
+       }
+       custom_tooltip = flavor_rus.296.a.tt
+    }
+
+    hidden_effect = {
+      set_variable = {
+        which = bulgaria_tax_moneyGrain
+        value = 0
+      }
+      clr_global_flag = EDG_bulgaria_tax_taxing_global_flag
+      every_country = {
+        limit = {
+          has_country_flag = EDG_bulgaria_tax_taxing_country_flag
+        }
+        clr_country_flag = EDG_bulgaria_tax_taxing_country_flag
+        clr_country_flag = EDG_bulgaria_tax_taxed_country_flag
+      }
+    }
+  }
+
+}
+
+
+country_event = {#诸侯要求取消保加利亚税
+  id = incident_EDG_Imperial_bulgaria_tax_event.5
+  title = "incident_EDG_Imperial_bulgaria_tax_event.5.t"
+  desc = "incident_EDG_Imperial_bulgaria_tax_event.5.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  #is_triggered_only = yes
+  trigger = { 
+    is_emperor = yes
+    has_global_flag = incident_EDG_Imperial_bulgaria_tax_event_3_global_flag
+		had_global_flag = {
+			flag = incident_EDG_Imperial_bulgaria_tax_event_3_global_flag
+			days = 9125
+		}
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#有这个必要吗？
+    name = "incident_EDG_Imperial_bulgaria_tax_event.5.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_5_a_tt
+    add_imperial_influence = -10
+  }
+  option = {#我们必须聆听诸侯的意见。
+    name = "incident_EDG_Imperial_bulgaria_tax_event.5.b"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = incident_EDG_Imperial_bulgaria_tax_event_5_b_tt
+    clr_global_flag = EDG_enable_Imperial_bulgaria_tax_global_flag
+
+  }
+
+}

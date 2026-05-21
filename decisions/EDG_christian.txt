@@ -1,0 +1,139 @@
+country_decisions = {
+	become_EDG_catharism = {
+		major = yes
+		potential = {
+			NOT = { religion = EDG_catharism }
+			NOT = { tag = PAP }
+			any_owned_province = {
+				religion = EDG_catharism
+			}
+			religion_group = christian
+			is_emperor = no
+			is_lesser_in_union = no
+		}
+		allow = {
+			religion_enforced = no
+			dominant_religion = EDG_catharism
+			stability = 1
+			NOT = { has_country_modifier = EDG_WG_superiority_Holy_Roman_Invasion_tag_modifier }
+		}
+		effect = {
+			add_reform_desire = 0.025
+			change_religion = EDG_catharism
+			if = {
+				limit = {
+					has_reform = EDG_Norman_Monarchy
+				}
+				add_stability = 1
+			}
+			else = {
+				add_stability = -3
+				add_prestige = -100
+			}
+			remove_country_modifier = counter_reformation
+			remove_country_modifier = the_statue_in_restraint_of_appeals
+			remove_country_modifier = revocation_of_restraint_of_appeals
+			remove_country_modifier = bavarian_jesuits
+			remove_country_modifier = the_societas_jesu
+			remove_country_modifier = the_declaration_of_indulgence
+			remove_country_modifier = de_heretico_comburendo
+			remove_country_modifier = the_conventicle_act
+			add_country_modifier = {
+				name = "conversion_zeal"
+				duration = 3650
+			}
+			every_known_country = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_demote_pope
+					}
+				}
+				reverse_remove_opinion = {
+					who = ROOT
+					modifier = opinion_demote_pope
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				religion = catholic
+				government = theocracy
+			}	
+		}
+	}
+	
+	
+	EDG_catharism_become_protestant = {
+		major = yes
+		potential = {
+			religion = EDG_catharism
+			NOT = { tag = PAP }
+			OR = {
+				is_religion_enabled = protestant
+				is_religion_enabled = reformed
+			}
+			religion_group = christian
+			is_emperor = no
+			is_lesser_in_union = no
+		}
+		allow = {
+			religion_enforced = no
+		}
+		effect = {
+			add_reform_desire = 0.05
+			every_owned_province = {
+			  limit = {
+				religion = EDG_catharism
+			  }
+			  change_religion = protestant
+			}
+			change_religion = protestant
+			add_stability = 1
+			remove_country_modifier = counter_reformation
+			remove_country_modifier = the_statue_in_restraint_of_appeals
+			remove_country_modifier = revocation_of_restraint_of_appeals
+			remove_country_modifier = bavarian_jesuits
+			remove_country_modifier = the_societas_jesu
+			remove_country_modifier = the_declaration_of_indulgence
+			remove_country_modifier = de_heretico_comburendo
+			remove_country_modifier = the_conventicle_act
+			add_country_modifier = {
+				name = "conversion_zeal"
+				duration = 3650
+			}
+			every_known_country = {
+				limit = {
+					reverse_has_opinion_modifier = {
+						who = ROOT
+						modifier = opinion_demote_pope
+					}
+				}
+				reverse_remove_opinion = {
+					who = ROOT
+					modifier = opinion_demote_pope
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+			modifier = {
+				factor = 0
+				OR = {
+					has_global_flag = EDG_AEL_mission__alliance_global_flag
+					has_global_flag = EDG_AEL_mission_Aix_parliament_flag
+					overlord = {
+						religion = EDG_catharism
+					}
+					any_country = {
+						is_great_power = yes
+						religion = EDG_catharism
+					}
+				}
+			}	
+		}
+	}
+	
+}

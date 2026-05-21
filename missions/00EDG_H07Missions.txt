@@ -1,0 +1,2014 @@
+EDG_H07_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = H07
+			AND = {
+				tag = H10
+				was_tag = H07
+			}
+			AND = {
+				tag = GER
+				was_tag = H07
+			}
+		}
+
+	} 
+
+	EDG_H07_mission_1_2 = {
+		icon = crusader_fleet
+		position = 2
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_H07_mission_2_1.condition.tt
+				has_country_flag = EDG_weimar_come_as_lightning
+			}
+			num_of_ports = 1
+			navy_size = 10
+			is_at_war = no
+			is_subject = no
+			dip_power_cost = 500
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_weimar_events.62
+			}
+			dip_power_cost = 500
+		} 
+	}
+
+	EDG_H07_mission_1_4 = {
+		icon = all_bases_covered
+		position = 4
+		required_missions = { EDG_H07_mission_2_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 3
+            has_adm_advisor = yes
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.6 }
+		} 
+	}
+
+	EDG_H07_mission_1_5 = {
+		icon = purely_for_commerce
+		position = 5
+		required_missions = {
+			EDG_H07_mission_1_4
+			EDG_H07_mission_2_4
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = COB
+				province_id = 4716
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					ai = yes
+				}
+				always = no
+			}
+			OR = {
+				AND = {
+					COB = {
+						owns = 4716
+					}
+					OR = {
+						has_opinion = {
+							who = COB
+							value = 150
+						}
+						is_core = 4716
+					}
+					treasury = 150
+				}
+				owns = 4716
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_1_5.tt
+			if = {
+				limit = { 
+					exists = COB
+					NOT = {
+						owns = 4716
+					}
+				}
+				country_event = { id = EDG_weimar_events.10 }
+				
+			}
+			else = {
+				if = {
+					limit = { 
+						owns = 4716
+					}
+					country_event = {
+						id = EDG_weimar_events.16
+						days = 730
+						random = 1095
+					}	
+				}
+				add_prestige_or_monarch_power = { amount = 20 }
+			}
+			
+            #custom_tooltip = edg_weimar_buying_lands_tt
+            
+		} 
+	}
+
+	EDG_H07_mission_1_7 = {
+		icon = mission_ottoman_law
+		position = 7
+		required_missions = { EDG_H07_mission_2_6 } 
+		provinces_to_highlight = {
+			area = hesse_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			owns = 1876
+			num_of_owned_provinces_with = {
+				area = hesse_area
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_1_7.tt
+			country_event = { id = EDG_weimar_events.23 }
+		} 
+	}
+
+	EDG_H07_mission_1_8 = {
+		icon = mission_cannons_firing
+		position = 8
+		required_missions = {
+			EDG_H07_mission_1_7
+			EDG_H07_mission_2_7
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = westphalia_area
+					NOT = {
+						owned_by = root
+					}
+				}
+				province_id = 2971
+			}
+		} 
+
+		trigger = {
+			owns = 2971
+			westphalia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_1_8.effect.tt
+			country_event = { id = EDG_weimar_events.35 }
+			add_mil_power = 100
+			add_prestige_or_monarch_power = { amount = 25 }
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						area = westphalia_area
+					}
+					every_neighbor_province = {
+						limit = {
+							NOT = {
+								owned_by = root
+							}
+							NOT = {
+								is_core = root
+							}
+							NOT = {
+								has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+							}
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_agitate_the_bottom
+							duration = 7300
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_H07_mission_1_9 = {
+		icon = brest_dockyards
+		position = 9
+		required_missions = { EDG_H07_mission_3_8 } 
+		provinces_to_highlight = {
+            area = north_westphalia_area
+			NOT = {
+				owned_by = root
+			}
+        }
+        trigger = {
+			num_of_owned_provinces_with = {
+				area = north_westphalia_area 
+				value = 3
+			}
+        }
+
+		effect = {
+			country_event = { id = EDG_weimar_events.36 }
+		} 
+	}
+
+	EDG_H07_mission_1_10 = {
+		icon = mission_eyalet_crisis
+		position = 10
+		required_missions = { EDG_H07_mission_1_9 } 
+		provinces_to_highlight = {
+			area = north_rhine_area
+			OR = {
+				NOT = {
+					owned_by = root
+				}
+				NOT = {
+					has_fort_building_trigger = yes
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				area = north_rhine_area
+				has_fort_building_trigger = yes
+				value = 3
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.44 }
+			north_rhine_area = {
+				limit = {
+					has_fort_building_trigger = yes
+				}
+				upgrade_fort_building = yes
+			}
+		} 
+	}
+
+	EDG_H07_mission_1_12 = {
+		icon = mission_among_the_great_powers
+		position = 12
+		required_missions = { EDG_H07_mission_2_11 } 
+		provinces_to_highlight = {
+			area = franconia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			franconia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_1_12.tt
+			country_event = { id = EDG_weimar_events.30 }
+		} 
+	}
+
+	EDG_H07_mission_1_13 = {
+		icon = mission_imperial_cities
+		position = 13
+		required_missions = { EDG_H07_mission_1_12 } 
+		provinces_to_highlight = { 
+			area = palatinate_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			palatinate_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.41 }
+		} 
+	}
+}
+EDG_H07_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = H07
+			AND = {
+				tag = H10
+				was_tag = H07
+			}
+			AND = {
+				tag = GER
+				was_tag = H07
+			}
+		}
+
+	} 
+
+	EDG_H07_mission_2_1 = {
+		icon = mission_assemble_an_army
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_H07_mission_2_1.condition.tt
+				has_country_flag = EDG_weimar_come_as_lightning
+			}
+			mission_completed = EDG_H07_mission_4_4
+			is_at_war = no
+			is_subject = no
+			army_size = 20
+			mil_power_cost = 500
+		} 
+
+		effect = {
+			mil_power_cost = 500
+			add_country_modifier = {
+				name = EDG_army_enthusiasm_11_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_H07_mission_2_3 = {
+		icon = mission_the_sudebnik
+		position = 3
+		required_missions = { EDG_H07_mission_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_subject = no
+			stability = 1
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.58 }
+			country_event = { id = EDG_weimar_events.4 }
+		} 
+	}
+
+	EDG_H07_mission_2_4 = {
+		icon = prosperity_for_all
+		position = 4
+		required_missions = { EDG_H07_mission_2_3 } 
+		provinces_to_highlight = {
+			province_id = 4743
+			owned_by = root
+			NOT = {
+				num_of_times_improved = 5
+			}
+		} 
+
+		trigger = {
+            4743 = {
+                owned_by = root
+                num_of_times_improved = 5
+            }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_2_4.tt
+			country_event = { id = EDG_weimar_events.7 }
+		} 
+	}
+
+	EDG_H07_mission_2_6 = {
+		icon = fra_refine_bombards
+		position = 6
+		required_missions = { EDG_H07_mission_3_5 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 63
+					NOT = {
+						owned_by = root
+					}
+				}
+				owned_by = SAX
+			}
+		} 
+
+		trigger = {
+			owns = 63
+			if = {
+				limit = { 
+					exists = SAX
+					is_subject = no
+				}
+				SAX = {
+					has_spy_network_from = {
+						who = root
+						value = 25
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.18 }
+            #custom_tooltip = edg_weimar_buying_west_more_2_tt
+		} 
+	}
+
+	EDG_H07_mission_2_7 = {
+		icon = mission_advance_to_the_dnieper
+		position = 7
+		required_missions = { EDG_H07_mission_2_6 } 
+		provinces_to_highlight = {
+			province_id = 4773
+		} 
+
+		trigger = {
+			4773 = {
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_2_7.tt
+			country_event = { id = EDG_weimar_events.15 }
+		} 
+	}
+
+	EDG_H07_mission_2_9 = {
+		icon = mission_polynesian_grand_navy
+		position = 9
+		required_missions = { EDG_H07_mission_3_8 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					capital_scope = {
+						region = south_german_region
+					}
+					has_spy_network_from = {
+						who = root
+						value = 25
+					}
+				}
+				amount = 3
+			}
+			mil_power_cost = 50
+		} 
+
+		effect = {
+			mil_power_cost = 50
+			EDG_add_claim = { area = upper_franconia_area }
+			EDG_add_claim = { area = franconia_area }
+			EDG_add_claim = { area = palatinate_area }
+			EDG_add_claim = { area = lower_bavaria_area }
+			EDG_add_claim = { area = east_bavaria_area }
+			EDG_add_claim = { area = upper_bavaria_area }
+			EDG_add_claim = { area = upper_swabia_area }
+			EDG_add_claim = { area = lower_swabia_area }
+			EDG_add_claim = { area = upper_rhineland_area }
+			#EDG_add_claim = { area = alsace_area }
+		} 
+	}
+
+	EDG_H07_mission_2_11 = {
+		icon = spa_spanish_road
+		position = 11
+		required_missions = { EDG_H07_mission_2_9 } 
+		provinces_to_highlight = {
+			OR = {
+				area = franconia_area
+				area = upper_franconia_area
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR  = {
+					area = franconia_area
+					area = upper_franconia_area
+				}
+				value = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_2_11.tt
+			country_event = { id = EDG_weimar_events.24 }
+		} 
+	}
+
+	EDG_H07_mission_2_12 = {
+		icon = mission_hands_praying
+		position = 12
+		required_missions = { EDG_H07_mission_2_11 } 
+		provinces_to_highlight = {
+			area = upper_franconia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			upper_franconia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_2_12.tt
+			country_event = { id = EDG_weimar_events.31 }
+		} 
+	}
+
+	EDG_H07_mission_2_13 = {
+		icon = duchy_of_bavaria
+		position = 13
+		required_missions = { EDG_H07_mission_2_12 } 
+		provinces_to_highlight = {
+			OR = {
+                area = lower_bavaria_area
+                area = upper_bavaria_area
+				area = east_bavaria_area
+            }
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					area = lower_bavaria_area
+					area = upper_bavaria_area
+					area = east_bavaria_area
+				}
+				value = 7
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.39 }
+		} 
+	}
+
+	EDG_H07_mission_2_14 = {
+		icon = kingdom_of_cyprus
+		position = 14
+		required_missions = {
+			EDG_H07_mission_3_13
+			EDG_H07_mission_2_13
+			EDG_H07_mission_1_13
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = north_german_region
+				region = south_german_region
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+				value = 45
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.42 }
+		} 
+	}
+}
+EDG_H07_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = H07
+			AND = {
+				tag = H10
+				was_tag = H07
+			}
+			AND = {
+				tag = GER
+				was_tag = H07
+			}
+		}
+
+	} 
+
+	EDG_H07_mission_3_1 = {
+		icon = mission_steppe_warriors
+		position = 1
+		provinces_to_highlight = {
+			owner = {
+				overlord_of = root
+			}
+		} 
+
+		trigger = {
+			OR = {
+				is_subject = no
+				overlord = {
+					has_spy_network_from = {
+						who = root
+						value = 25
+					}
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_weimar_events.3
+			}
+		} 
+	}
+
+	EDG_H07_mission_3_2 = {
+		icon = mission_end_the_sound_toll
+		position = 2
+		required_missions = { EDG_H07_mission_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					is_subject = yes
+				}
+				army_size_percentage = 1
+				OR = {
+					liberty_desire = 50
+					overlord = {
+						is_at_war = yes
+					}
+				}
+			}
+			else = {
+				mil_power_cost = 100
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					is_subject = yes
+				}
+				country_event = {
+					id = EDG_weimar_events.2
+				}
+			}
+			else = {
+				custom_tooltip = EDG_weimar_events.2.aa.tt
+				add_government_reform = h07_weimar_republic_government
+				mil_power_cost = 100
+				add_treasury = 100
+				add_adm_power = 50
+				add_dip_power = 50
+				add_manpower = 10
+				add_country_modifier = {
+					name = EDG_H07_modifier_1 ##重获自由
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						war_with = root
+					}
+					white_peace = root
+				}
+			}
+		} 
+	}
+
+	EDG_H07_mission_3_5 = {
+		icon = lead_the_empire
+		position = 5
+		required_missions = {
+			EDG_H07_mission_2_4
+			EDG_H07_mission_4_4
+		}
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+            is_at_war = no
+			emperor = {
+				OR = {
+					has_opinion = {
+						who = root
+						value = 50
+					}
+					NOT = {
+						has_opinion = {
+							who = root
+							value = -50
+						}
+					}
+				}
+			}
+            
+		} 
+
+		effect = {
+			change_technology_group = EDG_Peasant_groups
+            change_unit_type = EDG_Peasant_groups
+			custom_tooltip = EDG_H07_mission_3_5.tt
+			custom_tooltip = EDG_H07_mission_3_5.effect.tt
+			country_event = { id = EDG_weimar_events.11 }
+			hidden_effect = {
+				every_neighbor_province = {
+					limit = {
+						NOT = {
+							has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+						}
+						NOT = {
+							is_core = root
+						}
+					}
+					add_province_modifier = {
+						name = EDG_FOI_UCI_agitate_the_bottom
+						duration = 7300
+					}
+				}
+				every_province = {
+					limit = {
+						has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+					}
+					every_neighbor_province = {
+						limit = {
+							NOT = {
+								has_province_modifier = EDG_FOI_UCI_agitate_the_bottom
+							}
+							NOT = {
+								is_core = root
+							}
+						}
+						add_province_modifier = {
+							name = EDG_FOI_UCI_agitate_the_bottom
+							duration = 7300
+						}
+					}
+				}
+			}
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+		} 
+	}
+
+	EDG_H07_mission_3_8 = {
+		icon = EDG_ICON_forge
+		position = 8
+		required_missions = { EDG_H07_mission_3_5 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_cities = 12
+			OR = {
+				army_size = 20
+				army_size_percentage = 1
+			}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		} 
+
+		effect = {
+			add_yearly_manpower = 5
+			add_years_of_income = 3
+			add_country_modifier = {
+				name = edg_weimar_broaden_the_front
+				duration = 18250
+			}
+		} 
+	}
+
+	EDG_H07_mission_3_10 = {
+		icon = mission_plc_edict_education
+		position = 10
+		required_missions = {
+			EDG_H07_mission_4_9
+			EDG_H07_mission_2_9
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+            is_at_war = no
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 60
+			}
+			government_reform_progress = 100
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_3_10.tt
+			country_event = { id = EDG_weimar_events.27 }
+			adm_power_cost = 100
+			dip_power_cost = 100
+			mil_power_cost = 100
+			change_government_reform_progress = -100
+		} 
+	}
+
+	EDG_H07_mission_3_11 = {
+		icon = become_king
+		position = 11
+		required_missions = { EDG_H07_mission_3_10 } 
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			OR = {
+				num_of_cities = emperor
+				army_size = emperor
+				is_in_war = {
+					attacker_leader = root
+					defender_leader = emperor
+					war_score = 25
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_3_11.tt
+			country_event = { id = EDG_weimar_events.34 }
+		} 
+	}
+
+	EDG_H07_mission_3_13 = {
+		icon = humiliate_austria
+		position = 13
+		required_missions = { EDG_H07_mission_3_11 } 
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			is_in_war = {
+				attacker_leader = root
+				defender_leader = emperor
+				war_score = 80
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_3_13.tt
+			country_event = { id = EDG_weimar_events.40 }
+			#EDG_add_claim = { area = switzerland_area }
+			#EDG_add_claim = { area = romandie_area }
+		} 
+	}
+
+	EDG_H07_mission_3_15 = {
+		icon = a_real_roman_empire
+		position = 15
+		required_missions = {
+			EDG_H07_mission_4_14
+			EDG_H07_mission_2_14
+		}
+		provinces_to_highlight = {
+			if = {
+                limit = {
+                    ROOT = {
+                        has_country_flag = edg_weimar_mini_deutscheland
+                    }
+                }
+                OR = {
+                    area = hinter_pommern_area
+                    area = vorpommern_area
+                    area = neumark_area
+                    area = mittelmark_area
+                    area = mecklenburg_area
+                    area = holstein_area
+                    area = lower_saxony_area
+                    area = weser_area
+                    area = north_westphalia_area
+                    area = braunschweig_area
+                    area = westphalia_area
+                    area = north_rhine_area
+                    area = lower_rhineland_area
+                    area = hesse_area
+                    area = palatinate_area
+                    area = upper_rhineland_area
+                    area = lower_swabia_area
+                    area = upper_swabia_area
+                    area = upper_bavaria_area
+                    area = east_bavaria_area
+                    area = lower_bavaria_area
+                    area = franconia_area
+                    area = upper_franconia_area
+                    area = thuringia_area
+                    area = northern_saxony_area
+                    area = south_saxony_area
+                    area = lusatia_area
+                    area = silesia_area
+                }
+            }
+            else = {
+                OR = {
+                    area = hinter_pommern_area
+                    area = vorpommern_area
+                    area = neumark_area
+                    area = mittelmark_area
+                    area = mecklenburg_area
+                    area = holstein_area
+                    area = lower_saxony_area
+                    area = weser_area
+                    area = north_westphalia_area
+                    area = braunschweig_area
+                    area = westphalia_area
+                    area = north_rhine_area
+                    area = lower_rhineland_area
+                    area = hesse_area
+                    area = palatinate_area
+                    area = upper_rhineland_area
+                    area = lower_swabia_area
+                    area = upper_swabia_area
+                    area = upper_bavaria_area
+                    area = east_bavaria_area
+                    area = lower_bavaria_area
+                    area = franconia_area
+                    area = upper_franconia_area
+                    area = thuringia_area
+                    area = northern_saxony_area
+                    area = south_saxony_area
+                    area = lusatia_area
+                    area = silesia_area
+                    area = tirol_area
+                    area = austria_proper_area
+                    area = inner_austria_area
+                }
+            }
+		} 
+
+		trigger = {
+			if = {
+                limit = {
+                    ROOT = {
+                        has_country_flag = edg_weimar_mini_deutscheland
+                    }
+                }
+				hinter_pommern_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				vorpommern_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				neumark_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				mittelmark_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				holstein_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				weser_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				north_westphalia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				braunschweig_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				westphalia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				north_rhine_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_rhineland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				hesse_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				palatinate_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_rhineland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_swabia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_swabia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				east_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				franconia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_franconia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				thuringia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				northern_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				south_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lusatia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				silesia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+                
+            }
+            else = {
+                hinter_pommern_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				vorpommern_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				neumark_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				mittelmark_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				holstein_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				weser_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				north_westphalia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				braunschweig_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				westphalia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				north_rhine_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_rhineland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				hesse_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				palatinate_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_rhineland_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_swabia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_swabia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				east_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lower_bavaria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				franconia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				upper_franconia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				thuringia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				northern_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				south_saxony_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				lusatia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				silesia_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				tirol_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				austria_proper_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+				inner_austria_area = {
+					type = all
+					country_or_non_sovereign_subject_holds = root
+				}
+            }
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.45 }
+		} 
+	}
+}
+EDG_H07_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = H07
+			AND = {
+				tag = H10
+				was_tag = H07
+			}
+			AND = {
+				tag = GER
+				was_tag = H07
+			}
+		}
+
+	} 
+
+	EDG_H07_mission_4_1 = {
+		icon = mission_consulate_of_the_sea
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_H07_mission_2_1.condition.tt
+				has_country_flag = EDG_weimar_come_as_lightning
+			}
+			mission_completed = EDG_H07_mission_4_4
+			is_at_war = no
+			is_subject = no
+			num_of_cities = 12
+			adm_power_cost = 500
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.65 }
+			adm_power_cost = 500
+
+		} 
+	}
+
+	EDG_H07_mission_4_3 = {
+		icon = mission_thirty_years_war
+		position = 3
+		required_missions = { EDG_H07_mission_3_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_generals = 2
+			is_subject = no
+			calc_true_if = {
+				all_neighbor_country = {
+					is_subject = no
+					has_spy_network_from = {
+						who = root
+						value = 25
+					}
+				}
+				amount = 2
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.5 }
+		} 
+	}
+
+	EDG_H07_mission_4_4 = {
+		icon = protect_against_austria
+		position = 4
+		required_missions = { EDG_H07_mission_4_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			has_mil_advisor = yes
+			OR = {
+				army_size_percentage = 1
+				army_size = 10
+			}
+			if = {
+				limit = { 
+					exists = MEI
+					MEI = {
+						is_subject = yes
+					}
+				}
+				MEI = {
+					overlord = {
+						has_spy_network_from = {
+							who = root
+							value = 25
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					exists = MEI
+					MEI = {
+						is_subject = no
+					}
+				}
+				MEI = {
+					has_spy_network_from = {
+						who = root
+						value = 25
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_4_4.tt ##完成该国策将允许我们开始军事改革
+			if = {
+				limit = { 
+					exists = MEI
+				}
+				custom_tooltip = EDG_H07_mission_4_4.effect.tt
+				hidden_effect = {
+					set_country_flag = EDG_H07_mission_4_4_flag
+				}
+			}
+			country_event = { id = EDG_weimar_events.8 }
+		} 
+	}
+
+	EDG_H07_mission_4_6 = {
+		icon = per_establish_eastern_defenses
+		position = 6
+		required_missions = { EDG_H07_mission_3_5 } 
+		provinces_to_highlight = {
+			OR = {
+				owner = {
+					owns = 62
+				}
+				province_id = 63
+			}
+		} 
+
+		trigger = {
+			owns = 63
+			62 = {
+				OR = {
+					owned_by = root
+					owner = {
+						has_spy_network_from = {
+							who = root
+							value = 25
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_4_6.tt
+			country_event = { id = EDG_weimar_events.14 }
+		} 
+	}
+
+	EDG_H07_mission_4_7 = {
+		icon = mission_the_gryf
+		position = 7
+		required_missions = { EDG_H07_mission_4_6 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = northern_saxony_area
+					NOT = {
+						owned_by = root
+					}
+				}
+				province_id = 4742
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				area = northern_saxony_area
+				value = 3
+			}
+			4742 = {
+				is_core = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.22 }
+		} 
+	}
+
+	EDG_H07_mission_4_9 = {
+		icon = helvetic_conquest
+		position = 9
+		required_missions = { EDG_H07_mission_3_8 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			dip_power_cost = 50
+			if = {
+				limit = {
+					exists = BOH
+					BOH = {
+						is_subject = yes
+						NOT = {
+							is_subject_of = root
+						}
+					}
+				}
+				BOH = {
+					overlord = {
+						has_spy_network_from = {
+							who = root
+							value = 30
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = { 
+					exists = BOH
+					BOH = {
+						is_subject = no
+					}
+				}
+				BOH = {
+					has_spy_network_from = {
+						who = root
+						value = 30
+					}
+				}
+			}
+		} 
+
+		effect = {
+			dip_power_cost = 50
+			EDG_add_claim = { area = lusatia_area }
+			EDG_add_claim = { area = silesia_area }
+			EDG_add_claim = { area = neumark_area }
+			EDG_add_claim = { area = hinter_pommern_area }
+		} 
+	}
+
+	EDG_H07_mission_4_11 = {
+		icon = mission_secure_khandesh
+		position = 11
+		required_missions = { EDG_H07_mission_4_9 } 
+		provinces_to_highlight = {
+			area = lusatia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			mission_completed = EDG_H07_mission_5_5
+			lusatia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.102 }
+		} 
+	}
+
+	EDG_H07_mission_4_12 = {
+		icon = mission_prussian_kaiserreich
+		position = 12
+		required_missions = { EDG_H07_mission_4_11 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = BRA
+				AND = {
+					area = neumark_area
+					NOT = {
+						owned_by = root
+					}
+				}
+				province_id = 50
+			}
+		} 
+
+		trigger = {
+			OR = {
+				NOT = {
+					exists = BRA
+				}
+				overlord_of = BRA
+			}
+			neumark_area = {
+				type = all
+                owned_by = root
+            }
+            50 = {
+                owned_by = root
+            }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_4_12.tt
+			country_event = { id = EDG_weimar_events.25 }
+		} 
+	}
+
+	EDG_H07_mission_4_13 = {
+		icon = end_the_habsburgs
+		position = 13
+		required_missions = { EDG_H07_mission_4_12 } 
+		provinces_to_highlight = {
+			area = hinter_pommern_area
+		} 
+
+		trigger = {
+			hinter_pommern_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.26 }
+		} 
+	}
+
+	EDG_H07_mission_4_14 = {
+		icon = conquer_east_francia
+		position = 14
+		required_missions = {
+			EDG_H07_mission_3_13
+			EDG_H07_mission_4_13
+			EDG_H07_mission_5_13
+		}
+		provinces_to_highlight = {
+			owned_by = root
+			NOT = {
+				region = north_german_region
+			}
+			NOT = {
+				region = south_german_region
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				NOT = {
+					region = north_german_region
+				}
+				NOT = {
+					region = south_german_region
+				}
+				value = 10
+			}
+			holstein_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.38 }
+		} 
+	}
+}
+EDG_H07_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		OR = {
+			tag = H07
+			AND = {
+				tag = H10
+				was_tag = H07
+			}
+			AND = {
+				tag = GER
+				was_tag = H07
+			}
+		}
+	} 
+
+	EDG_H07_mission_5_2 = {
+		icon = mission_luther_theses
+		position = 2
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_H07_mission_2_1.condition.tt
+				has_country_flag = EDG_weimar_come_as_lightning
+			}
+			is_at_war = no
+            is_religion_enabled = protestant
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_weimar_events.70
+			}
+		} 
+	}
+
+	EDG_H07_mission_5_4 = {
+		icon = the_ostend_company
+		position = 4
+		required_missions = { EDG_H07_mission_4_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_allies = 2
+			has_dip_advisor = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_5_4.effect.tt
+			hidden_effect = {
+				add_trust = {
+					who = root
+					value = 10
+				}
+				root = {
+					add_trust = {
+						who = prev
+						value = 10
+					}
+				}
+				every_ally = {
+					root = {
+						add_dip_power = 50
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_H07_mission_5_5 = {
+		icon = mission_trade_with_cathay
+		position = 5
+		required_missions = {
+			EDG_H07_mission_5_4
+			EDG_H07_mission_4_4
+		}
+		provinces_to_highlight = {
+			OR = {
+                province_id = 4744
+                province_id = 61
+                province_id = 8003
+                province_id = 8002
+            }
+		} 
+
+		trigger = {
+			owns = 4744
+			owns = 61
+			owns = 8003
+			owns = 8002
+			
+		} 
+
+		effect = {
+			custom_tooltip = edg_weimar_meisen_intro_5_4_tt
+			country_event = { id = EDG_weimar_events.12 }
+		} 
+	}
+
+	EDG_H07_mission_5_7 = {
+		icon = mission_knight
+		position = 7
+		required_missions = { EDG_H07_mission_4_6 } 
+		provinces_to_highlight = {
+			province_id = 62
+		} 
+
+		trigger = {
+			62 = {
+				OR = {
+					AND = {
+						controlled_by = root
+						is_core = root
+						NOT = {
+							owned_by = root
+						}
+						owner = {
+							root = {
+								is_in_war = {
+									attacker_leader = root
+									defender_leader = prev
+									war_score = 80
+								}
+							}
+						}
+					}
+					owned_by = root
+				}
+			}
+			
+			# OR = {
+			# 	AND = {
+			# 		62 = {
+			# 			controlled_by = root
+			# 			is_core = root
+			# 			NOT = {
+			# 				owned_by = root
+			# 			}
+			# 			owner = {
+			# 				root = {
+			# 					is_in_war = {
+			# 						attacker_leader = root
+			# 						defender_leader = prev
+			# 						war_score = 80
+			# 					}
+			# 				}
+			# 			}
+			# 		}
+			# 		59 = {
+			# 			controlled_by = root
+			# 			is_core = root
+			# 			NOT = {
+			# 				owned_by = root
+			# 			}
+			# 			owner = {
+			# 				root = {
+			# 					is_in_war = {
+			# 						attacker_leader = root
+			# 						defender_leader = prev
+			# 						war_score = 80
+			# 					}
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# 	AND = {
+			# 		owns = 62
+			# 		owns = 59
+			# 	}
+			# }
+		} 
+
+		effect = {
+			custom_tooltip = EDG_H07_mission_5_7.tt
+			if = {
+				limit = { 
+					62 = {
+						controlled_by = root
+						is_core = root
+						NOT = {
+							owned_by = root
+						}
+					}
+				}
+				country_event = { id = EDG_weimar_events.19 }
+			}
+            else = {
+				add_prestige_or_monarch_power = { amount = 25 }
+				add_manpower = 10
+				country_event = { id = EDG_weimar_events.106 }
+				hidden_effect = {
+					country_event = {
+						id = EDG_weimar_events.32
+						days = 1825
+						random = 365
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_H07_mission_5_8 = {
+		icon = mission_holy_horde
+		position = 8
+		required_missions = {
+			EDG_H07_mission_5_7
+			EDG_H07_mission_4_7
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						area = mecklenburg_area
+						area = vorpommern_area
+					}
+					has_port = yes
+					NOT = {
+						owned_by = root
+					}
+				}
+				province_id = 45
+			}
+		} 
+
+		trigger = {
+			owns = 45
+			num_of_owned_provinces_with = {
+				OR = {
+					area = mecklenburg_area
+					area = vorpommern_area
+				}
+				has_port = yes
+				value = 4
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.33 }
+		} 
+	}
+
+	EDG_H07_mission_5_9 = {
+		icon = mission_unite_home_region
+		position = 9
+		required_missions = { EDG_H07_mission_3_8 } 
+		provinces_to_highlight = {
+			owned_by = SAX
+		} 
+
+		trigger = {
+			OR = {
+				NOT = {
+					exists = SAX
+				}
+				overlord_of = SAX
+			}
+			num_of_owned_provinces_with = {
+				area = lower_saxony_area
+				value = 3
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.21 }
+		} 
+	}
+
+	EDG_H07_mission_5_10 = {
+		icon = secure_dejima
+		position = 10
+		required_missions = { EDG_H07_mission_5_9 } 
+		provinces_to_highlight = {
+			area = weser_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			weser_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.37 }
+		} 
+	}
+
+	EDG_H07_mission_5_12 = {
+		icon = gory_to_the_black_army
+		position = 12
+		required_missions = { EDG_H07_mission_4_11 } 
+		provinces_to_highlight = {
+			owner = {
+				owns = 4723
+			}
+		} 
+
+		trigger = {
+			4723 = {
+				if = {
+					limit = { 
+						owner = {
+							is_subject = yes
+						}
+						NOT = {
+							owned_by = root
+						}
+					}
+					owner = {
+						overlord = {
+							root = {
+								is_in_war = {
+									attacker_leader = root
+									defender_leader = prev
+									war_score = 75
+								}
+							}
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						owner = {
+							is_subject = no
+						}
+						NOT = {
+							owned_by = root
+						}
+					}
+					owner = {
+						root = {
+							is_in_war = {
+								attacker_leader = root
+								defender_leader = prev
+								war_score = 75
+							}
+						}
+					}
+				}
+				OR = {
+					AND = {
+						controlled_by = root
+						NOT = {
+							owned_by = root
+						}
+					}
+					owned_by = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 4723
+					}
+				}
+				custom_tooltip = EDG_H07_mission_5_12.tt
+				country_event = { id = EDG_weimar_events.13 }
+			}
+			else = {
+				add_treasury = -100
+				add_years_of_income = -5
+				silesia_area = {
+					add_core = root
+				}
+				add_prestige_or_monarch_power = { amount = 25 }
+			}
+		} 
+	}
+
+	EDG_H07_mission_5_13 = {
+		icon = mission_mansure_army
+		position = 13
+		required_missions = { EDG_H07_mission_5_12 } 
+		provinces_to_highlight = {
+			area = silesia_area
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				value = 60
+				area = silesia_area
+			}
+			silesia_area = {
+				type = all
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_weimar_events.20 }
+		} 
+	}
+}

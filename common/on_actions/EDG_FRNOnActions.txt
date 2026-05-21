@@ -1,0 +1,93 @@
+on_tech_taken = {
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_FRN_mission_1_12_flag
+			}
+		}
+		root = {
+			change_innovativeness = 3
+		}
+	}
+	if = {
+		limit = {
+			capital_scope = {
+				has_building = EDG_road_network
+			}
+			any_country = {
+				has_country_flag = EDG_FRN_mission_1_12_flag
+				NOT = {
+					tag = root
+				}
+			}
+		}
+		random_country = {
+			limit = {
+				has_country_flag = EDG_FRN_mission_1_12_flag
+			}
+			add_treasury = 1
+		}
+	}
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_FRN_mission_2_10_flag
+			}
+		}
+		every_country = {
+			limit = {
+				capital_scope = {
+					has_building = EDG_road_network
+				}
+			}
+			change_innovativeness = 1
+		}
+	}
+}
+on_mercenary_recruited = {
+	if = {
+		limit = {
+			ROOT = {
+				mercenary_company = merc_EDG_FRN_frankfurt_engineering_corps
+			}
+			FROM = {
+				NOT = {
+					tag = FRN
+				}
+			}
+		}
+		FROM = {
+			set_variable = {
+				which = EDG_FRN_cal_monthly_income
+				value = 0
+			}
+			export_to_variable = {
+				value = trigger_value:monthly_income
+				which = EDG_FRN_cal_monthly_income
+			}
+			multiply_variable = {
+				which = EDG_FRN_cal_monthly_income
+				value = 6
+			}
+			change_variable = {
+				which = EDG_FRN_cal_monthly_income
+				value = 100
+			}
+			set_country_flag = EDG_FRN_target_country_flag
+			FRN = {
+				set_variable = {
+					which = EDG_FRN_cal_monthly_income
+					which = prev
+				}
+				country_event = {
+					id = EDG_FRNEvents.502
+				}
+			}
+		}
+	}
+}
+on_yearly_pulse = {
+	events = {
+		EDG_FRNEvents.600
+	}
+}

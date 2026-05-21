@@ -1,0 +1,967 @@
+country_decisions = {
+
+  EDG_protestant_religion_decision_change_into_republic = {#改革为神权共和国
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_flag = EDG_protestant_religion_decision_change_into_republic_flag }
+      OR = { religion = protestant religion = reformed }
+      has_reform = leading_clergy_reform
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      has_reform = leading_clergy_reform
+    }
+    effect = {
+      change_government = republic
+      set_country_flag = EDG_protestant_religion_decision_change_into_republic_flag
+      add_government_reform = EDG_Theocratic_Republic_reform
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_1 = {#推行圣经译本
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_1_modifier }
+      OR = { religion = protestant religion = reformed }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      OR = {
+        adm_tech = 10
+        reform_desire = 1.25
+      }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_1_modifier }
+    }
+    effect = {
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_1_modifier
+        duration = -1
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_2 = {#没收天主教会土地
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_2_modifier }
+      OR = { religion = protestant religion = reformed }
+      has_estate = estate_church
+    }
+    allow = {
+      has_estate = estate_church
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_2_modifier }
+      OR = {
+        NOT = {
+          estate_influence = {
+            estate = estate_church
+            influence = 90
+          }
+        }
+        estate_loyalty = {
+          estate = estate_church
+          loyalty = 50
+        }
+      }
+    }
+    effect = {
+      add_years_of_income = 2.0
+      custom_tooltip = EDG_protestant_religion_decision_2_tt
+      hidden_effect = {
+        change_estate_land_share = {
+          estate = estate_church
+          share = -100
+        }
+        change_estate_land_share = {
+          estate = estate_church
+          share = 10
+        }
+      }
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_2_modifier
+        duration = 9125
+      }
+      
+      custom_tooltip = EDG_SPACE_TT
+			every_country = {
+				limit = {
+					religion = catholic
+					government = theocracy
+				}
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_protestant_religion_decision_2_opinion
+				}
+			}
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_3 = {#自我任命国家教会元首
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_3_modifier }
+      OR = { religion = protestant religion = reformed }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_3_modifier }
+      OR = {
+        adm = 3
+        monthly_adm = 10
+        has_adm_advisor_3 = yes
+      }
+      adm_power = 100
+    }
+    effect = {
+      add_adm_power = -100
+      add_prestige_or_monarch_power = { amount = 10 }
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_3_modifier
+        duration = -1
+      }
+
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_4_1 = {#帝国宗教立场：宽容
+		color = { 30 58 169 }
+    potential = {
+      religion_group = christian
+      is_part_of_hre = yes
+      is_religion_enabled = protestant
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_1_modifier }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_2_modifier }
+      has_global_flag = EDG_incident_worms_conference_event_1_global_flag
+      NOT = { has_country_flag = EDG_protestant_religion_decision_4_flag }
+      has_global_flag = EDG_incident_worms_conference_event_0_a_global_flag
+    }
+    allow = {
+      religion_group = christian
+      is_part_of_hre = yes
+      is_religion_enabled = protestant
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_1_modifier }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_2_modifier }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_worms_conference_event_0_a_global_flag_trigger_tt
+        has_global_flag = EDG_incident_worms_conference_event_0_a_global_flag
+      }
+    }
+    effect = {
+      set_country_flag = EDG_protestant_religion_decision_4_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_4_1_modifier
+        duration = 18250
+      }
+      every_country = {
+        limit = {
+          is_part_of_hre = yes
+          NOT = { religion = ROOT }
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = EDG_protestant_religion_decision_4_1_opinion_different
+        }
+      }
+      every_country = {
+        limit = {
+          is_part_of_hre = yes
+          religion = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = EDG_protestant_religion_decision_4_1_opinion_friends
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_4_2 = {#帝国宗教立场：冲突
+		color = { 30 58 169 }
+    potential = {
+      religion_group = christian
+      is_part_of_hre = yes
+      is_religion_enabled = protestant
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_1_modifier }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_2_modifier }
+      has_global_flag = EDG_incident_worms_conference_event_1_global_flag
+      NOT = { has_country_flag = EDG_protestant_religion_decision_4_flag }
+      has_global_flag = EDG_incident_worms_conference_event_0_a_global_flag
+    }
+    allow = {
+      religion_group = christian
+      is_part_of_hre = yes
+      is_religion_enabled = protestant
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_1_modifier }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_4_2_modifier }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_worms_conference_event_0_a_global_flag_trigger_tt
+        has_global_flag = EDG_incident_worms_conference_event_0_a_global_flag
+      }
+    }
+    effect = {
+      set_country_flag = EDG_protestant_religion_decision_4_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_4_2_modifier
+        duration = 18250
+      }
+      every_country = {
+        limit = {
+          is_part_of_hre = yes
+          NOT = { religion = ROOT }
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = EDG_protestant_religion_decision_4_2_opinion_different
+        }
+      }
+      every_country = {
+        limit = {
+          is_part_of_hre = yes
+          religion = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = EDG_protestant_religion_decision_4_2_opinion_friends
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+
+  EDG_protestant_religion_decision_5 = {#教堂张挂王室纹章
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_5_modifier }
+      OR = { religion = protestant religion = reformed }
+      government = monarchy
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_5_modifier }
+      stability = 1
+      government = monarchy
+      adm_power = -100
+    }
+    effect = {
+      add_adm_power = -100
+      add_prestige_or_monarch_power = { amount = 10 }
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_5_modifier
+        duration = -1
+      }
+
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+
+  EDG_protestant_religion_decision_6 = {#鼓励私人布道
+		color = { 30 58 169 }
+    potential = {
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_6_modifier }
+      OR = { religion = protestant religion = reformed }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_6_modifier }
+			num_of_owned_provinces_with = {
+        religion = root
+				value = 10
+			}
+    }
+    effect = {
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_6_modifier
+        duration = -1
+      }
+
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+
+  EDG_protestant_religion_decision_7 = {#在天主教省份清查人口
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      adm_tech = 10
+			any_owned_province = {
+        religion = catholic
+        NOT = { is_core = root }
+        NOT = { has_province_modifier = EDG_protestant_religion_decision_7_province_modifier }
+			}
+    }
+    effect = {
+      every_owned_province = {
+        limit = {
+          religion = catholic
+          NOT = { is_core = root }
+          NOT = { has_province_modifier = EDG_protestant_religion_decision_7_province_modifier }
+        }
+        add_province_modifier = {
+          name = EDG_protestant_religion_decision_7_province_modifier
+          duration = 3650
+        }
+      }
+
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_8 = {#清查全国隐匿人口
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_8_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_8_modifier }
+      adm_power = 100
+      adm_tech = 10
+    }
+    effect = {
+      add_adm_power = -100
+      set_country_flag = EDG_protestant_religion_decision_8_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_8_modifier
+        duration = 3650
+      }
+
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_9 = {#推崇虔敬主义
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_9_flag }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_10_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_9_modifier }
+      adm_power = 50
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_adm_power = -50
+      add_church_power = -100
+      add_fervor = -50
+      custom_tooltip = EDG_protestant_religion_decision_9_flag_tt
+      set_country_flag = EDG_protestant_religion_decision_9_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_9_modifier
+        duration = -1
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_10 = {#打压虔敬主义
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_9_flag }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_10_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_10_modifier }
+      adm_power = 50
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_adm_power = -50
+      add_church_power = -100
+      add_fervor = -50
+      custom_tooltip = EDG_protestant_religion_decision_9_flag_tt
+      set_country_flag = EDG_protestant_religion_decision_10_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_10_modifier
+        duration = -1
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_11 = {#通过猎巫法案
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_11_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_11_modifier }
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_country_flag = EDG_protestant_religion_decision_11_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_11_modifier
+        duration = 7300
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_12 = {#通过反偶像崇拜法案
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_12_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      NOT = { has_country_modifier = EDG_protestant_religion_decision_12_modifier }
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_country_flag = EDG_protestant_religion_decision_12_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_12_modifier
+        duration = 7300
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+
+
+
+  EDG_protestant_religion_decision_essay_1 = {#出版《致德意志民族的基督教贵族书》
+		color = { 30 58 169 }
+    potential = {
+      religion = protestant 
+      NOT = { has_global_flag = EDG_protestant_religion_decision_essay_1_global_flag }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_essay_1_flag }
+      culture_group = germanic
+    }
+    allow = {
+      calc_true_if = {
+        all_province = {
+          religion = protestant
+          is_reformation_center = yes
+        }
+        amount = 3
+      }
+      religion = protestant 
+      NOT = { has_global_flag = EDG_protestant_religion_decision_essay_1_global_flag }
+      culture_group = germanic
+      is_subject = no
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_flavor_religion_protestant_events_Luther_die_flag_trigger_tt
+        NOT = { has_global_flag = EDG_flavor_religion_protestant_events_Luther_die_flag }
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_global_flag = EDG_protestant_religion_decision_essay_1_global_flag
+      set_country_flag = EDG_protestant_religion_decision_essay_1_flag
+      country_event = { id = EDG_flavor_religion_protestant.101 }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_essay_1_accept = {#接纳《致德意志民族的基督教贵族书》
+		color = { 30 58 169 }
+    potential = {
+      religion = protestant 
+      has_global_flag = EDG_protestant_religion_decision_essay_1_global_flag
+      NOT = { has_country_flag = EDG_protestant_religion_decision_essay_1_flag }
+      culture_group = germanic
+    }
+    allow = {
+      religion = protestant 
+      calc_true_if = {
+        all_province = {
+          religion = protestant
+          is_reformation_center = yes
+        }
+        amount = 3
+      }
+      has_global_flag = EDG_protestant_religion_decision_essay_1_global_flag
+      culture_group = germanic
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_country_flag = EDG_protestant_religion_decision_essay_1_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_essay_1_modifier
+        duration = 3650
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+
+  
+  EDG_protestant_religion_decision_essay_2 = {#出版《论基督徒的自由》
+		color = { 30 58 169 }
+    potential = {
+      religion = protestant 
+      NOT = { has_global_flag = EDG_protestant_religion_decision_essay_2_global_flag }
+      NOT = { has_country_flag = EDG_protestant_religion_decision_essay_2_flag }
+      culture_group = germanic
+    }
+    allow = {
+      religion = protestant 
+      NOT = { has_global_flag = EDG_protestant_religion_decision_essay_2_global_flag }
+      culture_group = germanic
+      is_subject = no
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_flavor_religion_protestant_events_Luther_die_flag_trigger_tt
+        NOT = { has_global_flag = EDG_flavor_religion_protestant_events_Luther_die_flag }
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_global_flag = EDG_protestant_religion_decision_essay_2_global_flag
+      set_country_flag = EDG_protestant_religion_decision_essay_2_flag
+      country_event = { id = EDG_flavor_religion_protestant.102 }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_protestant_religion_decision_essay_2_accept = {#接纳《论基督徒的自由》
+		color = { 30 58 169 }
+    potential = {
+      religion = protestant 
+      has_global_flag = EDG_protestant_religion_decision_essay_2_global_flag
+      NOT = { has_country_flag = EDG_protestant_religion_decision_essay_2_flag }
+      culture_group = germanic
+    }
+    allow = {
+      religion = protestant 
+      has_global_flag = EDG_protestant_religion_decision_essay_2_global_flag
+      culture_group = germanic
+      OR = {
+        church_power = 100
+        fervor = 50
+      }
+    }
+    effect = {
+      add_church_power = -100
+      add_fervor = -50
+      set_country_flag = EDG_protestant_religion_decision_essay_2_flag
+      add_country_modifier = {
+        name = EDG_protestant_religion_decision_essay_2_modifier
+        duration = 3650
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_incident_tolgo_alliance_decision = {#加入托尔高联盟
+		color = { 30 58 169 }
+    potential = {
+      OR = { religion = protestant religion = reformed }
+      is_part_of_hre = yes
+      has_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+      NOT = { has_country_flag = EDG_incident_tolgo_alliance_decision_flag }
+      NOT = { has_global_flag = EDG_incident_schmalkaldic_league_war_begin_flag }
+    }
+    allow = {
+      OR = { religion = protestant religion = reformed }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_tolgo_alliance_event_0_global_flag_trigger_tt
+        has_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+      }
+      is_part_of_hre = yes
+    }
+    effect = {
+      set_country_flag = EDG_incident_tolgo_alliance_decision_flag
+      add_country_modifier=  {
+        name = EDG_incident_tolgo_alliance_decision_modifier
+        duration = 9125
+      }
+      every_country = {
+        limit = {
+          is_part_of_hre = yes
+          OR = { religion = protestant religion = reformed }
+        }
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_incident_tolgo_alliance_decision_opinion
+				}
+        add_trust = {
+          who = ROOT
+          value = 10
+          mutual = yes
+        }
+      }
+      if = {
+        limit = {
+          has_global_flag = EDG_incident_tolgo_alliance_event_0_a_global_flag
+        }
+        every_country = {
+          limit = {
+            is_part_of_hre = yes
+            religion = catholic
+          }
+          add_opinion = {
+            who = ROOT
+            modifier = EDG_incident_tolgo_alliance_decision_opinion_2
+          }
+          add_trust = {
+            who = ROOT
+            value = -10
+            mutual = yes
+          }
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+  EDG_incident_schmalkaldic_league_decision = {#加入施马尔卡尔登联盟
+		color = { 30 58 169 }
+    potential = {
+      religion = protestant
+      is_part_of_hre = yes
+      has_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+      NOT = { has_country_flag = EDG_incident_schmalkaldic_league_decision_flag }
+      #NOT = { has_global_flag = EDG_incident_schmalkaldic_league_war_begin_flag }
+      NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+    }
+    allow = {
+      religion = protestant
+      is_part_of_hre = yes
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_event_1_global_flag_trigger_tt
+        has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_END_flag_not_trigger_tt
+        NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+      }
+      NOT = { alliance_with = emperor }
+      NOT = { is_subject = yes }
+      NOT = { has_truce = emperor }
+    }
+    effect = {
+      set_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+      custom_tooltip = EDG_incident_schmalkaldic_league_decision_tt
+
+      every_country = {
+        limit = {
+          religion = protestant
+          has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+        }
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_incident_schmalkaldic_league_decision_opinion
+				}
+        add_trust = {
+          who = ROOT
+          value = 10
+          mutual = yes
+        }
+      }
+      every_country = {
+        limit = {
+          religion = catholic
+          is_emperor = yes
+        }
+				add_opinion = {
+					who = ROOT
+					modifier = EDG_incident_schmalkaldic_league_decision_opinion_2
+				}
+        add_trust = {
+          who = ROOT
+          value = -100
+          mutual = yes
+        }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+      modifier = {
+        factor = 0
+        OR = {
+          AND = {
+            has_country_modifier = EDG_protestant_religion_decision_4_1_modifier
+            OR = {
+              NOT = { army_size = 6 }
+              has_opinion = {
+                who = emperor
+                value = -25
+              }
+            }
+          }
+          alliance_with = emperor
+          is_in_deficit = yes
+          num_of_loans = 3
+          is_at_war = yes
+          has_opinion = {
+            who = emperor
+            value = 125
+          }
+        }
+      }
+    }
+  }
+
+  
+  EDG_incident_schmalkaldic_league_emp_war_decision = {#向施马尔卡尔登联盟宣战
+		color = { 30 58 169 }
+    potential = {
+      religion = catholic
+      is_emperor = yes
+      is_part_of_hre = yes
+      NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }
+      has_global_flag = EDG_incident_schmalkaldic_league_event_0_global_flag
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+    }
+    allow = {
+      is_emperor = yes
+      is_part_of_hre = yes
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_event_1_global_flag_trigger_tt
+        has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_END_flag_not_trigger_tt
+        NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+      }
+      is_at_war = no
+      NOT = { has_country_modifier = EDG_incident_schmalkaldic_league_emp_war_decision_in_20_years_modifier }
+    }
+    effect = {
+      add_country_modifier = {
+        name = EDG_incident_schmalkaldic_league_emp_war_decision_in_20_years_modifier
+        duration = 7300
+        hidden = yes
+      }
+      set_global_flag = EDG_incident_schmalkaldic_league_war_begin_flag
+      random_country = {
+        limit = {
+          religion = protestant
+          is_part_of_hre = yes
+          has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+          NOT = { alliance_with = ROOT }
+          NOT = { is_subject = yes }
+          NOT = {
+            any_country = {
+              has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+              religion = protestant
+              army_size = PREV
+            }
+          }
+        }
+        emperor = {
+          declare_war_with_cb = {
+            who = PREV
+            casus_belli = cb_EDG_schmalkaldic_league_emp_war
+          }
+        }
+        country_event = { id = EDG_incident_schmalkaldic_league_event.3 }
+      }
+    }
+    ai_will_do = {
+      factor = 1
+      modifier = {
+        factor = 0
+        OR = {
+          NOT = { army_size = 30 }
+          is_at_war = yes
+          any_country = {
+            religion = protestant
+            is_part_of_hre = yes
+            has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+            NOT = { alliance_with = ROOT }
+            NOT = { is_subject = yes }
+            OR = {
+              army_size = ROOT
+              has_truce = ROOT
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  EDG_incident_schmalkaldic_league_see_leader_decision = {#查看施马尔卡尔登联盟的领袖
+		color = { 30 58 169 }
+    potential = {
+      capital_scope = { superregion = europe_superregion }
+      NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+      has_global_flag = EDG_incident_schmalkaldic_league_event_0_global_flag
+    }
+    provinces_to_highlight = {
+      owner = {
+        religion = protestant
+        is_part_of_hre = yes
+        has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+        NOT = { alliance_with = emperor }
+        NOT = { is_subject = yes }
+        NOT = {
+          any_country = {
+            has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+            religion = protestant
+            army_size = PREV
+          }
+        }
+      }
+    }
+    allow = {
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_event_1_global_flag_trigger_tt
+        has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_END_flag_not_trigger_tt
+        NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+      }
+    }
+    effect = {
+      custom_tooltip = EDG_incident_schmalkaldic_league_see_leader_decision_tt
+    }
+    ai_will_do = {
+      factor = 0
+    }
+  }
+
+  
+  EDG_incident_schmalkaldic_league_end_decision = {#宣布施马尔卡尔登联盟解散
+		color = { 30 58 169 }
+    potential = {
+      religion = catholic
+      is_emperor = yes
+      NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+      has_global_flag = EDG_incident_schmalkaldic_league_event_0_global_flag
+    }
+    provinces_to_highlight = {
+      owner = {
+        religion = protestant
+        is_part_of_hre = yes
+        has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+        NOT = { alliance_with = ROOT }
+        NOT = { is_subject = yes }
+        NOT = {
+          any_country = {
+            has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+            religion = protestant
+            army_size = PREV
+          }
+        }
+      }
+    }
+    allow = {
+      is_emperor = yes
+      OR = {
+        current_age = age_of_reformation
+        current_age = age_of_discovery
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_event_1_global_flag_trigger_tt
+        has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+      }
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_END_flag_not_trigger_tt
+        NOT = { has_global_flag = EDG_incident_schmalkaldic_league_END_flag }	
+      }
+      is_at_war = no
+      custom_trigger_tooltip = {
+        tooltip = EDG_incident_schmalkaldic_league_end_decision_trigger_tt
+        NOT = {
+          any_country = {
+            religion = protestant
+            is_part_of_hre = yes
+            has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+            NOT = { alliance_with = ROOT }
+            NOT = { is_subject = yes }
+          }
+        }
+      }
+    }
+    effect = {
+      country_event = { id = EDG_incident_schmalkaldic_league_event.2 }
+      set_global_flag = EDG_incident_schmalkaldic_league_END_flag
+      custom_tooltip = po_schmalkaldic_league_emp_war_desc
+    }
+    ai_will_do = {
+      factor = 1
+    }
+  }
+}

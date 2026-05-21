@@ -1,0 +1,125 @@
+namespace = orthodox_icon_events
+
+#圣安德烈像
+#圣乔治像
+country_event = {
+	id = orthodox_icon_events.8
+	title = orthodox_icon_events.8.t
+	desc = orthodox_icon_events.8.d
+	picture = ORTHODOX_ICON_FLAG_eventPicture
+	goto = george_icon_church_province
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_dlc = "Third Rome"
+		uses_religious_icons = yes
+		current_icon = icon_george_EDG
+		num_of_cities = 2
+		NOT = { manpower_percentage = 0.9 }
+		any_owned_province = {
+			religion = orthodox
+			is_capital = no
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					religion = orthodox
+					is_capital = no
+				}
+				save_event_target_as = george_icon_church_province
+			}
+			random_owned_province = {
+				limit = {
+					religion = orthodox
+					has_owner_culture = yes
+					is_capital = no
+				}
+				save_event_target_as = george_icon_church_province
+			}
+			random_owned_province = {
+				limit = {
+					religion = orthodox
+					has_owner_culture = yes
+					base_manpower = 5
+					is_capital = no
+				}
+				save_event_target_as = george_icon_church_province
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			at_war_with_religious_enemy = yes
+		}
+	}
+
+	option = {
+		name = orthodox_icon_events.8.a
+		if = {
+			limit = { has_country_flag = orthodox_icon_events_bonuses_flag }
+			add_yearly_manpower = 0.5 
+		}
+		add_yearly_manpower = 0.5
+		add_army_tradition = 10
+		add_patriarch_authority = 0.05
+	}
+}
+#圣彼得与圣保罗像
+country_event = {
+	id = orthodox_icon_events.9
+	title = orthodox_icon_events.9.t
+	desc = orthodox_icon_events.9.d
+	picture = ORTHODOX_ICON_FLAG_eventPicture
+	goto = peter_and_paul_icon_church_province
+	
+	is_triggered_only = yes
+
+	trigger = {
+		has_dlc = "Third Rome"
+		uses_religious_icons = yes
+		current_icon = icon_peter_and_paul_EDG
+		num_of_cities = 2
+		any_owned_province = {
+			not = { religion = orthodox }
+		}
+	}
+	
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					not = { religion = orthodox }
+				}
+				save_event_target_as = peter_and_paul_icon_church_province
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		days = 1
+		modifier = {
+			factor = 2
+			not = {
+				religious_unity = 0.5
+			}
+		}
+	}
+
+	option = {
+		name = orthodox_icon_events.9.a
+		if = {
+			limit = { has_country_flag = orthodox_icon_events_bonuses_flag }
+			add_patriarch_authority = 0.05
+		}
+		event_target:peter_and_paul_icon_church_province = {
+			change_religion = orthodox
+		}
+	}
+}

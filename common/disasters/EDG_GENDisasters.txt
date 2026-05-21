@@ -1,0 +1,268 @@
+EDG_GEN_second_ligurian_uprising = { #第二次利古里亚起义
+	potential = {
+		tag = GEN
+		has_country_modifier = EDG_GEN_time_of_chaos
+		NOT = {
+			has_country_flag = EDG_GEN_second_ligurian_uprising_end_flag
+		}
+		is_subject = no
+		has_estate = estate_burghers
+		owns = 101
+		owns = 2992
+	}
+	can_start = {
+		has_country_modifier = EDG_GEN_time_of_chaos
+	}
+	on_progress_effect = {
+		random_list = {
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.2
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.3
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.4
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.5
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.6
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.7
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.8
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.9
+				}
+			}
+			1 = {
+				country_event = {
+					id = EDG_GENEvents.11
+				}
+			}
+			21 = {
+
+			}
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 0.5
+			has_country_modifier = EDG_GEN_time_of_chaos
+		}
+		modifier = {
+			factor = 1
+			is_at_war = yes
+		}
+		modifier = {
+			factor = 0.5
+			NOT = {
+				stability = 0
+			}
+		}
+		modifier = {
+			factor = 1
+			NOT = {
+				stability = -1
+			}
+		}
+		modifier = {
+			factor = 2
+			NOT = {
+				stability = -2
+			}
+		}
+		modifier = {
+			factor = 5
+			custom_trigger_tooltip = {
+				tooltip = EDG_GEN_intensification_contradiction.tt
+				has_country_flag = EDG_GEN_mission_common_flag
+			}
+		}
+		modifier = {
+			factor = 1
+			has_estate = estate_church
+			NOT = {
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 30
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			has_estate = estate_nobles
+			NOT = {
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 30
+				}
+			}
+		}
+		modifier = {
+			factor = -0.5
+			has_estate_privilege = estate_nobles_nobility_primacy
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 30
+			}
+		}
+		modifier = {
+			factor = -0.5
+			has_estate_privilege = estate_church_clerical_oversight
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 30
+			}
+		}
+	}
+	modifier = {
+		stability_cost_modifier = 0.25
+		global_unrest = 10
+	}
+	can_stop = {
+		is_subject = yes
+	}
+	can_end = {
+		OR = {
+			is_subject = yes
+			AND = {
+				stability = 0
+				NOT = {
+					num_of_rebel_armies = 1
+				}
+				NOT = {
+					num_of_rebel_controlled_provinces = 1
+				}
+				hidden_trigger = {
+					NOT = {
+						has_country_flag = EDG_GEN_second_ligurian_uprising_begin_flag
+					}
+				}
+			}
+		}
+	}
+	on_start = EDG_GENEvents.1
+	on_end = EDG_GENEvents.10
+}
+EDG_GEN_financial_crisis = { #金融危机
+	potential = {
+		always = no
+		OR = {
+			has_government_mechanic = EDG_GEN_george_house_mechanic
+			check_variable = {
+				which = EDG_GEN_credit_rating_var
+				value = 5
+			}
+		}
+	}
+	can_start = {
+		if = {
+			limit = { 
+				has_government_mechanic = EDG_GEN_george_house_mechanic
+			}
+			OR = {
+				is_bankrupt = yes
+			}
+		}
+	}
+	can_stop = {
+		
+	}
+	can_end = {
+		
+	}
+	progress = {
+		
+	}
+}
+EDG_GEN_economic_crisis = { #经济危机
+	potential = {
+		always = no
+		has_government_mechanic = EDG_GEN_george_house_mechanic
+	}
+	can_start = {
+		OR = {
+			trade_income_percentage = 0.75
+			is_bankrupt = yes
+		}
+	}
+	can_stop = {
+		NOT = {
+			trade_income_percentage = 0.75
+		}
+	}
+	can_end = {
+		NOT = {
+			corruption = 0.5
+		}
+		NOT = {
+			inflation = 3
+		}
+	}
+	progress = {
+		modifier = {
+			factor = 0.1
+			trade_income_percentage = 0.75
+		}
+		modifier = {
+			factor = 0.1
+			trade_income_percentage = 0.8
+		}
+		modifier = {
+			factor = 0.1
+			trade_income_percentage = 0.85
+		}
+		modifier = {
+			factor = 0.1
+			trade_income_percentage = 0.9
+		}
+		modifier = {
+			factor = 0.1
+			trade_income_percentage = 0.95
+		}
+		modifier = {
+			factor = 0.25
+			corruption = 1
+		}
+		modifier = {
+			factor = 0.25
+			inflation = 5
+		}
+		modifier = {
+			factor = 0.5
+			is_in_deficit = yes
+		}
+		modifier = {
+			factor = 10
+			is_bankrupt = yes
+		}
+	}
+	modifier = {
+		yearly_corruption = 3
+		inflation_reduction = -3
+		production_efficiency = -1
+		global_trade_goods_size_modifier = -0.5
+	}
+
+}

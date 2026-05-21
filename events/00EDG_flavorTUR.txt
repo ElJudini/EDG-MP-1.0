@@ -1,0 +1,688 @@
+namespace = EDG_flavorTUR
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavorTUR.1
+  title = "EDG_flavorTUR.1.t"
+  desc = "EDG_flavorTUR.1.d"
+  picture = CIVIL_WAR_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    OR = {
+      AND = {
+        NOT = { exists = RUM }
+        tag = TUR
+      }
+      AND = {
+        NOT = { exists = TUR }
+        tag = RUM
+      }
+    }
+	  is_subject = no
+    is_at_war = no
+    NOT = {
+      has_global_flag = EDG_TUR_vs_MAM_flag
+    }
+    is_year = 1500
+    is_at_war = no
+    OR = {
+      361 = { country_or_non_sovereign_subject_holds = MAM }
+      361 = { country_or_non_sovereign_subject_holds = CIO }
+      361 = { country_or_non_sovereign_subject_holds = ALX }
+    }
+    if = {
+      limit = {
+        exists = MAM
+        361 = { country_or_non_sovereign_subject_holds = MAM }
+      }
+      MAM = { is_at_war = no 
+          is_subject = no}
+    }
+    else_if = {
+      limit = {
+        exists = CIO
+        361 = { country_or_non_sovereign_subject_holds = CIO }
+      }
+      CIO = { is_at_war = no 
+          is_subject = no
+          
+      }
+    }
+    else_if = {
+      limit = {
+        exists = ALX
+        361 = { country_or_non_sovereign_subject_holds = ALX }
+      }
+      ALX = { is_at_war = no 
+          is_subject = no
+          
+      }
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_TUR_vs_MAM_flag
+  }
+  mean_time_to_happen = {
+    months = 12
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.1.a"
+    ai_chance = {
+      factor = 20
+    }
+    custom_tooltip = EDG_flavorTUR.1.a.tt
+    if = {
+      limit = {
+        exists = MAM
+        361 = { country_or_non_sovereign_subject_holds = MAM }
+      }
+      MAM = {
+        country_event = {
+        id = EDG_flavorTUR.2
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        exists = CIO
+        361 = { country_or_non_sovereign_subject_holds = CIO }
+      }
+      CIO = {
+        country_event = {
+        id = EDG_flavorTUR.2
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        exists = ALX
+        361 = { country_or_non_sovereign_subject_holds = ALX }
+      }
+      ALX = {
+        country_event = {
+        id = EDG_flavorTUR.2
+        }
+      }
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    add_stability = 1
+    egypt_region = {
+      limit = {
+        NOT = { is_permanent_claim = ROOT	}
+        NOT = { is_core = ROOT	}
+      }
+      add_claim = ROOT
+    }
+    mashriq_region = {
+      limit = {
+        NOT = { is_permanent_claim = ROOT	}
+        NOT = { is_core = ROOT	}
+      }
+      add_claim = ROOT
+    }
+  }
+  option = {
+    name = "EDG_flavorTUR.1.b"
+    ai_chance = {
+      factor = 2
+    }
+    add_prestige = -10
+	  add_stability = -1
+  }
+}
+
+
+country_event = {
+  id = EDG_flavorTUR.2
+  title = "EDG_flavorTUR.2.t"
+  desc = "EDG_flavorTUR.2.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.2.a"
+    ai_chance = {
+      factor = 50
+    }
+    FROM = {
+      if = {
+        limit = {
+          361 = { country_or_non_sovereign_subject_holds = MAM }
+        }
+        declare_war_with_cb = {
+          who = MAM
+          casus_belli = cb_annex
+        }
+      }
+      else_if = {
+        limit = {
+          361 = { country_or_non_sovereign_subject_holds = CIO }
+        }
+        declare_war_with_cb = {
+          who = CIO
+          casus_belli = cb_annex
+        }
+      }
+      else_if = {
+        limit = {
+          361 = { country_or_non_sovereign_subject_holds = ALX }
+        }
+        declare_war_with_cb = {
+          who = ALX
+          casus_belli = cb_annex
+        }
+      }
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+	  add_stability = 1
+  }
+  option = {
+    name = "EDG_flavorTUR.2.b"
+    ai_chance = {
+      factor = 0
+      modifier = {
+        factor = 0
+        army_strength = {
+          who = FROM
+          value = 0.25
+        }
+      }
+    }
+    egypt_region = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+      }
+      add_core = From
+      cede_province = From
+    }
+    anatolia_region = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+      }
+      add_core = From
+      cede_province = From
+    }
+    mashriq_region = {
+      limit = {
+        country_or_non_sovereign_subject_holds = ROOT
+      }
+      add_core = From
+      cede_province = From
+    }
+    add_prestige = -100
+	  add_stability = -3
+  }
+}
+
+
+
+country_event = {#君士坦丁堡与诗人苏丹
+  id = EDG_flavorTUR.3
+  title = "EDG_flavorTUR.3.t"
+  desc = "EDG_flavorTUR.3.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = MHM
+      was_tag = MHM
+    }
+    owns = 151
+    NOT = { exists = BYZ }
+    NOT = { is_year = 1500 }
+    NOT = {
+      has_global_flag = EDG_EDG_flavorTUR_3_HAPPEN_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorTUR_3_HAPPEN_flag
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.3.a"
+    ai_chance = {
+      factor = 100
+    }
+    capital_scope = {
+      add_base_tax = 1
+      add_base_production = 1
+      add_base_manpower = 1
+    }
+    
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.3.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_adm_power = 25
+    add_dip_power = 25
+    add_mil_power = 25
+  }
+}
+
+
+country_event = {#征服君士坦丁堡-招降拜占庭帝国海军
+  id = EDG_flavorTUR.4
+  title = "EDG_flavorTUR.4.t"
+  desc = "EDG_flavorTUR.4.d"
+  picture = BARBARY_PIRATES_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.4.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_navy_tradition = 15
+    create_admiral = { tradition = 60 add_fire = 1 culture = greek }
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.4.b"
+    ai_chance = {
+      factor = 10
+    }
+    add_dip_power = 25
+    add_country_modifier = {
+      name = "EDG_flavorTUR_4_modifier"
+      duration = 7300
+    }
+  }
+}
+
+
+country_event = {#征募帝国海军
+  id = EDG_flavorTUR.5
+  title = "EDG_flavorTUR.5.t"
+  desc = "EDG_flavorTUR.5.d"
+  picture = BARBARY_PIRATES_eventPicture
+  fire_only_once = yes
+  trigger = {
+    owns = 4779
+    is_at_war = no
+    NOT = { owns = 151 }
+    OR = {
+      tag = MHM
+      tag = TUR
+    }
+    exists = BYZ
+    BYZ = {
+      owns = 151
+    }
+    NOT = { is_year = 1500 }
+    mil = 5
+  }
+  immediate = {
+
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.5.a"
+    ai_chance = {
+      factor = 100
+    }
+    4779 = {
+      add_unit_construction = {
+        type = galley
+        amount = 5
+        speed = 0.1
+        cost = 0.1
+      }
+    }
+
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.5.b"
+    ai_chance = {
+      factor = 0
+    }
+	  add_prestige = -5
+  }
+}
+
+
+country_event = {#战争动员-兵锋正锐
+  id = EDG_flavorTUR.6
+  title = "EDG_flavorTUR.6.t"
+  desc = "EDG_flavorTUR.6.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  #major = yes
+  trigger = {
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.6.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_country_modifier = {
+      name = "EDG_modifier_TUR_mission_consolidate_asia_minor"
+      duration = 7300
+    }
+    add_mil_power = 50
+  }
+  
+}
+
+
+country_event = {#奥斯曼统一-巩固帝国军事制度
+  id = EDG_flavorTUR.7
+  title = "EDG_flavorTUR.7.t"
+  desc = "EDG_flavorTUR.7.d"
+  picture = HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.7.a"
+    ai_chance = {
+      factor = 100
+    }
+    
+    add_mil_power = 50
+    change_government_reform_progress = 50
+    add_country_modifier = {
+      name = "EDG_flavorTUR_7_modifier"
+      duration = 7300
+    }
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.7.b"
+    ai_chance = {
+      factor = 1
+    }
+	  add_stability_or_adm_power = yes
+  }
+  
+}
+
+
+country_event = {#黎凡特纺织业
+  id = EDG_flavorTUR.8
+  title = "EDG_flavorTUR.8.t"
+  desc = "EDG_flavorTUR.8.d"
+  picture = ELECTION_REPUBLICAN_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+  }
+  immediate = {
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.8.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_country_modifier = {
+      name = "EDG_modifier_TUR_mission_consolidate_asia_minor"
+      duration = 7300
+    }
+    add_years_of_income = 2.0
+    change_price = {
+      trade_goods = cloth
+      key = EDG_flavorTUR_8_cloth
+      value = 0.1
+      duration = 12775
+    }
+
+  }
+  
+  
+}
+
+
+country_event = {#诗人苏丹
+  id = EDG_flavorTUR.9
+  title = "EDG_flavorTUR.9.t"
+  desc = "EDG_flavorTUR.9.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  trigger = {
+    adm = 6
+    dip = 5
+    NOT = { is_year = 1500 }
+    primary_culture = turkish
+  }
+  immediate = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.9.a"
+    ai_chance = {
+      factor = 100
+    }
+    add_splendor = 75
+    add_prestige_or_monarch_power = { amount = 15}
+
+  }
+  
+  
+}
+
+
+country_event = {#征服者的逝世
+  id = EDG_flavorTUR.10
+  title = "EDG_flavorTUR.10.t"
+  desc = "EDG_flavorTUR.10.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = TUR
+      tag = MHM
+    }
+    NOT = { is_year = 1550 }
+  }
+  immediate = {
+	
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.10.a"
+    ai_chance = {
+      factor = 100
+    }
+    if = {
+      limit = {
+        owns = 149
+      }
+      149 = {
+        change_religion = root
+        set_great_project_tier_2 = {
+          type = EDG_Selimiye_mosque
+        }
+      }
+    }
+    else = {
+      add_mil_power = 25
+    }
+
+  }
+  
+  
+}
+
+
+country_event = {#德里骑士
+  id = EDG_flavorTUR.11
+  title = "EDG_flavorTUR.11.t"
+  desc = "EDG_flavorTUR.11.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+  }
+  immediate = {
+	
+  }
+  
+  option = {
+    name = "EDG_flavorTUR.11.a"
+    ai_chance = {
+      factor = 100
+    }
+    set_country_flag = EDG_Delhi_knight_Unlock_flag
+    custom_tooltip = EDG_Delhi_knight_Unlock_tooltip
+    add_mil_power = 75
+    add_country_modifier = {
+      name = "at_the_gates_of_europe"
+      duration = 7300
+    }
+
+  }
+  
+  
+}
+
+
+country_event = {#入主巴格达
+  id = EDG_flavorTUR.12
+  title = "EDG_flavorTUR.12.t"
+  desc = "EDG_flavorTUR.12.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorTUR.12.a"
+    ai_chance = {
+      factor = 40
+    }
+    410 = {
+      EDG_create_or_add_center_of_trade_level_effect = yes
+      add_devastation = -100
+      set_local_autonomy = 0
+      add_province_modifier = {
+        name = EDG_City_Tax_place
+        duration = 18250
+      }
+      add_province_modifier = {
+        name = EDG_AKK_province_modifier_410
+        duration = -1
+      }
+    }
+    add_adm_power = 50
+  }
+  option = {
+    name = "EDG_flavorTUR.12.a"
+    ai_chance = {
+      factor = 40
+    }
+    410 = {
+      if = { limit = {base_tax = 3} add_base_tax = -2 }
+      else_if ={ limit = {base_tax = 2} add_base_tax = -1 }
+      
+      if = { limit = {base_production = 3} add_base_production = -2 }
+      else_if ={ limit = {base_production = 2} add_base_production = -1 }
+      
+      if = { limit = {base_manpower = 3} add_base_manpower = -2 }
+      else_if ={ limit = {base_manpower = 2} add_base_manpower = -1 }
+      
+      add_devastation = 100
+      set_local_autonomy = 100
+    }
+    add_mil_power = 100
+	  add_years_of_income = 0.5
+  }
+}
+
+
+country_event = {#法兰西斯坦的哈里发
+  id = EDG_flavorTUR.13
+  title = "EDG_flavorTUR.13.t"
+  desc = "EDG_flavorTUR.13.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorTUR.13.a"
+    ai_chance = {
+      factor = 40
+    }
+    add_prestige_or_monarch_power = { amount = 25}
+    pyrenees_area = {
+      change_religion = ROOT
+      change_culture = ROOT
+    }
+    ile_de_france_area = {
+      change_religion = ROOT
+      change_culture = ROOT
+    }
+    orleans_area = {
+      change_religion = ROOT
+      change_culture = ROOT
+    }
+    massif_central_area = {
+      change_religion = ROOT
+      change_culture = ROOT
+    }
+    add_country_modifier = {
+      name = EDG_adu_4_12_modifier
+      duration = -1
+    }
+  }
+  option = {
+    name = "EDG_flavorTUR.13.b"
+    ai_chance = {
+      factor = 40
+    }
+	  add_prestige_or_monarch_power = { amount = 25}
+    add_adm_power = 50
+    add_dip_power = 50
+    add_mil_power = 50
+  }
+}
+country_event = {#解放安达卢西亚
+  id = EDG_flavorTUR.14
+  title = "EDG_flavorTUR.14.t"
+  desc = "EDG_flavorTUR.14.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+  }
+  option = {
+    name = "EDG_flavorTUR.14.a"
+    ai_chance = {
+      factor = 40
+    }
+    add_mil_power = 100
+	  add_army_tradition = 15
+  }
+  option = {
+    name = "EDG_flavorTUR.14.b"
+    ai_chance = {
+      factor = 40
+    }
+    create_general = { tradition = 75 add_fire = 3 culture = andalucian }
+	  add_yearly_manpower = 1.0
+  }
+}

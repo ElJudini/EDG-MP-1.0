@@ -1,0 +1,744 @@
+namespace = EDG_flavorARL
+normal_or_historical_nations = yes
+country_event = {#伊斯玛仪的崛起
+  id = EDG_flavorARL.1
+  title = "EDG_flavorARL.1.t"
+  desc = "EDG_flavorARL.1.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  major = yes
+  trigger = {
+	OR = {
+		tag = ARL
+		was_tag = ARL
+	}
+	OR = {
+		AND = {
+			is_year = 1502
+			NOT = { is_year = 1520 }
+			NOT = {
+			  has_global_flag = EDG_EDG_flavorARL_1_flag
+			}
+		}
+		has_global_flag = EDG_EDG_flavorARL_1__mission_flag
+	}
+	NOT = { has_global_flag = EDG_EDG_flavorARL_1_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_1_flag
+  }
+  
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {
+    name = "EDG_flavorARL.1.a"
+    ai_chance = {
+      factor = 100
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_1_flag_tt
+	EDG_flavorARL_1_a_effect = yes
+	set_ruler_flag = EDG_ARL_Isma_ruler_flag
+	if = {
+		limit = { is_subject = yes }
+		grant_independence = yes
+	}
+	if = {
+		limit = { NOT = { religion = shiite } }
+		change_religion = shiite
+	}
+	define_ruler_to_general = {
+		fire = 3
+		shock = 6
+		manuever = 4
+		siege = 2
+		death_date = 1590.11.24
+	}
+	
+	custom_tooltip = EDG_Mission_ARL_2_2_neighbor_event_tt
+	hidden_effect = {
+		every_known_country = {
+			limit = {
+				is_neighbor_of = ROOT
+				any_owned_province = { religion = shiite }
+			}
+			country_event = { id = EDG_flavorARL.9 }
+		}
+	}
+	add_adm_power = 50
+	add_dip_power = 50
+	add_mil_power = 50
+	add_ruler_modifier = {
+		name = EDG_flavorARL_1_modifier
+		duration = 7300
+	}
+	if = {
+		limit = {
+			ai = yes
+			has_global_flag = EDG_great_conquer_enable_flag
+			NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+			NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+		}
+		add_ruler_personality = EDG_great_conqueror_personality
+		hidden_effect = {
+			set_ai_personality = {
+				personality = ai_militarist
+				locked = yes
+			}
+			set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+			add_ruler_modifier = {
+				name = EDG_great_conqueror_modifier
+				duration = -1
+			}
+			set_global_flag = EDG_great_conquer_NOW_flag
+			set_country_flag = EDG_great_conquer_NOW_country_flag
+		}
+	}
+  }
+  
+  option = {
+    name = "EDG_flavorARL.1.b"
+    ai_chance = {
+      factor = 1
+    }
+	add_prestige = -5
+  }
+}
+
+
+country_event = {#阿尔达比勒的发展
+  id = EDG_flavorARL.2
+  title = "EDG_flavorARL.2.t"
+  desc = "EDG_flavorARL.2.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	OR = {
+		tag = ARL
+		was_tag = ARL
+	}
+	owns = 424
+	is_year = 1457
+	NOT = { is_year = 1550 }
+    NOT = {
+      has_global_flag = EDG_EDG_flavorARL_2_flag
+    }
+	religion = shiite
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_2_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.2.a"
+    ai_chance = {
+      factor = 100
+    }
+	add_adm_power = 100
+	capital_scope = {
+		add_base_tax = 2
+		add_base_production = 1
+		add_base_manpower = 2
+		add_province_modifier = {
+			name = EDG_EDG_flavorARL_2_province_modifier
+			duration = 18250
+		}
+	}
+	
+  }
+  
+  option = {
+    name = "EDG_flavorARL.2.b"
+    ai_chance = {
+      factor = 10
+    }
+	add_prestige_or_monarch_power = { amount = 5}
+  }
+}
+
+
+country_event = {#伊斯玛仪的崛起（释放版
+  id = EDG_flavorARL.3
+  title = "EDG_flavorARL.3.t"
+  desc = "EDG_flavorARL.3.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	owns = 424
+	NOT = { exists = ARL }
+	NOT = { exists = PER }
+	NOT = { exists = ERS }
+	NOT = { was_tag = ARL }
+	NOT = { was_tag = PER }
+	is_year = 1502
+	NOT = { is_year = 1520 }
+    NOT = {
+      has_global_flag = EDG_EDG_flavorARL_1_flag
+    }
+    NOT = {
+      has_global_flag = EDG_EDG_flavorARL_die_flag
+    }
+	NOT = { has_global_flag = EDG_EDG_flavorARL_1_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_1_flag
+	hidden_effect = {
+		
+		every_province = {
+			limit = {
+				OR = {
+					culture = azerbaijani
+				}
+			}
+			add_core = ARL
+		}
+		release = ARL
+		
+		ARL = {
+			change_religion = shiite
+			if = {
+				limit = { NOT = { government = monarchy } }
+				change_government_to_monarchy = yes
+			}
+			add_government_reform = EDG_Safavid_professoriate_reform
+			every_owned_province = {
+				change_religion = shiite
+			}
+			every_province = {
+				limit = {
+					OR = {
+						culture = persian
+					}
+				}
+				add_core = ARL
+			}
+			EDG_flavorARL_1_a_effect = yes
+			set_ruler_flag = EDG_ARL_Isma_ruler_flag
+			if = {
+				limit = {
+					ai = yes
+					has_global_flag = EDG_great_conquer_enable_flag
+					NOT = { ruler_has_personality = EDG_great_conqueror_personality }
+					NOT = { ruler_has_personality = EDG_mythical_conqueror_personality }
+				}
+				add_ruler_personality = EDG_great_conqueror_personality
+				hidden_effect = {
+					set_ai_personality = {
+						personality = ai_militarist
+						locked = yes
+					}
+					set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+					add_ruler_modifier = {
+						name = EDG_great_conqueror_modifier
+						duration = -1
+					}
+					set_global_flag = EDG_great_conquer_NOW_flag
+					set_country_flag = EDG_great_conquer_NOW_country_flag
+				}
+			}
+
+			define_ruler_to_general = {
+				fire = 3
+				shock = 6
+				manuever = 4
+				siege = 2
+				death_date = 1590.11.24
+			}
+			add_ruler_modifier = {
+				name = EDG_flavorARL_1_modifier
+				duration = 7300
+			}
+			
+			add_adm_power = 250
+			add_dip_power = 250
+			add_mil_power = 250
+			add_treasury = 1000
+			capital_scope = {
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  infantry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			  cavalry = ARL
+			}
+		}
+	}
+  }
+  
+  mean_time_to_happen = {
+	
+  }
+  
+  option = {
+    name = "EDG_flavorARL.3.a"
+    ai_chance = {
+      factor = 100
+    }
+	custom_tooltip = EDG_PER_Shahanshah_event_1_flag_tt
+	declare_war_with_cb = {
+	  who = ARL
+	  casus_belli = cb_annex
+	}
+	
+  }
+  
+  option = {
+    name = "EDG_flavorARL.3.b"
+    ai_chance = {
+      factor = 10
+    }
+	add_prestige = -10
+  }
+}
+
+country_event = {#迁都大不里士
+  id = EDG_flavorARL.4
+  title = "EDG_flavorARL.4.t"
+  desc = "EDG_flavorARL.4.d"
+  picture = COURT_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_4_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.4.a"
+    ai_chance = {
+      factor = 100
+    }
+	add_adm_power = 100
+    416 = {
+        move_capital_effect = yes
+        change_culture = ROOT
+        change_religion = ROOT
+		EDG_create_or_add_center_of_trade_level_effect = yes
+		add_devastation = -100
+		set_local_autonomy = 0
+    }
+	416 = {
+		limit = { owned_by = ROOT NOT = { has_global_flag = EDG_416_restore_flag }}
+		set_global_flag = EDG_416_restore_flag
+		add_base_tax = 2
+		add_base_production = 3
+		add_base_manpower = 2
+		add_province_modifier = {
+			name = EDG_City_develop_attractions
+			duration = 36500
+		}
+		add_province_modifier = {
+			name = EDG_AKK_province_modifier_416
+			duration = -1
+		}
+	}
+	
+  }
+  
+  option = {
+    name = "EDG_flavorARL.4.b"
+    ai_chance = {
+      factor = 10
+    }
+	416 = {
+		limit = { owned_by = ROOT NOT = { has_global_flag = EDG_416_restore_flag }}
+		set_global_flag = EDG_416_restore_flag
+		add_base_tax = 2
+		add_base_production = 3
+		add_base_manpower = 2
+		add_province_modifier = {
+			name = EDG_City_develop_attractions
+			duration = 36500
+		}
+		add_province_modifier = {
+			name = EDG_AKK_province_modifier_416
+			duration = -1
+		}
+	}
+  }
+}
+
+country_event = {#巴格达神圣统治
+  id = EDG_flavorARL.5
+  title = "EDG_flavorARL.5.t"
+  desc = "EDG_flavorARL.5.d"
+  picture = COURT_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	# OR = {
+	# 	tag = ARL
+	# 	was_tag = ARL
+	# }
+    # NOT = {
+    #   has_global_flag = EDG_EDG_flavorARL_5_flag
+    # }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_5_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.5.a"
+    ai_chance = {
+      factor = 0
+    }
+	add_adm_power = 100
+    410 = {
+        move_capital_effect = yes
+        change_culture = ROOT
+        change_religion = ROOT
+		EDG_create_or_add_center_of_trade_level_effect = yes
+		add_devastation = -100
+		set_local_autonomy = 0
+    }
+	if = {
+		limit = { 
+			410 = {
+				owned_by = ROOT
+				NOT = { has_global_flag = EDG_410_restore_flag }
+			}
+		}
+		set_global_flag = EDG_410_restore_flag
+		410 = {
+			add_base_tax = 2
+			add_base_production = 2
+			add_base_manpower = 2
+			add_province_modifier = {
+				name = EDG_City_goods_bloom
+				duration = 36500
+			}
+			add_province_modifier = {
+				name = EDG_City_professoriate_support
+				duration = -1
+			}
+		}
+	}
+  }
+  
+  option = {
+    name = "EDG_flavorARL.5.b"
+    ai_chance = {
+      factor = 10
+    }
+	if = {
+		limit = { 
+			410 = {
+				owned_by = ROOT
+				NOT = { has_global_flag = EDG_410_restore_flag }
+			}
+		}
+		set_global_flag = EDG_410_restore_flag
+		410 = {
+			add_base_tax = 2
+			add_base_production = 2
+			add_base_manpower = 2
+			add_province_modifier = {
+				name = EDG_City_goods_bloom
+				duration = 36500
+			}
+			add_province_modifier = {
+				name = EDG_City_professoriate_support
+				duration = -1
+			}
+		}
+	}
+  }
+}
+
+country_event = {#萨法维影响力的扩大
+  id = EDG_flavorARL.6
+  title = "EDG_flavorARL.6.t"
+  desc = "EDG_flavorARL.6.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_6_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.6.a"
+    ai_chance = {
+      factor = 0
+    }
+	capital_scope = {
+		change_religion = shiite
+		custom_tooltip = EDG_add_reform_center_shiite_tooltip
+		add_reform_center = shiite
+		add_base_tax = 1
+		add_base_production = 1
+		add_base_manpower = 2
+		add_province_modifier = {
+			name = EDG_City_professoriate_support
+			duration = 9125
+		}
+	}
+	
+  }
+}
+
+
+country_event = {#伊玛目的号召
+  id = EDG_flavorARL.7
+  title = "EDG_flavorARL.7.t"
+  desc = "EDG_flavorARL.7.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = {
+      has_global_flag = EDG_EDG_flavorARL_7_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_7_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.7.a"
+    ai_chance = {
+      factor = 0
+    }
+	custom_tooltip = EDG_flavorARL_7_tt
+	hidden_effect = {
+	  every_province = {
+		limit = {
+			OR = {
+				culture = persian
+				culture = azerbaijani
+			}
+			religion = shiite
+		}
+		ROOT = {
+			add_treasury = 25
+			add_manpower = 1
+		}
+	  }
+	}
+  }
+}
+
+
+country_event = {#神圣光环的陨落
+  id = EDG_flavorARL.8
+  title = "EDG_flavorARL.8.t"
+  desc = "EDG_flavorARL.8.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    NOT = {
+      has_global_flag = EDG_EDG_flavorARL_8_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_EDG_flavorARL_8_flag
+  }
+  
+  option = {
+    name = "EDG_flavorARL.8.a"
+    ai_chance = {
+      factor = 0
+    }
+	add_prestige = -25
+	add_stability = -2
+	if = {
+		limit = {
+		  has_dlc = "Rights of Man"
+		  NOT = {
+			num_of_ruler_traits = {
+			  amount = 3
+			}
+		  }
+		}
+		add_ruler_personality = drunkard_personality
+	}
+	remove_country_modifier = EDG_flavorARL_1_modifier
+  }
+}
+
+
+country_event = {#萨法维影响力的扩大
+  id = EDG_flavorARL.9
+  title = "EDG_flavorARL.9.t"
+  desc = "EDG_flavorARL.9.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+	
+  }
+  major_trigger = {
+	tag = ARL
+  }
+  immediate = {
+	
+  }
+  
+  option = {#我们同萨法维教团势不两立。
+    name = "EDG_flavorARL.9.a"
+    ai_chance = {
+      factor = 1
+    }
+	add_stability = -1
+	every_owned_province = {
+		limit = { religion = shiite }
+		add_core = FROM
+		add_nationalism = 30
+	}
+  }
+  
+  option = {#我们可以和萨法维教团开展合作
+    name = "EDG_flavorARL.9.b"
+    ai_chance = {
+      factor = 5
+	  modifier = {
+		faction = 0
+		war_with = FROM
+	  }
+	  modifier = {
+		faction = 0
+		is_rival = FROM
+	  }
+	  modifier = {
+		faction = 0
+		is_enemy = FROM
+	  }
+    }
+	add_opinion = {
+		who = FROM
+		modifier = opinion_EDG_flavor_ARL_9_opinion
+	}
+	FROM = {
+		add_dip_power = 50
+		add_adm_power = 50
+		add_mil_power = 50
+		add_treasury = 100
+		add_manpower = 2
+	}
+  }
+  
+}
+
+
+
+country_event = {#与吉兰的联系
+  id = EDG_flavorARL.10
+  title = "EDG_flavorARL.10.t"
+  desc = "EDG_flavorARL.10.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  trigger = {
+	has_country_flag = EDG_Mission_ARL_5_2_event_enable_flag
+	total_development = 300
+	KRY = {
+		alliance_with = ROOT
+	}
+  }
+  major_trigger = {
+	
+  }
+  immediate = {
+	
+  }
+  
+  option = {#我们将向他们提出要求。
+    name = "EDG_flavorARL.10.a"
+    ai_chance = {
+      factor = 1
+    }
+	KRY = {
+		country_event = { id = EDG_flavorARL.11 }
+	}
+  }
+  
+  option = {#我们是盟友，而非主仆。
+    name = "EDG_flavorARL.10.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_dip_power = 25
+  }
+  
+}
+
+country_event = {#[From.GetName]要求臣服
+  id = EDG_flavorARL.11
+  title = "EDG_flavorARL.11.t"
+  desc = "EDG_flavorARL.11.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  trigger = {
+	
+  }
+  major_trigger = {
+	tag = FROM
+  }
+  immediate = {
+	
+  }
+  
+  option = {#我们欣然承认他们的权威。
+    name = "EDG_flavorARL.11.a"
+    ai_chance = {
+      factor = 1
+    }
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = opinion_EDG_HAB_mission_1_2_a
+      }
+      create_subject = {
+        subject_type = vassal
+        subject = ROOT
+      }
+    }
+  }
+  
+  option = {#我们必须是独立的。
+    name = "EDG_flavorARL.11.b"
+    ai_chance = {
+      factor = 0
+    }
+	add_dip_power = 25
+	FROM = {
+		add_casus_belli = {
+			target = ROOT
+			type = cb_annex
+			months = 60
+		}
+	}
+  }
+  
+}
+

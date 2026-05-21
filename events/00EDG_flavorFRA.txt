@@ -1,0 +1,2010 @@
+namespace = EDG_flavorFRA
+normal_or_historical_nations = yes
+country_event = {#贞德
+  id = EDG_flavorFRA.1
+  title = "EDG_flavorFRA.1.t"
+  desc = "EDG_flavorFRA.1.d"
+  picture = DIPLOMACY_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+	  government = monarchy
+    tag = FRA
+    NOT = {
+      has_global_flag = EDG_FRA_flavor_1_flag
+    }
+    is_year = 1446
+    OR = {
+      has_consort = no
+      has_global_flag = EDG_FRA_flavor_5_a_flag
+    }
+    has_regency = no
+    has_ruler_flag = EDG_FRA_Hugh_ruler_flag
+    EDG_flavorFRA_1_name_trigger = yes
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_1_flag
+  }
+  mean_time_to_happen = {
+    #months = 12
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.1.a"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -10
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -10
+    }  
+    set_country_flag = EDG_flavorFRA_1_a_flag
+    EDG_flavorFRA_1_name_a_effect = yes
+    set_consort_flag = EDG_FRA_Hugh_consort_flag
+  }
+  option = {
+    name = "EDG_flavorFRA.1.b"
+    ai_chance = {
+      factor = 5
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = 10
+    }  
+  }
+}
+
+country_event = {
+  id = EDG_flavorFRA.4
+  title = "EDG_flavorFRA.4.t"
+  desc = "EDG_flavorFRA.4.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    # tag = FRA
+    # NOT = {
+    #   has_global_flag = EDG_FRA_flavor_4_flag
+    # }
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_4_flag
+  }
+  mean_time_to_happen = { 
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.4.a"
+    ai_chance = {
+      factor = 200
+    }
+    add_prestige_or_monarch_power = { amount = 15}
+    # if = {
+    #   limit = {
+    #     has_reform = EDG_French_feudal_system
+    #   }
+    #   remove_government_reform = EDG_French_feudal_system
+    # }
+    add_government_reform = EDG_French_hierarchical_monarchy
+  }
+  option = {
+    name = "EDG_flavorFRA.4.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige_or_monarch_power = { amount = 15}
+    if = {
+      limit = {
+        has_reform = EDG_French_feudal_system
+      }
+      remove_government_reform = EDG_French_feudal_system
+    }
+  }
+}
+
+
+country_event = {
+  id = EDG_flavorFRA.3
+  title = "EDG_flavorFRA.3.t"
+  desc = "EDG_flavorFRA.3.d"
+  picture = COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    tag = FRA
+    NOT = {
+      has_global_flag = EDG_FRA_flavor_3_flag
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_3_flag
+  }
+  mean_time_to_happen = { 
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.3.a"
+    ai_chance = {
+      factor = 20
+    }
+	  FRA = { vassalize = NRM }
+    set_global_flag = EDG_FRA_flavor_2_flag_end
+  }
+  option = {
+    name = "EDG_flavorFRA.3.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -25
+    set_global_flag = EDG_FRA_flavor_2_flag_end
+  }
+}
+
+
+country_event = { #兄弟阋墙
+  id = EDG_flavorFRA.2
+  title = "EDG_flavorFRA.2.t"
+  desc = "EDG_flavorFRA.2.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    OR = {
+      tag = ENG
+      was_tag = ENG
+    }
+    NOT = {
+      has_global_flag = EDG_FRA_flavor_2_flag
+    }
+	  is_year = 1447
+    #NOT = { is_year = 1460 }
+    OR = {
+      is_at_war = no
+      is_year = 1460
+    }
+    any_owned_province = {
+      is_core = NRM
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_2_flag
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.2.a"
+    ai_chance = {
+      factor = 20
+    }
+      release = NRM
+      set_country_flag = EDG_FRA_flavor_2_flag_a
+      NRM = {
+        EDG_flavorFRA_2_a_effect = yes
+        capital_scope = {
+          infantry = NRM
+          infantry = NRM
+          infantry = NRM
+          infantry = NRM
+          cavalry = NRM
+          cavalry = NRM
+        }
+      }
+      
+      declare_war_with_cb = {
+        who = NRM
+        casus_belli = cb_core
+        war_goal_province = 168
+      }	
+      custom_tooltip = EDG_flavorFRA_2_a_tt
+      hidden_effect = {
+      FRA = {
+        country_event = {
+        id = EDG_flavorFRA.3
+        }
+      }
+    }
+  }
+  option = {
+    name = "EDG_flavorFRA.2.b"
+    ai_chance = {
+      factor = 5
+    }
+    set_country_flag = EDG_FRA_flavor_2_flag_b
+	  add_stability = -1
+    add_prestige = -25
+    EDG_flavorFRA_2_b_effect = yes
+    set_global_flag = EDG_FRA_flavor_2_flag_end
+  }
+}
+
+
+country_event = {#不忠贞的王后
+  id = EDG_flavorFRA.5
+  title = "EDG_flavorFRA.5.t"
+  desc = "EDG_flavorFRA.5.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    tag = FRA
+    NOT = {
+      has_global_flag = EDG_FRA_flavor_5_flag
+    }
+    is_year = 1445
+    NOT = { is_year = 1450 }
+    has_consort_flag = EDG_FRA_Hugh_Marie_consort_flag
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_5_flag
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.5.a"
+    ai_chance = {
+      factor = 20
+    }
+    set_global_flag = EDG_FRA_flavor_5_a_flag
+    remove_consort = yes
+    kill_heir = { }
+  }
+  option = {
+    name = "EDG_flavorFRA.5.b"
+    ai_chance = {
+      factor = 0
+    }
+	  add_prestige = -5
+  }
+}
+
+
+country_event = {
+  id = EDG_flavorFRA.6
+  title = "EDG_flavorFRA.6.t"
+  desc = "EDG_flavorFRA.6.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  hidden = yes
+  trigger = {
+    always = no
+    tag = FRA
+		NOT = { any_neighbor_country = { ai = no } }
+    NOT = {
+      has_global_flag = EDG_FRA_flavor_6_flag
+    }
+    is_year = 1470
+    NOT = { is_year = 1480 }
+    ai = yes
+  }
+  immediate = {
+    set_global_flag = EDG_FRA_flavor_6_flag
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {
+    name = "EDG_flavorFRA.5.a"
+    ai_chance = {
+      factor = 20
+    }
+    
+    if = {
+      limit = {
+        ai = yes
+        has_global_flag = EDG_great_conquer_enable_flag
+      }
+      define_ruler_to_general = {
+        type = general
+        fire = 3
+        shock = 6
+        manuever = 4
+        siege = 3
+        death_date = 1590.11.24
+      }
+      change_adm = 3
+      change_dip = 3
+      change_mil = 3
+      add_adm_power = 500
+      add_dip_power = 500
+      add_mil_power = 500
+			add_treasury = 
+			capital_scope = {
+			  infantry = FRA
+			  infantry = FRA
+			  infantry = FRA
+			  infantry = FRA
+			  infantry = FRA
+			  infantry = FRA
+			  infantry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			  cavalry = FRA
+			}
+
+      add_ruler_personality = EDG_great_conqueror_personality
+      hidden_effect = {
+        set_ai_personality = {
+          personality = ai_militarist
+          locked = yes
+        }
+        set_country_flag = EDG_previous_ruler_was_great_conqueror_flag
+        add_ruler_modifier = {
+          name = EDG_great_conqueror_modifier
+          duration = -1
+        }
+        add_ruler_modifier = {
+          name = EDG_short_lived_ruler_modifier
+          duration = -1
+        }
+        set_global_flag = EDG_great_conquer_NOW_flag
+        set_country_flag = EDG_great_conquer_NOW_country_flag
+      }
+    }
+  }
+  
+}
+
+
+country_event = {#雅克·科尔
+  id = EDG_flavorFRA.7
+  title = "EDG_flavorFRA.7.t"
+  desc = "EDG_flavorFRA.7.d"
+  picture = COURT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    tag = FRA
+    is_year = 1449
+    NOT = { is_year = 1500 }
+    stability = 1
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#我们是一个伟大的国家。
+    name = "EDG_flavorFRA.7.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_adm_power = 50
+    add_prestige_or_monarch_power = { amount = 10 }
+
+    custom_tooltip = EDG_SPACE_TT
+    add_country_modifier = {
+      name = EDG_flavorFRA_7_modifier
+      duration = 3650
+    }
+  }
+}
+
+country_event = {#告示事件
+  id = EDG_flavorFRA.8
+  title = "EDG_flavorFRA.8.t"
+  desc = "EDG_flavorFRA.8.d"
+  picture = RELIGION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    tag = FRA
+    is_year = 1510
+    religion = catholic
+    NOT = { is_year = 1550 }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#继续压迫。
+    name = "EDG_flavorFRA.8.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_reform_desire = 0.025
+    add_adm_power = -75
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_8_a_modifier
+      duration = 18250
+    }
+  }
+  option = {#太可怕了。
+    name = "EDG_flavorFRA.8.b"
+    ai_chance = {
+      factor = 2
+    }
+    add_reform_desire = -0.025
+    add_papal_influence = -5
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+  }
+}
+
+country_event = {#公益同盟
+  id = EDG_flavorFRA.9
+  title = "EDG_flavorFRA.9.t"
+  desc = "EDG_flavorFRA.9.d"
+  picture = DIPLOMACY_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    tag = FRA
+    is_year = 1445
+    NOT = { is_year = 1500 }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们别无他法。
+    name = "EDG_flavorFRA.9.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_government_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+  }
+  option = {#我们绝不低头！
+    name = "EDG_flavorFRA.9.b"
+    ai_chance = {
+      factor = 0
+    }
+    every_country = {
+      limit = {
+        is_subject_of_type = EDG_WEAK_appanage
+        is_subject_of = ROOT
+      }
+      grant_independence = yes
+    }
+    every_country = {
+      limit = {
+        NOT = { is_subject_of_type = EDG_WEAK_appanage }
+        is_subject_of = ROOT
+      }
+      add_liberty_desire = 20
+    }
+  }
+}
+
+country_event = {#《罗莫朗坦法令》
+  id = EDG_flavorFRA.10
+  title = "EDG_flavorFRA.10.t"
+  desc = "EDG_flavorFRA.10.d"
+  picture = RELIGION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+    NOT = { has_country_modifier = EDG_FRA_decision_6_modifier }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#这样怎么才能肃清异端？
+    name = "EDG_flavorFRA.10.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_reform_desire = 0.025
+    add_adm_power = -75
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+  }
+  option = {#颁布该法令。
+    name = "EDG_flavorFRA.10.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_reform_desire = -0.025
+    add_papal_influence = -5
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_10_b_modifier
+      duration = 18250
+    }
+  }
+}
+
+country_event = {#《七月法令》
+  id = EDG_flavorFRA.11
+  title = "EDG_flavorFRA.11.t"
+  desc = "EDG_flavorFRA.11.d"
+  picture = RELIGION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+    NOT = { has_country_modifier = EDG_FRA_decision_6_modifier }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#我们不应该妥协。
+    name = "EDG_flavorFRA.11.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_reform_desire = 0.025
+    add_adm_power = -75
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+  }
+  option = {#我们必须颁布该法令。
+    name = "EDG_flavorFRA.11.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_reform_desire = -0.025
+    add_papal_influence = -5
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_11_b_modifier
+      duration = 18250
+    }
+  }
+}
+
+country_event = {#圣日耳曼法令
+  id = EDG_flavorFRA.12
+  title = "EDG_flavorFRA.12.t"
+  desc = "EDG_flavorFRA.12.d"
+  picture = RELIGION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    religion = catholic
+    NOT = { has_country_modifier = EDG_FRA_decision_6_modifier }
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#我们不应该妥协。
+    name = "EDG_flavorFRA.12.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_reform_desire = 0.025
+    add_adm_power = -75
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+  }
+  option = {#我们必须颁布该法令。
+    name = "EDG_flavorFRA.12.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_reform_desire = -0.025
+    add_papal_influence = -5
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_12_b_modifier
+      duration = 18250
+    }
+  }
+}
+
+country_event = {#阿尔勒十字军的胜利
+  id = EDG_flavorFRA.13
+  title = "EDG_flavorFRA.13.t"
+  desc = "EDG_flavorFRA.13.d"
+  picture = RELIGION_eventPicture
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+  }
+  immediate = {
+    
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  
+  option = {#天佑法兰西。
+    name = "EDG_flavorFRA.13.a"
+    ai_chance = {
+      factor = 2
+    }
+    custom_tooltip = EDG_flavorFRA_13_a_tt
+
+    custom_tooltip = EDG_SPACE_TT
+    add_prestige_or_monarch_power = { amount = 25 }
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_flavorHAB_30_tt
+    every_country = {
+      limit = { religion = EDG_catharism is_part_of_hre = yes }
+      country_event = { id = EDG_flavorHAB.31 }
+    }
+  }
+}
+
+country_event = {#意大利战争与法兰西文艺复兴
+  id = EDG_flavorFRA.14
+  title = "EDG_flavorFRA.14.t"
+  desc = "EDG_flavorFRA.14.d"
+  picture = MERCHANTS_TALKING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_country_flag = EDG_flavorFRA_14_flag }
+    tag = FRA
+    has_global_flag = italian_wars_global_flag
+    is_at_war = yes
+    is_great_power = yes
+    any_country = {
+      war_with = ROOT
+      capital_scope = { region = italy_region }
+    }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_14_flag
+  }
+  mean_time_to_happen = {
+    months = 6
+  }
+  
+  option = {#一种意大利潮流。
+    name = "EDG_flavorFRA.14.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_adm_power = 75
+    add_dip_power = 75
+    add_country_modifier = {
+      name = EDG_flavorFRA_14_modifier
+      duration = 7300
+    }
+  }
+}
+
+country_event = {#勒费弗尔·德·埃塔普尔
+  id = EDG_flavorFRA.15
+  title = "EDG_flavorFRA.15.t"
+  desc = "EDG_flavorFRA.15.d"
+  picture = MERCHANTS_TALKING_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_15_flag }
+    is_year = 1506
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_15_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#我们应该支持他的事业。
+    name = "EDG_flavorFRA.15.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_adm_power = 75
+    add_dip_power = 75
+    add_reform_desire = 0.02
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_a_opinion_modifier
+      }
+    }
+  }
+  
+  option = {#但他的行为危害到了宗座的利益……
+    name = "EDG_flavorFRA.15.b"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = -1
+    }
+  
+    add_reform_desire = -0.02
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_b_opinion_modifier
+      }
+    }
+  }
+}
+
+country_event = {#玛格丽特的人文主义者避风港
+  id = EDG_flavorFRA.16
+  title = "EDG_flavorFRA.16.t"
+  desc = "EDG_flavorFRA.16.d"
+  picture = UNIVERSITY_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_16_flag }
+    is_year = 1510
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_16_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#我们会保护这些人文主义者。
+    name = "EDG_flavorFRA.16.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+    add_adm_power = 75
+    add_dip_power = 75
+    add_reform_desire = 0.02
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_a_opinion_modifier
+      }
+    }
+  }
+  
+  option = {#我们不应该保护新教徒。
+    name = "EDG_flavorFRA.16.b"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = -1
+    }
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+  
+    add_reform_desire = -0.02
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_b_opinion_modifier
+      }
+    }
+  }
+}
+
+
+country_event = {#纪尧姆 比代
+  id = EDG_flavorFRA.17
+  title = "EDG_flavorFRA.17.t"
+  desc = "EDG_flavorFRA.17.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_17_flag }
+    is_year = 1512
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_17_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#我们会支持他的事业。
+    name = "EDG_flavorFRA.17.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = 1
+    }
+    add_adm_power = 75
+    add_dip_power = 75
+    add_reform_desire = 0.01
+    EDG_flavorFRA_17_a_name_effect = yes
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_a_opinion_modifier
+      }
+    }
+  }
+  
+  option = {#
+    name = "EDG_flavorFRA.15.b"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = -1
+    }
+    change_variable = {
+      which = EDG_FRA_Religious_tolerance_value
+      value = -1
+    }
+  
+    add_reform_desire = -0.02
+    PAP = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorFRA_15_b_opinion_modifier
+      }
+    }
+  }
+}
+
+country_event = {#弗朗索瓦 拉伯雷
+  id = EDG_flavorFRA.18
+  title = "EDG_flavorFRA.18.t"
+  desc = "EDG_flavorFRA.18.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_18_flag }
+    is_year = 1522
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_18_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#我们会支持他的事业。
+    name = "EDG_flavorFRA.17.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_adm_power = 50
+    EDG_flavorFRA_18_a_name_effect = yes
+  }
+}
+
+
+country_event = {#七星诗社
+  id = EDG_flavorFRA.19
+  title = "EDG_flavorFRA.19.t"
+  desc = "EDG_flavorFRA.19.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_19_flag }
+    is_year = 1523
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_19_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#进步的思想！
+    name = "EDG_flavorFRA.19.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    add_country_modifier = {
+      name = EDG_flavorFRA_19_modifier
+      duration = 7300
+    }
+  }
+}
+
+country_event = {#蒙泰涅 米歇尔
+  id = EDG_flavorFRA.20
+  title = "EDG_flavorFRA.20.t"
+  desc = "EDG_flavorFRA.20.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_20_flag }
+    is_year = 1536
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_20_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#「每个人自己创造自己的命运。」
+    name = "EDG_flavorFRA.20.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_adm_power = 50
+    EDG_flavorFRA_20_a_name_effect = yes
+  }
+}
+
+country_event = {#胡格诺派
+  id = EDG_flavorFRA.21
+  title = "EDG_flavorFRA.21.t"
+  desc = "EDG_flavorFRA.21.d"
+  picture = REFORM_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_21_flag }
+    is_year = 1525
+    num_of_owned_provinces_with = {
+      value = 10
+      religion = protestant
+    }
+    num_of_owned_provinces_with = {
+      value = 1
+      religion = reformed
+    }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_21_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#一个与天主教平行的新教会应运而生。
+    name = "EDG_flavorFRA.21.a"
+    ai_chance = {
+      factor = 2
+    }
+    every_owned_province = {
+      limit = { religion = protestant }
+      change_religion = reformed
+    }
+  }
+}
+
+
+country_event = {#《里昂法令》和《布卢瓦法令》
+  id = EDG_flavorFRA.22
+  title = "EDG_flavorFRA.22.t"
+  desc = "EDG_flavorFRA.22.d"
+  picture = REFORM_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_country_flag = EDG_flavorFRA_22_flag }
+    is_at_war = no
+    stability = 2
+    OR = {
+      is_year = 1495
+      monthly_adm = 13
+    }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_22_flag
+  }
+  mean_time_to_happen = {
+    #months = 60
+  }
+  
+  option = {#我们拥有高效且廉洁的政府。
+    name = "EDG_flavorFRA.22.a"
+    ai_chance = {
+      factor = 2
+    }
+    change_government_reform_progress = 25
+    add_adm_power = 50
+
+    custom_tooltip = EDG_SPACE_TT
+    change_estate_land_share = {
+      estate = all
+      share = -5
+    }
+  }
+}
+
+country_event = {#胜利王与圣女的结合
+  id = EDG_flavorFRA.23
+  title = "EDG_flavorFRA.23.t"
+  desc = "EDG_flavorFRA.23.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    has_consort_flag = EDG_FRA_Hugh_consort_flag
+    NOT = { has_country_flag = EDG_flavorFRA_23_flag }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_23_flag
+  }
+  mean_time_to_happen = {
+    #months = 60
+  }
+  
+  option = {#海枯石烂，鸾凤和鸣。
+    name = "EDG_flavorFRA.23.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorFRA_23_a_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#贞德王后
+  id = EDG_flavorFRA.24
+  title = "EDG_flavorFRA.24.t"
+  desc = "EDG_flavorFRA.24.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    has_consort_flag = EDG_FRA_Hugh_consort_flag
+    NOT = { has_country_flag = EDG_flavorFRA_24_flag }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_24_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#秀外慧中，深明大义。
+    name = "EDG_flavorFRA.24.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorFRA_24_a_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#胜利王的离去
+  id = EDG_flavorFRA.25
+  title = "EDG_flavorFRA.25.t"
+  desc = "EDG_flavorFRA.25.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { has_global_flag = EDG_flavorFRA_25_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_25_flag
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#龙隐弓坠，天下震动。
+    name = "EDG_flavorFRA.25.a"
+    ai_chance = {
+      factor = 2
+    }
+    custom_tooltip = EDG_flavorFRA_25_a_tt
+  }
+}
+country_event = {#最伟大的凯撒
+  id = EDG_flavorFRA.26
+  title = "EDG_flavorHAB_mission.35.t"
+  desc = "EDG_flavorHAB_mission.35.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    151 = { country_or_non_sovereign_subject_holds = ROOT }
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_25_flag }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_25_flag
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们是最伟大的凯撒。
+  name = "EDG_flavorHAB_mission.35.a"
+    ai_chance = {
+      factor = 2
+    }
+    add_prestige_or_monarch_power = { amount = 25 }
+  }
+}
+country_event = {#黎塞留总督体制
+  id = EDG_flavorFRA.27
+  title = "EDG_flavorFRA.27.t"
+  desc = "EDG_flavorFRA.27.d"
+  picture = DIPLOMACY_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_27_flag }
+    monthly_adm = 12
+    NOT = { is_year = 1655 }
+    OR = {
+      is_year = 1600
+      absolutism = 75
+      has_government_power = { 
+        mechanic_type = EDG_FRA_government_ability
+        power_type = EDG_FRA_government_power
+        value = 75
+      }
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_27_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#大力推行此改革。
+  name = "EDG_flavorFRA.27.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_27_a_modifier
+      duration = -1
+    }
+  }
+  option = {#不可操之过急……
+  name = "EDG_flavorFRA.27.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_adm_power = 200
+    if = {
+      limit = { stability = 3 }
+      add_prestige_or_monarch_power = { amount = 20 }
+    }
+    else = {
+      add_stability = 1
+    }
+  }
+}
+country_event = {#《法兰西报》
+  id = EDG_flavorFRA.28
+  title = "EDG_flavorFRA.28.t"
+  desc = "EDG_flavorFRA.28.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_28_flag }
+    is_year = 1595
+    NOT = { is_year = 1655 }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_28_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#给我来一份报纸。
+    name = "EDG_flavorFRA.28.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_dip_power = 100
+    add_prestige_or_monarch_power = { amount = 20 }
+  }
+}
+country_event = {#并不属于所有人的经济繁荣
+  id = EDG_flavorFRA.30
+  title = "EDG_flavorFRA.30.t"
+  desc = "EDG_flavorFRA.30.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_30_flag }
+    is_year = 1615
+    NOT = { is_year = 1655 }
+    is_great_power = yes
+    stability = 2
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_30_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#我也是巴黎的市民，我怎么感觉不到封建压迫？
+    name = "EDG_flavorFRA.30.a"
+    ai_chance = {
+      factor = 20
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 2
+        win = yes
+        unrest = 20
+      }
+    }
+    random_owned_province = {
+      spawn_rebels = {
+        size = 3
+        win = yes
+        unrest = 20
+      }
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_30_a_modifier
+      duration = 9125
+    }
+  }
+}
+country_event = {#笛卡尔
+  id = EDG_flavorFRA.31
+  title = "EDG_flavorFRA.31.t"
+  desc = "EDG_flavorFRA.31.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_31_flag }
+    is_year = 1592
+    NOT = { is_year = 1655 }
+    is_great_power = yes
+    stability = 1
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_31_flag
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {#「我思故我在。」
+    name = "EDG_flavorFRA.31.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_adm_power = 100
+    add_prestige_or_monarch_power = { amount = 20 }
+    EDG_flavorFRA_31_a_name_effect = yes
+  }
+}
+country_event = {#勤政的统治者与柯尔贝
+  id = EDG_flavorFRA.32
+  title = "EDG_flavorFRA.32.t"
+  desc = "EDG_flavorFRA.32.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_32_flag }
+    monthly_adm = 12
+    is_great_power = yes
+    stability = 1
+    OR = {
+      has_reform = EDG_Kolbe_reforms
+      is_year = 1600
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_32_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#这意味着无上的权力和经济的繁荣。
+    name = "EDG_flavorFRA.32.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorFRA_32_a_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#法兰西文化雄风
+  id = EDG_flavorFRA.33
+  title = "EDG_flavorFRA.33.t"
+  desc = "EDG_flavorFRA.33.d"
+  picture = GOOD_WITH_MONARCH_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_33_flag }
+    monthly_adm = 10
+    is_great_power = yes
+    stability = 1
+    OR = {
+      total_development = 2000
+      is_year = 1600
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_33_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#任何人都会感叹不已。
+    name = "EDG_flavorFRA.33.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_prestige_or_monarch_power = { amount = 20 }
+    add_country_modifier = {
+      name = EDG_flavorFRA_33_a_modifier
+      duration = 7300
+    }
+  }
+}
+country_event = {#皮埃尔 高乃依
+  id = EDG_flavorFRA.34
+  title = "EDG_flavorFRA.34.t"
+  desc = "EDG_flavorFRA.34.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    NOT = { has_global_flag = EDG_flavorFRA_34_flag }
+    monthly_adm = 10
+    is_great_power = yes
+    stability = 1
+    is_year = 1625
+    NOT = { is_year = 1680 }
+  }
+  immediate = {
+    set_global_flag = EDG_flavorFRA_34_flag
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#令人惊叹。
+    name = "EDG_flavorFRA.34.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    EDG_flavorFRA_34_a_name_effect = yes
+  }
+}
+country_event = {#让 拉辛
+  id = EDG_flavorFRA.35
+  title = "EDG_flavorFRA.35.t"
+  desc = "EDG_flavorFRA.35.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    monthly_adm = 10
+    is_great_power = yes
+    is_year = 1645
+    NOT = { is_year = 1700 }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#古典主义戏剧的代表。
+    name = "EDG_flavorFRA.35.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    EDG_flavorFRA_35_a_name_effect = yes
+  }
+}
+country_event = {#让·德·拉·封丹
+  id = EDG_flavorFRA.36
+  title = "EDG_flavorFRA.36.t"
+  desc = "EDG_flavorFRA.36.d"
+  picture = ADVISOR_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    monthly_adm = 10
+    is_great_power = yes
+    is_year = 1645
+    NOT = { is_year = 1700 }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#他是“法国的荷马”。
+    name = "EDG_flavorFRA.36.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    EDG_flavorFRA_36_a_name_effect = yes
+  }
+}
+country_event = {#法兰西-神圣罗马冲突
+  id = EDG_flavorFRA.37
+  title = "EDG_flavorFRA.37.t"
+  desc = "EDG_flavorFRA.37.d"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    war_with = emperor
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#我们才是查理曼的子孙！
+    name = "EDG_flavorFRA.37.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    
+    add_country_modifier = {
+      name = EDG_flavorFRA_37_a_modifier
+      duration = 3650
+    }
+  }
+}
+country_event = {#伊比利亚的纷争
+  id = EDG_flavorFRA.38
+  title = "EDG_flavorFRA.38.t"
+  desc = "EDG_flavorFRA.38.d"
+  picture = BATTLE_eventPicture
+  trigger = {
+    NOT = { has_country_flag = EDG_flavorFRA_38_flag }
+    NOT = { has_global_flag = IBR_conflict_end_flag }
+    OR = {
+      any_country = {
+        war_with = ROOT
+        capital_scope = {
+          region = iberia_region
+        }
+      }
+      any_ally = {
+        capital_scope = {
+          region = iberia_region
+        }
+      }
+      any_owned_province = {
+        region = iberia_region
+      }
+    }
+  }
+  immediate = {
+    set_country_flag = EDG_flavorFRA_38_flag
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#我知道了。
+    name = "EDG_flavorFRA.38.a"
+    ai_chance = {
+      factor = 20
+    }
+    custom_tooltip = EDG_flavorFRA_38_a_tt
+  }
+}
+country_event = {#入侵不存在的帝国
+  id = EDG_flavorFRA.39
+  title = "EDG_flavorFRA.39.t"
+  desc = "EDG_flavorFRA.39.d"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  trigger = {
+    NOT = { hre_size = 1 }
+    has_country_modifier = EDG_mission_FRA_4_19_modifier_friend_with_pap
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#到此为止吧。
+    name = "EDG_flavorFRA.39.a"
+    ai_chance = {
+      factor = 20
+    }
+    remove_country_modifier = EDG_mission_FRA_4_19_modifier_friend_with_pap
+  }
+}
+country_event = {#文艺复兴君主
+  id = EDG_flavorFRA.40
+  title = "EDG_flavorFRA.40.t"
+  desc = "EDG_flavorFRA.40.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    is_year = 1510
+    adm = 3
+    has_regency = no
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+  
+  option = {#属于国王的荣耀。
+    name = "EDG_flavorFRA.40.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_variable = {
+      which = EDG_FRA_Renaissance_value
+      value = 1
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorFRA_40_a_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#亲民的君主
+  id = EDG_flavorFRA.41
+  title = "EDG_flavorFRA.41.t"
+  desc = "EDG_flavorFRA.41.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    is_year = 1503
+    stability = 2
+    has_regency = no
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 240
+  }
+  
+  option = {#法国人民都爱戴[Root.Monarch.GetName]。
+    name = "EDG_flavorFRA.41.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorFRA_41_a_modifier
+      duration = -1
+    }
+  }
+}
+country_event = {#[Root.Monarch.GetName]绝对主义改革
+  id = EDG_flavorFRA.42
+  title = "EDG_flavorFRA.42.t"
+  desc = "EDG_flavorFRA.42.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    is_year = 1495
+    monthly_adm = 10
+    has_regency = no
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {#[Root.Monarch.GetName]至高无上。
+    name = "EDG_flavorFRA.42.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_adm_power = -100
+    add_country_modifier = {
+      name = EDG_flavorFRA_42_a_modifier
+      duration = 7300
+    }
+  }
+  option = {#改革不能操之过急。
+    name = "EDG_flavorFRA.42.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_adm_power = 50
+  }
+}
+country_event = {#[Root.Monarch.GetName]监督官改革
+  id = EDG_flavorFRA.43
+  title = "EDG_flavorFRA.43.t"
+  desc = "EDG_flavorFRA.43.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    is_year = 1501
+    monthly_adm = 10
+    has_regency = no
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {#[Root.Monarch.GetName]至高无上。
+    name = "EDG_flavorFRA.42.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_adm_power = -100
+    add_country_modifier = {
+      name = EDG_flavorFRA_42_a_modifier
+      duration = 7300
+    }
+  }
+  option = {#改革不能操之过急。
+    name = "EDG_flavorFRA.42.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_adm_power = 50
+  }
+}
+country_event = {#包征间接税制度
+  id = EDG_flavorFRA.44
+  title = "EDG_flavorFRA.44.t"
+  desc = "EDG_flavorFRA.44.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    monthly_adm = 8
+    total_development = 600
+    has_regency = no
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+  
+  option = {#谁能对征税说不？
+    name = "EDG_flavorFRA.44.a"
+    ai_chance = {
+      factor = 20
+    }
+    add_country_modifier = {
+      name = EDG_flavorFRA_44_a_modifier
+      duration = 7300
+    }
+  }
+  option = {#这会加大法国人民的负担。
+    name = "EDG_flavorFRA.44.b"
+    ai_chance = {
+      factor = 20
+    }
+    add_prestige_or_monarch_power = { amount = 5 }
+  }
+}
+country_event = {#法兰西-教宗同盟
+  id = EDG_flavorFRA.45
+  title = "EDG_flavorFRA.45.t"
+  desc = "EDG_flavorFRA.45.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    PAP = { is_subject_of = ROOT }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#我们与圣座是永远的盟友。
+    name = "EDG_flavorFRA.45.a"
+    ai_chance = {
+      factor = 20
+    }
+    if = {
+      limit = { PAP = { is_subject_of = ROOT } }
+      PAP = {
+        add_liberty_desire = -100
+        add_country_modifier = {
+          name = EDG_flavorFRA_pap_sub_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+  option = {#我们与圣座是永远的盟友。
+    name = "EDG_flavorFRA.45.b"
+    ai_chance = {
+      factor = 20
+    }
+    if = {
+      limit = { PAP = { is_subject_of = ROOT } }
+      PAP = {
+        add_liberty_desire = -100
+        add_country_modifier = {
+          name = EDG_flavorFRA_pap_sub_modifier
+          duration = -1
+        }
+      }
+      create_subject = { subject_type = EDG_French_vassal subject = PAP } 
+    }
+  }
+  option = {#我们与圣座是永远的盟友。
+    name = "EDG_flavorFRA.45.c"
+    ai_chance = {
+      factor = 20
+    }
+    if = {
+      limit = { PAP = { is_subject_of = ROOT } }
+      PAP = {
+        add_liberty_desire = -100
+        add_country_modifier = {
+          name = EDG_flavorFRA_pap_sub_modifier
+          duration = -1
+        }
+      }
+      create_subject = { subject_type = EDG_FRA_Continental_Alliance_vassal subject = PAP } 
+    }
+  }
+}
+country_event = {#法兰西佣兵
+  id = EDG_flavorFRA.46
+  title = "EDG_flavorFRA.46.t"
+  desc = "EDG_flavorFRA.46.d"
+  picture = TOURNAMENT_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    EDG_FRA_trigger = yes
+    is_at_war = yes
+    OR = {
+      is_year = 1504
+      army_tradition = 75
+    }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    months = 12
+  }
+  
+  option = {#只要他们能够替我打仗。
+    name = "EDG_flavorFRA.46.a"
+    ai_chance = {
+      factor = 20
+    }
+    custom_tooltip = EDG_flavorFRA_46_a_global_flag_tt
+    set_global_flag = EDG_flavorFRA_46_a_global_flag
+  }
+}
+country_event = {#宗教错误
+  id = EDG_flavorFRA.47
+  title = "EDG_flavorFRA.47.t"
+  desc = "EDG_flavorFRA.47.d"
+  picture = LIBERUM_VETO_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    tag = ALE
+    NOT = { religion_group = christian }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  
+  option = {#当然。
+    name = "EDG_flavorFRA.47.a"
+    ai_chance = {
+      factor = 20
+    }
+    change_religion = catholic
+  }
+}
+country_event = {#弗朗索瓦
+  id = EDG_flavorFRA.48
+  title = "EDG_flavorFRA.48.t"
+  desc = "EDG_flavorFRA.48.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    tag = FRA
+    is_year = 1494
+    government = monarchy
+    or = {
+      has_heir = no
+      has_female_heir = yes
+    }
+    has_regency = no
+    not = { is_revolution_target = yes }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  is_triggered_only = yes
+  
+  option = {#他应当拥有继承法兰西的权力。
+    name = "EDG_flavorFRA.48.a"
+    ai_chance = {
+      factor = 20
+    }
+    EDG_flavorFRA_48_a_effect = yes
+  }
+  option = {#光有漂亮的脸蛋可没用。
+    name = "EDG_flavorFRA.48.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_mil_power = 5
+  }
+}
+country_event = {#路易·迪厄多内
+  id = EDG_flavorFRA.49
+  title = "EDG_flavorFRA.49.t"
+  desc = "EDG_flavorFRA.49.d"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    tag = FRA
+    is_year = 1600
+    government = monarchy
+    or = {
+      has_heir = no
+      has_female_heir = yes
+    }
+    has_regency = no
+    not = { is_revolution_target = yes }
+  }
+  immediate = {
+  }
+  mean_time_to_happen = {
+    
+  }
+  is_triggered_only = yes
+  
+  option = {#他应当拥有继承法兰西的权力。
+    name = "EDG_flavorFRA.49.a"
+    ai_chance = {
+      factor = 20
+    }
+    EDG_flavorFRA_49_a_effect = yes
+  }
+  option = {#他不配。
+    name = "EDG_flavorFRA.49.b"
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+}

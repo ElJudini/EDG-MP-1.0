@@ -1,0 +1,203 @@
+namespace = EDG_flavor_BOH
+normal_or_historical_nations = yes
+country_event = {
+  id = EDG_flavor_BOH.0
+  title = "EDG_flavor_BOH.0.t"
+  desc = "EDG_flavor_BOH.0.d"
+  picture = HRE_eventPicture
+  fire_only_once = yes
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    tag = BOH
+	
+  }
+  
+  option = {
+    name = "EDG_flavor_BOH.0.a"
+    custom_tooltip = EDG_flavor_BOH.0.a.tt
+
+    
+    #停用
+    if = {
+      limit = { always = no }
+      hidden_effect = {
+        every_country = {
+          limit = {
+            NOT = {
+              tag = ROOT
+            }
+            OR = {
+              is_neighbor_of = ROOT
+              religion = catholic
+              technology_group = western
+        technology_group = eastern
+        technology_group = ottoman
+            }
+          }
+          country_event = {
+            id = EDG_flavor_BOH.4
+          }
+        }
+      }
+    }
+  }
+}
+
+country_event = {#西吉斯蒙德驾崩
+  id = EDG_flavor_BOH.1
+  title = "EDG_flavor_BOH.1.t"
+  desc = "EDG_flavor_BOH.1.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  trigger = {
+    tag = BOH
+    NOT = {
+      has_global_flag = EDG_death_of_Sigismund
+    }
+    NOT = {
+      has_global_flag = first_hussite_king
+    }
+  }
+  immediate = {
+    set_global_flag = EDG_death_of_Sigismund
+    hidden_effect = {
+      break_union = BRA
+      break_union = HUN
+      if = {
+        limit = { 
+          has_country_flag = EDG_BOH_mission_3_3_mei_keep
+        }
+        clr_country_flag = EDG_BOH_mission_3_3_mei_keep
+      }
+      else = {
+        MEI = { grant_independence = yes }
+      }
+      if = {
+        limit = { 
+          has_country_flag = EDG_BOH_mission_3_3_h07_keep
+        }
+        clr_country_flag = EDG_BOH_mission_3_3_h07_keep
+      }
+      else = {
+        H07 = { grant_independence = yes }
+      }
+      HUN = {
+        add_ruler_modifier = {
+          name = "EDG_BOH_regent_modifier"
+          duration = -1
+        }
+      }
+      BOH = {
+        if = {
+          limit = { 
+            has_country_flag = EDG_BOH_mission_5_5_flag
+          }
+          clr_country_flag = EDG_BOH_mission_5_5_flag
+          add_stability = 1
+        }
+        add_country_modifier = {
+          name = "EDG_BOH_regent_modifier"
+          duration = 7300
+        }
+      }
+      define_ruler = {
+        max_random_adm = 5
+        max_random_dip = 5
+        max_random_mil = 5
+        dynasty = ROOT
+        claim = 100
+        culture = ROOT
+      }
+      add_government_reform = bohemian_elective_kingdom_reform
+      complete_mission = EDG_BOH_mission_1_3
+      complete_mission = EDG_BOH_mission_2_2
+      complete_mission = EDG_BOH_mission_3_1
+      complete_mission = EDG_BOH_mission_3_3
+      complete_mission = EDG_BOH_mission_4_2
+      complete_mission = EDG_BOH_mission_5_5
+    }
+  }
+  option = {
+    name = "EDG_flavor_BOH.1.a"
+    custom_tooltip = EDG_flavor_BOH.1.a.tt
+    tooltip = {
+      break_union = BRA
+      break_union = HUN
+      if = {
+        limit = { 
+          NOT = {
+            has_country_flag = EDG_BOH_mission_3_3_mei_keep
+          }
+        }
+        MEI = { grant_independence = yes }
+      }
+      else = {
+        custom_tooltip = EDG_BOH_keep_mei.tt
+      }
+      if = {
+        limit = { 
+          NOT = {
+            has_country_flag = EDG_BOH_mission_3_3_h07_keep
+          }
+        }
+        H07 = { grant_independence = yes }
+      }
+      else = {
+        custom_tooltip = EDG_BOH_keep_h07.tt
+      }
+      add_government_reform = bohemian_elective_kingdom_reform
+    }
+
+
+    #停用
+    if = {
+      limit = { always = no }
+      hidden_effect = {
+        every_country = {
+          limit = {
+            NOT = {
+              tag = ROOT
+            }
+            OR = {
+              is_neighbor_of = ROOT
+              religion = catholic
+              technology_group = western
+              technology_group = eastern
+              technology_group = ottoman
+            }
+          }
+          country_event = {
+            id = EDG_flavor_BOH.2
+          }
+        }
+      }
+    }
+  }
+}
+
+country_event = {
+  id = EDG_flavor_BOH.2
+  title = "EDG_flavor_BOH.2.t"
+  desc = "EDG_flavor_BOH.2.d"
+  picture = DEATH_OF_HEIR_eventPicture
+  is_triggered_only = yes
+  option = {
+    name = "EDG_flavor_BOH.2.a"
+    custom_tooltip = EDG_flavor_BOH.2.a.tt
+  }
+}
+
+country_event = {
+  id = EDG_flavor_BOH.4
+  title = "EDG_flavor_BOH.4.t"
+  desc = "EDG_flavor_BOH.4.d"
+  picture = HRE_eventPicture
+  is_triggered_only = yes
+  option = {
+    name = "EDG_flavor_BOH.4.a"
+    custom_tooltip = EDG_flavor_BOH.4.a.tt
+  }
+}

@@ -1,0 +1,288 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = FCC
+			NOT = {
+				has_country_flag = EDG_FCC_initialization_flag
+			}
+		}
+		set_country_flag = EDG_FCC_initialization_flag
+		set_estate_privilege = estate_EDG_FCC_balanced_law
+	}
+}
+on_monthly_pulse = {
+	
+}
+on_loan_repaid = {
+	if = {
+		limit = {
+			has_estate_privilege = estate_EDG_FCC_financial_support
+			has_estate_loan = no
+		}
+		remove_estate_privilege = estate_EDG_FCC_financial_support
+	}
+}
+on_yearly_pulse = {
+	random_events = {
+		100 = 0
+		100 = EDG_FCCEvents.101
+		100 = EDG_FCCEvents.102
+	}
+}
+on_province_owner_change = {
+	if = {
+		limit = {
+			has_province_modifier = EDG_FCC_wine_extra_modifier
+			FROM = { has_reform = EDG_FCC_wine_lord }
+			NOT = { owner = { has_reform = EDG_FCC_wine_lord } }
+		}
+		remove_province_modifier = EDG_FCC_wine_extra_modifier
+	}
+	if = {
+		limit = {
+			NOT = {
+				has_province_modifier = EDG_FCC_wine_extra_modifier
+			}
+			owner = { has_reform = EDG_FCC_wine_lord }
+			NOT = { FROM = { has_reform = EDG_FCC_wine_lord } }
+		}
+		hidden_effect = {
+			if = {
+				limit = {
+					trade_goods = wine
+				}
+				add_province_modifier = { 
+					name = EDG_FCC_wine_extra_modifier
+					duration = -1
+					hidden = yes
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_province_modifier = estate_EDG_FCC_balanced_law_modifier
+			FROM = { has_estate_privilege = estate_EDG_FCC_balanced_law }
+			NOT = { owner = { has_estate_privilege = estate_EDG_FCC_balanced_law } }
+		}
+		remove_province_modifier = EDG_FCC_wine_extra_modifier
+	}
+	if = {
+		limit = {
+			religion = EDG_Waldenses
+			owner = {
+				has_estate_privilege = estate_EDG_FCC_balanced_law
+			}
+		}
+		add_province_modifier = {
+			name = estate_EDG_FCC_balanced_law_modifier
+			duration = -1
+		}
+	}
+	
+}
+on_adm_development = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = EDG_FCC_expand_salt_fields
+				AND = {
+					trade_goods = wine
+					owner = {
+						has_government_attribute = EDG_improve_develpment_add_cash
+					}
+				}
+			}
+		}
+		set_variable = {
+			which = EDG_FCC_province_development
+			value = 0
+		}
+		export_to_variable = {
+			which = EDG_FCC_province_development
+			value = development
+		}
+		if = {
+			limit = {
+				has_province_modifier = EDG_FCC_wine_engineering
+			}
+			multiply_variable = {
+				which = EDG_FCC_province_development
+				value = 2
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = EDG_FCC_province_development
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = EDG_FCC_province_development
+				value = 1
+			}
+			owner = {
+				add_treasury = 1
+			}
+		}
+	}
+}
+on_dip_development = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = EDG_FCC_expand_salt_fields
+				AND = {
+					trade_goods = wine
+					owner = {
+						has_government_attribute = EDG_improve_develpment_add_cash
+					}
+				}
+			}
+		}
+		set_variable = {
+			which = EDG_FCC_province_development
+			value = 0
+		}
+		export_to_variable = {
+			which = EDG_FCC_province_development
+			value = development
+		}
+		if = {
+			limit = {
+				has_province_modifier = EDG_FCC_wine_engineering
+			}
+			multiply_variable = {
+				which = EDG_FCC_province_development
+				value = 2
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = EDG_FCC_province_development
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = EDG_FCC_province_development
+				value = 1
+			}
+			owner = {
+				add_treasury = 1
+			}
+		}
+	}
+}
+on_mil_development = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = EDG_FCC_expand_salt_fields
+				AND = {
+					trade_goods = wine
+					owner = {
+						has_government_attribute = EDG_improve_develpment_add_cash
+					}
+				}
+			}
+		}
+		set_variable = {
+			which = EDG_FCC_province_development
+			value = 0
+		}
+		export_to_variable = {
+			which = EDG_FCC_province_development
+			value = development
+		}
+		if = {
+			limit = {
+				has_province_modifier = EDG_FCC_wine_engineering
+			}
+			multiply_variable = {
+				which = EDG_FCC_province_development
+				value = 2
+			}
+		}
+		while = {
+			limit = {
+				check_variable = {
+					which = EDG_FCC_province_development
+					value = 1
+				}
+			}
+			subtract_variable = {
+				which = EDG_FCC_province_development
+				value = 1
+			}
+			owner = {
+				add_treasury = 1
+			}
+		}
+	}
+}
+on_main_war_won = {
+	if = {
+		limit = {
+			has_government_attribute = EDG_get_celebration_for_war_win
+		}
+		add_government_power = {
+			mechanic_type = EDG_FCC_celebration_mechanic
+			power_type = EDG_FCC_celebration
+			value = 10
+		}
+	}
+}
+on_mercenary_recruited = {
+	if = {
+		limit = { FROM = { has_government_attribute = EDG_enable_build_grape_order } }
+		ROOT = { #必要
+			trigger_switch = {
+				on_trigger = mercenary_company
+				merc_EDG_FCC_order_of_sauviignon = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_sauviignon_modifier duration = -1 } }
+					174 = { add_province_triggered_modifier = EDG_FCC_order_of_sauviignon_maintenance }
+				}
+				merc_EDG_FCC_order_of_cinsault = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_cinsault_modifier duration = -1 } }
+					2753 = { add_province_triggered_modifier = EDG_FCC_order_of_cinsault_maintenance }
+				}
+				merc_EDG_FCC_order_of_pinot_noir = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_pinot_noir_modifier duration = -1 } }
+					192 = { add_province_triggered_modifier = EDG_FCC_order_of_pinot_noir_maintenance }
+				}
+				merc_EDG_FCC_order_of_champagne = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_champagne_modifier duration = -1 } }
+					192 = { add_province_triggered_modifier = EDG_FCC_order_of_champagne_maintenance }
+				}
+				merc_EDG_FCC_order_of_chenin_blanc = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_chenin_blanc_modifier duration = -1 } }
+					178 = { add_province_triggered_modifier = EDG_FCC_order_of_chenin_blanc_maintenance }
+				}
+				merc_EDG_FCC_order_of_sauvignon_blanc = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_sauvignon_blanc_modifier duration = -1 } }
+					174 = { add_province_triggered_modifier = EDG_FCC_order_of_sauvignon_blanc_maintenance }
+				}
+				merc_EDG_FCC_order_of_chardonnay = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_chardonnay_modifier duration = -1 } }
+					192 = { add_province_triggered_modifier = EDG_FCC_order_of_chardonnay_maintenance }
+				}
+				merc_EDG_FCC_order_of_riesling = {
+					FROM = { add_country_modifier = { name = merc_EDG_FCC_order_of_riesling_modifier duration = -1 } }
+					1876 = { add_province_triggered_modifier = EDG_FCC_order_of_riesling_maintenance }
+				}
+			}
+		}
+	}
+}
+on_siege_lost_province = {
+	# if = {
+	# 	limit = {
+	# 		from = {
+	# 			ai = no
+	# 		}
+	# 	}
+	# 	cede_province = from
+	# }
+}

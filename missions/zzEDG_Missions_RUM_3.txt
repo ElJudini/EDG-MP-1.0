@@ -1,0 +1,1372 @@
+EDG_TUR_mission_1 = {
+	slot = 1 #upper left column
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		OR = {
+			 
+			tag = RUM
+			 
+		}
+		NOT = { map_setup = map_setup_random }
+		NOT = { was_tag = MEN }
+	}
+	has_country_shield = yes
+	
+	EDG_TUR_mission_1_9 = {
+		icon = mission_early_modern_university
+		required_missions = { conquer_hungary }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = carpathia_region
+					}
+					OR = {
+						NOT = { owned_by = root }
+						NOT = { unrest = 1 }
+					}
+					ROOT = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 15 #out of 14
+								OR = {
+									region = carpathia_region
+								}
+								NOT = { unrest = 1 }
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 7 #out of 14
+				OR = {
+						region = carpathia_region
+				}
+				NOT = { unrest = 1 }
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			add_years_of_income = 2
+			add_country_modifier = {
+				name = "EDG_conquer_hungary"
+				duration = -1
+			}
+			carpathia_region = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "EDG_City_develop_1_modifier"
+					duration = 36500 #25 years
+				}
+			}
+		}
+	}
+	
+	
+	EDG_TUR_mission_1_10 = {
+		icon = mission_crusade_for_varna
+		required_missions = { EDG_TUR_mission_1_9 }
+		position = 10
+    trigger = {
+	  army_tradition = 60
+	  has_mil_advisor_3 = yes
+      if = {
+        limit = {
+          exists = HAB
+        }
+        AND = {
+          HAB = {
+            NOT = {
+              army_strength = {
+                who = root
+                value = 0.5
+              }
+            }
+          }
+          monthly_income = HAB
+        }
+      }
+      else = {
+        NOT = {
+          exists = HAB
+        }
+      }
+    }
+    effect = {
+		add_mil_power = 100
+		134 = {
+			add_province_modifier = {
+				name = "EDG_City_defensiveness_update"
+				duration = 18250
+			}
+		}
+		add_country_modifier = {
+			name = "EDG_TUR_mission_1_10_modifier"
+			duration = 7300
+		}
+    }
+  }
+	
+	EDG_TUR_mission_1_11 = {
+		icon = mission_eastern_european_city
+		required_missions = { EDG_TUR_mission_1_10 }
+		position = 11
+    trigger = {
+	  134 = {
+		development = 30
+		owned_by = ROOT
+		OR = {
+			has_building = marketplace
+			has_building = trade_depot
+			has_building = stock_exchange
+		}
+		OR = {
+			has_building = fort_15th
+			has_building = fort_16th
+			has_building = fort_17th
+			has_building = fort_18th
+		}
+		OR = {
+			has_building = temple
+			has_building = cathedral
+		}
+		OR = {
+			has_building = barracks
+			has_building = training_fields
+		}
+		
+	  }
+    }
+    effect = {
+		add_mil_power = 100
+		134 = {
+			add_base_mil = 3
+			change_religion = ROOT
+		}
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_2_modifier"
+				duration = 7300
+			}
+		south_german_region = {
+			limit = {
+				NOT = { is_permanent_claim = ROOT	}
+				NOT = { is_core = ROOT	}
+			}
+			add_permanent_claim = ROOT
+		}
+	  }
+	}
+	
+	EDG_TUR_mission_1_12 = {
+		icon = mission_into_persia_1
+		required_missions = { conquer_tunisia }
+		position = 12
+		provinces_to_highlight = {
+			provinces_id = 341
+		}
+    trigger = {
+	  341 = {
+		development = 20
+		owned_by = ROOT
+		OR = {
+			has_building = marketplace
+			has_building = trade_depot
+			has_building = stock_exchange
+		}
+		OR = {
+			has_building = fort_15th
+			has_building = fort_16th
+			has_building = fort_17th
+			has_building = fort_18th
+		}
+		OR = {
+			has_building = temple
+			has_building = cathedral
+		}
+		OR = {
+			has_building = temple
+			has_building = cathedral
+		}
+		OR = {
+			has_building = dock
+			has_building = drydock
+		}
+		OR = {
+			has_building = barracks
+			has_building = training_fields
+		}
+		
+	  }
+    }
+    effect = {
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+		341 = {
+			add_base_production = 2
+			add_base_tax = 2
+			add_base_manpower = 2
+			change_religion = ROOT
+				add_province_modifier = {
+					name = "EDG_City_Trade_1_modifier"
+					duration = 9125 #25 years
+				}
+		}
+		tunisia_area = {
+			limit = { owned_by = ROOT }
+			add_province_modifier = {
+				name = "EDG_capita_area_bloom"
+				duration = 9125 #25 years
+			}
+		}
+    }
+  }
+	
+	EDG_TUR_mission_1_13 = {
+		icon = mission_into_persia_2
+		required_missions = { EDG_TUR_mission_1_12 }
+		position = 13
+		provinces_to_highlight = {
+			AND = {
+				OR = {
+					area = algiers_area
+				}
+				ROOT = {
+					NOT = {
+						num_of_owned_provinces_with = {
+							value = 3
+							OR = {
+								area = algiers_area
+							}
+							OR = {
+								has_building = workshop
+								has_building = counting_house
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 3
+				OR = {
+						area = algiers_area
+				}
+				NOT = { unrest = 1 }
+				OR = {
+					has_building = workshop
+					has_building = counting_house
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_produce_upgrade_1_modifier"
+				duration = 9125
+			}
+			add_years_of_income = 0.5
+			algiers_area = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "EDG_City_production_bloom"
+					duration = 9125 #25 years
+				}
+			}
+		}
+	}
+	
+	EDG_TUR_mission_1_17 = {
+		icon = mission_the_sultanate_restored
+		required_missions = { EDG_TUR_mission_2_16 }
+		position = 17
+    trigger = {
+	  225 = {
+		development = 20
+		base_tax = 10
+		owned_by = ROOT
+		religion = ROOT 
+		OR = {
+			has_building = fort_15th
+			has_building = fort_16th
+			has_building = fort_17th
+			has_building = fort_18th
+		}
+		OR = {
+			has_building = temple
+			has_building = cathedral
+		}
+	  }
+    }
+    effect = {
+		add_adm_power = 50
+		add_dip_power = 50
+		add_mil_power = 50
+		225 = {
+			change_religion = ROOT
+				add_province_modifier = {
+					name = "EDG_City_develop_1_modifier"
+					duration = -1
+				}
+		}
+		lower_andalucia_area = {
+			limit = { owned_by = ROOT }
+			add_province_modifier = {
+				name = "EDG_City_Tax_bloom"
+				duration = 9125 #25 years
+			}
+		}
+		add_country_modifier = {
+			name = "EDG_TUR_mission_1_17_modifier"
+			duration = 18250
+		}
+	}
+  }
+	
+	EDG_TUR_mission_1_18 = {
+		icon = mission_early_modern_university
+		required_missions = {   }
+		position = 18
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = balkan_region
+					}
+					OR = {
+						NOT = { owned_by = root }
+						NOT = { unrest = 1 }
+					}
+					ROOT = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 20 #out of 14
+								OR = {
+									region = balkan_region
+								}
+								NOT = { unrest = 1 }
+								OR = {
+									has_building = barracks
+									has_building = training_fields
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+						region = balkan_region
+				}
+				NOT = { unrest = 1 }
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			add_yearly_manpower = 0.5
+			balkan_region = {
+				limit = { 
+					owned_by = ROOT 
+					NOT = { unrest = 1 }
+					OR = {
+						has_building = barracks
+						has_building = training_fields
+					}
+				}
+				add_base_manpower = 1
+			}
+		}
+	}
+	EDG_TUR_mission_1_19 = {
+		icon = mission_rb_build_furnaces
+		required_missions = {  EDG_TUR_mission_1_18  }
+		position = 19
+		provinces_to_highlight = {
+			provinces_id = 1766
+		}
+		trigger = {
+			1766 = {
+				base_production = 10
+				NOT = { unrest = 1 }
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+				}
+			}
+		}
+		effect = {
+			add_yearly_manpower = 0.5
+			custom_tooltip = add_5_crown_land_share
+			hidden_effect = {
+				change_estate_land_share = {
+				  estate = all
+				  share = -5
+				}
+			}
+			1766 = {
+				limit = { owned_by = ROOT }
+				add_base_production = 5
+				add_province_modifier = {
+					name = "EDG_City_production_bloom"
+					duration = -1
+				}
+				add_province_modifier = {
+					name = "EDG_City_trade_goods_size_bloom"
+					duration = -1
+				}
+			}
+		}
+	}
+  
+  
+}
+
+
+EDG_TUR_mission_2 = {
+	slot = 2 #upper left column
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		OR = {
+			 
+			tag = RUM
+			 
+		}
+		NOT = { map_setup = map_setup_random }
+		NOT = { was_tag = MEN }
+	}
+	has_country_shield = yes
+	EDG_TUR_mission_2_13 = {
+		icon = mission_mediterranean_islands
+		required_missions = { subjugate_algiers  }
+		position = 14
+		provinces_to_highlight = {
+		}
+		trigger = {
+			army_size = 80
+			OR = {
+				mil = 5
+				AND = {
+					mil = 3
+					dip = 3
+				}
+				has_mil_advisor_3 = yes
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_expansion_policy_2_modifier"
+				duration = 9125 #20 Years
+			}
+			maghreb_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			country_event = { id = EDG_flavorTUR.14 }
+		}
+	}
+	EDG_TUR_mission_2_16 = {
+		icon = mission_reclaim_morocco
+		required_missions = { EDG_TUR_mission_2_13  }
+		position = 16
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 50
+				region = maghreb_region
+			}
+		  army_size = 120
+		  if = {
+			limit = {
+			  exists = SPA
+			}
+			AND = {
+			  HAB = {
+				NOT = {
+				  army_strength = {
+					who = root
+					value = 0.5
+				  }
+				}
+			  }
+			  monthly_income = SPA
+			}
+		  }
+		  else = {
+			NOT = {
+			  exists = SPA
+			}
+		  }
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_Religious_piety_2_modifier"
+				duration = 9125 #20 Years
+			}
+			iberia_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	EDG_TUR_mission_2_18 = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { EDG_TUR_mission_2_16  }
+		position = 18
+		provinces_to_highlight = {
+			OR = {
+				region = iberia_region
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = {	religion = ROOT }
+			}
+		}
+		trigger = {
+		  OR = {
+			iberia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+				  unrest = 1
+				}
+			}	
+			iberia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				religion = ROOT
+			}
+		  }
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_8_modifier"
+				duration = 9125 #20 Years
+			}
+			custom_tooltip = add_5_crown_land_share
+			hidden_effect = {
+				change_estate_land_share = {
+				  estate = all
+				  share = -5
+				}
+			}
+		}
+	}
+}
+
+
+
+
+
+EDG_TUR_mission_3 = {
+	slot = 3
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		OR = {
+			 
+			tag = RUM
+			 
+		}
+		NOT = { map_setup = map_setup_random }
+		NOT = { was_tag = MEN }
+	}
+	has_country_shield = yes
+	
+	EDG_TUR_mission_3_14 = {
+		icon = capture_adriatic_ports
+		required_missions = { take_crete_from_venice }
+		position = 14
+		provinces_to_highlight = {
+			provinces_id = 163
+		}
+		trigger = {
+		  163 = {
+			owned_by = ROOT
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				OR = {
+					has_building = dock
+					has_building = drydock
+				}
+		  }
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_trade_upgrade_5_modifier"
+				duration = 9125 #20 Years
+			}
+			163 = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "EDG_City_Trade_modifier"
+					duration = -1
+				}
+			}
+			define_advisor = {
+				type = trader
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+		}
+	}
+
+	EDG_TUR_mission_3_15 = {
+		icon = danubian_power
+		required_missions = { EDG_TUR_mission_3_14 }
+		position = 15
+		provinces_to_highlight = {
+			provinces_id = 163
+		}
+		trigger = {
+		  has_dip_advisor_3 = yes
+		  163 = {
+			owned_by = ROOT
+				OR = {
+					has_building = marketplace
+					has_building = trade_depot
+					has_building = stock_exchange
+				}
+				OR = {
+					has_building = dock
+					has_building = drydock
+				}
+			is_strongest_trade_power = ROOT
+		  }
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_trade_upgrade_4_modifier"
+				duration = 9125 #20 Years
+			}
+			163 = {
+				limit = { owned_by = ROOT }
+				add_province_modifier = {
+					name = "EDG_City_Trade_modifier"
+					duration = -1
+				}
+				add_province_modifier = {
+					name = "EDG_City_trade_goods_size_bloom"
+					duration = -1
+				}
+			}
+			define_advisor = {
+				type = trader
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+		}
+	}
+	EDG_TUR_mission_3_16 = {
+		icon = continue_the_renaissance
+		required_missions = { EDG_TUR_mission_4_15  }
+		position = 16
+		provinces_to_highlight = {
+		  OR = {
+			AND = {
+			  OR = {
+				region = italy_region
+			  }
+			  OR = {
+				NOT = {
+				  owned_by = root
+				}
+				NOT = {
+				  unrest = 1
+				}
+			  }
+			}
+		  }
+		}
+		trigger = {
+			italy_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+				  unrest = 1
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = add_5_crown_land_share
+			hidden_effect = {
+				change_estate_land_share = {
+				  estate = all
+				  share = -5
+				}
+			}
+			add_adm_power = 100
+			add_country_modifier = {
+				name = "EDG_produce_upgrade_6_modifier"
+				duration = 9125 #20 Years
+			}
+			
+		}
+	}
+	
+	
+	EDG_TUR_mission_3_17 = {
+		icon = indonesian_trade
+		required_missions = { EDG_TUR_mission_2_16 }
+		position = 17
+		provinces_to_highlight = {
+			OR = {
+			province_id = 236
+			province_id = 248
+			}
+		}
+		trigger = {
+			navy_size = 100
+			OR = {
+				owns = 236
+				236 = {
+					owner = {
+						NOT = {
+							naval_strength = {
+								who = ROOT
+								value = 1.0
+							}
+						}
+					}
+				}
+			}
+			OR = {
+				owns = 248
+				248 = {
+					owner = {
+						NOT = {
+							naval_strength = {
+								who = ROOT
+								value = 1.0
+							}
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_7_modifier"
+				duration = 9125 #20 Years
+			}
+			british_isles_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	
+	
+	EDG_TUR_mission_3_18 = {
+		icon = balance_the_estates
+		required_missions = { EDG_TUR_mission_3_17 }
+		position = 18
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		  if = {
+			limit = {
+			  exists = GBR
+			}
+			AND = {
+			  HAB = {
+				NOT = {
+				  army_strength = {
+					who = root
+					value = 0.5
+				  }
+				}
+			  }
+			  monthly_income = GBR
+			}
+		  }
+		  else = {
+			NOT = {
+			  exists = GBR
+			}
+		  }
+		}
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = "EDG_TUR_mission_3_18_modifier"
+				duration = -1
+			}
+			
+		}
+	}
+	
+	
+	EDG_TUR_mission_3_19 = {
+		icon = a_roman_empire
+		required_missions = { EDG_TUR_mission_2_18
+								EDG_TUR_mission_3_18
+								EDG_TUR_mission_1_18
+								EDG_TUR_mission_4_18
+				}
+		position = 19
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+		  total_development = 3000
+		}
+		effect = {
+			country_event = { id = EDG_flavor_TUR.2 }
+			add_country_modifier = {
+				name = "EDG_adm_policy_2_modifier"
+				duration = 9125 #20 Years
+			}
+			
+		}
+	}
+
+}
+
+
+EDG_TUR_mission_4 = {
+	slot = 4
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		OR = {
+			 
+			tag = RUM
+			 
+		}
+		NOT = { map_setup = map_setup_random }
+		NOT = { was_tag = MEN }
+	}
+	has_country_shield = yes
+	EDG_TUR_mission_4_12 = {
+		icon = mission_levantine_restoration
+		required_missions = { conquer_mocha }
+		position = 12
+		provinces_to_highlight = {
+		  OR = {
+			AND = {
+			  OR = {
+				region = arabia_region
+			  }
+			  OR = {
+				NOT = {
+				  owned_by = root
+				}
+				NOT = {
+				  unrest = 1
+				}
+				NOT = {
+				  nationalism = 1
+				}
+				NOT = {
+				  local_autonomy = 1
+				}
+			  }
+			}
+		  }
+		}
+		trigger = {
+			arabia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+				  unrest = 1
+				}
+				NOT = {
+				  nationalism = 1
+				}
+				NOT = {
+				  local_autonomy = 1
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_TUR_mission_4_12_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_TUR_mission_4_14 = {
+		icon = control_coromandel
+		required_missions = { take_crete_from_venice }
+		position = 14
+		provinces_to_highlight = {
+			OR = {
+				area = sicily_area
+				area = western_sicily_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			
+		}
+		trigger = {
+			sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			western_sicily_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			if = {
+				limit = {
+				  NOT = {
+					exists = IFZ
+				  }
+				}
+				country_event = {
+				  id = flavor_gra.2
+				}
+			}
+			add_country_modifier = {
+				name = "EDG_Religious_piety_4_modifier"
+				duration = 9125
+			}
+			italy_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+	}
+	EDG_TUR_mission_4_15 = {
+		icon = interest_of_holland
+		required_missions = { EDG_TUR_mission_4_14 }
+		position = 15
+		provinces_to_highlight = {
+			OR = {
+				region = italy_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			
+		}
+		trigger = {
+			italy_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			
+			add_country_modifier = {
+				name = "EDG_produce_upgrade_4_modifier"
+				duration = 9125
+			}
+			add_country_modifier = {
+				name = "EDG_TUR_mission_4_15_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_TUR_mission_4_16 = {
+		icon = mission_trade_in_gold_coast
+		required_missions = { EDG_TUR_mission_4_15 }
+		position = 16
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = italy_region
+					}
+					OR = {
+						NOT = { owned_by = root }
+					}
+					ROOT = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 20
+								OR = {
+									region = italy_region
+								}
+								OR = {
+									has_building = temple
+									has_building = cathedral
+								}
+								OR = {
+									has_building = courthouse
+									has_building = town_hall
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+						region = italy_region
+				}
+				OR = {
+					has_building = temple
+					has_building = cathedral
+				}
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+		effect = {
+			add_adm_power = 50
+			italy_region = {
+				add_province_modifier = {
+					name = "EDG_TUR_Roma_system"
+					duration = -1
+				}
+			}
+		}
+	}
+	EDG_TUR_mission_4_17 = {
+		icon = explore_caribbean
+		required_missions = {  }
+		position = 17
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			full_idea_group = religious_ideas
+			183 = { owner = { is_neighbor_of = ROOT } }
+		}
+		effect = {
+			add_mil_power = 100
+			france_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT	}
+					NOT = { is_core = ROOT	}
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_2_modifier"
+				duration = 7300
+			}
+			
+		}
+	}
+	EDG_TUR_mission_4_18 = {
+		icon = dutch_formosa
+		required_missions = { EDG_TUR_mission_4_17 }
+		position = 18
+		provinces_to_highlight = {
+			OR = {
+				region = france_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			
+		}
+		trigger = {
+			france_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		}
+		effect = {
+			add_adm_power = 100
+			183 = {
+				set_great_project_tier_2 = {
+					type = versailles
+				}
+			}
+			add_country_modifier = {
+				name = "EDG_adm_policy_7_modifier"
+				duration = 7300
+			}
+			country_event = { id = EDG_flavorTUR.13 }
+		}
+	}
+	
+}
+
+
+EDG_TUR_mission_5 = {
+	slot = 5
+	generic = no #if a mission without generic = yes wants this slot then it overrides this.
+	ai = yes
+	potential = {
+		OR = {
+			 
+			tag = RUM
+			 
+		}
+		NOT = { map_setup = map_setup_random }
+		NOT = { was_tag = MEN }
+	}
+	has_country_shield = yes
+	
+	EDG_TUR_mission_5_8 = {
+		icon = mission_into_persia_1
+		required_missions = {  }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+		  total_development = 1000
+		  adm_power = 100
+		}
+		effect = {
+			add_adm_power = -100
+			define_advisor = {
+				type = administrative_experts
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			add_country_modifier = {
+				name = "EDG_TUR_mission_5_8_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_TUR_mission_5_9 = {
+		icon = mission_develop_cordoba
+		required_missions = { EDG_TUR_mission_5_8 }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			adm_power = 100
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						has_building = temple
+						has_building = cathedral
+					}
+					OR = {
+						has_building = courthouse
+						has_building = town_hall
+					}
+				}
+				amount = 20
+			}
+		}
+		effect = {
+			add_adm_power = -100
+			add_country_modifier = {
+				name = "EDG_TUR_mission_5_9_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_TUR_mission_5_10 = {
+		icon = mission_conquer_tunisia
+		required_missions = { EDG_TUR_mission_5_9
+							  conquer_egypt}
+		position = 10
+		provinces_to_highlight = {
+		  OR = {
+			AND = {
+			  OR = {
+				region = egypt_region
+			  }
+			  OR = {
+				NOT = {
+				  owned_by = root
+				}
+				NOT = {
+				  unrest = 1
+				}
+				NOT = {
+				  nationalism = 1
+				}
+				NOT = {
+				  local_autonomy = 1
+				}
+			  }
+			}
+		  }
+		}
+		trigger = {
+			egypt_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+				NOT = {
+				  unrest = 1
+				}
+				NOT = {
+				  nationalism = 1
+				}
+				NOT = {
+				  local_autonomy = 1
+				}
+			}	
+			has_country_flag = EDG_TUR_disable_MAM_flag
+		}
+		effect = {
+			add_adm_power = 100
+			add_country_modifier = {
+				name = "EDG_TUR_mission_egy_1_modifier"
+				duration = -1
+			}
+			
+		}
+	}
+	EDG_TUR_mission_4_13 = {#5_12
+		icon = mission_conquer_timbuktu
+		required_missions = { conquer_mocha }
+		position = 12
+		provinces_to_highlight = {
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 15
+				OR = {
+						region = arabia_region
+				}
+					OR = {
+						has_building = barracks
+						has_building = training_fields
+					}
+			}
+		}
+		effect = {
+			add_mil_power = 50
+			add_country_modifier = {
+				name = "EDG_TUR_mission_4_13_modifier"
+				duration = -1
+			}
+		}
+	}
+	EDG_TUR_mission_5_14 = {
+		icon = challenge_spanish_power
+		required_missions = { take_crete_from_venice }
+		position = 14
+		provinces_to_highlight = {
+			provinces_id = 112
+		}
+		trigger = {
+			112 = {
+				owned_by = root
+			}
+		}
+		effect = {
+			add_navy_tradition = 15
+			add_country_modifier = {
+				name = "EDG_army_enthusiasm_4_modifier"
+				duration = 9125
+			}
+		}
+	}
+	EDG_TUR_mission_5_15 = {
+		icon = contracts_of_correspondence
+		required_missions = { EDG_TUR_mission_5_14 }
+		position = 15
+		provinces_to_highlight = {
+			provinces_id = 4754
+		}
+		trigger = {
+			112 = {
+				type = all
+				owned_by = root
+				NOT = {
+				  unrest = 1
+				}
+				NOT = {
+				  nationalism = 1
+				}
+				NOT = {
+				  local_autonomy = 1
+				}
+			}
+		}
+		effect = {
+			add_navy_tradition = 15
+			add_country_modifier = {
+				name = "EDG_produce_upgrade_3_modifier"
+				duration = 9125
+			}
+			112 = {
+				set_great_project_tier_2 = {
+					type = doges_palace
+				}
+			}
+		}
+	}
+	EDG_TUR_mission_5_16 = {
+		icon = assert_our_sovereignty
+		required_missions = { EDG_TUR_mission_4_15 }
+		position = 16
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					OR = {
+						region = italy_region
+					}
+					OR = {
+						NOT = { owned_by = root }
+					}
+					ROOT = {
+						NOT = {
+							num_of_owned_provinces_with = {
+								value = 20
+								OR = {
+									region = italy_region
+								}
+								OR = {
+									has_building = barracks
+									has_building = training_fields
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				OR = {
+						region = italy_region
+				}
+					OR = {
+						has_building = barracks
+						has_building = training_fields
+					}
+			}
+		}
+		effect = {
+			add_mil_power = 100
+			add_country_modifier = {
+				name = "EDG_TUR_mission_5_16_modifier"
+				duration = -1
+			}
+		}
+	}
+	
+}

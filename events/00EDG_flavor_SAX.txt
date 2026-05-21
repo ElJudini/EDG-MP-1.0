@@ -1,0 +1,1232 @@
+namespace = EDG_flavorSAX
+normal_or_historical_nations = yes
+
+country_event = {#萨克森与帝国
+  id = EDG_flavorSAX.0
+  title = "EDG_flavorSAX.0.t"
+  desc = "EDG_flavorSAX.0.desc"
+  picture = DIPLOMACY_eventPicture
+  fire_only_once = yes
+  trigger = {
+    tag = SAX
+  }
+	option = {#未来属于我们！
+    name = EDG_flavorSAX.0.a
+    ai_chance = {
+      factor = 1
+    }
+    custom_tooltip = EDG_flavorSAX_0_tt
+  }
+}
+country_event = {#[Root.Monarch.GetTitle]的权柄
+  id = EDG_flavorSAX.1
+  title = "EDG_flavorSAX.1.t"
+  desc = "EDG_flavorSAX.1.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#他们以区区之数，又何以自安？
+    name = EDG_flavorSAX.1.c
+    ai_chance = {
+      factor = 1
+    }
+    add_mil_power = 50
+    add_ruler_modifier = {
+      name = EDG_flavorSAX_1_c_modifier
+      duration = 3650
+    }
+  }
+	option = {#[Root.Monarch.GetTitle]将会宣称自己是诸侯的保护者。
+		name = EDG_flavorSAX.1.a
+		ai_chance = {
+			factor = 5
+		}
+    add_prestige_or_monarch_power = { amount = 10 }
+    every_country = {
+      limit = { is_neighbor_of = ROOT }
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_incident_fra_encirclement_event_opinion_b
+      }
+    }
+    add_ruler_modifier = {
+      name = EDG_flavorSAX_1_a_modifier
+      duration = 3650
+    }
+	}
+	option = {#诺德马克应当是我们重点争取的对象。
+		name = EDG_flavorSAX.1.b
+    trigger = {
+      H03 = {
+        exists = yes
+        is_subject = no
+        NOT = { is_rival = ROOT }
+        NOT = { war_with = ROOT }
+        NOT = { is_enemy = ROOT }
+      }
+    }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 10
+        alliance_with = H03
+			}
+		}
+    add_dip_power = 50
+    H03 = {
+      country_event = { id = EDG_flavorSAX.3 }
+      custom_tooltip = edg_if_they_agree_tt
+      tooltip = {
+        add_historical_friend = ROOT
+        if = {
+          limit = { alliance_with = ROOT }
+          add_favors = {
+            who = From
+            amount = 10
+          }
+        }
+        else = {
+          create_alliance = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = opinion_EDG_MISSION_BUL_2_2
+        }
+      }
+    }
+	}
+	option = {#波西米亚王冠举重若轻。
+		name = EDG_flavorSAX.1.d
+    trigger = {
+      BOH = {
+        exists = yes
+        is_subject = no
+        NOT = { is_rival = ROOT }
+        NOT = { war_with = ROOT }
+        NOT = { is_enemy = ROOT }
+      }
+    }
+		ai_chance = {
+			factor = 5
+		}
+    add_dip_power = 50
+    BOH = {
+      country_event = { id = EDG_flavorSAX.3 }
+      custom_tooltip = edg_if_they_agree_tt
+      tooltip = {
+        add_historical_friend = ROOT
+        if = {
+          limit = { alliance_with = ROOT }
+          add_favors = {
+            who = From
+            amount = 10
+          }
+        }
+        else = {
+          create_alliance = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = opinion_EDG_MISSION_BUL_2_2
+        }
+      }
+    }
+	}
+	option = {#我们知道哈布斯堡王朝的态度会很重要。
+		name = EDG_flavorSAX.1.e
+    trigger = {
+      any_country = {
+        has_country_flag = EDG_HAB_flag
+        is_subject = no
+        NOT = { is_rival = ROOT }
+        NOT = { war_with = ROOT }
+        NOT = { is_enemy = ROOT }
+      }
+    }
+		ai_chance = {
+			factor = 5
+		}
+    add_dip_power = 50
+    random_country = {
+      limit = { has_country_flag = EDG_HAB_flag }
+      country_event = { id = EDG_flavorSAX.3 }
+      custom_tooltip = edg_if_they_agree_tt
+      tooltip = {
+        add_historical_friend = ROOT
+        if = {
+          limit = { alliance_with = ROOT }
+          add_favors = {
+            who = ROOT
+            amount = 10
+          }
+        }
+        else = {
+          create_alliance = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = opinion_EDG_MISSION_BUL_2_2
+        }
+      }
+    }
+	}
+}
+
+country_event = {#丹麦人
+  id = EDG_flavorSAX.2
+  title = "EDG_flavorSAX.2.t"
+  desc = "EDG_flavorSAX.2.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#我们是一家人！
+    name = EDG_flavorSAX.2.a
+    ai_chance = {
+      factor = 1
+    }
+    add_adm_power = 50
+    add_accepted_culture_or_dip_power = { culture = danish }
+    add_country_modifier = {
+      name = EDG_flavorSAX_2_a_modifier
+      duration = -1
+    }
+  }
+	option = {#他们连德语都不会说。
+    name = EDG_flavorSAX.2.b
+    ai_chance = {
+      factor = 1
+    }
+    add_mil_power = 50
+    every_owned_province = {
+      limit = { culture = danish }
+      add_nationalism = 10
+    }
+    EDG_SAX_Cultural_singularity_modifier_update_effect = yes
+  }
+}
+
+country_event = {#[From.GetName]请求缔结世交
+  id = EDG_flavorSAX.3
+  title = "EDG_flavorSAX.3.t"
+  desc = "EDG_flavorSAX.3.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#他们是有战略意义的盟友！
+    name = EDG_flavorSAX.3.a
+    ai_chance = {
+      factor = 1
+    }
+    From = {
+      country_event = { id = EDG_flavorSAX.4 }
+      tooltip = {
+        add_historical_friend = ROOT
+        if = {
+          limit = { alliance_with = ROOT }
+          add_favors = {
+            who = From
+            amount = 10
+          }
+        }
+        else = {
+          create_alliance = ROOT
+        }
+        add_opinion = {
+          who = ROOT
+          modifier = opinion_EDG_MISSION_BUL_2_2
+        }
+      }
+    }
+  }
+	option = {#我们不想在他们身上浪费时间。
+    name = EDG_flavorSAX.3.b
+    ai_chance = {
+      factor = 0
+    }
+    From = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_unhappy_opinion
+      }
+    }
+  }
+}
+country_event = {#[From.GetName]同意了我们的请求
+  id = EDG_flavorSAX.4
+  title = "EDG_flavorSAX.4.t"
+  desc = "EDG_flavorSAX.4.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#太好了！
+    name = EDG_flavorSAX.4.a
+    ai_chance = {
+      factor = 1
+    }
+    add_historical_friend = From
+    add_opinion = {
+      who = From
+      modifier = opinion_EDG_MISSION_BUL_2_2
+    }
+    From = {
+      add_historical_friend = ROOT
+      if = {
+        limit = { alliance_with = ROOT }
+        add_favors = {
+          who = ROOT
+          amount = 10
+        }
+        ROOT = {
+          add_favors = {
+            who = From
+            amount = 10
+          }
+        }
+      }
+      else = {
+        create_alliance = ROOT
+      }
+      add_opinion = {
+        who = ROOT
+        modifier = opinion_EDG_MISSION_BUL_2_2
+      }
+    }
+  }
+  
+}
+country_event = {#重建大萨克森公国
+  id = EDG_flavorSAX.5
+  title = "EDG_flavorSAX.5.t"
+  desc = "EDG_flavorSAX.5.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#我们是奥托一世的继任者！
+    name = EDG_flavorSAX.5.a
+    ai_chance = {
+      factor = 1
+    }
+    add_prestige_or_monarch_power = { amount = 20 }
+    add_country_modifier = {
+      name = EDG_flavorSAX_4_a_modifier
+      duration = -1
+    }
+  }
+  
+}
+country_event = {#悉威敕令
+  id = EDG_flavorSAX.6
+  title = "EDG_flavorSAX.6.t"
+  desc = "EDG_flavorSAX.6.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  
+	option = {#我们都是主的仆人。
+    name = EDG_flavorSAX.6.a
+    ai_chance = {
+      factor = 1
+    }
+    add_prestige_or_monarch_power = { amount = 10 }
+    set_country_flag = EDG_flavorSAX_6_a_flag
+    custom_tooltip = EDG_flavorSAX_6_a_flag_tt
+
+    hidden_effect = {
+      country_event = { id = EDG_flavorSAX.7 days = 31 }
+      country_event = { id = EDG_flavorSAX.7 days = 380 }
+    }
+  }
+  
+}
+country_event = {#祷告派移民
+  id = EDG_flavorSAX.7
+  title = "EDG_flavorSAX.7.t"
+  desc = "EDG_flavorSAX.7.desc"
+  picture = DIPLOMACY_eventPicture
+  #is_triggered_only = yes
+  trigger = {
+    has_country_flag = EDG_flavorSAX_6_a_flag
+    NOT = { is_religion_enabled = protestant }
+    any_owned_province = {
+      NOT = { religion = EDG_Euchites }
+    }
+  }
+  
+  mean_time_to_happen = {
+    months = 40
+		modifier = {
+			factor = 0.75
+      num_of_cities = 8
+		}
+		modifier = {
+			factor = 0.75
+      num_of_cities = 10
+		}
+		modifier = {
+			factor = 0.75
+      num_of_cities = 15
+		}
+		modifier = {
+			factor = 0.5
+      num_of_cities = 20
+		}
+		modifier = {
+			factor = 0.5
+      total_development = 100
+		}
+		modifier = {
+			factor = 0.5
+      total_development = 150
+		}
+  }
+	option = {#欢迎他们的到来！
+    name = EDG_flavorSAX.7.a
+    ai_chance = {
+      factor = 1
+    }
+    add_dip_power = -10
+    random_owned_province = {
+      limit = { NOT = { religion = EDG_Euchites } }
+      EDG_flavorSAX_7_a_effect = yes
+    }
+  }
+	option = {#呃……暂时不欢迎他们。
+    name = EDG_flavorSAX.7.b
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+	option = {#我们改变主意了。
+    name = EDG_flavorSAX.7.c
+    ai_chance = {
+      factor = 0
+    }
+    EDG_flavorSAX_7_c_effect = yes
+  }
+  
+}
+country_event = {#奥夫豪森联盟
+  id = EDG_flavorSAX.8
+  title = "EDG_flavorSAX.8.t"
+  desc = "EDG_flavorSAX.8.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  major = yes
+
+	option = {#我们将血战至死！
+    name = EDG_flavorSAX.8.a
+    ai_chance = {
+      factor = 1
+    }
+    if = {
+      limit = { 
+        current_age = age_of_reformation
+      }
+      add_country_modifier_for_age = {
+        name = EDG_mission_SAX_1_10_modifier2
+        age = age_of_reformation
+      }
+      every_country = {
+        limit = {
+          in_league = protestant
+        }
+        add_country_modifier_for_age = {
+          name = EDG_mission_SAX_1_10_modifier
+          age = age_of_reformation
+        }
+      }
+    }
+    else = {
+      add_country_modifier = {
+        name = EDG_mission_SAX_1_10_modifier2
+        duration = 9125
+      }
+      every_country = {
+        limit = {
+          in_league = protestant
+        }
+        add_country_modifier = {
+          name = EDG_mission_SAX_1_10_modifier
+          duration = 9125
+        }
+      }
+    }
+  }
+  
+  
+}
+country_event = {#大元帅-皇帝关系
+  id = EDG_flavorSAX.9
+  title = "EDG_flavorSAX.9.t"
+  desc = "EDG_flavorSAX.9.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  major = yes
+  trigger = {
+    
+  }
+  
+	option = {#我们对帝国赤胆忠心！
+    name = EDG_flavorSAX.9.a
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+          war_with = emperor
+        }
+      }
+    }
+    add_dip_power = 50
+    add_historical_friend = emperor
+    emperor = {
+      add_historical_friend = ROOT
+      add_imperial_influence = 10
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorSAX_9_a_opinion
+      }
+      add_country_modifier = {
+        name = EDG_flavorSAX_9_a_modifier
+        duration = 3650
+      }
+    }
+  }
+	option = {#我们眼里没有皇帝。
+    name = EDG_flavorSAX.9.b
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 0
+        alliance_with = emperor
+      }
+    }
+    add_mil_power = 50
+    add_country_modifier = {
+      name = EDG_flavorSAX_9_b_modifier
+      duration = 3650
+    }
+    remove_historical_friend = emperor
+    emperor = {
+      remove_historical_friend = ROOT
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorSAX_9_b_opinion
+      }
+    }
+  }
+  
+  
+}
+country_event = {#祷告派移民带来的财富
+  id = EDG_flavorSAX.10
+  title = "EDG_flavorSAX.10.t"
+  desc = "EDG_flavorSAX.7.desc"
+  picture = DIPLOMACY_eventPicture
+  #is_triggered_only = yes
+  #major = yes
+  trigger = {
+    has_country_flag = EDG_flavorSAX_6_a_flag
+    NOT = { is_religion_enabled = protestant }
+    any_owned_province = {
+      religion = EDG_Euchites
+      NOT = { development = 15 }
+    }
+  }
+  
+  mean_time_to_happen = {
+    months = 90
+		modifier = {
+			factor = 0.75
+      num_of_cities = 10
+		}
+		modifier = {
+			factor = 0.75
+      num_of_cities = 15
+		}
+		modifier = {
+			factor = 0.75
+      num_of_cities = 20
+		}
+  }
+	option = {#欢迎他们的到来！
+    name = EDG_flavorSAX.7.a
+    ai_chance = {
+      factor = 1
+    }
+    add_dip_power = -10
+    random_owned_province = {
+      limit = { religion = EDG_Euchites NOT = { development = 15 } }
+      random_list = {
+        35 = { add_base_manpower = 1 }
+        35 = { add_base_production = 1 }
+        30 = { add_base_tax = 1 }
+      }
+      add_province_modifier = {
+        name = EDG_flavorSAX_10_a_modifier
+        duration = 9125
+      }
+    }
+  }
+	option = {#呃……暂时不欢迎他们。
+    name = EDG_flavorSAX.7.b
+    ai_chance = {
+      factor = 0
+    }
+    add_prestige = -5
+  }
+	option = {#我们改变主意了。
+    name = EDG_flavorSAX.7.c
+    ai_chance = {
+      factor = 0
+    }
+    EDG_flavorSAX_7_c_effect = yes
+  }
+}
+country_event = {#宣称公国领地
+  id = EDG_flavorSAX.11
+  title = "EDG_flavorSAX.11.t"
+  desc = "EDG_flavorSAX.11.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+  
+	option = {#我们必须重建大萨克森公国！
+    name = EDG_flavorSAX.11.a
+    ai_chance = {
+      factor = 0
+    }
+    add_dip_power = -50
+
+    custom_tooltip = EDG_SPACE_TT
+    EDG_mission_claim_all_lower_saxon_province_effect = yes
+    holstein_area = {
+      add_permanent_claim = ROOT
+    }
+  }
+	option = {#我们十分安分守己……
+    name = EDG_flavorSAX.11.b
+    ai_chance = {
+      factor = 1
+    }
+    custom_tooltip = EDG_flavorSAX_11_b_tt
+    add_stability_or_adm_power = yes
+    emperor = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_flavorSAX_9_a_opinion
+      }
+    }
+  }
+  
+  
+}
+country_event = {#洛林的人民
+  id = EDG_flavorSAX.12
+  title = "EDG_flavorSAX.12.t"
+  desc = "EDG_flavorSAX.12.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#他们也是我们的人民。
+    name = EDG_flavorSAX.12.a
+    ai_chance = {
+      factor = 1
+    }
+    tooltip = {
+      add_accepted_culture_or_dip_power = { culture = burgundian }
+    }
+    add_country_modifier = {
+      name = EDG_flavorSAX_12_a_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      add_accepted_culture_or_dip_power = { culture = burgundian }
+    }
+  }
+	option = {#他们当然是二等公民。
+    name = EDG_flavorSAX.12.b
+    ai_chance = {
+      factor = 1
+    }
+    EDG_SAX_Cultural_singularity_modifier_update_effect = yes
+  }
+  
+  
+}
+country_event = {#尼德兰的官僚体系
+  id = EDG_flavorSAX.13
+  title = "EDG_flavorSAX.13.t"
+  desc = "EDG_flavorSAX.13.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#我们乐于学习。
+    name = EDG_flavorSAX.13.a
+    ai_chance = {
+      factor = 1
+    }
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = -10
+    }
+    add_country_modifier = {
+      name = EDG_flavorSAX_13_a_modifier
+      duration = 9125
+    }
+  }
+	option = {#封建贵族制才是我们的支柱。
+    name = EDG_flavorSAX.13.b
+    ai_chance = {
+      factor = 1
+    }
+    add_stability_or_adm_power = yes
+    add_estate_loyalty = {
+      estate = estate_nobles
+      loyalty = 20
+    }
+  
+  }
+  
+  
+}
+country_event = {#大巡游
+  id = EDG_flavorSAX.14
+  title = "EDG_flavorSAX.14.t"
+  desc = "EDG_flavorSAX.14.desc"
+  picture = DIPLOMACY_eventPicture
+  trigger = {
+    OR = {
+      has_country_flag = EDG_flavorSAX_14_enable_flag
+      primary_culture = hannoverian
+    }
+    NOT = { has_country_flag = EDG_flavorSAX_14_unable_flag }
+  }
+  
+  mean_time_to_happen = {
+    months = 120
+  }
+	option = {#让我们快乐地巡游！
+    name = EDG_flavorSAX.14.a
+    ai_chance = {
+      factor = 5
+    }
+    add_years_of_income = -0.15
+    add_adm_power = 50
+    add_dip_power = 50
+  }
+	option = {#我们暂时没有足够的闲钱。
+    name = EDG_flavorSAX.14.b
+    ai_chance = {
+      factor = 1
+    }
+    add_prestige = -5
+  
+  }
+	option = {#是时候废除这一陋习了。
+    name = EDG_flavorSAX.14.c
+    ai_chance = {
+      factor = 0
+    }
+    if = {
+      limit = { primary_culture = hannoverian }
+      add_stability = -1
+    }
+    custom_tooltip = EDG_flavorSAX_14_unable_flag_tt
+    set_country_flag = EDG_flavorSAX_14_unable_flag
+    clr_country_flag = EDG_flavorSAX_14_enable_flag
+  }
+  
+  
+}
+country_event = {#面对波兰人
+  id = EDG_flavorSAX.15
+  title = "EDG_flavorSAX.15.t"
+  desc = "EDG_flavorSAX.15.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+	option = {#前进！
+    name = EDG_flavorSAX.15.a
+    ai_chance = {
+      factor = 1
+    }
+    east_prussia_area = {
+      add_permanent_claim = ROOT
+    }
+    west_prussia_area = {
+      add_permanent_claim = ROOT
+    }
+    poland_region = {
+      add_permanent_claim = ROOT
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_SAX_Cultural_singularity_modifier_update_effect = yes
+  }
+	option = {#我们目前在波兰没有利益。
+    name = EDG_flavorSAX.15.b
+    ai_chance = {
+      factor = 0
+    }
+    add_stability_or_adm_power = yes
+    add_country_modifier = {
+      name = EDG_flavorSAX_15_b_modifier
+      duration = 3650
+    }
+  }
+  
+  
+}
+country_event = {#军事重心
+  id = EDG_flavorSAX.16
+  title = "EDG_flavorSAX.16.t"
+  desc = "EDG_flavorSAX.16.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#我们信奉进攻主义。
+    name = EDG_flavorSAX.16.a
+    EDG_flavorSAX_16_a_modifier_upgrate_effect = yes
+  }
+	option = {#我们坚守防御主义。
+    name = EDG_flavorSAX.16.b
+    EDG_flavorSAX_16_b_modifier_upgrate_effect = yes
+  }
+	option = {#大陆军主义才是对的。
+    name = EDG_flavorSAX.16.c
+    EDG_flavorSAX_16_c_modifier_upgrate_effect = yes
+  }
+	option = {#精锐才能主宰战场。
+    name = EDG_flavorSAX.16.d
+    EDG_flavorSAX_16_d_modifier_upgrate_effect = yes
+  }
+  
+  
+}
+country_event = {#[Root.GetName]宪兵团的建立
+  id = EDG_flavorSAX.17
+  title = "EDG_flavorSAX.17.t"
+  desc = "EDG_flavorSAX.17.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#我们信奉进攻主义。
+    name = EDG_flavorSAX.16.a
+    EDG_flavorSAX_16_a_modifier_upgrate_effect = yes
+  }
+	option = {#我们坚守防御主义。
+    name = EDG_flavorSAX.16.b
+    EDG_flavorSAX_16_b_modifier_upgrate_effect = yes
+  }
+	option = {#大陆军主义才是对的。
+    name = EDG_flavorSAX.16.c
+    EDG_flavorSAX_16_c_modifier_upgrate_effect = yes
+  }
+	option = {#精锐才能主宰战场。
+    name = EDG_flavorSAX.16.d
+    EDG_flavorSAX_16_d_modifier_upgrate_effect = yes
+  }
+  
+  
+}
+country_event = {#总参谋部的建立
+  id = EDG_flavorSAX.18
+  title = "EDG_flavorSAX.18.t"
+  desc = "EDG_flavorSAX.18.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#我们信奉进攻主义。
+    name = EDG_flavorSAX.16.a
+    EDG_flavorSAX_16_a_modifier_upgrate_effect = yes
+  }
+	option = {#我们坚守防御主义。
+    name = EDG_flavorSAX.16.b
+    EDG_flavorSAX_16_b_modifier_upgrate_effect = yes
+  }
+	option = {#大陆军主义才是对的。
+    name = EDG_flavorSAX.16.c
+    EDG_flavorSAX_16_c_modifier_upgrate_effect = yes
+  }
+	option = {#精锐才能主宰战场。
+    name = EDG_flavorSAX.16.d
+    EDG_flavorSAX_16_d_modifier_upgrate_effect = yes
+  }
+  
+  
+}
+country_event = {#一个拥有国家的军队
+  id = EDG_flavorSAX.19
+  title = "EDG_flavorSAX.19.t"
+  desc = "EDG_flavorSAX.19.desc"
+  picture = DIPLOMACY_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    
+  }
+
+	option = {#我们信奉进攻主义。
+    name = EDG_flavorSAX.16.a
+    EDG_flavorSAX_16_a_modifier_upgrate_effect = yes
+  }
+	option = {#我们坚守防御主义。
+    name = EDG_flavorSAX.16.b
+    EDG_flavorSAX_16_b_modifier_upgrate_effect = yes
+  }
+	option = {#大陆军主义才是对的。
+    name = EDG_flavorSAX.16.c
+    EDG_flavorSAX_16_c_modifier_upgrate_effect = yes
+  }
+	option = {#精锐才能主宰战场。
+    name = EDG_flavorSAX.16.d
+    EDG_flavorSAX_16_d_modifier_upgrate_effect = yes
+  }
+  
+  
+}
+
+
+
+
+country_event = {#军需总监部
+  id = EDG_flavorSAX.101
+  title = "EDG_flavorSAX.101.t"
+  desc = "EDG_flavorSAX.101.desc"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    mil_tech = 12
+  }
+  mean_time_to_happen = {
+    months = 360
+  }
+	option = {#我们当然需要军需总监部。
+    name = EDG_flavorSAX.101.a
+    add_years_of_income = -0.5
+    add_country_modifier = {
+      name = EDG_flavorSAX_101_a_modifier
+      duration = 9125
+    }
+  }
+	option = {#呃……其实没有这个必要。
+    name = EDG_flavorSAX.101.b
+    add_prestige = -5
+  }
+  
+}
+country_event = {#令人畏惧的萨克森军队
+  id = EDG_flavorSAX.102
+  title = "EDG_flavorSAX.102.t"
+  desc = "EDG_flavorSAX.102.desc"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    prestige = 50
+    army_tradition = 60
+  }
+  mean_time_to_happen = {
+    months = 360
+  }
+	option = {#我们当然是不败之师！
+    name = EDG_flavorSAX.102.a
+    add_mil_power = -50
+    add_country_modifier = {
+      name = EDG_flavorSAX_102_a_modifier
+      duration = 9125
+    }
+  }
+	option = {#没有那么夸张。
+    name = EDG_flavorSAX.102.b
+    add_prestige = -5
+  }
+  
+}
+country_event = {#地方军事传统
+  id = EDG_flavorSAX.103
+  title = "EDG_flavorSAX.103.t"
+  desc = "EDG_flavorSAX.103.desc"
+  picture = BATTLE_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    53 = {
+      owned_by = ROOT
+      culture = ROOT
+      NOT = { has_province_modifier = EDG_City_manpower_bloom_2 }
+    }
+  }
+  mean_time_to_happen = {
+    months = 360
+  }
+	option = {#赞助他们的军事热情！
+    name = EDG_flavorSAX.103.a
+    add_mil_power = -50
+    53 = {
+      add_base_manpower = 2
+      add_province_modifier = {
+        name = EDG_City_manpower_bloom_2
+        duration = -1
+      }
+    }
+  }
+	option = {#让他们参军。
+    name = EDG_flavorSAX.103.b
+    add_yearly_manpower = 0.15
+  }
+  
+}
+country_event = {#大元帅的军事活动
+  id = EDG_flavorSAX.104
+  title = "EDG_flavorSAX.104.t"
+  desc = "EDG_flavorSAX.104.desc"
+  picture = BATTLE_eventPicture
+  is_triggered_only = yes
+  trigger = {
+    has_country_modifier = EDG_EMP_Appoint_Generalissimo_action_modifier
+    is_at_war = yes
+    war_score = 0
+  }
+
+	option = {#鼓励贵族参军！
+    name = EDG_flavorSAX.104.a
+    add_army_tradition = 5
+  }
+	option = {#我们需要更多军事人才。
+    name = EDG_flavorSAX.104.b
+    add_mil_power = 25
+  }
+  
+}
+country_event = {#吕讷堡集市
+  id = EDG_flavorSAX.105
+  title = "EDG_flavorSAX.105.t"
+  desc = "EDG_flavorSAX.105.desc"
+  picture = UNIVERSITY_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    53 = {
+      owned_by = ROOT
+      culture = ROOT
+      development = 17
+    }
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+	option = {#这是投资的良机！
+    name = EDG_flavorSAX.105.a
+    add_treasury = -100
+    53 = {
+      add_base_production = 2
+      EDG_create_or_add_center_of_trade_level_effect = yes
+    }
+  }
+	option = {#让我们收税吧。
+    name = EDG_flavorSAX.105.b
+    add_treasury = 100
+  }
+  
+}
+country_event = {#策勒战马
+  id = EDG_flavorSAX.106
+  title = "EDG_flavorSAX.106.t"
+  desc = "EDG_flavorSAX.106.desc"
+  picture = ENCOMIENDA_eventPicture
+  fire_only_once = yes
+  trigger = {
+    primary_culture = lower_saxon
+    1758 = {
+      owned_by = ROOT
+    }
+    is_year = 1510
+    OR = {
+      army_tradition = 50
+      is_year = 1620
+    }
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+	option = {#我们乐于培育优质的战马！
+    name = EDG_flavorSAX.106.a
+    add_treasury = -100
+    add_mil_power = -100
+    add_army_tradition = 10
+    1758 = {
+      add_province_modifier = {
+        name = EDG_flavorSAX_106_a_modifier
+        duration = 7300
+      }
+    }
+  }
+	option = {#我们不需要骑兵。
+    name = EDG_flavorSAX.106.b
+    add_army_tradition = 5
+  }
+  
+}
+country_event = {#哥廷根大教堂
+  id = EDG_flavorSAX.107
+  title = "EDG_flavorSAX.107.t"
+  desc = "EDG_flavorSAX.107.desc"
+  picture = GREAT_BUILDING_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    4773 = {
+      owned_by = ROOT
+    }
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+	option = {#我们是最虔信的教徒。
+    name = EDG_flavorSAX.107.a
+    add_treasury = -100
+    add_adm_power = 100
+    4773 = {
+      if = {
+        limit = { owner = { has_country_modifier = EDG_mission_SAX_1_7_modifier } }
+        change_religion = EDG_Euchites
+      }
+      add_province_modifier = {
+        name = EDG_flavorSAX_107_a_modifier
+        duration = 7300
+      }
+    }
+  }
+	option = {#我们没有钱。
+    name = EDG_flavorSAX.107.b
+    add_prestige = -5
+  }
+  
+}
+country_event = {#德绍自治权
+  id = EDG_flavorSAX.108
+  title = "EDG_flavorSAX.108.t"
+  desc = "EDG_flavorSAX.108.desc"
+  picture = GREAT_BUILDING_eventPicture
+  fire_only_once = yes
+  trigger = {
+    58 = {
+      owned_by = ROOT
+    }
+    culture_group = germanic
+    NOT = {
+      OR = {
+        tag = ANH
+        was_tag = ANH
+      }
+    }
+  }
+  mean_time_to_happen = {
+    months = 60
+  }
+	option = {#我们渴望更多的合作。
+    name = EDG_flavorSAX.108.a
+    58 = {
+      add_province_modifier = {
+        name = EDG_flavorSAX_108_a_modifier
+        duration = 7300
+      }
+    }
+  }
+	option = {#没有这个必要。
+    name = EDG_flavorSAX.108.b
+    add_adm_power = 25
+  }
+  
+}
+country_event = {#腓特烈三世
+  id = EDG_flavorSAX.109
+  title = "EDG_flavorSAX.109.t"
+  desc = "EDG_flavorSAX.109.desc"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    is_year = 1463
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+	option = {#命中注定！
+    name = EDG_flavorSAX.109.a
+    EDG_flavorSAX_109_a_effect = yes
+  }
+	option = {#你说什么？
+    name = EDG_flavorSAX.109.b
+    add_prestige = -5
+  }
+  
+}
+country_event = {#海因里希
+  id = EDG_flavorSAX.110
+  title = "EDG_flavorSAX.110.t"
+  desc = "EDG_flavorSAX.110.desc"
+  picture = WESTERNISATION_eventPicture
+  fire_only_once = yes
+  trigger = {
+    OR = {
+      tag = SAX
+      was_tag = SAX
+    }
+    total_development = 150
+    army_tradition = 50
+  }
+  mean_time_to_happen = {
+    months = 120
+  }
+	option = {#让他进入军事枢密院。
+    name = EDG_flavorSAX.110.a
+    EDG_flavorSAX_110_a_effect = yes
+  }
+	option = {#让他统领军队。
+    name = EDG_flavorSAX.110.b
+    EDG_flavorSAX_110_b_effect = yes
+  }
+  
+}

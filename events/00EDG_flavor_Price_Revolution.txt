@@ -1,0 +1,1602 @@
+namespace = EDG_flavor_Price_Revolution
+normal_or_historical_nations = yes
+country_event = {#价格革命
+	id = EDG_flavor_Price_Revolution.0
+	title = "EDG_flavor_Price_Revolution.0.title"
+	desc = "EDG_flavor_Price_Revolution.0.desc"
+	picture = MERCHANTS_TALKING_eventPicture
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		NOT = { is_year = 1600 }
+		capital_scope = { superregion = europe_superregion }
+		OR = {
+			num_of_colonists = 1
+			capital_scope = { region = iberia_region }
+			capital_scope = { region = british_isles_region }
+			capital_scope = { region = france_region }
+			technology_group = western
+		}
+		OR = {
+			is_year = 1521
+			calc_true_if = {
+				all_province = {
+					OR = {
+						superregion = north_america_superregion
+						superregion = central_america_superregion
+						superregion = andes_superregion
+						superregion = south_america_superregion
+					}
+					OR = {
+						is_colony = yes
+						owner = { technology_group = western }
+						owner = { is_colonial_nation = yes }
+						owner = { capital_scope = { superregion = europe_superregion } }
+					}
+				}
+				amount = 25
+			}
+		}
+	}
+	
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Price_Revolution_1_flag
+	}
+	
+	option = {#我们必须做好准备。
+		name = "EDG_flavor_Price_Revolution.0.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		set_global_flag = EDG_Price_Revolution_global_flag
+		custom_tooltip = EDG_Price_Revolution_global_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_0_a_modifier
+			duration = 18250
+		}
+	}
+	
+	after = {
+		hidden_effect = {
+			country_event = { id = EDG_flavor_Price_Revolution.14 days = 3650 }
+		}
+	}
+}
+
+
+country_event = {#价格革命的波澜
+	id = EDG_flavor_Price_Revolution.1
+	title = "EDG_flavor_Price_Revolution.1.title"
+	desc = "EDG_flavor_Price_Revolution.1.desc"
+	picture = MERCHANTS_TALKING_eventPicture
+	is_triggered_only = yes
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		OR = {
+			capital_scope = { superregion = europe_superregion }
+			capital_scope = { superregion = eastern_europe_superregion }
+		}
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_1_flag }
+	}
+	
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Price_Revolution_1_flag
+	}
+	
+	option = {#我们不得不接受。
+		name = "EDG_flavor_Price_Revolution.1.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_0_a_modifier
+			duration = 18250
+		}
+	}
+	
+	after = {
+		hidden_effect = {
+			country_event = { id = EDG_flavor_Price_Revolution.14 days = 3650 }
+		}
+	}
+}
+
+country_event = {#新兴的商业城市
+	id = EDG_flavor_Price_Revolution.2
+	title = "EDG_flavor_Price_Revolution.2.title"
+	desc = "EDG_flavor_Price_Revolution.2.desc"
+	picture = ECONOMY_eventPicture
+	goto = EDG_flavor_Price_Revolution_2_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			NOT = { development = 15 }
+			base_tax = 3
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_flag = EDG_flavor_Price_Revolution_2_province_flag }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					NOT = { development = 15 }
+					base_tax = 3
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_2_province
+				set_province_flag = EDG_flavor_Price_Revolution_2_province_flag
+			}
+		}
+	}
+	
+	option = {#这是好事！
+		name = "EDG_flavor_Price_Revolution.2.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_adm_power = -25
+		add_dip_power = -25
+		event_target:EDG_flavor_Price_Revolution_2_province = {
+			random_list = {
+				90 = { add_base_production = 1 add_base_tax = -1 }
+				10 = { add_base_production = 2 add_base_tax = -2 }
+			}
+		}
+	}
+	option = {#任何变化都是十分危险的。
+		name = "EDG_flavor_Price_Revolution.2.bb"
+		ai_chance = {
+		  factor = 0
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_prestige = -5
+	}
+}
+
+country_event = {#工资与生存
+	id = EDG_flavor_Price_Revolution.3
+	title = "EDG_flavor_Price_Revolution.3.title"
+	desc = "EDG_flavor_Price_Revolution.3.desc"
+	picture = ANGRY_MOB_eventPicture
+	goto = EDG_flavor_Price_Revolution_3_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			NOT = { development = 15 }
+			base_tax = 3
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_flag = EDG_flavor_Price_Revolution_3_province_flag }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					NOT = { development = 15 }
+					base_tax = 3
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_3_province
+				set_province_flag = EDG_flavor_Price_Revolution_3_province_flag
+			}
+		}
+	}
+	
+	option = {#还不是他们不努力？
+		name = "EDG_flavor_Price_Revolution.3.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_3_province = {
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_3_a_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#他们不过是被时代压得喘不过气来。
+		name = "EDG_flavor_Price_Revolution.3.bb"
+		ai_chance = {
+		  factor = 0
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_treasury = -50
+		event_target:EDG_flavor_Price_Revolution_3_province = {
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_3_B_modifier
+				duration = 3650
+			}
+		}
+	}
+}
+
+
+country_event = {#价格革命的受益者
+	id = EDG_flavor_Price_Revolution.4
+	title = "EDG_flavor_Price_Revolution.4.title"
+	desc = "EDG_flavor_Price_Revolution.4.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_4_flag }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_flavor_Price_Revolution_4_flag
+		}
+	}
+	
+	option = {#蝇头小利罢了。
+		name = "EDG_flavor_Price_Revolution.4.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_dip_power = 25
+		add_estate_influence_modifier = {
+			estate = estate_edg_copt
+			desc = EST_VAL_PRICE_revolution_estate_influence_modifier_tt
+			influence = 10
+			duration = 7300
+		}
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			desc = EST_VAL_PRICE_revolution_estate_influence_modifier_tt
+			influence = 10
+			duration = 7300
+		}
+		
+	}
+	
+}
+
+country_event = {#粮价飞涨
+	id = EDG_flavor_Price_Revolution.5
+	title = "EDG_flavor_Price_Revolution.5.title"
+	desc = "EDG_flavor_Price_Revolution.5.desc"
+	picture = ACCUSATION_eventPicture
+	goto = EDG_flavor_Price_Revolution_5_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_5_flag }
+		any_owned_province = {
+			is_city = yes
+			base_tax = 3
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_flag = EDG_flavor_Price_Revolution_5_province_flag }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_flavor_Price_Revolution_5_flag
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 3
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_5_province
+				set_province_flag = EDG_flavor_Price_Revolution_5_province_flag
+			}
+		}
+	}
+	
+	option = {#他们为什么不吃牛排呢？
+		name = "EDG_flavor_Price_Revolution.5.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_5_province = {
+			spawn_rebels = {
+				type = anti_tax_rebels
+				size = 2
+				win = yes
+				unrest = 20
+			}
+			random_list = {
+				30 = { add_base_tax = -1 }
+				10 = { add_base_tax = -2 }
+			}
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_5_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#我不能看着我的子民饿死。
+		name = "EDG_flavor_Price_Revolution.5.bb"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_years_of_income = -0.5
+
+	}
+	
+}
+
+
+country_event = {#[EDG_flavor_Price_Revolution_6_province.GetName]粮食歉收
+	id = EDG_flavor_Price_Revolution.6
+	title = "EDG_flavor_Price_Revolution.6.title"
+	desc = "EDG_flavor_Price_Revolution.6.desc"
+	picture = FAMINE_eventPicture
+	goto = EDG_flavor_Price_Revolution_6_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			trade_goods = grain
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+			NOT = { has_province_flag = EDG_flavor_Price_Revolution_6_province_flag }
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					trade_goods = grain
+					is_city = yes
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_6_province
+				set_province_flag = EDG_flavor_Price_Revolution_6_province_flag
+			}
+		}
+	}
+	
+	option = {#他们就不能进城找份工作吗？
+		name = "EDG_flavor_Price_Revolution.6.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_6_province = {
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_6_a_province_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#国家存在的意义便在于此。
+		name = "EDG_flavor_Price_Revolution.6.bb"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_years_of_income = -0.25
+
+	}
+	
+}
+
+
+country_event = {#农村劳动力流入城市
+	id = EDG_flavor_Price_Revolution.7
+	title = "EDG_flavor_Price_Revolution.7.title"
+	desc = "EDG_flavor_Price_Revolution.7.desc"
+	picture = ECONOMY_eventPicture
+	goto = EDG_flavor_Price_Revolution_7_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			base_tax = 2
+			development = 10
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 2
+					development = 10
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_7_province
+			}
+		}
+	}
+	
+	option = {#我们乐于看到这种倾向。
+		name = "EDG_flavor_Price_Revolution.7.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_7_province = {
+			add_base_tax = -1
+			add_base_production = 1
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_7_a_province_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#这可不行。
+		name = "EDG_flavor_Price_Revolution.7.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_7_province = {
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_7_b_province_modifier
+				duration = 3650
+			}
+		}
+
+	}
+	
+}
+
+
+country_event = {#传统的枷锁
+	id = EDG_flavor_Price_Revolution.8
+	title = "EDG_flavor_Price_Revolution.8.title"
+	desc = "EDG_flavor_Price_Revolution.8.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_8_flag }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Price_Revolution_8_flag
+	}
+	
+	option = {#传统更为重要。
+		name = "EDG_flavor_Price_Revolution.8.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_8_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#我们应当支持工商业。
+		name = "EDG_flavor_Price_Revolution.8.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_estate_opinion_happy_modifier_tt
+		  loyalty = 5
+		  duration = 3650
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_8_b_modifier
+			duration = 3650
+		}
+	}
+	
+}
+
+
+
+country_event = {#贵金属的去向
+	id = EDG_flavor_Price_Revolution.9
+	title = "EDG_flavor_Price_Revolution.9.title"
+	desc = "EDG_flavor_Price_Revolution.9.desc"
+	picture = ECONOMY_eventPicture
+	goto = EDG_flavor_Price_Revolution_9_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_9_flag }
+		religion_group = catholic
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_flavor_Price_Revolution_9_flag
+		}
+	}
+	
+	option = {#他们有权这样做。
+		name = "EDG_flavor_Price_Revolution.9.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_9_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#这不利于国家经济的发展。
+		name = "EDG_flavor_Price_Revolution.9.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_9_b_modifier
+			duration = 3650
+		}
+		
+	}
+	
+}
+
+country_event = {#城市化与封建庄园
+	id = EDG_flavor_Price_Revolution.10
+	title = "EDG_flavor_Price_Revolution.10.title"
+	desc = "EDG_flavor_Price_Revolution.10.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_10_flag }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Price_Revolution_10_flag
+	}
+	
+	option = {#我们更青睐城市。
+		name = "EDG_flavor_Price_Revolution.10.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_nobles
+		  desc = EDG_estate_opinion_unhappy_modifier_tt
+		  loyalty = -5
+		  duration = 3650
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_estate_opinion_happy_modifier_tt
+		  loyalty = 5
+		  duration = 3650
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_10_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#庄园经济不可破坏。
+		name = "EDG_flavor_Price_Revolution.10.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_estate_opinion_unhappy_modifier_tt
+		  loyalty = -5
+		  duration = 3650
+		}
+		add_estate_loyalty_modifier = {
+		  estate = estate_nobles
+		  desc = EDG_estate_opinion_happy_modifier_tt
+		  loyalty = 5
+		  duration = 3650
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_10_b_modifier
+			duration = 3650
+		}
+	}
+	
+}
+
+
+country_event = {#征税空间
+	id = EDG_flavor_Price_Revolution.11
+	title = "EDG_flavor_Price_Revolution.11.title"
+	desc = "EDG_flavor_Price_Revolution.11.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_11_flag }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		set_country_flag = EDG_flavor_Price_Revolution_11_flag
+	}
+	
+	option = {#减轻商业的束缚。
+		name = "EDG_flavor_Price_Revolution.11.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_estate_opinion_happy_modifier_tt
+		  loyalty = 5
+		  duration = 3650
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_11_a_modifier
+			duration = 3650
+		}
+	}
+	option = {#让我们大赚一笔吧！
+		name = "EDG_flavor_Price_Revolution.11.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_years_of_income = 0.15
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_estate_opinion_unhappy_modifier_tt
+		  loyalty = -5
+		  duration = 3650
+		}
+	}
+	
+}
+
+
+country_event = {#新兴的工商业城市
+	id = EDG_flavor_Price_Revolution.12
+	title = "EDG_flavor_Price_Revolution.12.title"
+	desc = "EDG_flavor_Price_Revolution.12.desc"
+	picture = ECONOMY_eventPicture
+	goto = EDG_flavor_Price_Revolution_12_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			base_tax = 3
+			NOT = { development = 25 }
+			NOT = { has_province_modifier = EDG_flavor_Price_Revolution_12_a_province_modifier }
+			NOT = { has_province_modifier = EDG_flavor_Price_Revolution_12_b_province_modifier }
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 3
+					NOT = { development = 25 }
+					NOT = { has_province_modifier = EDG_flavor_Price_Revolution_12_a_province_modifier }
+					NOT = { has_province_modifier = EDG_flavor_Price_Revolution_12_b_province_modifier }
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_12_province
+			}
+		}
+	}
+	
+	option = {#我们乐于见到新城市的崛起。
+		name = "EDG_flavor_Price_Revolution.12.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		event_target:EDG_flavor_Price_Revolution_12_province = {
+			add_base_tax = -2
+			add_base_production = 2
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_12_a_province_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#让这些乡巴佬回到农村。
+		name = "EDG_flavor_Price_Revolution.12.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		event_target:EDG_flavor_Price_Revolution_12_province = {
+			add_base_tax = -1
+			add_base_production = 1
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_12_b_province_modifier
+				duration = 3650
+			}
+		}
+
+	}
+	
+}
+
+country_event = {#农奴的束缚
+	id = EDG_flavor_Price_Revolution.13
+	title = "EDG_flavor_Price_Revolution.13.title"
+	desc = "EDG_flavor_Price_Revolution.13.desc"
+	picture = ECONOMY_eventPicture
+	goto = EDG_flavor_Price_Revolution_13_province
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		any_owned_province = {
+			is_city = yes
+			base_tax = 3
+			NOT = { development = 20 }
+			NOT = { has_province_modifier = EDG_flavor_Price_Revolution_13_a_province_modifier }
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			random_owned_province = {
+				limit = {
+					is_city = yes
+					base_tax = 3
+					NOT = { development = 20 }
+					NOT = { has_province_modifier = EDG_flavor_Price_Revolution_13_a_province_modifier }
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+				save_event_target_as = EDG_flavor_Price_Revolution_13_province
+			}
+		}
+	}
+	
+	option = {#让他们去吧。
+		name = "EDG_flavor_Price_Revolution.13.aa"
+		ai_chance = {
+		  factor = 10
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		event_target:EDG_flavor_Price_Revolution_13_province = {
+			add_base_tax = -1
+			add_base_production = 1
+			add_province_modifier = {
+				name = EDG_flavor_Price_Revolution_13_a_province_modifier
+				duration = 3650
+			}
+		}
+	}
+	option = {#只要他们肯付一笔昂贵的赎身费。
+		name = "EDG_flavor_Price_Revolution.13.bb"
+		ai_chance = {
+		  factor = 10
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_treasury = 50
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 3650
+		}
+		event_target:EDG_flavor_Price_Revolution_13_province = {
+			add_base_tax = -1
+			add_base_production = 1
+		}
+
+	}
+	option = {#这可不能发生。
+		name = "EDG_flavor_Price_Revolution.13.cc"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		
+		add_estate_loyalty_modifier = {
+		  estate = estate_church
+		  desc = EDG_estate_opinion_happy_modifier_tt
+		  loyalty = 10
+		  duration = 3650
+		}
+		
+	}
+	
+}
+
+country_event = {#大量贵金属的涌入
+	id = EDG_flavor_Price_Revolution.14
+	title = "EDG_flavor_Price_Revolution.14.title"
+	desc = "EDG_flavor_Price_Revolution.14.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_14_flag }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_flavor_Price_Revolution_14_flag
+		}
+	}
+	
+	option = {#我们需要钱！
+		name = "EDG_flavor_Price_Revolution.14.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 10
+		add_years_of_income = 0.5
+	}
+	option = {#不能让经济过热。
+		name = "EDG_flavor_Price_Revolution.14.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_14_aa_modifier
+			duration = 9125
+		}
+	}
+	
+	after = {
+		hidden_effect = {
+			country_event = { id = EDG_flavor_Price_Revolution.15 days = 3650 }
+		}
+	}
+}
+
+country_event = {#价格革命与商业
+	id = EDG_flavor_Price_Revolution.15
+	title = "EDG_flavor_Price_Revolution.15.title"
+	desc = "EDG_flavor_Price_Revolution.15.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		NOT = { has_country_flag = EDG_flavor_Price_Revolution_15_flag }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_flavor_Price_Revolution_15_flag
+		}
+	}
+	
+	option = {#让我们从商人手中获取更多利益。
+		name = "EDG_flavor_Price_Revolution.15.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 5
+		add_years_of_income = 0.25
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 7300
+		}
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			desc = EST_VAL_PRICE_revolution_estate_influence_modifier_tt
+			influence = 10
+			duration = 7300
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_15_aa_modifier
+			duration = 3650
+		}
+	}
+	option = {#我们不能阻止这一倾向。
+		name = "EDG_flavor_Price_Revolution.15.bb"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_estate_influence_modifier = {
+			estate = estate_burghers
+			desc = EST_VAL_PRICE_revolution_estate_influence_modifier_tt
+			influence = 10
+			duration = 7300
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_15_aa_modifier
+			duration = 3650
+		}
+	}
+	option = {#我们不能看着我们的货币贬值。
+		name = "EDG_flavor_Price_Revolution.15.cc"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_estate_loyalty_modifier = {
+		  estate = estate_burghers
+		  desc = EDG_Discontent_estate_loyalty_modifier
+		  loyalty = -10
+		  duration = 7300
+		}
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_15_cc_modifier
+			duration = 3650
+		}
+	}
+	
+	after = {
+		hidden_effect = {
+			country_event = { id = EDG_flavor_Price_Revolution.16 days = 3650 }
+		}
+	}
+}
+
+
+country_event = {#货币贬值
+	id = EDG_flavor_Price_Revolution.16
+	title = "EDG_flavor_Price_Revolution.16.title"
+	desc = "EDG_flavor_Price_Revolution.16.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+	}
+	
+	option = {#我们会继续发行新货币。
+		name = "EDG_flavor_Price_Revolution.16.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 5
+		add_years_of_income = 0.15
+	}
+	option = {#我们的经济过热了。
+		name = "EDG_flavor_Price_Revolution.16.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 2
+		add_adm_power = -50
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_16_aa_modifier
+			duration = 3650
+		}
+	}
+	after = {
+		hidden_effect = {
+			country_event = { id = EDG_flavor_Price_Revolution.17 days = 3650 }
+		}
+	}
+}
+
+country_event = {#经济政策？
+	id = EDG_flavor_Price_Revolution.17
+	title = "EDG_flavor_Price_Revolution.17.title"
+	desc = "EDG_flavor_Price_Revolution.17.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+	}
+	
+	option = {#这对我们有什么害处呢？
+		name = "EDG_flavor_Price_Revolution.17.aa"
+		ai_chance = {
+		  factor = 20
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 10
+		add_years_of_income = 0.85
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_17_aa_modifier
+			duration = 9125
+		}
+	}
+	option = {#我们不能再这样饮鸩止渴。
+		name = "EDG_flavor_Price_Revolution.17.bb"
+		ai_chance = {
+		  factor = 1
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_country_modifier = {
+			name = EDG_flavor_Price_Revolution_17_bb_modifier
+			duration = 9125
+		}
+	}
+	
+}
+
+country_event = {#不义之财
+	id = EDG_flavor_Price_Revolution.18
+	title = "EDG_flavor_Price_Revolution.18.title"
+	desc = "EDG_flavor_Price_Revolution.18.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+		capital_scope = {
+			OR = {
+				region = france_region
+				region = iberia_region
+				region = italy_region
+				region = british_isles_region
+				region = south_german_region
+				region = north_german_region
+				region = low_countries_region
+				region = poland_region
+				region = balkan_region
+				region = mashriq_region
+				region = anatolia_region
+				region = egypt_region
+				region = maghreb_region
+			}
+		}
+		any_country = {
+			is_neighbor_of = ROOT
+			capital_scope = {
+				OR = {
+					region = france_region
+					region = iberia_region
+					region = italy_region
+					region = british_isles_region
+					region = south_german_region
+					region = north_german_region
+					region = low_countries_region
+					region = poland_region
+					region = balkan_region
+					region = mashriq_region
+					region = anatolia_region
+					region = egypt_region
+					region = maghreb_region
+				}
+			}
+		}
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+	}
+	
+	option = {#就这么干。
+		name = "EDG_flavor_Price_Revolution.18.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_treasury = 100
+		add_dip_power = -25
+		random_country = {
+			limit = {
+				is_neighbor_of = ROOT
+				capital_scope = {
+					OR = {
+						region = france_region
+						region = iberia_region
+						region = italy_region
+						region = british_isles_region
+						region = south_german_region
+						region = north_german_region
+						region = low_countries_region
+						region = poland_region
+						region = balkan_region
+						region = mashriq_region
+						region = anatolia_region
+						region = egypt_region
+						region = maghreb_region
+					}
+				}
+			}
+			add_opinion = {
+			  who = ROOT
+			  modifier = EDG_flavor_unhappy_opinion_modifier
+			}
+			country_event = { id = EDG_flavor_Price_Revolution.19 }
+		}
+	}
+	option = {#让我们独自承受苦果吧。
+		name = "EDG_flavor_Price_Revolution.18.bb"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 2
+	}
+	
+}
+
+country_event = {#来自[From.GetName]的经济破坏
+	id = EDG_flavor_Price_Revolution.19
+	title = "EDG_flavor_Price_Revolution.19.title"
+	desc = "EDG_flavor_Price_Revolution.19.desc"
+	picture = ECONOMY_eventPicture
+	
+	trigger = {
+		NOT = { has_global_flag = EDG_DEBUG_decision_price_revolution_ban_flag }
+		has_global_flag = EDG_Price_Revolution_global_flag
+		NOT = { is_year = 1600 }
+	}
+	
+	is_triggered_only = yes
+
+	mean_time_to_happen = {
+		
+	}
+
+	immediate = {
+	}
+	
+	option = {#就这么干。
+		name = "EDG_flavor_Price_Revolution.19.aa"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		add_dip_power = -25
+		From = {
+			add_opinion = {
+			  who = ROOT
+			  modifier = EDG_flavor_unhappy_opinion_modifier
+			}
+		}
+	}
+	option = {#让我们独自承受苦果吧。
+		name = "EDG_flavor_Price_Revolution.19.bb"
+		ai_chance = {
+		  factor = 2
+		}
+		custom_tooltip = EDG_Price_Revolution_global_events_flag_tt
+		custom_tooltip = EDG_Price_Revolution_global_events_inflation_reduction_tt
+		add_inflation = 2
+	}
+	
+}

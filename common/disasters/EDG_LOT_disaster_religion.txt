@@ -1,0 +1,159 @@
+EDG_LOT_disaster_religion = {#圣血的四旬斋
+	ended_by_country_breaking_to_rebels = no
+	potential = {
+		NOT = { has_country_flag = EDG_LOT_disaster_religion_end_flag }
+		or = {
+			tag = LOT
+			was_tag = LOT
+		}
+		is_free_or_tributary_trigger = yes
+		uses_doom = no
+		normal_or_historical_nations = yes
+		is_revolutionary = no
+	}
+	
+	
+	can_start = {
+		has_any_disaster = no
+		not = { ruler_has_personality = EDG_personality_beiernadaite  }
+		religion = catholic
+		is_religion_enabled = protestant
+		is_religion_enabled = reformed
+		num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			value = 30
+			or = {
+				region = south_german_region
+				region = north_german_region
+			}
+		}
+	}
+	
+	can_stop = {
+		has_any_disaster = yes
+		or = {
+			not = {
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 30
+					or = {
+						region = south_german_region
+						region = north_german_region
+					}
+				}
+			}
+			not = {
+				religion = catholic
+			}
+		}
+	}
+	
+	
+	progress = {
+		modifier = {
+			factor = 1
+			always = yes
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { adm = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { dip = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { mil = 6 }
+		}
+		modifier = {
+			factor = 0.5
+			NOT = { prestige = 0 }
+		}
+		modifier = {
+			factor = 0.5
+			war_exhaustion = 1
+		} 
+		modifier = {
+			factor = 0.75
+			num_of_loans = 10
+			NOT = { num_of_loans = 25 }
+		}
+		modifier = {
+			factor = 1.5
+			num_of_loans = 25
+		}
+		modifier = {
+			factor = 1
+			capital_scope = { controlled_by = REB }
+		}
+		modifier = {
+			factor = 1
+			is_bankrupt = yes
+		}
+	}
+	
+	can_end = {
+		OR = {
+			custom_trigger_tooltip = {
+				tooltip = disaster_active_for_20_years_tooltip
+				had_country_flag = {
+					flag = EDG_LOT_disaster_religion_flag
+					days = 7300
+				}
+			}
+			AND = {
+				stability = 1
+				NOT = { num_of_rebel_controlled_provinces = 1 }
+				NOT = { num_of_rebel_armies = 1 }
+				# custom_trigger_tooltip = {
+				# 	tooltip = EDG_LOT_disaster_religion_can_end_flag_trigger_tooltip
+				# 	has_country_flag = EDG_LOT_disaster_religion_can_end_flag
+				# }
+				or = {
+					check_variable = {
+						which = EDG_LOT_disaster_religion_kill_value
+						value = 10
+					}
+					not = { 
+						check_variable = {
+							which = EDG_LOT_disaster_religion_kill_value
+							value = -10
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
+	modifier = {
+		stability_cost_modifier = 0.25
+		tolerance_heretic = -5
+		tolerance_of_heretics_capacity = -5
+		global_heretic_missionary_strength = 0.05
+	}	
+	
+	
+	on_monthly = {
+		events = {
+			
+		}
+		random_events = { 
+			1000 = 0
+			100 = EDG_LOT_disaster_religion.3
+			100 = EDG_LOT_disaster_religion.4
+			100 = EDG_LOT_disaster_religion.5
+			100 = EDG_LOT_disaster_religion.6
+			100 = EDG_LOT_disaster_religion.7
+			50 = EDG_LOT_disaster_religion.8
+			100 = EDG_LOT_disaster_religion.9
+			100 = EDG_LOT_disaster_religion.10
+			100 = EDG_LOT_disaster_religion.14
+			100 = EDG_LOT_disaster_religion.15
+		}
+	}
+	
+	
+	on_start = EDG_LOT_disaster_religion.1 #General Estates / Storming of the Bastille
+	on_end = EDG_LOT_disaster_religion.2 #Long live the Republic/Monarchy
+	
+}

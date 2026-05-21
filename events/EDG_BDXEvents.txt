@@ -1,0 +1,2118 @@
+namespace = EDG_BDX_events
+
+# 亚历山大里亚城邦
+province_event = {
+  id = EDG_BDX_events.999
+  title = EDG_BDX_events.999.t
+	desc = EDG_BDX_events.999.d
+  picture = muslimgfx_FORT_eventPicture
+  is_triggered_only = yes
+  
+  immediate = {
+    hidden_effect = {
+      set_global_flag = EDG_BDX_alexandria_city_event_is_going_on_flag
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.999.a
+    clr_global_flag = EDG_BDX_alexandria_city_event_is_going_on_flag
+    add_permanent_province_modifier = {
+      name = EDG_BDX_adm_alexandria_city_modifier
+      duration = -1
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.999.b
+    clr_global_flag = EDG_BDX_alexandria_city_event_is_going_on_flag
+    add_permanent_province_modifier = {
+      name = EDG_BDX_eco_alexandria_city_modifier
+      duration = -1
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.999.c
+    clr_global_flag = EDG_BDX_alexandria_city_event_is_going_on_flag
+    add_permanent_province_modifier = {
+      name = EDG_BDX_mil_alexandria_city_modifier
+      duration = -1
+    }
+  }
+}
+
+#文化同化
+country_event = {
+  id = EDG_BDX_events.1000
+  title = EDG_BDX_events.1000.t
+	desc = EDG_BDX_events.1000.d
+  picture = FEAST_eventPicture
+  is_triggered_only = yes
+
+  immediate = {
+    hidden_effect = {
+      EDG_BDX_cultural_assimilation_effect = {
+        id = 1
+      }
+      if = {
+        limit = {
+          has_country_flag = EDG_BDX_mission_winner_flag
+        }
+        EDG_BDX_cultural_assimilation_effect = {
+          id = 2
+        }
+      }
+      if = {
+        limit = {
+          has_country_flag = EDG_BDX_mission_sword_of_damocles_flag
+        }
+        EDG_BDX_cultural_assimilation_effect = {
+          id = 3
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.1000.a
+    EDG_BDX_cultural_assimilation_tooltip_effect = {
+      id = 1
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_cultural_assimilation_tooltip_effect = {
+      id = 2
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_cultural_assimilation_tooltip_effect = {
+      id = 3
+    }
+  }
+}
+
+#文化同化隐藏事件
+country_event = {
+  id = EDG_BDX_events.1001
+  title = EDG_BDX_events.1001.t
+	desc = EDG_BDX_events.1001.d
+  picture = FEAST_eventPicture
+  hidden = yes
+
+  mean_time_to_happen = {
+    months = 24
+    modifier = {
+			factor = 0.85
+			has_country_flag = EDG_BDX_mission_nestorianism_flag
+		}
+    modifier = {
+			factor = 0.85
+			has_country_flag = EDG_BDX_mission_asia_flag
+		}
+    modifier = {
+			factor = 0.7
+			has_government_attribute = EDG_BDX_increase_cultural_assimilation_chance_ability
+		}
+  }
+
+  trigger = {
+    OR = {
+      tag = BDX
+      was_tag = BDX
+    }
+    has_country_flag = EDG_BDX_mission_new_state_flag
+    any_owned_province = {
+      EDG_BDX_province_can_be_assimilated_trigger = yes
+    }
+  }
+
+  immediate = {
+    if = {
+      limit = {
+        has_country_flag = EDG_BDX_hide_cultural_assimilation_events_flag
+      }
+      hidden_effect = {
+        EDG_BDX_cultural_assimilation_effect = {
+          id = 1
+        }
+        if = {
+          limit = {
+            has_country_flag = EDG_BDX_mission_winner_flag
+          }
+          EDG_BDX_cultural_assimilation_effect = {
+            id = 2
+          }
+        }
+        if = {
+          limit = {
+            has_country_flag = EDG_BDX_mission_sword_of_damocles_flag
+          }
+          EDG_BDX_cultural_assimilation_effect = {
+            id = 3
+          }
+        }
+      }
+    }
+    else = {
+      country_event = {
+        id = EDG_BDX_events.1000
+      }
+    }
+  }
+
+  option = {
+  }
+}
+
+#获得文化同化buff
+country_event = {
+  id = EDG_BDX_events.1002
+  title = EDG_BDX_events.1002.t
+	desc = EDG_BDX_events.1002.d
+  picture = CULTURE_eventPicture
+  is_triggered_only = yes
+
+  option = {
+    name = EDG_BDX_events.1002.a
+    EDG_BDX_update_cultural_assimilation_buff_effect = yes
+  }
+}
+
+#开局事件
+country_event = {
+  id = EDG_BDX_events.0
+  title = EDG_BDX_events.0.t
+	desc = EDG_BDX_events.0.d
+  picture = BYZ_BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  immediate = {
+    hidden_effect = {
+      set_ruler_flag = EDG_BDX_mir_mohammed_flag
+      country_event = {
+        id = EDG_BDX_events.15
+        days = 15
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.0.a
+    452 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_balas_ruby_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#注定为王之人
+country_event = {
+  id = EDG_BDX_events.1
+  title = EDG_BDX_events.1.t
+	desc = EDG_BDX_events.1.d
+  picture = BYZ_BYZANTINE_EMPEROR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  # major = yes
+  
+  option = {
+    name = EDG_BDX_events.1.a
+    ai_chance = {
+      factor = 0
+    }
+
+    EDG_BDX_add_10_argead_legitimacy_effect = yes
+    add_adm_power = 200
+    add_dip_power = 200
+    add_mil_power = 200
+    EDG_BDX_define_heir_iskander_effect = yes
+    define_heir_to_general = {
+      fire = 4
+      shock = 6
+      manuever = 4
+      siege = 4
+    }
+    add_heir_personality = legendary_conqueror_personality
+    add_heir_personality = strict_personality
+    add_heir_personality = tactical_genius_personality
+  }
+
+  option = {
+    name = EDG_BDX_events.1.b
+    highlight = yes
+    ai_chance = {
+      factor = 100
+    }
+
+    EDG_BDX_add_10_argead_legitimacy_effect = yes
+    EDG_BDX_define_ruler_iskander_effect = yes
+    define_ruler_to_general = {
+      fire = 4
+      shock = 6
+      manuever = 4
+      siege = 4
+    }
+    add_ruler_personality = legendary_conqueror_personality
+    add_ruler_personality = strict_personality
+    add_ruler_personality = tactical_genius_personality
+    set_ruler_flag = EDG_BDX_iskandar_ruler_flag
+    hidden_effect = {
+      remove_heir = { allow_new_heir = no }
+    }
+
+    set_country_flag = EDG_BDX_enable_achievement_mission_flag
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.1.a.tt
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+}
+
+#继承危机：帖木儿贿赂米尔效忠
+country_event = {
+  id = EDG_BDX_events.2
+  title = EDG_BDX_events.2.t
+	desc = EDG_BDX_events.2.d
+  picture = CORRUPTION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.2.a
+    ai_chance = {
+      factor = 100
+    }
+
+    add_treasury = 100
+    add_liberty_desire = -50
+    FROM = {
+      country_event = {
+        id = EDG_BDX_events.3
+        days = 10
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.2.b
+    ai_chance = {
+      factor = 0
+    }
+
+    set_country_flag = EDG_BDX_disaster_sucession_crisis_will_backstab_flag
+    custom_tooltip = EDG_BDX_events.2.b.tt
+    custom_tooltip = EDG_SPACE_TT
+    add_treasury = 100
+    add_liberty_desire = -50
+    FROM = {
+      country_event = {
+        id = EDG_BDX_events.3
+        days = 10
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.2.c
+    ai_chance = {
+      factor = 0
+    }
+
+    custom_tooltip = EDG_BDX_events.2.b.tt
+    custom_tooltip = EDG_SPACE_TT
+    if = {
+      limit = {
+        has_ruler_flag = EDG_BDX_mir_mohammed_flag
+      }
+      remove_ruler_personality = careful_personality
+      add_ruler_personality = inspiring_leader_personality
+    }
+    add_prestige = 20
+    add_liberty_desire = 100
+    FROM = {
+      add_opinion = {
+        who = ROOT
+        modifier = EDG_BDX_reject_submission_to_timurid_opinion
+      }
+      country_event = {
+        id = EDG_BDX_events.4
+        days = 10
+      }
+    }
+  }
+}
+
+#继承危机：帖木儿：米尔同意效忠
+country_event = {
+  id = EDG_BDX_events.3
+  title = EDG_BDX_events.3.t
+	desc = EDG_BDX_events.3.d
+  picture = CORRUPTION_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.3.a
+    tooltip = {
+      from = {
+        add_treasury = 100
+        add_liberty_desire = -50
+      }
+    }
+  }
+}
+
+#继承危机：帖木儿：米尔拒绝效忠
+country_event = {
+  id = EDG_BDX_events.4
+  title = EDG_BDX_events.4.t
+	desc = EDG_BDX_events.4.d
+  picture = muslimgfx_BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.4.a
+    add_treasury = 100
+    tooltip = {
+      from = {
+        add_liberty_desire = 100
+      }
+      add_opinion = {
+        who = from
+        modifier = EDG_BDX_reject_submission_to_timurid_opinion
+      }
+    }
+  }
+}
+
+#继承危机：对抗帖木儿：参战
+country_event = {
+  id = EDG_BDX_events.5
+  title = EDG_BDX_events.5.t
+	desc = EDG_BDX_events.5.d
+  picture = muslimgfx_HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.5.a
+    tooltip = {
+      grant_independence = yes
+      join_all_offensive_wars_of = SHY
+    }
+    add_country_modifier = {
+      name = EDG_BDX_wild_storm_modifier
+      duration = 1825
+    }
+    custom_tooltip = EDG_BDX_events.5.a.tt
+  }
+}
+
+#继承危机：对抗帖木儿：参战（背刺）
+country_event = {
+  id = EDG_BDX_events.6
+  title = EDG_BDX_events.6.t
+	desc = EDG_BDX_events.6.d
+  picture = muslimgfx_HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.6.a
+    tooltip = {
+      grant_independence = yes
+      join_all_offensive_wars_of = SHY
+    }
+    add_country_modifier = {
+      name = EDG_BDX_backstab_modifier
+      duration = 3650
+    }
+    add_country_modifier = {
+      name = EDG_BDX_wild_storm_modifier
+      duration = 1825
+    }
+    custom_tooltip = EDG_BDX_events.5.a.tt
+  }
+}
+
+#继承危机：对抗帖木儿：胜利
+country_event = {
+  id = EDG_BDX_events.7
+  title = EDG_BDX_events.7.t
+	desc = EDG_BDX_events.7.d
+  picture = LAND_MILITARY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.7.a
+    tooltip = {
+      white_peace = TIM
+      SHY = {
+        vassalize = TIM
+      }
+      TIM = {
+        inherit = KOK
+      }
+    }
+    change_ruler_stat = {
+      type = dip
+      amount = 3
+    }
+    change_ruler_stat = {
+      type = mil
+      amount = 3
+    }
+    add_prestige_or_monarch_power = { amount = 25 }
+    if = {
+      limit = {
+        ai = no
+      }
+      every_province = {
+        limit = {
+          owned_by = TIM
+          has_province_flag = EDG_BDX_controlled_by_bdx_province_flag
+        }
+        cede_province = BDX
+        add_core = BDX
+        if = {
+          limit = {
+            OR = {
+              province_id = 454
+              province_id = 442
+            }
+          }
+          BDX = {
+            set_country_flag = EDG_BDX_seize_samarkand_or_bukhra_in_succession_war_flag
+          }
+        }
+      }
+    }
+  }
+}
+
+#继承危机：对抗帖木儿：战败
+country_event = {
+  id = EDG_BDX_events.8
+  title = EDG_BDX_events.8.t
+	desc = EDG_BDX_events.8.d
+  picture = PLAGUE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.8.a
+    tooltip = {
+      TIM = {
+        vassalize = ROOT
+      }
+      TIM = {
+        inherit = KOK
+      }
+    }
+    if = {
+      limit = {
+        has_heir = yes
+      }
+      kill_heir = {
+        allow_new_heir = no
+      }
+    }
+    if = {
+      limit = {
+        has_consort = yes
+      }
+      kill_consort = yes
+    }
+    kill_ruler = yes
+    add_prestige = -50
+    add_legitimacy = -50
+    add_stability = -3
+    capital_scope = {
+      add_devastation = 100
+      add_province_modifier = {
+        name = EDG_TIM_skull_pyramid_modifier_1
+        duration = 7300
+      }
+    }
+    add_liberty_desire = -100
+  }
+}
+
+#继承危机：对抗月即别：参战
+country_event = {
+  id = EDG_BDX_events.9
+  title = EDG_BDX_events.9.t
+	desc = EDG_BDX_events.9.d
+  picture = muslimgfx_HORDE_ON_HORSEBACK_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.9.a
+  }
+}
+
+#继承危机：对抗月即别：胜利
+country_event = {
+  id = EDG_BDX_events.10
+  title = EDG_BDX_events.10.t
+	desc = EDG_BDX_events.10.d
+  picture = LAND_MILITARY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.10.a
+    tooltip = {
+      white_peace = SHY
+      TIM = {
+        inherit = KOK
+      }
+    }
+    add_prestige_or_monarch_power = { amount = 25 }
+    add_stability = 1
+  }
+}
+
+#继承危机：对抗月即别：战败
+country_event = {
+  id = EDG_BDX_events.11
+  title = EDG_BDX_events.11.t
+	desc = EDG_BDX_events.11.d
+  picture = PLAGUE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.11.a
+    tooltip = {
+      white_peace = SHY
+      grant_independence = yes
+      SHY = {
+        vassalize = TIM
+      }
+      TIM = {
+        inherit = KOK
+      }
+    }
+    add_prestige = -10
+  }
+}
+
+#继承危机：月即别索要撒马尔罕和布哈拉
+country_event = {
+  id = EDG_BDX_events.12
+  title = EDG_BDX_events.12.t
+	desc = EDG_BDX_events.12.d
+  picture = muslimgfx_HORDE_ON_HORSEBACK_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 3
+  }
+
+  trigger = {
+    NOT = {
+      is_year = 1460
+    }
+    OR = {
+      tag = BDX
+      was_tag = BDX
+    }
+    has_country_flag = EDG_BDX_seize_samarkand_or_bukhra_in_succession_war_flag
+    OR = {
+      owns_or_non_sovereign_subject_of = 454
+      owns_or_non_sovereign_subject_of = 442
+    }
+    exists = SHY
+    SHY = {
+      ai = yes
+      is_subject = no
+      total_development = 100
+      OR = {
+        is_neighbor_of = root
+        any_subject_country = {
+          is_neighbor_of = root
+        }
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.12.a
+    if = {
+      limit = {
+        owns_or_non_sovereign_subject_of = 454
+      }
+      454 = {
+        cede_province = SHY
+      }
+    }
+    if = {
+      limit = {
+        owns_or_non_sovereign_subject_of = 442
+      }
+      442 = {
+        cede_province = SHY
+      }
+    }
+    add_prestige = -25
+    add_stability = -1
+  }
+  
+  option = {
+    name = EDG_BDX_events.12.b
+    if = {
+      limit = {
+        owns_or_non_sovereign_subject_of = 454
+      }
+      454 = {
+        add_claim = SHY
+      }
+    }
+    if = {
+      limit = {
+        owns_or_non_sovereign_subject_of = 442
+      }
+      442 = {
+        add_claim = SHY
+      }
+    }
+    if = {
+      limit = {
+        is_subject_of = SHY
+      }
+      grant_independence = yes
+    }
+    SHY = {
+      declare_war_with_cb = {
+        casus_belli = cb_annex
+        who = root
+      }
+    }
+  }
+}
+
+#继承危机：月即别爆炸
+country_event = {
+  id = EDG_BDX_events.13
+  title = EDG_BDX_events.13.t
+	desc = EDG_BDX_events.13.d
+  picture = muslimgfx_COUNTRY_COLLAPSE_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 60
+  }
+
+  trigger = {
+    is_year = 1464
+    OR = {
+      tag = BDX
+      was_tag = BDX
+    }
+    ai = no
+    is_subject = no
+    any_country = {
+      OR = {
+        tag = SHY
+        was_tag = SHY
+      }
+      ai = yes
+      is_subject = no
+      total_development = 300
+    }
+  }
+
+  immediate = {
+    hidden_effect = {
+      every_country = {
+        limit = {
+          OR = {
+            tag = SHY
+            was_tag = SHY
+          }
+          ai = yes
+          is_subject = no
+          total_development = 200
+        }
+        kill_ruler = yes
+        country_event = {
+          id = EDG_flavor_nomad.1
+        }
+        set_country_flag = EDG_BDX_destruction_of_shy_flag
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.13.a
+    
+    every_country = {
+      limit = {
+        has_country_flag = EDG_BDX_destruction_of_shy_flag
+      }
+      custom_tooltip = EDG_BDX_events.13.a.tt
+    }
+  }
+}
+
+#信仰之途
+country_event = {
+  id = EDG_BDX_events.14
+  title = EDG_BDX_events.14.t
+	desc = EDG_BDX_events.14.d
+  picture = MYSTIC_IN_PRAYER_eventPicture
+  is_triggered_only = yes
+  
+  # option = { #介绍阿富汗宗教历史
+  #   name = EDG_BDX_events.14.h
+  #   highlight = yes
+  #   ai_chance = {
+  #     factor = 0
+  #   }
+  #   country_event = {
+  #     id = EDG_BDX_events.43
+  #   }
+  # }
+  
+  option = { #逊尼派
+    name = EDG_BDX_events.14.a
+    # highlight = yes
+    ai_chance = {
+      factor = 75
+    }
+    add_stability = 1
+  }
+  
+  option = { #什叶派
+    name = EDG_BDX_events.14.b
+    # highlight = yes
+    ai_chance = {
+      factor = 10
+    }
+    # if = {
+    #   limit = {
+    #     religion_group = muslim
+    #   }
+    #   set_religious_school = {
+    #     group = muslim
+    #     school = ismaili_school
+    #   }
+    # }
+    EDG_change_religion_effect = {
+      religion = shiite
+    }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.14.b.tt
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+  
+  option = { #大乘佛教
+    name = EDG_BDX_events.14.c
+    # highlight = yes
+    ai_chance = {
+      factor = 10
+    }
+    EDG_change_religion_effect = {
+      religion = mahayana
+    }
+    capital_scope = {
+      change_religion = shiite
+    }
+    custom_tooltip = EDG_BDX_events.14.c.tt1
+    hidden_effect = {
+      EDG_BDX_replace_mohammed_with_menander_effect = yes
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.14.c.tt2
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+  
+  option = { #拜火教
+    name = EDG_BDX_events.14.f
+    # highlight = yes
+    ai_chance = {
+      factor = 2
+    }
+    EDG_change_religion_effect = {
+      religion = zoroastrian
+    }
+    custom_tooltip = EDG_BDX_events.14.c.tt1
+    hidden_effect = {
+      EDG_BDX_replace_mohammed_with_menander_effect = yes
+    }
+    
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.14.f.tt
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+
+  option = { #景教
+    name = EDG_BDX_events.14.e
+    # highlight = yes
+    ai_chance = {
+      factor = 3
+    }
+    EDG_change_religion_effect = {
+      religion = EDG_Nestorianism
+    }
+    custom_tooltip = EDG_BDX_events.14.c.tt1
+    hidden_effect = {
+      EDG_BDX_replace_mohammed_with_menander_effect = yes
+    }
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.14.e.tt
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+  
+  option = { #希腊多神教
+    name = EDG_BDX_events.14.g
+    ai_chance = {
+      factor = 0
+    }
+    trigger = {
+      always = no
+    }
+    custom_tooltip = EDG_BDX_events.14.g.tt
+  }
+}
+
+#撒马尔罕之旅
+country_event = {
+  id = EDG_BDX_events.15
+  title = EDG_BDX_events.15.t
+	desc = EDG_BDX_events.15.d
+  picture = muslimgfx_TRADEGOODS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.15.a
+    add_prestige = -5
+    country_event = {
+      id = EDG_BDX_events.42
+    }
+  }
+}
+
+#迁都巴比伦
+country_event = {
+  id = EDG_BDX_events.16
+  title = EDG_BDX_events.16.t
+	desc = EDG_BDX_events.16.d
+  picture = BIG_ARABIAN_CITY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.16.a
+    set_capital = 410
+    if = {
+      limit = {
+        owns = 450
+      }
+      450 = {
+        add_permanent_province_modifier = {
+          name = EDG_BDX_provisional_capital_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.16.b
+    410 = {
+      add_local_autonomy = -100
+      add_nationalism = -20
+      add_permanent_province_modifier = {
+        name = EDG_BDX_provisional_capital_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#迁都佩拉
+country_event = {
+  id = EDG_BDX_events.17
+  title = EDG_BDX_events.17.t
+	desc = EDG_BDX_events.17.d
+  picture = BYZ_ATHENS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.17.a
+    set_capital = 148
+    if = {
+      limit = {
+        owns = 450
+        450 = {
+          NOT = {
+            has_province_modifier = EDG_BDX_provisional_capital_modifier
+          }
+        }
+      }
+      450 = {
+        add_permanent_province_modifier = {
+          name = EDG_BDX_provisional_capital_modifier
+          duration = -1
+        }
+      }
+    }
+    else_if = {
+      limit = {
+        owns = 410
+      }
+      410 = {
+        add_permanent_province_modifier = {
+          name = EDG_BDX_provisional_capital_modifier
+          duration = -1
+        }
+      }
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.17.b
+    148 = {
+      add_local_autonomy = -100
+      add_nationalism = -20
+      add_permanent_province_modifier = {
+        name = EDG_BDX_provisional_capital_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#转希腊文化
+country_event = {
+  id = EDG_BDX_events.18
+  title = EDG_BDX_events.18.t
+	desc = EDG_BDX_events.18.d
+  picture = BYZ_ADVISOR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.18.a
+    change_primary_culture = greek
+    EDG_change_monarch_culture_effect = {
+      culture = greek
+    }
+    change_technology_group = eastern
+    change_unit_type = eastern
+    custom_tooltip = EDG_BDX_events.18.tt
+    set_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+    hidden_effect = {
+      every_province = {
+        limit = {
+          culture = EDG_bactrian_culture
+        }
+        change_culture = EDG_greco_bactrian_culture
+      }
+      EDG_BDX_refresh_all_phalanx_modifiers_on_gain_new_assimilated_culture_effect = yes
+    }
+    clr_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+  }
+
+  option = {
+    name = EDG_BDX_events.18.b
+    change_primary_culture = EDG_greco_bactrian_culture
+    EDG_change_monarch_culture_effect = {
+      culture = EDG_greco_bactrian_culture
+    }
+    change_technology_group = eastern
+    change_unit_type = eastern
+    custom_tooltip = EDG_BDX_events.18.tt
+    set_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+    hidden_effect = {
+      every_province = {
+        limit = {
+          culture = EDG_bactrian_culture
+        }
+        change_culture = EDG_greco_bactrian_culture
+      }
+      EDG_BDX_refresh_all_phalanx_modifiers_on_gain_new_assimilated_culture_effect = yes
+    }
+    clr_country_flag = EDG_BDX_ignore_on_province_culture_changed_flag
+  }
+
+  option = {
+    name = EDG_BDX_events.18.c
+    add_stability_or_50_adm_power = { amount = 1 }
+  }
+}
+
+#纪念底比斯战役
+country_event = {
+  id = EDG_BDX_events.19
+  title = EDG_BDX_events.19.t
+	desc = EDG_BDX_events.19.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.19.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_thebes_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    146 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念格拉尼库斯河战役
+country_event = {
+  id = EDG_BDX_events.20
+  title = EDG_BDX_events.20.t
+	desc = EDG_BDX_events.20.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.20.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_granicus_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    2296 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念伊苏斯战役
+country_event = {
+  id = EDG_BDX_events.21
+  title = EDG_BDX_events.21.t
+	desc = EDG_BDX_events.21.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.21.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_issus_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    2313 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念推罗围城战
+country_event = {
+  id = EDG_BDX_events.22
+  title = EDG_BDX_events.22.t
+	desc = EDG_BDX_events.22.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.22.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_tyre_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    1855 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念高加米拉战役
+country_event = {
+  id = EDG_BDX_events.23
+  title = EDG_BDX_events.23.t
+	desc = EDG_BDX_events.23.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.23.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_gaugamela_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    411 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念波斯门战役
+country_event = {
+  id = EDG_BDX_events.24
+  title = EDG_BDX_events.24.t
+	desc = EDG_BDX_events.24.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.24.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_persian_gate_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    2217 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#纪念海达斯佩斯河战役
+country_event = {
+  id = EDG_BDX_events.25
+  title = EDG_BDX_events.25.t
+	desc = EDG_BDX_events.25.d
+  picture = muslimgfx_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.25.a
+    set_country_flag = EDG_BDX_commemorate_battle_of_hydaspes_flag
+    change_variable = {
+      which = EDG_BDX_mil_doc_var
+      value = 1
+    }
+    EDG_BDX_add_argead_legitimacy = { amount = 2 }
+    4511 = {
+      add_permanent_province_modifier = {
+        name = EDG_BDX_ancient_battlefield_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#选阿吉德帝国的名字
+country_event = {
+  id = EDG_BDX_events.26
+  title = EDG_BDX_events.26.t
+	desc = EDG_BDX_events.26.d
+  picture = BYZ_ATHENS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.26.a
+  }
+
+  option = {
+    name = EDG_BDX_events.26.b
+    override_country_name = MACEDONIAN_EMPIRE_STRING
+  }
+
+  option = {
+    name = EDG_BDX_events.26.c
+    override_country_name = ALEXANDER_EMPIRE_STRING
+  }
+
+  option = {
+    name = EDG_BDX_events.26.e
+    trigger = {
+      culture_group = byzantine
+    }
+    override_country_name = HELLENSTIC_EMPIRE_STRING
+  }
+
+  option = {
+    name = EDG_BDX_events.26.f
+    trigger = {
+      has_country_flag = EDG_BDX_mission_nizari_flag
+      religious_school = {
+				group = muslim
+				school = ismaili_school
+			}
+			any_owned_province = {
+				has_province_modifier = EDG_Fatima_Caliphate_province_modifier
+			}
+    }
+    override_country_name = NIZARI_EMPIRE_STRING
+  }
+
+  option = {
+    name = EDG_BDX_events.26.g
+    trigger = {
+      has_country_flag = EDG_BDX_kushan_empire_restored_flag
+      technology_group = indian
+    }
+    override_country_name = KUSHAN_EMPIRE_STRING
+  }
+}
+
+#结束事件
+country_event = {
+  id = EDG_BDX_events.27
+  title = EDG_BDX_events.27.t
+	desc = EDG_BDX_events.27.d
+  picture = SWEDEN_LEAGUE_WAR_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.27.a
+    set_country_flag = EDG_BDX_enable_end_content_flag
+    custom_tooltip = EDG_BDX_events.27.a.tt
+    hidden_effect = {
+      swap_non_generic_missions = yes
+    }
+  }
+}
+
+#继业者战争：永生赞誉
+country_event = {
+  id = EDG_BDX_events.28
+  title = EDG_BDX_events.28.t
+	desc = EDG_BDX_events.28.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.28.a
+    add_ruler_modifier = {
+      name = EDG_BDX_the_greatest_conquer_modifier
+      duration = -1
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_BDX_events.29
+        days = 200
+      }
+    }
+  }
+}
+
+#继业者战争：肉体凡胎
+country_event = {
+  id = EDG_BDX_events.29
+  title = EDG_BDX_events.29.t
+	desc = EDG_BDX_events.29.d
+  picture = muslimgfx_KING_SICK_IN_BED_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.29.a
+    add_treasury = -500
+    add_ruler_modifier = {
+      name = EDG_BDX_ill_modifier
+      duration = 365
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_BDX_events.48
+        days = 30
+      }
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.29.b
+    add_ruler_modifier = {
+      name = EDG_BDX_ill_modifier
+      duration = 365
+    }
+    set_country_flag = EDG_BDX_disaster_diadochi_war_start_flag
+  }
+}
+
+#继业者战争：开始
+country_event = {
+  id = EDG_BDX_events.30
+  title = EDG_BDX_events.30.t
+	desc = EDG_BDX_events.30.d
+  picture = BYZ_BATTLE_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.30.a
+    set_global_flag = EDG_BDX_diadochi_war_global_flag
+    kill_ruler = yes
+    custom_tooltip = EDG_SPACE_TT
+    if = {
+      limit = {
+        EDG_BDX_has_argead_legitimacy_trigger = { amount = 100 }
+      }
+      custom_tooltip = EDG_BDX_for_high_argead_legitimacy_tt
+      add_legitimacy = -20
+    }
+    else_if = {
+      limit = {
+        EDG_BDX_has_argead_legitimacy_trigger = { amount = 90 }
+      }
+      custom_tooltip = EDG_BDX_for_common_argead_legitimacy_tt
+      add_stability = -2
+      add_legitimacy = -40
+    }
+    else_if = {
+      limit = {
+        EDG_BDX_has_argead_legitimacy_trigger = { amount = 80 }
+      }
+      custom_tooltip = EDG_BDX_for_low_argead_legitimacy_tt
+      add_stability = -3
+      add_legitimacy = -60
+    }
+    else = {
+      custom_tooltip = EDG_BDX_for_very_low_argead_legitimacy_tt
+      add_stability = -6
+      add_legitimacy = -100
+      add_country_modifier = {
+        name = EDG_BDX_low_argead_legitimacy_modifier
+        duration = 1825
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_BDX_events.30.a.tt
+    hidden_effect = {
+      add_country_modifier = {
+        name = EDG_BDX_diadochi_war_hidden_modifier
+        duration = 90
+        hidden = yes
+      }
+      if = {
+        limit = {
+          capital_scope = {
+            region = balkan_region
+          }
+        }
+        country_event = {
+          id = EDG_BDX_events.36
+          days = 15
+        }
+        country_event = {
+          id = EDG_BDX_events.35
+          days = 30
+        }
+        country_event = {
+          id = EDG_BDX_events.34
+          days = 45
+        }
+        country_event = {
+          id = EDG_BDX_events.33
+          days = 60
+        }
+        country_event = {
+          id = EDG_BDX_events.32
+          days = 75
+        }
+        country_event = {
+          id = EDG_BDX_events.37
+          days = 90
+        }
+      }
+      else_if = {
+        limit = {
+          capital_scope = {
+            region = mashriq_region
+          }
+        }
+        country_event = {
+          id = EDG_BDX_events.31
+          days = 15
+        }
+        country_event = {
+          id = EDG_BDX_events.36
+          days = 30
+        }
+        country_event = {
+          id = EDG_BDX_events.33
+          days = 45
+        }
+        country_event = {
+          id = EDG_BDX_events.32
+          days = 60
+        }
+        country_event = {
+          id = EDG_BDX_events.35
+          days = 75
+        }
+        country_event = {
+          id = EDG_BDX_events.37
+          days = 90
+        }
+      }
+      else_if = {
+        limit = {
+          capital_scope = {
+            region = hindusthan_region
+          }
+        }
+        country_event = {
+          id = EDG_BDX_events.31
+          days = 15
+        }
+        country_event = {
+          id = EDG_BDX_events.33
+          days = 30
+        }
+        country_event = {
+          id = EDG_BDX_events.32
+          days = 45
+        }
+        country_event = {
+          id = EDG_BDX_events.34
+          days = 60
+        }
+        country_event = {
+          id = EDG_BDX_events.35
+          days = 75
+        }
+        country_event = {
+          id = EDG_BDX_events.36
+          days = 90
+        }
+      }
+      else = {
+        country_event = {
+          id = EDG_BDX_events.31
+          days = 15
+        }
+        country_event = {
+          id = EDG_BDX_events.33
+          days = 30
+        }
+        country_event = {
+          id = EDG_BDX_events.32
+          days = 45
+        }
+        country_event = {
+          id = EDG_BDX_events.34
+          days = 60
+        }
+        country_event = {
+          id = EDG_BDX_events.36
+          days = 75
+        }
+        country_event = {
+          id = EDG_BDX_events.37
+          days = 90
+        }
+      }
+    }
+  }
+}
+
+#继业者战争：马其顿
+country_event = {
+  id = EDG_BDX_events.31
+  title = EDG_BDX_events.31.t
+	desc = EDG_BDX_events.31.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI1_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.31.a
+    tooltip = {
+      release = DI1
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI1
+        capital = 148
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI1
+    }
+  }
+}
+
+#继业者战争：亚细亚
+country_event = {
+  id = EDG_BDX_events.32
+  title = EDG_BDX_events.32.t
+	desc = EDG_BDX_events.32.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI2_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.32.a
+    tooltip = {
+      release = DI2
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI2
+        capital = 2313
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI2
+    }
+  }
+}
+
+#继业者战争：埃及
+country_event = {
+  id = EDG_BDX_events.33
+  title = EDG_BDX_events.33.t
+	desc = EDG_BDX_events.33.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI3_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.33.a
+    tooltip = {
+      release = DI3
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI3
+        capital = 358
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI3
+    }
+  }
+}
+
+#继业者战争：波斯
+country_event = {
+  id = EDG_BDX_events.34
+  title = EDG_BDX_events.34.t
+	desc = EDG_BDX_events.34.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI4_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.34.a
+    tooltip = {
+      release = DI4
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI4
+        capital = 410
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI4
+    }
+  }
+}
+
+#继业者战争：阿拉霍西亚
+country_event = {
+  id = EDG_BDX_events.35
+  title = EDG_BDX_events.35.t
+	desc = EDG_BDX_events.35.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI5_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.35.a
+    tooltip = {
+      release = DI5
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI5
+        capital = 447
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI5
+    }
+  }
+}
+
+#继业者战争：帕提亚
+country_event = {
+  id = EDG_BDX_events.36
+  title = EDG_BDX_events.36.t
+	desc = EDG_BDX_events.36.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI6_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.36.a
+    tooltip = {
+      release = DI6
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI6
+        capital = 445
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI6
+    }
+  }
+}
+
+#继业者战争：印度
+country_event = {
+  id = EDG_BDX_events.37
+  title = EDG_BDX_events.37.t
+	desc = EDG_BDX_events.37.d
+  picture = muslimgfx_MILITARY_CAMP_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  trigger = {
+    any_owned_province = {
+      EDG_BDX_province_belongs_to_DI7_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.37.a
+    tooltip = {
+      release = DI7
+    }
+    hidden_effect = {
+      EDG_BDX_release_diadochi_effect = {
+        country = DI7
+        capital = 522
+      }
+    }
+    custom_tooltip = EDG_SPACE_TT
+    EDG_BDX_adjust_diadochi_power_for_argead_legitimacy_tt_effect = {
+      country = DI7
+    }
+  }
+}
+
+#继业者战争：胜利
+country_event = {
+  id = EDG_BDX_events.38
+  title = EDG_BDX_events.38.t
+	desc = EDG_BDX_events.38.d
+  picture = BYZ_REVOLUTION_eventPicture
+  mean_time_to_happen = {
+    months = 1
+  }
+
+  trigger = {
+    has_global_flag = EDG_BDX_diadochi_war_global_flag
+    OR = {
+      is_in_war = {
+        casus_belli = cb_EDG_BDX_diadochi_war
+        attacker_leader = this
+      }
+      is_in_war = {
+        casus_belli = cb_EDG_BDX_diadochi_war
+        defender_leader = this
+      }
+    }
+    any_country = {
+      EDG_BDX_country_can_be_annexed_in_diadochi_war_trigger = yes
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.38.a
+    random_country = {
+      limit = {
+        EDG_BDX_country_can_be_annexed_in_diadochi_war_trigger = yes
+      }
+      tooltip = {
+        kill_ruler = yes
+        ROOT = {
+          inherit = prev
+        }
+      }
+      hidden_effect = {
+        country_event = {
+          id = EDG_BDX_events.39
+        }
+      }
+    }
+  }
+}
+
+#继业者战争：被吞并
+country_event = {
+  id = EDG_BDX_events.39
+  title = EDG_BDX_events.39.t
+	desc = EDG_BDX_events.39.d
+  picture = PLAGUE_eventPicture
+  is_triggered_only = yes
+
+  option = {
+    name = EDG_BDX_events.39.a
+    clr_country_flag = EDG_BDX_is_diadochi_tag_flag
+    if = {
+      limit = {
+        ai = no
+      }
+      kill_ruler = yes
+    }
+    from = {
+      white_peace = ROOT
+      inherit = ROOT
+    }
+  }
+}
+
+#继业者战争：结束
+country_event = {
+  id = EDG_BDX_events.40
+  title = EDG_BDX_events.40.t
+	desc = EDG_BDX_events.40.d
+  picture = BYZ_BYZANTINE_EMPEROR_eventPicture
+  fire_only_once = yes
+  mean_time_to_happen = {
+    months = 2
+  }
+
+  trigger = {
+    has_global_flag = EDG_BDX_diadochi_war_global_flag
+    tag = AGD
+    NOT = {
+      OR = {
+        has_country_modifier = EDG_BDX_diadochi_war_hidden_modifier
+        any_country = {
+          has_country_flag = EDG_BDX_is_diadochi_tag_flag
+        }
+      }
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.40.a
+    end_disaster = EDG_BDX_diadochi_war_disaster
+    clr_global_flag = EDG_BDX_diadochi_war_global_flag
+    set_country_flag = EDG_BDX_disaster_diadochi_war_end_flag
+    add_stability = 3
+    add_legitimacy = 100
+    add_absolutism = 40
+    change_ruler_stat = {
+      type = adm
+      amount = 2
+    }
+    change_ruler_stat = {
+      type = dip
+      amount = 2
+    }
+    change_ruler_stat = {
+      type = mil
+      amount = 2
+    }
+    add_ruler_modifier = {
+      name = EDG_BDX_king_of_diadochis_modifier
+      duration = -1
+    }
+  }
+}
+
+#成立阿吉德帝国
+country_event = {
+  id = EDG_BDX_events.41
+  title = EDG_BDX_events.41.t
+	desc = EDG_BDX_events.41.d
+  picture = BYZ_ATHENS_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.41.a
+    hidden_effect = {
+      restore_country_name = yes
+      EDG_BDX_clear_rename_flags_effect = yes
+    }
+    change_tag = AGD
+    EDG_save_as_new_shahanshah_or_caliph_on_change_tag_effect = yes
+    swap_free_idea_group = yes
+    custom_tooltip = EDG_BDX_mission_dream_of_argead_tt2
+    custom_tooltip = EDG_GOVERNMENT_REFORM_PREVIEW_TT
+    if = {
+      limit = {
+        has_reform = EDG_BDX_Argead_Dynasty_Achaemenid
+      }
+      add_government_reform = EDG_BDX_Argead_Empire_Achaemenid
+    }
+    else = {
+      add_government_reform = EDG_BDX_Argead_Empire
+    }
+    hidden_effect = {
+      country_event = {
+        id = EDG_BDX_events.26
+        days = 30
+      }
+      country_event = {
+        id = EDG_BDX_events.28
+        days = 60
+      }
+    }
+  }
+}
+
+#撒马尔罕之旅2
+country_event = {
+  id = EDG_BDX_events.42
+  title = EDG_BDX_events.42.t
+	desc = EDG_BDX_events.42.d
+  picture = muslimgfx_RAMADAN_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.42.a
+    set_country_flag = EDG_BDX_travel_to_samarkand_flag
+    add_spy_network_in = {
+      who = TIM
+      value = 80
+    }
+    if = {
+      limit = {
+        ruler_has_personality = craven_personality
+      }
+      remove_ruler_personality = craven_personality
+      add_ruler_personality = EDG_ambitious_personality
+    }
+    complete_mission = EDG_BDX_mission_gurkan
+  }
+}
+
+# #阿富汗宗教历史1
+# country_event = {
+#   id = EDG_BDX_events.43
+#   title = EDG_BDX_events.43.t
+# 	desc = EDG_BDX_events.43.d
+#   picture = RELIGION_eventPicture
+#   is_triggered_only = yes
+  
+#   option = {
+#     name = EDG_BDX_events.43.a
+#     country_event = {
+#       id = EDG_BDX_events.44
+#     }
+#   }
+# }
+
+# #阿富汗宗教历史2
+# country_event = {
+#   id = EDG_BDX_events.44
+#   title = EDG_BDX_events.44.t
+# 	desc = EDG_BDX_events.44.d
+#   picture = RELIGION_eventPicture
+#   is_triggered_only = yes
+  
+#   option = {
+#     name = EDG_BDX_events.44.a
+#     country_event = {
+#       id = EDG_BDX_events.14
+#     }
+#   }
+# }
+
+#迁都印度
+country_event = {
+  id = EDG_BDX_events.45
+  title = EDG_BDX_events.45.t
+	desc = EDG_BDX_events.45.d
+  picture = BIG_ARABIAN_CITY_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  
+  option = {
+    name = EDG_BDX_events.45.a
+    trigger = {
+      owns_core_province = 578
+    }
+
+    EDG_BDX_move_capital_to_india_effect = {
+      capital = 578
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.45.b
+    trigger = {
+      owns_core_province = 2076
+    }
+
+    EDG_BDX_move_capital_to_india_effect = {
+      capital = 2076
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.45.c
+    trigger = {
+      owns_core_province = 524
+    }
+
+    EDG_BDX_move_capital_to_india_effect = {
+      capital = 524
+    }
+  }
+  
+  option = {
+    name = EDG_BDX_events.45.e
+    add_stability_or_50_adm_power = { amount = 1 }
+  }
+}
+
+#再临撒马尔罕
+country_event = {
+  id = EDG_BDX_events.46
+  title = EDG_BDX_events.46.t
+	desc = EDG_BDX_events.46.d
+  picture = muslimgfx_COURT_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.46.a
+    custom_tooltip = EDG_BDX_events.46.a.tt
+    hidden_effect = {
+      add_country_modifier = {
+        name = EDG_BDX_golden_family_modifier
+        duration = -1
+      }
+    }
+  }
+
+  option = {
+    name = EDG_BDX_events.46.b
+    454 = {
+      add_local_autonomy = -50
+    }
+    custom_tooltip = EDG_BDX_events.46.b.tt
+    hidden_effect = {
+      add_country_modifier = {
+        name = EDG_BDX_purge_timurid_modifier
+        duration = -1
+      }
+    }
+  }
+}
+
+#巴克特里亚重生
+country_event = {
+  id = EDG_BDX_events.47
+  title = EDG_BDX_events.47.t
+	desc = EDG_BDX_events.47.d
+  picture = muslimgfx_CITY_VIEW_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.47.a
+    add_prestige_or_monarch_power = { amount = 50 }
+  }
+}
+
+#继业者战争：训练有素的医生
+country_event = {
+  id = EDG_BDX_events.48
+  title = EDG_BDX_events.48.t
+	desc = EDG_BDX_events.48.d
+  picture = muslimgfx_KING_SICK_IN_BED_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+
+  option = {
+    name = EDG_BDX_events.48.a
+    add_ruler_modifier = {
+      name = EDG_BDX_medical_accident_modifier
+      duration = -1
+    }
+    set_country_flag = EDG_BDX_disaster_diadochi_war_start_flag
+  }
+}

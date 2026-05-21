@@ -1,7 +1,10 @@
-version="1.37.1"
+version="1"
 tags={
-	"Alternative History"
+	"Fixes"
 }
-name="EDG MP MOD"
+name="testing1"
+replace_path="localisation/replace"
+replace_path="localisation/l_english"
+replace_path="common/bookmarks"
+replace_path="gfx/loadingscreens"
 supported_version="v1.37.5.0"
-remote_file_id="3727228849"

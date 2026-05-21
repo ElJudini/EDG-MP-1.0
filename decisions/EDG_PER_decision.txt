@@ -1,0 +1,929 @@
+country_decisions = {
+	
+	EDG_PER_war_decision_restore_PER_Shahanshah_target = {#刷新沙汗沙阿
+		color = { 62 129 20 }
+		potential = {
+			always = no
+			has_country_modifier = EDG_PER_Shahanshah_the_tag_modifier
+		}
+		allow = {
+			
+		}
+		effect = {
+			save_global_event_target_as = EDG_PER_Shahanshah_target
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_war_decision_jion = {#响应波斯统一战争
+		color = { 62 129 20 }
+		potential = {
+			culture_group = iranian
+			NOT = { has_country_modifier = EDG_PER_war_decision_jion_modifier }
+			has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+			not = { has_global_flag = EDG_flavor_PER_war_2_global_flag }
+			NOT = { EDG_PER_WAR_END_trigger = yes }
+		}
+		allow = {
+			culture_group = iranian
+			is_subject = no
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_PER_war_decision_jion_modifier
+				duration = 18250
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				is_subject = yes
+			}
+			modifier = {
+				factor = 0
+				NOT = { total_development = 10 }
+			}
+			modifier = {
+				factor = 0
+				OR = {
+					tag = BPI
+					tag = KRY
+					tag = TAB
+				}
+			}
+		}
+	}
+	
+	EDG_PER_war_decision_Religious_conflicts_0 = {#伊朗宗教统一
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_10_flag
+			}
+			NOT = { has_global_flag = EDG_PER_war_decision_Religious_conflicts_0_gloal_flag }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_10_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			persia_region = {
+				type = all
+				religion = ROOT
+			}
+			all_country = {
+				OR = {
+					NOT = { culture_group = iranian }
+					NOT = { total_development = ROOT }
+				}
+			}
+		}
+		effect = {
+			set_global_flag = EDG_PER_war_decision_Religious_conflicts_0_gloal_flag
+			country_event = { id = EDG_flavor_PER_war.2 }
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag }
+			}
+		}
+	}
+	EDG_PER_war_decision_Religious_conflicts_1 = {#加强宗教迫害
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_10_flag
+			}
+			NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_1_modifier }
+			has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_10_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_1_modifier }
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_PER_war_decision_Religious_conflicts_1_modifier
+				duration = 18250
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag }
+			}
+		}
+	}
+	EDG_PER_war_decision_Religious_conflicts_2 = {#强制迁徙不信者
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_10_flag
+			}
+			has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_10_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_2_modifier }
+			adm_power = 50
+			any_owned_province = {
+				NOT = { religion = ROOT }
+				culture_group = iranian
+			}
+		}
+		effect = {
+			add_adm_power = -50
+			custom_tooltip = EDG_Muwahhidun_government_interactions_2_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						NOT = { religion = ROOT }
+						has_province_modifier = religious_zeal_at_conv
+					}
+					remove_province_modifier = religious_zeal_at_conv
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			random_owned_province = {
+				limit = {
+					NOT = { religion = ROOT }
+					culture_group = iranian
+				}
+				change_religion = ROOT
+				if = { limit = { base_manpower = 2 } add_base_manpower = -1 }
+				if = { limit = { base_production = 2 } add_base_production = -1 }
+				if = { limit = { base_tax = 2 } add_base_tax = -1 }
+			}
+			hidden_effect = {
+				random_known_country = {
+					limit = {
+						NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_2_modifier }
+						is_neighbor_of = ROOT
+					}
+					country_event = { id = EDG_flavor_PER_war.102 }
+				}
+			}
+			add_country_modifier = {
+				name = EDG_PER_war_decision_Religious_conflicts_2_modifier
+				duration = 3650
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag }
+			}
+		}
+	}
+	EDG_PER_war_decision_Religious_conflicts_3 = {#加强伊朗宗教统一政策
+		color = { 62 129 20 }
+		potential = {
+			culture_group = iranian
+			NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_3_modifier }
+			has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag
+		}
+		allow = {
+			culture_group = iranian
+			NOT = { has_country_modifier = EDG_PER_war_decision_Religious_conflicts_3_modifier }
+			full_idea_group = religious_ideas
+		}
+		effect = {
+			add_country_modifier = {
+				name = EDG_PER_war_decision_Religious_conflicts_3_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { has_global_flag = cb_EDG_WG_superiority_PER_war_enable_global_flag }
+			}
+		}
+	}
+	
+	EDG_persian_adm_5_expand_states_government_system_decision = {#削弱氏族权力
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_adm_5_expand_states_government_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_adm_5_expand_states_government_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			total_development = 300
+			adm_power = 100
+			adm_tech = 5
+		}
+		effect = {
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_persian_adm_5_expand_states_government_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_adm_5_expand_states_government_system_system
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { adm_power = 200 }
+			}
+		}
+	}
+	
+	EDG_persian_adm_10_expand_states_government_system_decision = {#加强统治者神圣性
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_adm_10_expand_states_government_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_adm_10_expand_states_government_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			total_development = 750
+			adm_power = 100
+			adm_tech = 10
+		}
+		effect = {
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_persian_adm_10_expand_states_government_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_adm_10_expand_states_government_system_system
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { adm_power = 200 }
+			}
+		}
+	}
+	
+	EDG_persian_adm_14_expand_states_government_system_decision = {#接纳专制主义行政
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_adm_14_expand_states_government_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_adm_14_expand_states_government_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			total_development = 1500
+			adm_power = 100
+			adm_tech = 14
+		}
+		effect = {
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_persian_adm_14_expand_states_government_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_adm_14_expand_states_government_system_system
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { adm_power = 200 }
+			}
+		}
+	}
+	
+	EDG_persian_kurdish_mil_system_decision = {#整合库尔德埃米尔
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_kurdish_mil_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_kurdish_mil_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			mil_power = 50
+			accepted_culture = kurdish
+			num_of_owned_provinces_with = {
+				value = 10
+				culture = kurdish
+			}
+		}
+		effect = {
+			add_mil_power = -50
+			add_army_tradition = 15
+			add_country_modifier = {
+				name = EDG_persian_kurdish_mil_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_kurdish_mil_system_system
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_persian_Turkmen_mil_system_decision = {#整合土库曼谢赫
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_Turkmen_mil_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_Turkmen_mil_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			mil_power = 50
+			accepted_culture = azerbaijani
+			num_of_owned_provinces_with = {
+				value = 10
+				culture = azerbaijani
+			}
+		}
+		effect = {
+			add_mil_power = -50
+			add_army_tradition = 15
+			add_country_modifier = {
+				name = EDG_persian_Turkmen_mil_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_Turkmen_mil_system_system
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_persian_Turks_mil_system_decision = {#整合突厥贝伊
+		color = { 62 129 20 }
+		potential = {
+			or = {
+				culture_group = iranian
+				has_country_flag = EDG_FYM_mission_5_12_flag
+			}
+			NOT = { has_country_modifier = EDG_persian_Turks_mil_system_modifier }
+			NOT = { has_country_flag = has_EDG_persian_Turks_mil_system_system }
+		}
+		allow = {
+			if = {
+				limit = { has_country_flag = EDG_FYM_mission_5_12_flag }
+			}
+			else = {
+				culture_group = iranian
+			}
+			mil_power = 50
+			accepted_culture = turkish
+			num_of_owned_provinces_with = {
+				value = 10
+				culture = turkish
+			}
+		}
+		effect = {
+			add_mil_power = -50
+			add_army_tradition = 15
+			add_country_modifier = {
+				name = EDG_persian_Turks_mil_system_modifier
+				duration = -1
+			}
+			set_country_flag = has_EDG_persian_Turks_mil_system_system
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+
+	
+	
+	EDG_PER_war_decision_Migrating_rebel_ethnic_minorities = {#迁徙叛乱群落
+		color = { 62 129 20 }
+		potential = {
+			culture_group = iranian
+			any_owned_province = {
+				unrest = 5
+				NOT = { culture = ROOT }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+			}
+			any_owned_province = {
+				NOT = { unrest = 1 }
+				province_is_or_accepts_culture = yes
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+			}
+		}
+		allow = {
+			adm_power = 25
+			culture_group = iranian
+			any_owned_province = {
+				unrest = 5
+				NOT = { culture = ROOT }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+			}
+			any_owned_province = {
+				NOT = { unrest = 1 }
+				province_is_or_accepts_culture = yes
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+				NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+			}
+		}
+		effect = {
+			add_adm_power = -25
+			random_owned_province = {
+				limit = {
+					unrest = 5
+					NOT = { culture = ROOT }
+					NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+					NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+				}
+				#add_devastation = 20
+				add_permanent_province_modifier = {
+					name = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1
+					duration = 9125
+				}
+			}
+			random_owned_province = {
+				limit = {
+					NOT = { unrest = 1 }
+					province_is_or_accepts_culture = yes
+					NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_1 }
+					NOT = { has_province_modifier = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2 }
+				}
+				#add_devastation = 20
+				add_permanent_province_modifier = {
+					name = EDG_PER_war_decision_Migrating_rebel_ethnic_minorities_province_modifier_2
+					duration = 9125
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = { stability = 2 }
+			}
+			modifier = {
+				factor = 0
+				NOT = { adm_power = 900 }
+			}
+			modifier = {
+				factor = 0
+				is_at_war = yes
+			}
+		}
+	}
+
+	
+	EDG_PER_disaster_throne_war_decision_1 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_1_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			adm_power = 100
+			has_adm_advisor = yes
+		}
+		effect = {
+			add_adm_power = -100
+			set_country_flag = EDG_PER_disaster_throne_war_decision_1_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_2 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_2_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			dip_power = 100
+			has_dip_advisor = yes
+		}
+		effect = {
+			add_dip_power = -100
+			set_country_flag = EDG_PER_disaster_throne_war_decision_2_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_3 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_3_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			mil_power = 100
+			has_mil_advisor = yes
+		}
+		effect = {
+			add_mil_power = -100
+			set_country_flag = EDG_PER_disaster_throne_war_decision_3_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_4 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_4_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			treasury = 300
+		}
+		effect = {
+			add_treasury = -300
+			set_country_flag = EDG_PER_disaster_throne_war_decision_4_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_5 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_5_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			if = {
+				limit = {
+					capital_scope = {
+						base_tax = 5
+						base_production = 5
+						base_manpower = 5
+					}
+				}
+				capital_scope = {
+					base_tax = 5
+					base_production = 5
+					base_manpower = 5
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						base_tax = 4
+						base_production = 4
+						base_manpower = 4
+					}
+				}
+				any_owned_province = {
+					base_tax = 4
+					base_production = 4
+					base_manpower = 4
+				}
+			}
+			else = {
+				any_owned_province = {
+					base_tax = 2
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					capital_scope = {
+						base_tax = 5
+						base_production = 5
+						base_manpower = 5
+					}
+				}
+				capital_scope = {
+					add_base_tax = -3
+					add_base_production = -3
+					add_base_manpower = -3
+				}
+			}
+			else_if = {
+				limit = {
+					any_owned_province = {
+						base_tax = 4
+						base_production = 4
+						base_manpower = 4
+					}
+				}
+				random_owned_province = {
+					add_base_tax = -3
+					add_base_production = -3
+					add_base_manpower = -3
+				}
+			}
+			else = {
+				random_owned_province = {
+					add_base_tax = -1
+				}
+			}
+			set_country_flag = EDG_PER_disaster_throne_war_decision_5_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_6 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_6_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+			NOT = { num_of_rebel_armies = 1 }
+		}
+		effect = {
+			add_corruption = 2
+			add_stability_or_adm_power = yes
+			set_country_flag = EDG_PER_disaster_throne_war_decision_6_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_7 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_7_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			OR = {
+				army_size = 125
+				army_size_percentage = 0.85
+				manpower_percentage = 0.5
+			}
+		}
+		effect = {
+			add_corruption = 2
+			add_yearly_manpower = 0.5
+			set_country_flag = EDG_PER_disaster_throne_war_decision_7_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_8 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_8_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			OR = {
+				months_of_ruling = 120
+				stability = 2
+				national_focus = ADM
+			}
+		}
+		effect = {
+			add_corruption = 2
+			add_prestige_or_monarch_power = { amount = 10 }
+			set_country_flag = EDG_PER_disaster_throne_war_decision_8_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_9 = {#安抚奇兹尔巴什
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_9_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_cd_modifier }
+			OR = {
+				NOT = { num_of_loans = 1 }
+				NOT = { is_in_deficit = yes }
+			}
+		}
+		effect = {
+			add_inflation = 2
+			set_country_flag = EDG_PER_disaster_throne_war_decision_9_flag
+			change_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 1
+			}
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_cd_modifier
+				duration = 30
+				hidden = yes
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_reform_1 = {#削弱导师制度
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_reform_1_modifier }
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_reform_1_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_reform_1_modifier }
+			adm_power = 200
+			dip_power = 200
+			mil_power = 200
+		}
+		effect = {
+			custom_tooltip = EDG_PER_disaster_throne_war_decision_reform_1_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_adm_power = -200
+			add_dip_power = -200
+			add_mil_power = -200
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_PER_disaster_throne_war_decision_reform_1_flag
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_reform_1_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+	EDG_PER_disaster_throne_war_decision_reform_2 = {#奇兹尔巴什内部平衡
+		color = { 62 129 20 }
+		potential = {
+			has_country_modifier = EDG_PER_disaster_throne_war_reform_decision_enable_modifier
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_reform_2_modifier }
+			NOT = { has_country_flag = EDG_PER_disaster_throne_war_decision_reform_2_flag }
+		}
+		allow = {
+			NOT = { has_country_modifier = EDG_PER_disaster_throne_war_decision_reform_2_modifier }
+			adm_power = 100
+			dip_power = 100
+			mil_power = 100
+			check_variable = {
+				which = EDG_PER_disaster_throne_war_power
+				value = 7
+			}
+		}
+		effect = {
+			#custom_tooltip = EDG_PER_disaster_throne_war_decision_reform_2_tt
+
+			
+			add_adm_power = -100
+			add_dip_power = -100
+			add_mil_power = -100
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_PER_disaster_throne_war_decision_reform_2_flag
+			add_country_modifier = {
+				name = EDG_PER_disaster_throne_war_decision_reform_2_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

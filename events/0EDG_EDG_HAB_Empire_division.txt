@@ -1,0 +1,276 @@
+namespace = EDG_HAB_Empire_division
+country_event = {#哈布斯堡君主国的分裂
+  id = EDG_HAB_Empire_division.1
+  title = "EDG_HAB_Empire_division.1.t"
+  desc = "EDG_HAB_Empire_division.1.d"
+  picture = BAD_WITH_MONARCH_eventPicture
+  is_triggered_only = yes
+  fire_only_once = yes
+  major = yes
+  immediate = {
+      hidden_effect = {
+          log = "[Root.GetName] has EDG_BTA_civil_war Disaster."
+          set_country_flag = had_EDG_HAB_Empire_division_flag
+      }
+      hidden_effect = {
+          add_stability = -3
+          add_prestige = -25
+      }
+  }
+  option = {#我们还有机会。
+      name = "EDG_HAB_Empire_division.1.a"
+      ai_chance = {
+        factor = 10
+      }
+      custom_tooltip = EDG_HAB_Empire_division_1_tt
+
+      custom_tooltip = EDG_SPACE_TT
+      random_owned_province = {
+        limit = { superregion = europe_superregion }
+        spawn_rebels = {
+            type = pretender_rebels
+            size = 3
+            unrest = 20
+        }
+      }
+      random_owned_province = {
+        limit = { superregion = europe_superregion }
+        spawn_rebels = {
+            type = pretender_rebels
+            size = 4
+            unrest = 20
+        }
+      }
+      random_owned_province = {
+        limit = { superregion = europe_superregion }
+        spawn_rebels = {
+            type = pretender_rebels
+            size = 5
+            unrest = 20
+        }
+      }
+      tooltip = {
+		add_stability = -3
+		add_prestige = -25
+      }
+  }
+  
+}
+
+
+country_event = {#哈布斯堡君主国的未来
+	id = EDG_HAB_Empire_division.2
+	title = "EDG_HAB_Empire_division.2.t"
+	desc = "EDG_HAB_Empire_division.2.d"
+	picture = BAD_WITH_MONARCH_eventPicture
+	fire_only_once = yes
+	is_triggered_only = yes
+	option = {#我们不会倒下。
+		name = "EDG_HAB_Empire_division.2.a"
+		add_stability = 1
+        if = {#镇压
+            limit = {
+                if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 4 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 5 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 5 } }
+                    }
+                }
+                else_if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 5 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 10 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 6 } }
+                    }
+                }
+                else_if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 6 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 15 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 7 } }
+                    }
+                }
+                else_if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 7 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 20 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 8 } }
+                    }
+                }
+                else_if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 8 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 25 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 9 } }
+                    }
+                }
+                else_if = {
+                    limit = { check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 9 } }
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 30 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 10 } }
+                    }
+                }
+                else = {
+                    OR = {
+                        check_variable = { which = EDG_HAB_Empire_division_defeat_value value = 35 }
+                        #NOT = { calc_true_if = { all_country = { is_subject_of = ROOT is_subject_of_type = EDG_HAB_personal_union } amount = 11 } }
+                    }
+                }
+            }
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_HAB_Empire_division_2_a_1_tt
+            add_prestige_or_monarch_power = { amount = 25 }
+            change_variable = { which = EDG_HAB_union_Increase_upper_limit value = 2 }
+            add_country_modifier = {
+                name = EDG_HAB_Empire_division_success_modifier
+                duration = 18250
+            }
+        }
+        else = {
+            custom_tooltip = EDG_SPACE_TT
+            custom_tooltip = EDG_HAB_Empire_division_2_b_1_tt
+        }
+	}
+}
+  
+
+country_event = {#哈布斯堡君主国的分裂者
+    id = EDG_HAB_Empire_division.3
+    title = "EDG_HAB_Empire_division.3.t"
+    desc = "EDG_HAB_Empire_division.3.d"
+    picture = BAD_WITH_MONARCH_eventPicture
+    is_triggered_only = yes
+    immediate = {
+        random_country = {
+            limit = {
+                is_subject_of = ROOT
+                OR = {
+                    is_subject_of_type = personal_union
+                    is_subject_of_type = EDG_HAB_personal_union
+                }
+            }
+            save_global_event_target_as = EDG_flavorHRE_EDG_HAB_Empire_division_3_target
+        }
+    }
+    option = {#击溃他们！
+        name = "EDG_HAB_Empire_division.3.a"
+        add_prestige_or_monarch_power = { amount = 5 }
+        change_variable = { which = EDG_HAB_Empire_division_defeat_value value = 1 }
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_3_target = {
+            random_owned_province = {
+              spawn_rebels = {
+                  type = pretender_rebels
+                  size = 3
+                  unrest = 20
+              }
+            }
+		}
+    }
+    option = {#天要下雨，任他们去吧。
+        name = "EDG_HAB_Empire_division.3.b"
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_3_target = {
+            grant_independence = yes
+            define_ruler = {
+                dynasty = ROOT
+                claim = 95
+            }
+		}
+    }
+}
+
+
+country_event = {#哈布斯堡君主国的分裂者    （大于6）
+    id = EDG_HAB_Empire_division.4
+    title = "EDG_HAB_Empire_division.3.t"
+    desc = "EDG_HAB_Empire_division.3.d"
+    picture = BAD_WITH_MONARCH_eventPicture
+    is_triggered_only = yes
+    trigger = {
+        check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 6 }
+    }
+    immediate = {
+        random_country = {
+            limit = {
+                is_subject_of = ROOT
+                OR = {
+                    is_subject_of_type = personal_union
+                    is_subject_of_type = EDG_HAB_personal_union
+                }
+            }
+            save_global_event_target_as = EDG_flavorHRE_EDG_HAB_Empire_division_4_target
+        }
+    }
+    option = {#击溃他们！
+        name = "EDG_HAB_Empire_division.3.a"
+        add_prestige_or_monarch_power = { amount = 5 }
+        change_variable = { which = EDG_HAB_Empire_division_defeat_value value = 1 }
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_4_target = {
+            random_owned_province = {
+              spawn_rebels = {
+                  type = pretender_rebels
+                  size = 3
+                  unrest = 20
+              }
+            }
+		}
+    }
+    option = {#天要下雨，任他们去吧。
+        name = "EDG_HAB_Empire_division.3.b"
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_4_target = {
+            grant_independence = yes
+            define_ruler = {
+                dynasty = ROOT
+                claim = 95
+            }
+		}
+    }
+}
+
+country_event = {#哈布斯堡君主国的分裂者    （大于8）
+    id = EDG_HAB_Empire_division.5
+    title = "EDG_HAB_Empire_division.3.t"
+    desc = "EDG_HAB_Empire_division.3.d"
+    picture = BAD_WITH_MONARCH_eventPicture
+    is_triggered_only = yes
+    trigger = {
+        check_variable = { which = EDG_HAB_union_Increase_upper_limit value = 8 }
+    }
+    immediate = {
+        random_country = {
+            limit = {
+                is_subject_of = ROOT
+                OR = {
+                    is_subject_of_type = personal_union
+                    is_subject_of_type = EDG_HAB_personal_union
+                }
+            }
+            save_global_event_target_as = EDG_flavorHRE_EDG_HAB_Empire_division_5_target
+        }
+    }
+    option = {#击溃他们！
+        name = "EDG_HAB_Empire_division.3.a"
+        add_prestige_or_monarch_power = { amount = 5 }
+        change_variable = { which = EDG_HAB_Empire_division_defeat_value value = 1 }
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_5_target = {
+            random_owned_province = {
+              spawn_rebels = {
+                  type = pretender_rebels
+                  size = 3
+                  unrest = 20
+              }
+            }
+		}
+    }
+    option = {#天要下雨，任他们去吧。
+        name = "EDG_HAB_Empire_division.3.b"
+		event_target:EDG_flavorHRE_EDG_HAB_Empire_division_5_target = {
+            grant_independence = yes
+            define_ruler = {
+                dynasty = ROOT
+                claim = 95
+            }
+		}
+    }
+}

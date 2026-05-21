@@ -1,0 +1,732 @@
+namespace = NYAB_KAZ
+normal_or_historical_nations = yes
+#保加尔人的未来
+country_event = {
+	id = NYAB_KAZ.1
+	title = NYAB_KAZ_1_t
+	desc = NYAB_KAZ_1_d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+	
+
+	# option = {
+	# 	name = NYAB_KAZ_1a
+	# 	ai_chance = {
+	# 		factor = 1
+	# 	}
+	# 	custom_tooltip = NYAB_KAZ_1a_tt
+	# 	change_tag = BJR
+	# 	set_country_flag = NYAB_KAZ_bogaristan_mission_flag
+	# 	swap_free_idea_group = yes
+	# 	swap_non_generic_missions = yes
+	# }
+	option = {
+		name = NYAB_KAZ_1b
+		ai_chance = {
+			factor = 1
+		}
+		set_country_flag = NYAB_KAZ_horde_mission_flag
+		
+		add_prestige_or_monarch_power = { amount = 20 }
+		add_country_modifier = {
+			name = NYAB_KAZ_1_a_modifier
+			duration = 3650
+		}
+		if = {
+			limit = {
+				NOT = { exists = GLH }
+			}
+			
+			change_tag = GLH
+			on_change_tag_effect = yes
+			swap_non_generic_missions = yes
+			if = {
+				limit = {
+					OR = {
+						AND = {
+							has_dlc = "Winds of Change"
+							NOT = {
+								was_tatar_nation = yes
+								was_mongol_nation = yes
+								was_monghulistan_nation = yes
+							}
+						}
+					}
+					NOT = { has_dlc = "Winds of Change" }
+				}
+				swap_non_generic_missions = yes
+			}
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { NOT = { government_rank = 3 } }
+				set_government_rank = 3
+			}
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				set_country_flag = formed_golden_horde_flag
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+		}
+		#override_country_name = NYAB_SHUCHI
+	}
+}
+#新的忽里台大会
+country_event = {
+	id = NYAB_KAZ.2
+	title = NYAB_KAZ_2_t
+	desc = NYAB_KAZ_2_d
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {
+		name = NYAB_KAZ_2a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYAB_KAZ_1b_tt
+		add_prestige_or_monarch_power = {
+			amount = 50
+		}
+		add_ruler_modifier = {
+			name = NYAB_KAZ_recalim_ulus_modifier
+			duration = -1
+		}
+		change_ruler_stat = {
+			stat = adm
+			amount = 2
+		}
+		change_ruler_stat = {
+			stat = dip
+			amount = 2
+		}
+		change_ruler_stat = {
+			stat = mil
+			amount = 2
+		}
+	}
+}
+#毁灭基辅
+country_event = {
+	id = NYAB_KAZ.3
+	title = NYAB_KAZ_3_t
+	desc = NYAB_KAZ_3_d
+	picture = VILLAGE_BURNING_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {
+		name = NYAB_KAZ_3a
+		ai_chance = {
+			factor = 1
+		}
+		add_ruler_personality = conqueror_personality
+		add_country_modifier = {
+			name = NYAB_KAZ_march_kiev_modifier
+			duration = 9125
+		}
+		add_years_of_income = 2
+		280 = {
+			add_devastation = 50
+			add_base_tax = -2
+			add_base_manpower = -2
+			add_base_production = -2
+		}
+		custom_tooltip = " "
+		poland_region = {
+			add_permanent_claim = ROOT
+		}
+		carpathia_region = {
+			add_permanent_claim = ROOT
+		}
+		
+	}
+}
+#再次归来！
+country_event = {
+	id = NYAB_KAZ.4
+	title = NYAB_KAZ_4_t
+	desc = NYAB_KAZ_4_d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = NYAB_KAZ_4a
+		ai_chance = {
+			factor = 1
+		}
+		emperor = {
+			kill_ruler = yes
+		}
+		dismantle_hre = yes
+		add_country_modifier = {
+			name = NYAB_KAZ_show_them_who_we_are_modifier
+			duration = -1
+		}
+	}
+
+}
+#蒙古再一统
+country_event = {
+	id = NYAB_KAZ.5
+	title = NYAB_KAZ_5_t
+	desc = NYAB_KAZ_5_d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = NYAB_KAZ_5a
+		ai_chance = {
+			factor = 1
+		}
+		change_primary_culture = mongol
+		set_ruler_culture = mongol
+		if = {
+			limit = {
+				has_heir = yes
+			}
+			set_heir_culture = mongol
+		}
+		add_country_modifier = {
+			name = NYAB_KAZ_5a_modifier
+			duration = -1
+		}
+		add_accepted_culture = kazani
+		
+	}
+	option = {
+		name = NYAB_KAZ_5b
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYAB_KAZ_5b_tt
+		add_country_modifier = {
+			name = NYAB_KAZ_5b_modifier
+			duration = -1
+		}
+		add_accepted_culture = mongol
+		hidden_effect = {
+			every_province = {
+				limit = {
+					country_or_non_sovereign_subject_holds = ROOT
+					OR = {
+						culture= khalkha
+						culture = oirats
+						culture = chahar
+						culture = buryat
+					}
+				}
+				change_culture = mongol
+			}
+		}
+	}
+}
+#争夺天命
+country_event = {
+	id = NYAB_KAZ.6
+	title = NYAB_KAZ_6_t
+	desc = NYAB_KAZ_6_d
+	picture = BATTLE_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = NYAB_KAZ_6a
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYAB_KAZ_6a_tt
+		change_tag = MGE
+		country_event = {
+			id = ideagroups.1
+		}
+		random_country = {
+			limit = {
+				is_emperor_of_china = yes
+			}
+			reverse_add_casus_belli = {
+				type = cb_take_mandate_triggered_NYAB
+				target = ROOT
+				months = 600
+			}
+		}
+		hidden_effect = {
+			restore_country_name = yes
+		}
+		set_country_flag = NYAB_GOL_chinese_flag
+	}
+	option = {
+		name = NYAB_KAZ_6b
+		ai_chance = {
+			factor = 1
+		}
+		custom_tooltip = NYAB_KAZ_6b_tt
+		change_tag = MGE
+		country_event = {
+			id = ideagroups.1
+		}
+		add_country_modifier = {
+			name = NYAB_KAZ_6b_modifier
+			duration = 9125
+		}
+		hidden_effect = {
+			restore_country_name = yes
+		}
+		set_country_flag = NYAB_GOL_mongol_flag
+	}
+}
+#重建宣政院
+country_event = {
+	id = NYAB_KAZ.7
+	title = NYAB_KAZ_7_t
+	desc = NYAB_KAZ_7_d
+	picture = HORDE_ON_HORSEBACK_eventPicture
+	is_triggered_only = yes
+
+	option = {
+		name = NYAB_KAZ_7a
+		ai_chance = {
+			factor = 1
+		}
+		tibet_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_core = TIB
+			cede_province = TIB
+		}
+		TIB = {
+			NYAB_country_start_effect = yes
+		}
+		create_subject = {
+			subject = TIB
+			subject_type = march
+		}
+		add_country_modifier = {
+			name = NYAB_KAZ_restore_xuanzhen_modfier
+			duration = -1
+		}
+		hidden_effect = {
+			TIB = {
+				change_government = monarchy
+			}
+		}
+	}
+	option = {
+		name = NYAB_KAZ_7b
+		ai_chance = {
+			factor = 1
+		}
+		tibet_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_permanent_province_modifier = {
+				name = NYAB_KAZ_restore_xuanzhen_modfier_prov
+				duration = -1
+			}
+		}
+	}
+}
+#蒙古合罕
+country_event = {
+	id = NYAB_KAZ.8
+	title = NYAB_KAZ_8_t
+	desc = NYAB_KAZ_8_d
+	picture = AB_YUAN_eventPicture
+	is_triggered_only = yes
+
+	immediate = {
+		hidden_effect = {
+			add_government_reform = NYAB_GOL_hanren_neige_reform
+		}
+	}
+	option = {
+		override_country_name = "YUA"
+		name = NYAB_KAZ_8a
+		highlight = yes
+		ai_chance = {
+			factor = 1
+		}
+		tooltip = {
+			add_government_reform = NYAB_GOL_hanren_neige_reform
+		}
+	}
+	# option = {
+	# 	override_country_name = "M0G"
+	# 	name = NYAB_KAZ_8b
+	# 	trigger = {
+	# 		NOT = {
+	# 			any_province = {
+	# 				OR = {
+	# 					is_core = MNG
+	# 				}
+	# 			}
+	# 		}
+	# 	}
+	# 	ai_chance = {
+	# 		factor = 1
+	# 	}
+	# 	tooltip = {
+	# 		add_government_reform = NYAB_GOL_hanren_neige_reform
+	# 	}
+	# }
+	option = {
+		override_country_name = "QNG"
+		trigger = {
+			NOT = {
+				any_province = {
+					OR = {
+						is_core = QNG
+					}
+				}
+			}
+		}
+		name = NYAB_KAZ_8c
+		ai_chance = {
+			factor = 1
+		}
+		tooltip = {
+			add_government_reform = NYAB_GOL_hanren_neige_reform
+		}
+	}
+	option = {
+		name = NYAB_KAZ_8d
+		ai_chance = {
+			factor = 1
+		}
+		tooltip = {
+			add_government_reform = NYAB_GOL_hanren_neige_reform
+		}
+	}
+}
+#阿拔斯复辟？
+country_event = {
+	id = NYAB_KAZ.9
+	title = NYAB_KAZ_9_t
+	desc = NYAB_KAZ_9_d
+	picture = RELIGION_eventPicture
+	is_triggered_only = yes
+
+	#滴水之恩，当涌泉相报
+	# option = {
+	# 	name = NYAB_KAZ_9a
+	# 	highlight = yes
+	# 	trigger = {
+	# 		OR = {
+	# 			was_tag = KAZ
+	# 			primary_culture = kazani
+	# 		}
+	# 		NOT = {
+	# 			exists = ABS
+	# 		}
+	# 	}
+	# 	ai_chance = {
+	# 		factor = 1
+	# 	}
+	# 	add_country_modifier = {
+	# 		name = NYAB_KAZ_9a_modifier
+	# 		duration = -1
+	# 		desc = NYAB_subject_modifier_desc_tt
+	# 	}
+	# 	egypt_region = {
+	# 		add_core = ABS
+	# 	}
+	# 	release = ABS
+	# 	create_subject = {
+	# 		subject_type = vassal
+	# 		subject = ABS
+	# 	}
+	# 	hidden_effect = {
+	# 		ABS = {
+	# 			change_government = monarchy
+	# 			add_government_reform = NYAB_ABS_halifa_gov
+	# 			NYAB_country_start_effect = yes
+	# 			set_capital = 361
+	# 			NYAB_ABS_ruler = yes
+	# 			add_liberty_desire = -100
+	# 		}
+	# 	}
+	# }
+	#哈哈哈，就凭你，还是给我放羊吧。
+	option = {
+		name = NYAB_KAZ_9b
+		ai_chance = {
+			factor = 1
+		}
+
+		egypt_region = {
+			limit = {
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			add_province_modifier = {
+				name = NYAB_KAZ_9b_modifier
+				duration = 9125
+			}
+		}
+	}
+}
+#拉杰普特军团
+country_event = {
+	id = NYAB_KAZ.10
+	title = NYAB_KAZ_10_t
+	desc = NYAB_KAZ_10_d
+	picture = 3_Rajput_Estate__eventPicture
+	is_triggered_only = yes
+
+	#让他们来吧。
+	option = {
+		name = NYAB_KAZ_10a
+		ai_chance = {
+			factor = 1
+		}
+		random_owned_area = {
+			limit = {
+				superregion = india_superregion
+			}
+			rajput_infantry = ROOT
+			rajput_infantry = ROOT
+		}
+		enable_estate_effect = {
+			estate = estate_rajput
+		}
+	}
+	#事需缓急，欲速不达也。
+	option = {
+		name = NYAB_KAZ_10b
+		ai_chance = {
+			factor = 1
+		}
+		add_country_modifier = {
+			name = NYAB_KAZ_10b_modifier
+			duration = 3650
+		}
+	}
+}
+#踩地12个月割让事件
+province_event = {
+	id = NYAB_KAZ.100
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			owned_by = controller
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					is_core = controller
+				}
+			}
+			add_territorial_core = controller
+		}
+		cede_province = controller
+	}
+	option = {
+		
+	}
+}
+#持续宣战
+country_event = {
+	id = NYAB_KAZ.101
+	hidden = yes
+	trigger = {
+		mission_completed = NYAB_KAZ_the_end_of_day
+		any_neighbor_country = {
+			NOT = {
+				truce_with = ROOT
+			}
+			NOT = {
+				is_subject_of = ROOT
+			}
+			NOT = {
+				war_with = ROOT
+			}
+		}
+	
+	}
+	mean_time_to_happen = {
+		days = 1
+	}
+	immediate = {
+		every_neighbor_country = {
+			limit = {
+				NOT = {
+					truce_with = ROOT
+				}
+				NOT = {
+					is_subject_of = ROOT
+				}
+				NOT = {
+					war_with = ROOT
+				}
+			}
+			ROOT = {
+				declare_war_with_cb = {
+					casus_belli = cb_horde_vs_civ
+					who = PREV
+				}
+			}
+		}
+	}
+	option = {
+	}
+}
+
+#鞑靼人归来
+country_event = {
+	id = NYAB_KAZ.102
+	title = NYAB_KAZ_102_title
+	desc = NYAB_KAZ_102_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {#这不可能！
+		name = NYAB_KAZ_102a
+		ai_chance = {
+			factor = 1
+		}
+		add_country_modifier = {
+			name = NYAB_KAZ_102_a_modifier
+			duration = 3650
+		}
+	}
+}
+#终结弗拉基米尔的血脉
+country_event = {
+	id = NYAB_KAZ.103
+	title = NYAB_KAZ_103_title
+	desc = NYAB_KAZ_103_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {#我们踩断了罗斯人的脊梁。
+		name = NYAB_KAZ_103a
+		ai_chance = {
+			factor = 1
+		}
+		add_mil_power = 75
+		add_country_modifier = {
+			name = NYAB_KAZ_103_a_modifier
+			duration = 3650
+		}
+	}
+}
+#焚毁诺夫哥罗德大教堂
+country_event = {
+	id = NYAB_KAZ.104
+	title = NYAB_KAZ_104_title
+	desc = NYAB_KAZ_104_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {#燃烧吧，让它们燃烧吧！
+		name = NYAB_KAZ_104a
+		ai_chance = {
+			factor = 1
+		}
+		add_mil_power = 75
+		add_country_modifier = {
+			name = NYAB_KAZ_104_a_modifier
+			duration = 3650
+		}
+	}
+}
+
+#使罗斯诸国再度感到恐惧
+country_event = {
+	id = NYAB_KAZ.105
+	title = NYAB_KAZ_105_title
+	desc = NYAB_KAZ_105_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	
+
+	option = {#颤抖吧，罗斯的懦夫们，蒙古人回来了！
+		name = NYAB_KAZ_105a
+		ai_chance = {
+			factor = 1
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		every_country = {
+			limit = { culture_group = east_slavic }
+			country_event = { id = NYAB_KAZ.102 }
+			tooltip = {
+				add_country_modifier = {
+					name = NYAB_KAZ_102_a_modifier
+					duration = 3650
+				}
+			}
+		}
+	}
+}
+
+
+country_event = {#保加尔的子孙
+	id = NYAB_KAZ.106
+	title = NYAB_KAZ_106_title
+	desc = NYAB_KAZ_106_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = KAZ
+			was_tag = KAZ
+		}
+		total_development = 1250
+		is_great_power = yes
+	}
+	option = {#保加尔人注定伟大。
+		name = NYAB_KAZ_106a
+		ai_chance = {
+			factor = 1
+		}
+		add_prestige_or_monarch_power = { amount = 10 }
+		add_mil_power = 100
+		add_country_modifier = {
+			name = NYAB_KAZ_106_a_modifier
+			duration = 7300
+		}
+	}
+}
+country_event = {#纳兀鲁斯 帖木儿
+	id = NYAB_KAZ.107
+	title = NYAB_KAZ_107_title
+	desc = NYAB_KAZ_107_desc
+	picture = COURT_eventPicture
+	is_triggered_only = yes
+	fire_only_once = yes
+	trigger = {
+		OR = {
+			tag = KAZ
+			was_tag = KAZ
+		}
+		is_year = 1511
+		has_regency = no
+	}
+	option = {#他有资格统治。
+		name = NYAB_KAZ_107a
+		ai_chance = {
+			factor = 1
+		}
+		NYAB_KAZ_107_a_effect = yes
+	}
+	option = {#我们另有人选。
+		name = NYAB_KAZ_107b
+		ai_chance = {
+			factor = 0
+		}
+		add_prestige = -5
+	}
+}

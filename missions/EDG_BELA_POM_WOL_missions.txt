@@ -1,0 +1,1702 @@
+EDG_BELA_POM_WOL_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+	}
+
+	EDG_BELA_POM_WOL_1_1 = {#公国再统一
+		icon = mission_conquer_pomerania
+		position = 1
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					not = {
+						root = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 7
+								culture = pommeranian
+							}
+						}
+					}
+					any_country = {
+						primary_culture = pommeranian
+						not = {
+							is_subject_of = root
+						}
+					}
+				}
+				or = {
+					and = {
+						culture = pommeranian
+						not = {
+							owned_by = root
+						}
+						not = {
+							owned_by_subject_of = root
+						}
+					}
+					and = {
+						owner = {
+							primary_culture = pommeranian
+						}
+						not = {
+							owned_by = root
+						}
+						not = {
+							owned_by_subject_of = root
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						root = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 7
+								culture = pommeranian
+							}
+						}
+					}
+				}
+				culture = pommeranian
+				not = {
+					owned_by = root
+				}
+				not = {
+					owned_by_subject_of = root
+				}
+			}
+			else_if = {
+				limit = {
+					any_country = {
+						primary_culture = pommeranian
+						not = {
+							is_subject_of = root
+						}
+					}
+				}
+				owner = {
+					primary_culture = pommeranian
+				}
+				not = {
+					owned_by = root
+				}
+				not = {
+					owned_by_subject_of = root
+				}
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					any_country = {
+						primary_culture = pommeranian
+						not = {
+							is_subject_of = root
+						}
+					}
+				}
+				not = {
+					any_country = {
+						primary_culture = pommeranian
+					}
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 7
+				culture = pommeranian
+			}
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_adm_power = 50
+			#}
+			add_prestige = 10
+			change_estate_land_share = {
+				estate = estate_church
+				share = -5
+			}
+			change_estate_land_share = {
+				estate = estate_burghers
+				share = -5
+			}
+			change_estate_land_share = {
+				estate = estate_nobles
+				share = -5
+			}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+			if = {
+				limit = {
+					or = {
+						has_country_flag = EDG_BELA_WOL_vassalize_STE_flag
+						has_country_flag = EDG_BELA_WOL_not_vassalize_STE_flag
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_BELA_WOL_vassalize_STE_flag
+					}
+					add_dip_power = 50
+					#change_dip = 1
+				}
+				else = {
+					add_mil_power = 100
+					change_mil = 1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_1_3 = { #梅克伦堡领地
+		icon = defend_the_city
+		position = 3
+		required_missions = { EDG_BELA_POM_WOL_1_1 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					province_id = 2996
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					province_id = 46
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					province_id = 4749
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+			}
+		}
+
+		trigger = {
+			owns_or_non_sovereign_subject_of = 2996
+			owns_or_non_sovereign_subject_of = 46
+			owns_or_non_sovereign_subject_of = 4749
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_prestige = 10
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = -5
+				}
+			#}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_WOL_mecklenburg_flag
+				}
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = -10
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_WOL_2_3_flag
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+				add_legitimacy = 10
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_1_4 = { #控制汉萨同盟
+		icon = mission_hanseatic_city
+		position = 4
+		required_missions = {
+			EDG_BELA_POM_WOL_1_3
+			EDG_BELA_POM_WOL_2_3
+		}
+		provinces_to_highlight = {
+			or = {
+				and = {
+					province_id = 45
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					is_capital_of = HSA
+					not = {
+						HSA = {
+							is_subject_of = root
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+				custom_trigger_tooltip = {
+					tooltip = EDG_BELA_POM_WOL_1_4_flag_tt
+					mission_completed = EDG_BELA_POM_WOL_1_3
+				}
+			}
+			owns_or_non_sovereign_subject_of = 45
+			or = {
+				not = {
+					exists = HSA
+				}
+				HSA = {
+					is_subject_of = root
+				}
+			}
+		} 
+
+		effect = {
+			set_country_flag = has_EDG_BELA_POM_WOL_1_4_decision_flag
+			add_mercantilism = 5
+			add_years_of_income = 1
+			add_prestige = 25
+			custom_tooltip = EDG_BELA_POM_WOL_1_4_tt #城市黄金特权代价将降低
+		} 
+	}
+
+	EDG_BELA_POM_WOL_1_5 = {#胡斯的遗产
+		icon = hussite_regency
+		position = 5
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {#已经完成事件：胡斯的遗产
+				tooltip = has_EDG_BELA_POM_hussite_legacy_flag_tt
+				has_country_flag = EDG_BELA_POM_hussite_legacy_flag
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_hussite_legacy_flag_1
+				}
+				all_owned_province = {
+					religion = hussite
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_hussite_legacy_flag_2
+				}
+				not = {
+					has_government_power = {
+						mechanic_type = EDG_POM_germanization_mechanic
+						power_type = EDG_POM_germanization_power
+						value = 75
+					}
+				}
+				stability = 1
+				adm_power_cost = 50
+				dip_power_cost = 50
+				mil_power_cost = 50
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_hussite_legacy_flag_1
+				}
+				add_country_modifier = {
+					name = EDG_BELA_POM_WOL_1_5_hussite_modifier_1
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_hussite_legacy_flag_2
+				}
+				adm_power_cost = 50
+				dip_power_cost = 50
+				mil_power_cost = 50
+				add_country_modifier = {
+					name = EDG_BELA_POM_WOL_1_5_hussite_modifier_2
+					duration = 9125
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_POM_WOL_gryf_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+		has_country_flag = EDG_BELA_POM_gryf_missions_flag
+	}
+
+	EDG_BELA_POM_WOL_1_6 = {
+		icon = defenestrate_the_heretics
+		position = 6
+		required_missions = {
+			EDG_BELA_POM_WOL_1_5
+			EDG_BELA_POM_WOL_2_5
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			not = {
+				alliance_with = emperor
+			}
+			or = {
+				is_rival = emperor
+				emperor = {
+					is_rival = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_government_mechanic = EDG_POM_germanization_mechanic
+				}
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = -10
+				}
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 50
+			}
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		} 
+	}
+}
+EDG_BELA_POM_WOL_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+	}
+
+	EDG_BELA_POM_WOL_2_1 = {#反抗入侵者
+		icon = mission_build_up_to_force_limit
+		position = 1
+		provinces_to_highlight = {
+		} 
+
+		trigger = {
+			is_subject = no
+			if = {
+				limit = {
+					ai = yes
+				}
+				army_size = 5
+			}
+			else = {
+				or = {
+					army_size = 10
+					army_size_percentage = 1.00
+				}
+			}
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_country_modifier = {
+					name = EDG_army_enthusiasm_3_modifier
+					duration = 3650
+				}
+				add_country_modifier = {
+					name = EDG_army_enthusiasm_11_modifier
+					duration = 1825
+				}
+			#}
+			custom_tooltip = EDG_BELA_POM_WOL_2_1_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						or = {
+							area = mecklenburg_area
+							area = mittelmark_area
+							area = neumark_area
+							area = lusatia_area
+						}
+						not = {
+							culture = pommeranian
+						}
+					}
+					add_claim = root
+				}
+				every_province = {
+					limit = {
+						or = {
+							area = neumark_area
+							area = hinter_pommern_area
+							area = vorpommern_area
+						}
+						culture = pommeranian
+						not = {
+							owned_by_subject_of = root
+						}
+					}
+					add_core = root
+				}
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_2_2 = {#击败勃兰登堡
+		icon = the_russian_campaign
+		position = 2
+		required_missions = {
+			EDG_BELA_POM_WOL_1_1
+			EDG_BELA_POM_WOL_2_1
+			EDG_BELA_POM_WOL_3_1
+		}
+		provinces_to_highlight = {
+			or = {
+				and = {
+					province_id = 50
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					not = {
+						root = {
+							army_strength = {
+								who = BRA
+								value = 1
+							}
+						}
+					}
+					is_capital_of = BRA
+				}
+			}
+		} 
+
+		trigger = {
+			owns_or_non_sovereign_subject_of = 50
+			or = {
+				army_size = BRA
+				not = {
+					exists = BRA
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+				custom_tooltip = EDG_BELA_POM_WOL_2_2_mechanic_tt
+			}
+			add_prestige_or_monarch_power = { amount = 10 }
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_adm_power = 25
+				add_dip_power = 25
+				add_mil_power = 25
+			#}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+			set_country_flag = EDG_BELA_POM_WOL_2_2_flag
+			custom_tooltip = EDG_BELA_POM_WOL_2_2_flag_tt #解锁决议以移除日耳曼贵族庄园自治特权
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_2_3 = {#帝国第一公爵
+		icon = glory_to_von_habsburg
+		position = 3
+		required_missions = {
+			EDG_BELA_POM_WOL_2_2
+			EDG_BELA_POM_WOL_3_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#custom_trigger_tooltip = {
+			 #	tooltip = EDG_BELA_POM_WOL_2_3_tt
+			 #	#我们是除了皇帝以外拥有最多陆军的神罗国家
+			 #	all_country = {
+			 #		or = {
+			 #			is_part_of_hre = no
+			 #			is_emperor = yes
+			 #			and = {
+			 #				is_part_of_hre = yes
+			 #				not = {
+			 #					army_size = root
+			 #				}
+			 #			}
+			 #		}
+			 #	}
+			#}
+			if = {
+				limit = {
+					ai = no
+				}
+				or = {
+					army_size = 20
+					prestige = 75
+				}
+			}
+			emperor = {
+				or = {
+					has_opinion = {
+						who = root
+						value = 100
+					}
+					alliance_with = root
+					marriage_with = root
+				}
+			}
+		} 
+
+		effect = {
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			add_country_modifier_for_age = {
+				name = EDG_army_dip_policy_5_modifier
+				age = age_of_discovery
+			}
+			set_country_flag = EDG_BELA_POM_WOL_2_3_flag
+			custom_tooltip = EDG_BELA_POM_WOL_2_3_flag_tt_1
+			tooltip = {
+				add_legitimacy = 10
+				add_prestige_or_monarch_power = { amount = 10 }
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BELA_POM_WOL_2_3_flag_tt_2
+			tooltip = {
+				change_innovativeness = 10
+				add_prestige_or_monarch_power = { amount = 10 }
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BELA_POM_WOL_2_3_flag_tt_3
+			tooltip = {
+				custom_tooltip = EDG_BELA_POM_WOL_5_2_tt
+				hidden_effect = {
+					every_neighbor_country = {
+						add_aggressive_expansion = {
+							who = root
+							value = -10
+							apply_calc = no
+						}
+					}
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_BELA_POM_WOL_2_3_flag_tt_4
+			tooltip = {
+				43 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+			}
+			#梅克伦堡领地、格吕菲卡学院、终结条顿威胁、解放格但斯克将获得额外奖励
+		} 
+	}
+
+	EDG_BELA_POM_WOL_2_5 = {#加入宗教改革
+		icon = mission_luther_theses
+		position = 5
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#current_age = age_of_reformation
+			or = {
+				religion = reformed
+				religion = hussite
+				religion = protestant
+			}
+			dominant_religion = root
+			mission_completed = EDG_BELA_POM_WOL_4_5
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_adm_power = 50
+				add_dip_power = 50
+				add_mil_power = 50
+			#}
+			#country_event = { #卡舒比语圣经
+			#	id = EDG_BELA_POM_events.15
+			#}
+		} 
+	}
+}
+EDG_BELA_POM_WOL_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+	}
+
+	EDG_BELA_POM_WOL_3_1 = {#可靠的盟友
+		icon = mission_diplomatic_relation
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = {
+					ai = no
+				}
+				num_of_allies = 2
+			}
+			else = {
+				num_of_allies = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_POM_WOL_3_1_tt
+			hidden_effect = {
+				every_ally = {
+					limit = {
+						culture_group = germanic
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = EDG_POM_germanization_mechanic
+							power_type = EDG_POM_germanization_power
+							value = 3
+						}
+					}
+				}
+				every_ally = {
+					limit = {
+						or = {
+							culture_group = west_slavic
+							culture_group = east_slavic
+							culture_group = south_slavic
+						}
+					}
+					root = {
+						add_government_power = {
+							mechanic_type = EDG_POM_germanization_mechanic
+							power_type = EDG_POM_germanization_power
+							value = -3
+						}
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_army_dip_policy_1_modifier
+				duration = 3650
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_3_2 = {#处理帝国外交
+		icon = join_the_empire
+		position = 2
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					emperor = {
+						and = {
+							not = {
+								has_opinion = {
+									who = root
+									value = 200
+								}
+							}
+							not = {
+								alliance_with = root
+							}
+							not = {
+								marriage_with = root
+							}
+						}
+					}
+				}
+				is_capital = yes
+				owned_by = emperor
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					ai = no
+				}
+				treasury = 100
+				adm_power = 50
+				dip_power = 50
+				mil_power = 50
+				emperor = {
+					or = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						alliance_with = root
+						marriage_with = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			emperor = {
+				country_event = {
+					id = EDG_BELA_POM_events.6
+				}
+			}
+			if = {
+				limit = {
+					ai = no
+				}
+				add_treasury = -100
+				add_adm_power = -50
+				add_dip_power = -50
+				add_mil_power = -50
+			}
+			add_country_modifier = {
+				name = EDG_army_dip_policy_8_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_3_3 = {#格吕菲卡学院
+		icon = wittenberg_university
+		position = 3
+		required_missions = { EDG_BELA_POM_WOL_4_2 } 
+		provinces_to_highlight = {
+			province_id = 2994
+			OR = {
+				NOT = { owned_by = ROOT }
+				AND = {
+					NOT = { num_of_times_improved = 5 }
+					NOT = { has_building = university }
+				}
+				NOT = { higher_development_than = 46 }
+			}
+		}
+
+		trigger = {
+			2994 = {
+				owned_by = ROOT
+				OR = {
+					num_of_times_improved = 5
+					has_building = university
+				}
+				higher_development_than = 46
+			}
+		}
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				add_adm_power = 25
+				add_dip_power = 25
+				add_mil_power = 25
+			#}
+			2994 = {
+				add_or_upgrade_university_building = yes
+				add_province_modifier = {
+					name = EDG_BELA_POM_WOL_3_3_university_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_WOL_2_3_flag
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+				change_innovativeness = 10
+			}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_3_4 = {#历史的渊源
+		icon = bohemian_borderlands
+		position = 4
+		required_missions = { EDG_BELA_POM_WOL_2_3 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 15
+								region = poland_region
+							}
+						}
+					}
+					region = poland_region
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 5
+								or = {
+									area = silesia_area
+									area = lusatia_area
+								}
+							}
+						}
+					}
+					or = {
+						area = silesia_area
+						area = lusatia_area
+					}
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+				and = {
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 10
+								or = {
+									area = bohemia_area
+									area = moravia_area
+									area = erzgebirge_area
+								}
+							}
+						}
+					}
+					or = {
+						area = bohemia_area
+						area = moravia_area
+						area = erzgebirge_area
+					}
+					not = {
+						owned_by = root
+					}
+					not = {
+						owned_by_subject_of = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = poland_region
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				or = {
+					area = silesia_area
+					area = lusatia_area
+				}
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 10
+				or = {
+					area = bohemia_area
+					area = moravia_area
+					area = erzgebirge_area
+				}
+			}
+		} 
+
+		effect = {
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			add_country_modifier = {
+				name = EDG_BELA_POM_WOL_3_4_west_slavics_modifier
+				duration = -1
+			}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+		} 
+	}
+}
+EDG_BELA_POM_WOL_gryf_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+		has_country_flag = EDG_BELA_POM_gryf_missions_flag
+	}
+
+	#EDG_BELA_POM_WOL_3_6 = {
+		#icon = mission_the_gryf
+		#position = 6
+		#provinces_to_highlight = {  } 
+
+		#trigger = {
+		#	has_disaster = EDG_POM_KSB_gryf_war
+		#	not = {
+		#		has_government_power = {
+		#			mechanic_type = EDG_POM_germanization_mechanic
+		#			power_type = EDG_POM_germanization_power
+		#			value = 1
+		#		}
+		#	}
+		#	has_country_flag = EDG_BELA_POM_events_44_flag
+		#} 
+
+		#effect = {
+		#	if = {
+		#		limit = {
+		#			has_disaster = EDG_POM_KSB_gryf_war
+		#			not = {
+		#				has_government_power = {
+		#					mechanic_type = EDG_POM_germanization_mechanic
+		#					power_type = EDG_POM_germanization_power
+		#					value = 1
+		#				}
+		#			}
+		#		}
+		#		country_event = {
+		#			id = EDG_BELA_POM_events.45
+		#		}
+		#	}
+		#}
+		#ai_weight = {
+		#	factor = 100
+		#}
+	#}
+
+	EDG_BELA_POM_WOL_3_7 = {
+		icon = reform_bergordnung
+		position = 6
+		required_missions = { 
+			#EDG_BELA_POM_WOL_3_6
+		} 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_at_war = no
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_events_49_flag
+					}
+				}
+				always = no
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+				}
+				remove_non_electors_emperors_from_empire_effect = yes
+			}
+			set_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+			add_government_reform = EDG_kashupia_empire_reform
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_POM_KSB_disaster_reform_2_decision_modifier
+				}
+				add_government_reform = EDG_POM_rule_german_reform
+			}
+			add_government_reform = EDG_POM_kashubian_first_reform
+			if = {
+				limit = {
+					not = {
+						is_part_of_hre = yes
+					}
+				}
+				set_government_rank = 2
+			}
+			add_stability = 6
+			override_country_name = EDG_BELA_KSB
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			swap_non_generic_missions = yes
+			add_prestige = 25
+			#add_country_modifier = {
+			#	name = EDG_BELA_POM_WOL_3_7_modifier
+			#	duration = 18250
+			#}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+}
+EDG_BELA_POM_WOL_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+	}
+
+	EDG_BELA_POM_WOL_4_2 = {#领地发展计划
+		icon = return_visby_to_the_league
+		position = 2
+		required_missions = { EDG_BELA_POM_WOL_5_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#not = {
+				#has_government_power = {
+				#	mechanic_type = EDG_POM_germanization_mechanic
+				#	power_type = EDG_POM_germanization_power
+				#	value = 90
+				#}
+			#}
+			#if = {
+				#limit = {
+					#not = {
+					#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+					#}
+				#}
+				adm_power_cost = 250
+				dip_power_cost = 250
+				mil_power_cost = 250
+			#}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+				custom_tooltip = EDG_BELA_POM_WOL_4_2_mechanic_tt
+			}
+			hidden_effect = {
+				set_variable = {
+					which = EDG_BELA_POM_develop_var
+					value = 0
+				}
+			}
+			set_country_flag = EDG_BELA_POM_WOL_4_2_flag
+			custom_tooltip = EDG_BELA_POM_WOL_4_2_flag_tt
+			#解锁波美拉尼亚发展决议
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_4_3 = {#城市黄金特权
+		icon = balance_the_estates
+		position = 3
+		required_missions = { EDG_BELA_POM_WOL_4_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = {
+					mission_completed = EDG_BELA_POM_WOL_1_4
+				}
+				mercantilism = 5
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 50
+				}
+				dip_power_cost = 50
+				num_of_owned_provinces_with = {
+					value = 7
+					culture = pommeranian
+					development = 15
+				}
+			}
+			else = {
+				mercantilism = 10
+				estate_loyalty = {
+					estate = estate_burghers
+					loyalty = 50
+				}
+				dip_power_cost = 100
+				stability = 1
+				prestige = 0
+				legitimacy = 95
+				num_of_owned_provinces_with = {
+					value = 7
+					culture = pommeranian
+					development = 21
+				}
+			}
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#}
+				#if = {
+				#	limit = {
+				#		mission_completed = EDG_BELA_POM_WOL_1_4
+				#	}
+				#}
+				#else = {
+				#	add_mercantilism = -5
+				#	dip_power_cost = 50
+				#}
+			#}
+			#else = {
+				if = {
+					limit = {
+						mission_completed = EDG_BELA_POM_WOL_1_4
+					}
+					add_mercantilism = -5
+					dip_power_cost = 50
+				}
+				else = {
+					add_mercantilism = -10
+					add_stability = -1
+					dip_power_cost = 100
+				}
+			#}
+			remove_estate_privilege = estate_EDG_burghers_pomeranian
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_4_4 = {#埃里克遗产
+		icon = league_of_the_public_weal
+		position = 4
+		required_missions = { EDG_BELA_POM_WOL_2_3 } 
+		provinces_to_highlight = {
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 20
+						region = scandinavia_region
+					}
+				}
+			}
+			region = scandinavia_region
+			not = {
+				owned_by = root
+			}
+			not = {
+				owned_by_subject_of = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				region = scandinavia_region
+			}
+		} 
+
+		effect = {
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			add_country_modifier = {
+				name = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_4_5 = {#支持文艺复兴
+		icon = commission_the_mona_lisa
+		position = 5
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			is_institution_enabled = renaissance
+			has_adm_advisor = yes
+			adm_tech = 4
+			treasury = 100
+			adm_power = 100
+		} 
+
+		effect = {
+			add_treasury = -100
+			add_adm_power = -100
+			add_stability_or_adm_power = {
+				amount = 1
+			}
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			every_owned_province = {
+				add_institution_embracement = {
+					which = renaissance
+					value = 50
+				}
+			}
+			add_ruler_modifier = { #文艺复兴赞助人
+				name = EDG_BELA_POM_WOL_4_5_ruler_modifier
+			}
+			#country_event = { #卡舒比字母
+			#	id = EDG_BELA_POM_events.16
+			#}
+		} 
+	}
+}
+EDG_BELA_POM_WOL_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+	}
+
+	EDG_BELA_POM_WOL_5_1 = {#控制主教区
+		icon = mission_religious
+		position = 1
+		provinces_to_highlight = {
+			is_capital = yes
+			owned_by = PAP
+			exists = PAP
+			PAP = {
+				not ={
+					has_opinion = {
+						who = root
+						value = 150
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			if = {
+				limit = {
+					ai = yes
+				}
+				exists = PAP
+				#adm_power_cost = 50
+				stability = 0
+				prestige = 0
+				army_size = 6
+			}
+			else = {
+				if = {
+					limit = {
+						exists = PAP
+						religion = catholic
+					}
+					PAP = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+				}
+				#adm_power_cost = 25
+				stability = 2
+				prestige = 20
+				legitimacy = 95
+				army_size = 10
+			}
+		} 
+
+		effect = {
+			#if = {
+				#limit = {
+				#	not = {
+				#		has_country_flag = EDG_BELA_POM_WOL_ksb_rebirth_flag
+				#	}
+				#}
+				#adm_power_cost = 25
+				add_stability = -1
+			#}
+			#add_reform_desire = 0.75
+			remove_estate_privilege = estate_EDG_church_pomeranian
+			48 = {
+				spawn_rebels = {
+					size = 1
+				}
+			}
+			east_prussia_area = {
+				add_claim = root
+			}
+			west_prussia_area = {
+				add_claim = root
+			}
+		}
+		ai_weight = {
+			factor = 100
+		}
+	}
+
+	EDG_BELA_POM_WOL_5_2 = {#终结条顿威胁
+		icon = mission_teutonic_lancer
+		position = 2
+		required_missions = { EDG_BELA_POM_WOL_5_1 } 
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 5
+								or = {
+									area = east_prussia_area
+									area = west_prussia_area
+								}
+							}
+						}
+					}
+				}
+				or = {
+					area = east_prussia_area
+					area = west_prussia_area
+				}
+				not = {
+					owned_by = root
+				}
+				not = {
+					owned_by_subject_of = root
+				}
+			}
+		} 
+
+		trigger = {
+			or = {
+				not = {
+					exists = TEU
+				}
+				has_won_war_against = {
+					max_years_since = 25
+					who = TEU
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_events_1_laofang_flag
+					}
+				}
+				custom_tooltip = EDG_BELA_POM_WOL_5_2_mechanic_tt
+			}
+			add_reform_desire = 0.25
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_WOL_2_3_flag
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+				custom_tooltip = EDG_BELA_POM_WOL_5_2_tt
+				hidden_effect = {
+					every_neighbor_country = {
+						add_aggressive_expansion = {
+							who = root
+							value = -10
+							apply_calc = no
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_5_4 = {#解放格但斯克
+		icon = protect_against_the_turks
+		position = 4
+		required_missions = {
+			EDG_BELA_POM_WOL_4_3
+			EDG_BELA_POM_WOL_5_2
+		}
+		provinces_to_highlight = {
+			province_id = 43
+			or = {
+				not = {
+					is_state_core = root
+				}
+				devastation = 1
+			}
+		} 
+
+		trigger = {
+			43 = {
+				is_state_core = root
+				not = {
+					devastation = 1
+				}
+			}
+		} 
+
+		effect = {
+			west_prussia_area = {
+				change_culture = pommeranian
+			}
+			add_government_power = {
+				mechanic_type = EDG_POM_germanization_mechanic
+				power_type = EDG_POM_germanization_power
+				value = -5
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_WOL_2_3_flag
+				}
+				add_prestige_or_monarch_power = { amount = 10 }
+				43 = {
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_POM_WOL_5_5 = {#格里芬之源
+		icon = mission_teutonic_knights
+		position = 5
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = has_EDG_BELA_POM_renaissance_missions_flag_tt
+				has_country_flag = EDG_BELA_POM_renaissance_missions_flag
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_renaissance_missions_flag_1
+				}
+				has_institution = renaissance
+				adm_tech = 4
+				num_of_owned_provinces_with = {
+					value = 3
+					area = hinter_pommern_area
+					development = 15
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_renaissance_missions_flag_1
+				}
+				#hinter_pommern_area = {
+				#	change_culture = EDG_BELA_kashubia
+				#}
+				add_country_modifier = {
+					name = EDG_BELA_POM_WOL_5_5_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_POM_WOL_gryf_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		always = no
+		or = {
+			tag = WOL
+			tag = POM
+		}
+		not = {
+			has_country_flag = EDG_BELA_POM_kashubia_new_mission_flag
+		}
+		has_country_flag = EDG_BELA_POM_gryf_missions_flag
+	}
+
+	EDG_BELA_POM_WOL_5_6 = {
+		icon = humiliate_austria
+		position = 6
+		required_missions = {
+			EDG_BELA_POM_WOL_4_5
+			EDG_BELA_POM_WOL_5_5
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			any_country = {
+				culture_group = germanic
+				war_with = root
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_government_mechanic = EDG_POM_germanization_mechanic
+				}
+				add_government_power = {
+					mechanic_type = EDG_POM_germanization_mechanic
+					power_type = EDG_POM_germanization_power
+					value = -10
+				}
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 50
+			}
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		} 
+	}
+}

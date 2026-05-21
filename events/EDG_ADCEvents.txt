@@ -1,0 +1,407 @@
+namespace = EDG_ADCEvents
+
+country_event = {
+	id = EDG_ADCEvents.0
+	is_triggered_only = yes
+	title = EDG_ADCEvents.0.name
+	desc = EDG_ADCEvents.0.desc
+	picture = DIPLOMACY_eventPicture
+	fire_only_once = yes
+
+	option = {
+		name = EDG_ADCEvents.0.aa
+		trigger = {
+			OR = {
+				ai = no
+				has_global_flag = EDG_game_rule_3_3_common_flag
+				has_global_flag = EDG_game_rule_3_3_catholicism_flag
+			}
+		}
+		custom_tooltip = EDG_ADCEvents.0.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		change_religion = catholic
+		custom_tooltip = EDG_SPACE_TT
+		capital_scope = {
+			change_religion = catholic
+		}
+		custom_tooltip = EDG_SPACE_TT
+		swap_non_generic_missions = yes
+		ai_chance = {
+			factor = 1
+		}
+	}
+	option = {
+		name = EDG_ADCEvents.0.bb
+		trigger = {
+			OR = {
+				ai = no
+				has_global_flag = EDG_game_rule_3_3_common_flag
+				has_global_flag = EDG_game_rule_3_3_sunni_flag
+			}
+		}
+		custom_tooltip = EDG_ADCEvents.0.bb.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_prestige_or_monarch_power = { amount = 20 }
+		ai_chance = {
+			factor = 5
+		}
+		
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.1
+	is_triggered_only = yes
+	title = EDG_ADCEvents.1.name
+	desc = EDG_ADCEvents.1.desc
+	picture = CONQUEST_eventPicture
+	major = yes
+
+	option = {
+		name = EDG_ADCEvents.1.aa
+		custom_tooltip = EDG_ADCEvents.1.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_government_reform = EDG_ADC_monarchy_government
+		EDG_ADC_define_ruler_abdullah = yes
+		hidden_effect = {
+			kill_heir = {
+				allow_new_heir = no
+			}
+			if = {
+				limit = { 
+					NOT = {
+						prestige = 0
+					}
+				}
+				while = {
+					limit = { 
+						NOT = {
+							prestige = 0
+						}
+					}
+					add_prestige = 1
+				}
+			}
+		}
+		every_country = {
+			limit = {
+				NOT = {
+					tag = root
+				}
+				capital_scope = {
+					region = iberia_region
+				}
+			}
+			country_event = {
+				id = EDG_ADCEvents.2
+				days = 1
+				random = 6
+			}
+		}
+		EDG_add_claim = { area = iberia_region }
+		hidden_effect = {
+			every_country = {
+				limit = {
+					religion = catholic
+				}
+				add_opinion = {
+					who = root
+					modifier = opionion_FOI_apostasy_same
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.2
+	is_triggered_only = yes
+	title = EDG_ADCEvents.2.name
+	desc = EDG_ADCEvents.2.desc
+	picture = COLONIZATION_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.2.aa
+		trigger = {
+			religion = catholic
+		}
+	}
+	option = {
+		name = EDG_ADCEvents.2.bb
+		trigger = {
+			religion_group = christian
+			NOT = {
+				religion = catholic
+			}
+		}
+	}
+	option = {
+		name = EDG_ADCEvents.2.cc
+		trigger = {
+			religion_group = muslim
+		}
+		if = {
+			limit = { 
+				OR = {
+					tag = SVL
+					tag = CIE
+				}
+			}
+			declare_war_with_cb = {
+				casus_belli = cb_annex
+				who = from
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.3
+	is_triggered_only = yes
+	title = EDG_ADCEvents.3.name
+	desc = EDG_ADCEvents.3.desc
+
+	option = {
+		name = EDG_ADCEvents.3.aa
+		custom_tooltip = EDG_ADCEvents.3.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_papal_influence = 100
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					culture = andalucian
+				}
+				change_religion = root
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.4
+	is_triggered_only = yes
+	title = EDG_ADCEvents.4.name
+	desc = EDG_ADCEvents.4.desc
+	picture = BAD_WITH_MONARCH_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.4.aa
+		change_tag = ADC
+		change_government = theocracy
+		add_government_reform = FOI_ADC_judicial_system
+		custom_tooltip = EDG_SPACE_TT
+		change_technology_group = EDG_Maghreb_groups
+		change_unit_type = EDG_Maghreb_groups
+		custom_tooltip = EDG_SPACE_TT
+		baleares_area = {
+			if = {
+				limit = { 
+					NOT = {
+						owned_by = root
+					}
+				}
+				cede_province = root
+			}
+			add_core = SJS
+		}
+		release = SJS
+		custom_tooltip = EDG_SPACE_TT
+		SJS = {
+			change_government = theocracy
+			add_government_reform = FOI_SJS_order_of_st_james
+		}
+		custom_tooltip = EDG_SPACE_TT
+		create_subject = {
+			subject_type = rig_knightage_vissal
+			subject = SJS
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.5
+	is_triggered_only = yes
+	title = EDG_ADCEvents.5.name
+	desc = EDG_ADCEvents.5.desc
+	picture = CITY_VIEW_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.5.aa
+		add_treasury = -500
+		add_years_of_income = -5
+		custom_tooltip = EDG_SPACE_TT
+		set_capital = 206
+		custom_tooltip = EDG_SPACE_TT
+		206 = {
+			add_base_tax = 3
+			add_base_production = 5
+			add_base_manpower = 3
+			set_great_project_tier_3 = {
+				type = EDG_Santiago_Cathedral
+			}
+		}
+	}
+	option = {
+		name = EDG_ADCEvents.5.bb
+		add_treasury = -250
+		add_years_of_income = -3
+		custom_tooltip = EDG_SPACE_TT
+		set_capital = 206
+		custom_tooltip = EDG_SPACE_TT
+		206 = {
+			add_base_tax = 2
+			add_base_production = 3
+			add_base_manpower = 2
+			set_great_project_tier_2 = {
+				type = EDG_Santiago_Cathedral
+			}
+		}
+	}
+	option = {
+		name = EDG_ADCEvents.5.cc
+		custom_tooltip = EDG_SPACE_TT
+		set_capital = 206
+		custom_tooltip = EDG_SPACE_TT
+		206 = {
+			add_base_tax = 1
+			add_base_production = 2
+			add_base_manpower = 1
+			set_great_project_tier_1 = {
+				type = EDG_Santiago_Cathedral
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.6
+	is_triggered_only = yes
+	title = EDG_ADCEvents.6.name
+	desc = EDG_ADCEvents.6.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.6.aa
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.7
+	is_triggered_only = yes
+	title = EDG_ADCEvents.7.name
+	desc = EDG_ADCEvents.7.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.7.aa
+		custom_tooltip = EDG_ADCEvents.7.aa.tt
+		custom_tooltip = EDG_SPACE_TT
+		add_prestige_or_monarch_power = { amount = 25 }
+		hidden_effect = {
+			227 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			1851 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			4556 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			231 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			4555 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			209 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			1745 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			207 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+			4554 = {
+				add_province_modifier = {
+					name = EDG_ADC_pilgrimage_road
+					duration = -1
+				}
+			}
+		}
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.8
+	is_triggered_only = yes
+	title = EDG_ADCEvents.8.name
+	desc = EDG_ADCEvents.8.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.8.aa
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.9
+	is_triggered_only = yes
+	title = EDG_ADCEvents.9.name
+	desc = EDG_ADCEvents.9.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.9.aa
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.10
+	is_triggered_only = yes
+	title = EDG_ADCEvents.10.name
+	desc = EDG_ADCEvents.10.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.10.aa
+		add_prestige_or_monarch_power = { amount = 10 }
+	}
+}
+country_event = {
+	id = EDG_ADCEvents.11
+	is_triggered_only = yes
+	title = EDG_ADCEvents.11.name
+	desc = EDG_ADCEvents.11.desc
+	picture = COMET_SIGHTED_eventPicture
+
+	option = {
+		name = EDG_ADCEvents.11.aa
+		add_manpower = 5
+		custom_tooltip = EDG_SPACE_TT
+		create_unit_forcelimit_percentage = {
+			special_unit_category = hussars
+			type = cavalry
+			force_limit_percentage = 0.1
+		}
+		custom_tooltip = EDG_SPACE_TT
+		add_country_modifier = {
+			name = EDG_ADC_integrative_order
+			duration = 3650
+		}
+	}
+}

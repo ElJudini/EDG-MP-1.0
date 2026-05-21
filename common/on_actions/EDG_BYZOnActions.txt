@@ -1,0 +1,869 @@
+on_startup = {
+	if = {
+		limit = {
+			tag = BYZ
+		}
+		country_event = {
+			id = EDG_BYZEvents.0
+		}
+		country_event = {
+			id = MEE_Byzantine_Events.51
+			days = 7
+		}
+	}
+	set_variable = { EDG_shock_damage_var = 0 }
+	set_variable = { EDG_shock_damage_received_var = 0 }
+	set_variable = { EDG_fire_damage_var = 0 }
+	set_variable = { EDG_fire_damage_received_var = 0 }
+	set_variable = { EDG_morale_damage_var = 0 }
+	set_variable = { EDG_morale_damage_received_var = 0 }
+	set_variable = { EDG_recover_army_morale_speed_var = 0 }
+	set_variable = { EDG_reserves_organisation_var = 0 }
+	set_variable = { EDG_reinforce_cost_modifier_var = 0 }
+	set_variable = { EDG_reinforce_speed_var = 0 }
+	set_variable = { EDG_global_regiment_cost_var = 0 }
+	set_variable = { EDG_land_maintenance_modifier_var = 0 }
+	set_variable = { EDG_land_attrition_var = 0 }
+	set_variable = { EDG_movement_speed_var = 0 }
+	export_to_variable = {
+		which = EDG_shock_damage_var
+		value = modifier:shock_damage
+	}
+	export_to_variable = {
+		which = EDG_shock_damage_received_var
+		value = modifier:shock_damage_received
+	}
+	export_to_variable = {
+		which = EDG_fire_damage_var
+		value = modifier:fire_damage
+	}
+	export_to_variable = {
+		which = EDG_fire_damage_received_var
+		value = modifier:fire_damage_received
+	}
+	export_to_variable = {
+		which = EDG_morale_damage_var
+		value = modifier:morale_damage
+	}
+	export_to_variable = {
+		which = EDG_morale_damage_received_var
+		value = modifier:morale_damage_received
+	}
+	export_to_variable = {
+		which = EDG_recover_army_morale_speed_var
+		value = modifier:recover_army_morale_speed
+	}
+	export_to_variable = {
+		which = EDG_reserves_organisation_var
+		value = modifier:reserves_organisation
+	}
+	export_to_variable = {
+		which = EDG_reinforce_cost_modifier_var
+		value = modifier:reinforce_cost_modifier
+	}
+	export_to_variable = {
+		which = EDG_reinforce_speed_var
+		value = modifier:reinforce_speed
+	}
+	export_to_variable = {
+		which = EDG_global_regiment_cost_var
+		value = modifier:global_regiment_cost
+	}
+	export_to_variable = {
+		which = EDG_land_maintenance_modifier_var
+		value = modifier:land_maintenance_modifier
+	}
+	export_to_variable = {
+		which = EDG_land_attrition_var
+		value = modifier:land_attrition
+	}
+	export_to_variable = {
+		which = EDG_movement_speed_var
+		value = modifier:movement_speed
+	}
+
+	multiply_variable = {
+		which = EDG_shock_damage_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_shock_damage_received_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_fire_damage_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_fire_damage_received_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_morale_damage_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_morale_damage_received_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_recover_army_morale_speed_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_reserves_organisation_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_reinforce_cost_modifier_var
+		value = 100
+	}
+	
+	multiply_variable = {
+		which = EDG_reinforce_speed_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_global_regiment_cost_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_land_maintenance_modifier_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_land_attrition_var
+		value = 100
+	}
+	multiply_variable = {
+		which = EDG_movement_speed_var
+		value = 100
+	}
+}
+on_yearly_pulse = {
+	random_events = {
+		10 = EDG_BYZEvents.1000
+		240 = 0
+	}
+	events = {
+		EDG_BYZEvents.500
+	}
+	if = {
+		limit = {
+			has_country_flag = EDG_BYZ_enable_constantinople_building_flag
+			owns = 151
+		}
+		151 = {
+			hidden_effect = {
+				#贸易收入
+				set_variable = {
+					which = EDG_BYZ_monthly_trade_income_var
+					value = 0
+				}
+				set_variable = {
+					which = EDG_BYZ_151_develp_var
+					value = 0
+				}
+				export_to_variable = {
+					which = EDG_BYZ_151_develp_var
+					value = trigger_value:development
+				}
+				set_variable = {
+					which = EDG_BYZ_151_develp_var_copy
+					which = EDG_BYZ_151_develp_var
+				}
+				divide_variable = { #发展度/10
+					which = EDG_BYZ_151_develp_var_copy
+					value = 10
+				}
+				set_variable = {
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+					which = EDG_BYZ_constantinople_efficiency_var
+				}
+				set_variable = {
+					which = EDG_BYZ_constantinople_safety_var_copy
+					which = EDG_BYZ_constantinople_safety_var
+				}
+				divide_variable = { #安全/10
+					which = EDG_BYZ_constantinople_safety_var_copy
+					value = 10
+				}
+				if = { #最低0.1
+					limit = { 
+						NOT = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_safety_var_copy
+								value = 0.1
+							}
+						}
+					}
+					set_variable = {
+						which = EDG_BYZ_constantinople_safety_var_copy
+						value = 0.1
+					}
+				}
+				if = { #最高1.2
+					limit = { 
+						check_variable = {
+							which = EDG_BYZ_constantinople_safety_var_copy
+							value = 1.2
+						}
+					}
+					set_variable = {
+						which = EDG_BYZ_constantinople_safety_var_copy
+						value = 1.2
+					}
+				}
+				set_variable = {
+					which = EDG_BYZ_constantinople_extravagant_var_copy
+					which = EDG_BYZ_constantinople_extravagant_var
+				}
+				if = {
+					limit = {
+						owner = {
+							has_country_flag = EDG_BYZ_add_legitimacy_for_extravagant_flag
+						}
+					}
+					set_variable = {
+						which = EDG_BYZ_constantinople_extravagant_var_copy_2
+						which = EDG_BYZ_constantinople_extravagant_var
+					}
+					while = {
+						limit = { 
+							check_variable = {
+								which = EDG_BYZ_constantinople_extravagant_var_copy_2
+								value = 1
+							}
+						}
+						owner = {
+							add_legitimacy = 1
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy_2
+							value = 1
+						}
+					}
+				}
+				subtract_variable = { #效率-奢靡
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+					which = EDG_BYZ_constantinople_extravagant_var
+				}
+				# divide_variable = { #/10
+				# 	which = EDG_BYZ_constantinople_efficiency_var_copy
+				# 	value = 10
+				# }
+				# change_variable = { #+1
+				# 	which = EDG_BYZ_constantinople_efficiency_var_copy
+				# 	value = 1
+				# }
+				multiply_variable = { #*发展度
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+					which = EDG_BYZ_151_develp_var_copy
+				}
+				multiply_variable = { #*安全
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+					which = EDG_BYZ_constantinople_safety_var_copy
+				}
+				owner = {
+					set_variable = {
+						which = EDG_BYZ_monthly_trade_income_var
+						value = 0
+					}
+					export_to_variable = {
+						which = EDG_BYZ_monthly_trade_income_var
+						value = trigger_value:monthly_trade_income
+					}
+					# multiply_variable = {
+					# 	which = EDG_BYZ_monthly_trade_income_var
+					# 	value = 12
+					# }
+					prev = {
+						set_variable = {
+							which = EDG_BYZ_monthly_trade_income_var
+							which = prev
+						}
+					}
+				}
+				multiply_variable = { #*月贸易收入
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+					which = EDG_BYZ_monthly_trade_income_var
+				}
+				# divide_variable = { #/发展度
+				# 	which = EDG_BYZ_constantinople_efficiency_var_copy
+				# 	which = EDG_BYZ_151_develp_var_copy
+				# }
+				set_variable = {
+					which = EDG_BYZ_constantinople_trade_income_var
+					which = EDG_BYZ_constantinople_efficiency_var_copy
+				}
+				# while = {
+				# 	limit = { 
+				# 		check_variable = {
+				# 			which = EDG_BYZ_constantinople_efficiency_var_copy
+				# 			value = 1
+				# 		}
+				# 	}
+				# 	add_treasury = 1
+				# 	subtract_variable = {
+				# 		which = EDG_BYZ_constantinople_efficiency_var_copy
+				# 		value = 1
+				# 	}
+				# }
+				if = {
+					limit = {
+						NOT = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 0
+							}
+						}
+					}
+					multiply_variable = {
+						which = EDG_BYZ_constantinople_efficiency_var_copy
+						value = -1
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 10000
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 10000
+								}
+							}
+							owner = {
+								add_treasury = -10000
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 10000
+							}
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1000
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 1000
+								}
+							}
+							owner = {
+								add_treasury = -1000
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1000
+							}
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 100
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 100
+								}
+							}
+							owner = {
+								add_treasury = -100
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 100
+							}
+						}
+					}
+					while = {
+						limit = { 
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1
+							}
+						}
+						owner = {
+							add_treasury = -1
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_efficiency_var_copy
+							value = 1
+						}
+					}
+				}
+				else = {
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 10000
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 10000
+								}
+							}
+							owner = {
+								add_treasury = 10000
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 10000
+							}
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1000
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 1000
+								}
+							}
+							owner = {
+								add_treasury = 1000
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1000
+							}
+						}
+					}
+					if = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 100
+							}
+						}
+						while = {
+							limit = {
+								check_variable = {
+									which = EDG_BYZ_constantinople_efficiency_var_copy
+									value = 100
+								}
+							}
+							owner = {
+								add_treasury = 100
+							}
+							subtract_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 100
+							}
+						}
+					}
+					while = {
+						limit = { 
+							check_variable = {
+								which = EDG_BYZ_constantinople_efficiency_var_copy
+								value = 1
+							}
+						}
+						owner = {
+							add_treasury = 1
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_efficiency_var_copy
+							value = 1
+						}
+					}
+				}
+				
+				#其他收入
+				set_variable = {
+					which = EDG_BYZ_yearly_of_income
+					value = 0
+				}
+				owner = {
+					set_variable = {
+						which = EDG_BYZ_yearly_of_income
+						value = 0
+					}
+					export_to_variable = {
+						which = EDG_BYZ_yearly_of_income
+						value = trigger_value:monthly_income
+					}
+					multiply_variable = {
+						which = EDG_BYZ_yearly_of_income
+						value = 12
+					}
+					prev = {
+						set_variable = {
+							which = EDG_BYZ_yearly_of_income
+							which = prev
+						}
+					}
+				}
+				divide_variable = { #奢靡/10
+					which = EDG_BYZ_constantinople_extravagant_var_copy
+					value = 10
+				}
+				if = { #不低于0.1
+					limit = { 
+						NOT = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_extravagant_var_copy
+								value = 0.1
+							}
+						}
+					}
+					set_variable = {
+						which = EDG_BYZ_constantinople_extravagant_var_copy
+						value = 0.1
+					}
+				}
+				multiply_variable = { #*年入
+					which = EDG_BYZ_constantinople_extravagant_var_copy
+					which = EDG_BYZ_yearly_of_income
+				}
+				multiply_variable = { #*安全
+					which = EDG_BYZ_constantinople_extravagant_var_copy
+					which = EDG_BYZ_constantinople_safety_var_copy
+				}
+				set_variable = {
+					which = EDG_BYZ_constantinople_other_income_var
+					which = EDG_BYZ_constantinople_extravagant_var_copy
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 10000
+						}
+					}
+					while = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_extravagant_var_copy
+								value = 10000
+							}
+						}
+						owner = {
+							add_treasury = 10000
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 10000
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 1000
+						}
+					}
+					while = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_extravagant_var_copy
+								value = 1000
+							}
+						}
+						owner = {
+							add_treasury = 1000
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 1000
+						}
+					}
+				}
+				if = {
+					limit = {
+						check_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 100
+						}
+					}
+					while = {
+						limit = {
+							check_variable = {
+								which = EDG_BYZ_constantinople_extravagant_var_copy
+								value = 100
+							}
+						}
+						owner = {
+							add_treasury = 100
+						}
+						subtract_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 100
+						}
+					}
+				}
+				while = {
+					limit = { 
+						check_variable = {
+							which = EDG_BYZ_constantinople_extravagant_var_copy
+							value = 1
+						}
+					}
+					owner = {
+						add_treasury = 1
+					}
+					subtract_variable = {
+						which = EDG_BYZ_constantinople_extravagant_var_copy
+						value = 1
+					}
+				}
+			}
+		}
+	}
+}
+on_adm_development = {
+	if = {
+		limit = {
+			province_id = 151
+			owner = {
+				tag = BYZ
+			}
+		}
+		add_base_tax = -1
+	}
+	if = {
+		limit = {
+			NOT = {
+				province_id = 151
+			}
+			owner = {
+				has_country_flag = EDG_BYZ_improve_develpment_other_way_flag
+			}
+		}
+		add_base_tax = -1
+		add_base_production = 1
+		add_base_manpower = 1
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = EDG_BYZ_extra_develpment_reform
+			}
+			development = 25
+		}
+		add_random_development = 1
+	}
+}
+on_dip_development = {
+	if = {
+		limit = {
+			province_id = 151
+			owner = {
+				tag = BYZ
+			}
+		}
+		add_base_production = -1
+	}
+	if = {
+		limit = {
+			NOT = {
+				province_id = 151
+			}
+			owner = {
+				has_country_flag = EDG_BYZ_improve_develpment_other_way_flag
+			}
+		}
+		add_base_tax = 1
+		add_base_production = -1
+		add_base_manpower = 1
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = EDG_BYZ_extra_develpment_reform
+			}
+			development = 25
+		}
+		add_random_development = 1
+	}
+}
+on_mil_development = {
+	if = {
+		limit = {
+			province_id = 151
+			owner = {
+				tag = BYZ
+			}
+		}
+		add_base_manpower = -1
+	}
+	if = {
+		limit = {
+			NOT = {
+				province_id = 151
+			}
+			owner = {
+				has_country_flag = EDG_BYZ_improve_develpment_other_way_flag
+			}
+		}
+		add_base_tax = 1
+		add_base_production = 1
+		add_base_manpower = -1
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = EDG_BYZ_extra_develpment_reform
+			}
+			development = 25
+		}
+		add_random_development = 1
+	}
+}
+on_monthly_pulse = {
+	events = {
+		EDG_BYZEvents.100
+		EDG_BYZEvents.101
+		EDG_BYZEvents.102
+		EDG_BYZEvents.103
+		EDG_BYZEvents.104
+		EDG_BYZEvents.105
+		EDG_BYZEvents.106
+		EDG_BYZEvents.107
+		EDG_BYZEvents.108
+		EDG_BYZEvents.109
+		EDG_BYZEvents.110
+		EDG_BYZEvents.111
+		EDG_BYZEvents.112
+		EDG_BYZEvents.113
+	}
+}
+on_expanded_infrastructure = {
+	if = {
+		limit = {
+			owner = {
+				has_country_flag = EDG_free_expanded_infrastructure_flag
+			}
+		}
+		owner = {
+			add_adm_power = 50
+		}
+		if = {
+			limit = {
+				province_id = 151
+			}
+			change_variable = {
+				which = EDG_BYZ_constantinople_efficiency_var
+				value = 0.5
+			}
+		}
+	}
+}
+on_expanded_infrastructure_removed = {
+	if = {
+		limit = {
+			province_id = 151
+			owner = {
+				has_country_flag = EDG_free_expanded_infrastructure_flag
+			}
+		}
+		change_variable = {
+			which = EDG_BYZ_constantinople_efficiency_var
+			value = -0.5
+		}
+	}
+}
+on_battle_lost_country = {
+	if = {
+		limit = {
+			root = {
+				has_country_flag = EDG_BYZ_enable_mil_window_flag
+			}
+		}
+		root = {
+			change_variable = {
+				which = EDG_BYZ_battle_lose_var
+				value = 1
+			}
+		}
+	}
+}
+on_battle_lost_province = {
+
+	if = {
+		limit = { 
+			from = {
+				has_country_flag = EDG_BYZ_enable_mil_window_flag
+			}
+		}
+		if = {
+			limit = { 
+				has_climate = tropical
+			}
+			from = {
+				change_variable = {
+					which = EDG_BYZ_battle_win_tropical
+					value = 1
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				has_climate = arid
+			}
+			from = {
+				change_variable = {
+					which = EDG_BYZ_battle_win_arid
+					value = 1
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				OR = {
+					has_climate = mild_winter
+					has_climate = normal_winter
+					has_climate = severe_winter
+					has_climate = arctic
+				}
+			}
+			from = {
+				change_variable = {
+					which = EDG_BYZ_battle_win_clod
+					value = 1
+				}
+			}
+		}
+		else_if = {
+			limit = { 
+				OR = {
+					has_climate = mild_monsoon
+					has_climate = normal_monsoon
+					has_climate = severe_monsoon
+				}
+			}
+			from = {
+				change_variable = {
+					which = EDG_BYZ_battle_win_rain
+					value = 1
+				}
+			}
+		}
+	}
+}

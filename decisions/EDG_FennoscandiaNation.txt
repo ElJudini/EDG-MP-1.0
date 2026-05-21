@@ -1,0 +1,139 @@
+country_decisions = {
+	fennoscandia_nation = {
+		major = yes
+		potential = {
+			NOT = { has_country_flag = formed_scandinavia_flag }
+			normal_or_historical_nations = yes
+			was_never_end_game_tag_trigger = yes
+			NOT = { exists = SCA }
+			NOT = { exists = FSD }
+			NOT = { tag = PAP }
+			NOT = { tag = HLR }
+			religion_group = christian
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+			culture_group = scandinavian
+			NOT = {
+				culture = danish
+			}
+			NOT = {
+				has_country_flag = riga_can_not_rebuild_fsd
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1		# Uppland
+				province_id = 17		
+				province_id = 30
+				AND = {
+					region = scandinavia_region
+					NOT = {
+						OR = {
+							area = subarctic_islands_area
+							area = denmark_area
+							area = jutland_area
+						}
+					}
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		}
+		allow = {
+			government = monarchy
+			adm_tech = 10
+			is_free_or_tributary_trigger = yes
+			is_nomad = no
+			is_at_war = no
+			owns_core_province = 1		# Uppland
+			owns_core_province = 17		
+			owns_core_province = 30
+			num_of_owned_provinces_with = {
+				OR = {
+					AND = {
+						region = scandinavia_region
+						NOT = {
+							OR = {
+								area = subarctic_islands_area
+								area = denmark_area
+								area = jutland_area
+							}
+						}
+					}
+					area = pomor_area
+					area = north_karelia
+					area = karelia_area
+				}
+				value = 30
+			}
+		}
+		effect = {
+			change_tag = FSD
+			on_change_tag_effect = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			if = {
+				limit = { NOT = { government_rank = 2 } }
+				set_government_rank = 2
+			}
+			swap_non_generic_missions = yes
+			scandinavia_region = {
+				limit = {
+					NOT = { 
+						OR = {
+							owned_by = ROOT
+							area = subarctic_islands_area
+							area = denmark_area
+							area = jutland_area
+						}
+
+					}
+				}
+				add_permanent_claim = FSD
+			}
+			pomor_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = FSD
+			}
+			north_karelia = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = FSD
+			}
+			karelia_area = {
+				limit = {
+					NOT = { owned_by = ROOT }
+				}
+				add_permanent_claim = FSD
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			add_prestige = 10
+			if = {
+				limit = {
+					has_custom_ideas = no
+					NOT = { has_idea_group = SCA_ideas }
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			hidden_effect = {
+				set_country_flag = formed_scandinavia_flag
+			}
+		}
+		ai_will_do = {
+			factor = 1
+		}
+	}
+}

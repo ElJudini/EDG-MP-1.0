@@ -1,0 +1,181 @@
+namespace = EDG_incident_franche_comte_event
+normal_or_historical_nations = yes
+country_event = {#弗朗什孔泰自由伯国
+  id = EDG_incident_franche_comte_event.0
+  title = "EDG_incident_franche_comte_event.0.t"
+  desc = "EDG_incident_franche_comte_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#我们愿意帮助他们摆脱法兰西的控制。
+    name = "EDG_incident_franche_comte_event.0.a"
+    ai_chance = {
+      factor = 5
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = emperor
+          is_enemy = emperor
+          is_league_enemy = emperor
+        }
+      }
+    }
+    FCC = {
+      #add_liberty_desire = 100
+      add_papal_influence = 20
+      add_adm_power = 100
+      add_dip_power = 100
+      add_mil_power = 100
+      add_country_modifier = {
+        name = EDG_incident_franche_comte_event_0_a_modifier
+        duration = 9125
+      }
+    }
+  }
+  option = {#这与我们无关。
+    name = "EDG_incident_franche_comte_event.0.b"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 0
+        OR = {
+          is_rival = FRA
+          is_enemy = FRA
+          is_league_enemy = FRA
+        }
+      }
+    }
+    every_country = {
+      limit = {
+        is_part_of_hre = yes
+      }
+      FCC = {
+        add_opinion = {
+          who = PREV
+          modifier = EDG_incident_franche_comte_event_opinion
+        }
+      }
+    }
+  }
+}
+country_event = {#弗朗什孔泰自由伯国索取特权
+  id = EDG_incident_franche_comte_event.1
+  title = "EDG_incident_franche_comte_event.1.t"
+  desc = "EDG_incident_franche_comte_event.1.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    NOT = { active_imperial_incident = any }
+    FCC = {
+      is_subject_of = ROOT
+    }
+    is_emperor = no
+    is_year = 1455
+    is_at_war = no
+    NOT = { is_year = 1550 }
+    hre_size = 10
+  }
+  mean_time_to_happen = {
+    months = 36
+  }
+  option = {#让他们用剑来拿！
+    name = "EDG_incident_franche_comte_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+    set_imperial_incident = incident_franche_comte
+
+    custom_tooltip = EDG_SPACE_TT
+    custom_tooltip = EDG_incident_franche_comte_event_1_a_tt
+  }
+  option = {#他们的诉求是合法且合理的。
+    name = "EDG_incident_franche_comte_event.1.b"
+    ai_chance = {
+      factor = 1
+    }
+    add_adm_power = -100
+    add_dip_power = -100
+    add_mil_power = -100
+    add_country_modifier = {
+      name = EDG_incident_franche_comte_event_1_b_modifier_2
+      duration = 9125
+    }
+    FCC = {
+      country_event = { id = EDG_incident_franche_comte_event.2 }
+      tooltip = {
+        add_adm_power = 100
+        add_dip_power = 100
+        add_mil_power = 100
+        add_country_modifier = {
+          name = EDG_incident_franche_comte_event_1_b_modifier
+          duration = 18250
+        }
+      }
+    }
+  }
+
+}
+country_event = {#帝国支持自由伯国独立
+  id = EDG_incident_franche_comte_event.2
+  title = "EDG_incident_franche_comte_event.2.t"
+  desc = "EDG_incident_franche_comte_event.2.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    
+  }
+  mean_time_to_happen = {
+  }
+  option = {#帝国支持我们！
+    name = "EDG_incident_franche_comte_event.2.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_incident_franche_comte_event_2_a_tt
+    custom_tooltip = EDG_SPACE_TT
+    add_adm_power = 100
+    add_dip_power = 100
+    add_mil_power = 100
+    custom_tooltip = EDG_SPACE_TT
+    add_country_modifier = {
+      name = EDG_incident_franche_comte_event_1_b_modifier
+      duration = 18250
+    }
+  }
+
+}
+country_event = {#弗朗什孔泰自由伯国
+  id = EDG_incident_franche_comte_event.3
+  title = "EDG_incident_franche_comte_event.3.t"
+  desc = "EDG_incident_franche_comte_event.3.d"
+  picture = HRE_eventPicture
+  fire_only_once = yes
+  trigger = { 
+    tag = FRA
+    NOT = { is_year = 1454 }
+    is_year = 1450
+
+    exists = FCC
+    FCC = { is_subject_of = root }
+  }
+  mean_time_to_happen = {
+  }
+  option = {#我知道了。
+    name = "EDG_incident_franche_comte_event.3.a"
+    ai_chance = {
+      factor = 10
+    }
+    custom_tooltip = EDG_incident_franche_comte_event_3_a_tt
+  }
+
+}

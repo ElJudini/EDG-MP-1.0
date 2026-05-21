@@ -1,0 +1,1648 @@
+country_decisions = {
+	
+	
+	EDG_FRA_decision_control_SPA = {#掌握西班牙
+		color = { 138 218 255 }
+		major = yes
+		potential = {
+			OR = {
+				tag = FRA
+				was_tag = FRA
+			}
+			any_country = {
+				capital_scope = { region = iberia_region }
+				is_subject_of = ROOT
+				OR = {
+					total_development = 300
+					tag = SPA
+					tag = USP
+				}
+			}
+			NOT = { has_country_flag = EDG_FRA_decision_control_SPA_flag }
+		}
+		allow = {
+			any_country = {
+				OR = {
+					capital_scope = { region = iberia_region }
+					tag = SPA
+					tag = USP
+				}
+				is_subject_of = ROOT
+				iberia_region = {
+					type = all
+					owned_by = PREV
+				}
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_the_decision_could_check_only_once_tt
+			custom_tooltip = EDG_FRA_decision_control_SPA_flag_tt
+			set_country_flag = EDG_FRA_decision_control_SPA_flag
+			every_country = {
+				limit = {
+					OR = {
+						capital_scope = { region = iberia_region }
+						tag = SPA
+						tag = USP
+					}
+					is_subject_of = ROOT
+					iberia_region = {
+						type = all
+						owned_by = PREV
+					}
+				}
+				add_liberty_desire = -100
+				ROOT = {
+					create_subject = { subject_type = EDG_FRA_Continental_Alliance_vassal subject = PREV } 
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_FRA_decision_king_reform = {#法兰克权威
+		color = { 138 218 255 }
+		potential = {
+			has_global_flag = EDG_flavorFRA_5_flag
+			has_country_flag = EDG_FRA_king_flag
+			NOT = { has_global_flag = EDG_FRA_flavor_0_flag }
+		}
+		allow = {
+
+		}
+		effect = {
+			custom_tooltip = EDG_FRA_decision_king_reform_TT
+			hidden_effect = {
+				country_event = { id = EDG_flavorFRA_reform.0 }
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_FRA_Autonomous_appointment_of_cardinal_bishops_decision = {#任命枢机主教
+		color = { 138 218 255 }
+		potential = {
+			has_country_flag = EDG_FRA_Autonomous_appointment_of_cardinal_bishops_enable_flag
+			religion = catholic
+		}
+		allow = {
+			religion = catholic
+			NOT = { num_of_cardinals = 7 }
+			papal_influence = 35
+			any_owned_province = {
+				NOT = { has_cardinal = yes }
+				religion = catholic
+			}
+		}
+		effect = {
+			add_papal_influence = -35
+			add_reform_desire = 0.005
+			random_owned_province = {
+				limit = {
+					NOT = { has_cardinal = yes }
+					religion = catholic
+				}
+				add_cardinal = yes
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_FRA_decision_0 = {#解散公益同盟
+		color = { 138 218 255 }
+		potential = {
+			has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+			NOT = { has_country_flag = had_EDG_FRA_decision_0_flag }
+		}
+		allow = {
+			if = {
+				limit = {
+					ai = yes
+					is_great_power = yes
+					is_year = 1510
+				}
+			}
+			else = {
+				has_reform = EDG_FRA_Public_Welfare_Alliance_Reform
+				mission_completed = EDG_mission_FRA_1_2
+				all_subject_country = {
+					NOT = { is_subject_of_type = EDG_WEAK_appanage }
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_0_flag
+			custom_tooltip = had_EDG_FRA_decision_0_flag_tt
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	EDG_FRA_decision_1 = {#建立法兰西等级君主制
+		color = { 138 218 255 }
+		potential = {
+			has_reform = EDG_French_feudal_system
+			NOT = {
+				has_global_flag = had_EDG_FRA_decision_1_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			NOT = { has_estate_privilege = estate_nobles_french_strong_duchies }
+			custom_trigger_tooltip = {
+				tooltip = centralize_fra_tt
+				NOT = {
+					any_subject_country = {
+						capital_scope = {
+							region = france_region
+						}
+					}
+				}
+			}
+		}
+		effect = {
+				set_global_flag = had_EDG_FRA_decision_1_flag
+				country_event = { id = EDG_flavorFRA.4 }
+				add_adm_power = -100
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+	
+	EDG_FRA_decision_2 = {#重统一法院
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_2_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			num_of_owned_provinces_with = {
+				value = 25
+				EDG_has_building_courthouse_trigger = yes
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_2_flag
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_2_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_3 = {#建立王家学院
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_3_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			has_institution = renaissance
+			OR = {
+				innovativeness = 20
+				philosopher = 3
+				natural_scientist = 3
+				artist = 3
+			}
+			
+			check_variable = {
+				which = EDG_FRA_Renaissance_value
+				value = 5
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_3_flag
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_3_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_4 = {#法兰西反宗教改革
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			religion = catholic
+			is_religion_enabled = protestant
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_4_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			is_religion_enabled = protestant
+			num_of_owned_provinces_with = {
+				value = 15
+				OR = {
+					religion = protestant
+					religion = reformed
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_4_flag
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_4_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_5 = {#完善执达官体制
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_5_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			num_of_owned_provinces_with = {
+				value = 50
+				NOT = { local_autonomy = 25 }
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_5_flag
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_5_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_6 = {#颁布枫丹白露敕令
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			religion = catholic
+			is_religion_enabled = protestant
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_6_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			is_religion_enabled = protestant
+			OR = {
+				adm_tech = 20
+				custom_trigger_tooltip = {
+					tooltip = fra_completed_wars_religion
+					has_country_flag = FRA_wars_of_religion_ended 
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_6_flag
+			add_adm_power = -100
+			remove_country_modifier = EDG_flavorFRA_10_b_modifier
+			remove_country_modifier = EDG_flavorFRA_11_b_modifier
+			remove_country_modifier = EDG_flavorFRA_12_b_modifier
+			remove_country_modifier = edict_de_nantes
+			add_country_modifier = {
+				name = EDG_FRA_decision_6_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_7 = {#颁布黑人法典
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_flag = had_EDG_FRA_decision_7_flag
+			}
+		}
+		allow = {
+			adm_power = 100
+			adm_tech = 15
+		}
+		effect = {
+			set_country_flag = had_EDG_FRA_decision_7_flag
+			add_adm_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_7_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_8 = {#开展文化控制
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_modifier = EDG_FRA_decision_8_modifier
+			}
+		}
+		allow = {
+			adm_power = 50
+			adm_tech = 15
+			check_variable = {
+				which = EDG_FRA_Renaissance_value
+				value = 5
+			}
+		}
+		effect = {
+			add_adm_power = -50
+			add_years_of_income = -0.15
+			add_ruler_modifier = {
+				name = EDG_FRA_decision_8_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	EDG_FRA_decision_9 = {#委派政法院审查官
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			NOT = {
+				has_country_modifier = EDG_FRA_decision_9_modifier
+			}
+		}
+		allow = {
+			adm_power = 50
+			adm_tech = 10
+			NOT = { num_of_rebel_controlled_provinces = 1 }
+		}
+		effect = {
+			add_adm_power = -50
+			add_ruler_modifier = {
+				name = EDG_FRA_decision_9_modifier
+				duration = 7300
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	
+	
+	EDG_fra_chateux_loire_valley_decision = {#建造卢瓦尔河谷城堡群
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_country_flag = EDG_fra_chateux_loire_valley_decision_enable_flag
+			NOT = {
+				has_country_flag = had_EDG_fra_chateux_loire_valley_decision_flag
+			}
+		}
+		provinces_to_highlight = { 
+			OR = {
+				province_id = 178 
+				province_id = 4389 
+				province_id = 4776 
+				province_id = 184
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT } 
+				NOT = { num_of_times_improved = 3 } 
+			}
+		}
+		allow = {
+			loire_area = { 
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT 
+			}
+			if = {
+				limit = { ai = no }
+				OR = { 
+					4389 = { num_of_times_improved = 3 } 
+					4776 = { num_of_times_improved = 3 }
+					184 = { num_of_times_improved = 3 }  
+					178 = { num_of_times_improved = 3 } 
+				}
+			}
+		}
+		effect = {
+			set_country_flag = had_EDG_fra_chateux_loire_valley_decision_flag
+			country_event = { id = flavor_fra.103 }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	EDG_FRA_decision_national_army_1 = {#建立战争部
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_1_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			army_tradition = 75
+			manpower = 500
+			num_of_owned_provinces_with = {
+				value = 25
+				EDG_has_building_camp_trigger = yes
+			}
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_1_flag
+			add_mil_power = -100
+			add_army_professionalism = 0.05
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_1_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_2 = {#勒泰利埃征兵制
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_2_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 50
+				EDG_has_building_barracks_trigger = yes
+			}
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_2_flag
+			add_mil_power = -100
+			add_yearly_manpower = 0.5
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_2_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_3 = {#建立龙骑兵团
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_3_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			army_tradition = 75
+			num_of_cavalry = 50
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_3_flag
+			add_mil_power = -100
+			define_advisor = {
+				type = cavalry_commander
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_3_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_4 = {#建立军官考核制度
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_4_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			army_professionalism = 0.20
+			num_of_generals_with_traits = 4
+			has_leader_with = {
+				fire = 3
+				shock = 3
+				manuever = 2
+				siege = 0
+			}
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_4_flag
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_4_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_5 = {#推广线膛枪
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_5_flag
+			}
+			NOT = { mil_tech = 31 }
+		}
+		allow = {
+			mil_power = 100
+			mil_tech = 17
+			NOT = { mil_tech = 31 }
+			army_professionalism = 0.40
+			OR = {
+				full_idea_group = aristocracy_ideas
+				full_idea_group = plutocracy_ideas
+				full_idea_group = theocracy_gov_ideas
+				full_idea_group = quantity_ideas
+				full_idea_group = aristocracy_ideas
+				full_idea_group = offensive_ideas
+				full_idea_group = defensive_ideas
+				full_idea_group = quality_ideas
+			}
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_5_flag
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_5_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_6 = {#设立荣军院
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_6_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			army_professionalism = 0.40
+			num_of_owned_provinces_with = {
+				value = 20
+				base_manpower = 5
+			}
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_6_flag
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_6_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_army_7 = {#完善军衔制度
+		color = { 138 218 255 }
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_army_7_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			army_professionalism = 0.40
+			army_size = 500
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_army_7_flag
+			add_mil_power = -100
+			add_country_modifier = {
+				name = EDG_FRA_decision_national_army_7_modifier
+				duration = -1
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_FRA_decision_national_boundaries_1_1 = {#巩固莱茵河疆界：I
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				OR = {
+					region = south_german_region
+					region = north_german_region
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_1_1_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				has_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					OR = {
+						region = south_german_region
+						region = north_german_region
+					}
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_1_1_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_1_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_1_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							OR = {
+								region = south_german_region
+								region = north_german_region
+							}
+						}
+					}
+					remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_1_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_1_2 = {#巩固莱厄河疆界：I
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = low_countries_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_1_2_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				has_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = low_countries_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_1_2_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_2_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_1_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = low_countries_region
+						}
+					}
+					remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_1_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_1_3 = {#巩固阿尔卑斯疆界：I
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = italy_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_15th
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_1_3_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				has_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				OR = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = italy_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_1_3_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_3_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_1_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = italy_region
+						}
+					}
+					remove_province_modifier = EDG_flavorFRA_mission_9_a_province_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_1_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+
+	
+	EDG_FRA_decision_national_boundaries_2_1 = {#巩固莱茵河疆界：II
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				OR = {
+					region = south_german_region
+					region = north_german_region
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_1_1_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_2_1_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					OR = {
+						region = south_german_region
+						region = north_german_region
+					}
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_2_1_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_1_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_2_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							OR = {
+								region = south_german_region
+								region = north_german_region
+							}
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_2_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_2_2 = {#巩固莱厄河疆界：II
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = low_countries_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_1_2_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_2_2_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = low_countries_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_2_2_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_2_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_2_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = low_countries_region
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_2_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_2_3 = {#巩固阿尔卑斯疆界：II
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = italy_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_16th
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_1_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_2_3_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = italy_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_2_3_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_3_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_2_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = italy_region
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_1_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_2_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+
+
+	
+	EDG_FRA_decision_national_boundaries_3_1 = {#巩固莱茵河疆界：III
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				OR = {
+					region = south_german_region
+					region = north_german_region
+				}
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_2_1_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_3_1_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					OR = {
+						region = south_german_region
+						region = north_german_region
+					}
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_3_1_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_1_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_3_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							OR = {
+								region = south_german_region
+								region = north_german_region
+							}
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_3_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_3_2 = {#巩固莱厄河疆界：III
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = low_countries_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_2_2_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_3_2_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = low_countries_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_3_2_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_2_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_3_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = low_countries_region
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_3_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	EDG_FRA_decision_national_boundaries_3_3 = {#巩固阿尔卑斯疆界：III
+		color = { 138 218 255 }
+		provinces_to_highlight = {
+			region = france_region
+			any_neighbor_province = {
+				region = italy_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				#NOT = { #has_influencing_fort = yes }
+				NOT = { 
+					OR = {
+						has_building = fort_17th
+						has_building = fort_18th
+					}
+				}
+			}
+		}
+		potential = {
+			EDG_FRA_trigger = yes
+			has_global_flag = EDG_flavorFRA_reform_rank_2_flag
+			has_country_flag = EDG_FRA_decision_national_boundaries_2_3_flag
+			NOT = {
+				has_country_flag = EDG_FRA_decision_national_boundaries_3_3_flag
+			}
+		}
+		allow = {
+			mil_power = 100
+			num_of_owned_provinces_with = {
+				value = 2
+				OR = {
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				region = france_region
+				any_neighbor_province = {
+					region = italy_region
+				}
+			}
+
+		}
+		effect = {
+			set_country_flag = EDG_FRA_decision_national_boundaries_3_3_flag
+			add_mil_power = -100
+			custom_tooltip = EDG_FRA_decision_national_boundaries_1_3_modifier_tt
+			tooltip = {
+				remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+				add_permanent_province_modifier = {
+					name = EDG_FRA_decision_national_boundaries_3_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						region = france_region
+						#has_influencing_fort = yes
+						any_neighbor_province = {
+							region = italy_region
+						}
+					}
+					remove_province_modifier = EDG_FRA_decision_national_boundaries_2_modifier
+					add_permanent_province_modifier = {
+						name = EDG_FRA_decision_national_boundaries_3_modifier
+						duration = -1
+					}
+				}
+			}
+		}
+		ai_will_do = {
+			factor = 100
+		}
+	}
+	
+	EDG_Frankish_nation = {#重建法兰克帝国
+		major = yes
+		color = { 138 218 255 }
+		potential = {
+			normal_or_historical_nations = yes
+			
+			NOT = { has_country_flag = formed_EDG_Frankish_flag }
+			OR = {
+				ai = no
+				is_playing_custom_nation = no
+			}
+			OR = {
+				is_free_or_tributary_trigger = yes
+				ai = no
+			}
+			NOT = { tag = HLR }
+			NOT = { tag = FRK }
+			NOT = { tag = PAP }
+			NOT = { tag = SPA }		# Basque is a valid culture for both FRA and SPA
+			
+			OR = {
+				culture_group = french
+				primary_culture = breton
+				primary_culture = hessian
+				has_country_flag = EDG_FRK_enable_form_flag
+			}
+			is_colonial_nation = no
+			OR = {
+				is_former_colonial_nation = no
+				AND = {
+					is_former_colonial_nation = yes
+					ai = no
+				}
+			}
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 186
+				province_id = 4728
+				province_id = 104
+				province_id = 116
+				province_id = 114
+				province_id = 80
+				province_id = 78
+				province_id = 93
+				province_id = 94
+				province_id = 1878
+				province_id = 85
+			}
+			NOT = { owned_by = ROOT }
+		}
+		allow = {
+			is_at_war = no
+			is_free_or_tributary_trigger = yes
+			is_nomad = no			
+			NOT = { exists = FRK }
+			if = {
+				limit = { NOT = { tag = FRA } exists = FRA }
+				FRA = {
+					NOT = {
+						capital_scope = {
+							superregion = europe_superregion
+						}
+					}
+				}
+			}
+			if = {
+				limit = { NOT = { tag = LOT } exists = LOT }
+				LOT = {
+					NOT = {
+						capital_scope = {
+							superregion = europe_superregion
+						}
+					}
+				}
+			}
+			# 1878 = {
+			# 	is_state = yes
+			# }
+			if = {
+				limit = {
+					OR = {
+						tag = AEL 
+						has_country_flag = EDG_enable_dip_form_FRK_flag
+					}
+
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 55
+					region = france_region
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 20
+					region = italy_region
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					value = 60
+					OR = {
+						region = north_german_region
+						region = south_german_region
+						region = low_countries_region
+					}
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = {
+					value = 55
+					region = france_region
+					owned_by = root
+				}
+				num_of_owned_provinces_with = {
+					value = 20
+					region = italy_region
+					owned_by = root
+				}
+				num_of_owned_provinces_with = {
+					value = 60
+					OR = {
+						region = north_german_region
+						region = south_german_region
+						region = low_countries_region
+					}
+					owned_by = root
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						tag = AEL 
+						has_country_flag = EDG_enable_dip_form_FRK_flag
+					}
+				}
+				owns_or_non_sovereign_subject_of = 183	# �le-de-France
+				owns_or_non_sovereign_subject_of = 1878
+				#意大利
+				OR = {
+					owns_or_non_sovereign_subject_of = 4728
+					owns_or_non_sovereign_subject_of = 104
+				}
+				OR = {
+					owns_or_non_sovereign_subject_of = 116
+					owns_or_non_sovereign_subject_of = 114
+				}
+				#德意志
+				owns_or_non_sovereign_subject_of = 1878
+				owns_or_non_sovereign_subject_of = 85
+				OR = {
+					owns_or_non_sovereign_subject_of = 78
+					owns_or_non_sovereign_subject_of = 80
+				}
+				OR = {
+					owns_or_non_sovereign_subject_of = 93
+					owns_or_non_sovereign_subject_of = 94
+				}
+			}
+			else = {
+				owns_core_province = 183	# �le-de-France
+				owns_core_province = 1878
+				#意大利
+				OR = {
+					owns_core_province = 4728
+					owns_core_province = 104
+				}
+				OR = {
+					owns_core_province = 116
+					owns_core_province = 114
+				}
+				#德意志
+				owns_core_province = 1878
+				owns_core_province = 85
+				OR = {
+					owns_core_province = 78
+					owns_core_province = 80
+				}
+				OR = {
+					owns_core_province = 93
+					owns_core_province = 94
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					is_emperor = yes
+				}
+				dismantle_hre = yes
+			}
+			else = {
+				emperor = {
+					add_opinion = {
+						who = root
+						modifier = opinion_left_empire
+					}
+				}
+				set_in_empire = no
+			}
+			# 1878 = {
+			# 	move_capital_effect = yes
+			# }
+			change_tag = FRK
+			restore_country_name = yes
+			# swap_non_generic_missions = yes
+			remove_non_electors_emperors_from_empire_effect = yes
+			country_event = {
+				  id = EDG_flavorFRK.1
+			}
+			if = {
+				limit = {
+					NOT = { government_rank = 3 }
+				}
+				set_government_rank = 3
+			}
+			add_country_modifier = {
+				name = "centralization_modifier"
+				duration = 7300
+			}
+			if = {
+				limit = {
+					has_custom_ideas = no
+				}
+				country_event = { id = ideagroups.1 } #Swap Ideas
+			}
+			set_country_flag = formed_EDG_Frankish_flag
+		}
+		ai_will_do = {
+			factor = 1
+			modifier = {
+				factor = 0
+				NOT = {
+					AND = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							value = 55
+							region = france_region
+						}
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							value = 20
+							region = italy_region
+						}
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							value = 60
+							OR = {
+								region = north_german_region
+								region = south_german_region
+								region = low_countries_region
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+
+}

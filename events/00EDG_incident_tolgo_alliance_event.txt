@@ -1,0 +1,137 @@
+namespace = EDG_incident_tolgo_alliance_event
+normal_or_historical_nations = yes
+country_event = {#托尔高联盟
+  id = EDG_incident_tolgo_alliance_event.0
+  title = "EDG_incident_tolgo_alliance_event.0.t"
+  desc = "EDG_incident_tolgo_alliance_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#宗教改革没有合法性。
+    name = "EDG_incident_tolgo_alliance_event.0.a"
+    ai_chance = {
+      factor = 5
+      modifier = {
+        factor = 2
+        religious_unity = 0.99
+      }
+      modifier = {
+        factor = 2
+        religious_unity = 0.75
+      }
+      modifier = {
+        factor = 0
+        NOT = { religion = catholic }
+      }
+    }
+    add_reform_desire = -0.05
+    custom_tooltip = EDG_SPACE_TT
+    set_global_flag = EDG_incident_tolgo_alliance_event_0_a_global_flag
+    custom_tooltip = EDG_incident_tolgo_alliance_event_0_a_global_flag_tt
+    
+    set_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+  }
+  option = {#我们不能如此对抗新教徒。
+    name = "EDG_incident_tolgo_alliance_event.0.b"
+    ai_chance = {
+      factor = 10
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.6 }
+      }
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.4 }
+      }
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.3 }
+      }
+      modifier = {
+        factor = 5
+        NOT = { religious_unity = 0.15 }
+      }
+      modifier = {
+        factor = 5
+        NOT = { religious_unity = 0.15 }
+      }
+    }
+    #add_reform_desire = 0.05
+    custom_tooltip = EDG_SPACE_TT
+    set_global_flag = EDG_incident_tolgo_alliance_event_0_b_global_flag
+    custom_tooltip = EDG_incident_tolgo_alliance_event_0_b_global_flag_tt
+    
+    
+    set_global_flag = EDG_incident_tolgo_alliance_event_0_global_flag
+  }
+}
+country_event = {#托尔高联盟
+  id = EDG_incident_tolgo_alliance_event.1
+  title = "EDG_incident_tolgo_alliance_event.1.t"
+  desc = "EDG_incident_tolgo_alliance_event.1.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = {
+    NOT = { active_imperial_incident = any }
+    NOT = { has_global_flag = EDG_incident_tolgo_alliance_event_1_global_flag }
+    OR = {
+      has_country_flag = EDG_incident_tolgo_alliance_event_1_enable_flag
+      AND = {
+        NOT = { active_imperial_incident = any }
+        religion = protestant
+        is_part_of_hre = yes
+        NOT = { hre_religion_locked = yes }
+        OR = {
+          current_age = age_of_reformation
+          current_age = age_of_discovery
+        }
+        has_global_flag = EDG_incident_worms_conference_event_1_global_flag
+        
+        OR = {
+          is_year = 1505
+          calc_true_if = {
+            amount = 7
+            all_country = {
+              religion = protestant
+              is_part_of_hre = yes
+              OR = {
+                is_subject = no
+                overlord = { religion = protestant }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  mean_time_to_happen = {
+    months = 20
+  }
+  immediate = {
+    hidden_effect = {
+      set_imperial_incident = incident_tolgo_alliance
+      set_global_flag = EDG_incident_tolgo_alliance_event_1_global_flag
+    }
+  }
+  option = {#
+    name = "EDG_incident_tolgo_alliance_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+    add_prestige_or_monarch_power = { amount = 20 }
+    tooltip = {
+      set_imperial_incident = incident_tolgo_alliance
+    }
+  }
+
+}

@@ -1,0 +1,2552 @@
+EDG_BELA_KSB_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_1_1 = {
+		icon = mission_unite_the_princes
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			if = {
+				limit = {
+					not = {
+						has_country_flag = had_EDG_POM_gryf_civil_war_flag
+					}
+				}
+				legitimacy = 100
+				has_heir = yes
+				adm_power_cost = 100
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = had_EDG_POM_gryf_civil_war_flag
+				}
+				custom_tooltip = EDG_BELA_KSB_1_1_tt_yes
+				add_country_modifier = {
+					name = EDG_BELA_KSB_1_1_modifier_A
+					duration = 36500
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_1_1_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_1_1_modifier_A
+						duration = 36500
+					}
+				}
+				hidden_effect = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_1_1_modifier_B
+						duration = 36500
+					}
+				}
+			}
+			custom_tooltip = EDG_BELA_KSB_1_1_tt_else
+			tooltip = {
+				add_country_modifier = {
+					name = EDG_BELA_KSB_1_1_modifier_B
+					duration = 36500
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_2 = {
+		icon = mission_empire
+		position = 2
+		required_missions = { EDG_BELA_KSB_1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			adm = 5
+			dip = 5
+			mil = 5
+			heir_adm = 4
+			heir_dip = 4
+			heir_mil = 4
+		} 
+
+		effect = {
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 10
+			}
+			change_estate_land_share = {
+				estate = all
+				share = -5
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_3 = {
+		icon = mission_rb_take_gibraltar
+		position = 3
+		required_missions = { EDG_BELA_KSB_2_2 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					province_id = 25
+					not = {
+						owned_by = root
+					}
+				}
+				is_capital_of = GOT
+			}
+			root = {
+				not = {
+					has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+				}
+			}
+		} 
+
+		trigger = {
+			#哥得兰属于root
+			or = {
+				and = {
+					25 = {
+						owned_by = root
+					}
+					not = {
+						exists = GOT
+					}
+					not = {
+						has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+					}
+				}
+				has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+			}
+		} 
+
+		effect = {
+			25 = {
+				change_culture = root
+			}
+			#如果没有修正埃里克的遗产则
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+					}
+				}
+				country_event = {#埃里克的遗产
+					id = EDG_BELA_POM_events.54
+				}
+				custom_tooltip = EDG_BELA_KSB_1_3_tt_1
+				#事件前瞻
+			}
+			else_if = {
+				limit = {
+					not = {
+						mission_completed = EDG_BELA_KSB_1_3
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_5_modifier
+					duration = -1
+				}
+				custom_tooltip = EDG_BELA_KSB_1_3_tt_2
+				hidden_effect = {
+					#完成所有斯堪的纳维亚相关任务
+					complete_mission = EDG_BELA_KSB_1_4
+					complete_mission = EDG_BELA_KSB_1_5
+					complete_mission = EDG_BELA_KSB_2_5
+					complete_mission = EDG_BELA_KSB_2_6
+					#complete_mission = 
+					#整合斯堪的纳维亚所有属国
+					every_country = {
+						limit = {
+							is_subject_of = root
+							capital_scope = {
+								region = scandinavia_region
+							}
+						}
+						root = {
+							inherit = prev
+						}
+					}
+					#每一个斯堪的纳维亚省份将给与我们5点行政点数、外交点数和军事点数的奖励
+					every_owned_province = {
+						limit = {
+							region = scandinavia_region
+						}
+						add_scaled_local_adm_power = 5
+						add_scaled_local_dip_power = 5
+						add_scaled_local_mil_power = 5
+					}
+				}
+			}
+			#触发事件-埃里克的遗产
+			#我们将能选择是否要去争取埃里克统治卡尔玛联盟时期留给格里芬王朝的政治遗产
+			#争取遗产——直接统治——获得永久宣称，在埃里克的遗产到期之前，所有被割让的属于斯堪的纳维亚地区的省份都将立刻成为自治领地核心
+			#争取遗产——间接统治——释放哥得兰，与哥得兰达成联合统治，且哥得兰获得斯堪的纳维亚所有非宗主国所有省份的核心
+			#不争取——只获得宣称
+			#如果争取遗产，则获得为期15年的修正-埃里克的遗产，若在该修正到期之前完成任务重建埃里克之治则将该修正变为永久修正
+			#如果有修正埃里克的遗产，则自动跳过所有斯堪的纳维亚相关任务，获得自己拥有的斯堪的纳维亚省份的核心并整合所有首都在斯堪的纳维亚的属国。之后从斯堪的纳维亚省份获得相当于发展度的点数奖励
+		} 
+	}
+
+	EDG_BELA_KSB_1_4 = {
+		icon = mission_fire_of_london
+		position = 4
+		required_missions = { EDG_BELA_KSB_1_3 } 
+		provinces_to_highlight = {
+			#斯堪尼亚直属州
+			area = skaneland_area
+		} 
+
+		trigger = {
+			#斯堪尼亚直属州
+			skaneland_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#如果有埃里克遗产则重置其时间
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+				}
+				custom_tooltip = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier_extend_tt
+				hidden_effect = {
+					extend_country_modifier = {
+						name = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+						duration = 1825
+					}
+				}
+			}
+			add_country_modifier = {
+				name = EDG_army_enthusiasm_4_modifier
+				duration = 3650
+			}
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_5 = {
+		icon = mission_danish_flag
+		position = 5
+		required_missions = { EDG_BELA_KSB_1_4 } 
+		provinces_to_highlight = {
+			or = {
+				province_id = 12
+				province_id = 4142
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#西兰和斯科纳
+			12 = {
+				country_or_non_sovereign_subject_holds = root
+			}
+			4142 = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			#添加国家修正-厄勒海峡贸易-+1商人
+			add_country_modifier = {
+				name = EDG_BELA_KSB_oresund_strait_control_modifier
+				duration = -1
+			}
+			#如果有埃里克遗产则重置其时间
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+				}
+				custom_tooltip = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier_extend_tt
+				hidden_effect = {
+					extend_country_modifier = {
+						name = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+						duration = 1825
+					}
+				}
+			}
+			add_mercantilism = 3
+		} 
+	}
+
+	EDG_BELA_KSB_1_6 = {
+		icon = mission_hands_praying
+		position = 6
+		provinces_to_highlight = {
+			not = {
+				root = {
+					num_of_owned_provinces_with = {
+						religion = root
+						has_tax_building_trigger = yes
+						value = 25
+					}
+				}
+			}
+			owned_by = root
+			has_tax_building_trigger = no
+			num_free_building_slots = 1
+		} 
+
+		trigger = {
+			#省份数量：教堂，国教，25
+			num_of_owned_provinces_with = {
+				religion = root
+				has_tax_building_trigger = yes
+				value = 25
+			}
+			religion_group = christian
+			not = {
+				religion = catholic
+			}
+		} 
+
+		effect = {
+			##根据不同的信条获得不同的永久修正
+			#触发事件“国家主导的教会组织”
+			country_event = {
+				id = EDG_BELA_POM_events.68
+			}
+			#解锁政府改革“卡舒比国家教会”
+		} 
+	}
+
+	EDG_BELA_KSB_1_7 = {
+		icon = mission_russian_patriarchatee
+		position = 7
+		required_missions = { EDG_BELA_KSB_1_6 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#我们已经实行了卡舒比国家教会改革
+			has_reform = EDG_POM_kashubian_nation_protestantism_reform
+		} 
+
+		effect = {
+			#获得修正[国家控制下的教会]
+			 #传教强度+0.5%
+			 #正信省份人力+10%
+			add_country_modifier = {
+				name = EDG_BELA_KSB_1_7_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_8 = {
+		icon = mission_advance_to_the_dnieper
+		position = 8
+		required_missions = {
+			EDG_BELA_KSB_1_7
+			EDG_BELA_KSB_4_7
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#正教省份发展度超过500
+			religion_group = christian
+			not = {
+				religion = orthodox
+			}
+			not = {
+				religion = catholic
+			}
+			development_in_provinces = {
+				value = 500
+				and = {
+					owned_by = root
+					religion = orthodox
+				}
+			}
+			is_at_war = no
+		} 
+
+		effect = {
+			#该事件将会给我们一个机会将正教会纳入到我们的统治内，但不一定能成功，完成人文理念组将能极大提高成功概率。
+			#触发事件正教会的地位
+			 #如果开启人文理念组或异端容忍大于5，导向结局——教会合并，允许我们选择保留新教信仰或转为东正教信仰。
+			 #如果不转教——获得修正[教会融合]-异端容忍、宗教统一，传教强度+0.5%，正信省份人力+5%
+			 #如果转教——获得修正[教会融合]-异端容忍、宗教统一，增加5%税收，增加5%改善关系，+2.5%训练度
+			country_event = {
+				id = EDG_BELA_POM_events.69
+			}
+			custom_tooltip = EDG_BELA_KSB_1_8_effect_tt
+		}
+	}
+}
+EDG_BELA_KSB_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_2_2 = {
+		icon = mission_early_game_buildings
+		position = 2
+		required_missions = { EDG_BELA_KSB_3_1 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					area = west_prussia_area
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				and = {
+					province_id = 43
+					not = {
+						owned_by = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			west_prussia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#格但斯克属于root
+			43 = {
+				owned_by = root
+				development = 20
+			}
+			#格但斯克有船坞、贸易站或要塞
+			43 = {
+				or = {
+					has_trade_building_trigger = yes
+					has_fort_building_trigger = yes
+					has_shipyard_building_trigger = yes
+				}
+			}
+		} 
+
+		effect = {
+			novgorod_area = {
+				add_claim = root
+			}
+			karelia_area = {
+				add_claim = root
+			}
+			25 = {
+				add_permanent_claim = root
+			}
+			baltic_region = {
+				limit = {
+					not = {
+						owned_by = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			if = {
+				limit = {
+					any_province = {
+						area = west_prussia_area
+						not = {
+							culture = EDG_BELA_kashubia
+						}
+					}
+				}
+				west_prussia_area = {
+					limit = {
+						not = {
+							culture = EDG_BELA_kashubia
+						}
+					}
+					change_culture = EDG_BELA_kashubia
+				}
+			}
+			
+			#有船坞，国家获得：波罗的海野望（海军战斗力相关修正），本地获得造船修正波罗的海野望
+			if = {
+				limit = {
+					43 = {
+						has_shipyard_building_trigger = yes
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_2_has_shipyard_building_trigger_tt_yes
+				43 = {
+					add_permanent_province_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_shipyard
+						duration = -1
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_2_modifier_shipyard_country
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_2_2_has_shipyard_building_trigger_tt_no
+				tooltip = {
+					43 = {
+						add_permanent_province_modifier = {
+							name = EDG_BELA_KSB_2_2_modifier_shipyard
+							duration = -1
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_shipyard_country
+						duration = 7300
+					}
+				}
+			}
+			#有贸易站，国家获得：琥珀之路（年度税收），本地获得商业修正波罗的海明珠
+			if = {
+				limit = {
+					43 = {
+						has_trade_building_trigger = yes
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_2_has_trade_building_triggerr_tt_yes
+				43 = {
+					add_permanent_province_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_trade
+						duration = -1
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_2_modifier_trade_country
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_2_2_has_trade_building_trigger_tt_no
+				tooltip = {
+					43 = {
+						add_permanent_province_modifier = {
+							name = EDG_BELA_KSB_2_2_modifier_trade
+							duration = -1
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_trade_country
+						duration = 7300
+					}
+				}
+			}
+			#有要塞，国家获得：东进热情（陆军士气和核心化花费），本地获得军事修正东进堡垒
+			if = {
+				limit = {
+					43 = {
+						has_fort_building_trigger = yes
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_2_has_fort_building_trigger_tt_yes
+				43 = {
+					add_permanent_province_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_fort
+						duration = -1
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_2_modifier_fort_country
+					duration = 7300
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_2_2_has_fort_building_trigger_tt_no
+				tooltip = {
+					43 = {
+						add_permanent_province_modifier = {
+							name = EDG_BELA_KSB_2_2_modifier_fort
+							duration = -1
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_2_modifier_fort_country
+						duration = 7300
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_4 = {
+		icon = mission_novgorod_the_great
+		position = 4
+		required_missions = {
+			EDG_BELA_KSB_1_3
+			EDG_BELA_KSB_5_3
+		}
+		provinces_to_highlight = {
+			or = {
+				and = {
+					area = novgorod_area
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				and = {
+					area = karelia_area
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				and = {
+					province_id = 310
+					not = {
+						owned_by = root
+					}
+				}
+				and = {
+					province_id = 33
+					not = {
+						owned_by = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			novgorod_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			karelia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#控制诺夫哥罗德和涅瓦
+			310 = {
+				owned_by = root
+			}
+			33 = {
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			#触发事件-北罗斯贸易城市
+			country_event = {
+				id = EDG_BELA_POM_events.59
+			}
+			#文本：我们将能选择是否在涅瓦新建一座城市以更好地控制东波罗的海贸易
+			custom_tooltip = EDG_BELA_KSB_2_4_event_tt
+		} 
+	}
+
+	EDG_BELA_KSB_2_5 = {
+		icon = mission_slay_the_lion
+		position = 5
+		required_missions = { EDG_BELA_KSB_1_4 } 
+		provinces_to_highlight = {
+			province_id = 1
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#斯德哥尔摩属于root
+			1 = {
+				or = {
+					if = {
+						limit = {
+							exists = SWE
+							1 = {
+								owned_by = SWE
+							}
+						}
+						and = {
+							controlled_by = root
+							root = {
+								war_score_against = {
+									who = SWE
+									value = 75
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							exists = SCA
+							1 = {
+								owned_by = SCA
+							}
+						}
+						and = {
+							controlled_by = root
+							root = {
+								war_score_against = {
+									who = SCA
+									value = 75
+								}
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							exists = FSD
+							1 = {
+								owned_by = FSD
+							}
+						}
+						and = {
+							controlled_by = root
+							root = {
+								war_score_against = {
+									who = FSD
+									value = 75
+								}
+							}
+						}
+					}
+					else = {
+						always = no
+					}
+					country_or_non_sovereign_subject_holds = root
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					or = {
+						and = {
+							exists = SWE
+							SWE = {
+								is_subject = no
+							}
+							1 = {
+								owned_by = SWE
+							}
+						}
+						and = {
+							exists = SCA
+							SCA = {
+								is_subject = no
+							}
+							1 = {
+								owned_by = SCA
+							}
+						}
+						and = {
+							exists = FSD
+							FSD = {
+								is_subject = no
+							}
+							1 = {
+								owned_by = FSD
+							}
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_BELA_POM_events_54_claim_flag
+					}
+					custom_tooltip = EDG_BELA_KSB_2_5_events_54_claim_flag_tt_yes
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_5_modifier
+						duration = 7300
+					}
+				}
+				else = {
+					custom_tooltip = EDG_BELA_KSB_2_5_events_54_claim_flag_tt_no
+					tooltip = {
+						add_country_modifier = {
+							name = EDG_BELA_KSB_2_5_modifier
+							duration = 7300
+						}
+					}
+				}
+				if = {
+					limit = {
+						has_country_flag = EDG_BELA_POM_events_54_core_flag
+						GOT = {
+							is_subject_of = root
+						}
+					}
+					custom_tooltip = EDG_BELA_KSB_2_5_events_54_core_flag_tt_yes
+					country_event = {
+						id = EDG_BELA_POM_events.55
+					}
+				}
+				else = {
+					custom_tooltip = EDG_BELA_KSB_2_5_events_54_core_flag_tt_no
+					tooltip = {
+						country_event = {
+							id = EDG_BELA_POM_events.55
+						}
+					}
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_5_modifier
+					duration = 7300
+				}
+			}
+			#如果我们选择了直接统治，则获得修正-斯堪的纳维亚霸主-省份战争分数花费-10%，核心化花费-10%，年度威望+1
+			#如果我们选择了间接统治，则触发事件：迫使瑞典贵族屈服。哥得兰继承瑞典的遗产
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_6 = {
+		icon = mission_unite_scandinavia
+		position = 6
+		required_missions = {
+			EDG_BELA_KSB_1_5
+			EDG_BELA_KSB_2_5
+		}
+		provinces_to_highlight = {
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 25
+						region = scandinavia_region
+					}
+				}
+			}
+			region = scandinavia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#斯堪的纳维亚省份条件
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = scandinavia_region
+			}
+			is_at_war = no
+			not = {
+				exists = SCA
+			}
+		} 
+
+		effect = {
+			#如果有埃里克的遗产修正，将埃里克的遗产修正变为永久修正
+			#获得25力量投射
+			#获得50威望
+			add_prestige_or_monarch_power = {
+				amount = 50
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+			#hidden_effect = {
+				if = {
+					limit = {
+						has_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+					}
+					hidden_effect = {
+						remove_country_modifier = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+					}
+					add_country_modifier = {
+						name = EDG_BELA_POM_WOL_4_4_erik_legacy_modifier
+						duration = -1
+					}
+				}
+			#}
+			#直接统治：斯堪的纳维亚省份失去10年分离主义
+			#如果选择间接统治，则哥得兰成立斯堪的纳维亚
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_events_54_claim_flag
+				}
+				custom_tooltip = EDG_BELA_KSB_2_5_events_54_claim_flag_tt_yes
+				add_legitimacy = 10
+				add_splendor = 200
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_2_5_events_54_claim_flag_tt_no
+				tooltip = {
+					add_legitimacy = 10
+					add_splendor = 200
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_events_54_core_flag
+					GOT = {
+						is_subject_of = root
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_5_events_54_core_flag_tt_yes
+				GOT = {
+					change_tag = SCA
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_2_5_events_54_core_flag_tt_no
+				tooltip = {
+					GOT = {
+						change_tag = SCA
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_8 = {
+		icon = mission_baltic_empire
+		position = 8
+		required_missions = { EDG_BELA_KSB_2_6 } 
+		provinces_to_highlight = {
+			or = {
+				region = baltic_region
+				area = karelia_area
+				area = finland_area
+				area = ostra_svealand_area
+				area = norrland_area
+				area = bothnia_area
+				area = gotaland_area
+				area = skaneland_area
+				area = denmark_area
+				area = jutland_area
+				area = holstein_area
+				area = mecklenburg_area
+				area = vorpommern_area
+				area = hinter_pommern_area
+				area = eastern_norway
+			}
+			has_port = yes
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#足够的海军舰队和波罗的海沿海省份
+			not = {
+				any_country = {
+					navy_size = root
+				}
+			}
+			#scandinavia_region = {
+				#country_or_non_sovereign_subject_holds = root
+				#type = all
+			#}
+			#baltic_region = {
+				#country_or_non_sovereign_subject_holds = root
+				#type = all
+			#}
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_KSB_2_8_trigger_tt
+				baltic_region = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				karelia_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				finland_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				ostra_svealand_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				norrland_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				bothnia_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				gotaland_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				skaneland_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				denmark_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				jutland_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				holstein_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				mecklenburg_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				vorpommern_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				hinter_pommern_area = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+				eastern_norway = {
+					OR = {
+						owner = {
+							OR = {
+								tag = ROOT
+								is_subject_of = ROOT
+							}
+						}
+						has_port = no
+					}
+					type = all
+				}
+			}
+		} 
+
+		effect = {
+			#获得100年海军加成
+			#如果完成了海军理念或航海理念，则获得永久修正
+			if = {
+				limit = {
+					or = {
+						full_idea_group = naval_ideas
+						full_idea_group = maritime_ideas
+					}
+				}
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_ers_russian_sea_modifier"
+						duration = -1
+					}
+				}
+			}
+			else = {
+				tooltip = {
+					add_country_modifier = {
+						name = "EDG_ers_russian_sea_modifier"
+						duration = 18250
+					}
+				}
+			}
+			if = {
+				limit = {
+					or = {
+						full_idea_group = naval_ideas
+						full_idea_group = maritime_ideas
+					}
+				}
+				hidden_effect = {
+					add_country_modifier = {
+						name = "EDG_ers_russian_sea_modifier"
+						duration = -1
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_8_effect_tt_yes
+			}
+			else = {
+				hidden_effect = {
+					add_country_modifier = {
+						name = "EDG_ers_russian_sea_modifier"
+						duration = 18250
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_2_8_effect_tt_no
+			}
+		} 
+	}
+}
+EDG_BELA_KSB_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_3_1 = {
+		icon = mission_the_gryf
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size_percentage = 0.9
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+			is_in_deficit = no #没有赤字
+			not = { #没有贷款
+				num_of_loans = 1
+			} 
+			stability = 2
+		} 
+
+		effect = {
+			unlock_merc_company = {
+				merc_company = merc__EDG_BELA_KSB_streltsy
+				free_merc = yes
+			}
+			hidden_effect = {
+				set_variable = {
+					which = EDG_BELA_KSB_streltsy_won_var
+					value = 0
+				}
+			}
+			country_event = { #扩张卡舒比亚
+				id = EDG_BELA_POM_events.53
+			}
+			custom_tooltip = EDG_BELA_KSB_3_1_tt
+			custom_tooltip = EDG_BELA_KSB_3_1_tt_A
+			set_country_flag = EDG_BELA_POM_WOL_4_2_flag_expand
+			#获得文德地区的永久宣称
+			#hidden_effect = {	
+			#}
+			mecklenburg_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			mittelmark_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			neumark_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			lusatia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			neumark_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			hinter_pommern_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			vorpommern_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			west_prussia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			east_prussia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_2 = {
+		icon = mission_war_for_the_crown
+		position = 2
+		required_missions = { EDG_BELA_KSB_3_1 } 
+		provinces_to_highlight = {
+			or = {
+				area = hinter_pommern_area
+				area = vorpommern_area
+				area = mecklenburg_area
+				area = mittelmark_area
+				area = neumark_area
+				area = lusatia_area
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			hinter_pommern_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			vorpommern_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			mecklenburg_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			mittelmark_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			neumark_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			lusatia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得西里西亚的永久宣称
+			silesia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			#获得波兰地区的永久宣称
+			poland_region = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			 ##解锁机制文德同盟：若卢萨蒂亚存在且为我们的属国，且所有索布文化的省份都属于卢萨蒂亚，则我们和卢萨蒂亚都将获得增益。
+			#所有治下属于德意志文化组且位于文德地区的省份有50%的概率转变为卡舒比文化，若为波美拉尼亚文化，则必然转变为卡舒比文化。
+			custom_tooltip = EDG_BELA_KSB_3_2_tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						or = {
+							area = hinter_pommern_area
+							area = vorpommern_area
+							area = mecklenburg_area
+							area = mittelmark_area
+							area = neumark_area
+							area = lusatia_area
+						}
+						culture_group = germanic
+						not = {
+							culture = pommeranian
+						}
+					}
+					random = {
+						chance = 50
+						change_culture = root
+					}
+				}
+				every_owned_province = {
+					limit = {
+						or = {
+							area = hinter_pommern_area
+							area = vorpommern_area
+							area = mecklenburg_area
+							area = mittelmark_area
+							area = neumark_area
+							area = lusatia_area
+						}
+						culture = pommeranian
+					}
+					change_culture = root
+				}
+			}
+			custom_tooltip = EDG_BELA_KSB_slavic_union_tt
+			#解锁斯拉夫同盟机制：当我们从非斯拉夫国家获得斯拉夫文化省份时，自动获得当地自治领地核心并减少30年分离主义。
+			add_country_modifier = {
+				name = EDG_BELA_KSB_slavic_union_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_3 = {
+		icon = bohemian_borderlands
+		position = 3
+		required_missions = { EDG_BELA_KSB_3_2 } 
+		provinces_to_highlight = {
+			area = silesia_area
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			silesia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#如果没有开启联姻机制，则启用联姻机制
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+					}
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_tt
+			}
+			#如果开启了联姻机制，未解锁格里芬-皮亚斯特同盟，则解锁格里芬-皮亚斯特同盟
+			else = {
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_piast_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_piast_flag_tt
+			}
+			 #联姻机制，开启相应联姻机制之后，可以在皮亚斯特、留里克、普舍美斯、希什曼、尼曼雅等王朝中选择，并获得不同的增益和奖励，对应的省份也会获得省份增益。
+			 #使用联姻将会赠送一位将领，不同王朝提供的将领保底数值不同。
+			#获得波西米亚和摩拉维亚的永久宣称
+			bohemia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			moravia_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			erzgebirge_area = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_5 = {
+		icon = mission_protect_white_sea_trade
+		position = 5
+		required_missions = {
+			EDG_BELA_KSB_2_4
+			EDG_BELA_KSB_5_4
+		}
+		provinces_to_highlight = {
+			or = {
+				area = pomor_area
+				area = arkhangelsk_area
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#白海沿岸省份
+			pomor_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			arkhangelsk_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#触发事件-毛皮贸易之源
+			country_event = {
+				id = EDG_BELA_POM_events.73
+			}
+			#add_years_of_owned_provinces_production_income = {
+				#years = 1
+				#trigger = {
+				#	trade_goods = fur
+				#}
+				#custom_tooltip = EDG_BELA_fur_trade_1year_income_tt
+			#}
+			#事件前瞻-该事件将为我们今后开展西伯利亚殖民活动打下基础
+			custom_tooltip = EDG_BELA_KSB_3_5_effect_tt
+			#获得乌拉尔区域宣称
+			perm_area = {
+				add_claim = root
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_7 = {
+		icon = mission_conquer_romania
+		position = 7
+		required_missions = {
+			EDG_BELA_KSB_3_5
+			EDG_BELA_KSB_5_6
+		}
+		provinces_to_highlight = {
+			and = {
+				not = {
+					perm_area = {
+						owned_by = root
+						type = all
+					}
+				}
+				not = {
+					bashkiria_area = {
+						owned_by = root
+						type = all
+					}
+				}
+			}
+			or = {
+				area = perm_area
+				area = bashkiria_area
+			}
+			not = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			#彼尔姆和巴什基尔区域
+			or = {
+				perm_area = {
+					owned_by = root
+					type = all
+				}
+				bashkiria_area = {
+					owned_by = root
+					type = all
+				}
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_KSB_not_explore_siberia_flag
+				}
+				ural_area = {
+					owned_by = root
+					type = all
+				}
+			}
+		} 
+
+		effect = {
+			#建立一个西伯利亚前哨站
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_KSB_not_explore_siberia_flag
+					}
+				}
+				if = {
+					limit = {
+						1078 = {
+							is_city = no
+						}
+					}
+					1078 = {
+						add_siberian_construction = 500
+					}
+				}
+				if = {
+					limit = {
+						1080 = {
+							is_city = no
+						}
+					}
+					1080 = {
+						add_siberian_construction = 500
+					}
+				}
+				if = {
+					limit = {
+						1780 = {
+							is_city = no
+						}
+					}
+					1780 = {
+						add_siberian_construction = 500
+					}
+				}
+			}
+			#获得一个探险家
+			create_conquistador = {
+				tradition = 75
+			}
+			create_explorer = {
+				tradition = 75
+			}
+			add_country_modifier = {
+				name = EDG_ruthenian_expand_xbly_modifier
+				duration = -1
+			}
+			#如果我们在战争中占领了一个西伯利亚游牧国家的首都，我们将占领其所有无要塞份
+			set_country_flag = EDG_BELA_KSB_3_7_effect_flag
+			custom_tooltip = EDG_BELA_KSB_3_7_effect_flag_tt
+			west_siberia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+		} 
+	}
+}
+EDG_BELA_KSB_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_4_2 = {
+		icon = humiliate_austria
+		position = 2
+		required_missions = { EDG_BELA_KSB_3_1 } 
+		provinces_to_highlight = {
+			or = {
+				area = hinter_pommern_area
+				area = vorpommern_area
+				area = mecklenburg_area
+				area = mittelmark_area
+				area = neumark_area
+				area = lusatia_area
+				region = poland_region
+				region = baltic_region
+				is_capital_of = root
+			}
+			is_part_of_hre = yes
+		} 
+
+		trigger = {
+			#不是神罗国家
+			not = {
+				root = {
+					is_part_of_hre = yes
+				}
+			}
+			#文德地区、波兰、波罗的海，西里西亚的省份不被神罗国家控制
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_KSB_4_2_trigger_tt
+				not = {
+					hinter_pommern_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+				not = {
+					vorpommern_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+				not = {
+					mecklenburg_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+				not = {
+					mittelmark_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+				not = {
+					neumark_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+				not = {
+					lusatia_area = {
+						is_part_of_hre = yes
+						type = all
+					}
+				}
+			}
+			not = {
+				poland_region = {
+					is_part_of_hre = yes
+					type = all
+				}
+			}
+			not = {
+				baltic_region = {
+					is_part_of_hre = yes
+					type = all
+				}
+			}
+		} 
+
+		effect = {
+			#获得25力量投射，获得50威望
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_self_confidence_mechanic
+				power_type = EDG_KSB_national_self_confidence_power
+				value = 50
+			}
+			add_government_power = {
+				mechanic_type = EDG_KSB_national_pride_mechanic
+				power_type = EDG_KSB_national_pride_power
+				value = 10
+			}
+			add_prestige_or_monarch_power = {
+				amount = 25
+			}
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 10
+			}
+			#皇帝失去20帝国权威，失去1点稳定度，失去25威望，失去100三项点数
+			if = {
+				limit = {
+					any_country = {
+						is_emperor = yes
+					}
+				}
+				emperor = {
+					add_scaled_imperial_influence = -20
+					add_stability = -1
+					add_prestige = -25
+					add_adm_power = -100
+					add_dip_power = -100
+					add_mil_power = -100
+				}
+			}
+			#获得1点稳定度,获得50三项点数
+			add_stability = 1
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+		} 
+	}
+
+	EDG_BELA_KSB_4_3 = {
+		icon = polish_diplomacy
+		position = 3
+		required_missions = { EDG_BELA_KSB_3_2 } 
+		provinces_to_highlight = {
+			region = poland_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#波兰区域
+			poland_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#联姻机制
+			#如果没有开启联姻机制，则启用联姻机制
+			if = {
+				limit = {
+					not = {
+						has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+					}
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_tt
+			}
+			#如果开启了联姻机制，未解锁格里芬-皮亚斯特同盟，则解锁格里芬-皮亚斯特同盟
+			else = {
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_piast_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_piast_flag_tt
+			}
+			#获得鲁塞尼亚的宣称
+			ruthenia_region = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_4 = {
+		icon = bohemian_crystal
+		position = 4
+		required_missions = {
+			EDG_BELA_KSB_3_3
+			EDG_BELA_KSB_4_3
+		}
+		provinces_to_highlight = {
+			area = bohemia_area
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			bohemia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#联姻机制
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_premysl_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_premysl_flag_tt
+			}
+			#获得喀尔巴阡区域宣称
+			carpathia_region = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			balkan_region = {
+				if = {
+					limit = {
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+					add_permanent_claim = root
+				}
+			}
+			##触发事件-斯拉夫同盟
+			 ##-今后在获得任意斯拉夫文化省份时将有50%的概率获得当地核心
+			 #-在获得任意斯拉夫文化省份时将会增加0.5民族自信值
+			#如果修正斯拉夫同盟未到期，则将其转为永久修正
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_KSB_slavic_union_modifier
+				}
+				custom_tooltip = EDG_BELA_KSB_slavic_union_modifier_has_yes
+				hidden_effect = {
+					remove_country_modifier = EDG_BELA_KSB_slavic_union_modifier
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_slavic_union_modifier
+					duration = -1
+				}
+				#斯拉夫同盟机制升级。
+				 #在获得任意斯拉夫文化省份时将会增加0.5民族自信值
+				custom_tooltip = EDG_BELA_KSB_slavic_union_tt_add
+				set_country_flag = EDG_BELA_KSB_slavic_union_add_flag
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_slavic_union_modifier_has_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_slavic_union_modifier
+						duration = -1
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_slavic_union_tt_add
+				set_country_flag = EDG_BELA_KSB_slavic_union_add_flag
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_6 = {
+		icon = mission_lit_harness_steppes
+		position = 6
+		required_missions = { EDG_BELA_KSB_4_4 } 
+		provinces_to_highlight = {
+			or = {
+				owned_by = HUN
+				and = {
+					or = {
+						area = alfold_area
+						area = transylvania_area
+						area = southern_transylvania_area
+						area = slovakia_area
+						area = transdanubia_area
+					}
+					not = {
+						owned_by = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#匈牙利区域省份
+			not = {
+				exists = HUN
+			}
+			alfold_area = {
+				owned_by = root
+				type = all
+			}
+			transylvania_area = {
+				owned_by = root
+				type = all
+			}
+			southern_transylvania_area = {
+				owned_by = root
+				type = all
+			}
+			slovakia_area = {
+				owned_by = root
+				type = all
+			}
+			transdanubia_area = {
+				owned_by = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得10威望
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			#触发事件-马扎尔人的命运
+			country_event = {
+				id = EDG_BELA_POM_events.61
+			}
+			custom_tooltip = EDG_BELA_KSB_4_6_tt
+			#事件前瞻：
+			 #我们将能选择同化潘诺尼亚平原的方式
+		} 
+	}
+
+	EDG_BELA_KSB_4_7 = {
+		icon = mission_protect_the_south_slavs
+		position = 7
+		required_missions = { EDG_BELA_KSB_4_6 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+					region = balkan_region
+					not = {
+						num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+							value = 50
+							region = balkan_region
+						}
+					}
+				}
+				and = {
+					any_province = {
+						culture_group = south_slavic
+						not = {
+							country_or_non_sovereign_subject_holds = root
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#巴尔干所有南斯拉夫文化省份
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 50
+				region = balkan_region
+			}
+			not = {
+				any_province = {
+					culture_group = south_slavic
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			#启用特权-斯拉夫诸兄弟
+			unlock_estate_privilege = {
+				estate_privilege = estate_EDG_slavic_brothers_privilege
+			}
+			#解锁塞尔维亚和保加利亚的联姻机制
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_sisman_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_sisman_flag_tt
+			}
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_nemanya_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_nemanya_flag_tt
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_8 = {
+		icon = mission_russian_revolution
+		position = 8
+		required_missions = { EDG_BELA_KSB_4_7 } 
+		provinces_to_highlight = {
+			or = {
+				culture_group = west_slavic
+				culture_group = east_slavic
+				culture_group = south_slavic
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#所有斯拉夫文化省份都被我们或属国拥有
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_KSB_4_8_trigger_tt
+				all_province = {
+					or = {
+						and = {
+							or = {
+								culture_group = west_slavic
+								culture_group = east_slavic
+								culture_group = south_slavic
+							}
+							country_or_non_sovereign_subject_holds = root
+						}
+						and = {
+							not = {
+								culture_group = west_slavic
+							}
+							not = {
+								culture_group = east_slavic
+							}
+							not = {
+								culture_group = south_slavic
+							}
+						}
+					}
+				}
+			}
+			#所有波兰、北德意志，巴尔喀阡、巴尔干、鲁塞尼亚、波罗的、俄罗斯的省份
+		} 
+
+		effect = {
+			#获得统治者修正-全斯拉夫人的保护者
+			add_ruler_modifier = {
+				name = EDG_BELA_KSB_slavic_protector_ruler_modifier
+				duration = -1
+			}
+			set_country_flag = EDG_BELA_KSB_slavic_protector_flag
+			custom_tooltip = EDG_BELA_KSB_slavic_protector_flag_tt_0
+			custom_tooltip = EDG_BELA_KSB_slavic_protector_flag_tt_1
+			#启用一项决议允许我们将国名修正为斯拉维亚
+			#解锁一项决议以为我们的统治者加冕全斯拉夫人的保护者
+		} 
+	}
+}
+EDG_BELA_KSB_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_5_1 = {
+		icon = mission_establish_high_seas_navy
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#探索理念1 quest_for_the_new_world
+			has_idea = quest_for_the_new_world
+		} 
+
+		effect = {
+			#如果还未接纳殖民主义思潮，则获得修正-开辟新航路
+			#如果已经接纳了殖民主义，则获得修正-我们的应许之地
+			if = {
+				limit = {
+					not = {
+						has_institution = new_world_i
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_not_has_colonize_flag_tt_yes
+				add_country_modifier = {
+					name = EDG_BELA_KSB_5_1_explore_modifier_1
+					duration = 9125
+				}
+				custom_tooltip = EDG_BELA_KSB_has_colonize_flag_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_5_1_explore_modifier_2
+						duration = 9125
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_not_has_colonize_flag_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_5_1_explore_modifier_1
+						duration = 9125
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_has_colonize_flag_tt_yes
+				add_country_modifier = {
+					name = EDG_BELA_KSB_5_1_explore_modifier_2
+					duration = 9125
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_2 = {
+		icon = mission_conquer_prussia
+		position = 2
+		required_missions = { EDG_BELA_KSB_3_1 } 
+		provinces_to_highlight = {
+			area = east_prussia_area
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#东普鲁士地区
+			east_prussia_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#触发事件-卡舒比人东进运动
+			#country_event = {
+			#	id = EDG_BELA_POM_events.64
+			#}
+			#事件前瞻：允许我们通过提升发展度来将波罗的文化组省份转化为卡舒比文化
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_2_colonize_modifier
+				duration = -1
+			}
+			custom_tooltip = EDG_BELA_KSB_5_2_colonize_modifier_tt
+			#当修正「卡舒比东进运动」存在时，允许我们通过提升发展度来将波罗的文化组省份转化为卡舒比文化。
+			#当修正「卡舒比东进运动」存在时，驱逐少数民族行动将能把本土省份转化为我们的主流文化。
+		} 
+	}
+
+	EDG_BELA_KSB_5_3 = {
+		icon = mission_impaled_soldies
+		position = 3
+		required_missions = { EDG_BELA_KSB_5_2 } 
+		provinces_to_highlight = {
+			superregion = eastern_europe_superregion
+			culture_group = germanic
+		} 
+
+		trigger = {
+			#整个东欧没有德意志文化省份
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_KSB_5_3_trigger_tt
+				not = {
+					any_province = {
+						superregion = eastern_europe_superregion
+						culture_group = germanic
+					}
+				}
+			}
+		} 
+
+		effect = {
+			#给予100年修正「自东欧驱逐德意志人」
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_3_modifier
+				duration = 36500
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_4 = {
+		icon = mission_restore_kiev
+		position = 4
+		required_missions = { EDG_BELA_KSB_4_3 } 
+		provinces_to_highlight = {
+			province_id = 280
+			not = {
+				owned_by = root
+			}
+			is_state = no
+		} 
+
+		trigger = {
+			#基辅位于直属州内并被root控制
+			280 = {
+				owned_by = root
+				is_state = yes
+			}
+		} 
+
+		effect = {
+			#触发事件-统治罗斯
+			country_event = {
+				id = EDG_BELA_POM_events.64
+			}
+			custom_tooltip = EDG_BELA_KSB_5_4_effect_tt
+			#解锁触发事件-哥萨克人的觐见-65
+			#解锁事件-游牧问题-66
+		} 
+	}
+
+	EDG_BELA_KSB_5_5 = {
+		icon = mission_dethrone_the_rurikovichs
+		position = 5
+		required_missions = { EDG_BELA_KSB_5_4 } 
+		provinces_to_highlight = {
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 70
+						or = {
+							region = ruthenia_region
+							region = russia_region
+						}
+					}
+				}
+			}
+			or = {
+				region = ruthenia_region
+				region = russia_region
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#不存在独立的君主制东斯拉夫国家
+			not = {
+				any_country = {
+					culture_group = east_slavic
+					government = monarchy
+				}
+			}
+			#在俄罗斯和鲁塞尼亚省份数量达到70
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 70
+				or = {
+					region = ruthenia_region
+					region = russia_region
+				}
+			}
+		} 
+
+		effect = {
+			#解锁联姻机制-留里克
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_marriage_mechanic_flag
+				}
+				set_country_flag = EDG_BELA_POM_marriage_mechanic_flag_rurikovich_flag
+				custom_tooltip = EDG_BELA_POM_marriage_mechanic_flag_rurikovich_flag_tt
+			}
+			#获得25力量投射
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+			#启用罗斯理念组
+			set_country_flag = EDG_RUS_idea_group_enable_flag
+			custom_tooltip = EDG_RUS_idea_group_enable_flag_tt
+		} 
+	}
+
+	EDG_BELA_KSB_5_6 = {
+		icon = mission_recruit_the_cossacks
+		position = 6
+		required_missions = { EDG_BELA_KSB_5_5 } 
+		provinces_to_highlight = {
+		} 
+
+		trigger = {
+			#已经触发过事件-哥萨克人觐见
+			#注意：该事件仅在拥有东斯拉夫文化大草原地形省份时才能触发
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_KSB_5_6_trigger_tt
+				has_country_flag = EDG_BELA_KSB_5_6_enable_flag
+			}
+		} 
+
+		effect = {
+			#启用哥萨克阶层
+			unlock_estate = {
+				estate = estate_cossacks
+			}
+			#启用哥萨克改革决议
+			set_country_flag = enable_EDG_Cossack_1_modifier_decision_flag
+			set_country_flag = enable_EDG_Cossack_2_modifier_decision_flag
+			custom_tooltip = enable_EDG_Cossack_1_modifier_decision_flag_tt
+			custom_tooltip = enable_EDG_Cossack_2_modifier_decision_flag_tt
+		} 
+	}
+
+	EDG_BELA_KSB_5_7 = {
+		icon = mission_non-western_cavalry_raid
+		position = 7
+		required_missions = { EDG_BELA_KSB_5_6 } 
+		provinces_to_highlight = {
+			or = {
+				region = crimea_region
+				region = ural_region
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#克里米亚、乌拉尔地区被自己和属国完全拥有
+			crimea_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			ural_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得25力量投射
+			add_power_projection = {
+				type = mission_rewards_power_projection
+				amount = 25
+			}
+			#给予统治者修正-游牧毁灭者
+			 #陆军移动速度+20%
+			 #骑兵作战能力+10%
+			 #骑兵比例+20%
+			 #战斗获得的威望+100%
+			add_ruler_modifier = {
+				name = EDG_BELA_KSB_5_7_modifier
+				duration = -1
+			}
+			 #触发事件-统治鞑靼
+			  #选项-鞑靼人是草原贸易的好手
+			  #选项-鞑靼人必须服从来自宫廷的管理
+			country_event = {
+				id = EDG_BELA_POM_events.74
+			}
+			 #触发事件-利用鞑靼（减少贵族和哥萨克忠诚度）
+			  #选项-吸纳鞑靼人进入我们的军队
+			  #选项-军队需要严明的纪律和训练
+			  country_event = {
+				id = EDG_BELA_POM_events.75
+			}
+			##解锁触发事件：进军高加索
+			#将来我们的统治者领军占领任意发展度大于100的游牧国家的首都将能给予统治者修正-游牧毁灭者
+			 #陆军移动速度+10%
+			 #骑兵作战能力+5%
+			 #骑兵比例+10%
+			 #战斗获得的威望+50%
+			caucasia_region = {
+				limit = {
+					not = {
+						owned_by = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			custom_tooltip = EDG_BELA_KSB_5_7_effect_tt
+			tooltip = {
+				add_ruler_modifier = {
+					name = EDG_BELA_KSB_5_7_half_modifier
+					duration = -1
+				}
+			}
+			set_country_flag = EDG_BELA_KSB_5_7_modifier_flag
+		} 
+	}
+
+	EDG_BELA_KSB_5_8 = {
+		icon = arm_etchmiadzin_cathedral
+		position = 8
+		required_missions = { EDG_BELA_KSB_5_7 } 
+		provinces_to_highlight = {
+			region = caucasia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#高加索地区被自己或首都在高加索地区的属国控制
+			caucasia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#如果有属国，则属国独立倾向必须小于5%
+			if = {
+				limit = {
+					any_subject_country = {
+						capital_scope = {
+							region = caucasia_region
+						}
+					}
+				}
+				all_subject_country = {
+					or = {
+						and = {
+							capital_scope = {
+								region = caucasia_region
+							}
+							not = {
+								liberty_desire = 5
+							}
+						}
+						not = {
+							capital_scope = {
+								region = caucasia_region
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			tabarestan_area = {
+				limit = {
+					not = {
+						owned_by = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#格鲁吉亚省份获得永久修正-高加索边墙
+			kartli_kakheti_area = {
+				add_province_modifier = {
+					name = EDG_BELA_KSB_5_8_geo_province_modifier
+					duration = -1
+				}
+			}
+			#如果格鲁吉亚是我们的卫戍国，则格鲁吉亚获得永久修正-格鲁吉亚边墙防御策略
+			if = {
+				limit = {
+					GEO = {
+						march_of = root
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_5_8_geo_country_tt_yes
+				GEO = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_5_8_geo_country_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_5_8_geo_country_tt_no
+				tooltip = {
+					GEO = {
+						add_country_modifier = {
+							name = EDG_BELA_KSB_5_8_geo_country_modifier
+							duration = -1
+						}
+					}
+				}
+			}
+		} 
+	}
+}

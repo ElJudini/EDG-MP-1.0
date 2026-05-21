@@ -1,0 +1,561 @@
+custom_button = { #GFX_tab_economy
+	name = EDG_GEN_main_button
+	tooltip = EDG_GEN_main_button.tt
+	potential = {
+		from = {
+			has_government_mechanic = EDG_GEN_george_house_mechanic
+		}
+		NOT = {
+			tag = from
+		}
+	}
+	trigger = {
+		
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_button.effect.tt
+		hidden_effect = {
+			if = {
+				limit = { 
+					from = {
+						NOT = {
+							has_country_flag = EDG_GEN_open_main_surface_flag
+						}
+					}
+				}
+				from = {
+					set_country_flag = EDG_GEN_open_main_surface_flag
+				}
+			}
+			else = {
+				from = {
+					clr_country_flag = EDG_GEN_open_main_surface_flag
+				}
+			}
+		}
+	}
+}
+custom_window = {
+	name = EDG_GEN_main_window
+	potential = { 
+		EDG_GEN_custom_gui_trigger = yes
+	}
+}
+custom_icon = { #BG
+	name = EDG_GEN_main_surface_bg
+	potential = { 
+		#EDG_GEN_custom_gui_trigger = yes
+	}
+}
+custom_button = { #提升信用评级
+	#GFX_subject_action_bg
+	name = EDG_GEN_main_surface_button_1
+	tooltip = EDG_GEN_main_surface_button_1.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_1.condition.tt
+			NOT = {
+				check_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 50
+				}
+			}
+		}
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_2.conditon.tt
+			NOT = {
+				has_country_flag = EDG_GEN_blocked_account_flag
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_surface_button_1.effect.tt
+		hidden_effect = {
+			if = {
+				limit = { 
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_credit_rating_var
+							value = 0
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 0
+				}
+			}
+			else_if = {
+				limit = { 
+					check_variable = {
+						which = EDG_GEN_credit_rating_var
+						value = 0
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_credit_rating_var
+							value = 3
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 3
+				}
+			}
+			else_if = {
+				limit = { 
+					check_variable = {
+						which = EDG_GEN_credit_rating_var
+						value = 3
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_credit_rating_var
+							value = 15
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 15
+				}
+			}
+			else_if = {
+				limit = { 
+					check_variable = {
+						which = EDG_GEN_credit_rating_var
+						value = 15
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_credit_rating_var
+							value = 30
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 30
+				}
+			}
+			else_if = {
+				limit = { 
+					check_variable = {
+						which = EDG_GEN_credit_rating_var
+						value = 30
+					}
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_credit_rating_var
+							value = 50
+						}
+					}
+				}
+				set_variable = {
+					which = EDG_GEN_credit_rating_var
+					value = 50
+				}
+			}
+		}
+	}
+}
+custom_button = { #冻结账户
+	name = EDG_GEN_main_surface_button_2
+	tooltip = EDG_GEN_main_surface_button_2.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+		NOT = {
+			has_country_flag = EDG_GEN_blocked_account_flag
+		}
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_2.conditon.tt
+			NOT = {
+				has_country_flag = EDG_GEN_blocked_account_flag
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_surface_button_2.effect.tt
+		if = {
+			limit = { 
+				has_country_modifier = EDG_GEN_debt_default
+				check_variable = {
+					which = EDG_GEN_deposit_to_bank_var
+					value = 1
+				}
+			}
+			set_variable = {
+				which = EDG_GEN_deposit_to_bank_var
+				value = 0
+			}
+			add_opinion = {
+				who = from
+				modifier = opinion_expropriation_assets
+			}
+			add_opinion = {
+				who = from
+				modifier = opinion_EDG_GEN_blocked_account
+			}
+		}
+		else = {
+			add_opinion = {
+				who = from
+				modifier = opinion_EDG_GEN_blocked_account
+			}
+		}
+		hidden_effect = {
+			set_country_flag = EDG_GEN_blocked_account_flag
+		}
+	}
+}
+custom_button = { #解冻账户
+	name = EDG_GEN_main_surface_button_3
+	tooltip = EDG_GEN_main_surface_button_3.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+		has_country_flag = EDG_GEN_blocked_account_flag
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_3.conditon.tt
+			has_country_flag = EDG_GEN_blocked_account_flag
+		}
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_surface_button_3.effect.tt
+		hidden_effect = {
+			set_variable = {
+				which = EDG_GEN_credit_rating_var
+				value = 0
+			}
+		}
+		remove_opinion = {
+			who = from
+			modifier = opinion_EDG_GEN_blocked_account
+		}
+		hidden_effect = {
+			clr_country_flag = EDG_GEN_blocked_account_flag
+		}
+	}
+}
+custom_button = { #免除债务
+	name = EDG_GEN_main_surface_button_4
+	tooltip = EDG_GEN_main_surface_button_4.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+	}
+	trigger = {
+		check_variable = {
+			which = EDG_GEN_borrow_to_bank_var
+			value = 1
+		}
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_2.conditon.tt
+			NOT = {
+				has_country_flag = EDG_GEN_blocked_account_flag
+			}
+		}
+	}
+	effect = {
+		#custom_tooltip = EDG_GEN_main_surface_button_4.condition.tt
+		set_variable = {
+			which = EDG_GEN_borrow_to_bank_var
+			value = 0
+		}
+	}
+}
+custom_button = {
+	name = EDG_GEN_main_surface_button_5
+	tooltip = EDG_GEN_main_surface_button_5.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+	}
+	trigger = {
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_5.condition_1.tt
+			NOT = {
+				has_country_flag = EDG_GEN_enable_use_bank
+			}
+		}
+		if = {
+			limit = { 
+				capital_scope = {
+					OR = {
+						superregion = europe_superregion
+						superregion = eastern_europe_superregion
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_GEN_main_surface_button_5.condition_2.tt
+				always = no
+			}
+		}
+		
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_surface_button_5.effet.tt
+		hidden_effect = {
+			set_country_flag = EDG_GEN_enable_use_bank
+		}
+	}
+}
+custom_button = {
+	name = EDG_GEN_main_surface_button_6
+	tooltip = EDG_GEN_main_surface_button_6.tt
+	potential = {
+		#EDG_GEN_custom_gui_trigger = yes
+	}
+	trigger = {
+		is_subject = no
+		custom_trigger_tooltip = {
+			tooltip = EDG_GEN_main_surface_button_6.condition_1.tt
+			OR = {
+				capital_scope = {
+					superregion = europe_superregion
+				}
+				capital_scope = {
+					superregion = eastern_europe_superregion
+				}
+				has_country_flag = EDG_GEN_enable_use_bank
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = EDG_GEN_main_surface_button_6.effet.tt
+		hidden_effect = {
+			set_variable = {
+				which = EDG_GEN_total_development_with_subject_var
+				value = 0
+			}
+			
+			set_variable = {
+				which = EDG_GEN_subject_development_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_total_development_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_national_treasury_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_monthly_income_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_infantry_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_cavalry_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_artillery_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_GEN_total_value_var
+				value = 0
+			}
+			export_to_variable = {
+				which = EDG_GEN_total_development_var
+				value = trigger_value:total_development
+			}
+			set_variable = {
+				which = EDG_GEN_total_development_var_use
+				which = EDG_GEN_total_development_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_total_development_var_use
+				value = 50
+			}
+			export_to_variable = {
+				which = EDG_GEN_total_development_with_subject_var
+				value = trigger_value:total_own_and_non_tributary_subject_development
+			}
+			set_variable = {
+				which = EDG_GEN_total_development_with_subject_var_use
+				which = EDG_GEN_total_development_with_subject_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_total_development_with_subject_var_use
+				value = 50
+			}
+			every_subject_country = {
+				set_variable = {
+					which = EDG_GEN_subject_development_var
+					value = 0
+				}
+				export_to_variable = {
+					which = EDG_GEN_subject_development_var
+					value = trigger_value:total_development
+				}
+				prev = {
+					change_variable = {
+						which = EDG_GEN_subject_development_var
+						which = prev
+					}
+				}
+			}
+			set_variable = {
+				which = EDG_GEN_subject_development_var_use
+				which = EDG_GEN_subject_development_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_subject_development_var_use
+				value = 50
+			}
+			export_to_variable = {
+				which = EDG_GEN_national_treasury_var
+				value = treasury
+			}
+			export_to_variable = {
+				which = EDG_GEN_monthly_income_var
+				value = trigger_value:monthly_income
+			}
+			set_variable = {
+				which = EDG_GEN_monthly_income_var_use
+				which = EDG_GEN_monthly_income_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_monthly_income_var_use
+				value = 120
+			}
+			export_to_variable = {
+				which = EDG_GEN_num_of_infantry_var
+				value = trigger_value:num_of_infantry
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_infantry_var_ues
+				which = EDG_GEN_num_of_infantry_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_num_of_infantry_var_ues
+				value = 10
+			}
+			export_to_variable = {
+				which = EDG_GEN_num_of_cavalry_var
+				value = trigger_value:num_of_cavalry
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_cavalry_var_ues
+				which = EDG_GEN_num_of_cavalry_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_num_of_cavalry_var_ues
+				value = 25
+			}
+			export_to_variable = {
+				which = EDG_GEN_num_of_artillery_var
+				value = trigger_value:num_of_artillery
+			}
+			set_variable = {
+				which = EDG_GEN_num_of_artillery_var_ues
+				which = EDG_GEN_num_of_artillery_var
+			}
+			multiply_variable = {
+				which = EDG_GEN_num_of_artillery_var_ues
+				value = 30
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_total_development_with_subject_var_use
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_monthly_income_var_use
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_national_treasury_var
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_num_of_infantry_var_ues
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_num_of_cavalry_var_ues
+			}
+			change_variable = {
+				which = EDG_GEN_total_value_var
+				which = EDG_GEN_num_of_artillery_var_ues
+			}
+			from = {
+				set_variable = {
+					which = EDG_GEN_diplomatic_reputation_var
+					value = 0
+				}
+				export_to_variable = {
+					which = EDG_GEN_diplomatic_reputation_buyer_var
+					value = modifier:diplomatic_reputation
+				}
+			}
+			set_variable = {
+				which = EDG_GEN_diplomatic_reputation_buyer_var
+				which = from
+			}
+			set_variable = {
+				which = EDG_GEN_diplomatic_reputation_var
+				which = 0
+			}
+			
+			export_to_variable = {
+				which = EDG_GEN_diplomatic_reputation_var
+				value = modifier:diplomatic_reputation
+			}
+			set_variable = {
+				which = EDG_GEN_diplomatic_reputation_difference_var
+				which = EDG_GEN_diplomatic_reputation_buyer_var
+			}
+			subtract_variable = {
+				which = EDG_GEN_diplomatic_reputation_difference_var
+				which = EDG_GEN_diplomatic_reputation_var
+			}
+			set_variable = {
+				which = EDG_GEN_acquisition_var
+				which = EDG_GEN_total_value_var
+			}
+			set_variable = {
+				which = EDG_GEN_diplomatic_reputation_cal_var
+				which = EDG_GEN_diplomatic_reputation_difference_var
+			}
+			subtract_variable = {
+				which = EDG_GEN_diplomatic_reputation_cal_var
+				value = 100
+			}
+			if = {
+				limit = { 
+					NOT = {
+						check_variable = {
+							which = EDG_GEN_diplomatic_reputation_cal_var
+							value = 0
+						}
+					}
+				}
+				multiply_variable = {
+					which = EDG_GEN_diplomatic_reputation_cal_var
+					value = -1
+				}
+			}
+			multiply_variable = {
+				which = EDG_GEN_acquisition_var
+				which = EDG_GEN_diplomatic_reputation_cal_var
+			}
+			divide_variable = {
+				which = EDG_GEN_acquisition_var
+				value = 100
+			}
+		}
+	}
+}

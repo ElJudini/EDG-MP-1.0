@@ -1,0 +1,234 @@
+namespace = EDG_incident_schmalkaldic_league_event
+normal_or_historical_nations = yes
+country_event = {#施马尔卡尔登联盟
+  id = EDG_incident_schmalkaldic_league_event.0
+  title = "EDG_incident_schmalkaldic_league_event.0.t"
+  desc = "EDG_incident_schmalkaldic_league_event.0.d"
+  picture = HRE_eventPicture
+  #major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+  }
+  mean_time_to_happen = {
+  }
+  
+  option = {#皇帝必须向他们宣战！
+    name = "EDG_incident_schmalkaldic_league_event.0.a"
+    ai_chance = {
+      factor = 20
+      modifier = {
+        factor = 2
+        religious_unity = 0.99
+      }
+      modifier = {
+        factor = 2
+        religious_unity = 0.75
+      }
+      modifier = {
+        factor = 0
+        NOT = { religion = catholic }
+      }
+    }
+    set_global_flag = EDG_incident_schmalkaldic_league_event_0_a_global_flag
+    custom_tooltip = EDG_incident_schmalkaldic_league_event_0_a_global_flag_tt
+    
+    set_global_flag = EDG_incident_schmalkaldic_league_event_0_global_flag
+  }
+  option = {#那是属于他们的自由。
+    name = "EDG_incident_schmalkaldic_league_event.0.b"
+    ai_chance = {
+      factor = 1
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.6 }
+      }
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.4 }
+      }
+      modifier = {
+        factor = 1.5
+        NOT = { religious_unity = 0.3 }
+      }
+      modifier = {
+        factor = 5
+        NOT = { religious_unity = 0.15 }
+      }
+      modifier = {
+        factor = 5
+        NOT = { religious_unity = 0.15 }
+      }
+      modifier = {
+        factor = 0
+        religion = catholic
+      }
+    }
+    #add_reform_desire = 0.05
+    add_imperial_influence = -100
+    custom_tooltip = EDG_SPACE_TT
+    set_global_flag = EDG_incident_schmalkaldic_league_event_0_b_global_flag
+    custom_tooltip = EDG_incident_schmalkaldic_league_event_0_b_global_flag_tt
+    
+    
+    set_global_flag = EDG_incident_schmalkaldic_league_event_0_global_flag
+  }
+}
+country_event = {#施马尔卡尔登联盟
+  id = EDG_incident_schmalkaldic_league_event.1
+  title = "EDG_incident_schmalkaldic_league_event.1.t"
+  desc = "EDG_incident_schmalkaldic_league_event.1.d"
+  picture = HRE_eventPicture
+  major = yes
+  fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    NOT = { active_imperial_incident = any }
+    NOT = { has_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag }
+    OR = {
+      has_country_flag = EDG_incident_schmalkaldic_league_event_1_enble_flag
+      AND = {
+        NOT = { active_imperial_incident = any }
+        religion = protestant
+        is_part_of_hre = yes
+        has_global_flag = EDG_incident_tolgo_alliance_event_1_global_flag
+        NOT = { hre_religion_locked = yes }
+        OR = {
+          current_age = age_of_reformation
+          #current_age = age_of_discovery
+        }
+        OR = {
+          is_year = 1520
+          calc_true_if = {
+            amount = 10
+            all_country = {
+              religion = protestant
+              is_part_of_hre = yes
+              OR = {
+                is_subject = no
+                overlord = { religion = protestant }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  mean_time_to_happen = {
+    months = 20
+  }
+  immediate = {
+    hidden_effect = {
+      set_imperial_incident = incident_schmalkaldic_league
+      set_global_flag = EDG_incident_schmalkaldic_league_event_1_global_flag
+    }
+  }
+  option = {#
+    name = "EDG_incident_schmalkaldic_league_event.1.a"
+    ai_chance = {
+      factor = 10
+    }
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+    add_prestige_or_monarch_power = { amount = 20 }
+    tooltip = {
+      set_imperial_incident = incident_schmalkaldic_league
+    }
+    custom_tooltip = EDG_incident_schmalkaldic_league_event_1_a_tt
+  }
+
+}
+country_event = {#解散施马尔卡尔登联盟
+  id = EDG_incident_schmalkaldic_league_event.2
+  title = "EDG_incident_schmalkaldic_league_event.2.t"
+  desc = "EDG_incident_schmalkaldic_league_event.2.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  immediate = {
+    set_global_flag = EDG_incident_schmalkaldic_league_END_flag
+  }
+  option = {#
+    name = "EDG_incident_schmalkaldic_league_event.2.a"
+    ai_chance = {
+      factor = 10
+    }
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+    add_prestige_or_monarch_power = { amount = 20 }
+    
+    custom_tooltip = EDG_incident_schmalkaldic_league_event_2_a_tt
+    every_country = {
+      limit = {
+        OR = {
+          has_country_modifier = EDG_incident_schmalkaldic_league_decision_modifier
+          has_country_modifier = EDG_mission_SAX_2_11_modifier
+        }
+      }
+      remove_country_modifier = EDG_incident_schmalkaldic_league_decision_modifier
+      remove_country_modifier = EDG_mission_SAX_2_11_modifier
+      clr_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+    }
+  }
+
+}
+country_event = {#皇帝向施马尔卡尔登联盟宣战
+  id = EDG_incident_schmalkaldic_league_event.3
+  title = "EDG_incident_schmalkaldic_league_event.3.t"
+  desc = "EDG_incident_schmalkaldic_league_event.3.d"
+  picture = HRE_eventPicture
+  major = yes
+  #fire_only_once = yes
+  is_triggered_only = yes
+  trigger = { 
+    
+  }
+  mean_time_to_happen = {
+    
+  }
+  immediate = {
+  }
+  option = {#我们将用鲜血证明信仰！
+    name = "EDG_incident_schmalkaldic_league_event.3.a"
+    ai_chance = {
+      factor = 10
+    }
+		custom_tooltip = EDG_flavor_religion_reform_events_tt
+		custom_tooltip = EDG_flavor_religion_protestant_events_tt
+    add_prestige_or_monarch_power = { amount = 20 }
+    if = {
+      limit = { has_country_modifier = EDG_incident_schmalkaldic_league_decision_modifier }
+      hidden_effect = {
+        remove_country_modifier = EDG_incident_schmalkaldic_league_decision_modifier
+      }
+      add_country_modifier_for_age = {
+        name = EDG_mission_SAX_2_11_modifier
+        age = age_of_reformation
+      }
+    }
+    every_country = {
+      limit = {
+        NOT = { tag = ROOT }
+        religion = protestant
+        has_country_flag = EDG_incident_schmalkaldic_league_decision_flag
+      }
+      join_all_defensive_wars_of = ROOT
+      hidden_effect = {
+        remove_country_modifier = EDG_incident_schmalkaldic_league_decision_modifier
+      }
+      add_country_modifier_for_age =  {
+        name = EDG_incident_schmalkaldic_league_decision_modifier
+        age = age_of_reformation
+      }
+      
+    }
+  }
+
+}

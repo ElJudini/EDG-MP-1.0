@@ -1,0 +1,191 @@
+EDG_FOI_ADU_introduction_of_state_religion = {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		from = {
+			religion_group = christian
+		}
+		has_country_flag = FOI_ADU_expand_6_5_flag
+	}
+	is_allowed = {
+		from = {
+			OR = {
+				AND = {
+					has_opinion = {
+						who = root
+						value = 100
+					}
+					alliance_with = root
+				}
+				is_subject_of = root
+			}
+		}
+		NOT = {
+			any_owned_province = {
+				religion = from
+				region = iberia_region
+			}
+		}
+	}
+	ai_will_do = {
+		always = yes
+	}
+	on_accept = {
+		add_years_of_income = -0.2
+		while = {
+			limit = { 
+				NOT = {
+					any_owned_province = {
+						region = iberia_region
+						religion = from
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					region = iberia_region
+				}
+				save_event_target_as = EDG_FOI_ADU_religion_target
+				if = {
+					limit = { 
+						calc_true_if = {
+							amount = 2
+							owner = {
+								all_owned_province = {
+									region = iberia_region
+									NOT = {
+										is_capital_of = root
+									}
+									religion = event_target:EDG_FOI_ADU_religion_target
+								}
+							}
+						}
+					}
+					change_religion = from
+				}
+			}
+		}
+	}
+}
+EDG_FOI_ADU_embrace_heresy = {
+	category = influence
+	require_acceptance = no
+	is_visible = {
+		has_government_mechanic = FOI_andalusia_religious_tolerance_mechanic
+		from = {
+			any_owned_province = {
+				NOT = {
+					religion = prev
+				}
+				religion_group = christian
+			}
+		}
+		has_country_flag = FOI_ADU_expand_6_5_flag
+	}
+	is_allowed = {
+		from = {
+			OR = {
+				AND = {
+					has_opinion = {
+						who = root
+						value = 100
+					}
+					alliance_with = root
+				}
+				is_subject_of = root
+			}
+		}
+	}
+	ai_will_do = {
+		always = yes
+	}
+	on_accept = {
+		
+		from = {
+			random_owned_province = {
+				limit = {
+					NOT = {
+						religion = prev
+					}
+					religion_group = christian
+				}
+				save_event_target_as = EDG_FOI_ADU_from_religion_target
+			}
+		}
+		while = {
+			limit = { 
+				NOT = {
+					any_owned_province = {
+						region = iberia_region
+						religion = event_target:EDG_FOI_ADU_from_religion_target
+					}
+				}
+			}
+			random_owned_province = {
+				limit = {
+					region = iberia_region
+				}
+				save_event_target_as = EDG_FOI_ADU_religion_target
+				if = {
+					limit = { 
+						calc_true_if = {
+							amount = 2
+							root = {
+								all_owned_province = {
+									region = iberia_region
+									NOT = {
+										is_capital_of = root
+									}
+									religion = event_target:EDG_FOI_ADU_religion_target
+								}
+							}
+						}
+					}
+					root = {
+						add_years_of_income = -0.5
+					}
+					change_religion = event_target:EDG_FOI_ADU_from_religion_target
+					event_target:EDG_FOI_ADU_from_religion_target = {
+						change_religion = from
+					}
+				}
+			}
+		}
+		
+	}
+}
+EDG_FOI_ADU_imported_grain = {
+	require_acceptance = no
+	category = influence
+
+	is_visible = {
+		has_disaster = EDG_FOI_iberia_great_famine
+	}
+	is_allowed = {
+		from = {
+			owes_favors = {
+				who = root
+				value = 15
+			}
+		}
+	}
+	on_accept = {
+		from = {
+			root = {
+				add_favors = {
+					who = prev
+					amount = -15
+				}
+			}
+		}
+		add_government_power = {
+			mechanic_type = FOI_iberia_reconstruction_work_mechanic
+			power_type = FOI_iberia_reconstruction_work
+			value = 5
+		}
+	}
+	ai_will_do = {
+		always = yes
+	}
+}

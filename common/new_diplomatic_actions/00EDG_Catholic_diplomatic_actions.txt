@@ -1,0 +1,152 @@
+EDG_Prohibition_order_action = {#颁布禁教令
+	category = papacy           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 93            # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_EMP_Appoint_Castle_Manager_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		OR = {
+			is_papal_controller = yes
+			tag = PAP
+		}
+		religion = catholic
+		FROM = {
+			religion = catholic
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		is_papal_controller = yes
+		religion = catholic
+		if = {
+			limit = { tag = PAP }
+			dip_power = 100
+		}
+		else = {
+			papal_influence = 50
+		}
+		NOT = { has_country_modifier = EDG_under_Prohibition_order_to_others_in_10_years_modifier }
+		FROM = {
+			religion = catholic
+			NOT = { tag = PAP }
+			EDG_NOT_under_Prohibition_order_trigger = yes
+			NOT = { has_country_modifier = EDG_Prohibition_order_invalid_in_20_years_modifier }
+		}
+	}
+	on_accept = {
+		add_papal_influence = -50
+		add_country_modifier = {
+			name = "EDG_under_Prohibition_order_to_others_in_10_years_modifier"
+			duration = 3650
+			hidden = yes
+		}
+		FROM = {
+			country_event = { id = EDG_flavorCatholic.9 }
+			add_country_modifier = {
+				name = "EDG_under_Prohibition_order_modifier"
+				duration = 7300
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = { is_rival = ROOT }
+		NOT = {
+			has_opinion = {
+				who = FROM
+				value = 0
+			}
+		}
+    }
+}
+EDG_Prohibition_order_TO_HRE_MEMBERS_action = {#对帝国诸侯颁布禁教令
+	category = papacy           # 该行动会显示在哪个外交行动列表里。
+    
+    alert_index = 93            # 用于该行动的警告。索引号参考 static_actions。可选的。
+    alert_tooltip = EDG_Prohibition_order_TO_HRE_MEMBERS_action_alert_tooltip           # 要显示在警告工具提示的本地化关键字。可选的。
+    
+    require_acceptance = no	   # 是否该行动需要被目标国家接受，以便执行接受效果
+    
+    # 决定何时该行动是可见的
+	is_visible = {
+		has_country_flag = EDG_mission_LOT_4_6_a_flag
+		religion = catholic
+		FROM = {
+			religion = catholic
+			is_part_of_hre = yes
+		}
+	}
+    
+    # 决定何时该行动能被采用
+    
+	is_allowed = {
+		religion = catholic
+		if = {
+			limit = { tag = PAP }
+			dip_power = 100
+		}
+		else = {
+			papal_influence = 50
+		}
+		NOT = { has_country_modifier = EDG_under_Prohibition_order_to_others_in_10_years_modifier }
+		FROM = {
+			religion = catholic
+			is_part_of_hre = yes
+			NOT = { tag = PAP }
+			EDG_NOT_under_Prohibition_order_trigger = yes
+			NOT = { has_country_modifier = EDG_Prohibition_order_invalid_in_20_years_modifier }
+		}
+	}
+	on_accept = {
+		add_papal_influence = -50
+		add_country_modifier = {
+			name = "EDG_under_Prohibition_order_to_others_in_10_years_modifier"
+			duration = 3650
+			hidden = yes
+		}
+		FROM = {
+			country_event = { id = EDG_flavorCatholic.9 }
+			add_country_modifier = {
+				name = "EDG_under_Prohibition_order_modifier"
+				duration = 7300
+			}
+		}
+	}
+    
+    # 拒绝时（如果可拒绝）执行哪个效果。可选的。
+    on_decline = {
+       
+    }
+    
+    # 控制AI对该行动的接受倾向，如果需要目标国家同意。非必须。
+    ai_acceptance = {
+		
+    }
+    
+    # 控制AI对该行动的使用
+    ai_will_do = {
+		FROM = { is_rival = ROOT }
+		NOT = {
+			has_opinion = {
+				who = FROM
+				value = 0
+			}
+		}
+    }
+}

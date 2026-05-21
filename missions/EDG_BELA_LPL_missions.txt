@@ -1,0 +1,1246 @@
+EDG_BELA_LPL_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = LPL } 
+
+	EDG_BELA_LPL_1_1 = {
+		icon = mission_unite_home_region
+		position = 1
+		provinces_to_highlight = {
+			has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+			not = { owned_by = root } 
+		}
+
+		trigger = {
+			not = {
+				custom_trigger_tooltip = {
+					tooltip = EDG_BELA_LPL_1_1_province_trigger_tt
+					any_province = {
+						has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+						not = { owned_by = root } 
+					}
+				}
+			}
+		}
+
+		effect = {
+			hidden_effect = {
+				every_owned_province = {
+					limit = { has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag } 
+					add_scaled_local_adm_power = 5
+					add_scaled_local_dip_power = 5
+					add_scaled_local_mil_power = 5
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+			custom_tooltip = EDG_BELA_LPL_1_1_province_tt
+			add_prestige = 10
+			add_country_modifier = {
+				name = EDG_BELA_LPL_unite_modifier
+				duration = -1
+			}
+			custom_tooltip = EDG_BELA_LPL_1_1_tt
+		}
+	}
+
+	EDG_BELA_LPL_1_4 = {
+		icon = mission_alliances
+		position = 4
+		required_missions = { EDG_BELA_LPL_3_3 } 
+		provinces_to_highlight = {
+			if = {
+				limit = {
+					not = {
+						root = {
+							current_size_of_parliament = 10
+						}
+					}
+				}
+				has_seat_in_parliament = no
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			has_parliament = yes
+			root = {
+				current_size_of_parliament = 10
+			}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_1_4_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = humanist_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_1_4_has_humanist_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_1_4_humanist_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_1_4_has_humanist_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_1_4_humanist_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_1_5 = {
+		icon = mission_high_income
+		position = 5
+		required_missions = { EDG_BELA_LPL_1_4 } 
+		provinces_to_highlight = {
+			has_seat_in_parliament = no
+			owned_by = root
+		} 
+
+		trigger = {
+			has_parliament = yes
+			all_owned_province = {
+				has_seat_in_parliament = yes
+			}
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_LPL_1_5_tt
+			remove_country_modifier = EDG_BELA_LPL_1_4_modifier
+			add_country_modifier = {
+				name = EDG_BELA_LPL_1_5_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = humanist_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_1_5_full_humanist_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_1_4_humanist_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_1_5_humanist_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_1_5_full_humanist_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_1_4_humanist_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_1_5_humanist_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_LPL_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = LPL } 
+
+	EDG_BELA_LPL_2_2 = {
+		icon = mission_monarch_in_throne_room
+		position = 2
+		required_missions = { EDG_BELA_LPL_1_1 } 
+		provinces_to_highlight = {
+			has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+			not = { owned_by = root } 
+			not = { culture = root } 
+		}
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_LPL_2_2_province_trigger_tt
+				all_province = {
+					or = {
+						and = {
+							has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+							owned_by = root
+							culture = root
+						}
+						not = {
+							has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			remove_country_modifier = EDG_BELA_LPL_unite_modifier
+			add_country_modifier = {
+				name = EDG_BELA_LPL_reunite_modifier
+				duration = -1
+			}
+			add_splendor = 100
+			add_prestige_or_monarch_power = { amount = 25 } 
+			add_legitimacy = 10
+		}
+	}
+
+	EDG_BELA_LPL_2_4 = {
+		icon = mission_build_up_to_force_limit
+		position = 4
+		required_missions = { EDG_BELA_LPL_3_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			or = {
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 10
+									has_manpower_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_manpower_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 10
+									has_forcelimit_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_forcelimit_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 5
+									has_shipyard_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_shipyard_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 5
+									has_dock_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_dock_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 5
+									has_fort_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_fort_building_trigger = no
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				has_manpower_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				has_forcelimit_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				has_shipyard_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				has_dock_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				has_fort_building_trigger = yes
+			}
+			army_size = 40
+			navy_size = 20
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_2_4_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = defensive_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_4_has_defensive_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_4_defensive_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_4_has_defensive_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_4_defensive_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = naval_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_4_has_naval_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_4_naval_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_4_has_naval_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_4_naval_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = quality_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_4_has_quality_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_4_quality_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_4_has_quality_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_4_quality_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_2_5 = {
+		icon = mission_assemble_an_army
+		position = 5
+		required_missions = { EDG_BELA_LPL_2_4 } 
+		provinces_to_highlight = {
+			owned_by = root
+			or = {
+				has_manpower_building_trigger = no
+				has_forcelimit_building_trigger = no
+				has_fort_building_trigger = no
+				and = {
+					has_port = yes
+					or = {
+						has_shipyard_building_trigger = no
+						has_dock_building_trigger = no
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			all_owned_province = {
+				has_manpower_building_trigger = yes
+			}
+			all_owned_province = {
+				has_forcelimit_building_trigger = yes
+			}
+			all_owned_province = {
+				or = {
+					and = {
+						has_port = yes
+						has_shipyard_building_trigger = yes
+					}
+					has_port = no
+				}
+			}
+			all_owned_province = {
+				or = {
+					and = {
+						has_port = yes
+						has_dock_building_trigger = yes
+					}
+					has_port = no
+				}				
+			}
+			all_owned_province = {
+				has_fort_building_trigger = yes
+			}
+			army_size = 100
+			navy_size = 50
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_LPL_2_5_tt
+			remove_country_modifier = EDG_BELA_LPL_2_4_modifier
+			add_country_modifier = {
+				name = EDG_BELA_LPL_2_5_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = defensive_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_5_full_defensive_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_2_4_defensive_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_5_defensive_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_5_full_defensive_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_2_4_defensive_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_5_defensive_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = naval_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_5_full_naval_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_2_4_naval_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_5_naval_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_5_full_naval_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_2_4_naval_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_5_naval_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = quality_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_2_5_full_quality_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_2_4_quality_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_2_5_quality_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_2_5_full_quality_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_2_4_quality_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_2_5_quality_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_LPL_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = LPL } 
+
+	EDG_BELA_LPL_3_1 = {
+		icon = contracts_of_correspondence
+		position = 1
+		provinces_to_highlight = {
+		} 
+
+		trigger = {
+			overlord = {
+				has_spy_network_from = {
+					who = ROOT
+					value = 75
+				}
+				trust = { who = root value = 100 }
+			}
+			treasury = 200
+		} 
+
+		effect = {
+			overlord = {
+				add_spy_network_from = {
+					who = root
+					value = -75
+				}
+			}
+			add_treasury = -200
+			overlord = {
+				set_country_flag = EDG_BELA_LPL_anyala_union_overlord_flag
+			}
+			set_country_flag = EDG_BELA_LPL_anyala_union_flag
+			custom_tooltip = EDG_BELA_LPL_3_1_tt
+			# EDG_BELA_LPL_3_1_tt:0 "未来我们的宗主国将倾向于不干涉我们的未来，若我们与宗主国开战，则会获得强力军事修正持续到战争结束。"
+		} 
+	}
+
+	EDG_BELA_LPL_3_2 = {
+		icon = commission_the_mona_lisa
+		position = 2
+		provinces_to_highlight = {
+			owned_by = root
+			or = {
+				not = {
+					renaissance = 100
+				}
+				not = {
+					development = 10
+				}
+			}
+		} 
+
+		trigger = {
+			or = {
+				not = {
+					any_owned_province = {
+						not = {
+							renaissance = 100
+						}
+					}
+				}
+				all_owned_province = {
+					development = 10
+				}
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_renaissance_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_3_3 = {
+		icon = mission_rb_conquer_wales
+		position = 3
+		required_missions = {
+			EDG_BELA_LPL_2_2
+			EDG_BELA_LPL_3_2
+		}
+		provinces_to_highlight = {
+			or = {
+				and = {
+					owned_by = root
+					or = {
+						has_owner_culture = yes
+					not = {
+						development = 15
+					}
+					devastation = 0.1
+					}
+				}
+				and = {
+					not = {
+						owned_by = root
+					}
+					has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+				}
+			}
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_BELA_LPL_1_1_province_trigger_tt
+				not = {
+					any_province = {
+						has_province_flag = EDG_BELA_SMI_lapland_sovereignty_flag
+						not = { owned_by = root } 
+					}
+				}
+			}
+			all_owned_province = {
+				or = {
+					and = {
+						has_owner_culture = yes
+						development = 15
+						not = {
+							devastation = 0.1
+						}
+					}
+					has_owner_culture = no
+				}
+			}
+		} 
+
+		effect = {
+			add_government_reform = EDG_BELA_SMI_north_paradise_reform
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		} 
+	}
+
+	EDG_BELA_LPL_3_4 = {
+		icon = mission_colonial
+		position = 4
+		required_missions = { EDG_BELA_LPL_3_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			or = {
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 10
+									has_tax_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_tax_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 10
+									has_trade_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_trade_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 10
+									has_production_building_trigger = yes
+								}
+							}
+						}
+					}
+					has_production_building_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 5
+									has_manufactory_trigger = yes
+								}
+							}
+						}
+					}
+					has_manufactory_trigger = no
+				}
+				if = {
+					limit = {
+						root = {
+							not = {
+								num_of_owned_provinces_with = {
+									value = 6
+									is_prosperous = yes
+								}
+							}
+						}
+					}
+					is_prosperous = no
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				has_tax_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				has_trade_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 10
+				has_production_building_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 5
+				has_manufactory_trigger = yes
+			}
+			num_of_owned_provinces_with = {
+				value = 6
+				is_prosperous = yes
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_3_4_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = economic_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_3_4_has_economic_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_3_4_economic_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_3_4_has_economic_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_3_4_economic_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = infrastructure_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_3_4_has_infrastructure_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_3_4_infrastructure_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_3_4_has_infrastructure_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_3_4_infrastructure_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_3_5 = {
+		icon = mission_eastern_european_city
+		position = 5
+		required_missions = { EDG_BELA_LPL_3_4 } 
+		provinces_to_highlight = {
+			owned_by = root
+			or = {
+				has_tax_building_trigger = no
+				has_trade_building_trigger = no
+				has_production_building_trigger = no
+				has_manufactory_trigger = no
+				is_prosperous = no
+			}
+		} 
+
+		trigger = {
+			all_owned_province = {
+				has_tax_building_trigger = yes
+			}
+			all_owned_province = {
+				has_tax_building_trigger = yes
+			}
+			all_owned_province = {
+				has_trade_building_trigger = yes
+			}
+			all_owned_province = {
+				has_production_building_trigger = yes
+			}
+			all_owned_province = {
+				has_manufactory_trigger = yes
+			}
+			all_owned_province = {
+				is_prosperous = yes
+			}
+		}
+
+		effect = {
+			custom_tooltip = EDG_BELA_LPL_3_5_tt
+			remove_country_modifier = EDG_BELA_LPL_3_4_modifier
+			add_country_modifier = {
+				name = EDG_BELA_LPL_3_5_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = economic_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_3_5_full_economic_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_3_4_economic_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_3_5_economic_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_3_5_full_economic_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_3_4_economic_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_3_5_economic_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = infrastructure_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_3_5_full_infrastructure_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_3_4_infrastructure_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_3_5_infrastructure_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_3_5_full_infrastructure_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_3_4_infrastructure_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_3_5_infrastructure_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_3_6 = {
+		icon = mission_norse_faith
+		position = 6
+		required_missions = {
+			EDG_BELA_LPL_1_5
+			EDG_BELA_LPL_2_5
+			EDG_BELA_LPL_3_5
+			EDG_BELA_LPL_4_5
+			EDG_BELA_LPL_5_5
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			total_development = 1000
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					in_golden_age = yes
+				}
+				custom_tooltip = EDG_BELA_LPL_3_6_tt_no #这里我把文本写反了
+				extend_golden_age = 6000
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_3_6_tt_yes #这里我把文本写反了
+				tooltip = {
+					extend_golden_age = 6000
+				}
+			}
+			country_event = {
+				id = EDG_BELA_SMI_events.29
+			}
+		} 
+	}
+}
+EDG_BELA_LPL_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = LPL } 
+
+	EDG_BELA_LPL_4_2 = {
+		icon = mission_the_sudebnik
+		position = 2
+		required_missions = {
+			EDG_BELA_LPL_5_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			liberty_desire = 50
+		} 
+
+		effect = {
+			set_country_flag = EDG_BELA_LPL_allowed_polwo_flag
+			custom_tooltip = EDG_BELA_LPL_allowed_polwo_flag_tt
+		} 
+	}
+
+	EDG_BELA_LPL_4_4 = {
+		icon = mission_early_modern_university
+		position = 4
+		required_missions = { EDG_BELA_LPL_3_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			if = {
+				limit = {
+					root = {
+						not = {
+							university = 10
+						}
+					}
+				}
+				not = {
+					has_building = university
+				}
+			}
+		} 
+
+		trigger = {
+			university = 10
+			innovativeness = 10
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_4_4_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = innovativeness_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_4_4_has_innovativeness_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_4_4_innovativeness_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_4_4_has_innovativeness_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_4_4_innovativeness_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						innovativeness = 50
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_4_4_has_innovativeness_50_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_4_4_innovativeness_50_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_4_4_has_innovativeness_50_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_4_4_innovativeness_50_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_4_5 = {
+		icon = found_the_vatican_library
+		position = 5
+		required_missions = { EDG_BELA_LPL_4_4 } 
+		provinces_to_highlight = {
+			owned_by = root
+			not = {
+				has_building = university
+			}
+		} 
+
+		trigger = {
+			all_owned_province = {
+				has_building = university
+			}
+			innovativeness = 75
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_LPL_4_5_tt
+			remove_country_modifier = EDG_BELA_LPL_4_4_modifier
+			add_country_modifier = {
+				name = EDG_BELA_LPL_4_5_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = innovativeness_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_4_5_full_innovativeness_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_4_4_innovativeness_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_4_5_innovativeness_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_4_5_full_innovativeness_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_4_4_innovativeness_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_4_5_innovativeness_ideas_modifier
+					duration = -1
+				}
+			}
+			if = {
+				limit = {
+					not = {
+						innovativeness = 100
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_4_5_full_innovativeness_50_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_4_4_innovativeness_50_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_4_5_innovativeness_50_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_4_5_full_innovativeness_50_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_4_4_innovativeness_50_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_4_5_innovativeness_50_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_LPL_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = LPL } 
+
+	EDG_BELA_LPL_5_1 = {
+		icon = mission_war_chest
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			overlord = {
+				has_opinion = {
+					who = ROOT
+					value = 150
+				}
+			}
+			if = {
+				limit = {
+					ai = no
+				}
+				diplomatic_ideas = 2
+			}
+		} 
+
+		effect = {
+			set_country_flag = EDG_BELA_LPL_allowed_atribute_flag
+			custom_tooltip = EDG_BELA_LPL_allowed_atribute_flag_tt
+			hidden_effect = {
+				set_variable = {
+					which = EDG_BELA_LPL_tribute_var
+					value = 0
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_5_4 = {
+		icon = mission_establish_the_prikazy
+		position = 4
+		required_missions = { EDG_BELA_LPL_3_3 } 
+		provinces_to_highlight = {
+			owned_by = root
+			if = {
+				limit = {
+					root = {
+						not = {
+							num_of_owned_provinces_with = {
+								value = 10
+								has_courthouse_building_trigger = yes
+							}
+						}
+					}
+				}
+				has_courthouse_building_trigger = no
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 10
+				has_courthouse_building_trigger = yes
+			}
+			has_adm_advisor = yes
+			has_dip_advisor = yes
+			has_mil_advisor = yes
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_LPL_5_4_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_idea_group = administrative_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_5_4_has_administrative_ideas_no_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_LPL_5_4_administrative_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_5_4_has_administrative_ideas_yes_tt
+				add_country_modifier = {
+					name = EDG_BELA_LPL_5_4_administrative_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_LPL_5_5 = {
+		icon = mission_plc_golden_liberty
+		position = 5
+		required_missions = { EDG_BELA_LPL_5_4 } 
+		provinces_to_highlight = {
+			owned_by = root
+			has_courthouse_building_trigger = no
+		} 
+
+		trigger = {
+			all_owned_province = {
+				has_courthouse_building_trigger = yes
+			}
+			has_adm_advisor_3 = yes
+			has_dip_advisor_3 = yes
+			has_mil_advisor_3 = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_LPL_5_5_tt
+			remove_country_modifier = EDG_BELA_LPL_5_4_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_5_5_modifier
+					duration = -1
+				}
+			if = {
+				limit = {
+					not = {
+						full_idea_group = administrative_ideas
+					}
+				}
+				custom_tooltip = EDG_BELA_LPL_5_5_full_administrative_ideas_no_tt
+				tooltip = {
+					remove_country_modifier = EDG_BELA_LPL_5_4_administrative_ideas_modifier
+					add_country_modifier = {
+						name = EDG_BELA_LPL_5_5_administrative_ideas_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_LPL_5_5_full_administrative_ideas_yes_tt
+				remove_country_modifier = EDG_BELA_LPL_5_4_administrative_ideas_modifier
+				add_country_modifier = {
+					name = EDG_BELA_LPL_5_5_administrative_ideas_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+}

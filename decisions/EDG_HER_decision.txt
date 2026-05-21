@@ -1,0 +1,849 @@
+country_decisions = {
+	EDG_HER_city_ex_1 = {
+		#获得城市治理经验（当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!）
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_city_ex_flag
+		}
+		allow = {
+			ai = no
+			OR = {
+				adm_power = 100
+				dip_power = 100
+				mil_power = 100
+			}
+		}
+		effect = {
+			country_event = {
+				id = EDG_HER_flavor_event.2				#获取城市治理经验
+			}
+		}
+	}
+	EDG_HER_city_ex_2 = {
+		#投资城市建设
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_3_1_flag
+			NOT = {
+				OR = {
+					TAG = HER
+					TAG = CWN
+				}
+			}
+		}
+		allow = {
+			ai = no
+			custom_trigger_tooltip = {
+				tooltip = EDG_HER_3_5_trigger_TT				#需要3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+				check_variable = {
+					which = EDG_HER_CITY_EX_var
+					value = 3
+				}
+			}
+		}
+		effect = {
+			LST = {
+				capital_scope = {
+					add_base_production = 1
+					add_base_tax = 1
+					add_base_manpower = 1
+				}
+				add_years_of_income = 1
+			}
+			DOS = {
+				capital_scope = {
+					add_base_production = 1
+					add_base_tax = 1
+					add_base_manpower = 1
+				}
+				add_years_of_income = 1
+			}
+			DBY = {
+				capital_scope = {
+					add_base_production = 1
+					add_base_tax = 1
+					add_base_manpower = 1
+				}
+				add_years_of_income = 1
+			}
+			every_country = {
+				limit = {
+					has_reform = EDG_English_Autonomous_City
+				}
+				add_trust = {
+					who = root
+					value = 10
+					mutual = yes
+				}
+			}
+			custom_tooltip = ""
+			custom_tooltip = EDG_HER_3_5_effect_TT			#失去3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+			hidden_effect = {
+				change_variable = {
+					which = EDG_HER_CITY_EX_var
+					value = -3
+				}
+			}
+		}
+	}
+	EDG_HER_NFK_friend = {
+		#东盎格利亚亲善条约
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_1_1_a_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_1_1_a_c_flag
+			}
+			exists = NFK
+		}
+		allow = {
+			NFK = {
+				NOT = {
+					is_enemy = root
+				}
+			}
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_HER_3_5_trigger_TT						#需要3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+						check_variable = {
+							which = EDG_HER_CITY_EX_var
+							value = 3
+						}
+					}
+					dip_power = 50
+				}
+				alliance_with = NFK
+			}
+		}
+		effect = {
+			set_country_flag = EDG_HER_mission_1_1_a_c_flag
+			NFK = {
+				add_trust = {
+					who = root
+					value = 10
+					mutual = yes
+				}
+				add_historical_friend = root
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT
+				}
+			}
+			ROOT = {
+				add_historical_friend = NFK
+			}
+			if = {
+				limit = {
+					NFK = {
+						NOT = {
+							alliance_with = root
+						}
+					}
+				}
+				add_dip_power = -50
+				custom_tooltip = ""
+				custom_tooltip = EDG_HER_3_5_effect_TT				#失去3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+				hidden_effect = {
+					change_variable = {
+						which = EDG_HER_CITY_EX_var
+						value = -3
+					}
+				}
+				NFK = {
+					remove_rival = root
+					create_alliance = root
+				}
+			}
+		}
+	}
+	EDG_HER_YRK_friend = {
+		#约克亲善条约
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_1_1_b_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_1_1_b_c_flag
+			}
+			exists = YRK
+		}
+		allow = {
+			YRK = {
+				NOT = {
+					is_enemy = root
+				}
+			}
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_HER_3_5_trigger_TT						#需要3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+						check_variable = {
+							which = EDG_HER_CITY_EX_var
+							value = 3
+						}
+					}
+					dip_power = 50
+				}
+				alliance_with = YRK
+			}
+		}
+		effect = {
+			set_country_flag = EDG_HER_mission_1_1_b_c_flag
+			YRK = {
+				add_trust = {
+					who = root
+					value = 10
+					mutual = yes
+				}
+				add_historical_friend = root
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT
+				}
+			}
+			ROOT = {
+				add_historical_friend = YRK
+			}
+			if = {
+				limit = {
+					YRK = {
+						NOT = {
+							alliance_with = root
+						}
+					}
+				}
+				add_dip_power = -50
+				custom_tooltip = ""
+				custom_tooltip = EDG_HER_3_5_effect_TT				#失去3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+				hidden_effect = {
+					change_variable = {
+						which = EDG_HER_CITY_EX_var
+						value = -3
+					}
+				}
+				YRK = {
+					remove_rival = root
+					create_alliance = root
+				}
+			}
+		}
+	}
+	EDG_HER_WLS_friend = {
+		#威尔士亲善条约
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_1_1_c_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_1_1_c_c_flag
+			}
+			exists = WLS
+		}
+		allow = {
+			WLS = {
+				NOT = {
+					is_enemy = root
+				}
+			}
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_HER_3_5_trigger_TT						#需要3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+						check_variable = {
+							which = EDG_HER_CITY_EX_var
+							value = 3
+						}
+					}
+					dip_power = 50
+				}
+				alliance_with = WLS
+			}
+		}
+		effect = {
+			set_country_flag = EDG_HER_mission_1_1_c_c_flag
+			WLS = {
+				add_trust = {
+					who = root
+					value = 10
+					mutual = yes
+				}
+				add_historical_friend = root
+				set_ai_attitude = {
+					attitude = attitude_friendly
+					who = ROOT
+				}
+			}
+			ROOT = {
+				add_historical_friend = WLS
+			}
+			if = {
+				limit = {
+					WLS = {
+						NOT = {
+							alliance_with = root
+						}
+					}
+				}
+				add_dip_power = -50
+				custom_tooltip = ""
+				custom_tooltip = EDG_HER_3_5_effect_TT				#失去3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+				hidden_effect = {
+					change_variable = {
+						which = EDG_HER_CITY_EX_var
+						value = -3
+					}
+				}
+				WLS = {
+					remove_rival = root
+					create_alliance = root
+				}
+			}
+		}
+	}
+	EDG_HER_religion_L_friend = {
+		#聆听罗拉德派诉求
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_3_A_flag
+			num_of_owned_provinces_with = {
+				religion = EDG_Lollards
+				NOT = {
+					has_province_modifier = EDG_HER_Lollards_modifier
+				}
+				value = 1
+			}
+		}
+		allow = {
+			treasury = 50
+		}
+		effect = {
+			add_treasury = -50
+			custom_tooltip = EDG_HER_religion_L_friend_tt			#随机一个我们拥有的罗拉德派省份获得修正§T聆听诉求§!\n\n在对拥有§T聆听诉求§!的省份传教完成时获得1点政府改革点数并为当地和另一个国教省份添加修正§T生机勃勃的本地教会§!
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						religion = EDG_Lollards
+						NOT = {
+							has_province_modifier = EDG_HER_Lollards_modifier							#聆听诉求
+						}
+					}
+					add_province_modifier = {
+						name = EDG_HER_Lollards_modifier
+						duration = -1
+					}
+					add_base_production = 1
+				}
+			}
+		}
+	}
+	EDG_come_to_HER_1 = {
+		#一体化进程：统一自治市法律
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_5_flag
+			NOT = {
+				has_country_flag = EDG_HER_3_6_A_flag
+			}
+		}
+		allow = {
+			government_reform_progress = 20
+		}
+		effect = {
+			change_government_reform_progress = -20
+			set_country_flag = EDG_HER_3_6_A_flag
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			add_stability_or_adm_power = yes
+		}
+	}
+	EDG_come_to_HER_2 = {
+		#一体化进程：保证自治市领袖权威
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_5_flag
+			NOT = {
+				has_country_flag = EDG_HER_3_6_B_flag
+			}
+		}
+		allow = {
+			adm_power = 50
+		}
+		effect = {
+			add_adm_power = -50
+			set_country_flag = EDG_HER_3_6_B_flag
+			add_prestige_or_monarch_power = {
+				amount = 10
+			}
+			EDG_HER_republic_level_up = yes
+		}
+	}
+	EDG_come_to_HER_3 = {
+		#一体化进程：建立中央银行
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_5_flag
+			NOT = {
+				has_country_flag = EDG_HER_3_6_C_flag
+			}
+		}
+		allow = {
+			num_of_loans = 0
+			is_bankrupt = no
+			treasury = 80
+		}
+		effect = {
+			add_treasury = -80
+			set_country_flag = EDG_HER_3_6_C_flag
+			add_country_modifier = {
+				name = EDG_come_to_HER_3_modifier				#中央银行
+				duration = -1
+			}
+		}
+	}
+	EDG_HER_bao_ENG = {
+		#英格兰的命运
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			TAG = HER
+			war_with = ENG
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_HER_1_6_trigger_tt
+				wessex_area = {
+					type = all
+					OR = {
+						AND = {
+							country_or_non_sovereign_subject_holds = ENG
+							controller = {
+								OR = {
+									alliance_with = root
+									TAG = root
+								}
+							}
+						}
+						NOT = {
+							country_or_non_sovereign_subject_holds = ENG
+						}
+					}
+				}
+				home_counties_area = {
+					type = all
+					OR = {
+						AND = {
+							country_or_non_sovereign_subject_holds = ENG
+							controller = {
+								OR = {
+									alliance_with = root
+									TAG = root
+								}
+							}
+						}
+						NOT = {
+							country_or_non_sovereign_subject_holds = ENG
+						}
+					}
+				}
+				west_midlands_area = {
+					type = all
+					OR = {
+						AND = {
+							country_or_non_sovereign_subject_holds = ENG
+							controller = {
+								OR = {
+									alliance_with = root
+									TAG = root
+								}
+							}
+						}
+						NOT = {
+							country_or_non_sovereign_subject_holds = ENG
+						}
+					}
+				}
+			}
+		}
+		effect = {
+			country_event = {
+				id = EDG_HER_mission.1				#夜莺深锁金笼
+			}
+			custom_tooltip = ""
+			custom_tooltip = EDG_HER_mission_1_6_tt			#吞并英格兰并获得自治核心或收回麦西亚的核心并使英格兰成为联邦自治区
+			custom_tooltip = ""
+		}
+	}
+	EDG_HER_bao_IRE = {
+		#至高王之陨
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_3_7_yes_flag
+			exists = IRE
+			NOT = {
+				has_country_flag = EDG_HER_bao_IRE_flag
+			}
+		}
+		allow = {
+			war_score_against = {
+				who = IRE
+				value = 80
+			}
+		}
+		effect = {
+			hidden_effect = {
+				ULS = {
+					add_core = 4121
+				}
+				KID = {
+					add_core = 4120
+				}
+				TYR = {
+					add_core = 372
+				}
+				TRY = {
+					add_core = 4380
+				}
+				SLN = {
+					add_core = 4119
+				}
+				CNN = {
+					add_core = 376
+				}
+				FLY = {
+					add_core = 4379
+				}
+				MTH = {
+					add_core = 373
+				}
+				MNS = {
+					add_core = 375
+				}
+				ORD = {
+					add_core = 4377
+				}
+				LEI = {
+					add_core = 374
+				}
+				DMS = {
+					add_core = 4118
+				}
+				MCM = {
+					add_core = 4378
+				}
+			}
+			white_peace = IRE
+			add_historical_friend = IRE
+			IRE = {
+				release_all_subjects = yes
+				release_all_possible_countries = yes
+				add_historical_friend = ROOT
+			}
+			create_subject = {
+				subject_type = EDG_HER_gong_subject_type
+				subject = IRE
+			}
+			set_country_flag = EDG_HER_bao_IRE_flag
+			custom_tooltip = EDG_HER_bao_IRE_TT			#将所有释放的爱尔兰小国成为联邦自治区
+			hidden_effect = {
+				if = {
+					limit = {
+						exists = ULS
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = ULS
+					}
+				}
+				if = {
+					limit = {
+						exists = TRY
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = TRY
+					}
+				}
+				if = {
+					limit = {
+						exists = TYR
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = TYR
+					}
+				}
+				if = {
+					limit = {
+						exists = MTH
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = MTH
+					}
+				}
+				if = {
+					limit = {
+						exists = SLN
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = SLN
+					}
+				}
+				if = {
+					limit = {
+						exists = FLY
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = FLY
+					}
+				}
+				if = {
+					limit = {
+						exists = KID
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = KID
+					}
+				}
+				if = {
+					limit = {
+						exists = CNN
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = CNN
+					}
+				}
+				if = {
+					limit = {
+						exists = MNS
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = MNS
+					}
+				}
+				if = {
+					limit = {
+						exists = ORD
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = ORD
+					}
+				}
+				if = {
+					limit = {
+						exists = LEI
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = LEI
+					}
+				}
+				if = {
+					limit = {
+						exists = DMS
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = DMS
+					}
+				}
+				if = {
+					limit = {
+						exists = MCM
+					}
+					create_subject = {
+						subject_type = EDG_HER_gong_subject_type
+						subject = MCM
+					}
+				}
+			}
+		}
+	}
+	EDG_HER_change_CWN_1 = {
+		#不列颠集权进程：结束哈德良骑士团历史使命
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_9_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_9_a_flag
+			}
+		}
+		allow = {
+			NOL = {
+				is_subject_of = root
+				has_opinion = {
+					who = root
+					value = 150
+				}
+				trust = {
+					who = root
+					value = 70
+				}
+			}
+		}
+		effect = {
+			inherit = NOL
+			add_country_modifier = {
+				name = EDG_HER_NOL_modifier
+				duration = -1
+			}
+			add_accepted_culture_or_dip_power = {
+				culture = EDG_culture_Northumbria
+			}
+			add_mil_power = 100
+			set_country_flag = EDG_HER_mission_9_a_flag
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+		}
+	}
+	EDG_HER_change_CWN_2 = {
+		#不列颠集权进程：联邦自治区权利交接事宜
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_9_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_9_b_flag
+			}
+		}
+		allow = {
+			splendor = 100
+			custom_trigger_tooltip = {
+				tooltip = EDG_HER_3_5_trigger_TT				#需要3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+				check_variable = {
+					which = EDG_HER_CITY_EX_var
+					value = 3
+				}
+			}
+		}
+		effect = {
+			add_splendor = -100
+			add_adm_power = 100
+			every_country = {
+				limit = {
+					is_subject_of_type_with_overlord = {
+						who = HER
+						type = EDG_HER_gong_subject_type
+					}
+				}
+				add_trust = {
+					who = root
+					value = 10
+					mutual = yes
+				}
+			}
+			set_country_flag = EDG_HER_mission_9_b_flag
+			custom_tooltip = EDG_HER_3_5_effect_TT			#失去3点城市治理经验，当前为§Y[Root.EDG_HER_CITY_EX_var.GetValue]§!。
+			hidden_effect = {
+				change_variable = {
+					which = EDG_HER_CITY_EX_var
+					value = -3
+				}
+			}
+		}
+	}
+	EDG_HER_change_CWN_3 = {
+		#不列颠集权进程：不列颠宗教统一
+		color = {
+			213
+			126
+			124
+		}
+		potential = {
+			has_country_flag = EDG_HER_mission_9_flag
+			NOT = {
+				has_country_flag = EDG_HER_mission_9_c_flag
+			}
+		}
+		allow = {
+			dominant_religion = catholic
+			num_of_cardinals = 1
+			# NOT = {
+			# 	num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+			# 		NOT = {
+			# 			religion = catholic
+			# 		}
+			# 		value = 1
+			# 	} #这段效果是对的但是显示会出问题
+			# }
+			##
+			# NOT = {
+			# 	any_owned_province = {
+			# 		NOT = {
+			# 			religion = catholic
+			# 		}
+			# 	}
+			# }
+			all_owned_province = {
+				religion = catholic
+			}
+			papal_influence = 50
+		}
+		effect = {
+			add_papal_influence = -50
+			add_historical_friend = PAP
+			add_dip_power = 100
+			set_country_flag = EDG_HER_mission_9_c_flag
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+		}
+	}
+}

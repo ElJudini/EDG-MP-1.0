@@ -1,0 +1,99 @@
+EDG_get_power_from_controlled_provinces_develpment = {
+	hidden_effect = {
+		every_province = {
+			limit = {
+				controlled_by = $controlled_by$
+				NOT = {
+					owned_by = $controlled_by$
+				}
+				[[limit]
+					$limit$
+				]
+			}
+			set_variable = {
+				which = EDG_base_tax_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_base_production_var
+				value = 0
+			}
+			set_variable = {
+				which = EDG_base_manpower_var
+				value = 0
+			}
+			export_to_variable = {
+				which = EDG_base_tax_var
+				value = trigger_value:base_tax
+			}
+			export_to_variable = {
+				which = EDG_base_production_var
+				value = trigger_value:base_production
+			}
+			export_to_variable = {
+				which = EDG_base_manpower_var
+				value = trigger_value:base_manpower
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_base_tax_var
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_base_tax_var
+					value = 1
+				}
+				root = {
+					add_adm_power = $amount$
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_base_production_var
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_base_production_var
+					value = 1
+				}
+				root = {
+					add_dip_power = $amount$
+				}
+			}
+			while = {
+				limit = { 
+					check_variable = {
+						which = EDG_base_manpower_var
+						value = 1
+					}
+				}
+				subtract_variable = {
+					which = EDG_base_manpower_var
+					value = 1
+				}
+				root = {
+					add_mil_power = $amount$
+				}
+			}
+		}
+	}
+}
+EDG_GEN_improve_GEN_ideas = {
+	#if = {
+	#	limit = { 
+	#		tag = GEN
+	#	}
+		#custom_tooltip = EDG_GEN_improve_GEN_ideas.tt
+		#hidden_effect = {
+		#	change_variable = {
+		#		which = EDG_GEN_idea_count
+		#		value = 1
+		#	}
+		#	swap_free_idea_group = yes
+		#}
+	#}
+}

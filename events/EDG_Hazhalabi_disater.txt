@@ -1,0 +1,326 @@
+namespace = EDG_HZB_rev_disater
+
+#开爆
+country_event = {
+	id = EDG_HZB_rev_disater.1
+	title = EDG_HZB_rev_disater_1_t
+	desc = EDG_HZB_rev_disater_1_d
+	picture = REVOLUTION_eventPicture
+	
+	major = yes
+	fire_only_once = yes
+	is_triggered_only = yes
+	immediate = {
+		hidden_effect = {
+			set_country_flag = EDG_HZB_Persian_critic_flag
+			add_stability = -6
+			add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = -100 }
+		}
+	}
+	option = {
+		name = EDG_HZB_rev_disater_1a
+		tooltip = {
+			add_stability = -6
+			add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = -100 }
+		}
+		#清空波斯影响力 懒得写
+		capital_scope = {
+			area = {
+				limit = {
+					owned_by = ROOT
+				}
+				spawn_rebels = {
+					size = 2
+					type = pretender_rebels
+				}
+			}
+		}
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_1a_modifier
+			duration = -1
+			desc = "直到灾难结束"
+		}
+		remove_accepted_culture = persian
+		remove_accepted_culture = luri
+		remove_accepted_culture = al_iraqiya_arabic 
+		remove_accepted_culture = azerbaijani
+		remove_accepted_culture = khorasani
+		remove_accepted_culture = baluchi
+		remove_accepted_culture = afghani
+		remove_accepted_culture = kurdish
+		remove_accepted_culture = mazandarani
+	}
+	
+}
+#2 每个月叛乱
+country_event = {
+	id = EDG_HZB_rev_disater.2
+	title = EDG_HZB_rev_disater_2_t
+	desc = EDG_HZB_rev_disater_2_d
+	picture = SIEGE_PRAGUE_CASTLE_eventPicture
+	
+	is_triggered_only = yes
+	#图！
+	option = {
+		name = EDG_HZB_rev_disater_2a
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = 5 }
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_rebels = {
+				size = 2
+				win = no
+				unrest = 20
+			}
+		}
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			set_likely_rebels_flag = yes
+			spawn_rebels = {
+				size = 2
+				win = no
+				unrest = 20
+			}
+		}
+	}
+	#唉，没人能抗拒芒尼。
+	option = {
+		name = EDG_HZB_rev_disater_2b
+		add_years_of_income = -0.5
+	}
+	
+}
+#3 军队哗变
+country_event = {
+	id = EDG_HZB_rev_disater.3
+	title = EDG_HZB_rev_disater_3_t
+	desc = EDG_HZB_rev_disater_3_d
+	picture = BATTLE_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_modifier = EDG_HZB_rev_disater_3a_modifier
+		}
+		NOT = {
+			has_country_modifier = EDG_HZB_rev_disater_3b_modifier
+		}
+	}
+	
+
+	#拒绝这种讹诈
+	option = {
+		name = EDG_HZB_rev_disater_3a
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = 5 }
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_3a_modifier
+			duration = -1
+			desc = "直到灾难结束"
+		}
+	}
+	#提高军队薪水
+	option = {
+		name = EDG_HZB_rev_disater_3b
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_3b_modifier
+			duration = -1
+			desc = "直到灾难结束"
+		}
+	}
+}
+#4 马赫迪四起
+country_event = {
+	id = EDG_HZB_rev_disater.4
+	title = EDG_HZB_rev_disater_4_t
+	desc = EDG_HZB_rev_disater_4_d
+	picture = RELIGIOUS_WARS_eventPicture
+	
+	#在反抗蒙古的大旗下，许多人都自称为马赫迪并反抗我们，得杀吧。
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_modifier = EDG_HZB_rev_disater_4a_modifier
+		}
+	}
+	option = {
+		name = EDG_HZB_rev_disater_4a
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = 5 }
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_4a_modifier
+			duration = -1
+			desc = "直到灾难结束"
+		}
+		random_owned_province = {
+			limit = {
+				superregion = persia_superregion
+				religion_group = muslim
+			}
+			if = {
+				limit = {
+					religion = sunni
+				}
+				sunni_rebels = 5
+			}
+			else_if = {
+				limit = { 
+					religion = shiite
+				}
+				shiite_rebels = 5
+			}
+		}
+		random_owned_province = {
+			limit = {
+				superregion = persia_superregion
+				religion_group = muslim
+			}
+			if = {
+				limit = {
+					religion = sunni
+				}
+				sunni_rebels = 5
+			}
+			else_if = {
+				limit = { 
+					religion = shiite
+				}
+				shiite_rebels = 5
+			}
+		}
+		random_owned_province = {
+			limit = {
+				superregion = persia_superregion
+				religion_group = muslim
+			}
+			if = {
+				limit = {
+					religion = sunni
+				}
+				sunni_rebels = 5
+			}
+			else_if = {
+				limit = { 
+					religion = shiite
+				}
+				shiite_rebels = 5
+			}
+		}
+	}
+	
+}
+#5 大罢工
+country_event = {
+	id = EDG_HZB_rev_disater.5
+	title = EDG_HZB_rev_disater_5_t
+	desc = EDG_HZB_rev_disater_5_d
+	picture = ANGRY_MOB_eventPicture
+	
+	is_triggered_only = yes
+	trigger = {
+		NOT = {
+			has_country_modifier = EDG_HZB_rev_disater_5a_modifier
+		}
+	}
+	#由于我们进来的波斯局势不大妙，一些农民已经宣布拒绝为帝国缴纳税赋，他们声称不会为屠戮自己同胞的敌人供应。
+
+	#随他们去吧。
+	option = {
+		name = EDG_HZB_rev_disater_5a
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_5a_modifier
+			duration = -1
+			desc = "直到灾难结束"
+		}
+	}
+	#滚回你的农田里去，健民！
+	option = {
+		name = EDG_HZB_rev_disater_5b
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = 5 }
+		custom_tooltip = EDG_HZB_rev_disater_5b_tt
+		#这个事件会不断触发直到我们无力干涉。
+		random_owned_province = {
+			limit = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+					culture_group = iranian
+				}
+			}
+			leadered_peasant_rebels = 5
+		}
+	}
+}
+
+#6 空洞的胜利
+country_event = {
+	id = EDG_HZB_rev_disater.6
+	title = EDG_HZB_rev_disater_6_t
+	desc = EDG_HZB_rev_disater_6_d
+	picture = BAD_WITH_MONARCH_eventPicture
+
+	#内战ying旗歇鼓了，虽然我们粉碎了叛军，但同时也暴露了我们的软弱无能。我们还有一条更荆棘的未来和冲突在等着我们……
+	is_triggered_only = yes
+	trigger = {
+		has_country_modifier = EDG_HZB_rev_disater_5a_modifier
+		has_country_modifier = EDG_HZB_rev_disater_3b_modifier
+		has_country_modifier = EDG_HZB_rev_disater_4a_modifier
+	}
+	#以上选项全妥协。
+
+
+	option = {
+		name = EDG_HZB_rev_disater_6a
+		remove_country_modifier = EDG_HZB_rev_disater_5a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_1a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_3a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_4a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_3b_modifier
+		add_legitimacy = -25
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_6a_modifier
+			duration = -1
+		}
+	}
+}
+
+#完全胜利
+country_event = {
+	id = EDG_HZB_rev_disater.7
+	title = EDG_HZB_rev_disater_7_t
+	desc = EDG_HZB_rev_disater_7_d
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	#不堪一击的叛军菜的要命，有手就行打败他们。经此一役，无人再敢挑战我们的权威，
+	is_triggered_only = yes
+
+	option = {
+		name = EDG_HZB_rev_disater_6a
+		add_government_power = { mechanic_type = persian_influence_mechanic power_type = persian_influence value = 50 }
+		set_country_flag = EDG_HZB_Persian_critic_end_flag
+		add_legitimacy = 25
+		add_stability_or_adm_power = yes
+		set_country_flag = EDG_HZB_mission_2_flag
+		swap_non_generic_missions = yes
+		remove_country_modifier = EDG_HZB_rev_disater_5a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_1a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_3a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_4a_modifier
+		remove_country_modifier = EDG_HZB_rev_disater_3b_modifier
+		add_country_modifier = {
+			name = EDG_HZB_rev_disater_7b_modifier
+			duration = -1
+		}
+	}
+}
+

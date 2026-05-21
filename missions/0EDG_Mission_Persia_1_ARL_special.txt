@@ -1,0 +1,823 @@
+EDG_ARL_special_Mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = ARL
+			AND = { tag = PER was_tag = ARL }
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+
+	EDG_ARL_special_Mission_1_7 = {
+		icon = mission_conquer_andhra_bah
+		required_missions = {  }
+		position = 7
+		provinces_to_highlight = {
+			OR = {
+				region = persia_region
+			}
+			NOT = {
+				OR = {
+					country_or_non_sovereign_subject_holds = ROOT
+					religion = ROOT
+				}
+			}
+		}
+		trigger = {
+			persia_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}	
+			persia_region = {
+				type = all
+				religion = ROOT
+			}	
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_1_7_modifier"
+				duration = 9125
+			}
+			capital_scope = {
+				add_base_tax = 2
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_1_8 = {
+		icon = mission_deccanis
+		required_missions = { EDG_ARL_special_Mission_1_7 }
+		position = 8
+		provinces_to_highlight = {
+		}
+		trigger = {
+			persia_superregion = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}	
+			persia_superregion = {
+				type = all
+				religion = ROOT
+			}	
+			religious_unity = 0.99
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_1_8_modifier"
+				duration = -1
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_1_9 = {
+		icon = mission_gharbianss
+		required_missions = { EDG_ARL_special_Mission_1_8 EDG_ARL_special_Mission_2_8 }
+		position = 9
+		provinces_to_highlight = {
+		}
+		trigger = {
+			has_country_modifier = unified_islam
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_1_9_modifier"
+				duration = -1
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_1_10 = {
+		icon = mission_din_i_llahi
+		required_missions = { EDG_ARL_special_Mission_2_9 }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 2207
+		}
+		trigger = {
+			owns_core_province = 2207
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_1_10_modifier"
+				duration = 9125
+			}
+			define_advisor = {
+				type = treasurer
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+				religion = ROOT
+			}
+			add_piety = -2
+			country_event = { id = EDG_flavorADU.6 }
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+}
+
+EDG_ARL_special_Mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = ARL
+			AND = { tag = PER was_tag = ARL }
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+
+	EDG_ARL_special_Mission_2_7 = {
+		icon = mission_cope_with_refugees
+		required_missions = {  }
+		position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			if = {
+				limit = { ai = no }
+				mil_power = 100
+				commandant = 1
+				manpower = 10
+			}
+			else = {
+				is_year = 1502
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_merc_EDG_safavid_valve_UNLOCK_tooltip
+			set_country_flag = EDG_merc_EDG_safavid_valve_UNLOCK_flag
+			add_mil_power = -100
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_2_7_modifier"
+				duration = 9125
+			}
+			capital_scope = {
+				add_base_manpower = 3
+			}
+			add_prestige_or_monarch_power = { amount = 15}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_2_8 = {
+		icon = mission_subdue_rajputana
+		required_missions = { EDG_ARL_special_Mission_2_7 EDG_ARL_special_Mission_3_7 }
+		position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			army_tradition = 60
+			
+		}
+		effect = {
+			add_stat_or_monarch_power = {
+			  type = mil
+			  amount = 1
+			}
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_2_8_modifier"
+				duration = -1
+			}
+			add_country_modifier = {
+				name = "EDG_Religious_piety_2_modifier"
+				duration = 9125
+			}
+			custom_tooltip = EDG_capital_scope_foth_building_yes_tooltip
+			tooltip = {
+				capital_scope = {
+					if = {
+						limit = { has_building = fort_17th }
+						remove_building = fort_17th
+						add_building = fort_18th
+					}
+					else_if = {
+						limit = { has_building = fort_16th }
+						remove_building = fort_16th
+						add_building = fort_17th
+					}
+					else_if = {
+						limit = { has_building = fort_15th }
+						remove_building = fort_15th
+						add_building = fort_16th
+					}
+					add_province_modifier = { 
+						name = pol_fortified_border_modifier
+						duration = 7300 
+					}
+				}
+			}
+			hidden_effect = {
+				if = {
+					limit = { capital_scope = { has_fort_building_trigger = yes } }
+					capital_scope = {
+						if = {
+							limit = { has_building = fort_17th }
+							remove_building = fort_17th
+							add_building = fort_18th
+						}
+						else_if = {
+							limit = { has_building = fort_16th }
+							remove_building = fort_16th
+							add_building = fort_17th
+						}
+						else_if = {
+							limit = { has_building = fort_15th }
+							remove_building = fort_15th
+							add_building = fort_16th
+						}
+						add_province_modifier = { 
+							name = pol_fortified_border_modifier
+							duration = 7300 
+						}
+					}
+				}
+			}
+			define_advisor = {
+				type = commandant
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+				religion = ROOT
+			}
+			
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_2_9 = {
+		icon = mission_into_persia_1
+		required_missions = { EDG_ARL_special_Mission_3_8 }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 416
+		}
+		trigger = {
+			owns_core_province = 416
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			country_event = { id = EDG_flavorARL.4 }
+			mashriq_region = { 
+				limit = { 
+					NOT = { owned_by = ROOT } 
+					NOT = { is_core = ROOT } 
+				}
+				add_permanent_claim = ROOT 
+			}
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_2_9_modifier"
+				duration = 9125
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_2_10 = {
+		icon = mission_restore_faith_in_the_throne
+		required_missions = { EDG_ARL_special_Mission_2_9 }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 410
+		}
+		trigger = {
+			owns_core_province = 410
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			country_event = { id = EDG_flavorARL.5 }
+			add_stat_or_monarch_power = {
+			  type = adm
+			  amount = 1
+			}
+			add_country_modifier = {
+				name = "EDG_adm_policy_5_modifier"
+				duration = 9125
+			}
+			
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+}
+
+
+EDG_ARL_special_Mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = ARL
+			AND = { tag = PER was_tag = ARL }
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+
+	EDG_ARL_special_Mission_3_7 = {
+		icon = mission_into_persia_2
+		required_missions = {  }
+		position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			if = {
+				limit = { ai = no }
+				OR = {
+					army_size_percentage = 1.0
+					army_size = 20
+				}
+			}
+			else = {
+				is_year = 1502
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_ARL_special_Mission_3_7_tt
+			hidden_effect = {
+			  every_province = {
+				limit = {
+					OR = {
+						culture = azerbaijani
+					}
+				}
+				add_core = ROOT
+			  }
+			}
+			define_advisor = {
+				type = army_reformer
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_3_7_modifier"
+				duration = 9125
+			}
+			add_prestige_or_monarch_power = { amount = 15}
+			add_stat_or_monarch_power = {
+			  type = mil
+			  amount = 1
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_ARL_special_Mission_3_8 = {
+		icon = mission_levantine_restoration
+		required_missions = { EDG_ARL_special_Mission_3_7 }
+		position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			grown_by_development = 50
+		}
+		effect = {
+			set_global_flag = EDG_EDG_flavorARL_1__mission_flag
+			custom_tooltip = EDG_ARL_special_Mission_3_8_tt
+			tooltip = {
+				country_event = { id = EDG_flavorARL.1 }
+			}
+			hidden_effect = {
+				if = {
+					limit = { NOT = { has_global_flag = EDG_EDG_flavorARL_1_flag } }
+					country_event = { id = EDG_flavorARL.1 }
+				}
+			}
+			add_prestige_or_monarch_power = { amount = 15}
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			custom_tooltip = add_5_crown_land_share
+			hidden_effect = {
+				change_estate_land_share = {
+					estate = all
+					share = -5
+				}
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_ARL_special_Mission_3_9 = {
+		icon = mission_restore_caliphate_of_cordoba
+		required_missions = { EDG_ARL_special_Mission_3_8 }
+		position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			grown_by_development = 100
+		}
+		effect = {
+			custom_tooltip = EDG_ARL_special_Mission_3_9_tt_1
+			hidden_effect = {
+			  every_province = {
+				limit = {
+					OR = {
+						region = persia_region
+					}
+				}
+				add_core = ROOT
+			  }
+			}
+			custom_tooltip = EDG_ARL_special_Mission_3_9_tt_2
+			tooltip = {
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = "EDG_City_manpower_bloom_2"
+					duration = -1
+				}
+			}
+			hidden_effect = {
+			  every_province = {
+				limit = {
+					owned_by = ROOT
+					religion = ROOT
+				}
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = "EDG_City_manpower_bloom_2"
+					duration = -1
+				}
+				
+			  }
+			}
+			add_prestige_or_monarch_power = { amount = 15}
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+
+	EDG_ARL_special_Mission_3_10 = {
+		icon = mission_sovereign_principality
+		required_missions = { EDG_ARL_special_Mission_3_9 }
+		position = 10
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				region = persia_region
+			}
+			owns = 429
+		}
+		effect = {
+			if = {
+				limit = {
+				  has_dlc = "Rights of Man"
+				  NOT = {
+					num_of_ruler_traits = {
+					  amount = 3
+					}
+				  }
+				}
+				add_ruler_personality = conqueror_personality
+			}
+			add_stat_or_monarch_power = {
+			  type = adm
+			  amount = 1
+			}
+			add_stat_or_monarch_power = {
+			  type = dip
+			  amount = 1
+			}
+			add_stat_or_monarch_power = {
+			  type = mil
+			  amount = 1
+			}
+			if = {
+				limit = {
+				  has_estate = estate_nobles
+				}
+				add_estate_loyalty = {
+				  estate = estate_nobles
+				  loyalty = 10
+				}
+			}
+			if = {
+				limit = {
+				  has_estate = estate_church
+				}
+				add_estate_loyalty = {
+				  estate = estate_church
+				  loyalty = 10
+				}
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	
+}
+
+
+EDG_ARL_special_Mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = ARL
+			AND = { tag = PER was_tag = ARL }
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+
+	EDG_ARL_special_Mission_4_7 = {
+		icon = mission_sovereign_principality
+		required_missions = {  }
+		position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			if = {
+				limit = { ai = no }
+				stability = 1
+				OR = {
+					total_development = 200
+					is_year = 1447
+					or = {
+						theologian = 1
+						inquisitor = 1
+					}
+				}
+			}
+			else = {
+				is_year = 1502
+			}
+		}
+		effect = {
+			add_stability_or_adm_power = yes
+			country_event = { id = EDG_flavorARL.6 }
+			define_advisor = {
+				type = diplomat
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			add_prestige_or_monarch_power = { amount = 15}
+			add_stat_or_monarch_power = {
+			  type = dip
+			  amount = 1
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_4_8 = {
+		icon = mission_rajput_mansabdars
+		required_missions = { EDG_ARL_special_Mission_4_7 EDG_ARL_special_Mission_3_7 }
+		position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			is_at_war = no
+			OR = {
+				total_development = 200
+				any_ally = {
+					religion = ROOT
+				}
+			}
+		}
+		effect = {
+			country_event = { id = EDG_flavorARL.7 }
+			add_country_modifier = {
+				name = "EDG_Religious_piety_7_modifier"
+				duration = 9125
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_4_9 = {
+		icon = mission_control_the_ganges_delta
+		required_missions = { EDG_ARL_special_Mission_3_8 }
+		position = 9
+		provinces_to_highlight = {
+			province_id = 418
+		}
+		trigger = {
+			OR = {
+				war_with = AKK
+				AND = {
+					NOT = { exists = AKK }
+					owns = 418
+				}
+			}
+		}
+		effect = {
+			add_army_tradition = 25
+			add_mil_power = 100
+			
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_4_10 = {
+		icon = mission_embassy_to_the_west
+		required_missions = { EDG_ARL_special_Mission_4_9 }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 446
+		}
+		trigger = {
+			OR = {
+				war_with = TIM
+				AND = {
+					NOT = { exists = TIM }
+					owns = 446
+				}
+			}
+		}
+		effect = {
+			add_army_tradition = 25
+			add_mil_power = 100
+			create_general = { tradition = 100 add_fire = 1 culture = ROOT }
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+}
+
+EDG_ARL_special_Mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	
+	potential = {
+		always = no
+		OR = {
+			tag = ARL
+			AND = { tag = PER was_tag = ARL }
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+	has_country_shield = yes
+
+	EDG_ARL_special_Mission_5_7 = {
+		icon = mission_ahmadabad_paper
+		required_missions = {  }
+		position = 7
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			inquisitor = 2
+			
+			OR = {
+				estate_loyalty = {
+					estate = estate_church
+					loyalty = 50
+				}
+				full_idea_group = religious_ideas
+				has_estate_privilege = estate_church_one_faith_one_culture
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_5_1_modifier"
+				duration = -1
+			}
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_5_7_modifier"
+				duration = 9125
+			}
+			define_advisor = {
+				type = theologian
+				skill = 2
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_5_8 = {
+		icon = mission_abu_saids_dream
+		required_missions = { EDG_ARL_special_Mission_5_7 }
+		position = 8
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			mil_tech = 12
+			OR = {
+				full_idea_group = offensive_ideas
+				full_idea_group = quality_ideas
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_IBR_MSL_invite_discount_tooltip
+			set_country_flag = EDG_IBR_MSL_invite_discount_flag
+			add_country_modifier = {
+				name = "EDG_ARL_special_Mission_5_8_modifier"
+				duration = 9125
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_5_9 = {
+		icon = mission_afghan_frontier
+		required_missions = { EDG_ARL_special_Mission_5_8 EDG_ARL_special_Mission_4_8 }
+		position = 9
+		provinces_to_highlight = {
+			
+		}
+		trigger = {
+			total_development = 300
+			prestige = 45
+		}
+		effect = {
+			add_prestige_or_monarch_power = { amount = 10 }
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = "EDG_adm_policy_8_modifier"
+				duration = 9125
+			}
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+	EDG_ARL_special_Mission_5_10 = {
+		icon = mission_persianate_empire
+		required_missions = { EDG_ARL_special_Mission_4_9 }
+		position = 10
+		provinces_to_highlight = {
+			province_id = 326
+		}
+		trigger = {
+			OR = {
+				war_with = TUR
+				war_with = RUM
+				AND = {
+					NOT = { exists = RUM }
+					NOT = { exists = TUR }
+					owns = 326
+				}
+			}
+		}
+		effect = {
+			add_piety = -2
+		}
+		ai_weight = {
+			factor = 400
+		}
+	}
+}

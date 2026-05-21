@@ -1,0 +1,338 @@
+EDG_LER_on_raze_province_effect = {
+	if = {#穆瓦希德烧地加政府能力
+		limit = {
+			owner = {
+				has_government_attribute = EDG_holy_raze_ability
+			}
+			NOT = { religion = owner }
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_Muwahhidun_government_ability
+				power_type = EDG_Muwahhidun_government_power
+				value = 0.1
+			}
+		}
+	}
+	if = {#穆瓦希德烧地传教
+		limit = {
+			NOT = { religion = owner }
+		}
+		if = {
+			limit = {
+				owner = {
+					has_country_flag = EDG_holy_raze_change_religion_all_flag
+				}
+			}
+			change_religion = owner
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_country_flag = EDG_holy_raze_change_religion_rank_2_flag
+				}
+				NOT = { development = 10 }
+			}
+			change_religion = owner
+		}
+		else_if = {
+			limit = {
+				owner = {
+					has_country_flag = EDG_holy_raze_change_religion_rank_1_flag
+				}
+				NOT = { development = 6 }
+			}
+			change_religion = owner
+		}
+	}
+
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = NYGX_LER_end_time_mechanic
+			}
+			NOT = {
+				religion = owner
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = NYGX_LER_end_time_mechanic
+				power_type = NYGX_LER_end_zeal
+				value = 0.25
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_LER_defense_nomad
+				has_government_power = {
+					mechanic_type = NYGX_LER_end_time_mechanic
+					power_type = NYGX_LER_end_zeal
+					value = 50
+				}
+			}
+			NOT = {
+				religion = owner
+			}
+		}
+		change_religion = owner
+	}
+	if = {#穆瓦希德神圣焚掠
+		limit = {
+			owner = {
+				has_country_flag = EDG_holy_raze_twice_flag
+			}
+			NOT = { has_province_modifier = province_EDG_holy_razed }
+			NOT = { religion = owner }
+		}
+		add_permanent_province_modifier = {
+			name = province_EDG_holy_razed
+			duration = 7300
+		}
+	}
+}
+EDG_on_province_religion_converted_effect = {#完成传教
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = NYGX_LER_end_time_mechanic
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = NYGX_LER_end_time_mechanic
+				power_type = NYGX_LER_end_zeal
+				value = 0.5
+			}
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				mission_completed = NYGX_LER_inward_religion_problem
+			}
+		}
+		owner = {
+			add_church_power = 5
+		}
+	}
+	if = {
+		limit = {
+			owner = {
+				has_government_attribute = EDG_Muwahhidun_government_ability
+				has_country_flag = EDG_on_province_religion_converted_provide_power_MRK_flag
+			}
+		}
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_Muwahhidun_government_ability
+				power_type = EDG_Muwahhidun_government_power
+				value = 0.02
+			}
+		}
+	}
+	if = {
+		limit = { owner = { has_government_attribute = EDG_gain_legitimacy_from_conversions } }
+		owner = { add_legitimacy = 0.2 }
+	}
+	if = {
+		limit = { owner = { has_government_attribute = EDG_reduce_nationalism_from_conversions } }
+		owner = { add_nationalism = -10 }
+	}
+	if = {
+		limit = { owner = { has_government_attribute = EDG_reduce_local_autonomy_from_conversions } }
+		owner = { add_local_autonomy = -25 }
+	}
+	if = {
+		limit = { owner = { has_country_flag = EDG_missionary_gain_adm_power_flag } }
+		owner = { add_adm_power = 5 }
+	}
+	if = {
+		limit = { owner = { has_country_flag = EDG_missionary_gain_dip_power_flag } }
+		owner = { add_dip_power = 5 }
+	}
+	if = {
+		limit = { owner = { has_country_flag = EDG_missionary_gain_mil_power_flag } }
+		owner = { add_mil_power = 5 }
+	}
+	if = {
+		limit = { owner = { has_government_attribute = EDG_YIN_Monarchy_government_ability } }
+		owner = {
+			add_government_power = {
+				mechanic_type = EDG_YIN_Monarchy_government_ability
+				power_type = EDG_YIN_Monarchy_government_power
+				value = 2
+			}
+		}
+	}
+	if = {
+		limit = { owner = { has_government_attribute = EDG_converte_provide_per_influence_ability } }
+		owner = {
+			add_government_power = {
+				mechanic_type = persian_influence_mechanic
+				power_type = persian_influence
+				value = 0.25
+			}
+		}
+	}
+}
+
+EDG_FYM_province_religion_effect = {
+	remove_province_modifier = estate_edg_copt_guaranteed_autonomy_mod
+	remove_province_modifier = estate_EDG_FYM_Abbasid_caliphate_privilege_2_province_modifier_mod
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_EDG_FYM_Fatima_caliphate_privilege_2 }
+			religion = shiite
+		}
+		add_province_modifier = {
+			name = estate_EDG_FYM_Abbasid_caliphate_privilege_2_province_modifier_mod
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_EDG_FYM_Abbasid_caliphate_privilege_2 }
+			religion = sunni
+		}
+		add_province_modifier = {
+			name = estate_EDG_FYM_Abbasid_caliphate_privilege_2_province_modifier_mod
+			duration = -1
+		}
+	}
+	if = {
+		limit = {
+			owner = { has_estate_privilege = estate_edg_copt_guaranteed_autonomy }
+			religion = coptic
+		}
+		add_province_modifier = {
+			name = estate_edg_copt_guaranteed_autonomy_mod
+			duration = -1
+		}
+	}
+}
+
+EDG_OA_on_province_religion_changed_effect = {
+	if = {
+		limit = {
+			OR = {
+				has_province_modifier = EDG_PER_Primary_Muslims_province_modifier
+				has_province_modifier = EDG_PER_Primary_Christian_province_modifier
+				has_province_modifier = EDG_PER_Primary_Zoroastrianism_province_modifier
+				has_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+				has_province_modifier = EDG_PER_Minority_Muslims_province_modifier_new
+				has_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+				has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+			}
+		}
+		hidden_effect = {
+			if = {
+				limit = { religion_group = muslim }
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Christian_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Christian_province_modifier
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Zoroastrianism_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Zoroastrianism_province_modifier
+						duration = -1
+					}
+				}
+				remove_province_modifier = EDG_PER_Primary_Christian_province_modifier
+				remove_province_modifier = EDG_PER_Primary_Zoroastrianism_province_modifier
+	
+				remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+				remove_province_modifier = EDG_PER_Minority_Muslims_province_modifier_new
+				add_permanent_province_modifier = {
+					name = EDG_PER_Primary_Muslims_province_modifier
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { religion_group = christian }
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Zoroastrianism_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Zoroastrianism_province_modifier
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Muslims_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Muslims_province_modifier
+						duration = -1
+					}
+				}
+				remove_province_modifier = EDG_PER_Primary_Muslims_province_modifier
+				remove_province_modifier = EDG_PER_Primary_Zoroastrianism_province_modifier
+				
+				remove_province_modifier = EDG_PER_Minority_Christian_province_modifier
+				remove_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+				add_permanent_province_modifier = {
+					name = EDG_PER_Primary_Christian_province_modifier
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { religion_group = zoroastrian_group }
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Christian_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Christian_province_modifier
+						duration = -1
+					}
+				}
+				if = {
+					limit = {
+						has_province_modifier = EDG_PER_Primary_Muslims_province_modifier
+					}
+					add_permanent_province_modifier = {
+						name = EDG_PER_Minority_Muslims_province_modifier
+						duration = -1
+					}
+				}
+				remove_province_modifier = EDG_PER_Primary_Muslims_province_modifier
+				remove_province_modifier = EDG_PER_Primary_Christian_province_modifier
+				
+				remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+				remove_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+				add_permanent_province_modifier = {
+					name = EDG_PER_Primary_Zoroastrianism_province_modifier
+					duration = -1
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					has_province_modifier = EDG_PER_Minority_Muslims_province_modifier
+					has_province_modifier = EDG_PER_Minority_Christian_province_modifier
+					has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier
+					has_province_modifier = EDG_PER_Minority_Muslims_province_modifier_new
+					has_province_modifier = EDG_PER_Minority_Christian_province_modifier_new
+					has_province_modifier = EDG_PER_Minority_Zoroastrianism_province_modifier_new
+				}
+			}
+			province_event = { id = EDG_flavor_PER_war.101 }
+		}
+	}
+}
