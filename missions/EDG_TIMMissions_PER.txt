@@ -1,0 +1,590 @@
+EDG_TIM_mission_PER_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PER
+		was_tag = TIM
+	}
+
+	EDG_TIM_mission_PER_iranian_renaissance = {
+		icon = per_tab_legacy_of_eranshahr
+		required_missions = { }
+		position = 31
+
+		trigger = {
+			mission_completed = EDG_TIM_mission_khorasan_renaissance
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 20
+				region = persia_region
+				renaissance = 100
+			}
+		}
+
+		effect = {
+			custom_tooltip = EDG_PER_Shahanshah_event_8_tooltip
+			set_global_flag = EDG_Mission_PER_1_11_global_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_TIM_mission_PER_iranian_renaissance_tooltip
+			set_country_flag = EDG_TIM_mission_PER_iranian_renaissance_flag
+			hidden_effect = {
+				for = {
+					amount = 8
+					effect = "
+						random_owned_province = {
+							limit = {
+								region = persia_region
+							}
+							add_base_development = { amount = 1 }
+						}
+					"
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_Mission_PER_1_11_modifier
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_TIM_mission_PER_court = {
+		icon = mission_reign_of_women
+		required_missions = { EDG_TIM_mission_PER_iranian_renaissance }
+		position = 33
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = {
+				OR = {
+					has_building = courthouse
+					has_building = town_hall
+				}
+			}
+		}
+
+		trigger = {
+			OR = {
+				AND = {
+					has_adm_advisor_3 = yes
+					has_dip_advisor_3 = yes
+					has_mil_advisor_3 = yes
+					calc_true_if = {
+						all_owned_province = {
+							has_courthouse_building_trigger = yes
+						}
+						amount = 20
+					}
+				}
+				full_idea_group = court_ideas
+			}
+		}
+
+		effect = {			
+			custom_tooltip = EDG_culture_promoted_provide_10_prestige_flag_tt
+			set_country_flag = EDG_culture_promoted_provide_10_prestige_flag
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = turkoman_well_connected_chace_tt
+				set_country_flag = turkoman_triple_trait_chance
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = turkoman_splendid_court
+				duration = 7300
+			}
+			country_event = { id = EDG_flavor_PER.7 }
+			custom_tooltip = EDG_EVENT_PREVIEW_TT
+			custom_tooltip = EDG_EVENT_OPTION_ONE_TT
+			tooltip = {
+				add_government_reform = EDG_PER_harem_reform
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_EVENT_OPTION_TWO_TT
+			custom_tooltip = EDG_PER_harem_reform_enable_flag_tt
+		}
+	}
+}
+
+EDG_TIM_mission_PER_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PER
+		was_tag = TIM
+	}
+
+	EDG_TIM_mission_PER_tupchi = {
+		icon = per_create_the_tupchi
+		required_missions = { EDG_TIM_mission_PER_ghulams }
+		position = 32
+		provinces_to_highlight = {
+			has_discovered = root
+			is_capital = yes
+			continent = europe
+			owner = {
+				OR = {
+					mil_tech = root
+					AND = { NOT = { alliance_with = root } NOT = { is_subject_of = root } }
+					has_opinion = { who = root value = 150 }
+				}
+			}
+		}
+
+		trigger = {
+			num_of_artillery = 30
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = per_create_the_tupchi_tt
+					any_known_country = {
+						capital_scope = { continent = europe }
+						mil_tech = root
+						OR = {
+							alliance_with = root
+							is_subject_of = root
+						}
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+				}
+				AND = {
+					has_better_tech_than_westerns = yes
+					has_more_institutions_than_westerns = yes
+					OR = {
+						AND = {
+							army_tradition = 75
+							army_professionalism = 0.8
+						}
+						mil_tech = 20
+					}
+					mil_power = 200
+				}
+			}
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_mission_PER_tupchi_flag
+			custom_tooltip = EDG_TIM_mission_PER_tupchi_tooltip
+			custom_tooltip = EDG_SPACE_TT
+			unlock_estate_privilege = { 
+				estate_privilege = estate_nobles_tupchi_artillery_corps
+				modifier_tooltip = estate_nobles_tupchi_artillery_corps_tooltip
+				effect_tooltip = "custom_tooltip = tupchi_artillery_corps_tt"
+			}
+			unlock_estate_privilege = { estate_privilege = estate_ghulams_tupchi_artillery_corps }
+		}
+	}
+}
+
+EDG_TIM_mission_PER_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PER
+		was_tag = TIM
+	}
+
+	EDG_TIM_mission_PER_ghulams = {
+		icon = per_create_the_ghulams
+		required_missions = { }
+		position = 31
+
+		trigger = {
+			estate_loyalty = {
+				estate = estate_ghulams
+				loyalty = 60
+			}
+		}
+
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_ghulams
+				loyalty = 20
+			}
+			transfer_percentage_crownland_share = {
+				custom_tooltip = per_qizilbash_loyalty_at
+				from_estate = estate_nobles
+				target_estate = estate_ghulams
+				amount = 0.5
+			}
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_TIM_mission_PER_ghulams_flag
+			custom_tooltip = EDG_TIM_mission_PER_ghulams_tooltip_1
+			custom_tooltip = EDG_ESTATE_PRIVILEGE_PREVIEW_TT
+			tooltip = {
+				set_estate_privilege = estate_EDG_TIM_ghulam_elites
+			}
+			custom_tooltip = EDG_TIM_mission_PER_ghulams_tooltip_2
+			custom_tooltip = EDG_ESTATE_PRIVILEGE_PREVIEW_TT
+			tooltip = {
+				set_estate_privilege = estate_EDG_TIM_ghulam_officials
+			}
+		}
+	}
+
+	EDG_TIM_mission_PER_balance = {
+		icon = balance_the_estates
+		required_missions = { EDG_TIM_mission_PER_tupchi EDG_TIM_mission_PER_qurchi }
+		position = 33
+
+		trigger = {
+			NOT = {
+				OR = {
+					estate_influence = {
+						estate = estate_nobles
+						influence = 60
+					}
+					estate_influence = {
+						estate = estate_ghulams
+						influence = 60
+					}
+					estate_influence = {
+						estate = estate_nomadic_tribes
+						influence = 60
+					}
+				}
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 50
+			}
+			estate_loyalty = {
+				estate = estate_ghulams
+				loyalty = 50
+			}
+			estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = 50
+			}
+			OR = {
+				reform_level = 5
+				AND = {
+					reform_level = 4
+					government_reform_progress = 180
+				}
+			}
+		}
+
+		effect = {
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 10
+			}
+			add_estate_loyalty = {
+				estate = estate_ghulams
+				loyalty = 10
+			}
+			add_estate_loyalty = {
+				estate = estate_nomadic_tribes
+				loyalty = 10
+			}
+			country_event_with_effect_insight = {
+				id = flavor_per.36
+				effect = "
+					unlock_government_reform = {
+						government_reform = divided_aristocracy_reform
+						tooltip = yes
+					}
+				"
+			}
+		}
+	}
+
+	EDG_TIM_mission_PER_iran_and_turan = {
+		icon = per_unify_islam
+		required_missions = { EDG_TIM_mission_PER_court EDG_TIM_mission_PER_balance EDG_TIM_mission_PER_rug }
+		position = 34
+
+		trigger = {
+			EDG_PER_Shahanshah_trigger = yes
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_can_rename_to_iran_and_turan_flag
+			set_country_flag = EDG_TIM_name_is_iran_and_turan_flag
+			clr_country_flag = EDG_TIM_name_is_gurkani_flag
+			override_country_name = IRAN_AND_TURAN_STRING
+			change_variable = {
+				which = EDG_PER_Shahanshah_authority_var
+				value = 300
+			}
+			custom_tooltip = EDG_SPACE_TT
+
+			custom_tooltip = EDG_TIM_mission_PER_iran_and_turan_tooltip_1
+			tooltip = {
+				change_culture = turco_iranian
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						OR = {
+							culture = uzbehk
+							culture = khorasani
+							culture = afghani
+						}
+					}
+					change_culture = turco_iranian
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_TIM_mission_PER_iran_and_turan_tooltip_2
+			tooltip = {
+				change_culture = EDG_Iranian_turkmeni_culture
+			}
+			hidden_effect = {
+				every_province = {
+					limit = {
+						country_or_non_sovereign_subject_holds = ROOT
+						culture = turkmeni
+					}
+					change_culture = EDG_Iranian_turkmeni_culture
+				}
+			}
+		}
+	}
+}
+
+EDG_TIM_mission_PER_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PER
+		was_tag = TIM
+	}
+
+	EDG_TIM_mission_PER_qurchi = {
+		icon = per_establish_the_qurchi
+		required_missions = { EDG_TIM_mission_PER_ghulams }
+		position = 32
+
+		trigger = {
+			has_high_monthly_monarch_power = { type = mil }
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				OR = {
+					num_of_regiments_at_full_drill = 40
+					has_country_modifier = EDG_PER_disaster_Shah_insane_end_modifier
+				}
+			}
+			else = {
+				army_size = 120
+				has_global_modifier_value = {
+					which = infantry_power
+					value = 0.25
+				}
+			}
+		}
+
+		effect = {
+			set_country_flag = EDG_TIM_mission_PER_qurchi_flag
+			custom_tooltip = EDG_TIM_mission_PER_qurchi_tooltip
+			custom_tooltip = EDG_SPACE_TT
+			unlock_estate_privilege = { 
+				estate_privilege = estate_nobles_qurchi_service
+				modifier_tooltip = estate_nobles_qurchi_service_tooltip
+				effect_tooltip = "
+				scaling_with_loyalty_privilege_tooltip = {
+					estate_privilege = estate_nobles_qurchi_service
+				}
+				"
+			}
+			unlock_estate_privilege = { estate_privilege = estate_ghulams_qurchi_service }
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavor_PER.10 }
+			custom_tooltip = EDG_EVENT_PREVIEW_TT
+			custom_tooltip = EDG_EVENT_OPTION_ONE_TT
+			tooltip = {
+				add_government_reform = EDG_PER_Qurchi_reform
+			}
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_EVENT_OPTION_TWO_TT
+			tooltip = {
+				add_mil_power = 50
+			}
+		}
+	}
+}
+
+EDG_TIM_mission_PER_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = PER
+		was_tag = TIM
+	}
+
+	EDG_TIM_mission_PER_silk = {
+		icon = mission_gujarati_textiles
+		required_missions = { }
+		position = 31
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				trade_goods = cloth
+				trade_goods = silk
+			}
+			OR = {
+				NOT = {
+					base_production = 5
+				}
+				NOT = {
+					has_production_building_trigger = yes
+				}
+				NOT = {
+					has_manufactory_trigger = yes
+				}
+			}
+		}
+		
+
+		trigger = {
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						trade_goods = cloth
+						trade_goods = silk
+					}
+					base_production = 5
+				}
+				amount = 5
+			}
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						trade_goods = cloth
+						trade_goods = silk
+					}
+					has_production_building_trigger = yes
+				}
+				amount = 5
+			}
+			calc_true_if = {
+				all_owned_province = {
+					OR = {
+						trade_goods = cloth
+						trade_goods = silk
+					}
+					has_manufactory_trigger = yes
+				}
+				amount = 5
+			}
+		}
+
+		effect = {
+			add_country_modifier = {
+				name = "turkoman_expanding_industry"
+				duration = 3650
+			}
+			custom_tooltip = trk_chance_extra_dev_tt
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_give_5_cloth_provinces_modifier_tt
+			tooltip = {
+				add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 }
+			}
+			hidden_effect = {
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+			}
+			if = {
+				limit = { development_in_provinces = { value = 100 trade_goods = wool } }
+				custom_tooltip = trk_convert_wool_provinces_tt_yes
+			}
+			else = {
+				custom_tooltip = trk_convert_wool_provinces_tt_no
+			}
+			hidden_effect = {
+				if = {
+					limit = { development_in_provinces = { value = 100 trade_goods = wool } }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+				}
+			}
+		}
+	}
+
+	EDG_TIM_mission_PER_rug = {
+		icon = mission_finest_carpets
+		required_missions = { EDG_TIM_mission_PER_silk }
+		position = 33
+		provinces_to_highlight = {
+			has_discovered = root
+			OR = {
+				trade_goods = silk
+				trade_goods = cloth
+				trade_goods = dyes
+			}
+		}
+
+		trigger = {
+			OR = {
+				production_leader = { trade_goods = silk } 
+				trade_goods_produced_amount = { trade_goods = silk amount = 20 }
+			}
+			OR = {
+				production_leader = { trade_goods = cloth } 
+				trade_goods_produced_amount = { trade_goods = cloth amount = 20 }
+			}
+			OR = {
+				production_leader = { trade_goods = dyes } 
+				trade_goods_produced_amount = { trade_goods = dyes amount = 20 }
+			}
+		}
+
+		effect = {			
+			custom_tooltip = EDG_give_5_cloth_provinces_modifier_tt
+			tooltip = {
+				add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 }
+			}
+			hidden_effect = {
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+				random_owned_province = { limit = { trade_goods = cloth  } add_permanent_province_modifier = { name = EDG_Origin_of_high_quality_textiles_goods_modifier duration = -1 } }
+			}
+			
+			if = {
+				limit = { num_of_owned_provinces_with = { value = 3 trade_goods = wool } }
+				custom_tooltip = EDG_convert_3_wool_provinces_tt_yes
+			}
+			else = {
+				custom_tooltip = EDG_convert_3_wool_provinces_tt_no
+			}
+			hidden_effect = {
+				if = {
+					limit = { num_of_owned_provinces_with = { value = 3 trade_goods = wool } }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+					random_owned_province = { limit = { trade_goods = wool  } change_trade_goods = cloth  }
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event_with_effect_insight = {
+				id = flavor_per.19
+				effect = "custom_tooltip = per_the_persian_rug_at"
+			}
+		}
+	}
+}

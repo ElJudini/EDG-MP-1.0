@@ -1,0 +1,696 @@
+EDG_MISSION_SIC_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SIC } 
+
+	EDG_MISSION_SIC_1_1 = {
+		icon = mission_alliances
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			num_of_allies = 3	
+		} 
+
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_1_1_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_1_2 = {
+		icon = mission_war_chest
+		position = 2
+		required_missions = { EDG_MISSION_SIC_1_1 } 
+		provinces_to_highlight = {
+			province_id = 125
+		}  
+
+		trigger = {
+			125 = {
+				is_strongest_trade_power = ROOT
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 0.85
+			add_country_modifier = {
+				name = EDG_trade_upgrade_1_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_1_3 = {
+		icon = byz_pontic_empire
+		position = 3
+		required_missions = {
+			EDG_MISSION_SIC_1_2
+			EDG_MISSION_SIC_2_2
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = sicily_area
+				area = western_sicily_area
+			}
+		}  
+
+		trigger = {
+			development_in_provinces = {
+				value = 125
+				owned_by = root
+				OR = {
+					area = sicily_area
+					area = western_sicily_area
+				}
+			}
+		} 
+
+		effect = {
+			sicily_area = {
+				limit = { owned_by = ROOT }
+				change_culture = root
+				add_province_modifier = {
+					name = EDG_capita_area_bloom
+					duration = 9125
+				}
+			}
+			western_sicily_area = {
+				limit = { owned_by = ROOT }
+				change_culture = root
+				add_province_modifier = {
+					name = EDG_capita_area_bloom
+					duration = 9125
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_1_5 = {
+		icon = the_emden_company
+		position = 5
+		required_missions = { EDG_MISSION_SIC_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = venetia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = venetia_area
+				}
+			}
+		} 
+
+
+		effect = {
+			add_treasury = 300
+			EDG_SIC_modifier_update_effect = yes
+		} 
+	}
+}
+EDG_MISSION_SIC_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SIC } 
+
+	EDG_MISSION_SIC_2_2 = {
+		icon = mission_autocephalous_archbishopric
+		position = 2
+		required_missions = { EDG_MISSION_SIC_3_1 } 
+		provinces_to_highlight = {
+			
+		}  
+
+		trigger = {
+			stability = 2
+			sicily_area = {
+				type = all
+				religion = orthodox
+				EDG_has_building_temple_trigger = yes
+			}
+			western_sicily_area = {
+				type = all
+				religion = orthodox
+				EDG_has_building_temple_trigger = yes
+			}
+		} 
+
+		effect = {
+			add_patriarch_authority = 0.1
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_2_2_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_2_4 = {
+		icon = mission_war_for_the_crown
+		position = 4
+		required_missions = { EDG_MISSION_SIC_3_3 } 
+		provinces_to_highlight = {
+			
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				OR = {
+					has_building = barracks
+					has_building = training_fields
+					has_building = regimental_camp
+					has_building = conscription_center
+				}
+			}
+		} 
+
+		effect = {
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_2_4_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_2_5 = {
+		icon = the_hundred_years_war
+		position = 5
+		required_missions = { EDG_MISSION_SIC_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = emilia_romagna_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = emilia_romagna_area
+				}
+			}
+		} 
+
+
+		effect = {
+			add_mil_power = 100
+			EDG_SIC_modifier_update_effect = yes
+		} 
+	}
+}
+EDG_MISSION_SIC_slot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SIC } 
+
+	EDG_MISSION_SIC_3_1 = {
+		icon = byz_aegean_islands
+		position = 1
+		provinces_to_highlight = {
+			
+		}  
+
+		trigger = {
+			OR = {
+				army_size_percentage = 1
+				army_size = 20
+			}
+		} 
+
+		effect = {
+			naples_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			calabria_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			apulia_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_3_1_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_3_2 = {
+		icon = mission_unite_home_region
+		position = 2
+		required_missions = { EDG_MISSION_SIC_3_1 } 
+		provinces_to_highlight = {
+			OR = {
+				area = naples_area
+				area = calabria_area
+				area = apulia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 1
+				OR = {
+					area = naples_area
+					area = calabria_area
+					area = apulia_area
+				}
+			}
+		} 
+
+		effect = {
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_3_2_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_3_3 = {
+		icon = the_law_colleges
+		position = 3
+		required_missions = { EDG_MISSION_SIC_3_2 } 
+		provinces_to_highlight = {
+			OR = {
+				area = naples_area
+				area = calabria_area
+				area = apulia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 9
+				OR = {
+					area = naples_area
+					area = calabria_area
+					area = apulia_area
+				}
+			}
+		} 
+
+		effect = {
+			central_italy_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			lazio_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			corsica_sardinia_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_3_3_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_3_4 = {
+		icon = mission_pf_cross
+		position = 4
+		required_missions = { EDG_MISSION_SIC_3_3 } 
+		provinces_to_highlight = {
+			province_id = 118
+		}  
+
+		trigger = {
+			118 = {
+				owned_by = ROOT
+			}
+		} 
+
+		effect = {
+			118 = {
+				add_core = ROOT
+				change_culture = root
+				change_religion = ROOT
+			}
+			italy_region = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			define_advisor = {
+				type = inquisitor
+				skill = 3
+				cost_multiplier = 0.25
+				culture = ROOT
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			country_event = { id = EDG_flavor_SIC.0 }
+		} 
+	}
+
+	EDG_MISSION_SIC_3_5 = {
+		icon = seize_lombardy
+		position = 5
+		required_missions = { EDG_MISSION_SIC_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = lombardy_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = lombardy_area
+				}
+			}
+		} 
+
+
+		effect = {
+			add_mil_power = 100
+			EDG_SIC_modifier_update_effect = yes
+		} 
+	}
+
+	EDG_MISSION_SIC_3_6 = {
+		icon = a_roman_empire
+		position = 6
+		required_missions = {
+			EDG_MISSION_SIC_1_5
+			EDG_MISSION_SIC_2_5
+			EDG_MISSION_SIC_3_5
+			EDG_MISSION_SIC_4_5
+			EDG_MISSION_SIC_5_5
+		}
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			italy_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+
+			custom_tooltip = EDG_SPACE_TT
+			country_event_with_effect_insight = {
+				id = MEE_Byzantine_Events.48
+				effect = "
+					if = { limit = { religion = orthodox }
+						add_patriarch_authority = 0.2
+						custom_tooltip = \" \"
+					}
+					add_country_modifier = {
+						name = conversion_of_rome
+						duration = 7300
+					}
+					custom_tooltip = \" \"
+					define_advisor = {
+						type = theologian skill = 3 culture = umbrian religion = ROOT cost_multiplier = 0.25
+					}
+					if = { limit = { religion = orthodox }
+						custom_tooltip = \" \"
+						custom_tooltip = BYZ_every_catholic
+					}
+				"
+				#Yes, I had trouble fitting it in, sorry!
+			}
+		} 
+	}
+}
+EDG_MISSION_SIC_slot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SIC } 
+
+	EDG_MISSION_SIC_4_2 = {
+		icon = mission_establish_high_seas_navy
+		position = 2
+		required_missions = { EDG_MISSION_SIC_3_1 } 
+		provinces_to_highlight = {
+			
+		}  
+
+		trigger = {
+			navy_size = 30
+			OR = {
+				navy_size = 50
+				navy_size_percentage = 1
+			}
+		} 
+
+		effect = {
+			east_adriatic_coast_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			albania_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			4754 = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_army_fleet_3_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_4_4 = {
+		icon = mission_high_income
+		position = 4
+		required_missions = { EDG_MISSION_SIC_3_3 } 
+		provinces_to_highlight = {
+			
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				EDG_has_building_courthouse_trigger = yes
+			}
+		} 
+
+		effect = {
+			add_adm_power = 100
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_4_4_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_4_5 = {
+		icon = empower_the_junkers
+		position = 5
+		required_missions = { EDG_MISSION_SIC_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = liguria_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 2
+				OR = {
+					area = liguria_area
+				}
+			}
+		} 
+
+
+		effect = {
+			add_dip_power = 100
+			EDG_SIC_modifier_update_effect = yes
+		} 
+	}
+}
+EDG_MISSION_SIC_slot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = SIC } 
+
+	EDG_MISSION_SIC_5_1 = {
+		icon = mission_son_invade_mali
+		position = 1
+		provinces_to_highlight = {
+			province_id = 151
+		}  
+
+		trigger = {
+			151 = {
+				OR = {
+					NOT = { owned_by = BYZ }
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+			}
+		} 
+
+		effect = {
+			macedonia_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			morea_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			thrace_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			northern_greece_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			
+		} 
+	}
+
+	EDG_MISSION_SIC_5_2 = {
+		icon = a.e.i.o.u.
+		position = 2
+		required_missions = { EDG_MISSION_SIC_5_1 } 
+		provinces_to_highlight = {
+			OR = {
+				area = northern_greece_area
+				area = thrace_area
+				area = morea_area
+				area = macedonia_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 12
+				OR = {
+					area = northern_greece_area
+					area = thrace_area
+					area = morea_area
+					area = macedonia_area
+				}
+			}
+		} 
+
+		effect = {
+			hudavendigar_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			aydin_area = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_5_3 = {
+		icon = mission_plc_purple_phoenix
+		position = 3
+		required_missions = {
+			EDG_MISSION_SIC_4_2
+			EDG_MISSION_SIC_5_2
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = hudavendigar_area
+				area = aydin_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			hudavendigar_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			aydin_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		} 
+
+		effect = {
+			balkan_region = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			anatolia_region = {
+				limit = { NOT = { is_core = ROOT } NOT = { is_permanent_claim = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_MISSION_SIC_5_3_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_SIC_5_5 = {
+		icon = westphalian_conquest
+		position = 5
+		required_missions = { EDG_MISSION_SIC_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = tuscany_area
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}  
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 4
+				OR = {
+					area = tuscany_area
+				}
+			}
+		} 
+
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 20 }
+			EDG_SIC_modifier_update_effect = yes
+		} 
+	}
+}

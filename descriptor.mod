@@ -1,0 +1,10 @@
+version="1"
+tags={
+	"Fixes"
+}
+name="testing1"
+replace_path="localisation/replace"
+replace_path="localisation/l_english"
+replace_path="common/bookmarks"
+replace_path="gfx/loadingscreens"
+supported_version="v1.37.5.0"

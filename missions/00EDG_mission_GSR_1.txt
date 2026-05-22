@@ -1,0 +1,480 @@
+EDG_MISSION_GSR_SLOT_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = GSR tag = SER } NOT = { has_country_flag = EDG_MISSION_GSR_formal_unlock_flag }  }  
+
+	EDG_MISSION_GSR_1_2 = {
+		icon = knights_of_the_new_world
+		position = 2
+		required_missions = { EDG_MISSION_GSR_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			num_of_mercenaries = 4
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_GSR_1_2_flag_tt
+			set_country_flag = EDG_MISSION_GSR_1_2_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_GSR_1_2_modifier
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_MISSION_GSR_1_3 = {
+		icon = mission_teutonic_knights
+		position = 3
+		required_missions = { EDG_MISSION_GSR_1_2 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			num_of_allies = 2
+			num_of_generals = 2
+			has_mil_advisor = yes
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_GSR_mission.2 }
+		} 
+	}
+}
+EDG_MISSION_GSR_SLOT_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = GSR tag = SER } NOT = { has_country_flag = EDG_MISSION_GSR_formal_unlock_flag }  }  
+
+	EDG_MISSION_GSR_2_2 = {
+		icon = sway_the_pope
+		position = 2
+		required_missions = { EDG_MISSION_GSR_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				#has_country_flag = EDG_GSR_accept_PAP_help_flag
+				PAP = {
+					has_opinion = {
+						who = ROOT 
+						value = 75
+					}
+				}
+				PAP = { 
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = scornfully_insulted
+					}
+				}
+				PAP = { 
+					has_opinion_modifier = {
+						who = ROOT
+						modifier = insulted
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						PAP = { 
+							has_opinion_modifier = {
+								who = ROOT
+								modifier = scornfully_insulted
+							}
+						}
+						PAP = { 
+							has_opinion_modifier = {
+								who = ROOT
+								modifier = insulted
+							}
+						}
+					}
+				}
+				custom_tooltip = EDG_MISSION_GSR_2_2_a_tt_yes
+				add_country_modifier = {
+					name = EDG_MISSION_GSR_2_2_modifier
+					duration = 7300
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_MISSION_GSR_2_2_b_tt_no
+				tooltip = {
+					add_manpower = 10
+					add_treasury = 500
+				}
+			}
+			else = {
+				custom_tooltip = EDG_MISSION_GSR_2_2_a_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_MISSION_GSR_2_2_modifier
+						duration = 7300
+					}
+				}
+
+				custom_tooltip = EDG_SPACE_TT
+				custom_tooltip = EDG_MISSION_GSR_2_2_b_tt_yes
+				add_manpower = 10
+				add_treasury = 500
+			}
+		} 
+	}
+
+	EDG_MISSION_GSR_2_3 = {
+		icon = mission_expel_the_moriscos
+		position = 4
+		required_missions = {
+			EDG_MISSION_GSR_3_3
+			EDG_MISSION_GSR_2_2
+			EDG_MISSION_GSR_1_3
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			is_at_war = no
+			has_mil_advisor = yes
+			or = {
+				army_tradition = 35
+				army_reformer = 1
+			}
+			or = {
+				army_size = 30
+				manpower_percentage = 0.50
+			}
+		} 
+
+		effect = {
+			add_army_tradition = 15
+			add_country_modifier = {
+				name = EDG_MISSION_GSR_2_3_modifier
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_MISSION_GSR_SLOT_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = GSR tag = SER } NOT = { has_country_flag = EDG_MISSION_GSR_formal_unlock_flag }  } 
+
+	EDG_MISSION_GSR_3_1 = {
+		icon = mission_humiliate_lubeck
+		position = 1
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			if = {
+				limit = { ai = yes }
+				is_year = 1500
+			}
+
+			num_of_generals = 1
+			OR = {
+				army_size = 30
+				army_size_percentage = 1
+			}
+		} 
+
+		effect = {
+			1764 = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			bulgaria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			albania_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+			silistria_area = {
+				limit = { NOT = { is_permanent_claim = ROOT	} NOT = { is_core = ROOT } }
+				add_permanent_claim = ROOT
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_yearly_manpower = 0.5
+			add_country_modifier = {
+				name = EDG_MISSION_GSR_3_1_modifier
+				duration = 3650
+			}
+			hidden_effect = {
+				country_event = { id = EDG_flavor_GSR_mission.3 days = 100 }
+			}
+		} 
+	}
+
+	EDG_MISSION_GSR_3_3 = {
+		icon = mission_norwegian_independence
+		position = 3
+		required_missions = { EDG_MISSION_GSR_3_1 } 
+		provinces_to_highlight = {
+			or = {
+				owned_by = BUL
+				owned_by = BU1
+			}
+			not = { controlled_by = root }
+		} 
+
+		trigger = {
+			if = {
+				limit = { exists = BUL }
+				BUL = {
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+				war_score_against = {
+					who = BUL
+					value = 25
+				}
+			}
+			else_if = {
+				limit = { exists = BU1 }
+				BU1 = {
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+				war_score_against = {
+					who = BU1
+					value = 25
+				}
+			}
+			else = {
+				not = { exists = BUL }
+				not = { exists = BU1 }
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_MISSION_GSR_3_3_tt
+			hidden_effect = {
+				every_province = {
+					limit = { culture = bulgarian controlled_by = root not = { owned_by = root } }
+					add_devastation = 25
+					root = {
+						add_prestige_or_monarch_power = { amount = 5 }
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+		} 
+	}
+
+	EDG_MISSION_GSR_3_4 = {
+		icon = mission_fire_of_london
+		position = 4
+		required_missions = { EDG_MISSION_GSR_3_3 } 
+		provinces_to_highlight = {
+			or = {
+				owned_by = BUL
+				owned_by = BU1
+				province_id = 150
+				province_id = 1765
+			}
+			not = { owned_by = root }
+		} 
+
+		trigger = {
+			150 = { owned_by = root }
+			1765 = { owned_by = root }
+			not = { exists = BUL }
+			not = { exists = BU1 }
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_GSR_mission.1 }
+		} 
+	}
+
+	EDG_MISSION_GSR_3_5 = {
+		icon = mission_apostolic_kingdom
+		position = 5
+		required_missions = {
+			EDG_MISSION_GSR_3_4
+			EDG_MISSION_GSR_4_4
+			EDG_MISSION_GSR_2_3
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			stability = 1
+			is_at_war = no
+		} 
+
+		effect = {
+			set_country_flag = EDG_MISSION_GSR_formal_unlock_flag
+			swap_non_generic_missions = yes
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_GSR_3_5_modifier
+				duration = 7300
+			}
+		} 
+	}
+}
+EDG_MISSION_GSR_SLOT_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = GSR tag = SER } NOT = { has_country_flag = EDG_MISSION_GSR_formal_unlock_flag }  }  
+
+	EDG_MISSION_GSR_4_2 = {
+		icon = mission_ottoman_early_army
+		position = 2
+		required_missions = { EDG_MISSION_GSR_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				has_estate_privilege = estate_nobles_nobility_primacy
+				has_estate_privilege = estate_nobles_levies
+				has_estate_privilege = estate_nobles_supremacy_over_crown
+			}
+		} 
+
+		effect = {
+			141 = {
+				add_province_modifier = {
+					name = EDG_MISSION_GSR_4_2_province_modifier
+					duration = 3650
+				}
+			}
+			3001 = {
+				add_province_modifier = {
+					name = EDG_MISSION_GSR_4_2_province_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_GSR_4_4 = {
+		icon = evengelize_the_faith
+		position = 4
+		required_missions = {
+			EDG_MISSION_GSR_5_3
+			EDG_MISSION_GSR_4_2
+			EDG_MISSION_GSR_3_3
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			is_at_war = no
+			has_adm_advisor = yes
+			OR = {
+				total_development = 150
+				num_of_cities = 18
+			}
+		} 
+
+		effect = {
+			IF = {
+				limit = {
+					has_reform = EDG_GreatSerbia_law_government
+				}
+				add_government_reform = EDG_Serbia_kingdom_government
+			}
+		} 
+	}
+}
+EDG_MISSION_GSR_SLOT_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = GSR tag = SER } NOT = { has_country_flag = EDG_MISSION_GSR_formal_unlock_flag }  }  
+
+	EDG_MISSION_GSR_5_2 = {
+		icon = mission_monarch_in_throne_room
+		position = 2
+		required_missions = { EDG_MISSION_GSR_3_1 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_flavor_GSR_mission_3_flag_trigger_tooltip
+				has_country_flag = EDG_flavor_GSR_mission_3_flag
+			}
+		} 
+
+		effect = {
+			country_event = { id = EDG_flavor_GSR_mission.4  }	
+			add_country_modifier = {
+				name = EDG_SER_Mission_4_2_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_GSR_5_3 = {
+		icon = the_ostend_company
+		position = 3
+		required_missions = { EDG_MISSION_GSR_5_2 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			OR = {
+				num_of_estate_privileges = { estate = estate_nobles value = 4 }
+				estate_loyalty = {
+					estate = estate_nobles
+					loyalty = 60
+				}
+			}
+		} 
+
+		effect = {
+			hidden_effect = { set_country_flag = dan_no_more_pesky_nobles_events }
+			disable_rebels_from_seize_land_for_estate = {
+				estate = estate_nobles
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 20
+			}
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_MISSION_GSR_5_3_province_modifier
+					duration = 7300
+				}
+			}
+		} 
+	}
+}

@@ -1,0 +1,5606 @@
+00EDG_BAH_A1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	} } 
+
+	00EDG_BAH_A1_1 = {#利益与合作
+		icon = mission_deccanis
+		position = 2
+		provinces_to_highlight = {  } 
+		required_missions = { 00EDG_BAH_C1_1 } 
+		trigger = { 
+			or = {
+				AND = {
+					war_with = DLH 
+					war_score_against = {
+						who = DLH
+						value = 35
+					}
+					
+					OR = {
+					  SRH = {
+						is_subject_of = DLH
+					  }
+					  MUL = {
+						is_subject_of = DLH 
+					  }
+					  JPR = {
+						is_subject_of = DLH 
+					  }
+					}
+					
+				}
+                has_won_war_against = { max_years_since = 50 who = DLH }
+				not ={
+					exists = DLH
+				}
+			}
+		 } 
+
+		effect = { 
+			if = {
+				limit = {
+					not ={
+						exists = DLH
+					}
+				}
+				custom_tooltip = EDG_BAH_A1_1_tool_a_tt_yes
+				add_prestige = 15
+			}
+
+			else = {
+				custom_tooltip = EDG_BAH_A1_1_tool_a_tt_no
+				tooltip = {
+					add_prestige = 15
+				}
+			}
+
+			if = {
+				limit = {
+					has_won_war_against = { max_years_since = 50 who = DLH }
+				}
+				custom_tooltip = EDG_BAH_A1_1_tool_b_tt_yes
+				add_ruler_modifier = {
+					name = EGD_BAH_C1_1_modifiers
+					duration = -1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BAH_A1_1_tool_b_tt_no
+				tooltip = {
+					add_ruler_modifier = {
+						name = EGD_BAH_C1_1_modifiers
+						duration = -1
+					}
+				}
+			}
+			if = {
+				limit = {
+					war_with = DLH 
+					war_score_against = {
+						who = DLH
+						value = 35
+					}
+
+					OR = {
+						SRH = {
+						  is_subject_of = DLH
+						}
+						MUL = {
+						  is_subject_of = DLH 
+						}
+						JPR = {
+						  is_subject_of = DLH 
+						}
+					}
+				}
+				custom_tooltip = EDG_BAH_A1_1_tool_c_tt_yes
+				country_event = {
+					id = EDG_BAH_missions_event.2
+				}
+			}
+			else ={
+				custom_tooltip = EDG_BAH_A1_1_tool_c_tt_no
+				tooltip = {
+					country_event = {
+						id = EDG_BAH_missions_event.2
+					}
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_A1_2 = {#保护贸易
+		icon = mission_grand_bengali_shipyards
+		position = 4
+		required_missions = { 00EDG_BAH_B1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			naval_forcelimit = 30
+			light_ship_fraction = 0.3 
+			heavy_ship_fraction = 0.2
+		 } 
+
+		effect = { 
+			add_navy_tradition = 10
+			add_country_modifier = {
+				name = EDG_BAH_A1_2_modifiers_1
+				duration = 9125
+			}
+		 } 
+	}
+
+	00EDG_BAH_A1_3 = {#波斯军事顾问
+		icon = mission_prepare_an_invasion_force
+		position = 6
+		required_missions = { 00EDG_BAH_B1_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			monthly_mil = 10
+			mil_power = 100
+			mil = 5
+			treasury = 100
+		 } 
+
+		effect = { 
+			add_treasury = -100
+			add_country_modifier = {
+				name = EDG_BAH_A1_3_modifiers
+				duration = -1
+			}
+			define_advisor = {
+				type = army_reformer
+				skill = 3
+				religion = shiite
+				culture = persian
+				cost_multiplier = 0.33
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B1 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	}} 
+
+	00EDG_BAH_B1_1 = {#掌控古吉拉特
+		icon = mission_conquer_kathiawar
+		position = 3
+		required_missions = {
+			00EDG_BAH_A1_1
+			00EDG_BAH_C1_2
+		}
+		provinces_to_highlight = { 
+			and ={
+				or = {
+                  province_id = 529
+				  province_id = 4457
+				}
+			
+					OR = {
+						NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					}
+			}
+		 } 
+
+		trigger = { 
+			or = {
+				and = {
+					NOT = { exists = GUJ  }
+					owns_core_province = 529
+					owns_core_province = 4457
+				}				
+				and = {
+					GUJ = {
+						vassal_of = root
+					}
+				}
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_A1_2_modifiers_2
+				duration = 9125
+			}
+			tapti_area = { add_permanent_claim = root }
+			ahmedabad_area = { add_permanent_claim = root }
+			patan_area = { add_permanent_claim = root }
+			if = {
+				limit = {
+					NOT = { exists = GUJ  }
+					owns_core_province = 529
+					owns_core_province = 4457
+				}
+				custom_tooltip = EDG_BAH_A1_2_tool_a_tt_yes
+				add_treasury = 1000
+				add_mil_power = 50
+				add_adm_power = 50
+				add_dip_power = 50
+					
+			}
+			else = {
+				custom_tooltip = EDG_BAH_A1_2_tool_a_tt_no
+				tooltip = {
+				add_treasury = 1000
+				add_mil_power = 50
+				add_adm_power = 50
+				add_dip_power = 50
+				}
+			}
+			if = {
+				limit = {
+					GUJ = {
+					    march_of = root
+				    }
+				}
+				
+				529 = {
+					cede_province = root 
+				}
+				4457 = {
+					add_core = root
+				}
+				2054 = {
+					add_core = root
+				}
+				517 = {
+					add_core = root
+				}
+				4512 = {
+					add_core = root
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BAH_A1_2_tool_b_tt_no
+				tooltip = {
+					529 = {
+						cede_province = root 
+					}
+					4457 = {
+						add_core = root
+					}
+					2054 = {
+						add_core = root
+					}
+					517 = {
+						add_core = root
+					}
+					4512 = {
+						add_core = root
+					}
+				}
+			}
+			
+		 } 
+	}
+
+	00EDG_BAH_B1_2 = {#建立卫队
+		icon = mission_indian_soldier_elephant
+		position = 5
+		required_missions = { 00EDG_BAH_C1_4 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			treasury = 500
+			mil_power = 100
+			army_professionalism = 0.20
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B1_2_tooltip_1
+			set_country_flag = EDG_BAH_B1_2_flag_1
+			add_treasury = -500
+			add_mil_power = -100
+		 } 
+	}
+}
+
+00EDG_BAH_C1 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	} } 
+
+	00EDG_BAH_C1_1 = {#犹如幻翳
+		icon = mission_persian_soldiers
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_generals = 1
+			OR = {
+				mil = 5
+				army_size = 30
+			}
+		 } 
+
+		effect = { 
+			country_event = {
+				id = EDG_BAH_missions_event.34
+			}
+			set_country_flag = EDG_BAH_C1_1_flag_1
+			set_country_flag = formed_india_flag
+
+		 } 
+	}
+
+	00EDG_BAH_C1_2 = {#黎明前夕
+		icon = mission_chinese_general_riding
+		position = 2
+		required_missions = { 00EDG_BAH_C1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			army_size_percentage = 1
+			or = {
+				has_mil_advisor = yes
+				army_tradition = 20
+			}
+		} 
+
+		effect = { 
+			define_general = {
+				fire = 1
+				shock = 5
+				manuever = 2
+				siege = 2
+			}
+			upper_mahanadi_area = { add_permanent_claim = root }
+			gondwana_area = { add_permanent_claim = root }
+			malwa_area = { add_permanent_claim = root }
+			add_country_modifier = {
+				name = EDG_BAH_B1_1_modifiers
+				duration = 3650
+			}
+			set_ruler_flag = EDG_BAH_B1_1_a_flag
+			hidden_effect = {
+				country_event = {
+					id = EDG_BAH_missions_event.25
+					days = 3650
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_C1_3 = {#陈兵德里
+		icon = mission_crush_delhi
+		position = 3
+		required_missions = { 00EDG_BAH_C1_2 } 
+		provinces_to_highlight = { 
+			province_id = 522
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			or ={
+				and={
+					controls = 522
+					war_score_against = {
+						who = DLH 
+						value = 50
+					}
+					
+				}
+				has_won_war_against = { max_years_since = 50 who = DLH }
+				not = { exists = DLH }
+				not = { defensive_war_with = DLH }
+				
+			}
+		 } 
+
+		effect = { 
+			add_prestige = 20	
+			if={
+				limit = {
+					and={
+						controls = 522
+						war_score_against = {
+							who = DLH 
+							value = 50
+						}
+						
+					}
+				}
+				custom_tooltip = EDG_BAH_B1_2_tool_a_tt_yes
+				country_event = {
+					id = EDG_BAH_missions_event.1
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BAH_B1_2_tool_a_tt_no 
+				tooltip = {
+					country_event = {
+						id = EDG_BAH_missions_event.1
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_won_war_against = { 
+						max_years_since = 50
+						 who = DLH
+						 } 
+						}
+                custom_tooltip = EDG_BAH_B1_2_tool_b_tt_yes
+				add_power_projection = {
+					type = mission_rewards_power_projection amount = 20
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BAH_B1_2_tool_b_tt_no
+				tooltip = {
+				    add_power_projection = {
+					type = mission_rewards_power_projection amount = 20
+				    }
+				}
+			}
+			 
+		 } 
+	}
+
+	00EDG_BAH_C1_4 = {#往日之影
+		icon = mission_viceroyalty_of_the_deccan
+		position = 4
+		required_missions = { 00EDG_BAH_C1_3 } 
+		provinces_to_highlight = { 
+			or={
+				area = upper_mahanadi_area
+				area = gondwana_area
+				area = malwa_area 
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			upper_mahanadi_area = {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			gondwana_area= {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+			malwa_area= {
+				type = all 
+				country_or_non_sovereign_subject_holds = ROOT
+			}
+		 } 
+
+		effect = { 
+				add_power_projection = {
+				type =  10_permanent_power_projection
+				amount = 10
+			}		
+			change_adm = 1
+		    change_dip = 1
+		    change_mil = 1
+			add_stability_or_adm_power = yes
+            set_country_flag = BAH_1_ideas_flag
+			swap_free_idea_group = yes 
+			add_ruler_modifier = {
+				name = EDG_BAH_B1_3_modifiers
+				duration = -1
+			}
+			berar_area={
+				add_permanent_claim = ROOT 
+			}
+			andhra_area={
+				add_permanent_claim = ROOT
+			}
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+				
+			}
+		 } 
+	}
+
+	00EDG_BAH_C1_5 = {#扩建象兵规模
+		icon = mission_lower_burma_campaign
+		position = 6
+		required_missions = {
+			00EDG_BAH_B1_2
+			00EDG_BAH_D1_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_C1_5_tooltip_1
+				num_of_battles = { amount = 150 }
+			}
+			mil_power = 100
+			treasury = 1000
+			army_professionalism = 0.15
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C1_5_tooltip
+			set_country_flag = EDG_BAH_C1_5_flag_1
+			set_country_flag = fra_free_mercs_bargain_sale_flag
+			add_mil_power = -100
+			add_treasury = -1000
+			add_army_professionalism = -0.1
+			add_country_modifier = {
+				name = EDG_BAH_C1_5_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_D1 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	}} 
+
+	00EDG_BAH_D1_1 = {#马拉塔封地
+		icon = mission_marathi_fiefs
+		position = 3
+		required_missions = {
+			00EDG_BAH_C1_2
+			00EDG_BAH_E1_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			OR={
+              and ={
+				estate_influence = {
+				estate = estate_maratha #可以另设为：estate = all 代表所有阶层
+				influence = 55
+			 }
+			 num_of_estate_privileges = { 
+				estate = estate_maratha value = 3 }
+				estate_loyalty = {
+					estate = estate_maratha
+					loyalty = 50
+				}
+				
+			}
+			not = { has_estate = estate_maratha  }
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_D1_1_modifiers
+				duration = 7300
+			}
+			if = {
+				limit = {
+					has_estate = estate_maratha
+				}
+				add_estate_loyalty = {
+				estate = estate_maratha
+				loyalty = 20
+			    }
+			}
+		 } 
+	}
+
+	00EDG_BAH_D1_2 = {#军事变革
+		icon = mission_subah_of_ayuddhya
+		position = 5
+		required_missions = {
+			00EDG_BAH_C1_4
+			00EDG_BAH_E1_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = has_won_at_least_100_battles_1 #赢得100场战斗
+				hidden_trigger = {
+					num_of_battles = { amount = 100}
+				}
+			}
+			num_of_wars = { amount = 10 }
+			army_tradition = 50
+		 } 
+
+		effect = {
+			add_army_tradition = 20
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_BAH_E1_3_modifiers
+				duration = -1
+			}
+		  } 
+	}
+}
+
+00EDG_BAH_E1 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  OR ={
+		tag = BAH
+	    was_tag = BAH
+	}  } 
+
+	00EDG_BAH_E1_1 = {#军事顾问
+		icon = mission_conquer_rajputana
+		position = 2
+		provinces_to_highlight = {  } 
+		required_missions = { 00EDG_BAH_C1_1 } 
+		trigger = { 
+			or={
+				and = {
+            estate_influence = {
+				estate = estate_nobles
+				influence = 50
+			}
+			estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 50
+			}
+			num_of_estate_privileges = {
+				estate = estate_nobles
+				value = 4
+			}
+				}
+				not = {
+					has_estate = estate_nobles
+				}
+			}
+			monthly_mil = 8
+		 } 
+
+		effect = { 
+			add_estate_loyalty = {
+				estate = estate_nobles
+				loyalty = 20
+			}
+			define_advisor = {
+				type = army_reformer
+				skill = 2
+				religion = shiite
+				cost_multiplier = 0.33
+			}
+			add_country_modifier = {
+				name = EDG_BAH_E1_1_modifiers
+				duration = 9125
+			}
+			hidden_effect = {
+				country_event = {
+					id = EDG_BAH_missions_event.18
+					days = 365
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_E1_2 = {#新生代
+		icon = mission_raid_hosts
+		position = 4
+		required_missions = { 00EDG_BAH_D1_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_battles = { amount = 15 }
+			army_tradition = 40
+			army_size = 40
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_E1_2_modifiers
+				duration = 7300
+			}
+			add_army_tradition = 10
+			define_general = {
+				shock = 5
+				fire = 3
+				manuever = 3
+				siege = 3
+			}
+		 } 
+	}
+
+	00EDG_BAH_E1_3 = {#兵强将勇
+		icon = mission_conquer_siam
+		position = 6
+		required_missions = { 00EDG_BAH_D1_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_battles = { amount = 200 }
+			num_of_wars = { amount = 25 }
+			mil_power = 100
+			treasury = 1000
+			army_professionalism = 0.2
+		 } 
+
+		effect = { 
+			add_treasury = -1000
+			add_mil_power = -100
+			add_army_professionalism = -0.05
+			add_country_modifier = {
+				name = EDG_BAH_E1_3_modifiers_1
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_A2 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	     was_tag = BAH
+	}  
+    } 
+
+	00EDG_BAH_A2_1 = {#大力发展比德尔
+		icon = mission_conquer_sindh_dlh
+		position = 7
+		provinces_to_highlight = { 
+			province_id = 1948
+			not = {
+				or = {
+					development = 25
+					province_has_center_of_trade_of_level = 2
+					EDG_has_building_temple_trigger = yes
+				}
+			}
+		 } 
+
+		trigger = { 
+				1948={
+					development = 25
+					province_has_center_of_trade_of_level = 2
+					EDG_has_building_temple_trigger = yes
+				}
+		 } 
+
+		effect = { 
+			1948={
+				add_permanent_province_modifier={
+				    name = EDG_BAH_A2_1_modifiers
+				    duration = -1
+			    }
+			}
+			1948 = {
+				add_institution_embracement = {
+					which = renaissance
+					value = 63
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_A2_2 = {#德干大都会
+		icon = mission_early_modern_university
+		position = 9
+		required_missions = {
+			00EDG_BAH_A2_1
+			00EDG_BAH_B2_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			1948={
+				development = 45
+				province_has_center_of_trade_of_level = 3
+				
+				EDG_has_building_market_trigger = yes
+				EDG_has_building_barracks_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+			}
+			treasury = 1000
+		 } 
+
+		effect = { 
+			add_treasury = -1000
+			1948={
+			add_base_tax = 1
+			add_base_manpower = 1
+			add_base_production = 1
+			EDG_building_give_workshop_or_upgrate_effect = yes 
+			EDG_building_give_marketplace_or_upgrate_effect = yes 
+			EDG_building_give_barracks_or_upgrate_effect = yes 
+			add_permanent_province_modifier = {
+				name = EDG_BAH_A2_2_modifiers
+				duration = -1
+			}
+			}
+			set_country_flag = EDG_BAH_A2_2_flag
+		 } 
+	}
+
+	00EDG_BAH_A2_3 = {#土地改革
+		icon = mission_deccanis
+		position = 11
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			employed_advisor = {
+				type = treasurer
+				statesman = 2
+			}
+			
+			custom_trigger_tooltip = {
+				tooltip = TIM_at_least_25_tax_income
+				variable_arithmetic_trigger = {
+					export_to_variable = {
+						which = current_tax_income
+						value = monthly_income
+					}
+					export_to_variable = {
+						which = tax_income_share
+						value = trigger_value:tax_income_percentage
+					}
+					multiply_variable = { which = current_tax_income which = tax_income_share }
+					check_variable = { which = current_tax_income value = 25 }
+				}
+			}
+		 } 
+
+		effect = { 
+			
+			add_country_modifier = {
+				name = EDG_BAH_A2_3_modifiers
+				duration = 9125
+			}
+		 } 
+	}
+
+	00EDG_BAH_A2_4 = {#全国检地
+		icon = mission_rajput_trade_guilds
+		position = 12
+		required_missions = {
+			00EDG_BAH_A2_3
+			00EDG_BAH_B2_4
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			crown_land_share = 50
+			courthouse = 15
+			
+			
+		 } 
+
+		effect = { 
+			1948 = {
+				add_province_triggered_modifier = EDG_BAH_A2_4_province_triggered_modifiers
+			}
+			add_country_modifier={
+				name = EDG_BAH_A2_4_modifiers
+				duration = 10950
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	     was_tag = BAH
+	}  
+ } 
+
+	00EDG_BAH_B2_1 = {#兴盛的苏菲社区
+		icon = mission_gharbianss
+		position = 7
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			if = {
+				limit = {
+					has_estate = estate_brahmins
+				}
+				estate_influence={
+					estate = estate_church
+					influence = 30
+				}
+				num_of_estate_privileges ={
+					estate = estate_church
+					value = 4
+				}
+				estate_influence={
+					estate = estate_brahmins
+					influence = 50
+				}
+				num_of_estate_privileges ={
+					estate = estate_brahmins
+					value = 4
+				}
+			}
+			else_if = {
+				limit = { 
+					has_estate = estate_dhimmi
+				}
+				estate_influence={
+					estate = estate_church
+					influence = 30
+				}
+				num_of_estate_privileges ={
+					estate = estate_church
+					value = 4
+				}
+				estate_influence={
+					estate = estate_dhimmi
+					influence = 50
+				}
+				num_of_estate_privileges ={
+					estate = estate_dhimmi
+					value = 4
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						has_estate = estate_church
+					}
+				}
+				treasury = 500
+				temple = 5
+			}
+			else = {
+				treasury = 500
+				temple = 5
+			}
+	 } 
+
+		effect = { 
+			define_advisor = {
+				type = treasurer
+				skill = 2
+				religion = shiite
+				cost_multiplier = 0.33
+			}
+			add_country_modifier = {
+				name = EDG_BAH_B2_1_modifiers
+				duration = 12775
+			}
+		 } 
+	}
+
+	00EDG_BAH_B2_2 = {#加万宗教学院
+		icon = mission_gawans_madrasar
+		position = 8
+		required_missions = { 00EDG_BAH_B2_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			1948 = {
+				EDG_has_building_temple_trigger = yes
+				base_tax = 8 
+				num_of_times_improved = 15
+				
+ 			}
+			 treasury = 500
+		 } 
+
+		effect = { 
+			add_treasury = 500
+			1948 = {
+				EDG_building_give_temple_or_upgrate_effect = yes
+				add_building = university
+				set_great_project_tier_1 = {
+					type = temple_BAH
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B2_2_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_B2_3 = {#我们的黄金时代
+		icon = mission_the_ganges_campaign
+		position = 10
+		required_missions = {
+			00EDG_BAH_B2_2
+			00EDG_BAH_A2_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			monthly_income = 250
+			grown_by_development = 500
+			has_institution = renaissance
+			has_institution = new_world_i
+			innovativeness = 45
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B2_3_tool
+			if = {
+				limit = { has_had_golden_age = yes } 
+				reset_golden_age = yes 
+			}
+			else_if = {
+				limit = { in_golden_age = yes } 
+				extend_golden_age = 600
+			}
+			else = { 
+				add_prestige_or_monarch_power = { amount = 100 }
+			}
+			add_dip_power = 100
+			add_adm_power = 100	 
+			add_mil_power = 100
+			add_country_modifier = {
+				name = EDG_BAH_B2_3_modifiers
+				duration = -1
+			}
+		 
+		}
+	}
+
+	00EDG_BAH_B2_4 = {#宗教宽容社会
+		icon = mission_tribal_allegiance
+		position = 11
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				religion = hinduism
+				num_of_times_improved = 10
+				value = 10
+			}
+			religious_unity = 1
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_B2_4_tool_1
+				has_global_modifier_value = {
+					which = tolerance_heathen
+					value = 9
+				}
+			}
+				
+			
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B2_4_tool
+			set_country_flag = EDG_BAH_B2_4_flag
+			1948 = {
+			add_province_triggered_modifier = EDG_BAH_B2_4_province_triggered_modifiers
+			}
+			add_country_modifier ={
+				name = EDG_BAH_B2_4_modifiers_1
+				duration = 9125
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_C2 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {OR ={
+		tag = BAH
+	    was_tag = BAH
+	} } 
+
+	00EDG_BAH_C2_1 = {#收复失地
+		icon = mission_rein_in_the_velamas
+		position = 7
+		provinces_to_highlight = { 
+			OR ={
+			province_id = 529
+			province_id = 2089
+			province_id = 530
+			province_id = 4429
+			province_id = 2030
+			province_id = 4427
+			province_id = 531
+			province_id = 2033
+			province_id = 4431
+			province_id = 1946
+			province_id = 4435
+			province_id = 569
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			owns_core_province = 529 
+			owns_core_province = 2089 
+			owns_core_province = 530 
+			owns_core_province = 4429 
+			owns_core_province = 2030 
+			owns_core_province = 4427 
+			owns_core_province = 531 
+			owns_core_province = 2033 
+			owns_core_province = 4431 
+			owns_core_province = 1946 
+			owns_core_province = 4435 
+			owns_core_province = 569
+		 } 
+
+		effect = { 
+			 add_country_modifier = {
+				name = EDG_BAH_C2_1_modifiers_1
+				duration = 3650
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C2_1_modifiers_2
+				duration = 12775
+			}
+			
+			add_stability_or_adm_power = yes 
+			mysore_area = {
+				add_permanent_claim = root 
+			}
+			malabar_area = {
+				add_permanent_claim = root 
+			}
+		 } 
+	}
+
+	00EDG_BAH_C2_2 = {#香料五城
+		icon = mission_patronize_sufi_scholars
+		position = 9
+		required_missions = {
+			00EDG_BAH_C2_1
+			00EDG_BAH_D2_2
+		}
+		provinces_to_highlight = { 
+			area = malabar_area
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			malabar_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_C2_2_modifiers
+				duration = 7300
+			}
+			add_prestige = 20
+			add_adm_power = 20
+			add_dip_power = 20
+			add_mil_power = 20
+		 } 
+	}
+
+	00EDG_BAH_C2_3 = {#来自马尔代夫的贡品
+		icon = mission_trade_company_region_abroad
+		position = 11
+		required_missions = { 00EDG_BAH_C2_2 } 
+		provinces_to_highlight = { 
+			province_id = 1248
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			or ={
+				and = {
+					not = { exists = DGL }
+					treasury = 200
+				}
+				and = {
+					treasury = 200
+					DGL = {
+						is_vassal = YES
+					}
+				}
+			}
+		 } 
+
+		effect = { 
+			add_treasury = -200
+			if = {
+				limit = {
+					exists = DGL
+				}
+				create_march = DGL
+			DGL = {
+				change_religion = shiite
+					set_religious_school = {
+						group = muslim
+						school = zaidi_school
+					}
+					country_event = {
+						id = EDG_BAH_missions_event.6
+						days = 15
+					}
+					hidden_effect = {
+						country_event = {
+							id = EDG_BAH_missions_event.5
+							days = 31
+						}
+				    }
+					1101 = {
+						create_colony = 150
+					}
+					
+			 }
+			}
+			
+			add_country_modifier = {
+				name = EDG_BAH_C2_3_modifiers_1
+				duration = -1
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C2_3_modifiers_2
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_C2_4 = {#统一德干诸国
+		icon = mission_cromandel_coast
+		position = 12
+		required_missions = {
+			00EDG_BAH_C2_3
+			00EDG_BAH_D2_4
+		}
+		provinces_to_highlight = { 
+			or ={
+				region = coromandel_region
+				region = deccan_region
+			}
+			or = {
+				OR = {
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+			}
+		 } 
+
+		trigger = { 
+			coromandel_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			deccan_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_power_projection = {
+				type =  15_permanent_power_projection
+				amount = 15
+			}
+			add_country_modifier = {
+				name = EDG_BAH_D2_4_modifiers_1
+				duration = -1
+			}
+			custom_tooltip = EDG_BAH_D2_4_tool #启用决议“德干苏丹归来”
+			set_country_flag = EDG_BAH_D2_4_flag
+			swap_non_generic_missions = yes 
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+				
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_D2 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	} } 
+
+	00EDG_BAH_D2_1 = {#毗阇耶纳迦罗亲善条约
+		icon = mission_city_of_victory_bah
+		position = 7
+		provinces_to_highlight = { 
+			province_id = 541
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			OR ={
+			  AND ={
+                NOT ={
+				   VIJ = {
+					  total_development = 175
+				   }
+			    }
+			       is_at_war = no
+			       army_size_percentage = 0.8
+			       num_of_generals = 2
+			   }
+			   NOT = { exists = VIJ }
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_D2_1_tool
+			rayalaseema_area = {
+				add_permanent_claim = root 
+			}
+			if ={
+				limit ={
+					exists = VIJ 
+					NOT ={
+						VIJ ={
+							total_development = 175
+						}
+					}
+				}
+				custom_tooltip = EDG_BAH_D2_1_tool_a_tt_yes
+				custom_tooltip = EDG_BAH_D2_1_tool_1
+				country_event = {
+				id = EDG_BAH_missions_event.7
+				days = 10
+			    }
+			}
+			else = {
+				custom_tooltip = EDG_BAH_D2_1_tool_a_tt_no
+				tooltip = {
+					custom_tooltip = EDG_BAH_D2_1_tool_1
+					country_event = {
+					id = EDG_BAH_missions_event.7
+					days = 10
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { exists = VIJ }
+				}
+				custom_tooltip = EDG_BAH_D2_1_tool_b_tt_yes 
+				coromandel_region = {
+					add_permanent_claim = ROOT 
+				}
+				add_prestige = 25
+			}
+			else = {
+				custom_tooltip = EDG_BAH_D2_1_tool_b_tt_no
+				tooltip = {
+					coromandel_region = {
+						add_permanent_claim = ROOT 
+					}
+					add_prestige = 25
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_D2_2 = {#索取开迪拉
+		icon = mission_fire_of_london
+		position = 8
+		required_missions = {
+			00EDG_BAH_D2_1
+			00EDG_BAH_C2_1
+		}
+		provinces_to_highlight = { 
+			area = kanara_area
+			or = {
+				OR = {
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+			}
+		 } 
+
+		trigger = { 
+			kanara_area = { country_or_non_sovereign_subject_holds = root type = all}
+			not = { exists = KLN }
+		 } 
+
+		effect = { 
+			mysore_area = {
+				add_permanent_claim = root 
+			}
+			kongu_area = {
+				add_permanent_claim = root 
+			}
+			madura_area = {
+				add_permanent_claim = root 
+			}
+			set_country_flag = EDG_BAH_exploison_1_A_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt 
+			country_event ={
+				id = EDG_BAH_missions_event.12
+			}
+			custom_tooltip = EDG_BAH_D2_2_tool
+		 } 
+	}
+
+	00EDG_BAH_D2_3 = {#向南方推进
+		icon = mission_southern_frontier_dharma
+		position = 10
+		required_missions = { 00EDG_BAH_D2_2 } 
+		provinces_to_highlight = { 
+			or ={
+				area = mysore_area
+				area = kongu_area
+				area = madura_area
+				area = tanjore_area
+			}
+			or = {
+				OR = {
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+					NOT = { owned_by = ROOT }
+					NOT = { is_core = ROOT }
+				}
+			}
+		 } 
+
+		trigger = { 
+			mysore_area = {
+				country_or_non_sovereign_subject_holds = root 
+			    type = all
+			}
+			kongu_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			madura_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			tanjore_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			set_country_flag = BAH_1_ideas_flag
+			add_adm_power = 20
+			coromandel_region = {
+				add_permanent_claim = root 
+			}
+			set_country_flag = EDG_BAH_exploison_1_B_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt 
+			country_event = {
+				id = EDG_BAH_missions_event.13
+			}
+			custom_tooltip = EDG_BAH_D2_2_tool
+			hidden_effect ={
+				country_event = {
+					id = EDG_BAH_missions_event.15
+					days = 365
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_D2_4 = {#邀请斯里兰卡喇嘛
+		icon = mission_buddhist_monk_praying
+		position = 11
+		required_missions = { 00EDG_BAH_D2_3 } 
+		provinces_to_highlight = { 
+			or ={
+				area = south_lanka_area
+				area = lanka_area
+			}
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			owns_core_province = 2099
+			south_lanka_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			lanka_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			2099 = {
+				add_province_triggered_modifier = EDG_BAH_E2_3_province_triggered_modifiers
+			}
+			south_lanka_area = {
+				add_devastation = -10
+				add_nationalism = -20
+			}
+			lanka_area = {
+				add_devastation = -10
+				add_nationalism = -20
+			}
+			unlock_estate = {
+				estate = estate_dhimmi
+			}
+			set_country_flag = EDG_BAH_exploison_1_C_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt 
+		 } 
+	}
+}
+
+00EDG_BAH_E2 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR ={
+		tag = BAH
+	    was_tag = BAH
+	} } 
+
+	00EDG_BAH_E2_1 = {#征服安得拉
+		icon = mission_advance_to_the_dnieper
+		position = 7
+		provinces_to_highlight = {
+		  or ={
+			province_id = 4425
+			province_id = 4419
+			province_id = 543
+			province_id = 2084
+			}
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		  } 
+		
+
+		trigger = { 
+			owns_core_province = 4425
+			owns_core_province = 4419
+			owns_core_province = 543
+			owns_core_province = 2084
+		 } 
+
+		effect = { 
+			4425 = {
+				add_devastation = -10
+				add_nationalism = -20
+				add_permanent_province_modifier = {
+					name =EDG_BAH_E2_1_modifiers
+					duration = -1
+				}
+			}
+			4419 = {
+				add_devastation = -10
+				add_nationalism = -20
+				add_permanent_province_modifier = {
+					name =EDG_BAH_E2_1_modifiers
+					duration = -1
+				}
+			}
+			543 = {
+				add_devastation = -10
+				add_nationalism = -20
+				add_permanent_province_modifier = {
+					name =EDG_BAH_E2_1_modifiers
+					duration = -1
+				}
+			}
+			2084 = {
+				add_devastation = -10
+				add_nationalism = -20
+				add_permanent_province_modifier = {
+					name =EDG_BAH_E2_1_modifiers
+					duration = -1
+				}
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			jharkhand_area = {
+				add_permanent_claim = ROOT 
+			}
+			orissa_area = {
+				add_permanent_claim = ROOT 
+			}
+			garjat_area = {
+				add_permanent_claim = ROOT 
+			}
+		 } 
+	}
+
+	00EDG_BAH_E2_2 = {#征服奥里萨
+		icon = mission_conquer_orissa_mug
+		position = 9
+		required_missions = { 00EDG_BAH_E2_1 } 
+		provinces_to_highlight = { 
+			or={
+				area = jharkhand_area
+				area = orissa_area
+				area = garjat_area
+			}
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			jharkhand_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			orissa_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			 garjat_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			jharkhand_area = {
+				add_devastation = -10
+				add_nationalism = -20
+			}
+			orissa_area = {
+				add_devastation = -10
+				add_nationalism = -20
+			}
+			garjat_area = {
+				add_devastation = -10
+				add_nationalism = -20
+			}
+			add_ruler_modifier = {
+				name = EDG_BAH_E2_2_modifiers
+			}
+			add_prestige_or_monarch_power = { amount = 50 }
+			west_bengal_area = {
+				add_permanent_claim = root
+			}
+			east_bengal_area = {
+				add_permanent_claim = root
+			}
+		 } 
+	}
+
+	00EDG_BAH_E2_3 = {#安达曼前哨站
+		icon = mission_oceania_royal_marriage
+		position = 11
+		required_missions = { 00EDG_BAH_E2_2 } 
+		provinces_to_highlight = { 
+			province_id = 574
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			or = {
+				owns_core_province = 574
+				and = {
+					treasury = 500
+					574 = {
+					   NOT = { native_size = 0.001 }
+				   }
+				}
+				
+			}
+		 } 
+
+		effect = { 
+			add_treasury = -500
+			574 = {
+				add_siberian_construction = 400 
+			}
+			malaya_region = {
+				add_permanent_claim = root
+			}
+		 } 
+	}
+
+	00EDG_BAH_E2_4 = {#朱罗帝国的遗产
+		icon = mission_subdue_malwa
+		position = 12
+		required_missions = { 00EDG_BAH_E2_3 } 
+		provinces_to_highlight = {  
+			region = malaya_region
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = root
+				}
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		} 
+
+		trigger = { 
+			treasury = 2000
+			num_of_owned_provinces_with = {
+				region = malaya_region
+				value = 20
+			} 
+			2684 = {
+				NOT = { native_size = 0.001 }
+			}
+			2683 = {
+				NOT = { native_size = 0.001 }
+			}
+			621 = {
+				NOT = { native_size = 0.001 }
+			}
+			2679 = {
+				NOT = { native_size = 0.001 }
+			}
+		 } 
+
+		effect = { 
+			add_treasury = -2000
+			2684 = {
+				add_siberian_construction = 400 
+			}
+			2683 = {
+				add_siberian_construction = 400 
+			}
+			621 = {
+				add_siberian_construction = 400 
+			}
+			2679 = {
+				add_siberian_construction = 400 
+			}
+			indonesia_region = {
+				add_permanent_claim = root 
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_A3 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_A3_1 = {#向沙漠进军
+		icon = mission_unite_west_india
+		position = 14
+		required_missions = { 00EDG_BAH_C3_1 } 
+		provinces_to_highlight = { 
+			OR = {
+				area = ahmedabad_area
+				area = saurashtra_area
+				area = tapti_area
+				area = patan_area
+				area = malwa_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			ahmedabad_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			saurashtra_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			tapti_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			patan_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			malwa_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_BAH_A3_1_modifiers
+				duration = 9125
+			}
+		 } 
+	}
+
+	00EDG_BAH_A3_2 = {#垄断古吉拉特
+		icon = mission_conquer_gujarat_dlh
+		position = 16
+		required_missions = {
+			00EDG_BAH_A3_1
+			00EDG_BAH_B3_1
+		}
+		provinces_to_highlight = { 
+			region = west_india_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			west_india_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+		 } 
+
+		effect = { 
+			set_country_flag = EDG_BAH_exploison_2_B_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt 
+			add_country_modifier = {
+				name = EDG_BAH_A3_2_modifiers_2
+				duration = -1
+			}
+			504 = {
+				create_or_add_center_of_trade_level = 1 
+			}
+			504 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A3_2_modifiers_1
+					duration = -1
+				}
+			}
+			4503 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A3_2_modifiers_1
+					duration = -1
+				}
+			}
+			4457 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A3_2_modifiers_1
+					duration = -1
+				}
+			}
+			west_india_region = {
+				add_nationalism = -15
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B3 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_B3_1 = {#降伏拉杰普特
+		icon = mission_subdue_the_afghans
+		position = 15
+		required_missions = { 00EDG_BAH_A3_1 } 
+		provinces_to_highlight = { 
+			or = {
+				area = marwar_area
+				area = mewar_area
+				area = jangladesh_area
+				area = jaipur_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			marwar_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			mewar_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			jangladesh_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			jaipur_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			514 = {
+				or = {
+					has_building = fort_15th
+					has_building = fort_16th
+					has_building = fort_17th
+					has_building = fort_18th
+				}
+				
+			}
+		 } 
+
+		effect = { 
+			add_army_tradition = 10
+			unlock_estate = {
+				estate = estate_rajput
+			}
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_hydraulic_rights
+			}
+			514 = {
+				add_building = ramparts 
+			}
+			custom_tooltip = EDG_BAH_B3_1_tool
+			set_country_flag = EDG_BAH_set_great_project_1_flag
+			add_country_modifier = {
+				name = EDG_BAH_B3_1_modifiers
+				duration = -1
+			}
+		}
+	
+	}
+
+	00EDG_BAH_B3_2 = {#平定西尔欣德
+		icon = mission_conquer_maharashtra
+		position = 17
+		required_missions = { 00EDG_BAH_C3_3 } 
+		provinces_to_highlight = { 
+			or = {
+				area = sirhind_area
+				area = lahore_area 
+				area = multan_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			NOT = { exists = SRH }
+			owns_core_province = 2075
+			sirhind_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			lahore_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			multan_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			set_country_flag = EDG_BAH_set_great_project_2_flag
+			custom_tooltip = EDG_BAH_B3_1_tool
+			add_country_modifier = {
+				name = EDG_BAH_B3_2_modifiers
+				duration = 36500
+			}
+		}
+	}
+}
+
+00EDG_BAH_C3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_C3_1 = {#北伐！北伐！
+		icon = mission_unite_the_deccan
+		position = 13
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			is_at_war = no 
+			army_size_percentage = 0.8
+			manpower_percentage = 0.75
+		 } 
+
+		effect = { 
+			add_army_tradition = 25
+			bengal_region = {
+				add_permanent_claim = root
+			}
+			hindusthan_region = {
+				add_permanent_claim = root
+			}
+			west_india_region = {
+				add_permanent_claim = root
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C3_1_modifiers
+				duration = 9125
+			}
+			define_general = {
+				shock = 4
+				fire = 2
+				manuever = 3
+				siege = 4
+			}
+			
+		 } 
+	}
+
+	00EDG_BAH_C3_2 = {#前往富饶平原
+		icon = mission_conquer_rewakantha
+		position = 14
+		required_missions = { 00EDG_BAH_C3_1 } 
+		provinces_to_highlight = { 
+			or = {
+			area = gird_area
+			area =	bundelkhand_area
+			area =	baghelkhand_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			gird_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			bundelkhand_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			baghelkhand_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+		 } 
+
+		effect = { 
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_BAH_C3_2_modifiers
+				duration = 9125
+			}
+		 } 
+	}
+
+	00EDG_BAH_C3_3 = {#再临德里
+		icon = mission_fortify_mandu
+		position = 16
+		required_missions = {
+			00EDG_BAH_C3_2
+			00EDG_BAH_D3_1
+			00EDG_BAH_B3_1
+		}
+		provinces_to_highlight = { 
+			area = upper_doab_area
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			NOT = { exists = DLH }
+			owns_core_province = 522
+			upper_doab_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			set_country_flag = EDG_BAH_exploison_2_A_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt
+			524 = {
+				change_religion = shiite
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C3_3_modifiers
+				duration = -1
+			}
+			hindusthan_region = {
+				add_nationalism = -15
+			}
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			add_prestige_or_monarch_power = { amount = 50 }
+		 } 
+	}
+
+	00EDG_BAH_C3_4 = {#印度之主
+		icon = mission_defeat_mewar
+		position = 18
+		required_missions = {
+			00EDG_BAH_D3_2
+			00EDG_BAH_B3_2
+		}
+		provinces_to_highlight = { 
+			or = {
+				region = bengal_region
+			region = hindusthan_region
+			region = west_india_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			NOT = { exists = HIN }
+			bengal_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			hindusthan_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			west_india_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			total_development = 1250
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C3_4_tooltip
+			set_country_flag = EDG_BAH_C3_4_flag
+			remove_country_modifier = EDG_BAH_C3_1_modifiers
+			add_country_modifier = {
+				name = EDG_BAH_C3_4_modifiers
+				duration = -1
+			}
+			add_power_projection = {
+				type =  15_permanent_power_projection
+				amount = 15
+			}
+			swap_non_generic_missions = yes 
+			custom_tooltip = perma_claim_neighbor_area
+			hidden_effect = {
+				every_owned_province = {
+					every_neighbor_province = {
+						area = {
+							limit = {
+								NOT = { owned_by = ROOT }
+								NOT = { is_permanent_claim = ROOT    }
+								NOT = { is_core = ROOT    }
+							}
+							add_permanent_claim = ROOT
+						}
+					}
+				}
+				
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_D3 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_D3_1 = {#章普尔的门户
+		icon = mission_across_the_vindhyas
+		position = 15
+		required_missions = { 00EDG_BAH_C3_2 } 
+		provinces_to_highlight = { 
+			or = {
+				area = lower_doab_area
+				area = purvanchal_area
+				area = bihar_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			lower_doab_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			purvanchal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			bihar_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_stability_or_adm_power = yes
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_country_modifier = {
+				name = EDG_BAH_D3_1_modifiers
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_D3_2 = {#恒河七城
+		icon = mission_the_grand_trunk_road_bng
+		position = 17
+		required_missions = {
+			00EDG_BAH_E3_2
+			00EDG_BAH_C3_3
+		}
+		provinces_to_highlight = { 
+			or = {
+				province_id = 558
+				province_id = 2095
+				province_id = 556
+				province_id = 524
+				province_id = 563
+				province_id = 4476
+				province_id = 522
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			not = { exists = JNP }
+			owns_core_province = 558
+			owns_core_province = 2095
+			owns_core_province = 556
+			owns_core_province = 524
+			owns_core_province = 563
+			owns_core_province = 4476
+			owns_core_province = 522
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_D3_2_modifiers
+				duration = -1
+			}
+			custom_tooltip = EDG_BAH_B3_1_tool
+			set_country_flag = EDG_BAH_set_great_project_3_flag
+			hidden_effect = {
+			country_event = {
+				id = EDG_BAH_missions_event.19
+				days = 180
+			}
+			country_event = {
+				id = EDG_BAH_missions_event.20
+				days = 90
+			}
+		 }
+		 } 
+		 
+	}
+}
+
+00EDG_BAH_E3 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_E3_1 = {#兵临孟加拉
+		icon = mission_conquer_bengal_dlh
+		position = 14
+		required_missions = { 00EDG_BAH_C3_1 } 
+		provinces_to_highlight = { 
+			OR = {
+				area = west_bengal_area
+			    area = east_bengal_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			west_bengal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			east_bengal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_power_projection = { 
+				type = mission_rewards_power_projection
+				amount = 15
+			} 
+			add_country_modifier = {
+				name = EDG_BAH_E3_1_modifiers
+				duration = 9125
+			}
+		 } 
+	}
+
+	00EDG_BAH_E3_2 = {#前往阿萨姆
+		icon = mission_conquer_orissa_dlh
+		position = 16
+		required_missions = { 00EDG_BAH_E3_1 } 
+		provinces_to_highlight = { 
+			region = bengal_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			NOT = { exists = ASS }
+			bengal_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			set_country_flag = EDG_BAH_exploison_2_C_flag_1
+			custom_tooltip = EDG_BAH_exploison_1_A_flag_1_tt
+			bengal_region = {
+				add_nationalism = -15
+			}
+			add_army_tradition = 20
+			add_country_modifier = {
+				name = EDG_BAH_E3_2_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_A4 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  OR = { tag = BAH was_tag = BAH }  has_country_flag = BAH_1_ideas_flag} 
+
+	00EDG_BAH_A4_1 = {#安抚艾哈迈德总督
+		icon = mission_market_place_with_asian_traders
+		position = 19
+		provinces_to_highlight = { 
+			is_core = AHM 
+			OR = {
+				NOT = { owner_by = root }
+				NOT = { num_of_times_improved = 3 }
+			}
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_A4_1_tool #所有属于艾哈迈德讷格尔核心的省份至少提升3次，本任务未显示高亮。
+				AHM = {
+				all_core_province = {
+                     num_of_times_improved = 3
+					 OR = {
+						owned_by = DEC
+						owned_by = BAH
+					 }
+					 
+				}
+			}
+			}
+			has_country_modifier = EDG_BAH_B1_1_modifiers_4
+			treasury = 100
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C4_1_tool
+			remove_country_modifier = EDG_BAH_B1_1_modifiers_4 
+			set_country_flag = EDG_BAH_A4_1_flag
+			change_government_reform_progress = 50
+			add_treasury = -100
+			ahmednagar_area = {
+				remove_core = AHM
+				add_nationalism = -10
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A4_1_modifiers
+					duration = -1
+				}
+			}
+			2034 = {
+                remove_core = AHM
+				add_nationalism = -10
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A4_1_modifiers
+					duration = -1
+				}
+			}
+			529 = {
+                remove_core = AHM
+				add_nationalism = -10
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A4_1_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_A4_2 = {#建设康坎港口
+		icon = mission_recover_konkan_ports
+		position = 20
+		provinces_to_highlight = { 
+			area = konkan_area
+			or = {
+				not = {
+					EDG_has_building_shipyard_trigger = yes
+				}
+				not = {
+					EDG_has_building_market_trigger = yes
+				}
+			}
+		
+
+		 } 
+
+		trigger = { 
+			konkan_area = {
+				EDG_has_building_shipyard_trigger = yes
+				EDG_has_building_market_trigger = yes
+			    type = all
+			}
+		 } 
+
+		effect = { 
+			konkan_area = {
+				add_building = coastal_defence
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A4_2_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_A4_3 = {#焦耳要塞
+		icon = mission_konkani_pirates
+		position = 22
+		required_missions = { 00EDG_BAH_A4_2 } 
+		provinces_to_highlight = { 
+			province_id = 2089
+			or= {
+				not = {
+					EDG_has_building_fort_trigger = yes
+				}
+				not = {
+					num_of_times_improved = 5
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			2089 = {
+				EDG_has_building_fort_trigger = yes
+			}
+			2089 = {
+				num_of_times_improved = 5
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B3_1_tool
+			set_country_flag = EDG_BAH_set_great_project_4_flag
+			2089 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A4_3_modifiers
+					duration = -1
+				}
+			}
+			
+		 } 
+	}
+
+	00EDG_BAH_A4_4 = {#西方人
+		icon = mission_dominate_persian_gulf
+		position = 23
+		required_missions = { 00EDG_BAH_A4_3 } 
+		provinces_to_highlight = { 
+		    province_id = 2089
+			or = {
+				not = {
+					EDG_has_building_workshop_trigger = yes 
+				}
+				not = {
+					province_has_center_of_trade_of_level = 2
+				}
+				not = {
+					development = 20
+				}
+			}
+		} 
+
+		trigger = { 
+			504 = {
+				is_strongest_trade_power = DEC 
+			    trade_share = {
+					country = DEC 
+					share = 50
+				}
+			}
+			2089 = {
+				EDG_has_building_workshop_trigger = yes 
+				province_has_center_of_trade_of_level = 2
+				development = 20
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = MUG_unlock_industrial_privilege
+			set_country_flag = MUG_unlock_industrial_privilege_flag 
+			add_country_modifier = {
+				name = EDG_BAH_A4_4_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B4 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag } 
+
+	00EDG_BAH_B4_1 = {#安抚比贾布尔总督
+		icon = mission_into_the_west
+		position = 19
+		provinces_to_highlight = { 
+			is_core = BIJ 
+			OR = {
+				NOT = { owner_by = root }
+				NOT = { num_of_times_improved = 3 }
+			}
+			
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_B4_1_tool #所有属于比贾布尔核心的省份至少提升3次，本任务未显示高亮。
+				BIJ = {
+				all_core_province = {
+                     num_of_times_improved = 3
+					 OR = {
+						owned_by = DEC
+						owned_by = BAH
+					 }
+				}
+			    }
+			 }
+			 has_country_modifier = EDG_BAH_B1_1_modifiers_3 
+			    treasury = 100
+		 } 
+
+		effect = { 
+			custom_tooltip =  EDG_BAH_C4_1_tool
+			remove_country_modifier = EDG_BAH_B1_1_modifiers_3 
+			set_country_flag = EDG_BAH_B4_1_flag
+			change_government_reform_progress = 50
+			add_treasury = -100
+			konkan_area = {
+				remove_core = BIJ
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_1_modifiers
+					duration = -1
+				}
+			}
+			desh_area = {
+				remove_core = BIJ
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_1_modifiers
+					duration = -1
+				}
+			}
+			maidan_area = {
+				remove_core = BIJ
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_1_modifiers
+					duration = -1
+				}
+			}
+			raichur_doab_area = {
+				remove_core = BIJ
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_1_modifiers
+					duration = -1
+				}
+			}
+			2030 = {
+				remove_core = BIJ
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_1_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_B4_2 = {#扩展香料贸易
+		icon = mission_high_income
+		position = 21
+		provinces_to_highlight = { 
+			or = {
+				province_id = 530
+				province_id = 4429
+				province_id = 2030
+				province_id = 4427
+				province_id = 531
+			}
+			or = {
+				not = { base_production = 6 }
+				not = { EDG_has_building_workshop_trigger = yes}
+				not = { EDG_has_building_market_trigger = yes}
+			}
+		
+		 } 
+
+		trigger = { 
+			530 = {
+				base_production = 6
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+			}
+			4429 = {
+				base_production = 6
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+			}
+			2030 = {
+				base_production = 6
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+			}
+			4427 = {
+				base_production = 6
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+			}
+			531 = {
+				base_production = 6
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+			}
+		 } 
+
+		effect = { 
+			530 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers
+					duration = -1
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers_1
+					duration = -1
+				}
+			}
+			4429 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers
+					duration = -1
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers_1
+					duration = -1
+				}
+			}
+			2030 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers
+					duration = -1
+				}
+			}
+			4427 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers
+					duration = -1
+				}
+			}
+			531 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_2_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_B4_3 = {#香料大王
+		icon = mission_asian_trader
+		position = 22
+		required_missions = { 00EDG_BAH_B4_2 } 
+		provinces_to_highlight = { 
+			or = {
+				province_id = 4413
+				province_id = 534
+				province_id = 535
+				province_id = 537
+				province_id = 4410
+				province_id = 4408
+				province_id = 572
+				province_id = 4409	
+			}
+			or = {
+				not = {
+					EDG_has_building_workshop_trigger = yes
+				}
+				not = {
+					base_production = 5
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_B4_3_tooltip
+			4413 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			534 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			535 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			537 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			4410 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			4408 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			4409 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			572 ={
+				base_production = 5
+				EDG_has_building_workshop_trigger = yes
+			}
+			}
+			
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B4_3_tooltip_1
+				tooltip = {
+					add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+				}
+				
+			
+			hidden_effect = {
+			4413 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			534 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			535 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			537 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			4410 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			4408 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			4409 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers
+					duration = -1
+				}
+			}
+			572 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B4_3_modifiers_1
+					duration = -1
+				}
+				remove_building = workshop
+				add_building = counting_house
+				add_building = university
+			}
+			}
+			
+			add_country_modifier = {
+				name = EDG_BAH_B4_3_modifiers_2
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_B4_4 = {#西岸贸易
+		icon = mission_unite_coromandel
+		position = 24
+		required_missions = {
+			00EDG_BAH_B4_3
+			00EDG_BAH_A4_4
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				value = 15
+				province_has_center_of_trade_of_level = 2
+			}
+			workshop = 20
+			treasury = 500
+		 } 
+
+		effect = { 
+			unlock_estate = {
+				estate = estate_burghers
+			}
+			add_treasury = -500
+			add_country_modifier = {
+				name = EDG_BAH_B4_4_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_C4 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag} 
+
+	00EDG_BAH_C4_1 = {#安抚贝拉尔总督
+		icon = mission_have_two_subjects
+		position = 19
+		provinces_to_highlight = { 
+			is_core = BRR
+			OR = {
+				NOT = { owner_by = root }
+				NOT = { num_of_times_improved = 3 }
+			}
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_C4_1_tool_1 #所有属于贝拉尔核心的省份至少提升3次，本任务未显示高亮。
+				BRR = {
+				all_core_province = {
+                     num_of_times_improved = 3
+					 OR = {
+						owned_by = DEC
+						owned_by = BAH
+					 }
+				}
+			    }
+			}
+			has_country_modifier = EDG_BAH_B1_1_modifiers_2
+			treasury = 200
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C4_1_tool
+			remove_country_modifier = EDG_BAH_B1_1_modifiers_2
+			set_country_flag = EDG_BAH_C4_1_flag
+			add_treasury = -200
+			change_government_reform_progress = 50
+			berar_area = {
+				remove_core = BRR
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name =EDG_BAH_C4_1_modifiers 
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_C4_2 = {#羁縻四省
+		icon = mission_impaled_soldies
+		position = 20
+		required_missions = {
+			00EDG_BAH_A4_1
+			00EDG_BAH_B4_1
+			00EDG_BAH_C4_1
+			00EDG_BAH_D4_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			stability = 1
+			treasury = 200
+		 } 
+
+		effect = {
+			treasury = -200
+			remove_country_modifier = EDG_BAH_B1_1_modifiers_5 
+			add_country_modifier = {
+				name = EDG_BAH_C4_2_modifiers_1
+				duration = 9125
+			}	
+			change_government_reform_progress = 50
+			add_country_modifier = {
+				name = EDG_BAH_C4_2_modifiers
+				duration = -1
+			}
+		  } 
+	}
+
+	00EDG_BAH_C4_3 = {#布料纺织业
+		icon = mission_gujarati_textiles
+		position = 21
+		provinces_to_highlight = { 
+			or = {
+				province_id = 2026
+				province_id = 4415
+				province_id = 4416
+				province_id = 540
+				province_id = 4417
+				province_id = 4442
+			}
+			OR = {
+				not = { base_production = 6 }
+				not = {
+					EDG_has_building_workshop_trigger = yes
+				}
+				not = {EDG_has_building_temple_trigger = yes}
+			}
+			
+		 } 
+
+		trigger = { 
+			2026 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4415 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4416 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			540 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4417 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4442 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+		 } 
+
+		effect = { 
+			2026 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4415 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4416 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			540 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4417 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4442 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_C4_4 = {#布料大亨
+		icon = mission_dominate_trade_in_bengal
+		position = 22
+		required_missions = { 00EDG_BAH_C4_3 } 
+		provinces_to_highlight = { 
+			or = {
+			province_id = 2084
+			province_id = 532
+			province_id = 4428
+			province_id = 552
+			province_id = 4437
+			province_id = 4415
+			}
+			OR = {
+				not = { base_production = 8 }
+			    not = { EDG_has_building_workshop_trigger = yes }
+			    not = { EDG_has_building_temple_trigger = yes }
+			}
+		 } 
+
+		trigger = { 
+			2084 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			532 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4428 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			552 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4437 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+			4415 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				base_production = 8
+			}
+		 } 
+
+		effect = { 
+			2084 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			532 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4428 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			552 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4437 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+			4415 = {
+				add_base_production = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_3_modifiers 
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_C4_5 = {#扩大丝绸储备
+		icon = mission_pf_cross
+		position = 23
+		required_missions = { 00EDG_BAH_C4_4 } 
+		provinces_to_highlight = { 
+			or = {
+				province_id = 532
+				province_id = 4428
+				province_id = 2026
+				province_id = 540
+			}
+			OR = {
+				not = { base_production = 12 }
+				not = {EDG_has_building_temple_trigger = yes}
+				not = {EDG_has_building_workshop_trigger = yes}
+			}
+		 } 
+
+		trigger = { 
+			532 = {
+				base_production = 12
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+			}
+			4428 = {
+				base_production = 12
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+			}
+			2026 = {
+				base_production = 12
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+			}
+			540 = {
+				base_production = 12
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+			}
+		 } 
+
+		effect = { 
+			532 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_5_modifiers
+					duration = -1
+				}
+				change_trade_goods = silk
+			}
+			4428 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_5_modifiers
+					duration = -1
+				}
+				change_trade_goods = silk
+			}
+			2026 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_5_modifiers
+					duration = -1
+				}
+				change_trade_goods = silk
+			}
+			540 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C4_5_modifiers
+					duration = -1
+				}
+				change_trade_goods = silk
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C4_5_modifiers_1 
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_C4_6 = {#主宰科罗曼德
+		icon = mission_persian_soldiers
+		position = 25
+		required_missions = {
+			00EDG_BAH_C4_5
+			00EDG_BAH_B4_4
+			00EDG_BAH_D4_3
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			treasury = 1000
+			adm_power = 100
+			dip_power= 100
+			mil_power = 100
+		 } 
+
+		effect = {  
+			add_treasury = -500
+			add_adm_power = -100
+			add_dip_power = -100
+			add_mil_power = -100
+			custom_tooltip = MUG_increase_chance_of_industrious
+			set_country_flag = MUG_higher_industrious_chance
+			add_country_modifier = {
+				name = EDG_BAH_C4_6_modifiers
+				duration = -1
+			}
+
+		} 
+	}
+}
+
+00EDG_BAH_D4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {  OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag} 
+
+	00EDG_BAH_D4_1 = {#安抚戈尔孔达总督
+		icon = mission_monarch_in_throne_room
+		position = 19
+		provinces_to_highlight = { 
+			is_core = GOC
+			OR = {
+				NOT = { owner_by = root }
+				NOT = { num_of_times_improved = 3 }
+			}
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_D4_1_tool #所有属于戈尔孔达核心的省份至少提升3次，本任务未显示高亮。
+				GOC = {
+				all_core_province = {
+                     num_of_times_improved = 3
+					 OR = {
+						owned_by = DEC
+						owned_by = BAH
+					 }
+				}
+			    }
+			}
+			has_country_modifier = EDG_BAH_B1_1_modifiers_1 
+			treasury = 100
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C4_1_tool
+			remove_country_modifier = EDG_BAH_B1_1_modifiers_1 
+			set_country_flag = EDG_BAH_D4_1_flag
+			change_government_reform_progress = 50
+			golconda_area = {
+				remove_core = GOC
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_D4_1_modifiers
+					duration = -1
+				}
+			}
+			andhra_area = {
+				remove_core = YOR
+				remove_core = GOC
+				add_nationalism = -5
+				add_local_autonomy = -25
+				add_permanent_province_modifier = {
+					name = EDG_BAH_D4_1_modifiers
+					duration = -1
+				}
+			}
+			add_treasury = -100
+		 } 
+	}
+
+	00EDG_BAH_D4_2 = {#安得拉的繁荣
+		icon = mission_defeat_jaunpur
+		position = 22
+		required_missions = { 00EDG_BAH_D4_1 } 
+		provinces_to_highlight = { 
+			province_id = 543
+			or = {
+				not = {
+					base_production = 10
+				}
+				not = {
+					province_has_center_of_trade_of_level = 2
+				}
+				not = {
+					EDG_has_building_workshop_trigger = yes
+				}
+			}
+			
+			
+		 } 
+
+		trigger = { 
+			543 = {
+				base_production = 10
+				EDG_has_building_workshop_trigger = yes
+				province_has_center_of_trade_of_level = 2
+			}
+			treasury = 250
+		 } 
+
+		effect = { 
+			543 = {
+				EDG_building_give_workshop_or_upgrate_effect = yes
+				add_building = mills
+				EDG_building_give_universityp_or_upgrate_effect =yes
+				add_permanent_province_modifier = {
+					name = EDG_BAH_D4_2_modifiers
+					duration = -1
+				}
+			}
+			
+		 } 
+	}
+
+	00EDG_BAH_D4_3 = {#东岸贸易
+		icon = mission_conquer_andhra_bah
+		position = 24
+		required_missions = {
+			00EDG_BAH_E4_2
+			00EDG_BAH_C4_5
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				value = 3
+				province_has_center_of_trade_of_level = 3
+			}
+			marketplace = 15
+			treasury = 500
+		 } 
+
+		effect = { 
+			add_treasury = -500
+			unlock_estate = {
+				estate = estate_vaisyas
+			}
+
+			add_country_modifier = {
+				name = EDG_BAH_D4_3_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_E4 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { OR = { tag = BAH was_tag = BAH } has_country_flag = BAH_1_ideas_flag} 
+
+	00EDG_BAH_E4_1 = {#戈尔孔达的财富
+		icon = mission_growth_of_ahmedabad
+		position = 20
+		required_missions = { 00EDG_BAH_D4_1 } 
+		provinces_to_highlight = { 
+			province_id = 542
+			or = {
+				not = {
+					province_has_center_of_trade_of_level = 3
+				}
+				not = {
+					EDG_has_building_workshop_trigger = yes
+				}
+				not = {
+					EDG_has_building_temple_trigger = yes
+				}
+				not = {
+					EDG_has_building_market_trigger = yes 
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			542 = {
+				province_has_center_of_trade_of_level = 3
+				EDG_has_building_market_trigger = yes 
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				
+			}
+			treasury = 500
+		 } 
+
+		effect = { 
+			if = {
+				limit = {
+					any_owned_province={ has_province_modifier = diamond_district }
+				}
+				542 = {
+					add_permanent_province_modifier = {
+						name = diamond_district
+					}
+				}
+			}
+			542 = {
+				add_permanent_province_modifier = {
+				name = EDG_BAH_E4_1_modifiers
+				duration = -1
+			}
+			EDG_building_give_workshop_or_upgrate_effect = yes
+			add_building = mills
+			EDG_building_give_universityp_or_upgrate_effect = yes
+			}
+		 } 
+	}
+
+	00EDG_BAH_E4_2 = {#垄断宝石贸易
+		icon = mission_riches_of_golconda
+		position = 23
+		required_missions = {
+			00EDG_BAH_E4_1
+			00EDG_BAH_D4_2
+		}
+		provinces_to_highlight = { 
+			province_id = 2101
+			or = {
+				not = {
+					base_production = 10
+				}
+				not = {
+					EDG_has_building_market_trigger = yes
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			2101 = {
+				base_production = 10
+				EDG_has_building_market_trigger = yes
+				
+			}
+			trading_bonus = {
+				trade_goods = gems
+				value = yes
+			}
+			
+			treasury = 500
+		 } 
+
+		effect = { 
+            set_country_flag = EDG_BAH_set_great_project_5_flag
+			custom_tooltip = EDG_BAH_B3_1_tool
+			2101 = {
+				create_or_add_center_of_trade_level = 1 
+				EDG_building_give_workshop_or_upgrate_effect = yes
+				add_building = mills
+				EDG_building_give_universityp_or_upgrate_effect = yes
+				add_permanent_province_modifier = {
+					name = EDG_BAH_E4_2_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_A5 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag  } 
+
+	00EDG_BAH_A5_1 = {
+		icon = mission_conquer_gujarat_bah
+		position = 28
+		required_missions = { 00EDG_BAH_B5_1 } 
+		provinces_to_highlight = { 
+			province_id = 2075
+			OR = {
+				not = { development = 35 }
+				not = {
+					EDG_has_building_workshop_trigger = yes 
+				}
+				not = {
+					EDG_has_building_temple_trigger = yes
+				}
+				not = {
+					has_great_project = {
+						type = golden_temple
+						tier = 2 
+						}
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			    owns_core_province = 2075
+				2075 = {
+				development = 35
+				has_great_project = {
+				type = golden_temple
+				tier = 2 
+				}
+				EDG_has_building_workshop_trigger = yes 
+				EDG_has_building_temple_trigger = yes
+			    }
+			
+			
+		 } 
+
+		effect = { 
+			2075 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				change_religion = sikhism
+				set_great_project_tier_1 = {
+					type = golden_temple
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A5_1_modifiers
+					duration = -1
+				}
+				
+			}
+			add_country_modifier = {
+				name = EDG_BAH_A5_1_modifiers_1
+				duration = -1
+			}
+			
+		 } 
+	}
+}
+
+00EDG_BAH_B5 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_B5_1 = {
+		icon = mission_the_sultanate_restored
+		position = 27
+		required_missions = { 00EDG_BAH_C5_1 } 
+		provinces_to_highlight = { 
+			province_id = 524
+			OR = {
+				not = { development = 35 }
+				not = {
+					EDG_has_building_workshop_trigger = yes 
+				}
+				not = {
+					EDG_has_building_temple_trigger = yes
+				}
+				not = {
+					has_great_project = {
+						type = golden_temple
+						tier = 2 
+						}
+				}
+			}
+			
+		 } 
+
+		trigger = { 
+			owns_core_province = 524
+			524 = {
+				development = 35
+				has_great_project = {
+					type = taj_mahal 
+					tier = 2 
+					}
+					EDG_has_building_workshop_trigger = yes 
+					EDG_has_building_temple_trigger = yes
+			}
+		 } 
+
+		effect = { 
+			    
+				524 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A5_1_modifiers
+					duration = -1
+				}
+					set_great_project_tier_1 = {
+						type = taj_mahal 
+					}
+				}
+				
+		 } 
+	}
+}
+
+00EDG_BAH_C5 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag  } 
+
+	00EDG_BAH_C5_1 = {
+		icon = mission_establish_mint_towns
+		position = 26
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			treasury = 2500
+			monthly_income = 150
+		 } 
+
+		effect = { 
+			add_years_of_income = 2
+			add_country_modifier = {
+				name = EDG_BAH_C5_1_modifiers
+				duration = 10950
+			}
+			add_stability_or_adm_power = yes
+		 } 
+	}
+
+	00EDG_BAH_C5_2 = {
+		icon = mission_the_grand_trunk_road_dlh
+		position = 28
+		required_missions = {
+			00EDG_BAH_C5_1
+			00EDG_BAH_D5_1
+			00EDG_BAH_B5_1
+		}
+		provinces_to_highlight = { 
+			is_part_of_trunk_road = yes
+			
+			NOT = {
+				AND = {
+					country_or_non_sovereign_subject_holds = ROOT
+					num_of_times_improved = 8
+					OR = {
+						EDG_has_building_workshop_trigger = yes 
+					}
+				}
+			}
+		 } 
+
+		trigger = { 
+			every_trunk_road_province_trigger = {
+				tooltip = EDG_BAH_D5_1_scripted_triggers_tooltip
+				trigger = "
+					country_or_non_sovereign_subject_holds = ROOT
+					num_of_times_improved = 8
+					EDG_has_building_workshop_trigger = yes 
+				"
+			}
+		 } 
+
+		effect = { 
+				every_trunk_road_province_effect = {
+					effect = "
+						add_permanent_province_modifier = {
+							name = EDG_BAH_C5_2_modifiers
+							duration = -1
+						}
+					"
+				}
+				add_country_modifier = {
+					name = EDG_BAH_C5_2_modifiers_1
+					duration = -1
+				}
+			add_stability_or_adm_power = yes
+		 } 
+	}
+
+
+}
+
+00EDG_BAH_D5 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_D5_1 = {
+		icon = mission_advance_to_the_arabian_sea
+		position = 27
+		required_missions = { 00EDG_BAH_C5_1 } 
+		provinces_to_highlight = { 
+			or = {
+				 province_id = 2039
+                province_id = 561
+                province_id = 564
+                province_id = 568
+                province_id = 2046
+                province_id = 4474
+                province_id = 4475
+			}
+			OR = {
+				not = {
+					country_or_non_sovereign_subject_holds = ROOT
+				}
+				NOT = {
+					num_of_times_improved = 8
+				}
+				NOT = {EDG_has_building_workshop_trigger = yes}
+			}
+				
+		 } 
+
+		trigger = { 
+			EDG_BAH_D5_1_scripted_triggers = {
+				tooltip = EDG_BAH_D5_1_scripted_triggers_tooltip
+				trigger = "
+					country_or_non_sovereign_subject_holds = ROOT
+					num_of_times_improved = 8
+					EDG_has_building_workshop_trigger = yes
+				"
+			}
+		 } 
+
+		effect = { 
+			EDG_BAH_D5_1_scripted_effects = {
+				effect = "
+						add_permanent_province_modifier = {
+							name = EDG_BAH_D5_1_modifiers
+							duration = -1
+						}
+					"
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_E5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_E5_1 = {
+		icon = mission_marathi_fiefs
+		position = 28
+		required_missions = { 00EDG_BAH_D5_1 } 
+		provinces_to_highlight = { 
+			province_id = 564
+			OR = {
+				not = {
+						EDG_has_building_temple_trigger = yes	
+				}
+				NOT = {
+					EDG_has_building_workshop_trigger = yes
+				}
+				NOT = {
+					EDG_has_building_market_trigger = yes
+				}
+			}
+		 } 
+
+		trigger = { 
+			owns_core_province = 564
+			564 = {
+				EDG_has_building_temple_trigger = yes
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_market_trigger = yes
+				has_great_project = {
+					type = bara_katra
+					tier = 2
+				}
+			}
+			treasury = 2000
+		 } 
+
+		effect = { 
+			564 = {
+				set_great_project_tier_1 = {
+					type = bara_katra
+			   }
+			}
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+		 } 
+	}
+}
+
+00EDG_BAH_A6 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_A6_1 = {
+		icon = mission_book_of_royal_degrees
+		position = 30
+		required_missions = { 00EDG_BAH_B6_1 } 
+		provinces_to_highlight = { 
+			or = {
+			   province_id = 2076
+			   province_id = 555
+			   province_id = 558
+			   province_id = 563
+			}
+			OR = {
+				NOT = {
+					EDG_has_building_workshop_trigger = yes
+				}
+				not = {
+					base_production = 12
+			    }
+			}
+			
+		 } 
+
+		trigger = { 
+			2076 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			555 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			558 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			563 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+		 } 
+
+		effect = { 
+			2076 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				add_institution_embracement = {
+					which = printing_press
+					value = 90
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A6_1_modifiers
+					duration = -1
+				}				
+			}
+			555 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				add_institution_embracement = {
+					which = printing_press
+					value = 90
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A6_1_modifiers
+					duration = -1
+				}				
+			}
+			558 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				add_institution_embracement = {
+					which = printing_press
+					value = 90
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A6_1_modifiers
+					duration = -1
+				}				
+			}
+			563 = {
+				add_base_manpower = 1
+				add_base_production = 1
+				add_base_tax = 1
+				add_institution_embracement = {
+					which = printing_press
+					value = 90
+				}
+				add_permanent_province_modifier = {
+					name = EDG_BAH_A6_1_modifiers
+					duration = -1
+				}				
+			}
+		 } 
+	}
+
+	00EDG_BAH_A6_2 = {
+		icon = mission_dhimmi
+		position = 31
+		required_missions = { 00EDG_BAH_A6_1 } 
+		provinces_to_highlight = { 
+			or = {
+               province_id = 504
+			   province_id = 1948
+			   province_id = 507
+			   province_id = 524
+			   province_id = 1340
+			   province_id = 1343
+			}
+			
+		 } 
+
+		trigger = { 
+			504 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 80
+				}
+			}
+			1948 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 90
+				}
+			}
+			507 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 85
+				}
+			}
+			524 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 90
+				}
+			}
+			1340 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 85
+				}
+			}
+			1343 = {
+                has_merchant = PREV
+				trade_share = {
+					country = ROOT 
+					share = 90
+				}
+			}
+		 } 
+
+		effect = { 
+			add_treasury = 2000
+			add_prestige_or_monarch_power = { amount = 50 }
+			add_country_modifier = {
+				name = EDG_BAH_A6_2_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B6 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag} 
+
+	00EDG_BAH_B6_1 = {
+		icon = mission_malwi_architecture
+		position = 29
+		required_missions = { 00EDG_BAH_C5_2 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				development = 30
+				value = 15
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_B6_1_modifiers
+				duration = 18250
+			}
+		 } 
+	}
+
+	00EDG_BAH_B6_2 = {
+		icon = mission_a_million_rice_fields
+		position = 30
+		required_missions = { 00EDG_BAH_B6_1 } 
+		provinces_to_highlight = { 
+			or = {
+				province_id = 510
+				province_id = 2062
+				province_id = 4498
+				province_id = 2061
+				province_id = 4499
+				province_id = 2094
+				province_id = 4487
+				province_id = 4496
+				province_id = 2046
+				province_id = 2033
+			}
+			OR = {
+				NOT = {base_production = 8}
+				not = {
+					EDG_has_building_workshop_trigger = yes
+			    }
+			}
+			
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_C6_2_tooltip
+				510 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				2062 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				4498 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				2061 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				4499 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				2094 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				4487 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				4496 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				2046 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+				2033 = {
+					base_production = 8
+					EDG_has_building_workshop_trigger = yes
+				}
+			}
+		 } 
+
+		effect = { 
+			add_treasury = 500
+			custom_tooltip = EDG_BAH_D5_1_scripted_effects_tooltip
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_B6_2_modifiers
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				2033 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				2046 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				4496 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				4487 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				2094 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				4499 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				2061 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				4498 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				510 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+				2062 = {
+					add_permanent_province_modifier = {
+						name = EDG_BAH_B6_2_modifiers
+						duration = -1
+					}
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_B6_3 = {
+		icon = mission_jawal_silver_mine
+		position = 32
+		required_missions = {
+			00EDG_BAH_C6_2
+			00EDG_BAH_A6_2
+			00EDG_BAH_B6_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			trade_goods_produced_amount = { trade_goods = spices amount = 50}
+			trading_bonus = {
+				trade_goods = spices 
+				value = yes
+			}
+			
+			trade_goods_produced_amount = { trade_goods = cotton amount = 50}
+			trading_bonus = {
+				trade_goods = cotton
+				value = yes
+			}
+			
+			trade_goods_produced_amount = { trade_goods = silk amount = 100 }
+			trading_bonus = {
+				trade_goods = silk 
+				value = yes
+			}
+			
+			trade_goods_produced_amount = { trade_goods = dyes amount = 30 }
+			trading_bonus = {
+				trade_goods = dyes
+				value = yes
+			}
+			
+			trade_goods_produced_amount = { trade_goods = cloth amount = 100 }
+			trading_bonus = {
+				trade_goods = cloth
+				value = yes
+			}
+			
+		 } 
+
+		effect = { 
+			add_years_of_income = 2
+			add_country_modifier = {
+				name = EDG_BAH_B6_3_modifiers
+				duration = 36500
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_C6 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_C6_1 = {
+		icon = mission_general_land_assessment
+		position = 30
+		required_missions = { 00EDG_BAH_B6_1 } 
+		provinces_to_highlight = { 
+			or = {
+				province_id = 2063
+				province_id = 2047
+				province_id = 526
+				province_id = 516
+			}
+			OR = {
+				NOT = {base_production = 12}
+				NOT = {	
+					EDG_has_building_workshop_trigger = yes
+			}
+			}
+			
+		 } 
+
+		trigger = { 
+			2063 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			2047 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			526 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+			516 = {
+				base_production = 12
+				EDG_has_building_workshop_trigger = yes
+			}
+		 } 
+
+		effect = { 
+			2063 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C6_1_modifiers
+					duration = -1
+				}
+			}
+			2047 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C6_1_modifiers
+					duration = -1
+				}
+			}
+			526 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C6_1_modifiers
+					duration = -1
+				}
+			}
+			516 = {
+				add_permanent_province_modifier = {
+					name = EDG_BAH_C6_1_modifiers
+					duration = -1
+				}
+			}
+		 } 
+	}
+
+	00EDG_BAH_C6_2 = {
+		icon = mission_chakravarti
+		position = 31
+		required_missions = { 00EDG_BAH_C6_1 } 
+		provinces_to_highlight = { 
+			
+		 } 
+
+		trigger = { 
+			development_in_provinces = {
+				value = 300
+				owned_by = ROOT 
+				trade_goods = silk 
+			}
+			development_in_provinces = {
+				value = 200
+				owned_by = ROOT 
+				trade_goods = dyes
+			}
+			development_in_provinces = {
+				value = 300 
+				owned_by = ROOT 
+				trade_goods = cloth
+			}
+			development_in_provinces = {
+				value = 300 
+				owned_by = ROOT 
+				trade_goods = cotton
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_C6_2_modifiers
+				duration = 18250
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_D6 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_D6_1 = {#虚假的表面和平
+		icon = mission_levantine_restoration
+		position = 29
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			or = {
+				and = {
+					has_any_disaster = no
+					india_superregion = {
+						country_or_non_sovereign_subject_holds = root 
+						type = all 
+					}
+					not = { has_country_flag = EDG_BAH_D6_1_flag }
+				}
+				has_disaster = EDG_BAH_exploison_2 
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_D6_1_tooltip
+			set_country_flag = EDG_BAH_D6_1_flag
+			add_prestige = 5
+		 } 
+	}
+
+	00EDG_BAH_D6_2 = {#镇压印度斯坦独立
+		icon = mission_horde_caravans
+		position = 30
+		required_missions = { 00EDG_BAH_D6_1 } 
+		provinces_to_highlight = { 
+			region = hindusthan_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_D6_2_tooltip
+				has_country_flag = EDG_BAH_exploison_1_event_25_flag 
+			}
+			hindusthan_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_manpower = 15
+			add_stability_or_adm_power = yes
+			add_treasury = 200
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BAH_D6_2_modifier
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_D6_3 = {#镇压印度西部独立
+		icon = mam_city_thousand_minarets
+		position = 31
+		required_missions = { 00EDG_BAH_D6_2 } 
+		provinces_to_highlight = { 
+			region = west_india_region
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_D6_3_tooltip
+				has_country_flag = EDG_BAH_exploison_1_event_26_flag 
+			}
+			west_india_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_manpower = 10
+			add_stability_or_adm_power = yes
+			add_treasury = 200
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BAH_D6_3_modifier
+				duration = -1
+			}
+		 } 
+	}
+	00EDG_BAH_D6_4 = {#印度终将统一
+		icon = mission_arabian_thalassocracy
+		position = 32
+		required_missions = {
+			00EDG_BAH_E6_2
+			00EDG_BAH_D6_3
+		}
+		provinces_to_highlight = { 
+			superregion = india_superregion
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = {
+			 india_superregion = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			} 
+		} 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_D6_4_tooltip
+			set_country_flag = EDG_BAH_D6_4_flag
+			set_country_flag = EDG_BAH_D6_4_flag_1
+			set_country_flag = EDG_BAH_missions_event_40_flag
+			add_mil_power = 100
+			add_adm_power = 100
+			add_dip_power = 100
+			add_prestige_or_monarch_power = { amount = 50 }
+			add_country_modifier = {
+				name = EDG_BAH_D6_4_modifier
+				duration = -1
+			}
+			country_event = {
+				id = EDG_BAH_missions_event.22
+		        days = 10
+			}
+			hidden_effect = {
+				country_event = {
+				    id = EDG_BAH_missions_event.38
+				    days = 15
+			    }
+			}
+			remove_country_modifier = EDG_BAH_missions_event_40_modifier
+		} 
+	}
+}
+
+00EDG_BAH_E6 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_E6_1 = {#镇压孟加拉独立
+		icon = mission_nah_the_enemy_way
+		position = 30
+		required_missions = { 00EDG_BAH_D6_1 } 
+		provinces_to_highlight = { 
+			or = {
+				area = gaur_area
+		        area = west_bengal_area
+			    area = north_bengal_area
+		        area = east_bengal_area
+			    area = assam_area
+			    area = naga_hills_area
+			    area = tripura_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		} 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_E6_1_tooltip
+				has_country_flag = EDG_BAH_exploison_1_event_27_flag 
+			}
+			gaur_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			west_bengal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			north_bengal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			east_bengal_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			assam_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			naga_hills_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			tripura_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+		 } 
+
+		effect = { 
+			add_stability_or_adm_power = yes
+			add_treasury = 200
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_manpower = 15
+			add_country_modifier = {
+				name = EDG_BAH_E6_1_modifier
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_E6_2 = {#镇压中印度独立
+		icon = mission_conquer_timbuktu
+		position = 31
+		required_missions = { 00EDG_BAH_E6_1 } 
+		provinces_to_highlight = {
+			or = {
+				area = garjat_area
+		        area = assam_area
+				area = upper_mahanadi_area
+		        area = jharkhand_area
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		  } 
+
+		trigger = { 
+			garjat_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			assam_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			upper_mahanadi_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			jharkhand_area = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			add_stability_or_adm_power = yes 
+			add_treasury = 200
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_BAH_E6_2_modifier
+				duration = -1
+			}
+		 } 
+	}
+
+
+}
+
+00EDG_BAH_A7 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_A7_1 = {
+		icon = mission_unite_west_india
+		position = 34
+		required_missions = { 00EDG_BAH_C7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_A7_1_tooltip
+				num_of_battles = {
+					amount = 350
+				}
+			}
+			
+			army_professionalism = 0.20 
+			army_tradition = 50 
+			mil_power = 100
+		 } 
+
+		effect = { 
+			add_mil_power = -100
+			add_army_professionalism = -0.025
+			add_army_tradition = 10
+			add_country_modifier = {
+				name = EDG_BAH_A7_1_modifiers
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_A7_2 = {
+		icon = mission_subah_of_ayuddhya
+		position = 35
+		required_missions = { 00EDG_BAH_A7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_wars = {
+				amount = 30
+			}
+			army_professionalism = 0.40
+			army_tradition = 60
+			army_size_percentage = 0.85
+		 } 
+
+		effect = { 
+			add_army_professionalism = -0.025
+			country_event_with_option_insight = {
+				id = EDG_BAH_missions_event.35
+				option_1 = " 
+				      add_country_modifier = {
+			               name = EDG_BAH_A7_2_modifiers
+			               duration = -1
+		                }
+				"
+				option_2 = "
+						add_country_modifier = {
+			                name = EDG_BAH_A7_2_modifiers_1
+			                duration = -1
+		                }
+		                 custom_tooltip = MUG_more_chance_for_elephants
+		                 set_country_flag = MUG_more_chance_for_elephants_flag
+				"
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B7 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_B7_2 = {
+		icon = mission_prepare_an_invasion_force
+		position = 35
+		required_missions = { 00EDG_BAH_A7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			barracks = 10
+			regimental_camp = 15
+			max_manpower = 200
+			manpower = 180
+			army_professionalism = 0.10
+		 } 
+
+		effect = { 
+			
+			add_army_professionalism = -0.025
+			add_country_modifier = {
+				name =EDG_BAH_B7_2_modifiers_1
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_C7 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_C7_1 = {
+		icon = mission_sindh_campaign
+		position = 33
+		provinces_to_highlight = { 
+			EDG_BAH_C7_1_provinces_to_highlight = yes 
+			not = {
+				and = {
+					base_manpower = 10
+					EDG_has_building_barracks_trigger = yes
+				}
+			}
+		 } 
+
+		trigger = { 
+			EDG_BAH_C7_1_scripted_triggers = {
+				tooltip = EDG_BAH_C7_1_tooltip
+				trigger = "
+				    base_manpower = 10
+					EDG_has_building_barracks_trigger = yes
+				"
+			}
+		 } 
+
+		effect = { 
+			EDG_BAH_C7_1_scripted_effects = {
+				effect = "
+				add_permanent_province_modifier = {
+				      name = EDG_BAH_C7_1_modifiers_1
+					  duration = -1
+				}
+				"
+			}
+			add_country_modifier = {
+				name = EDG_BAH_C7_1_modifiers_2
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_C7_2 = {
+		icon = mission_integrate_the_gonds
+		position = 34
+		required_missions = { 00EDG_BAH_C7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			regimental_camp = 25
+			manpower_percentage = 0.85
+			army_size_percentage = 0.9
+			army_professionalism = 0.20 
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C7_2_tooltip
+			add_army_professionalism = -0.05
+			set_country_flag = EDG_BAH_C3_4_decisions_1
+			set_country_flag = EDG_BAH_C7_2_flag
+			country_event = {
+				id = EDG_BAH_missions_event.36
+			}
+		 } 
+	}
+
+	00EDG_BAH_C7_3 = {
+		icon = mission_conquer_maharashtra
+		position = 36
+		required_missions = {
+			00EDG_BAH_D7_1
+			00EDG_BAH_B7_2
+			00EDG_BAH_C7_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			army_size = 450
+			army_professionalism = 0.75
+			num_of_wars = {
+				amount = 75
+			}
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_C7_3_tooltip
+				num_of_battles = {
+					amount = 600
+				}
+			}
+			
+			or = {
+				full_idea_group = quantity_ideas
+				full_idea_group =  quality_ideas
+				full_idea_group = offensive_ideas
+				full_idea_group = defensive_ideas
+			}
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_C7_3_modifiers_1
+				duration = -1
+			}
+			
+		 } 
+	}
+}
+
+00EDG_BAH_D7 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_D7_1 = {
+		icon = mission_guns_of_urban
+		position = 35
+		required_missions = { 00EDG_BAH_E7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			num_of_artillery = 80
+			army_size = 250
+			army_professionalism = 0.4
+			custom_trigger_tooltip = {
+				tooltip = EDG_BAH_D7_1_tooltip
+				num_of_battles = {
+					amount = 500
+				}
+			}
+			
+		 } 
+
+		effect = { 
+			add_army_professionalism = -0.025
+			change_innovativeness = 10
+			add_country_modifier = {
+				name = EDG_BAH_D7_1_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_E7 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_C3_4_flag } 
+
+	00EDG_BAH_E7_1 = {#
+		icon = mission_modern_knight_army
+		position = 34
+		required_missions = { 00EDG_BAH_C7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			if = {
+				limit = {
+					has_estate = estate_rajput 
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_rajput
+						loyalty = 65
+					}
+					num_of_estate_privileges = {
+						estate = estate_rajput
+						value = 3
+					}
+				}
+				num_of_owned_provinces_with = { 
+					culture = rajput
+					num_of_times_improved = 10
+					value = 10
+				}
+			}
+			else = {
+				num_of_owned_provinces_with = { 
+					culture = rajput
+					num_of_times_improved = 10
+					value = 10
+				}
+			}
+			army_professionalism = 0.1
+		 } 
+
+		effect = { 
+			custom_tooltip = MUG_distribute_10_base_manpower
+			hidden_effect = {
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+				random_owned_province = { limit = { culture = rajput } add_base_manpower = 1 }
+			}
+			add_army_professionalism = -0.025
+			add_country_modifier = {
+				name = EDG_BAH_E7_1_modifiers
+				duration = -1
+			}
+			add_country_modifier = {
+				name = MUG_rajput_reforms
+				duration = -1
+			}
+		 } 
+	}
+
+	00EDG_BAH_E7_2 = {
+		icon = per_create_the_tupchi
+		position = 35
+		required_missions = { 00EDG_BAH_E7_1 } 
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			artillery_fraction = 0.4
+			num_of_artillery = 120
+			num_of_wars = {
+				amount = 55
+			}
+			army_professionalism = 0.4
+		 } 
+
+		effect = { 
+			
+			add_country_modifier = {
+				name = EDG_BAH_E7_2_modifiers
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_A8 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 } 
+
+	00EDG_BAH_A8_1 = {#圣地守护者
+		icon = kok_mam_holy_cities
+		position = 39
+		required_missions = { 00EDG_BAH_B8_1 } 
+		provinces_to_highlight = { 
+			or = {
+				region = mashriq_region
+				region = arabia_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			owns_core_province = 385
+			mashriq_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+	        arabia_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+		 } 
+
+		effect = { 
+			385 = {
+				set_great_project_tier_3 = {
+					type = kaaba
+				}
+			}
+			
+			add_adm_power = 100
+			add_dip_power = 100
+			add_dip_power = 100
+			maghreb_region = {
+				add_permanent_claim = root 
+			}
+			horn_of_africa_region = {
+				add_permanent_claim = root 
+			}
+			iberia_region = {
+				add_permanent_claim = root 
+			}
+			add_country_modifier = {
+				name = EDG_BAH_A8_1_modifier
+				duration = -1
+			}
+		 } 
+		  
+	}
+}
+
+00EDG_BAH_B8 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 } 
+
+	00EDG_BAH_B8_1 = {#波斯之狮的降伏
+		icon = per_great_shia_empire
+		position = 38
+		required_missions = { 00EDG_BAH_C8_1 } 
+		provinces_to_highlight = { 
+			or = {
+				region = khorasan_region
+	            region = persia_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+                region = khorasan_region
+				value = 20
+			}
+			num_of_owned_provinces_with = {
+				region = persia_region
+				value = 25
+			}
+		 } 
+
+		effect = { 
+			near_east_superregion = {
+				add_permanent_claim = root 
+			}
+			balkan_region = {
+				add_permanent_claim = root 
+			}
+			crimea_region = {
+				add_permanent_claim = root 
+			}
+			carpathia_region = {
+				add_permanent_claim = root 
+			}
+			central_asia_region = {
+                add_permanent_claim = root
+			}
+			unlock_estate = {
+				estate = estate_qizilbash 
+			}
+			unlock_estate = {
+				estate = estate_ghulams 
+			}
+			set_country_flag = EDG_BAH_B8_1_flag
+		 } 
+	}
+
+	00EDG_BAH_B8_2 = {#欧洲的门户
+		icon = mission_pf_map_table
+		position = 40
+		required_missions = { 00EDG_BAH_B8_1 } 
+		provinces_to_highlight = { 
+			or = {
+				region = balkan_region
+			    region = crimea_region
+			    region = anatolia_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			owns_core_province = 151
+			num_of_owned_provinces_with = {
+				region = balkan_region
+				value = 20
+			}
+			num_of_owned_provinces_with = {
+				region = crimea_region
+				value = 15
+			}
+			num_of_owned_provinces_with = {
+				region = anatolia_region
+				value = 20
+			}
+		 } 
+
+		effect = { 
+			eastern_europe_superregion = {
+				add_permanent_claim = root 
+			}
+			italy_region = {
+				add_permanent_claim = root 
+			}
+			south_german_region = {
+				add_permanent_claim = root 
+			}
+			unlock_estate = {
+				estate = estate_cossacks
+			}
+			add_country_modifier = {
+				name = EDG_BAH_B8_2_modifier
+				duration = -1
+			}
+			swap_non_generic_missions = yes
+		 } 
+	}
+}
+
+00EDG_BAH_C8 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 } 
+
+	00EDG_BAH_C8_1 = {#亚洲霸主
+		icon = mission_muslim_administrators
+		position = 37
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			monthly_income = 500
+			army_size = 500
+			army_size_percentage = 0.95
+			manpower_percentage = 0.85
+		 } 
+
+		effect = { 
+			add_country_modifier = {
+				name = EDG_BAH_C8_1_modifier
+				duration = 18250
+			}
+			east_indies_superregion = {
+				add_permanent_claim = root 
+			}
+			persia_superregion = {
+				add_permanent_claim = root 
+			}
+			tibet_region = {
+				add_permanent_claim = root 
+			}
+		 } 
+	}
+
+	00EDG_BAH_C8_2 = {#目标是星辰大海
+		icon = mission_rule_of_the_sun
+		position = 39
+		required_missions = {
+			00EDG_BAH_C8_1
+			00EDG_BAH_D8_1
+			00EDG_BAH_B8_1
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = { 
+			is_hegemon = yes
+			monthly_income = 1000
+			army_size = 1000
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_C8_2_tooltip
+			set_country_flag = EDG_BAH_C8_2_flag
+			add_country_modifier = {
+				name = EDG_BAH_C8_2_modifier 
+				duration = -1
+			}
+		} 
+	}
+}
+
+00EDG_BAH_D8 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 } 
+
+	00EDG_BAH_D8_1 = {#朱罗帝国的遗产
+		icon = mission_persianate_empire
+		position = 38
+		required_missions = { 00EDG_BAH_C8_1 } 
+		provinces_to_highlight = { 
+			or = {
+				region = burma_region
+				region = indo_china_region
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			burma_region = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all
+			}
+			num_of_owned_provinces_with = {
+				region = indo_china_region
+				value = 40
+			}
+			
+		 } 
+
+		effect = { 
+			china_superregion = {
+				add_permanent_claim = root
+			}
+			add_adm_power = 100
+			add_dip_power = 100
+			add_mil_power = 100
+			set_country_flag = EDG_BAH_D8_1_flag 
+		 } 
+	}
+
+	00EDG_BAH_D8_2 = {#叩开龙门
+		icon = mission_mnd_maj_end_disaster
+		position = 40
+		required_missions = { 00EDG_BAH_D8_1 } 
+		provinces_to_highlight = { 
+			superregion  = china_superregion 
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			custom_tooltip = EDG_BAH_D8_a_1_tooltip
+			china_superregion = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_D8_a_1_tooltip
+			tartary_superregion = {
+				add_permanent_claim = root
+			}
+			far_east_superregion = {
+				add_permanent_claim = root
+			}
+			country_event = {
+				id = EDG_BAH_missions_event.39
+			}
+			custom_tooltip = EDG_BAH_D8_2_tooltip
+		 } 
+	}
+}
+
+00EDG_BAH_E8 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 } 
+
+	00EDG_BAH_E8_1 = {#大婆罗多认同
+		icon = jerusalem
+		position = 39
+		required_missions = { 00EDG_BAH_D8_1 } 
+		provinces_to_highlight = { 
+			superregion = east_indies_superregion
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				superregion = east_indies_superregion
+				value = 120
+			} 
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_E8_1_tooltip
+			set_country_flag = EDG_BAH_E8_1_flag
+			add_country_modifier = {
+				name = EDG_BAH_E8_1_modifier
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_B8_a = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 has_country_flag = EDG_BAH_B8_1_flag  } 
+
+	00EDG_BAH_B8_a_1 = {#这是萝马
+		icon = mission_plc_purple_phoenix
+		position = 41
+		required_missions = { 00EDG_BAH_B8_2 } 
+		provinces_to_highlight = { 
+			province_id = 118
+		 } 
+
+		trigger = { 
+			owns_core_province = 118
+			num_of_owned_provinces_with = {
+				superregion = europe_superregion
+				value = 50
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_B2_3_tool
+			if = {
+				limit = { has_had_golden_age = yes } 
+				reset_golden_age = yes 
+			}
+			else_if = {
+				limit = { in_golden_age = yes } 
+				extend_golden_age = 600
+			}
+			else = { 
+				add_prestige_or_monarch_power = { amount = 100 }
+			}
+			118 = {
+				change_religion = shiite 
+			}
+			add_country_modifier = {
+				name = EDG_BAH_B8_a_1_modifier  
+				duration = -1
+			}
+		 } 
+	}
+}
+
+00EDG_BAH_D8_a = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { or = { tag = BAH was_tag = BAH } has_country_flag = EDG_BAH_D6_4_flag_1 has_country_flag = EDG_BAH_D8_1_flag  } 
+
+	00EDG_BAH_D8_a_1 = {#印度天命
+		icon = qng_junji_chu
+		position = 41
+		required_missions = { 00EDG_BAH_D8_2 } 
+		provinces_to_highlight = { 
+			or = {
+				superregion = far_east_superregion
+				superregion = tartary_superregion
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+			}
+		 } 
+
+		trigger = { 
+			custom_tooltip = EDG_BAH_D8_a_1_tooltip
+			far_east_superregion = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+			tartary_superregion = {
+				country_or_non_sovereign_subject_holds = root 
+				type = all 
+			}
+		 } 
+
+		effect = { 
+			custom_tooltip = EDG_BAH_D8_a_1_tooltip
+			set_mandate = 100
+			add_country_modifier = {
+				name = EDG_BAH_D8_a_1_modifier
+				duration = -1
+			} 
+		 } 
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,2525 @@
+EDG_BELA_KSB_add_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_1_9 = {
+		icon = mission_the_bospborus
+		position = 9
+		required_missions = {
+			EDG_BELA_KSB_5_8
+		} 
+		provinces_to_highlight = {
+			province_id = 151
+			not = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#控制君士坦丁堡
+			151 = {
+				owned_by = root
+			}
+			is_at_war = no
+		} 
+
+		effect = {
+			#增加省份buff[世界渴望之城]
+			151 = {
+				add_permanent_province_modifier = {
+					name = EDG_BELA_KSB_1_9_province_151_modifier #世界渴望之城
+					duration = -1
+				}
+			}
+			#增加国家修正[渴望世界之国]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_1_9_modifier
+				duration = 7300
+			}
+			#如果是东正教，获得君宝核心，并将君宝转为东正教
+			if = {
+				limit = {
+					religion = orthodox
+					151 = {
+						not = {
+							is_core = root
+						}
+					}
+				}
+				151 = {
+					add_core = root
+					if = {
+						limit = {
+							151 = {
+								not = {
+									religion = orthodox
+								}
+							}
+						}
+						151 = {
+							change_religion = orthodox
+						}
+					}
+				}
+			}
+			#获得小亚细亚，巴尔干永久宣称
+			anatolia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			balkan_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#获得马什里克西部省份宣称
+			syria_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			palestine_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			trans_jordan_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			syrian_desert_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			aleppo_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_10 = {
+		icon = mission_break_the_mamluks
+		position = 10
+		required_missions = { EDG_BELA_KSB_1_9 } 
+		provinces_to_highlight = {
+			region = anatolia_region
+		} 
+
+		trigger = {
+			#always = no
+			#小亚细亚全部被或属国控制
+			anatolia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#[渴望世界之国]修正改为永久
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_KSB_1_9_modifier
+				}
+				custom_tooltip = EDG_BELA_KSB_1_10_effect_tt_yes
+				hidden_effect = {
+					remove_country_modifier = EDG_BELA_KSB_1_9_modifier
+					add_country_modifier = {
+						name = EDG_BELA_KSB_1_9_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_1_10_effect_tt_no
+			}
+			#安纳托利亚土耳其文化省份有75%的概率变为希腊文化
+			custom_tooltip = EDG_BELA_KSB_1_10_effect_tt_2
+			hidden_effect = {
+				anatolia_region = {
+					limit = {
+						culture = turkish
+					}
+					random = {
+						chance = 75
+						change_culture = greek
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_12 = {
+		icon = mission_dismantle_hre
+		position = 12
+		provinces_to_highlight = {
+			is_capital_of = emperor
+			not = {
+				controlled_by = root
+			}
+			root = {
+				not = {
+					war_score_against = {
+						who = emperor
+						value = 75
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			if = {
+				limit = {
+					any_country = {
+						is_emperor = yes
+					}
+				}
+				war_score_against = {
+					who = emperor
+					value = 75
+				}
+				emperor = {
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+			}
+			else = {
+				not = {
+					any_country = {
+						is_emperor = yes
+					}
+				}
+			}
+			#在战争中占领神罗皇帝的首都且战争分数达到90
+			#或神圣罗马帝国不存在
+		} 
+
+		effect = {
+			#满足前者，则直接解散神圣罗马
+			if = {
+				limit = {
+					any_country = {
+						is_emperor = yes
+					}
+				}
+				dismantle_hre = yes
+			}
+			#获得南北德意志的宣称
+			south_german_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			north_german_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#南北德意志地区、低地地区、法兰西地区的宣称省份，被我们的军队占领后将转变为永久宣称
+			#custom_tooltip = EDG_BELA_KSB_1_12_effect_tt
+		} 
+	}
+
+	EDG_BELA_KSB_1_13 = {
+		icon = mission_conquer_5_states
+		position = 13
+		required_missions = { EDG_BELA_KSB_1_12 } 
+		provinces_to_highlight = {
+			region = north_german_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 70
+						region = north_german_region
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#北德意志地区拥有省份数量
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 70
+				region = north_german_region
+			}
+		} 
+
+		effect = {
+			#获得或延长国家修正[民族优越性的证明]
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_national_prime_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_14 = {
+		icon = Control_Junkers
+		position = 14
+		required_missions = {
+			EDG_BELA_KSB_1_13
+			EDG_BELA_KSB_2_13
+		}
+		provinces_to_highlight = {
+			is_capital = yes
+			owner = {
+				culture_group = germanic
+				is_subject = no
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#欧洲不存在任何独立的德意志文化组国家
+			not = {
+				any_country = {
+					is_subject = no
+					culture_group = germanic
+				}
+			}
+			 ##南北德意志地区省份要求
+		} 
+
+		effect = {
+			 ##所有控制下的德意志文化组省份获得[德意志人差别对待法案]直到文化被接纳或省份文化变为卡舒比文化
+			#解锁决议[通过差别对待法案]
+			 #缓慢地将德意志文化转变为卡舒比文化，我们拥有的德意志文化省份数量会减慢该进程，我们拥有的卡舒比文化省份数量将促进该进程
+			#解锁决议[鼓励排挤德意志人]
+			 #加速转变文化的进程，给与国家buff和省份buff持续10年
+			custom_tooltip = EDG_BELA_KSB_1_14_effect_tt
+			#获得对低地的宣称
+			low_countries_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_claim = root
+			}
+			#获得或延长国家修正[民族优越性的证明]
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_national_prime_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+			#获得法兰西地区的宣称
+			france_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_claim = root
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_16 = {
+		icon = mission_entrepot_of_india
+		position = 16
+		required_missions = { EDG_BELA_KSB_1_14 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					region = low_countries_region
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 15
+								region = low_countries_region
+							}
+						}
+					}
+				}
+				and = {
+					province_id = 1269
+					not = {
+						1269 = {
+							has_most_province_trade_power = root
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = low_countries_region
+			}
+			#低地的省份数量
+			#在英吉利海峡贸易竞争力最高
+			1269 = {
+				has_most_province_trade_power = root
+			}
+		} 
+
+		effect = {
+			#获得国家修正[全球贸易]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_1_16_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_17 = {
+		icon = mission_handle_the_streltsy
+		position = 17
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			check_variable = {
+				which = EDG_BELA_KSB_streltsy_won_var
+				value = 10
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_BELA_POM_events.84
+			}
+			unlock_merc_company = {
+				merc_company = merc__EDG_BELA_KSB_guards_corps
+				free_merc = yes
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_1_19 = {
+		icon = mission_abolish_mestnichestvo
+		position = 19
+		required_missions = { EDG_BELA_KSB_2_18 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			num_of_streltsy = 200
+			artillery_fraction = 0.4
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_KSB_1_19_effect_tt
+			#启用修正-[军事革新竞赛]
+		} 
+	}
+
+	EDG_BELA_KSB_1_21 = {
+		icon = mission_cannons_firing
+		position = 20
+		required_missions = {
+			EDG_BELA_KSB_1_19
+			EDG_BELA_KSB_2_20
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+		} 
+
+		effect = {
+			#给予修正[坚船与利炮]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_1_21_modifier
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_BELA_KSB_add_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_2_10 = {
+		icon = mission_mal_subjugate_zaf
+		position = 10
+		required_missions = { EDG_BELA_KSB_3_9 } 
+		provinces_to_highlight = {
+			region = central_asia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#中亚的所有省份
+			central_asia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得修正[卡舒比亚治下的和平]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_10_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_11 = {
+		icon = mission_amur_acquisition
+		position = 11
+		required_missions = { EDG_BELA_KSB_3_10 } 
+		provinces_to_highlight = {
+			region = manchuria_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#内东北除辽宁外的省份
+			manchuria_region = {
+				owned_by = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#解锁决议[设立阿穆尔开拓团]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_11_modifier
+				duration = -1
+			}
+			#启用该决议时，当我们的殖民者成功在满洲地区提升发展度时，将能把该省份的文化转变为卡舒比文化
+			custom_tooltip = EDG_BELA_KSB_2_11_effect_tt
+			add_country_modifier = {
+				name = EDG_colonize_13_modifier
+				duration = 3650
+			}
+			complete_mission = EDG_BELA_KSB_4_11
+		} 
+	}
+
+	EDG_BELA_KSB_2_13 = {
+		icon = interfere_in_germany
+		position = 13
+		required_missions = { EDG_BELA_KSB_1_12 } 
+		provinces_to_highlight = {
+			region = south_german_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 55
+						region = south_german_region
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#南德意志省份数量
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 55
+				region = south_german_region
+			}
+		} 
+
+		effect = {
+			#获得或延长国家修正[民族优越性的证明]
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_national_prime_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_national_prime_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_14 = {
+		icon = mission_galleys_in_port
+		position = 14
+		provinces_to_highlight = {
+			colonial_region = colonial_canada
+			not = {
+				country_or_subject_holds = root
+			}
+			not = {
+				any_country = {
+					is_colonial_nation_of = root
+					capital_scope = {
+						colonial_region = colonial_canada
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#加拿大殖民地
+			any_country = {
+				is_colonial_nation_of = root
+				capital_scope = {
+					colonial_region = colonial_canada
+				}
+			}
+		} 
+
+		effect = {
+			#获得修正[纽芬兰定居点]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_14_modifier
+				duration = -1
+			}
+			#加拿大殖民地获得修正[第一殖民地]——该修正仅能被授予一次——殖民地维护费-75%
+			if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_first_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_canada
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_first_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_second_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_canada
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_second_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_third_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_canada
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_third_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_15 = {
+		icon = centralize_france
+		position = 15
+		required_missions = { EDG_BELA_KSB_1_14 } 
+		provinces_to_highlight = {
+			region = france_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 40
+						region = france_region
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#法兰西地区省份数量40
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 40
+				region = france_region
+			}
+		} 
+
+		effect = {
+			#获得修正[法兰克帝国的遗产]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_15_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_16 = {
+		icon = native_royal_marriage
+		position = 16
+		required_missions = { EDG_BELA_KSB_3_15 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#当前原住民政策不是图
+			not = {
+				native_policy = native_policy_hostile
+			}
+		} 
+
+		effect = {
+			#获得修正[原住民权力法案]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_16_modifier
+				duration = -1
+			}
+			#所有在新大陆的非殖民地属国将被整合
+			custom_tooltip = EDG_BELA_KSB_2_16_effect_tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject_of = root
+						capital_scope = {
+							or = {
+								continent = north_america
+								continent = south_america
+							}
+						}
+						is_colonial_nation = no
+					}
+					root = {
+						inherit = prev
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_18 = {
+		icon = mission_guns_of_urban
+		position = 18
+		required_missions = { EDG_BELA_KSB_1_17 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			num_of_artillery = 40
+			or = {
+				full_idea_group = quality_ideas
+				full_idea_group = offensive_ideas
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					has_country_flag = EDG_BELA_POM_events_84B_flag
+				}
+				custom_tooltip = has_EDG_BELA_POM_events_84B_flag_tt_yes
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_18_B_modifier
+					duration = -1
+				}
+				custom_tooltip = not_has_EDG_BELA_POM_events_84B_flag_tt
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_18_modifier
+						duration = -1
+					}
+				}
+			}
+			else = {
+				custom_tooltip = has_EDG_BELA_POM_events_84B_flag_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_2_18_B_modifier
+						duration = -1
+					}
+				}
+				custom_tooltip = not_has_EDG_BELA_POM_events_84B_flag_tt
+				add_country_modifier = {
+					name = EDG_BELA_KSB_2_18_modifier
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_20 = {
+		icon = mission_establish_high_seas_navy
+		position = 19
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#舰队数量要求
+			num_of_heavy_ship = 100
+			num_of_light_ship = 100
+		} 
+
+		effect = {
+			#永久修正-[无敌舰队]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_2_20_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_2_22 = {
+		icon = mission_assemble_an_army
+		position = 21
+		required_missions = {
+			EDG_BELA_KSB_1_21
+			EDG_BELA_KSB_3_21
+			EDG_BELA_KSB_2_20
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			is_at_war = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_KSB_2_22_effect_tt
+			#启用修正[全面战争体制]
+			#正反两面都有
+			#满足条件之后会触发事件强制完成
+		} 
+	}
+}
+EDG_BELA_KSB_add_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_3_9 = {
+		icon = mission_collect_yasak
+		position = 9
+		required_missions = { EDG_BELA_KSB_3_7 } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					region = west_siberia_region
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				and = {
+					region = east_siberia_region
+					root = {
+						not = {
+							east_siberia_region = {
+								owned_by = root
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#西西伯利亚省份
+			west_siberia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#东西伯利亚省份至少1
+			east_siberia_region = {
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			#获得修正[西伯利亚冒险热潮]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_3_9_modifier
+				duration = 7300
+			}
+			change_price = {
+				trade_goods = fur
+				key = EDG_fur_trade_price_improve_key
+				value = 1.0
+				duration = -1
+			}
+			east_siberia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			central_asia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			mongolia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_10 = {
+		icon = mission_recruit_the_cossacks
+		position = 10
+		required_missions = { EDG_BELA_KSB_3_9 } 
+		provinces_to_highlight = {
+			region = east_siberia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#东西伯利亚所有省份
+			east_siberia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#解锁西伯利亚城市发展决议
+			custom_tooltip = EDG_BELA_KSB_3_10_effect_tt
+			set_country_flag = EDG_siberian_city_decision_flag
+			manchuria_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_11 = {
+		icon = geo_crade_of_civilization
+		position = 11
+		required_missions = {
+			EDG_BELA_KSB_1_10
+			EDG_BELA_KSB_5_10
+		}
+		provinces_to_highlight = {
+			or = {
+				and = {
+					region = mashriq_region
+					not = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				and = {
+					province_id = 410
+					not = {
+						owned_by = root
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#马什里克省份
+			mashriq_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#拥有巴格达
+			410 = {
+				owned_by = root
+			}
+		} 
+
+		effect = {
+			#获得修正[三洲五海之主]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_3_11_modifier
+				duration = 36500
+			}
+			arabia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			 ##修正生效期间，所有在战争中占领的省份都将自动获得永久宣称，所有永久宣称省份在割让给我们后获得自治领地核心
+		} 
+	}
+
+	EDG_BELA_KSB_3_12 = {
+		icon = mission_chinese_general_riding
+		position = 12
+		required_missions = {
+			EDG_BELA_KSB_2_11
+			EDG_BELA_KSB_4_11
+		}
+		provinces_to_highlight = {
+			region = manchuria_region
+			not = {
+				culture = root
+			}
+			not = {
+				owned_by = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						value = 5
+						culture = root
+						region = manchuria_region
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			 ##全满洲的省份
+			 ##符拉迪沃斯托克
+			#满洲地区文化
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				culture = root
+				region = manchuria_region
+			}
+		} 
+
+		effect = {
+			#获得对朝鲜和日本的永久宣称
+			korea_region = {
+				limit = {
+					not = {
+						is_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_claim = root
+			}
+			japan_region = {
+				limit = {
+					not = {
+						is_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_claim = root
+			}
+			#解锁决议——建设远东海港
+			custom_tooltip = EDG_BELA_KSB_3_12_effect_tt
+			set_country_flag = EDG_BELA_KSB_east_port_decision_flag
+			#符拉迪沃斯托克，旅顺
+		} 
+	}
+
+	EDG_BELA_KSB_3_13 = {
+		icon = mission_invade_island
+		position = 13
+		provinces_to_highlight = {
+			colonial_region = colonial_eastern_america
+			not = {
+				country_or_subject_holds = root
+			}
+			not = {
+				any_country = {
+					is_colonial_nation_of = root
+					capital_scope = {
+						colonial_region = colonial_eastern_america
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#美利坚殖民地
+			any_country = {
+				is_colonial_nation_of = root
+				capital_scope = {
+					colonial_region = colonial_eastern_america
+				}
+			}
+		} 
+
+		effect = {
+			#获得修正[新大陆立足点]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_3_13_modifier
+				duration = -1
+			}
+			#美利坚殖民地获得修正[第一殖民地]——该修正仅能被授予一次——殖民地维护费-75%（后递减）
+			if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_first_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_eastern_america
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_first_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_second_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_eastern_america
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_second_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_third_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_eastern_america
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_third_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_3_15 = {
+		icon = mission_se_platform_mounds
+		position = 15
+		required_missions = {
+			EDG_BELA_KSB_2_14
+			EDG_BELA_KSB_3_13
+			EDG_BELA_KSB_4_14
+		}
+		provinces_to_highlight = {
+			continent = north_america
+			not = {
+				country_or_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						value = 40
+						continent = north_america
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 40
+				continent = north_america
+			}
+		} 
+
+		effect = {
+			#获得北美洲的永久宣称
+			north_america_superregion = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			central_america_superregion = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#north_america
+		} 
+	}
+
+	EDG_BELA_KSB_3_17 = {
+		icon = mission_son_fetishist_alliances
+		position = 17
+		required_missions = {
+			EDG_BELA_KSB_2_16
+			EDG_BELA_KSB_4_16
+		}
+		provinces_to_highlight = {
+			continent = north_america
+			not = {
+				country_or_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						value = 80
+						continent = north_america
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 80
+				continent = north_america
+			}
+		} 
+
+		effect = {
+			#获得南美洲的宣称
+			south_america_superregion = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			andes_superregion = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#south_america
+		} 
+	}
+
+	EDG_BELA_KSB_3_19 = {
+		icon = mission_empire
+		position = 19
+		required_missions = {
+			EDG_BELA_KSB_2_18
+			EDG_BELA_KSB_3_17
+			EDG_BELA_KSB_4_18
+		}
+		provinces_to_highlight = {
+			or = {
+				continent = north_america
+				continent = south_america
+			}
+			not = {
+				country_or_subject_holds = root
+			}
+			root = {
+				not = {
+					num_of_provinces_owned_or_owned_by_subjects_with = {
+						value = 300
+						or = {
+							continent = north_america
+							continent = south_america
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 300
+				continent = north_america
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_BELA_KSB_KSBempire_modifier
+				duration = -1
+			}
+			#所有殖民领属国启用触发修正[卡舒比帝国圈成员]
+			custom_tooltip = EDG_BELA_KSB_3_19_effect_tt
+			#tooltip = {
+				#add_country_modifier = {
+				#	name = EDG_BELA_KSB_KSBempire_subject_modifier
+				#	duration = -1
+				#}
+			#}
+			#获得修正[卡舒比帝国]
+		} 
+	}
+
+	EDG_BELA_KSB_3_21 = {
+		icon = mission_pol_breadbasket_europe
+		position = 20
+		required_missions = {  } 
+		provinces_to_highlight = {
+			or = {
+				and = {
+					continent = europe
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 250
+								continent = europe
+							}
+						}
+					}
+				}
+				and = {
+					continent = asia
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 250
+								continent = asia
+							}
+						}
+					}
+				}
+				and = {
+					continent = africa
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 200
+								continent = africa
+							}
+						}
+					}
+				}
+				and = {
+					continent = north_america
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 200
+								continent = north_america
+							}
+						}
+					}
+				}
+				and = {
+					continent = south_america
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 100
+								continent = south_america
+							}
+						}
+					}
+				}
+				and = {
+					continent = oceania
+					not = {
+						country_or_subject_holds = root
+					}
+					root = {
+						not = {
+							num_of_provinces_owned_or_owned_by_subjects_with = {
+								value = 50
+								continent = oceania
+							}
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 500
+				continent = europe
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 400
+				continent = asia
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 300
+				continent = north_america
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 200
+				continent = africa
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 100
+				continent = south_america
+			}
+			num_of_provinces_owned_or_owned_by_subjects_with = {
+				value = 50
+				continent = oceania
+			}
+		} 
+
+		effect = {
+			#获得修正[日不落雄心]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_sun_never_sets_modifier
+				duration = -1
+			}
+			#获得对所有不被我们控制省份的宣称
+			custom_tooltip = EDG_BELA_KSB_3_21_effect_tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						not = {
+							is_claim = root
+						}
+						not = {
+							is_core = root
+						}
+					}
+					add_claim = root
+				}
+			}
+		} 
+	}
+}
+EDG_BELA_KSB_add_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_4_10 = {
+		icon = mission_destroy_the_horde
+		position = 10
+		required_missions = { EDG_BELA_KSB_3_9 } 
+		provinces_to_highlight = {
+			region = mongolia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#蒙古地区省份
+			mongolia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得修正[卡舒比亚治下的秩序]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_10_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_11 = {
+		icon = mission_advance_to_the_dnieper
+		position = 11
+		required_missions = { EDG_BELA_KSB_3_10 } 
+		provinces_to_highlight = {
+			region = manchuria_region
+			not = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#外东北所有省份
+			manchuria_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#解锁决议[设立阿穆尔移民团]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_11_modifier
+				duration = -1
+			}
+			#修正「§Y阿穆尔移民团§!」存在时，当我们在§Y满洲地区§!提升发展度时，将能把该省份的文化转变为§Y卡舒比文化§!。
+			custom_tooltip = EDG_BELA_KSB_4_11_effect_tt
+			add_country_modifier = {
+				name = EDG_colonize_13_modifier
+				duration = 3650
+			}
+			complete_mission = EDG_BELA_KSB_2_11
+		} 
+	}
+
+	EDG_BELA_KSB_4_13 = {
+		icon = mng_heavens_will
+		position = 13
+		required_missions = { EDG_BELA_KSB_5_12 } 
+		provinces_to_highlight = {
+			or = {
+				area = gansu_area
+				area = west_gansu_area
+				area = shanxi_area
+				area = shaanxi_area
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#西北地区的所有省份
+			gansu_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			west_gansu_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			shanxi_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			shaanxi_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#允许使用决议——统治中华：重建秦制
+			#custom_tooltip = EDG_BELA_KSB_4_13_effect_tt
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_13_modifier
+				duration = -1
+			}
+			#获得或延长10年修正[入关！]
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_14 = {
+		icon = mission_coromandel_expansion
+		position = 14
+		provinces_to_highlight = {
+			colonial_region = colonial_the_carribean
+			not = {
+				country_or_subject_holds = root
+			}
+			not = {
+				any_country = {
+					is_colonial_nation_of = root
+					capital_scope = {
+						colonial_region = colonial_the_carribean
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#加勒比群岛殖民地
+			any_country = {
+				is_colonial_nation_of = root
+				capital_scope = {
+					colonial_region = colonial_the_carribean
+				}
+			}
+		} 
+
+		effect = {
+			#自己和加勒比群岛殖民地获得修正[加勒比落脚点]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_14_modifier
+				duration = -1
+			}
+			#加勒比群岛殖民地获得修正[第一殖民地]——该修正仅能被授予一次——殖民地维护费-75%
+			if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_first_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_the_carribean
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_first_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_second_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_the_carribean
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_second_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					not = {
+						any_country = {
+							has_country_modifier = EDG_BELA_KSB_third_colonial_nation_modifier
+						}
+					}
+				}
+				every_country = {
+					limit = {
+						is_colonial_nation_of = root
+						capital_scope = {
+							colonial_region = colonial_the_carribean
+						}
+					}
+					add_country_modifier = {
+						name = EDG_BELA_KSB_third_colonial_nation_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_15 = {
+		icon = prosper_in_piedmont
+		position = 15
+		required_missions = { EDG_BELA_KSB_5_14 } 
+		provinces_to_highlight = {
+			region = xinan_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#西南地区的所有省份
+			xinan_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#解锁决议——统治中华：改土归流
+			#custom_tooltip = EDG_BELA_KSB_4_15_effect_tt
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_15_modifier
+				duration = -1
+			}
+			#获得或延长10年修正[入关！]
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_16 = {
+		icon = mission_trade_company_region_abroad
+		position = 16
+		required_missions = { EDG_BELA_KSB_3_15 } 
+		provinces_to_highlight = {
+			or = {
+				continent = north_america
+				continent = south_america
+				continent = oceania
+			}
+			not = {
+				country_or_subject_holds = root
+			}
+			root = {
+				not = {
+					colony = 5
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#新大陆殖民地数量达到5个
+			colony = 5
+		} 
+
+		effect = {
+			#获得修正[殖民地管理法案]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_16_modifier
+				duration = -1
+			}
+			#至少拥有10个省份的殖民地每年将会额外上缴30行政点数、30外交点数、30军事点数
+			#殖民地将能向我们申请援助
+			custom_tooltip = EDG_BELA_KSB_4_16_effect_tt
+		} 
+	}
+
+	EDG_BELA_KSB_4_18 = {
+		icon = mission_high_income
+		position = 18
+		required_missions = { EDG_BELA_KSB_5_17 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#贸易收入达到总收入的50%
+			trade_income_percentage = 0.50
+			#完成了经济或贸易理念组
+			or = {
+				full_idea_group = economic_ideas
+				full_idea_group = trade_ideas
+			}
+		} 
+
+		effect = {
+			#外交政策槽位+1
+			#禁运效率	embargo_efficiency = 0.25
+			#非国内贸易节点竞争力
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_18_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_20 = {
+		icon = mission_rb_central_belt_coal_mining
+		position = 19
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#至少5个省份-有产物煤炭
+			num_of_owned_provinces_with = {
+				value = 5
+				trade_goods = coal
+			}
+		} 
+
+		effect = {
+			#获得永久修正：[工业的粮食]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_4_20_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_4_22 = {
+		icon = mission_state_manufactories
+		position = 21
+		required_missions = {
+			EDG_BELA_KSB_3_21
+			EDG_BELA_KSB_5_21
+			EDG_BELA_KSB_4_20
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#没有赤字
+			is_in_deficit = no
+		} 
+
+		effect = {
+			custom_tooltip = EDG_BELA_KSB_4_22_effect_tt
+			#解锁修正[永不停歇的机器]
+			#正反两面都有
+			#满足条件之后会触发事件强制完成
+		} 
+	}
+}
+EDG_BELA_KSB_add_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = POM } 
+
+	EDG_BELA_KSB_5_9 = {
+		icon = mission_control_the_barbary_coast
+		position = 9
+		required_missions = { EDG_BELA_KSB_5_8 } 
+		provinces_to_highlight = {
+			area = tabarestan_area
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#里海南岸地区的省份
+			tabarestan_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得对波斯的宣称
+			persia_region = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#如果波斯不存在，我们将获得10年修正[统一波斯！]
+			if = {
+				limit = {
+					not = {
+						exists = PER
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_5_9_effect_tt_yes
+				add_country_modifier = {
+					name = EDG_BELA_KSB_5_9_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_5_9_effect_tt_no
+				tooltip = {
+					add_country_modifier = {
+						name = EDG_BELA_KSB_5_9_modifier
+						duration = 3650
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_10 = {
+		icon = mam_ethiopia
+		position = 10
+		required_missions = { EDG_BELA_KSB_5_9 } 
+		provinces_to_highlight = {
+			region = persia_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#波斯地区的所有省份属于root
+			persia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			al_jazira_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			iraq_arabi_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			basra_area = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#如果我们在修正到期前统一波斯，那么波斯地区将获得全核并失去15年分离主义
+			#否则，给25威望
+			if = {
+				limit = {
+					has_country_modifier = EDG_BELA_KSB_5_9_modifier
+				}
+				custom_tooltip = EDG_BELA_KSB_5_10_effect_tt_1_yes
+				persia_region = {
+					limit = {
+						owned_by = root
+					}
+					add_core = root
+					add_nationalism = -15
+				}
+				custom_tooltip = EDG_BELA_KSB_5_10_effect_tt_2_no
+				tooltip = {
+					add_prestige_or_monarch_power = {
+						amount = 25
+					}
+				}
+			}
+			else = {
+				custom_tooltip = EDG_BELA_KSB_5_10_effect_tt_1_no
+				tooltip = {
+					persia_region = {
+						limit = {
+							owned_by = root
+						}
+						add_core = root
+						add_nationalism = -15
+					}
+				}
+				custom_tooltip = EDG_BELA_KSB_5_10_effect_tt_2_yes
+				add_prestige_or_monarch_power = {
+					amount = 25
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_12 = {
+		icon = mission_crisis_ming_dynasty
+		position = 12
+		provinces_to_highlight = {
+			is_capital = yes
+			not = {
+				controlled_by = root
+			}
+			owner = {
+				is_emperor_of_china = yes
+				not = {
+					war_score_against = {
+						who = root
+						value = -75
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#在与天朝的战争中获得+75战争分并占领首都或有来自天朝的战争赔款
+			#或者天命不存在
+			if = {
+				limit = {
+					any_country = {
+						is_emperor_of_china = yes
+					}
+				}
+				#any_country = {
+					#is_emperor_of_china = yes
+					#war_score_against = {
+					#	who = root
+					#	value = -75
+					#}
+					#capital_scope = {
+					#	controlled_by = root
+					#}
+				#}
+				any_country = {
+					is_emperor_of_china = yes
+					root = {
+						war_score_against = {
+							who = prev
+							value = 75
+						}
+					}
+					capital_scope = {
+						controlled_by = root
+					}
+				}
+			}
+			else = {
+				not = {
+					any_country = {
+						is_emperor_of_china = yes
+					}
+				}
+				any_owned_province = {
+					superregion = china_superregion
+				}
+			}
+		} 
+
+		effect = {
+			#天命存在才有奖励
+			#if = {
+				#limit = {
+				#	any_country = {
+				#		is_emperor_of_china = yes
+				#	}
+				#}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+				custom_tooltip = EDG_BELA_KSB_5_12_effect_tt
+			#}
+			china_superregion = {
+				limit = {
+					not = {
+						is_permanent_claim = root
+					}
+					not = {
+						is_core = root
+					}
+				}
+				add_permanent_claim = root
+			}
+			#获得修正[入关]，在修正生效期间，被我们占领的天朝省份将会获得永久宣称，并在割让后获得全核并失去15年分离主义
+			#解锁系列决议——统治中华
+		} 
+	}
+
+	EDG_BELA_KSB_5_13 = {
+		icon = mission_control_the_desh
+		position = 13
+		required_missions = { EDG_BELA_KSB_5_12 } 
+		provinces_to_highlight = {
+			or = {
+				region = mongolia_region
+				region = manchuria_region
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#蒙古和满洲的省份
+			mongolia_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			manchuria_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			#获得永久修正[破城工造]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_13_modifier
+				duration = -1
+			}
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_14 = {
+		icon = mng_outer_city_beijing
+		position = 14
+		required_missions = {
+			EDG_BELA_KSB_4_13
+			EDG_BELA_KSB_5_13
+		}
+		provinces_to_highlight = {
+			or = {
+				area = anhui_area
+				area = hebei_area
+				area = south_hebei_area
+				area = henan_area
+				area = north_henan_area
+				area = jiangsu_area
+				area = shandong_area
+			}
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#华北的省份
+			anhui_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			#south_anhui_area = {
+				#country_or_non_sovereign_subject_holds = root
+				#type = all
+			#}
+			hebei_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			south_hebei_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			henan_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			north_henan_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			jiangsu_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+			shandong_area = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			#获得修正[奉天承运]
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_14_modifier
+				duration = -1
+			}
+			 ##解锁决议——统治中华：奉天承运
+			 ##custom_tooltip = EDG_BELA_KSB_5_14_effect_tt
+		} 
+	}
+
+	EDG_BELA_KSB_5_16 = {
+		icon = mng_tame_china_sorrow
+		position = 16
+		required_missions = { EDG_BELA_KSB_5_14 } 
+		provinces_to_highlight = {
+			region = south_china_region
+			not = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			#always = no
+			#华南省份
+			south_china_region = {
+				country_or_non_sovereign_subject_holds = root
+				type = all
+			}
+		} 
+
+		effect = {
+			 ##解锁决议——统治中华：万国来朝
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_16_modifier
+				duration = -1
+			}
+			#custom_tooltip = EDG_BELA_KSB_5_15_effect_tt
+			if = {
+				limit = {
+					not = {
+						has_country_modifier = EDG_BELA_KSB_ruguan_modifier
+					}
+				}
+				add_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+			else = {
+				extend_country_modifier = {
+					name = EDG_BELA_KSB_ruguan_modifier
+					duration = 3650
+				}
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_17 = {
+		icon = mission_dominate_home_trade_node
+		position = 17
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#重商主义达到50
+			mercantilism = 50
+			#市民阶层特权数量
+			num_of_estate_privileges = {
+				estate = estate_burghers
+				value = 5
+			}
+		} 
+
+		effect = {
+			#永久buff
+			add_country_modifier = {
+				name = EDG_BELA_KSB_5_17_modifier
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_BELA_KSB_5_19 = {
+		icon = mission_rb_build_furnaces
+		position = 19
+		required_missions = { EDG_BELA_KSB_4_18 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#行政科技至少10级
+			adm_tech = 10
+			#至少20个省份拥有工厂
+			num_of_owned_provinces_with = {
+				value = 10
+				has_manufactory_trigger = yes
+			}
+			#创新度至少50
+			innovativeness = 50
+		} 
+
+		effect = {
+			#我们的省份的产物将有可能转变为煤炭
+			custom_tooltip = EDG_BELA_KSB_5_19_effect_tt
+			#has_latent_trade_goods = coal
+			#change_trade_goods = coal
+		} 
+	}
+
+	EDG_BELA_KSB_5_21 = {
+		icon = mission_rb_prospect_for_coal
+		position = 20
+		required_missions = {
+			EDG_BELA_KSB_5_19
+			EDG_BELA_KSB_4_20
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			#always = no
+			#已经垄断了铜和铁
+			production_leader = {
+				trade_goods = iron
+			}
+		} 
+
+		effect = {
+			#铁矿格提升5倍
+			change_price = {
+				trade_goods = iron
+    			key = EDG_BELA_KSB_control_iron_key
+    			value = 5.0
+    			duration = -1
+			}
+		} 
+	}
+}

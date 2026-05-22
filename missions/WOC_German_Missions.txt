@@ -1,0 +1,1153 @@
+JHC_GER_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		OR = {
+			tag = GER
+			tag = HLR
+		}
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	JHC_GER_lowlands = {
+		icon = bavarian_netherlands
+		required_missions = { JHC_GER_blood_and_iron }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = low_countries_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = {
+						ROOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 15
+								region = low_countries_region
+							}
+						}
+					}
+				}
+				AND = {
+					province_id = 45
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 15
+				region = low_countries_region
+			}
+			45 = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "ger_crushed_dutch_independence"
+				duration = 7300
+			}
+			
+			set_country_flag = JHC_GER_lowlands_flag
+			
+			give_claims = { region = france_region }
+			
+			custom_tooltip = " "
+			
+			country_event_with_option_insight = {
+				id = flavor_ger.1
+				option_1 = "
+					custom_tooltip = GER_upgrade_every_cot_in_low_countries_to_level_2
+					
+					custom_tooltip = \" \"
+					
+					1269 = {
+						add_trade_modifier = {
+							who = ROOT
+							duration = -1
+							power = 50
+							key = GER_taking_over_channel
+						}
+					}
+				"
+				option_2 = "
+					45 = {
+						add_province_triggered_modifier = GER_staying_in_lubeck
+					}
+					
+					custom_tooltip = GER_requirements
+					
+					custom_tooltip = \" \"
+					
+					add_years_of_trade_income = {
+						years = 2
+						custom_tooltip = BYZ_add_2_years_of_trade_income
+					}
+				"
+			}
+		}
+	}
+	
+	JHC_GER_france = {
+		icon = centralize_france
+		required_missions = { JHC_GER_lowlands }
+		position = 4
+		provinces_to_highlight = {
+			region = france_region
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 40
+				region = france_region
+			}
+			183 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			if = {
+				limit = {
+					OR = {
+						current_age = age_of_absolutism
+						current_age = age_of_revolutions
+					}
+					NOT = { absolutism = 99 }
+					is_revolutionary = no
+				}
+				add_absolutism = 20
+			}
+			else = {
+				add_mil_power = 200
+			}
+			
+			custom_tooltip = " "
+			
+			country_event_with_effect_insight = { #this mimics the franco-prussian war in a way
+				id = flavor_ger.2
+				effect = "
+					add_permanent_power_projection = {
+						amount = 5
+						type = GER_defeat_of_france
+					}
+					
+					custom_tooltip = \" \"
+					
+					add_country_modifier = {
+						name = GER_destruction_of_france
+						duration = -1
+					}
+					
+					custom_tooltip = GER_all_germanic_subjects_will_be_annexable_without_diplo_annex_penalty
+				"
+			}
+		}
+	}
+	
+	JHC_GER_burn_the_wooden_wall = {
+		icon = Burn_Wooden_Wall
+		required_missions = { JHC_GER_imperial_navy JHC_GER_france }
+		position = 6
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = { region = british_isles_region }
+				num_of_heavy_ship = 5
+			}
+			is_capital = yes
+		}
+		trigger = {
+			OR = {
+				custom_trigger_tooltip = {
+					tooltip = burn_wooden_wall_tt
+					NOT = {
+						any_country = {
+							capital_scope = { region = british_isles_region }
+							num_of_heavy_ship = 5
+						}
+					}
+				}
+				num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+					region = british_isles_region
+					value = 8
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = "ger_burned_wooden_wall"
+				duration = -1
+			}
+			
+			give_claims = { region = british_isles_region }
+			
+			custom_tooltip = " "
+			
+			complex_dynamic_effect_without_alternative = {
+				first_custom_tooltip = GER_if_done_via_fleet
+				first_limit = "
+					NOT = {
+						any_country = {
+							capital_scope = { region = british_isles_region }
+							num_of_heavy_ship = 5
+						}
+					}
+				"
+				first_effect = "
+					create_admiral = { tradition = 100 }
+					
+					custom_tooltip = \" \"
+					
+					add_navy_tradition = 25
+				"
+				second_custom_tooltip = GER_if_done_via_conquest
+				second_limit = "
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = british_isles_region
+						value = 8
+					}
+				"
+				second_effect = "
+					create_general = { tradition = 80 }
+			
+					custom_tooltip = \" \"
+					
+					add_army_tradition_or_mil_power = { amount = 15 }
+				"
+			}
+		}
+	}
+}
+
+JHC_GER_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		OR = {
+			tag = GER
+			tag = HLR
+		}
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	JHC_GER_blood_and_iron = {
+		icon = Blood_Iron
+		required_missions = {  }
+		provinces_to_highlight = {
+			NOT = { owned_by = ROOT }
+			OR = {
+				region = south_german_region
+				region = north_german_region
+			}
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 50
+				OR = {
+					region = north_german_region
+					region = south_german_region
+				}
+			}
+		}
+		effect = {
+			give_claims = { region = low_countries_region }
+			give_claims = { region = poland_region }
+			give_claims = { area = west_prussia_area }
+			give_claims = { area = east_prussia_area }
+			give_claims = { area = denmark_area }
+			give_claims = { area = jutland_area }
+			
+			custom_tooltip = " "
+			
+			add_country_modifier = {
+				name = GER_blut_and_eisen
+				duration = 10950 
+			}
+			
+			define_advisor = {
+				type = statesman
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5 
+			}
+		}
+	}
+	
+	GER_break_the_habsburgs = {
+		icon = lead_the_empire
+		required_missions = { JHC_GER_blood_and_iron }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					owned_by = HAB
+					NOT = {
+						OR = {
+							NOT = {
+								exists = HAB
+							}
+							ROOT = { has_won_war_against = { who = HAB } }
+						}
+					}
+				}
+				AND = {
+					is_part_of_hre = yes
+					NOT = {
+						OR = {
+							NOT = { hre_size = 1 }
+							ROOT = { is_emperor = yes }
+						}
+					}
+				}
+				AND = {
+					OR = {
+						area = austria_proper_area
+						area = inner_austria_area
+						area = tirol_area
+					}
+					NOT = {
+						country_or_non_sovereign_subject_holds = ROOT 
+					}
+					NOT = {
+						ROOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								OR = {
+									area = austria_proper_area
+									area = inner_austria_area
+									area = tirol_area
+								}
+								value = 8
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				NOT = {
+					exists = HAB
+				}
+				has_won_war_against = { who = HAB }
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					area = austria_proper_area
+					area = inner_austria_area
+					area = tirol_area
+				}
+				value = 8
+			}
+			if = {
+				limit = {
+					tag = GER
+				}
+				OR = {
+					NOT = { hre_size = 1 }
+					is_emperor = yes
+				}
+			}
+		}
+		effect = {	
+			give_claims = { region = italy_region }
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					NOT = {
+						OR = {
+							was_tag = HAB
+							dynasty = "von Habsburg"
+							tag = HLR
+						}
+					}
+				}
+				add_country_modifier = {
+					name = GER_defeated_habsburgs
+					duration = -1
+				}
+			}
+			else = {
+				add_stability_or_adm_power = yes
+			}
+			
+			add_army_tradition_or_mil_power = { amount = 15 }
+		}
+	}
+	
+	JHC_GER_italy = {
+		icon = complete_the_risorgimento
+		required_missions = { GER_break_the_habsburgs }
+		position = 4
+		provinces_to_highlight = {
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			region = italy_region
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 40
+				region = italy_region
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					tag = HLR
+				}
+				country_event_with_effect_insight = {
+					id = flavor_ger.6
+					effect = "
+						add_country_modifier = {
+							name = GER_shadow_kingdom
+							duration = -1
+						}
+						
+						custom_tooltip = GER_get_full_core_on_cored_italian_provinces
+						
+						custom_tooltip = \" \"
+
+						custom_tooltip = GER_all_italian_provs_lose_nationalism
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = GER_enemies_remain_divided
+					duration = -1
+				}
+				
+				add_adm_power = 100
+				
+				custom_tooltip = " "
+			
+				complex_dynamic_effect = {
+					first_custom_tooltip = GER_if_italy_hasnt_formed
+					first_limit = "
+						NOT = { has_global_flag = formed_italy_flag_global } 
+					"
+					first_effect = "
+						add_power_projection_mission = { amount = 20 }
+					"
+				}
+			}
+		}
+	}
+	
+	
+}
+
+JHC_GER_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		OR = {
+			tag = GER
+			tag = HLR
+		}
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+
+	JHC_GER_poland = {
+		icon = invade_poland
+		required_missions = { JHC_GER_blood_and_iron }
+		position = 2
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = poland_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = {
+						ROOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 25
+								region = poland_region
+							}
+						}
+					}
+				}
+				AND = {
+					region = poland_region
+					has_terrain = farmlands
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = {
+						ROOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								value = 5
+								region = poland_region
+								has_terrain = farmlands
+							}
+						}
+					}
+				}
+				AND = {
+					province_id = 1841
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 25
+				region = poland_region
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 5
+				region = poland_region
+				has_terrain = farmlands
+			}
+			1841 =  { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			give_claims = { region = baltic_region }
+			give_claims = { region = scandinavia_region }
+			give_claims = { region = carpathia_region }
+			
+			custom_tooltip = " "
+			
+			if = {
+				limit = {
+					has_dlc = "Leviathan"
+				}
+				1841 = {
+					custom_tooltip = GER_upgrade_marienburg
+					
+					custom_tooltip = " "
+				}
+				hidden_effect = {
+					while = {
+						limit = {
+							1841 = {
+								NOT = {
+									has_great_project = {
+										type = malbork_castle 
+										tier = 2
+									}
+								}
+							}
+						}
+						1841 = {
+							add_great_project_tier = {
+								type = malbork_castle 
+								tier = 1
+							}
+						}
+					}
+				}
+			}
+			else = {
+				1841 = {
+					add_province_modifier = {
+						name = GER_marienburg_castle_seized
+						duration = -1
+					}
+				}
+			}
+			
+			country_event_with_option_insight = {
+				id = flavor_ger.4 
+				option_1 = "
+					flavor_ger_4_option_1_effect = yes
+				"
+				option_2 = "
+					add_accepted_culture_or_dip_power = { culture = polish value = 100 }
+		
+					custom_tooltip = \" \"
+					
+					custom_tooltip = GER_every_polish_province_loses_10_separatism
+				"
+			}
+		}
+	}
+	
+	JHC_GER_caprathian_conquest = {
+		icon = the_hungarian_question
+		required_missions = { JHC_GER_poland GER_break_the_habsburgs }
+		position = 4
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					region = carpathia_region
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+					NOT = {
+						ROOT = {
+							num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+								region = carpathia_region
+								value = 20
+							}
+						}
+					}
+				}
+				AND = {
+					OR = {
+						province_id = 1951
+						province_id = 4128
+					}
+					NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				}
+			}
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = carpathia_region
+				value = 20
+			}
+			
+			1951 = { country_or_non_sovereign_subject_holds = ROOT }
+			4128 = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		effect = {
+			country_event_with_option_insight = {
+				id = flavor_ger.5
+				option_1 = "
+					custom_tooltip = GER_unlock_diploma_andreanum
+					
+					custom_tooltip = \" \"
+					
+					1951 = {
+						add_local_autonomy = -20
+						add_province_modifier = {
+							name = GER_transylvanian_saxon_minority
+							duration = -1
+						}
+					}
+					
+					4128 = {
+						add_local_autonomy = -20
+						add_province_modifier = {
+							name = GER_transylvanian_saxon_minority
+							duration = -1
+						}
+					}
+				"
+				option_2 = "
+					add_country_modifier = {
+						name = GER_refused_to_renew_diploma_andreanum
+						duration = -1
+					}
+					
+					custom_tooltip = GER_distribute_10_base_tax_5_base_production
+					
+					custom_tooltip = \" \"
+					
+					add_accepted_culture_or_dip_power = { culture = transylvanian }
+				"
+			}
+		}
+	}
+	
+	
+}
+
+JHC_GER_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		OR = {
+			tag = GER
+			tag = HLR
+		}
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	GER_secure_north = {
+		icon = unite_the_league
+		required_missions = { }
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					province_id = 13
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					region = scandinavia_region
+					NOT = {
+						OR = {
+							country_or_non_sovereign_subject_holds = ROOT
+							owner = {
+								alliance_with = ROOT
+							}
+						}
+					}
+				}
+			}
+		}
+		trigger = {
+			owns = 13 #schleswig
+			calc_true_if = {
+				scandinavia_region = {
+					type = all
+					OR = {
+						country_or_non_sovereign_subject_holds = ROOT
+						owner = {
+							alliance_with = ROOT
+						}
+					}
+				}
+				amount = 7
+			}
+			
+		}
+		effect = {
+			13 = {
+				add_province_modifier = {
+					name = GER_resolved_the_border_dispute
+					duration = -1
+
+				}
+				change_culture = lower_saxon
+			}
+			
+			custom_tooltip = " "
+			
+			45 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 50
+					key = GER_passage_through_the_sound
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_navy_tradition = 10
+		}
+	}
+	
+	JHC_GER_baltic = {
+		icon = mission_rb_scottish_north_sea_trade
+		required_missions = { JHC_GER_poland GER_secure_north }
+		position = 3
+		provinces_to_highlight = {
+			OR = {
+				region = baltic_region
+				region = scandinavia_region
+				province_id = 1926
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				value = 30
+				OR = {
+					region = baltic_region
+					region = scandinavia_region
+				}
+			}
+			1926 = {
+				is_strongest_trade_power = ROOT
+			}
+		}
+		effect = {
+			create_general = {
+				tradition = 100
+				culture = swedish
+			}
+			
+			custom_tooltip = " "
+			
+			1926 = {
+				add_trade_modifier = {
+					who = ROOT
+					duration = -1
+					power = 50
+					key = GER_ostsee
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_years_of_trade_income = {
+				years = 2
+				custom_tooltip = BYZ_add_2_years_of_trade_income
+			}
+		}
+	}
+	
+	
+}
+
+JHC_GER_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		OR = {
+			tag = GER
+			tag = HLR
+		}
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+
+	
+}
+
+JHC_GER_3_ger = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = GER
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	
+}
+
+JHC_GER_4_ger = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = GER
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	
+}
+
+JHC_GER_5_ger = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = GER
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	
+}
+
+JHC_GER_3_hlr = {
+	slot = 3
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = HLR
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	JHC_GER_holy_state = {
+		icon = holy_state
+		required_missions = { HLR_renovation_imperii }
+		position = 8
+		trigger = {
+			is_defender_of_faith = yes
+			religious_unity = 0.9
+			if = {
+				limit = {
+					has_estate = estate_church
+				}
+				OR = {
+					estate_loyalty = {
+						estate = estate_church
+						loyalty = 60
+					}
+					num_of_estate_privileges = {	
+						estate = estate_church
+						value = 4
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = HLR_holy_state_mod
+				duration = -1
+			}
+			
+			add_stability_or_adm_power = yes 
+			
+			custom_tooltip = " "
+			
+			add_adm_power = 100
+		}
+	}
+}
+
+JHC_GER_4_hlr = {
+	slot = 4
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = HLR
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	HLR_renovation_imperii = {
+		icon = the_imperial_border
+		required_missions = { }
+		position = 7
+		provinces_to_highlight = {
+			is_core = ROOT 
+			NOT = { owned_by = ROOT }
+		}
+		trigger = {
+			total_development = 3000
+			all_core_province = {
+				owned_by = ROOT
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = HLR_a_new_age_dawns_for_europe
+				duration = 10950
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = HLR_enable_iron_crowned_trait
+				set_country_flag = HLR_enable_iron_crowned_trait_flag
+			}
+		}
+	}
+	
+	JHC_GER_roman_politics = {
+		icon = catholic_volunteers
+		required_missions = { HLR_renovation_imperii }
+		position = 8
+		provinces_to_highlight = {
+			province_id = 118
+		}
+		trigger = {
+			if = {
+				limit = {
+					religion = catholic
+				}
+				OR = {
+					is_papal_controller = yes
+					invested_papal_influence = 40
+				}
+			}
+			else = {
+				118 = { country_or_non_sovereign_subject_holds = ROOT }
+			}			
+		}
+		effect = {
+			add_country_modifier = {
+				name = HLR_roman_politics_mod
+				duration = -1
+			}
+			
+			define_advisor = {
+				type = statesman
+				skill = 3
+				culture = ROOT
+				religion = ROOT
+				cost_multiplier = 0.5
+			}
+			
+			custom_tooltip = " "
+			
+			add_dip_power = 100
+		}
+	}
+	
+	HLR_among_the_powers = {
+		icon = switzerland_and_the_empire
+		required_missions = { JHC_GER_centralized_empire JHC_GER_roman_politics JHC_GER_holy_state }
+		position = 9
+		provinces_to_highlight = {
+			OR = {
+				has_dlc = "Rights of Man"
+				has_dlc = "Emperor"
+			}
+			owner = {
+				NOT = { tag = ROOT }
+				NOT = { great_power_rank = 3 }
+			}
+		}
+		trigger = {
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Rights of Man"
+						has_dlc = "Emperor"
+					}
+				}
+				NOT = { great_power_rank = 3 }
+			}
+			else = {
+				total_development = 200
+			}
+			army_size = 200
+			power_projection = 25
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				num_of_age_rewards_taken = {
+					amount = 4
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = ITA_gain_100_splendor
+				set_country_flag = ITA_gain_100_splendor_flag
+				
+				custom_tooltip = " "
+			}
+			
+			hidden_effect = {
+				remove_country_modifier = HLR_centralized_empire_mod
+				remove_country_modifier = HLR_roman_politics_mod
+				remove_country_modifier = HLR_holy_state_mod
+				add_country_modifier = {
+					name = HLR_holy_roman_imperial
+					duration = -1
+				}
+			}
+			custom_tooltip = HLR_united_modifiers
+		}
+	}
+}
+
+JHC_GER_5_hlr = {
+	slot = 5
+	generic = no
+	ai = yes
+	potential_on_load = {
+		always = no
+		has_dlc = "Winds of Change"
+	}
+	potential = { 
+		always = no
+		tag = HLR
+		NOT = { map_setup = map_setup_random }
+		has_dlc = "Winds of Change"
+	}
+	has_country_shield = yes
+	
+	JHC_GER_centralized_empire = {
+		icon = centralized_empire
+		required_missions = { HLR_renovation_imperii }
+		position = 8
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				region = south_german_region
+				region = north_german_region
+			}
+			local_autonomy = 10
+		}
+		trigger = {
+			num_of_owned_provinces_with = {
+				OR = {
+					region = south_german_region
+					region = north_german_region
+				}
+				NOT = { local_autonomy = 10 }
+				value = 40
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = HLR_centralized_empire_mod
+				duration = -1
+			}
+			
+			custom_tooltip = HLR_distribute_dev_among_low_autonomy_provs
+			hidden_effect = {
+				for = {
+					amount = 15
+					effect = "
+						random_owned_province = {
+							limit = {
+								OR = {
+									region = south_german_region
+									region = north_german_region
+								}
+								NOT = { local_autonomy = 10 }
+							}
+							add_random_development = 1 
+						}
+					"
+				}
+			}
+			
+			custom_tooltip = " "
+			
+			add_mil_power = 100
+		}
+	}
+}

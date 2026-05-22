@@ -1,0 +1,2828 @@
+EDG_ETH_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = ETH
+			tag = AKS
+		}
+	} 
+
+	EDG_ETH_mission_1_1 = {
+		icon = mission_conquer_50_development
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 1
+			if = {
+				limit = { 
+					ai = no
+				}
+				OR = {
+					religious_unity = 0.75
+					advisor = theologian
+					advisor = inquisitor
+				}
+			}
+			NOT = {
+				num_of_rebel_armies = 1
+			}
+			dip_power_cost = 100
+		} 
+
+		effect = {
+			dip_power_cost = 100
+			add_dip_power = 50
+			add_mil_power = 50
+			add_government_power = {
+				mechanic_type = EDG_ETH_solomonic_authority_mechanic
+				power_type = EDG_ETH_solomonic_authority
+				value = 5
+			}
+			if = {
+				limit = {
+					religion_group = christian
+				}
+				1227 = {
+					add_province_modifier = {
+						name = eth_new_christians
+						duration = 7300
+					}
+				}
+				2771 = {
+					add_province_modifier = {
+						name = eth_new_christians
+						duration = 7300
+					}
+				}
+				2772 = {
+					add_province_modifier = {
+						name = eth_new_christians
+						duration = 7300
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					religion = jewish
+				}
+				add_church_power = 100
+			}
+			else_if = {
+				limit = {
+					religion_group = muslim
+				}
+				add_piety = 0.25
+				add_adm_power = 100
+			}
+			else = {
+				add_adm_power = 150
+			}
+			country_event = {
+				id = flavor_eth.19
+			}
+		} 
+		ai_weight = {
+			factor = 1000
+		}
+	}
+
+	EDG_ETH_mission_1_3 = {
+		icon = mission_oceania_dev_capital
+		position = 3
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_cawa = 20
+			num_of_generals = 3
+			OR = {
+				army_tradition = 25
+				army_professionalism = 0.2
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_1_3.modifier.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_ETH_reinforce_roving_capital
+					duration = -1
+				}
+			}
+			add_army_professionalism = 0.05
+			unlock_estate_privilege = {
+				estate_privilege = estate_nobles_cawa_peace_keepers
+			}
+			unlock_estate_privilege = {
+				estate_privilege = estate_nobles_cawa_offensive_fighters
+			}
+		} 
+
+		ai_weight = {
+			factor = 500	#Not sure if the AI will understand this one tbh, but it should try
+		}
+	}
+
+	EDG_ETH_mission_1_7 = {
+		icon = mission_invade_island
+		position = 7
+		required_missions = {
+			EDG_ETH_mission_1_3
+			EDG_ETH_mission_2_6
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = northern_swahili_coast_area
+				area = mombasa_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			northern_swahili_coast_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			mombasa_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_1_7.effect.tt
+			tooltip = {
+				2774 = {
+					add_devastation = -50
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = east_africa_region
+						has_terrain = coastline
+					}
+					add_base_tax = 1
+					add_base_production = 1
+					add_base_manpower = 1
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_1_9 = {
+		icon = mission_entrepot_of_india
+		position = 9
+		required_missions = { EDG_ETH_mission_2_8 } 
+		provinces_to_highlight = {
+			region = east_africa_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = east_africa_region
+				value = 15
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				trade_goods = gold
+				value = 5
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 10
+			add_country_modifier = {
+				name = EDG_ETH_gold_state
+				duration = 18250
+			}
+			# add_years_of_owned_provinces_production_income = {
+			# 	years = 10
+			# 	trigger = {
+			# 		region = southern_africa_superregion
+			# 		trade_goods = gold
+			# 	}
+			# 	custom_tooltip = EDG_ETH_mission_1_9.effect.tt
+			# }
+		} 
+	}
+
+	EDG_ETH_mission_1_11 = {
+		icon = mission_rb_seize_alexandria
+		position = 11
+		required_missions = { EDG_ETH_mission_2_10 } 
+		provinces_to_highlight = {
+			province_id = 358
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 358
+			358 = { religion = ROOT }
+		}
+		effect = {
+			add_accepted_culture_or_dip_power = { culture = al_misr_arabic dip_reward = yes }
+			add_country_modifier = {
+				name = eth_legacy_of_alexandria
+				duration = 9125
+			}
+			palestine_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			syria_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			aleppo_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			358 = {
+				add_province_triggered_modifier = EDG_ETH_capital_alexander_modifier
+			}
+		}
+		ai_weight = {
+			factor = 25	#Alt History, Ethiopia should not suicide itself into the Mamluks
+		}
+	}
+
+	EDG_ETH_mission_1_14 = {
+		icon = mission_rice_field
+		position = 14
+		provinces_to_highlight = {
+			area = central_ethiopia_area
+			NOT = {
+				num_of_times_improved = 3
+			}
+		} 
+
+		trigger = {
+			central_ethiopia_area = {
+				type = all
+				num_of_times_improved = 3
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_1_14.effect.tt
+			central_ethiopia_area = {
+				limit = {
+					owned_by = root
+				}
+				add_base_manpower = 3
+				add_base_production = 3
+				add_base_tax = 3
+			}
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_mountain_expansion
+			}
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_hydraulic_rights
+			}
+		} 
+	}
+
+	EDG_ETH_mission_1_15 = {
+		icon = mission_ottoman_harem
+		position = 15
+		required_missions = { EDG_ETH_mission_1_14 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				is_year = 1460
+				adm = 6
+			}
+			estate_loyalty = {
+				estate = estate_church
+				loyalty = 65
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = {
+					religion_group = christian
+				}
+				unlock_estate_privilege = {
+					estate_privilege = estate_church_yakobs_churches
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						religion = jewish
+					}
+					add_church_power = 100
+				}
+				else = {
+					add_adm_power = 100
+				}
+				hidden_effect = {
+					unlock_estate_privilege = {
+						estate_privilege = estate_church_yakobs_churches
+					}
+				}
+			}
+			add_country_modifier = {
+				name = eth_united_church
+				duration = 9125
+			}
+			change_government_reform_progress = 100
+		} 
+	}
+
+	EDG_ETH_mission_1_18 = {
+		icon = alpine_fortifications
+		position = 18
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 2
+			check_variable = {
+				which = EDG_ETH_moving_capital_count
+				value = 2
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = flavor_eth.7
+			}
+		} 
+	}
+}
+EDG_ETH_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = ETH
+			tag = AKS
+		}
+	} 
+
+	EDG_ETH_mission_2_2 = {
+		icon = mission_dominate_home_trade_node
+		position = 2
+		required_missions = {
+			EDG_ETH_mission_1_1
+			EDG_ETH_mission_3_1
+		}
+		provinces_to_highlight = {
+			OR = {
+				owned_by = DAM
+				owned_by = HDY
+			}
+		}
+		trigger = {
+			OR = {
+				DAM = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+				NOT = { exists = DAM }
+			}
+			OR = {
+				HDY = {
+					has_opinion = {
+						who = ROOT
+						value = 100
+					}
+				}
+				NOT = { exists = HDY }
+			}
+		}
+		effect = {
+			#Event for Damot and Hadiya to join us
+			if = {
+				limit = {
+					OR = {
+						ai = yes
+						AND = {
+							exists = HDY
+							exists = DAM
+							DAM = {
+								is_subject_of = ROOT
+								has_opinion = {
+									who = ROOT
+									value = 150
+								}
+							}
+							HDY = {
+								is_subject_of = ROOT
+								has_opinion = {
+									who = ROOT
+									value = 150
+								}
+							}
+						}
+					}
+				}
+				country_event = {
+					id = flavor_eth.35
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = { amount = 25}
+				custom_tooltip = EDG_ETH_mission_2_2.event.tt
+				add_country_modifier = {
+					name = eth_better_vassal_handling
+					duration = 10950
+				}
+				add_country_modifier = {
+					name = eth_better_integration
+					duration = 10950
+				}
+			}
+			
+		}
+		ai_weight = {
+			factor = 500	#Annexing Vassals is fun
+		}
+	}
+
+	EDG_ETH_mission_2_4 = {
+		icon = mission_assemble_an_army
+		position = 4
+		required_missions = { EDG_ETH_mission_1_3 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_cawa = 50
+			num_of_generals = 3
+			OR = {
+				army_tradition = 60
+				army_professionalism = 0.4
+			}
+			has_mil_advisor_3 = yes
+		} 
+
+		effect = {
+			add_yearly_manpower = 5
+			custom_tooltip = EDG_ETH_mission_2_4.modifier.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_ETH_expand_cawa
+					duration = -1
+				}
+			}
+			add_country_modifier = {
+				name = EDG_ETH_enlarging_cawa
+				duration = -1
+			}
+			
+			
+			add_country_modifier = {
+				name = EDG_ETH_drill_new_recruits
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_5 = {
+		icon = mission_conquer_burma
+		position = 5
+		required_missions = { EDG_ETH_mission_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = ogaden_area
+				area = ajuuran_area
+				area = mogadishu_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			ogaden_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			ajuuran_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			mogadishu_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 2
+			ogaden_area = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -6
+				add_devastation = -100
+			}
+			ajuuran_area = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -6
+				add_devastation = -100
+			}
+			mogadishu_area = {
+				limit = {
+					owned_by = root
+				}
+				add_unrest = -6
+				add_devastation = -100
+			}
+			add_country_modifier = {
+				name = EDG_ETH_unified_east_african_plateau
+				duration = 5475
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_6 = {
+		icon = mission_bedouins
+		position = 6
+		required_missions = { EDG_ETH_mission_2_5 } 
+		provinces_to_highlight = {
+			region = east_africa_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = east_africa_region
+				value = 1
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_2_6.effect.tt
+			add_country_modifier = {
+				name = EDG_ETH_go_deeper
+				duration = 18250
+			}
+			east_africa_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = muslim
+						capital_scope = {
+							region = east_africa_region
+						}
+					}
+					root  = {
+						add_casus_belli = {
+							type = cb_crusade_pheasants
+							target = prev
+							months = 60
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_8 = {
+		icon = mission_late_janissaries
+		position = 8
+		required_missions = { EDG_ETH_mission_1_7 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1196
+				owned_by = ZAN
+			}
+		} 
+
+		trigger = {
+			OR = {
+				owns = 1196
+				NOT = {
+					exists = ZAN
+				}
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 5
+			1196 = {
+				add_devastation = 100
+			}
+			add_country_modifier = {
+				name = EDG_ETH_monopolize_zanzibar
+				duration = 7300
+			}
+			south_africa_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_10 = {
+		icon = mission_silk_road
+		position = 10
+		required_missions = { EDG_ETH_mission_3_9 } 
+		provinces_to_highlight = {
+			OR = {
+				area = said_area
+				area = vostani_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			said_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			vostani_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = ARB_unlock_oasis_development
+			hidden_effect = {
+				set_country_flag = ARB_unlock_oasis_development_flag
+			}
+			add_government_power = {
+				mechanic_type = EDG_ETH_solomonic_authority_mechanic
+				power_type = EDG_ETH_solomonic_authority
+				value = 10
+			}
+			said_area = {
+				limit = {
+					owned_by = root
+				}
+				change_religion = root
+				add_nationalism = 10
+			}
+			vostani_area = {
+				limit = {
+					owned_by = root
+				}
+				change_religion = root
+				add_nationalism = 10
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_13 = {
+		icon = jerusalem
+		position = 13
+		required_missions = { EDG_ETH_mission_3_12 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			379 = {
+				owned_by = root
+				is_core = root
+				religion = root
+			}
+			adm_power_cost = 250
+			treasury = 2500
+		} 
+
+		effect = {
+			adm_power_cost = -250
+			add_treasury = -2500
+			set_capital = 379
+			379 = {
+				set_great_project_tier_3 = {
+					type = holy_city_jerusalem
+				}
+				add_province_triggered_modifier = EDG_ETH_capital_jerusalem_modifier
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_15 = {
+		icon = mission_arabian_fort
+		position = 15
+		required_missions = { EDG_ETH_mission_1_14 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 2762
+				province_id = 2757
+			}
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { base_production = 6 }
+				NOT = { is_core = ROOT }
+			}
+		}
+		trigger = {
+			2762 = {
+				owned_by = ROOT
+				is_core = ROOT
+				base_production = 6
+			}
+			2757 = {
+				owned_by = ROOT
+				is_core = ROOT
+				base_production = 6
+			}
+		}
+		effect = {
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_control_over_the_mint
+			}
+			2762 = {
+				add_local_autonomy = -100
+				add_province_modifier = {
+					name = eth_increased_gold_mining
+					duration = 9125
+				}
+			}
+			2757 = {
+				add_local_autonomy = -100
+				add_province_modifier = {
+					name = eth_increased_gold_mining
+					duration = 9125
+				}
+			}
+			change_government_reform_progress = 100
+		}
+		ai_weight = {
+			factor = 500	#Also gold is important too
+		}
+	}
+
+	EDG_ETH_mission_2_17 = {
+		icon = mission_book_of_royal_degrees
+		position = 17
+		required_missions = { EDG_ETH_mission_3_16 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_1_var
+				value = 8
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_2_17.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_ETH_mission_2_17_flag
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_19 = {
+		icon = the_alpine_wall
+		position = 19
+		required_missions = { EDG_ETH_mission_1_18 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			capital_scope = {
+				has_empty_adjacent_province = yes
+				any_empty_neighbor_province = {
+					has_discovered = ROOT
+				}
+			}
+			dip_power_cost = 250
+			hidden_trigger = {
+				ai = no
+			}
+		} 
+
+		effect = {
+			dip_power_cost = 250
+			add_country_modifier = {
+				name = EDG_ETH_into_africa
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_ETH_mission_2_20 = {
+		icon = mission_serfdom
+		position = 20
+		required_missions = {
+			EDG_ETH_mission_3_19
+			EDG_ETH_mission_2_19
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_ETH_mission_2_20.condition.tt
+				has_country_flag = EDG_ETH_roving_capital_add_courthouse_building_flag
+			}
+			check_variable = {
+				which = EDG_ETH_roving_capital_tax
+				value = 12
+			}
+			check_variable = {
+				which = EDG_ETH_roving_capital_production
+				value = 12
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_2_20.effect.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_ETH_mobile_court
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_ETH_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = ETH
+			tag = AKS
+		}
+	} 
+
+	EDG_ETH_mission_3_1 = {
+		icon = mission_persian_soldiers
+		position = 1
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			army_size_percentage = 1
+			num_of_generals = 1
+		}
+		effect = {
+			add_manpower = 10
+			southern_ethiopia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hadiya_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		}
+		ai_weight = {
+			factor = 500	#Ethiopia should survive...
+		}
+	}
+
+	EDG_ETH_mission_3_3 = {
+		icon = mission_iroquois_warriors
+		position = 3
+		required_missions = {
+			EDG_ETH_mission_2_2
+			EDG_ETH_mission_4_2
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				army_size_percentage = 0.9
+				army_size = 20
+			}
+			religious_unity = 0.9
+			manpower_percentage = 0.8
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_3_3.effect.tt
+			if = {
+				limit = { 
+					ai = no
+				}
+				horn_of_africa_region = {
+					limit = {
+						NOT = { is_permanent_claim = ROOT }
+						NOT = { is_core = ROOT }
+					}
+					add_permanent_claim = ROOT
+				}
+			}
+			add_casus_belli = {
+				type = cb_annex
+				target = ADA
+				months = 240
+			}
+			add_country_modifier = {
+				name = EDG_ETH_eve_of_war
+				duration = 1825
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = muslim
+						capital_scope = {
+							region = horn_of_africa_region
+						}
+					}
+					root  = {
+						add_casus_belli = {
+							type = cb_crusade_pheasants
+							target = prev
+							months = 60
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_4 = {
+		icon = mission_conquer_maharashtra
+		position = 4
+		required_missions = { EDG_ETH_mission_3_3 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1211
+				owned_by = ADA
+			}
+		} 
+
+		trigger = {
+			OR = {
+				war_with = ADA
+				owns = 1211
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_3_4.effect.tt
+			add_country_modifier = {
+				name = EDG_ETH_jehad_preparation
+				duration = 3650
+			}
+			hidden_effect = {
+				every_war_enemy_country = {
+					root = {
+						capital_scope = {
+							cawa_infantry = root
+						}
+						add_manpower = 3
+					}
+				}
+			}
+			
+		} 
+	}
+
+	EDG_ETH_mission_3_5 = {
+		icon = mission_unite_home_region
+		position = 5
+		required_missions = { EDG_ETH_mission_3_4 } 
+		provinces_to_highlight = {
+			owned_by = ADA
+		} 
+
+		trigger = {
+			NOT = {
+				exists = ADA
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_3_5.effect.tt
+			add_adm_power = 50
+			add_dip_power = 50
+			add_mil_power = 50
+			add_country_modifier = {
+				name = EDG_ETH_defeat_adar
+				duration = 7300
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						is_subject = no
+						religion_group = muslim
+						capital_scope = {
+							region = horn_of_africa_region
+						}
+					}
+					country_event = {
+						id = EDG_ETHEvents.4
+						days = 3
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_7 = {
+		icon = mission_monarch_in_throne_room
+		position = 7
+		required_missions = { EDG_ETH_mission_3_5 } 
+		provinces_to_highlight = {
+			OR = {
+				region = horn_of_africa_region
+				region = arabia_region
+				region = east_africa_region
+			}
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+
+		trigger = {
+			horn_of_africa_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = arabia_region
+				value = 5
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = east_africa_region
+				value = 5
+			}
+			is_at_war = no
+		}
+		effect = {
+			country_event = {
+				id = flavor_eth.39
+			}
+			add_prestige_or_monarch_power = { amount = 30 }
+			add_country_modifier = {
+				name = eth_surpassed_aksumite_empire
+				duration = 18250
+			}
+		}
+		ai_weight = {
+			factor = 1000
+		}
+	}
+
+	EDG_ETH_mission_3_8 = {
+		icon = control_coromandel
+		position = 8
+		provinces_to_highlight = {
+			OR = {
+				owned_by = ALO
+				owned_by = MAK
+			}
+		} 
+
+		trigger = {
+			OR = {
+				FYM = {
+					has_disaster = EDG_FYM_civil_war
+				}
+				AND = {
+					ALO = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						guaranteed_by = root
+					}
+					MAK = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						guaranteed_by = root
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = ALO
+					ALO = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						guaranteed_by = root
+					}
+					exists = MAK
+					MAK = {
+						has_opinion = {
+							who = root
+							value = 100
+						}
+						guaranteed_by = root
+					}
+				}
+				country_event = {
+					id = EDG_ETHEvents.2
+				}
+			}
+			else = {
+				custom_tooltip = EDG_ETH_mission_3_8.event.tt
+			}
+			sennar_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			upper_nubia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			dongola_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			lower_nubia_area = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_9 = {
+		icon = peace_in_europe
+		position = 9
+		required_missions = { EDG_ETH_mission_3_8 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1234
+				province_id = 1228
+				province_id = 2797
+				province_id = 2798
+				area = sennar_area
+				area = upper_nubia_area
+				area = dongola_area
+				area = lower_nubia_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = { 
+			OR = {
+				NOT = {
+					exists = ABB
+				}
+				ABB = {
+					is_subject_of = root
+				}
+			}
+			OR = {
+				AND = {
+					custom_trigger_tooltip = {
+						tooltip = EDG_ETH_mission_3_9.condition.tt
+						has_global_flag = EDG_FYM_disaster_EGY_claim_flag
+					}
+					sennar_area = {
+						type = all
+						OR = {
+							AND = {
+								is_city = yes
+								country_or_non_sovereign_subject_holds = root
+							}
+							is_city = no
+						}
+					}
+					upper_nubia_area = {
+						type = all
+						OR = {
+							AND = {
+								is_city = yes
+								country_or_non_sovereign_subject_holds = root
+							}
+							is_city = no
+						}
+					}
+					dongola_area = {
+						type = all
+						OR = {
+							AND = {
+								is_city = yes
+								country_or_non_sovereign_subject_holds = root
+							}
+							is_city = no
+						}
+					}
+					lower_nubia_area = {
+						type = all
+						OR = {
+							AND = {
+								is_city = yes
+								country_or_non_sovereign_subject_holds = root
+							}
+							is_city = no
+						}
+					}
+				}
+				AND = {
+					NOT ={
+						exists = MAK
+					}
+					NOT = {
+						exists = ALO
+					}
+					owns = 1234
+					owns = 2798
+				}
+				AND = {
+					exists = MAK
+					MAK = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					exists = ALO
+					ALO = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					2797 = {
+						OR = {
+							country_or_non_sovereign_subject_holds = root
+							owned_by = ALO
+						}
+					}
+					1228 = {
+						OR = {
+							country_or_non_sovereign_subject_holds = root
+							owned_by = MAK
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					exists = MAK
+					MAK = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					exists = ALO
+					ALO = {
+						has_opinion = {
+							who = root
+							value = 150
+						}
+					}
+					2797 = {
+						OR = {
+							country_or_non_sovereign_subject_holds = root
+							owned_by = ALO
+						}
+					}
+					1228 = {
+						OR = {
+							country_or_non_sovereign_subject_holds = root
+							owned_by = MAK
+						}
+					}
+					
+				}
+				create_subject = {
+					subject_type = vassal
+					subject = MAK
+				}
+				create_subject = {
+					subject_type = vassal
+					subject = ALO
+				}
+			}
+			else = {
+				custom_tooltip = EDG_ETH_mission_3_9.effect.tt
+			}
+			add_prestige_or_monarch_power = { amount = 25 }
+			egypt_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			create_colony_mission_reward = {
+				province = 1217
+			}
+			add_accepted_culture_or_dip_power = { culture = nubian dip_reward = yes }
+			add_permanent_claim = 1232
+		} 
+	}
+
+	EDG_ETH_mission_3_11 = {
+		icon = mission_control_the_ganges_delta
+		position = 11
+		required_missions = {
+			EDG_ETH_mission_3_9
+			EDG_ETH_mission_4_10
+			EDG_ETH_mission_2_10
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = bahari_area
+				province_id = 361
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			bahari_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			361 = {
+				owned_by = root
+				religion = root
+			}
+		} 
+
+		effect = {
+			unlock_estate_privilege = {
+				estate_privilege = estate_burghers_nile_goods_transport
+			}
+			361 = {
+				add_province_triggered_modifier = EDG_ETH_capital_cairo_modifier
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_12 = {
+		icon = mission_empire
+		position = 12
+		required_missions = { EDG_ETH_mission_3_11 } 
+		provinces_to_highlight = {
+			region = egypt_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			egypt_region = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = flavor_eth.6
+			}
+			add_country_modifier = {
+				name = EDG_ETH_reconstruction_of_coptic
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_14 = {
+		icon = befriend_ethiopia
+		position = 14
+		required_missions = {
+			EDG_ETH_mission_2_13
+			EDG_ETH_mission_4_13
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {
+			extend_golden_age = 600
+			near_east_superregion = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			africa_superregion = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_country_modifier = {
+				name = EDG_ETH_king_of_kings
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_15 = {
+		icon = mission_conquer_gujarat_dlh
+		position = 15
+		provinces_to_highlight = {
+
+		} 
+
+		trigger = {
+			any_known_country = {
+				OR = {
+					technology_group = western
+					#technology_group = eastern
+					capital_scope = { continent = europe }
+				}
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_ETH_reestablish_contact
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_16 = {
+		icon = renovate_berlin
+		position = 16
+		required_missions = {
+			EDG_ETH_mission_2_15
+			EDG_ETH_mission_3_15
+			EDG_ETH_mission_4_15
+			EDG_ETH_mission_5_15
+			EDG_ETH_mission_1_15
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			stability = 3
+			has_adm_advisor_3 = yes 
+			has_dip_advisor_3 = yes 
+			has_mil_advisor_3 = yes 
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_1_var
+				value = 3
+			}
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_2_var
+				value = 3
+			}
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_3_var
+				value = 3
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = flavor_eth.30
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_17 = {
+		icon = mission_luther_theses
+		position = 17
+		required_missions = { EDG_ETH_mission_3_16 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_2_var
+				value = 8
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_3_17.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_ETH_mission_3_17_flag
+			}
+		} 
+	}
+
+	EDG_ETH_mission_3_18 = {
+		icon = mission_envoy_to_ethiopia
+		position = 18
+		required_missions = {
+			EDG_ETH_mission_2_17
+			EDG_ETH_mission_3_17
+			EDG_ETH_mission_4_17
+		}
+		provinces_to_highlight = {
+			region = horn_of_africa_region
+			NOT = { religion = ROOT }
+		}
+		trigger = {
+			horn_of_africa_region = {
+				religion = ROOT
+				type = all
+			}
+			stability = 2
+			religious_unity = 0.8
+		}
+		effect = {
+			add_country_modifier = {
+				name = eth_blessed_empire
+				duration = -1
+			}
+		}
+		ai_weight = {
+			factor = 500	#Pay Off mission
+		}
+	}
+
+	EDG_ETH_mission_3_19 = {
+		icon = capture_adriatic_ports
+		position = 19
+		provinces_to_highlight = {
+			province_id = 1227
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { is_core = ROOT }
+				NOT = { num_of_times_improved = 5 }
+			}
+		}
+		trigger = {
+			if = {
+				limit = { 
+					ai = no
+				}
+				1227 = {
+					is_capital_of = root
+					is_core = ROOT
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+			}
+			else = {
+				1227 = {
+					is_core = ROOT
+					owned_by = ROOT
+					num_of_times_improved = 5
+				}
+			}
+		}
+		effect = {
+			1227 = {
+				add_building_construction = {
+					building = cathedral
+					speed = 1
+					cost = 0
+				}
+				add_province_modifier = {
+					name = eth_obelisk_of_axum
+					duration = -1
+				}
+				add_province_triggered_modifier = EDG_ETH_capital_axum_modifier
+			}
+			if = {
+				limit = {
+					NOT = { is_core = 1230 }
+				}
+				add_core = 1230
+			}
+			if = {
+				limit = {
+					NOT = { is_core = 2787 }
+				}
+				add_core = 2787
+			}
+			if = {
+				limit = {
+					NOT = { is_core = 2766 }
+				}
+				add_core = 2766
+			}
+		}
+		ai_weight = {
+			factor = 500	#Tall missions are always okay for the AI
+		}
+	}
+
+	EDG_ETH_mission_3_21 = {
+		icon = arb_unite_arabia
+		position = 21
+		required_missions = { EDG_ETH_mission_3_19 } 
+		provinces_to_highlight = {
+			province_id = 1224
+			is_capital = no
+		} 
+
+		trigger = {
+			mission_completed = EDG_ETH_mission_3_16
+			1224 = {
+				owned_by = root
+				is_capital_of = root
+				is_core = root
+				religion = root
+			}
+			stability = 3
+			OR = {
+				absolutism = 50
+				AND = {
+					OR = {
+						monthly_adm = 15
+						adm = 6
+					}
+					government_reform_progress = 250
+					monthly_dip = 10
+					monthly_mil = 10
+				}
+			}
+			total_development = 1000
+			is_great_power = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_3_21.effect.tt
+			1224 = {
+				add_province_modifier = {
+					name = EDG_ETH_edict_of_gonder
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				set_country_flag = EDG_ETH_mission_3_21_flag
+			}
+		} 
+	}
+}
+EDG_ETH_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = ETH
+			tag = AKS
+		}
+	} 
+
+	EDG_ETH_mission_4_2 = {
+		icon = mission_have_two_subjects
+		position = 2
+		required_missions = {
+			EDG_ETH_mission_3_1
+			EDG_ETH_mission_5_1
+		}
+		provinces_to_highlight = {
+			OR = {
+				area = southern_ethiopia_area
+				area = hadiya_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			southern_ethiopia_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			hadiya_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 1
+			southern_ethiopia_area = {
+				limit = {
+					NOT = { religion = ROOT }
+				}
+				add_nationalism = -10
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = eth_active_missionaries
+					duration = 9125
+				}
+			}
+			hadiya_area = {
+				limit = {
+					NOT = { religion = ROOT }
+				}
+				add_nationalism = -10
+				add_base_tax = 1
+				add_base_production = 1
+				add_base_manpower = 1
+				add_province_modifier = {
+					name = eth_active_missionaries
+					duration = 9125
+				}
+			}
+		} 
+		ai_weight = {
+			factor = 500	#...and grow
+		}
+	}
+
+	EDG_ETH_mission_4_4 = {
+		icon = mission_establish_high_seas_navy
+		position = 4
+		required_missions = { EDG_ETH_mission_5_3 } 
+		provinces_to_highlight = {  } 
+		trigger = {
+			navy_size_percentage = 0.8
+		}
+		effect = {
+			custom_tooltip = EDG_ETH_mission_4_4.effect.tt
+			add_navy_tradition = 20
+			hidden_effect = {
+				country_event = {
+					id = flavor_eth.41
+					days = 30
+				}
+			}
+		}
+		ai_weight = {
+			factor = 100	#Not that important, but still desirable
+		}
+	}
+
+	EDG_ETH_mission_4_5 = {
+		icon = mission_crusade_for_varna
+		position = 5
+		required_missions = { EDG_ETH_mission_3_4 } 
+		provinces_to_highlight = {
+			OR = {
+				area = ifat_area
+				area = somaliland_area
+				area = majarteen_area
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			ifat_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			somaliland_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			majarteen_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			add_army_tradition = 15
+			
+			ifat_area = {
+				limit = {
+					owned_by = root
+				}
+				add_devastation = -50
+				add_nationalism = -10
+			}
+			somaliland_area = {
+				limit = {
+					owned_by = root
+				}
+				add_devastation = -50
+				add_nationalism = -10
+			}
+			majarteen_area = {
+				limit = {
+					owned_by = root
+				}
+				add_devastation = -50
+				add_nationalism = -10
+			}
+			if = {
+				limit = { 
+					ai = no
+				}
+				add_country_modifier = {
+					name = EDG_ETH_into_somalia
+					duration = 5745
+				}
+			}
+			
+		} 
+	}
+
+	EDG_ETH_mission_4_6 = {
+		icon = mission_reclaim_lost_territory
+		position = 6
+		required_missions = { EDG_ETH_mission_4_5 } 
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = aussa_area
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				AND = {
+					province_id = 1215
+					NOT = {
+						AND = {
+							is_core = root
+							development = 10
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			aussa_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+			1215 = {
+				is_core = root
+				development = 10
+			}
+		} 
+
+		effect = {
+			add_sailors = 5
+			add_country_modifier = {
+				name = EDG_ETH_organize_fleet
+				duration = 3650
+			}
+			arabia_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_ETH_mission_4_8 = {
+		icon = mission_upper_burma_campaign
+		position = 8
+		required_missions = { EDG_ETH_mission_5_7 } 
+		provinces_to_highlight = {
+			OR = {
+				region = arabia_region
+				province_id = 398
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = arabia_region
+				value = 25
+			}
+			owns = 398
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_4_8.effect.tt
+			add_prestige_or_monarch_power = { amount = 100 }
+			if = {
+				limit = { 
+					exists = PER
+				}
+				add_casus_belli = {
+					type = cb_annex
+					target = PER
+					months = 240
+				}
+			}
+			else = {
+				custom_tooltip = EDG_ETH_mission_4_8.cb.tt
+			}
+			persia_region = {
+				limit = {
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { is_core = ROOT }
+				}
+				add_permanent_claim = ROOT
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = arabia_region
+						has_tax_building_trigger = yes
+					}
+					change_religion = root
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_4_10 = {
+		icon = per_the_seljuk_successors
+		position = 10
+		required_missions = { EDG_ETH_mission_3_9 } 
+		provinces_to_highlight = {
+			province_id = 1230
+			OR = {
+				NOT = { owned_by = ROOT }
+				NOT = { num_of_times_improved = 5 }
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					owns = 1230
+					1230 = {
+						num_of_times_improved = 5
+					}
+				}
+				red_sea_coast_area = {
+					type = all
+					owned_by = root
+				}
+			}
+			
+		}
+		effect = {
+			if = {
+				limit = { 
+					red_sea_coast_area = {
+						type = all
+						owned_by = root
+					}
+				}
+				country_event = {
+					id = flavor_eth.38
+				}
+			}
+			else = {
+				custom_tooltip = EDG_ETH_mission_4_10.event.tt
+				add_prestige_or_monarch_power = { amount = 25 }
+				1230 = {
+					add_base_tax = 2
+					add_base_production = 3
+					add_base_manpower = 2
+				}
+			}
+			1230 = {
+				add_province_triggered_modifier = EDG_ETH_capital_adulis_modifier
+			}
+			# aussa_area = {
+			# 	limit = {
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 		NOT = { is_core = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			# ifat_area = {
+			# 	limit = {
+			# 		NOT = { is_permanent_claim = ROOT }
+			# 		NOT = { is_core = ROOT }
+			# 	}
+			# 	add_permanent_claim = ROOT
+			# }
+			# if = {
+			# 	limit = {
+			# 		NOT = { is_permanent_claim = 1208 }
+			# 		NOT = { is_core = 1208 }
+			# 	}
+			# 	add_permanent_claim = 1208
+			# }
+			# if = {
+			# 	limit = {
+			# 		NOT = { is_permanent_claim = 1210 }
+			# 		NOT = { is_core = 1210 }
+			# 	}
+			# 	add_permanent_claim = 1210
+			# }
+		}
+	}
+
+	EDG_ETH_mission_4_13 = {
+		icon = mission_colonial
+		position = 13
+		required_missions = { EDG_ETH_mission_3_12 } 
+		provinces_to_highlight = {
+			province_id = 2313
+			OR = {
+				NOT = { religion = ROOT }
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			2313 = { religion = ROOT }
+			treasury = 500
+		}
+		effect = {
+			add_treasury = -500
+			2313 = {
+				set_great_project_tier_2 = {
+					type = EDG_St_Peter_Cave_Church
+				}
+				add_base_tax = 3
+				add_base_manpower = 5
+				add_base_production = 3
+			}
+			add_country_modifier = {
+				name = eth_conversion_focus
+				duration = 18250
+			}
+		}
+	}
+
+	EDG_ETH_mission_4_15 = {
+		icon = mission_asian_trader
+		position = 15
+		required_missions = { EDG_ETH_mission_5_14 } 
+		provinces_to_highlight = {
+			OR = {
+				province_id = 1293	#Sevilla Trade
+				province_id = 1295	#Valencia Trade
+				province_id = 1298	#Genoa Trade
+				province_id = 1308	#Venice Trade
+			}
+			has_discovered = ROOT
+		}
+		trigger = {
+			OR = {
+				1293 = {
+					trade_share = {
+						country = ROOT
+						share = 5
+					}
+				}
+				1295 = {
+					trade_share = {
+						country = ROOT
+						share = 5
+					}
+				}
+				1298 = {
+					trade_share = {
+						country = ROOT
+						share = 5
+					}
+				}
+				1308 = {
+					trade_share = {
+						country = ROOT
+						share = 5
+					}
+				}
+			}
+		}
+		effect = {
+			add_country_modifier = {
+				name = eth_merchants_in_europe
+				duration = 7300
+			}
+			add_years_of_income = 1
+		}
+		ai_weight = {
+			factor = 25	#Probably impossible
+		}
+	}
+
+	EDG_ETH_mission_4_17 = {
+		icon = swiss_mercenaries
+		position = 17
+		required_missions = { EDG_ETH_mission_3_16 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			check_variable = {
+				which = EDG_ETH_modernization_interactions_3_var
+				value = 8
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_4_17.effect.tt
+			hidden_effect = {
+				set_country_flag = EDG_ETH_mission_4_17_flag
+			}
+		} 
+	}
+
+	EDG_ETH_mission_4_19 = {
+		icon = claim_the_borderlands
+		position = 19
+		required_missions = { EDG_ETH_mission_5_18 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_ETH_mission_4_19.condition.tt
+				has_country_flag = EDG_ETH_roving_capital_add_manpower_building_flag
+			}
+			check_variable = {
+				which = EDG_ETH_roving_capital_manpower
+				value = 12
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_4_19.modifier.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_ETH_conscript_local_militia
+					duration = -1
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_4_20 = {
+		icon = mission_the_sultan_of_morocco
+		position = 20
+		required_missions = {
+			EDG_ETH_mission_3_19
+			EDG_ETH_mission_4_19
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_ETH_mission_4_20.condition.tt
+				has_country_flag = EDG_ETH_roving_capital_add_forcelimit_building_flag
+			}
+			check_variable = {
+				which = EDG_ETH_roving_capital_manpower
+				value = 20
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_4_20.effect.tt
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_ETH_vast_contingent
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_ETH_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			tag = ETH
+			tag = AKS
+		}
+	} 
+
+	EDG_ETH_mission_5_1 = {
+		icon = mission_steppe_warriors
+		position = 1
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					owned_by = ROOT
+					controlled_by = REB
+				}
+				owned_by = BTI	#For the case the player releases Semien
+				AND = {
+					province_id = 2771
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					province_id = 2772
+					NOT = { owned_by = ROOT }
+				}
+				AND = {
+					province_id = 1227
+					NOT = { owned_by = ROOT }
+				}
+			}
+		}
+		trigger = {
+			NOT = { num_of_rebel_armies = 1 }
+			all_owned_province = {
+				NOT = { controlled_by = REB }
+			}
+			NOT = { exists = BTI }
+			owns = 2771
+			owns = 2772
+			owns = 1227
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = { religion = jewish }
+				}
+				country_event = {
+					id = flavor_eth.40
+				}
+			}
+			else = {
+				add_stability = 1
+			}
+		}
+		ai_weight = {
+			factor = 500	#Rebels are always bad
+		}
+	}
+
+	EDG_ETH_mission_5_3 = {
+		icon = mission_galleys_in_port
+		position = 3
+		provinces_to_highlight = {  } 
+		trigger = {
+			num_of_ports = 1
+			treasury = 75
+		}
+		effect = {
+			custom_tooltip = EDG_ETH_mission_5_3.effect.tt
+			hidden_effect = {
+				random_owned_province = {
+					limit = {
+						has_port = yes
+					}
+					add_building = shipyard
+					light_ship = root
+					light_ship = root
+					light_ship = root
+				}
+			}
+			add_sailors = 1000
+			add_treasury = -75
+		}
+		ai_weight = {
+			factor = 100	#Not that important, but still desirable
+		}
+	}
+
+	EDG_ETH_mission_5_7 = {
+		icon = mission_dominate_gujarati_trade
+		position = 7
+		required_missions = {
+			EDG_ETH_mission_5_3
+			EDG_ETH_mission_4_6
+		}
+		provinces_to_highlight = {
+			OR = {
+				AND = {
+					area = tihama_al_yemen_area
+					NOT = {
+						country_or_non_sovereign_subject_holds = root
+					}
+				}
+				AND = {
+					province_id = 387
+					NOT = {
+						AND = {
+							owned_by = root
+							religion = root
+							is_core = root
+						}
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			387 = {
+				owned_by = root
+				religion = root
+				is_core = root
+			}
+			tihama_al_yemen_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_ETH_mission_5_7.effect.tt
+			add_country_modifier = {
+				name = EDG_ETH_revitalize_trade_gulf_aden
+				duration = -1
+			}
+			add_country_modifier = {
+				name = EDG_ETH_armed_propaganda
+				duration = 7300
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = muslim
+						capital_scope = {
+							region = arabia_region
+						}
+					}
+					root  = {
+						add_casus_belli = {
+							type = cb_crusade_pheasants
+							target = prev
+							months = 60
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_5_9 = {
+		icon = mission_crush_delhi
+		position = 9
+		required_missions = { EDG_ETH_mission_4_8 } 
+		provinces_to_highlight = {
+			OR = {
+				region = persia_region
+				owned_by = PER
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			NOT = {
+				exists = PER
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = persia_region
+				value = 15
+			}
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_ETH_never_again
+				duration = -1
+			}
+		} 
+	}
+
+	EDG_ETH_mission_5_11 = {
+		icon = mission_conquer_tunisia
+		position = 11
+		required_missions = { EDG_ETH_mission_4_10 } 
+		provinces_to_highlight = {
+			province_id = 2315
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {
+			2315 = {
+				owned_by = root
+			}
+			treasury = 1000
+		}
+
+		effect = {
+			add_prestige_or_monarch_power = { amount = 25 }
+			add_treasury = -1000
+			2315 = {
+				set_great_project_tier_2 = {
+					type = EDG_Monastery_of_St_Anthony
+				}
+			}
+		} 
+	}
+
+	EDG_ETH_mission_5_14 = {
+		icon = mission_expand_textile_industry
+		position = 14
+		provinces_to_highlight = {
+			province_id = 1232
+			NOT = { country_or_non_sovereign_subject_holds = ROOT }
+		}
+		trigger = {
+			owns_or_non_sovereign_subject_of = 1232
+		}
+		effect = {
+			country_event = {
+				id = flavor_eth.37
+			}
+			change_government_reform_progress = 100
+		}
+	}
+
+	EDG_ETH_mission_5_15 = {
+		icon = mission_establish_mint_towns
+		position = 15
+		required_missions = { EDG_ETH_mission_5_14 } 
+		provinces_to_highlight = {
+			trade_goods = gold
+			NOT = {
+				AND = {
+					country_or_non_sovereign_subject_holds = root
+					base_production = 6
+				}
+			}
+		} 
+
+		trigger = {
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				base_production = 6
+				trade_goods = gold
+				value = 3
+			}
+		} 
+
+		effect = {
+			add_years_of_income = 5
+			add_country_modifier = {
+				name = EDG_ETH_rebuild_monetary_system
+				duration = 9125
+			}
+		} 
+	}
+
+	EDG_ETH_mission_5_18 = {
+		icon = alpine_defenses
+		position = 18
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			custom_trigger_tooltip = {
+				tooltip = EDG_ETH_mission_5_18.condition.tt
+				has_country_flag = EDG_ETH_roving_capital_add_fort_building_flag
+			}
+		} 
+
+		effect = {
+			change_variable = {
+				which = EDG_ETH_roving_capital_manpower
+				value = 3
+			}
+			capital_scope = {
+				add_base_manpower = 3
+			}
+		} 
+	}
+}
+
+EDG_AKS_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = AKS
+	}
+	EDG_AKS_mission_1_20 = { #西部边陲
+		icon = native_royal_marriage
+		position = 20
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			area = darfur_central_sahara_area
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		}
+		trigger = {
+			darfur_central_sahara_area = {
+				type = all
+				country_or_non_sovereign_subject_holds = root
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_AKS_mission_1_20.effect.tt
+			sahel_region = {
+				discover_country = root
+			}
+			niger_region = {
+				discover_country = root
+			}
+			guinea_region = {
+				discover_country = root
+			}
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = muslim
+						capital_scope = {
+							OR = {
+								region = sahel_region
+								region = niger_region
+								region = guinea_region
+							}
+						}
+					}
+					root  = {
+						add_casus_belli = {
+							type = cb_crusade_pheasants
+							target = prev
+							months = 60
+						}
+					}
+				}
+			}
+		}
+	}
+	EDG_AKS_mission_1_21 = { #新的机遇
+		icon = mission_ne_birch_bark_canoes
+		position = 21
+		required_missions = {
+			EDG_AKS_mission_1_20
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = sahel_region
+				region = niger_region
+				region = guinea_region
+			}
+			NOT = {
+				AND = {
+					country_or_non_sovereign_subject_holds = root
+					religion = root
+				}
+			}
+		}
+		trigger = {
+			1149 = {
+				owned_by = root
+				is_core = root
+				religion = root
+			}
+			OR = {
+				1149 = {
+					is_capital_of = root
+				}
+				adm_power_cost = 250
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = sahel_region
+					region = niger_region
+					region = guinea_region
+				}
+				religion = root
+				value = 25
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_AKS_mission_1_21.effect.tt
+			if = {
+				limit = { 
+					1149 = {
+						NOT = {
+							is_capital_of = root
+						}
+					}
+				}
+				adm_power_cost = 250
+			}
+			add_country_modifier = {
+				name = EDG_ETH_cultural_integration_policy
+				duration = 7300
+			}
+			1149 = {
+				add_province_triggered_modifier = EDG_ETH_capital_katsina_modifier
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						OR = {
+							region = sahel_region
+							region = niger_region
+							region = guinea_region
+						}
+						province_has_center_of_trade_of_level = 1
+					}
+					if = {
+						limit = { 
+							NOT = {
+								province_has_center_of_trade_of_level = 1
+							}
+						}
+						add_center_of_trade_level = 1
+					}
+				}
+			}
+			
+		}
+	}
+}
+EDG_AKS_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		tag = AKS
+	}
+	EDG_AKS_mission_5_20 = { #中部腹地
+		icon = mission_iberian_conquistador
+		position = 20
+		required_missions = {
+		}
+		provinces_to_highlight = {
+			region = central_africa_region
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		}
+		trigger = {
+			kongo_region = {
+				type = any
+				has_discovered = root
+			}
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				region = central_africa_region
+				religion = root
+				has_tax_building_trigger = yes
+				country_or_non_sovereign_subject_holds = root
+				value = 5
+			}
+		}
+		effect = {
+			custom_tooltip = EDG_AKS_mission_5_20.event.tt
+			hidden_effect = {
+				every_country = {
+					limit = {
+						religion_group = pagan
+						capital_scope = {
+							OR = {
+								region = central_africa_region
+								region = kongo_region
+							}
+						}
+					}
+					country_event = {
+						id = EDG_ETHEvents.5
+					}
+				}
+			}
+			kongo_region = {
+				discover_country = root
+			}
+			central_africa_region = {
+				discover_country = root
+			}
+			add_country_modifier = {
+				name = EDG_ETH_wield_clout
+				duration = 7300
+			}
+		}
+	}
+	EDG_AKS_mission_5_21 = { #贯通东西
+		icon = mission_sea_battles
+		position = 21
+		required_missions = {
+			EDG_AKS_mission_5_20
+		}
+		provinces_to_highlight = {
+			OR = {
+				region = sahel_region
+				region = niger_region
+				region = guinea_region
+			}
+			NOT = {
+				AND = {
+					country_or_non_sovereign_subject_holds = root
+					religion = root
+				}
+			}
+		}
+		trigger = {
+			OR = {
+				AND = {
+					1170 = {
+						is_core = root
+						religion = root
+					}
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = central_africa_region
+						religion = root
+						country_or_non_sovereign_subject_holds = root
+						value = 20
+					}
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = kongo_region
+						religion = root
+						country_or_non_sovereign_subject_holds = root
+						value = 10
+					}
+				}
+				AND = {
+					num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+						region = central_africa_region
+						religion = root
+						country_or_non_sovereign_subject_holds = root
+						value = 20
+					}
+					exists = KON
+					KON = {
+						alliance_with = root
+						trust = {
+							who = root
+							value = 80
+						}
+						has_opinion = {
+							who = root
+							value = 190
+						}
+						religion = root
+					}
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = { 
+					exists = KON
+					KON = {
+						alliance_with = root
+						trust = {
+							who = root
+							value = 80
+						}
+						has_opinion = {
+							who = root
+							value = 190
+						}
+						religion = root
+					}
+				}
+				create_subject = {
+					subject_type = personal_union
+					subject = KON
+				}
+			}
+			else = {
+				custom_tooltip = EDG_AKS_mission_5_21.effect.tt
+				if = {
+					limit = { 
+						1170 = {
+							NOT = {
+								is_capital_of = root
+							}
+						}
+					}
+					adm_power_cost = 250
+				}
+				1170 = {
+					add_province_triggered_modifier = EDG_ETH_capital_mpemba_modifier
+				}
+			}
+			add_prestige_or_monarch_power = { amount = 50 }
+		}
+	}
+}

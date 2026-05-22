@@ -1,0 +1,680 @@
+EDG_KAZ_mission_slot_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			was_tag = KAZ
+			was_tag = GOL
+		}
+		OR = {
+			tag = GLH
+			tag = MGE
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+
+	EDG_tatars_new_trade_routes = {
+		icon = mission_horde_trade
+		position = 28
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				province_has_center_of_trade_of_level = 2
+				value = 5
+			}
+		} 
+
+		effect = {  
+			add_mercantilism_or_monarch_power = { amount = 2 }
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_country_modifier = {
+				name = hordes_steppe_trade
+				duration = 7300
+			}
+		}
+	}
+
+	EDG_tatars_intercontinental_trade = {
+		icon = mission_horde_caravans
+		position = 29
+		required_missions = { EDG_tatars_new_trade_routes }
+		
+		provinces_to_highlight = {
+			is_capital_of = ROOT
+			OR = {
+				NOT = { is_strongest_trade_power = ROOT }
+				NOT = { trade_node_value = 35 }
+			}
+		}
+	
+		trigger = {  
+			capital_scope = {
+				is_strongest_trade_power = ROOT
+				trade_node_value = 35
+			}
+			OR = {
+				trader = 3
+				monthly_dip = 10
+			}
+		} 
+	
+		effect = {
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				custom_tooltip = HORDES_UNLOCK_NOMADIC_CARAVANS_PRIVILEGE
+				set_country_flag = hordes_nomadic_caravans_flag
+			}
+			else = {
+				add_mercantilism_or_monarch_power = { amount = 5 }
+				add_years_of_income = 1.5
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_dip_power = 100
+		} 
+	}
+}
+EDG_KAZ_mission_slot_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			was_tag = KAZ
+			was_tag = GOL
+		}
+		OR = {
+			tag = GLH
+			tag = MGE
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+
+	EDG_tatars_expansion_of_silk_road = {
+		icon = mission_silk_road
+		position = 29
+		required_missions = { EDG_tatars_new_trade_routes }
+		
+		provinces_to_highlight = {
+			OR = {
+				region = persia_region
+				region = khorasan_region
+			}
+			OR = {
+				NOT = { country_or_non_sovereign_subject_holds = ROOT }
+				NOT = { base_production = 5 }
+				NOT = { has_production_building_trigger = yes }
+			}
+		}
+
+		trigger = {  
+			num_of_provinces_owned_or_owned_by_non_sovereign_subjects_with = {
+				OR = {
+					region = persia_region
+					region = khorasan_region
+				}
+				base_production = 5
+				has_production_building_trigger = yes
+				value = 5
+			}
+			custom_trigger_tooltip = {
+				tooltip = HORDES_HAS_50_TRADE_POWER_IN_PERSIA
+				2213 = {
+					trade_share = {
+						country = ROOT
+						share = 50
+					}
+				}
+			}
+			custom_trigger_tooltip = {
+				tooltip = HORDES_HAS_50_TRADE_POWER_IN_SAMARKAND
+				454 = {
+					trade_share = {
+						country = ROOT
+						share = 50
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = { has_dlc = "Cradle of Civilization" }
+				enable_trading_policy = { policy = hostile_trading_upgraded }
+				enable_trading_policy = { policy = improve_inland_routes_upgraded }
+				enable_trading_policy = { policy = establish_communities_upgraded }
+				hidden_effect = {
+					disable_trading_policy = { policy = hostile_trading }
+					disable_trading_policy = { policy = improve_inland_routes }
+					disable_trading_policy = { policy = establish_communities }
+				}
+			}
+			else = {
+				change_ruler_stat = {
+					type = dip
+					amount = 2
+				}
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			define_advisor = {
+				type = trader
+				skill = 2
+				cost_multiplier = 0.5
+			}
+		}
+	}
+}
+EDG_KAZ_mission_slot_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			was_tag = KAZ
+			was_tag = GOL
+		}
+		OR = {
+			tag = GLH
+			tag = MGE
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+
+	EDG_tatars_gathering_the_tribute = {
+		icon = mission_tribute_tax
+		position = 28
+		required_missions = { EDG_tatars_strengthen_basqaq_governors } 
+
+		trigger = {  
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				num_of_estate_agendas_completed = {
+					estate = estate_nomadic_tribes
+					value = 4
+				}
+			}
+			else = {
+				monthly_adm = 11
+			}
+			
+			has_adm_advisor_3 = yes
+		} 
+
+		effect = {  
+			change_government_reform_progress = 50
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				custom_tooltip = HORDES_BASAQS_NOW_GRANT_TRIPLES_LOYALTY_PER_TRIBUTE_RECEIVED
+				set_country_flag = basaqs_tribes_loyalty_from_tribute_flag
+			}
+			else = {
+				add_estate_loyalty = {
+					estate = all
+					loyalty = 20
+				}
+			}
+		} 
+	}
+	
+	EDG_tatars_great_khan = {
+		icon = mission_genghis_khan
+		position = 30
+		required_missions = {
+			EDG_tatars_expansion_of_silk_road
+			EDG_tatars_gathering_the_tribute
+			EDG_tatars_buff_tributaries
+		}
+
+		trigger = {  
+			if = {
+				limit = {
+					OR = {
+						has_dlc = "Rights of Man"
+						has_dlc = "Emperor"
+					}
+				}
+				NOT = { great_power_rank = 2 }
+			}
+			else = {
+				total_development = 2000
+			}
+			NOT = {
+				any_country = {
+					army_size = ROOT
+				}
+			}
+			prestige = 90
+		} 
+
+		effect = {  
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = HORDES_IF_RULER_WINS_100_BATTLES_WHILST_CONQUEROR_GAIN_LEGENDARY_CONQUEROR
+				set_country_flag = hordes_legendary_conqueror_battles_flag
+				
+				hidden_effect = {
+					set_variable = {
+						which = NumOfRulerBattles
+						value = 0
+					}
+				}
+			}
+			else = {
+				change_mil = 2
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_country_modifier = {
+				name = hordes_new_great_khan
+				duration = -1
+			}
+		}  
+	}
+}
+EDG_KAZ_mission_slot_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			was_tag = KAZ
+			was_tag = GOL
+		}
+		OR = {
+			tag = GLH
+			tag = MGE
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+
+	EDG_tatars_strengthen_basqaq_governors = {
+		icon = mission_strengthen_basqaqs
+		position = 27
+		required_missions = { EDG_moghulistan_land_raids }
+		trigger = {  
+			OR = {
+				num_of_subjects = 3
+				grown_by_development = 150
+			}
+		} 
+
+		effect = {  
+			if = {
+				limit = { has_dlc = "Mandate of Heaven" }
+				custom_tooltip = HORDES_UNLOCK_BASQAQ_PRIVILEGE_FOR_TRIBES_AND_NOBILITY
+			}
+			else = {
+				custom_tooltip = HORDES_UNLOCK_BASQAQ_PRIVILEGE_FOR_TRIBES_AND_NOBILITY_NO_MOH
+			}
+			set_country_flag = hordes_basqaqs_unlocked_flag
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_adm_power = 50
+		}
+	}
+
+	EDG_tatars_buff_tributaries = {
+		icon = mission_diplomatic_relation
+		position = 29
+		required_missions = { EDG_tatars_strengthen_tribal_wargames EDG_tatars_strengthen_basqaq_governors }
+
+		trigger = {  
+			OR = {
+				AND = {
+					is_great_power = yes
+					government_rank = 3
+					NOT = {
+						great_power_rank = 4
+					}
+				}
+				AND = {
+					num_of_subjects = 5
+					NOT = {
+						any_subject_country = {
+							liberty_desire = 35
+						}
+					}
+				}
+			}
+		}
+
+		effect = {
+			custom_tooltip = EDG_mission_KAZ_2_3_tribal_ability_flag_tt
+			set_country_flag = EDG_mission_KAZ_2_3_tribal_ability_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_dlc = "Mandate of Heaven"
+				}
+				complex_dynamic_effect = {
+					first_custom_tooltip = HORDES_IF_COMPLETED_VIA_TRIBUTARIES
+					first_limit = "
+						num_of_subjects = 5
+						NOT = {
+							any_subject_country = {
+								liberty_desire = 35
+							}
+						}
+					"
+					first_effect = "
+						custom_tooltip = TATAR_TRIBUTARIES_GAIN_REDUCED_LIBERTY_DESIRE
+						
+						custom_tooltip = SEPERATOR_TOOLTIP
+						
+						custom_tooltip = 100_DEV_TRIBUTARIES_GRANT_US_TAX_AND_MANPOWER_MODIFIERS
+						
+						set_country_flag = hordes_buffed_tributaries_flag
+					"
+					
+					second_custom_tooltip = HORDES_IF_COMPLETED_VIA_GREAT_POWER
+					second_limit = "
+						is_great_power = yes
+						government_rank = 3
+						NOT = {
+							great_power_rank = 4
+						}
+					"
+					second_effect = "
+						add_country_modifier = {
+							name = hordes_modern_empire
+							duration = -1
+						}
+						
+						change_ruler_stat = {
+							type = adm
+							amount = 1
+						}
+					"
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = hordes_modern_empire
+					duration = -1
+				}
+				
+				change_ruler_stat = {
+					type = adm
+					amount = 1
+				}
+			}
+		}  
+	}
+	
+	EDG_tatars_any_child_can_be_khan = {
+		icon = mission_hunting
+		position = 30
+		required_missions = {
+			EDG_tatars_managing_tribes
+			EDG_tatars_buff_tributaries
+		}
+	
+		trigger = {  
+			monthly_adm = 11
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				estate_loyalty = {
+					estate = estate_nomadic_tribes
+					loyalty = 80
+				}
+			}
+			num_of_battles = { amount = 200 }
+			OR = {
+				mil = 4
+				has_mil_advisor_3 = yes
+			}
+		} 
+	
+		effect = {  
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				custom_tooltip = HORDES_SECURE_SUCCESSION_WILL_MAKE_TRIBAL_SUCCESSION_CRISIS_NOT_FIRE
+				set_country_flag = hordes_any_child_can_be_khans_flag
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+				
+				custom_tooltip = HORDES_CHILDREN_MAY_NO_LONGER_GAIN_HUNTING_ACCIDENTS
+				set_country_flag = no_more_hunting_for_heir
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+			}
+			else = {
+				add_estate_loyalty = {
+					estate = all
+					loyalty = 15
+				}
+				
+				change_adm = 1
+				change_dip = 1
+				change_mil = 1
+			}
+			
+			complex_dynamic_effect = {
+				first_custom_tooltip = HORDES_IF_NO_HEIR_AND_HEIRS_ALLOWED
+				first_limit = "
+					has_heir = no
+					has_government_attribute = heir
+				"
+				first_effect = "
+					set_country_flag = unlock_lux_stella_flag
+					country_event = { id = 9469 }
+					clr_country_flag = unlock_lux_stella_flag
+				"
+			}
+		} 
+	}
+}
+
+EDG_KAZ_mission_slot_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = {
+		OR = {
+			was_tag = KAZ
+			was_tag = GOL
+		}
+		OR = {
+			tag = GLH
+			tag = MGE
+		}
+		NOT = { map_setup = map_setup_random }
+	}
+
+	EDG_moghulistan_land_raids = {
+		icon = mission_non-western_cavalry_raid
+		position = 26
+		trigger = {  
+			if = {
+				limit = {
+					has_government_attribute = raze_province
+				}
+				custom_trigger_tooltip = {
+					tooltip = TATARS_RAIZED_20_PROVINCES
+					check_variable = {
+						which = HordeProvincesRazed
+						value = 20
+					}
+				}
+			}
+			else = {
+				army_size = 30
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_mission_KAZ_3_1_tribal_ability_flag_tt
+			set_country_flag = EDG_mission_KAZ_3_1_tribal_ability_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = tatars_raiding_traditions
+				duration = 5475
+			}
+			
+			if = {
+				limit = {
+					has_dlc = "Rights of Man"
+				}
+				custom_tooltip = HORDES_UNLOCK_REAVER_RULER_PERSONALITY
+				set_country_flag = unlocked_reaver_personality_flag
+			}
+			else = {
+				change_ruler_stat = {
+					type = mil
+					amount = 2
+				}
+			}
+		}
+	}
+
+	
+	EDG_tatars_raiding_hosts = {
+		icon = mission_raid_hosts
+		position = 27
+		required_missions = { EDG_moghulistan_land_raids }
+		trigger = {  
+			num_of_cavalry = 35
+			num_of_battles = { amount = 30 }
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_mission_KAZ_1_1_tribal_ability_flag_tt
+			set_country_flag = EDG_mission_KAZ_1_1_tribal_ability_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = hordes_raised_hosts
+				duration = 5475
+			}
+		} 
+	}
+
+	EDG_tatars_strengthen_tribal_wargames = {
+		icon = mission_tribal_wargames
+		position = 28
+		required_missions = { EDG_tatars_raiding_hosts }
+	
+		trigger = {  
+			num_of_battles = { amount = 50 }
+			army_size = 50
+			is_at_war = no
+			has_regency = no
+		} 
+	
+		effect = {
+			custom_tooltip = EDG_mission_KAZ_2_1_tribal_ability_flag_tt
+			set_country_flag = EDG_mission_KAZ_2_1_tribal_ability_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				custom_tooltip = HORDES_GENERALS_CREATED_FROM_WARGAMES_INCREASED_CHANCE_AND_BETTER_STATS
+				set_country_flag = horde_wargames_buff_flag
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+				
+				custom_tooltip = HORDES_WARGAMES_GRANT_HORDE_UNITY
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+				
+				country_event = { id = randomeventsstapehordes.8 }
+			}
+			else = {
+				add_mil_power = 100
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+				
+				add_prestige_or_monarch_power = { amount = 10 }
+				
+				custom_tooltip = SEPERATOR_TOOLTIP
+				
+				create_general_with_pips = { tradition = 40 add_siege = 1 add_shock = 1 }
+			}
+		} 
+	}
+	
+	EDG_tatars_managing_tribes = {
+		icon = mission_tribe_management
+		position = 29
+		required_missions = { EDG_tatars_strengthen_tribal_wargames }
+	
+		trigger = {  
+			crown_land_share = 65
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				NOT = {
+					estate_influence = {
+						estate = estate_nomadic_tribes
+						influence = 65
+					}
+				}
+				estate_loyalty = {
+					estate = estate_nomadic_tribes
+					loyalty = 60
+				}
+			}
+			else = {
+				ruler_total_stats = {
+					amount = 9
+				}
+			}
+		}
+	
+		effect = {
+			custom_tooltip = EDG_mission_KAZ_1_2_tribal_ability_flag_tt
+			set_country_flag = EDG_mission_KAZ_1_2_tribal_ability_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					has_estate = estate_nomadic_tribes
+				}
+				custom_tooltip = TATARS_UNLOCK_TRIBAL_ABSOLUTISM
+				set_country_flag = hordes_tribal_absolutism_flag
+			}
+			else = {
+				change_adm = 2
+			}
+			
+			custom_tooltip = SEPERATOR_TOOLTIP
+			
+			add_country_modifier = {
+				name = hordes_curtailing_the_tribes
+				duration = 5475
+			}
+		} 
+	}
+}

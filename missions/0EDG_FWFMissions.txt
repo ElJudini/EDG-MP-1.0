@@ -1,0 +1,1487 @@
+EDG_FWF_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = FWF } 
+
+	EDG_FWF_mission_1_23 = {
+		icon = mission_conquer_north_italy
+		position = 23
+		provinces_to_highlight = {  
+			if = {
+				limit = {
+					root = {
+						was_tag = UCI
+					}
+				}
+				province_id = 209
+			}
+			else_if = {
+				limit = { 
+					root = {
+						was_tag = ROS
+					}
+				}
+				superregion = europe_superregion
+				NOT = {
+					owned_by = root
+				}
+			}
+		} 
+
+		trigger = {  
+			is_at_war = no
+			custom_trigger_tooltip = {
+				tooltip = EDG_FWF_end_battle_of_the_sun.tt
+				has_global_flag = EDG_FWF_battle_of_the_sun_end_flag
+			}
+			if = {
+				limit = { 
+					was_tag = ROS
+				}
+				num_of_owned_provinces_with = {
+					value = 50
+					superregion = europe_superregion
+				}
+			}
+			else_if = {
+				limit = {
+					was_tag = UCI
+				}
+				owns = 209
+				OR = {
+					AND = {
+						NOT = {
+							navy_size_percentage = 0.5
+						}
+						navy_size = 500
+					}
+					navy_size_percentage = 0.9
+				}
+				treasury = 5000
+			}
+		} 
+
+		effect = { 
+			if = {
+				limit = { 
+					was_tag = UCI
+				}
+				custom_tooltip = EDG_FWF_mission_1_23.effect_1.tt
+				custom_tooltip = EDG_SPACE_TT
+				tooltip = {
+					europe_superregion = {
+						add_core = root
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_treasury = -5000
+				add_country_modifier = {
+					name = EDG_FWF_forward_fleet
+					duration = 7300
+				}
+				hidden_effect = {
+					209 = {
+						for = {
+							amount = 100
+							effect = "
+								man_of_war_heavy = root
+							"
+						}
+					}
+					every_province = {
+						limit = {
+							superregion = europe_superregion
+						}
+						add_core = root
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					was_tag = ROS
+				}
+				custom_tooltip = EDG_FWF_mission_1_23.effect_2.tt
+				add_country_modifier = {
+					name = EDG_FWF_forward_attack
+					duration = 7300
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = europe_superregion }
+		} 
+	}
+
+	EDG_FWF_mission_1_27 = {
+		icon = mission_rb_control_state_religion
+		position = 27
+		required_missions = { EDG_FWF_mission_2_26 } 
+		provinces_to_highlight = {  
+			OR = {
+				superregion = persia_superregion
+				superregion = india_superregion
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 180
+				all_province = {
+					OR = {
+						superregion = persia_superregion
+						superregion = india_superregion
+					}
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_1_27.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_liberate_production
+				duration = -1
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						base_tax = 2
+					}
+					while = {
+						limit = { 
+							base_tax = 2
+						}
+						add_base_tax = -1
+						add_base_production = 1
+					}
+				}
+				set_country_flag = EDG_FWF_mission_1_27_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_1_30 = {
+		icon = EDG_ICON_seven_lust
+		position = 30
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_1_31 = {
+		icon = per_language_of_poetry
+		position = 31
+		required_missions = { EDG_FWF_mission_1_30 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				value = 250
+				has_tax_building_trigger = yes
+				has_state_edict = edict_advancement_effort
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_1_31.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_1_31_flag
+				for = {
+					amount = 100
+					effect = "
+						random_owned_province = {
+							limit = {
+								NOT = {
+									has_building = university
+								}
+								has_tax_building_trigger = yes
+								has_state_edict = edict_advancement_effort
+							}
+							if = {
+								limit = { 
+									has_building = temple
+								}
+								remove_building = temple
+							}
+							if = {
+								limit = { 
+									has_building = cathedral
+								}
+								remove_building = cathedral
+							}
+							add_building = university
+						}
+					"
+				}
+				
+			}
+		} 
+	}
+
+	EDG_FWF_mission_1_33 = {
+		icon = mission_rb_monopolize_the_channel
+		position = 33
+		required_missions = { EDG_FWF_mission_2_32 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			NOT = {
+				average_unrest = 1
+			}
+			num_of_owned_provinces_with = {
+				value = 250
+				has_manpower_building_trigger = yes
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_1_33.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_1_33_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_1_35 = {
+		icon = mission_son_own_develop_clothes_and_salt
+		position = 35
+		required_missions = { EDG_FWF_mission_2_34 } 
+		provinces_to_highlight = {  
+			trade_goods = cloth
+		} 
+
+		trigger = { 
+			num_of_owned_provinces_with = {
+				trade_goods = cloth
+				value = 50
+				development = 25
+				has_building = textile
+				has_production_building_trigger = yes
+			}
+			trade_goods_produced_amount = {
+				trade_goods = cloth
+				amount = 100
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_urpgrade_modifier.tt
+			if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_1
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_1
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_2
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_2
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_3
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_3
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_4
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_1
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_FWF_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = FWF } 
+
+	EDG_FWF_mission_2_24 = {
+		icon = mission_look_west
+		position = 24
+		required_missions = { EDG_FWF_mission_1_23 } 
+		provinces_to_highlight = {  
+			superregion = europe_superregion
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = { 
+					was_tag = UCI
+				}
+				europe_superregion = {
+					type = all
+					owned_by = root
+				}
+			}
+			else_if = {
+				limit = { 
+					was_tag = ROS
+				}
+				num_of_owned_provinces_with = {
+					superregion = europe_superregion
+					value = 180
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_2_24.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						superregion = europe_superregion
+					}
+					if = {
+						limit = { 
+							base_tax = 2
+						}
+						while = {
+							limit = { 
+								base_tax = 2
+							}
+							add_base_tax = -1
+							add_base_production = 1
+						}
+					}
+					while = {
+						limit = { 
+							nationalism = 1
+						}
+						add_nationalism = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FWF_mission_2_26 = {
+		icon = mission_fire_of_london
+		position = 26
+		required_missions = { EDG_FWF_mission_3_25 } 
+		provinces_to_highlight = {  
+			OR = {
+				superregion = near_east_superregion
+				superregion = africa_superregion
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 150
+				all_province = {
+					OR = {
+						superregion = near_east_superregion
+						superregion = africa_superregion
+					}
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_2_26.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_no_more_slavery
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_2_26_flag
+				every_owned_province = {
+					limit = {
+						trade_goods = slaves
+					}
+					random_list = {
+						2 = {
+							change_trade_goods = livestock
+						}
+						2 = {
+							change_trade_goods = grain
+						}
+						2 = {
+							change_trade_goods = salt
+						}
+						2 = {
+							change_trade_goods = wool
+						}
+						1 = {
+							change_trade_goods = spices
+						}
+						1 = {
+							change_trade_goods = sugar
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FWF_mission_2_30 = {
+		icon = EDG_ICON_seven_gluttony
+		position = 30
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_2_31 = {
+		icon = mission_sail_to_the_east_indies
+		position = 31
+		required_missions = { EDG_FWF_mission_2_30 } 
+		provinces_to_highlight = {  
+			trade_goods = grain
+		} 
+
+		trigger = {  
+			trade_goods_produced_amount = {
+				trade_goods = grain
+				amount = 200
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_2_31.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_2_31_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_2_32 = {
+		icon = EDG_ICON_seven_wrath
+		position = 32
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_2_34 = {
+		icon = the_emden_company
+		position = 34
+		required_missions = { EDG_FWF_mission_3_33 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_2_35 = {
+		icon = mission_iroquois_food_surplus
+		position = 35
+		required_missions = { EDG_FWF_mission_2_34 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				value = 250
+				has_building = farm_estate
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_urpgrade_modifier.tt
+			if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_1
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_1
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_2
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_2
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_3
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_3
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_4
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_1
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_FWF_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = FWF } 
+
+	EDG_FWF_mission_3_24 = {
+		icon = mission_abolish_mestnichestvo
+		position = 24
+		provinces_to_highlight = { 
+			owner = {
+				war_with = root
+			}
+		} 
+
+		trigger = {
+			has_disaster = EDG_FWF_battle_of_the_sun
+		}
+		effect = {
+			add_yearly_manpower = 3
+			add_republican_tradition = 25
+			add_war_exhaustion = -2
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = FOI_FWF_17_3_modifier
+				duration = 3650
+			}
+		}
+	}
+
+	EDG_FWF_mission_3_25 = {
+		icon = crush_the_revolution
+		position = 25
+		required_missions = {
+			EDG_FWF_mission_2_24
+			EDG_FWF_mission_3_24
+			EDG_FWF_mission_4_24
+		}
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				OR = {
+					superregion = europe_superregion
+					superregion = eastern_europe_superregion
+				}
+				value = 500
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_25.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_formal_war
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			if = {
+				limit = {
+					was_tag = ROS
+				}
+				add_country_modifier = {
+					name = EDG_FWF_concentrated_training
+					duration = -1
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_3_25_flag
+				every_province = {
+					limit = {
+						NOT = {
+							OR = {
+								continent = north_america
+								continent = south_america
+							}
+						}
+						NOT = { is_core = root }
+						NOT = { is_permanent_claim = root }
+						# NOT = { owner = { is_subject_of = root } }
+					}
+					add_permanent_claim = root
+				}
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_27 = {
+		icon = mission_trade_with_cathay
+		position = 27
+		required_missions = { EDG_FWF_mission_3_25 } 
+		provinces_to_highlight = {  
+			NOT = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			
+			OR = {
+				total_development = 10000
+				num_of_owned_provinces_with = {
+					value = 1000
+					NOT = {
+						OR = {
+							continent = north_america
+							continent = south_america
+						}
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_27.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_not_conquerors
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_3_27_flag
+				
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_28 = {
+		icon = mission_dominate_the_mediterranean
+		position = 28
+		required_missions = {
+			EDG_FWF_mission_1_27
+			EDG_FWF_mission_3_27
+			EDG_FWF_mission_5_27
+		}
+		provinces_to_highlight = {  
+			NOT = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+			}
+			NOT = {
+				is_core = root
+			}
+		} 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 2000
+				all_province = {
+					NOT = {
+						OR = {
+							continent = north_america
+							continent = south_america
+						}
+					}
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_28.effect.tt
+			hidden_effect = {
+				every_province = {
+					limit = {
+						NOT = {
+							owned_by = root
+						}
+						is_core = root
+					}
+					cede_province = root
+				}
+				every_country = {
+					limit = {
+						capital_scope = {
+							NOT = {
+								OR = {
+									continent = north_america
+									continent = south_america
+								}
+							}
+						}
+						NOT = {
+							capital_scope = {
+								continent = north_america
+								continent = south_america
+							}
+						}
+					}
+					root = {
+						declare_war_with_cb = {
+							casus_belli = cb_annex
+							who = prev
+						}
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_29 = {
+		icon = EDG_ICON_Seven_Deadly_Sins
+		position = 29
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			stability = 3
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_29.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = 100
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_stability = -3
+			hidden_effect = {
+				complete_mission = EDG_FWF_mission_1_30
+				complete_mission = EDG_FWF_mission_2_30
+				complete_mission = EDG_FWF_mission_4_30
+				complete_mission = EDG_FWF_mission_5_30
+				complete_mission = EDG_FWF_mission_3_31
+				complete_mission = EDG_FWF_mission_2_32
+				complete_mission = EDG_FWF_mission_4_32
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_31 = {
+		icon = EDG_ICON_seven_pride
+		position = 31
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_3_32 = {
+		icon = mission_plc_governance_act
+		position = 32
+		required_missions = { EDG_FWF_mission_3_31 } 
+		provinces_to_highlight = {  
+			owned_by = root
+			unrest = 1
+		} 
+
+		trigger = {  
+			government_reform_progress = 1000
+			num_of_owned_provinces_with = {
+				value = 250
+				has_courthouse_building_trigger = yes
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_32.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -40
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_3_32_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_33 = {
+		icon = expand_the_confederacy
+		position = 33
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			total_development = 5000
+			NOT = {
+				check_variable = {
+					which = EDG_FWF_degenerate_var
+					value = 60
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_3_33.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_build_plane
+				duration = 3650
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						NOT = {
+							development = 15
+						}
+					}
+					while = {
+						limit = { 
+							NOT = {
+								development = 15
+							}
+						}
+						if = {
+							limit = { 
+								NOT = {
+									has_province_flag = EDG_FWF_add_base_tax_flag
+								}
+							}
+							set_province_flag = EDG_FWF_add_base_tax_flag
+							add_base_tax = 1
+						}
+						else_if = {
+							limit = { 
+								NOT = {
+									has_province_flag = EDG_FWF_add_base_production_flag
+								}
+							}
+							set_province_flag = EDG_FWF_add_base_production_flag
+							add_base_production = 1
+						}
+						else_if = {
+							limit = { 
+								NOT = {
+									has_province_flag = EDG_FWF_add_base_manpower_flag
+								}
+							}
+							set_province_flag = EDG_FWF_add_base_manpower_flag
+							add_base_manpower = 1
+						}
+						else_if = {
+							limit = {
+								has_province_flag = EDG_FWF_add_base_tax_flag
+								has_province_flag = EDG_FWF_add_base_production_flag
+								has_province_flag = EDG_FWF_add_base_manpower_flag
+							}
+							clr_province_flag = EDG_FWF_add_base_tax_flag
+							clr_province_flag = EDG_FWF_add_base_production_flag
+							clr_province_flag = EDG_FWF_add_base_manpower_flag
+						}
+					}
+				}
+				complete_mission = EDG_FWF_mission_2_34
+				complete_mission = EDG_FWF_mission_4_34
+			}
+		} 
+	}
+
+	EDG_FWF_mission_3_36 = {
+		icon = austria_prospers
+		position = 36
+		required_missions = {
+			EDG_FWF_mission_1_35
+			EDG_FWF_mission_2_35
+			EDG_FWF_mission_4_35
+			EDG_FWF_mission_5_35
+		}
+		provinces_to_highlight = {  
+			is_city = yes
+			NOT = {
+				OR = {
+					continent = north_america
+					continent = south_america
+				}
+			}
+			NOT = {
+				is_core = root
+			}
+		} 
+
+		trigger = {  
+			all_province = {
+				OR = {
+					is_city = no
+					continent = north_america
+					continent = south_america
+					AND = {
+						owned_by = root
+						is_core = root
+					}
+				}
+			}
+		} 
+
+		effect = {  
+			country_event = {
+				id = EDG_FWFEvents.2
+			}
+			custom_tooltip = EDG_SPACE_TT
+			remove_country_modifier = EDG_FWF_ideal_society_4
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_utopia
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_FWF_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = FWF } 
+
+	EDG_FWF_mission_4_24 = {
+		icon = mission_pol_tend_east
+		position = 24
+		required_missions = { EDG_FWF_mission_5_23 } 
+		provinces_to_highlight = {  
+			region = eastern_europe_superregion
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			if = {
+				limit = { 
+					was_tag = UCI
+				}
+				num_of_owned_provinces_with = {
+					superregion = eastern_europe_superregion
+					value = 80
+				}
+			}
+			else_if = {
+				limit = { 
+					was_tag = ROS
+				}
+				eastern_europe_superregion = {
+					type = all
+					owned_by = root
+				}
+			}
+		} 
+		effect = {
+			custom_tooltip = EDG_FWF_mission_4_24.effect.tt
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						superregion = eastern_europe_superregion
+					}
+					if = {
+						limit = { 
+							base_tax = 2
+						}
+						while = {
+							limit = { 
+								base_tax = 2
+							}
+							add_base_tax = -1
+							add_base_manpower = 1
+						}
+					}
+					while = {
+						limit = { 
+							nationalism = 1
+						}
+						add_nationalism = -1
+					}
+				}
+			}
+		}
+	}
+
+	EDG_FWF_mission_4_26 = {
+		icon = mission_trade_with_japan
+		position = 26
+		required_missions = { EDG_FWF_mission_3_25 } 
+		provinces_to_highlight = {  
+			superregion = tartary_superregion
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 60
+				all_province = {
+					superregion = far_east_superregion
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_4_26.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_erase_borders
+				duration = -1
+			}
+			custom_tooltip = EDG_SPACE_TT
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_4_26_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_4_30 = {
+		icon = EDG_ICON_seven_greed
+		position = 30
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_4_31 = {
+		icon = mission_table_of_ranks
+		position = 31
+		required_missions = { EDG_FWF_mission_4_30 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			OR = {
+				monthly_income = 2500
+				is_hegemon_of_type = economic_hegemon
+			}
+			treasury = 50000
+		} 
+
+		effect = { 
+			custom_tooltip = EDG_FWF_mission_4_30.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			custom_tooltip = EDG_SPACE_TT
+			add_treasury = -50000
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_4_31_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_4_32 = {
+		icon = EDG_ICON_seven_envy
+		position = 32
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_4_34 = {
+		icon = mission_court_education
+		position = 34
+		required_missions = { EDG_FWF_mission_3_33 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  } 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_4_35 = {
+		icon = develop_the_po_valley
+		position = 35
+		required_missions = { EDG_FWF_mission_4_34 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				development = 20
+				value = 500
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_urpgrade_modifier.tt
+			if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_1
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_1
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_2
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_2
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_3
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_3
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_4
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_1
+					duration = -1
+				}
+			}
+		} 
+	}
+}
+EDG_FWF_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = FWF } 
+
+	EDG_FWF_mission_5_23 = {
+		icon = mission_king_of_eastern_europe
+		position = 23
+		provinces_to_highlight = {  
+			superregion = eastern_europe_superregion
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			is_at_war = no
+			custom_trigger_tooltip = {
+				tooltip = EDG_FWF_end_battle_of_the_sun.tt
+				has_global_flag = EDG_FWF_battle_of_the_sun_end_flag
+			}
+			if = {
+				limit = { 
+					was_tag = UCI
+				}
+				num_of_owned_provinces_with = {
+					value = 50
+					superregion = eastern_europe_superregion
+				}
+			}
+			else_if = {
+				limit = {
+					was_tag = ROS
+				}
+				mission_completed = EDG_SMO_mission_3_21
+				NOT = {
+					has_country_modifier = EDG_SMO_five_year_plan
+				}
+				has_government_power = {
+					mechanic_type = EDG_SMO_revolutionary_tendency_mechanic
+					power_type = EDG_SMO_revolutionary_tendency	
+					value = 100
+				}
+				has_government_power = {
+					mechanic_type = EDG_SMO_estate_loyal_mechanic
+					power_type = EDG_SMO_estate_loyal
+					value = 100
+				}
+				has_government_power = {
+					mechanic_type = EDG_SMO_estate_influence_mechanic
+					power_type = EDG_SMO_estate_influence
+					value = 100
+				}
+				NOT = {
+					army_size_percentage = 0.1
+				}
+			}
+		} 
+
+		effect = { 
+			if = {
+				limit = { 
+					was_tag = UCI
+				}
+				custom_tooltip = EDG_FWF_mission_5_23.effect_1.tt
+				add_country_modifier = {
+					name = EDG_FWF_house_on_fire
+					duration = 7300
+				}
+			}
+			else_if = {
+				limit = {
+					was_tag = ROS
+				}
+				custom_tooltip = EDG_FWF_mission_5_23.effect_2.tt
+				custom_tooltip = EDG_SPACE_TT
+				tooltip = {
+					eastern_europe_superregion = {
+						add_core = root
+					}
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_country_modifier = {
+					name = EDG_FWF_revolutionary_enthusiasm
+					duration = -1
+				}
+				hidden_effect = {
+					add_manpower = -1000
+					create_unit_forcelimit_percentage = {
+						type = infantry
+						special_unit_category = revolutionary_guard
+						force_limit_percentage = 0.5
+					}
+					create_unit_forcelimit_percentage = {
+						type = cavalry
+						special_unit_category = revolutionary_guard
+						force_limit_percentage = 0.1
+					}
+					create_unit_forcelimit_percentage = {
+						type = artillery
+						special_unit_category = revolutionary_guard
+						force_limit_percentage = 0.4
+					}
+					every_owned_province = {
+						limit = {
+							superregion = eastern_europe_superregion
+						}
+						add_core = root
+					}
+				}
+			}
+			custom_tooltip = EDG_SPACE_TT
+			EDG_add_claim = { area = eastern_europe_superregion }
+		} 
+	}
+
+	EDG_FWF_mission_5_27 = {
+		icon = mission_reclaim_lost_territory
+		position = 27
+		required_missions = { EDG_FWF_mission_4_26 } 
+		provinces_to_highlight = {  
+			OR = {
+				superregion = far_east_superregion
+				superregion = china_superregion
+			}
+			NOT = {
+				owned_by = root
+			}
+		} 
+
+		trigger = {  
+			calc_true_if = {
+				amount = 100
+				all_province = {
+					OR = {
+						superregion = far_east_superregion
+						superregion = china_superregion
+					}
+					is_core = root
+				}
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_5_27.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_FWF_eliminate_differences
+				duration = -1
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_5_27_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_5_30 = {
+		icon = EDG_ICON_seven_sloth
+		position = 30
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			mission_completed = EDG_FWF_mission_3_29
+		} 
+
+		effect = {  } 
+	}
+
+	EDG_FWF_mission_5_31 = {
+		icon = medici_bank_ledgers
+		position = 31
+		required_missions = { EDG_FWF_mission_5_30 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				value = 250
+				has_production_building_trigger = yes
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_5_31.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_5_31_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_5_33 = {
+		icon = mission_the_sudebnik
+		position = 33
+		required_missions = { EDG_FWF_mission_4_32 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			religious_unity = 1
+			num_of_cities = 500
+			monthly_adm = 12
+			monthly_dip = 12
+			monthly_mil = 12
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_5_33.effect.tt
+			custom_tooltip = EDG_SPACE_TT
+			change_variable = {
+				which = EDG_FWF_degenerate_var
+				value = -10
+			}
+			hidden_effect = {
+				set_country_flag = EDG_FWF_mission_5_33_flag
+			}
+		} 
+	}
+
+	EDG_FWF_mission_5_35 = {
+		icon = mission_rb_scottish_the_darien_scheme
+		position = 35
+		required_missions = { EDG_FWF_mission_4_34 } 
+		provinces_to_highlight = {  } 
+
+		trigger = {  
+			num_of_owned_provinces_with = {
+				has_trade_building_trigger = yes
+				value = 500
+			}
+		} 
+
+		effect = {  
+			custom_tooltip = EDG_FWF_mission_urpgrade_modifier.tt
+			if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_1
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_1
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_2
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_2
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_2
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_3
+					duration = -1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_country_modifier = EDG_FWF_ideal_society_3
+				}
+				remove_country_modifier = EDG_FWF_ideal_society_3
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_4
+					duration = -1
+				}
+			}
+			else = {
+				add_country_modifier = {
+					name = EDG_FWF_ideal_society_1
+					duration = -1
+				}
+			}
+		} 
+	}
+}

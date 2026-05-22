@@ -1,0 +1,919 @@
+EDG_GEN_mission_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = GEN 
+		NOT = {
+			has_country_flag = EDG_GEN_mission_common_flag
+		}
+	} 
+
+	EDG_GEN_mission_1_2 = {
+		icon = mission_alliances
+		position = 2
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			num_of_allies = 2
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_1_2.effect.modifier
+			add_country_modifier = {
+				name = EDG_GEN_defense_policy
+				duration = 7300
+			}
+			hidden_effect = {
+				every_ally = {
+					add_trust = {
+						who = root
+						value = 10
+						mutual = yes
+					}
+					root = {
+						add_trust = {
+							who = root
+							value = 10
+							mutual = yes
+						}
+						add_favors = {
+							who = prev
+							amount = 10
+						}
+					}
+					
+				}
+			}
+			
+		} 
+	}
+
+	EDG_GEN_mission_1_4 = {
+		icon = mission_into_the_west
+		position = 4
+		provinces_to_highlight = {
+			province_id = 2992
+		} 
+
+		trigger = {
+			stability = 1
+			2992 = {
+				controlled_by = root
+				OR = {
+					infantry_in_province = ROOT
+					cavalry_in_province = ROOT
+				}
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_GENEvents.13
+			}
+		} 
+	}
+
+	EDG_GEN_mission_1_8 = {
+		icon = mission_the_sudebnik
+		position = 8
+		required_missions = { EDG_GEN_mission_2_7 } 
+		provinces_to_highlight = {
+			province_id = 102
+		} 
+
+		trigger = {
+			if = {
+				limit = { 
+					exists = PAP
+				}
+				PAP = {
+					OR = {
+						has_opinion = {
+							who = root
+							value = 75
+						}
+						has_spy_network_from = {
+							who = root
+							value = 25
+						}
+					}
+				}
+			}
+			102 = {
+				if = {
+					limit = { 
+						NOT = {
+							owned_by = root
+						}
+						owner = {
+							is_subject = yes
+						}
+					}
+					owner = {
+						OR = {
+							overlord = {
+								has_spy_network_from = {
+									who = root
+									value = 25
+								}
+							}
+							is_subject_of = root
+						}
+					}
+				}
+				else = {
+					OR = {
+						owner = {
+							has_spy_network_from = {
+								who = root
+								value = 25
+							}
+						}
+						owned_by = root
+					}
+				}
+				
+			}
+		} 
+
+		effect = {
+			102 = {
+				add_core = root
+			}
+			piedmont_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { owner = { is_subject_of = ROOT } }
+				}
+				add_permanent_claim = ROOT
+			}
+			add_prestige_or_monarch_power = {
+				amount = 20
+			}
+		} 
+	}
+}
+EDG_GEN_mission_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = GEN 
+		NOT = {
+			has_country_flag = EDG_GEN_mission_common_flag
+		}
+	} 
+
+	EDG_GEN_mission_2_3 = {
+		icon = mission_demand_garjat_fealty
+		position = 3
+		required_missions = { EDG_GEN_mission_1_2 } 
+		provinces_to_highlight = {
+			owner = {
+				is_neighbor_of = root
+			}
+		} 
+
+		trigger = {
+			dip_power_cost = 100
+			has_dip_advisor = yes
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_2_3.effect.tt
+			dip_power_cost = 100
+			hidden_effect = {
+				every_neighbor_country = {
+					add_truce_with = root
+				}
+			}
+			add_disaster_progress = {
+				value = -3
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		} 
+	}
+
+	EDG_GEN_mission_2_5 = {
+		icon = mission_envoy_to_ethiopia
+		position = 5
+		required_missions = { EDG_GEN_mission_1_4 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = EP0
+				owned_by = MOE
+			}
+		} 
+
+		trigger = {
+			OR = {
+				EP0 = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				has_spy_network_in = {
+					who = MOE
+					value = 30
+				}
+				owns = 4700
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 4700
+					}
+				}
+				if = {
+					limit = { 
+						EP0 = {
+							has_opinion = {
+								who = root
+								value = 75
+							}
+						}
+						has_spy_network_in = {
+							who = MOE
+							value = 30
+						}
+					}
+					country_event = {
+						id = EDG_GENEvents.14
+					}
+				}
+				else = {
+					custom_tooltip = EDG_GEN_mission_2_5.event.tt
+					custom_tooltip = EDG_GEN_mission_2_5.effect.tt
+					hidden_effect = {
+						set_country_flag = EDG_GEN_mission_2_5_flag
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			aegean_archipelago_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { owner = { is_subject_of = ROOT } }
+				}
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_GEN_mission_2_7 = {
+		icon = mission_entrepot_of_india
+		position = 7
+		required_missions = { EDG_GEN_mission_3_6 } 
+		provinces_to_highlight = {
+			province_id = 1298
+		} 
+
+		trigger = {
+			1298 = {
+				trade_share = {
+					country = ROOT 
+					share = 20
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_2_7.effect.tt
+			add_years_of_income = 3
+
+			hidden_effect = {
+				liguria_area = {
+					limit = {
+						owned_by = root
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_shipyard_building_trigger = yes
+							}
+						}
+						add_building = shipyard
+					}
+					else_if = {
+						limit = { 
+							has_building = shipyard
+						}
+						upgrade_building = {
+							navy_forcelimit = yes
+						}
+					}
+					else = {
+						add_dip_power = 100
+					}
+					if = {
+						limit = { 
+							NOT = {
+								has_trade_building_trigger = yes
+							}
+						}
+						add_building = marketplace
+					}
+					else_if = {
+						limit = { 
+							NOT = {
+								has_building = stock_exchange
+							}
+						}
+						upgrade_building = {
+							trade = yes
+						}
+					}
+					else = {
+						add_dip_power = 100
+					}
+				}
+			}
+			
+		} 
+	}
+}
+EDG_GEN_mission_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = GEN 
+		NOT = {
+			has_country_flag = EDG_GEN_mission_common_flag
+		}
+	} 
+
+	EDG_GEN_mission_3_1 = {
+		icon = mission_assemble_an_army
+		position = 1
+		provinces_to_highlight = {
+			province_id = 1247
+		} 
+
+		trigger = {
+			101 = {
+				owned_by = root
+				controlled_by = root
+			}
+			OR = {
+				army_size = 10
+				army_size_percentage = 1
+			}
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_GENEvents.12
+			}
+			hidden_effect = {
+				while = {
+					limit = { 
+						NOT = {
+							navy_size_percentage = 1
+						}
+					}
+					101 = {
+						galley = root
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_GEN_mission_3_2 = {
+		icon = mission_steppe_warriors
+		position = 2
+		required_missions = { EDG_GEN_mission_3_1 } 
+		provinces_to_highlight = {
+			province_id = 1247
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			owns = 1247
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_3_2.modifier.tt
+			add_country_modifier = {
+				name = EDG_GEN_follow_up_victry
+				duration = 1825
+			}
+			1247 = {
+				add_core = root
+			}
+			hidden_effect = {
+				clr_country_flag = EDG_GEN_mission_3_1_flag
+			}
+		} 
+	}
+
+	EDG_GEN_mission_3_4 = {
+		icon = mission_monarch_in_throne_room
+		position = 4
+		required_missions = {
+			EDG_GEN_mission_4_3
+			EDG_GEN_mission_2_3
+			EDG_GEN_mission_3_2
+		}
+		provinces_to_highlight = {
+			province_id = 101
+			NOT = {
+				AND = {
+					grown_by_development = 3
+					owned_by = root
+					has_trade_building_trigger = yes
+				}
+			}
+		} 
+
+		trigger = {
+			101 = {
+				owned_by = root
+				has_trade_building_trigger = yes
+				grown_by_development = 3
+			}
+		} 
+
+		effect = {
+			add_estate_loyalty = {
+				estate = all
+				loyalty = 25
+			}
+			add_prestige_or_monarch_power = {
+				amount = 50
+			}
+			add_disaster_progress = {
+				value = -25
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		} 
+	}
+
+	EDG_GEN_mission_3_6 = {
+		icon = evengelize_the_faith
+		position = 6
+		required_missions = {
+			EDG_GEN_mission_4_5
+			EDG_GEN_mission_2_5
+		}
+		provinces_to_highlight = {
+			OR = {
+				province_id = 286
+				province_id = 4700
+			}
+			NOT = {
+				country_or_non_sovereign_subject_holds = root
+			}
+		} 
+
+		trigger = {
+			owns = 4700
+			owns = 286
+		} 
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_GEN_revendication
+				duration = 18250
+			}
+			add_disaster_progress = {
+				value = -20
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		} 
+	}
+
+	EDG_GEN_mission_3_9 = {
+		icon = the_emden_company
+		position = 9
+		required_missions = {
+			EDG_GEN_mission_3_6
+			EDG_GEN_mission_5_8
+			EDG_GEN_mission_1_8
+		}
+		provinces_to_highlight = {} 
+
+		trigger = {
+			stability = 2
+			legitimacy = 90
+			prestige = 50
+			owns = 101
+		} 
+
+		effect = {
+			country_event = {
+				id = EDG_GENEvents.16
+			}
+		} 
+	}
+}
+EDG_GEN_mission_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = GEN 
+		NOT = {
+			has_country_flag = EDG_GEN_mission_common_flag
+		}
+	} 
+
+	EDG_GEN_mission_4_3 = {
+		icon = mission_conquer_andhra_vij
+		position = 3
+		required_missions = { EDG_GEN_mission_5_2 } 
+		provinces_to_highlight = {
+			owner = {
+				capital_scope = {
+					superregion = europe_superregion
+				}
+				total_development = 100
+				NOT = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+			}
+		} 
+
+		trigger = {
+			calc_true_if = {
+				all_country = {
+					capital_scope = {
+						superregion = europe_superregion
+					}
+					has_opinion = {
+						who = root
+						value = 75
+					}
+					total_development = 100
+				}
+				amount = 2
+			}
+		} 
+
+		effect = {
+			add_dip_power = 100
+			add_country_modifier = {
+				name = EDG_GEN_under_the_clouds
+				duration = 3650
+			}
+			add_disaster_progress = {
+				value = -5
+				disaster = EDG_GEN_second_ligurian_uprising
+			}
+		} 
+	}
+
+	EDG_GEN_mission_4_5 = {
+		icon = mission_the_triangle_trade
+		position = 5
+		required_missions = { EDG_GEN_mission_5_4 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = FEO
+				owned_by = AZO
+			}
+		} 
+
+		trigger = {
+			OR = {
+				FEO = {
+					has_opinion = {
+						who = root
+						value = 75
+					}
+				}
+				has_spy_network_in = {
+					who = AZO
+					value = 30
+				}
+				owns = 286
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						owns = 286
+					}
+				}
+				if = {
+					limit = { 
+						FEO = {
+							has_opinion = {
+								who = root
+								value = 75
+							}
+						}
+						has_spy_network_in = {
+							who = AZO
+							value = 30
+						}
+					}
+					country_event = {
+						id = EDG_GENEvents.15
+					}
+				}
+				else = {
+					custom_tooltip = EDG_GEN_mission_4_5.event.tt
+					custom_tooltip = EDG_GEN_mission_4_5.effect.tt
+					hidden_effect = {
+						set_country_flag = EDG_GEN_mission_4_5_flag
+					}
+				}
+			}
+			else = {
+				add_prestige_or_monarch_power = {
+					amount = 20
+				}
+			}
+			azov_area = {
+				limit = {
+					NOT = { is_core = ROOT }
+					NOT = { is_permanent_claim = ROOT }
+					NOT = { owner = { is_subject_of = ROOT } }
+				}
+				add_permanent_claim = ROOT
+			}
+		} 
+	}
+
+	EDG_GEN_mission_4_7 = {
+		icon = mission_galleys_in_port
+		position = 7
+		required_missions = { EDG_GEN_mission_3_6 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = EP0
+				province_id = 1320
+			}
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					exists = EP0
+					EP0 = {
+						OR = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+				}
+				1320 = {
+					trade_share = {
+						country = root
+						share = 5
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_4_7.effect.tt
+			if = {
+				limit = { 
+					EP0 = {
+						OR = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+				}
+				add_historical_friend = EP0
+				EP0 = {
+					add_historical_friend = root
+				}
+				1320 = {
+					add_trade_modifier = {
+						who = root
+						duration = 9125
+						power = 50
+						key = EDG_GEN_trade_cooperation #贸易合作
+					}
+				}
+			}
+			else = {
+				1320 = {
+					add_trade_node_income = 50
+				}
+				add_country_modifier = {
+					name = EDG_GEN_control_aegean_sea
+					duration = 9125
+				}
+			}
+		} 
+	}
+}
+EDG_GEN_mission_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { 
+		tag = GEN 
+		NOT = {
+			has_country_flag = EDG_GEN_mission_common_flag
+		}
+	} 
+
+	EDG_GEN_mission_5_2 = {
+		icon = mission_empire
+		position = 2
+		provinces_to_highlight = {
+			owned_by = emperor
+		} 
+
+		trigger = {
+			emperor = {
+				has_opinion = {
+					who = root
+					value = 75
+				}
+			}
+		} 
+
+		effect = {
+			add_dip_power = 25
+			add_adm_power = 25
+			add_mil_power = 25
+			add_country_modifier = {
+				name = EDG_GEN_imperial_diplomacy
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_GEN_mission_5_4 = {
+		icon = mission_noble_council
+		position = 4
+		provinces_to_highlight = {  } 
+
+		trigger = {
+			OR = {
+				AND = {
+					NOT = {
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 30
+						}
+					}
+				}
+				AND = {
+					stability = 2
+				}
+			}
+		} 
+
+		effect = {
+			if = {
+				limit = { 
+					NOT = {
+						estate_loyalty = {
+							estate = estate_burghers
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_nobles
+							loyalty = 30
+						}
+					}
+					NOT = {
+						estate_loyalty = {
+							estate = estate_church
+							loyalty = 30
+						}
+					}
+				}
+			}
+			else = {
+				add_stability = -1
+			}
+			add_years_of_income = 5
+			change_estate_land_share = {
+				estate = all
+				share = -30
+			}
+			add_estate_influence_modifier = {
+				estate = all
+				influence = -20
+				duration = 3650
+			}
+		} 
+	}
+
+	EDG_GEN_mission_5_8 = {
+		icon = mission_establish_high_seas_navy
+		position = 8
+		required_missions = { EDG_GEN_mission_4_7 } 
+		provinces_to_highlight = {
+			OR = {
+				owned_by = FEO
+				province_id = 1322
+			}
+		} 
+
+		trigger = {
+			OR = {
+				AND = {
+					exists = FEO
+					FEO = {
+						OR = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+				}
+				1322 = {
+					trade_share = {
+						country = root
+						share = 5
+					}
+				}
+			}
+		} 
+
+		effect = {
+			custom_tooltip = EDG_GEN_mission_5_8.effect.tt
+			if = {
+				limit = { 
+					FEO = {
+						OR = {
+							alliance_with = root
+							has_opinion = {
+								who = root
+								value = 100
+							}
+						}
+					}
+				}
+				add_historical_friend = FEO
+				FEO = {
+					add_historical_friend = root
+				}
+				1322 = {
+					add_trade_modifier = {
+						who = root
+						duration = 9125
+						power = 50
+						key = EDG_GEN_trade_cooperation #贸易合作
+					}
+					
+				}
+			}
+			else = {
+				1322 = {
+					add_trade_node_income = 50
+				}
+				add_country_modifier = {
+					name = EDG_GEN_rebuilding_black_sea_trade
+					duration = 9125
+				}
+			}
+		} 
+	}
+}

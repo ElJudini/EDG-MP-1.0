@@ -1,0 +1,726 @@
+EDG_MISSION_ITA_SLOT_1 = {
+	slot = 1
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = ITA } 
+
+	EDG_MISSION_ITA_1_25 = {
+		icon = pontifical_universities
+		position = 25
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_adm_advisor_3 = yes
+			monthly_adm = 10
+			num_of_provinces_in_states = 50
+		} 
+
+		effect = {
+			if = { 
+				limit = {
+				  has_government_attribute = EDG_Philosopher_reform_ability
+				}
+				custom_tooltip = EDG_SPACE_TT
+				add_government_power = {
+				  mechanic_type = EDG_MLO_government_ability
+				  power_type = EDG_MLO_government_power
+				  value = 5
+				}
+			}
+			change_government_reform_progress = 25
+			add_adm_power = 100
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_1_25_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_1_27 = {
+		icon = patronize_the_scuole_grandi
+		position = 27
+		required_missions = { EDG_MISSION_ITA_1_25 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = courthouse }
+			NOT = { has_building = town_hall }
+		} 
+
+		trigger = {
+			OR = {
+				num_of_owned_provinces_with = {
+					value = 10
+					EDG_has_building_courthouse_trigger = yes
+					development = 20
+				}
+				num_of_owned_provinces_with = {
+					value = 20
+					EDG_has_building_courthouse_trigger = yes
+				}
+			}
+		}  
+
+		effect = {
+			custom_tooltip = EDG_MISSION_ITA_1_27_province_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_MISSION_ITA_1_27_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						EDG_has_building_courthouse_trigger = yes
+					}
+					add_permanent_province_modifier = {
+						name = EDG_MISSION_ITA_1_27_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_1_28 = {
+		icon = mission_rb_the_bank_of_scotland
+		position = 28
+		required_missions = { EDG_MISSION_ITA_1_27 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				local_autonomy = 10
+				unrest = 1 
+			}
+		} 
+
+		trigger = {
+			NOT = { average_home_autonomy = 10 }
+			crown_land_share = 50
+			italy_region = {
+				type = all
+				NOT = { local_autonomy = 10 }
+				NOT = { unrest = 1 }
+			}
+		}  
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_1_28_modifier
+				duration = -1
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_ITA_1_27_province_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_MISSION_ITA_1_28_modifier_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						NOT = { local_autonomy = 10 }
+						NOT = { unrest = 1 }
+					}
+					add_permanent_province_modifier = {
+						name = EDG_MISSION_ITA_1_28_modifier_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}
+EDG_MISSION_ITA_SLOT_2 = {
+	slot = 2
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = ITA } 
+
+	EDG_MISSION_ITA_2_26 = {
+		icon = mission_early_game_buildings
+		position = 26
+		required_missions = { EDG_MISSION_ITA_1_25 } 
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = { owned_by = ROOT }
+		} 
+
+		trigger = {
+			OR = {
+				NOT = { has_global_flag = italian_wars_global_flag }
+				is_year = 1600
+				italy_region = {
+					type = all
+					owned_by = ROOT
+				}
+			}	
+		}  
+
+		effect = {
+			set_country_flag = EDG_MISSION_ITA_mil_development_flag
+			custom_tooltip = EDG_MISSION_ITA_mil_development_flag_tt
+			
+			custom_tooltip = EDG_SPACE_TT
+			italy_region = {
+				add_devastation = -100
+				add_local_autonomy = -25
+				add_prosperity = 25
+				add_province_modifier = {
+					name = EDG_MISSION_ITA_2_26_modifier
+					duration = 7300
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_2_28 = {
+		icon = geneva_conventions
+		position = 28
+		required_missions = { EDG_MISSION_ITA_1_27 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { EDG_has_building_courthouse_trigger = yes }
+		} 
+
+		trigger = {
+			has_final_tier_reforms_trigger = yes
+			monthly_adm = 13
+			adm_power = 100
+			OR = {
+				num_of_owned_provinces_with = {
+					value = 50
+					EDG_has_building_courthouse_trigger = yes
+				}
+				crown_land_share = 80
+			}
+		}  
+
+		effect = {
+			add_adm_tech = 1 
+			add_adm_power = -100
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_centralized_state_provide_2_5_innovativeness_flag_tt
+			set_country_flag = EDG_centralized_state_provide_2_5_innovativeness_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_2_28_modifier
+				duration = 18250
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_2_29 = {
+		icon = mission_court_education
+		position = 29
+		required_missions = {
+			EDG_MISSION_ITA_2_28
+			EDG_MISSION_ITA_3_28
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { has_building = university }
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 30
+				has_building = university
+			}
+			OR = {
+				innovativeness = 50
+				full_idea_group = innovativeness_ideas
+			}
+		}  
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_2_29_modifier 
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_MISSION_ITA_SLOT_3 = {
+	slot = 3
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = ITA } 
+
+	EDG_MISSION_ITA_3_26 = {
+		icon = mission_european_church
+		position = 26
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { EDG_has_building_temple_trigger = yes }
+		} 
+
+		trigger = {
+			has_institution = renaissance
+			owns = 105
+			owns = 4730
+			num_of_owned_provinces_with = {
+				value = 20
+				EDG_has_building_temple_trigger = yes
+			}
+		}  
+
+		effect = {
+			add_papal_influence = 20
+			add_church_power = 100
+
+			custom_tooltip = EDG_SPACE_TT
+			105 = {
+				add_great_project_tier = {
+					type = EDG_Cadalus_Church
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			4730 = {
+				add_great_project_tier = {
+					type = EDG_Chiesa_di_San_Domenico
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_MISSION_ITA_adm_development_flag
+			custom_tooltip = EDG_MISSION_ITA_adm_development_flag_tt
+		} 
+	}
+
+	EDG_MISSION_ITA_3_28 = {
+		icon = mission_have_manufactories
+		position = 28
+		required_missions = { EDG_MISSION_ITA_3_26 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			has_institution = manufactories
+			monthly_income = 100
+			owns = 106
+			owns = 104
+			OR = {
+				economist = 3
+				full_idea_group = economic_ideas
+			}
+		}  
+
+		effect = {
+			change_innovativeness = 3
+			add_years_of_income = 0.5
+
+			custom_tooltip = EDG_SPACE_TT
+			105 = {
+				add_great_project_tier = {
+					type = EDG_Teatro_alla_Scala
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			106 = {
+				add_great_project_tier = {
+					type = EDG_Esther_Library
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_3_28_modifier
+				duration = 7300
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_3_30 = {
+		icon = the_ostend_company
+		position = 30
+		required_missions = {
+			EDG_MISSION_ITA_2_29
+			EDG_MISSION_ITA_4_29
+			EDG_MISSION_ITA_3_28
+		}
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			is_hegemon = yes
+			is_great_power = yes
+			has_institution = enlightenment
+			monthly_adm = 12
+			monthly_dip = 12
+			monthly_mil = 12
+		}  
+
+		effect = {
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_3_30_modifier
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_MISSION_ITA_SLOT_4 = {
+	slot = 4
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = ITA } 
+
+	EDG_MISSION_ITA_4_25 = {
+		icon = mission_entrepot_of_india
+		position = 25
+		provinces_to_highlight = {
+			owned_by = ROOT
+			NOT = { development = 15 }
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 15
+				development = 15
+			}
+			101 = {
+				owned_by = ROOT
+				development = 20
+			}
+		}  
+
+		effect = {
+			add_years_of_income = 0.5
+			add_mercantilism = 2
+			add_estate_loyalty = {
+				estate = estate_burghers
+				loyalty = 10
+			}
+			
+			custom_tooltip = EDG_SPACE_TT
+			set_country_flag = EDG_MISSION_ITA_dip_development_flag
+			custom_tooltip = EDG_MISSION_ITA_dip_development_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_ITA_1_27_province_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_MISSION_ITA_4_25_modifier 
+					duration = 7300
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						development = 15
+					}
+					add_permanent_province_modifier = {
+						name = EDG_MISSION_ITA_4_25_modifier 
+						duration = 7300
+					}
+				}
+			}
+			
+		} 
+	}
+
+	EDG_MISSION_ITA_4_27 = {
+		icon = chater_the_voc
+		position = 27
+		required_missions = {
+			EDG_MISSION_ITA_4_25
+			EDG_MISSION_ITA_3_26
+		}
+		provinces_to_highlight = {
+			owned_by = ROOT
+				NOT = { num_of_times_improved = 3 }
+				NOT = { EDG_has_building_workshop_trigger = yes }
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				num_of_times_improved = 3
+				EDG_has_building_workshop_trigger = yes
+			}
+			112 = {
+				owned_by = ROOT
+				development = 25
+				num_of_buildings_in_province = 4
+			}
+		}  
+
+		effect = {
+			set_country_flag = EDG_upgrade_center_of_trade_provide_4mercantilism_flag
+			custom_tooltip = EDG_upgrade_center_of_trade_provide_4mercantilism_flag_tt
+
+			custom_tooltip = EDG_SPACE_TT
+			add_mercantilism = 5
+			add_years_of_income = 0.75
+
+			custom_tooltip = EDG_SPACE_TT
+			112 = {
+				add_great_project_tier = {
+					type = EDG_Piazza_San_Marco
+					tier = 2
+				}
+			}
+
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_ITA_1_27_province_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_MISSION_ITA_4_27_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						num_of_times_improved = 3
+						EDG_has_building_workshop_trigger = yes
+					}
+					add_permanent_province_modifier = {
+						name = EDG_MISSION_ITA_4_27_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_4_28 = {
+		icon = reform_the_state
+		position = 28
+		required_missions = { EDG_MISSION_ITA_4_27 } 
+		provinces_to_highlight = {
+			owned_by = ROOT
+			OR = {
+				NOT = { EDG_has_building_workshop_trigger = yes }
+				NOT = { EDG_has_building_manufactories_trigger = yes }
+			}
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 20
+				EDG_has_building_workshop_trigger = yes
+				EDG_has_building_manufactories_trigger = yes
+			}
+			116 = {
+				owned_by = ROOT
+				development = 30
+				num_of_buildings_in_province = 4
+			}
+		}  
+
+		effect = {
+			add_mercantilism = 5
+			add_years_of_income = 0.95
+			add_inflation = -2
+
+			custom_tooltip = EDG_SPACE_TT
+			116 = {
+				add_great_project_tier = {
+					type = EDG_Palazzo_Pitti
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_ITA_1_27_province_tt
+			tooltip = {
+				add_permanent_province_modifier = {
+					name = EDG_MISSION_ITA_4_28_province_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						EDG_has_building_workshop_trigger = yes
+						EDG_has_building_manufactories_trigger = yes
+					}
+					add_permanent_province_modifier = {
+						name = EDG_MISSION_ITA_4_28_province_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_4_29 = {
+		icon = dominant_economy
+		position = 29
+		required_missions = { EDG_MISSION_ITA_4_28 } 
+		provinces_to_highlight = {
+			region = italy_region
+			OR = {
+				NOT = { num_of_times_improved = 3 }
+				NOT = { development = 15 }
+			}
+		} 
+
+		trigger = {
+			italy_region = {
+				type = all
+				OR = {
+					num_of_times_improved = 3
+					development = 15
+				}
+			}
+			118 = {
+				owned_by = ROOT
+				development = 35
+				num_of_buildings_in_province = 5
+			}
+		}  
+
+		effect = {
+			118 = {
+				add_great_project_tier = {
+					type = EDG_Sant_Ignazio_Church
+					tier = 2
+				}
+				add_great_project_tier = {
+					type = EDG_Arch_of_Septimius_Severus
+					tier = 2
+				}
+				add_great_project_tier = {
+					type = EDG_Castel_Sant_Angelo
+					tier = 2
+				}
+			}
+
+			custom_tooltip = EDG_SPACE_TT
+			add_country_modifier = {
+				name = EDG_MISSION_ITA_4_29_modifier
+				duration = -1
+			}
+		} 
+	}
+}
+EDG_MISSION_ITA_SLOT_5 = {
+	slot = 5
+	generic = no
+	ai = yes
+	has_country_shield = yes
+	potential = { tag = ITA } 
+
+	EDG_MISSION_ITA_5_26 = {
+		icon = new_st_peters_basilica
+		position = 26
+		required_missions = { EDG_MISSION_ITA_4_25 } 
+		provinces_to_highlight = {
+			
+		} 
+
+		trigger = {
+			development_in_provinces = {
+				value = 100
+				culture = ROOT
+			}
+			104 = {
+				development = 50
+				num_of_times_improved = 5
+				num_of_buildings_in_province = 5
+			}
+		}  
+
+		effect = {
+			custom_tooltip = EDG_culture_promoted_provide_10_republican_tradition_flag_tt
+			set_country_flag = EDG_culture_promoted_provide_10_republican_tradition_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			capital_scope = {
+				add_province_modifier = {
+					name = EDG_City_develop_attractions
+					duration = -1
+				}
+				area = {
+					add_province_modifier = {
+						name = EDG_capita_area_bloom
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+
+	EDG_MISSION_ITA_5_28 = {
+		icon = mission_growth_of_surat
+		position = 28
+		required_missions = { EDG_MISSION_ITA_4_27 } 
+		provinces_to_highlight = {
+			region = italy_region
+			NOT = { EDG_has_building_market_trigger = yes }
+			province_has_center_of_trade_of_level = 1
+		} 
+
+		trigger = {
+			num_of_owned_provinces_with = {
+				value = 13
+				region = italy_region
+				EDG_has_building_market_trigger = yes
+				province_has_center_of_trade_of_level = 1
+			}
+			115 = {
+				development = 25
+				num_of_buildings_in_province = 4
+			}
+			125 = {
+				development = 25
+				num_of_buildings_in_province = 4
+			}
+		}  
+
+		effect = {
+			custom_tooltip = EDG_institution_embracement_provide_5_mercantilism_flag_tt
+			set_country_flag = EDG_institution_embracement_provide_5_mercantilism_flag
+
+			custom_tooltip = EDG_SPACE_TT
+			custom_tooltip = EDG_MISSION_ITA_5_28_tt
+			tooltip = {
+				add_province_modifier = {
+					name = EDG_MISSION_ITA_5_28_modifier
+					duration = -1
+				}
+			}
+			hidden_effect = {
+				every_owned_province = {
+					limit = {
+						region = italy_region
+						EDG_has_building_market_trigger = yes
+						province_has_center_of_trade_of_level = 1
+					}
+					add_province_modifier = {
+						name = EDG_MISSION_ITA_5_28_modifier
+						duration = -1
+					}
+				}
+			}
+		} 
+	}
+}
