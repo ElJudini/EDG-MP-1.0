@@ -1,4 +1,105 @@
 country_decisions = {
+	
+	sea_state_edicts_decision = {
+		major = yes
+		provinces_to_highlight = {
+			has_state_edict_enabled = yes
+			owned_by = ROOT
+		}
+		potential = {
+			ai = no
+			NOT = { has_country_flag = sea_state_edicts_flag }
+			OR = {
+				NOT = { has_country_flag = sea_state_edicts_clear_flag }
+				had_country_flag = {
+					flag = sea_state_edicts_clear_flag
+					days = 33
+				}
+			}
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = sea_state_edicts_decision_ttt
+				always = yes
+			}
+		}
+		effect = {
+			set_country_flag = sea_state_edicts_flag
+			country_event = { id = sealand_events.28 }
+			custom_tooltip = sea_state_edicts_decision_tt
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+	echo_critical_events = {
+		color = { 166  0  0 }
+		potential = {
+			ai = no
+		}
+		ai_will_do = {
+			factor = 0
+		}
+		allow = {
+			custom_trigger_tooltip = {
+				tooltip = echo_radical_reform_decision
+				NOT = { has_country_flag = radical_mercantilist_reforms }
+			}
+			custom_trigger_tooltip = {
+				tooltip = echo_military_reform_decision
+				NOT = { has_country_flag = military_reform }
+			}
+			custom_trigger_tooltip = {
+				tooltip = echo_commandant_decision
+				NOT = { has_country_modifier = echo_commandant_cooldown }
+				NOT = { has_country_modifier = echo_commandant_cooldown_100 }
+			}
+			custom_trigger_tooltip = {
+				tooltip = echo_grand_captain_decision
+				NOT = { has_country_modifier = echo_grand_captain_cooldown }
+				NOT = { has_country_modifier = echo_grand_captain_cooldown_100 }
+			}
+		}
+		effect = {
+		}
+	}
+
+development_counter = {
+		color = { 166  0  0 }
+		potential = { ai = no }
+		allow = {
+			if = {
+				limit = {
+					has_country_flag = has_development_counter_cflag
+				}
+				custom_trigger_tooltip = {
+					tooltip = development_counter_tt
+				}
+			}
+			hidden_trigger = {
+				if = {
+					limit = {
+						NOT = { has_country_flag = has_development_counter_cflag }
+					}
+					always = yes
+				}
+				else = {
+					always = no
+				}
+			}
+		}
+		effect = {
+			if = {
+				limit = {
+					NOT = { has_country_flag = has_development_counter_cflag }
+				}
+				custom_tooltip = development_counter_update_tt
+				hidden_effect = { development_counter = { on_startup = yes } }
+			}
+		}
+	}
+
+
 	add_all_provinces_to_seats = {
         color = { 166  0  0 }
 		potential = {

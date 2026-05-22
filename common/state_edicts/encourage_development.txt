@@ -5,23 +5,40 @@ edict_encourage_development = {
 	
 	allow = {
 		always = yes
+		custom_trigger_tooltip = {
+			tooltip = sea_remove_state_edicts_flag_tt
+			OR = {
+				NOT = { has_country_flag = sea_state_edicts_clear_flag }
+				had_country_flag = {
+					flag = sea_state_edicts_clear_flag
+					days = 33
+				}
+			}
+		}
 	}
 	
-	years_to_notify = 3 #specifies how many years an edict needs to be active to show an alert
-
 	modifier = {
-		#local_development_cost = -0.1
-		local_build_time = -0.15
-		local_great_project_upgrade_time = -0.15
 		local_production_efficiency = 0.15
 		local_tax_modifier = 0.15
+		local_great_project_upgrade_time = -0.1
+		local_great_project_upgrade_cost = -0.1
 	}
 	
 	color = {  244 184 12  }
-	
+	on_state_edict_revoked = { FROM = { clr_country_flag = sea_state_edicts_decision_edict_encourage_development_flag } }
+
 	
 	ai_will_do = {
 		factor = 0
+		modifier = {
+			factor = 500
+			all_province_in_state = {
+				base_production = 4
+			}
+			area_for_scope_province = {
+				base_production = 16
+			}
+		}
 	}
 	
 }

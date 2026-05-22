@@ -5,13 +5,23 @@ edict_advancement_effort = {
 	
 	allow = {
 		always = yes
+		custom_trigger_tooltip = {
+			tooltip = sea_remove_state_edicts_flag_tt
+			OR = {
+				NOT = { has_country_flag = sea_state_edicts_clear_flag }
+				had_country_flag = {
+					flag = sea_state_edicts_clear_flag
+					days = 33
+				}
+			}
+		}
 	}
 	
 	modifier = {
-		local_institution_spread = 0.15
-		institution_growth = 10
+		institution_growth = 12
+		global_institution_spread = 0.15
 	}
-
+	
 	notify_trigger = {
 		FROM = {
 			current_institution = 100
@@ -20,6 +30,7 @@ edict_advancement_effort = {
 	
 	color = { 50 173 192 }
 	
+	on_state_edict_revoked = { FROM = { clr_country_flag = sea_state_edicts_decision_edict_advancement_effort_flag } }
 	
 	ai_will_do = {
 		# has to be around at least 10 to be picked (depends on maintainance cost and general economy)
@@ -32,7 +43,7 @@ edict_advancement_effort = {
 		}
 		modifier = {
 			factor = 5
-			any_province_in_state = {
+			area_for_scope_province = {
 				is_capital = yes
 			}
 		}
@@ -45,6 +56,4 @@ edict_advancement_effort = {
 			}
 		}
 	}
-	# on_state_edict_enacted = {} triggers an effect when the state edict is added ROOT - Province FROM - Country that started
-	# on_state_edict_revoked = {} triggers an affect when the state edict is removed ROOT - Province FROM - Country that started
 }
