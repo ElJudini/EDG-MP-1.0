@@ -3,10 +3,10 @@
 -- NDefines.NDiplomacy.MAX_CLIENT_STATES = 20
 
 NDefines.NDiplomacy.GREAT_PROJECT_WARSCORE_COST_MODIFIER = 0.02
-
+NDefines.NMilitary.DAYS_PER_PHASE = 2   
 NDefines.NDiplomacy.MAX_FREE_CITIES = 12
 NDefines.NDiplomacy.IMPERIAL_CITY_IA = 0.010						-- Monthly per imperial free city
-
+NDefines.NEconomy.TRADE_NON_CAPITAL_OFFICE = -0.15
 NDefines.NDiplomacy.IMPERIAL_AUTHORITY_FROM_PRINCES = 0.075
 
 NDefines.NReligion.MAX_CHRISTIAN_RELIGIOUS_CENTERS = 5
