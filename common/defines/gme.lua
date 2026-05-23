@@ -14,7 +14,7 @@ NDefines.NMilitary.INF_LOOT = 0.2	                                    --0.1→0.
 NDefines.NMilitary.CAV_LOOT = 1.0	                                    --0.3→1.0               -- How many ducats/month will a single full strength cavalry regiment loot?
 NDefines.NReligion.MAX_CHRISTIAN_RELIGIOUS_CENTERS = 5
 NDefines.NMilitary.LOOTED_SCALE = 2.5
-
+NDefines.NMilitary.TRANSPORT_TIME = 31
 NDefines.NReligion.MAX_RELIGIOUS_CENTER_SPREAD_DISTANCE = 2000.0
 
 NDefines.NMilitary.BASE_MP_TO_MANPOWER = 0.30		-- 250 men per manpower
