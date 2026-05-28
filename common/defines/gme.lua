@@ -23,8 +23,8 @@ NDefines.NCountry.HRE_MAX_RANK = 2
 
 NDefines.NAI.FORT_BUDGET_FRACTION = 0.2
 
-NDefines.NAI.DEVELOPMENT_CAP_BASE = 4	-- AI will not develop provinces that have more development than this or DEVELOPMENT_CAP_MULT*original development (whichever is bigger)
-NDefines.NAI.DEVELOPMENT_CAP_MULT = 0.2
+NDefines.NAI.DEVELOPMENT_CAP_BASE = 40	-- AI will not develop provinces that have more development than this or DEVELOPMENT_CAP_MULT*original development (whichever is bigger)
+NDefines.NAI.DEVELOPMENT_CAP_MULT = 2
 
 NDefines.NGame.MAX_GOVERNMENT_REFORMS_PER_TIER = 24
 
